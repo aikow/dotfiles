@@ -1,6 +1,12 @@
 # VSCode
+
 ## Configuration
+First, download and install `Fira Code` nerd font.
+Copy the settings [file](./settings.json).
+
+
 ## Extensions
+Install the following extensions.
 * Better Comments
 * Bookmarks
 * Bracket Pair Colorizer 2
