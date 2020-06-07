@@ -78,7 +78,8 @@ POWERLEVEL9K_MODE="nerdfont-complete"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
-  git
+  git github
+  python
   zsh-syntax-highlighting
   zsh-autosuggestions
 )
@@ -112,17 +113,8 @@ _comp_options+=(globdots)
 # users are encouraged to define aliases within the ZSH_CUSTOM folder.
 # For a full list of active aliases, run `alias`.
 #
-# Example aliases
-alias zshconfig="vim ~/.zshrc"
-alias ohmyzsh="vim ~/.oh-my-zsh"
-alias gitconfig='vim ~/.gitconfig'
-
-alias ..='cd ..'
-alias ...='cd ../..'
-alias ls='ls -GF --group-directories-first --color=auto'
-alias ll='ls -Alh --group-directories-first --color=auto'
-
-alias grep='grep --color=auto'
+source $HOME/.aliases.local
+source $HOME/.aliases
 
 export LESS=-R
 export LESS_TERMCAP_mb=$'\E[1;31m'     # begin blink

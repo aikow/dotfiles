@@ -1,0 +1,10 @@
+[user]
+	name = Aiko Wessels
+	email = aiko.wessels@gmail.com
+[github]
+	user = SupremeCommandaPanda
+[core]
+	editor = /usr/bin/vim
+	excludesfile = ~/.gitignore_global
+[push]
+	default = current
