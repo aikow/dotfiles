@@ -116,7 +116,6 @@ _comp_options+=(globdots)
 alias zshconfig="vim ~/.zshrc"
 alias ohmyzsh="vim ~/.oh-my-zsh"
 alias gitconfig='vim ~/.gitconfig'
-alias source='source ~/.zshrc'
 
 alias ..='cd ..'
 alias ...='cd ../..'
