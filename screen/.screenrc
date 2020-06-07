@@ -1,0 +1,13 @@
+escape ^Bb # Screen shortcut is ^B
+
+autodetach on # Autodetach session on hangup
+
+# Scrolling
+defscrollback 65534
+termcapinfo xterm* ti@:te@a
+
+# Cosmetic
+hardstatus alwayslastline
+hardstatus string "%{= g} %{= w}%-Lw%{=r}%n%f* %t%{-}%+LW"
+
+startup_message off # Turn off the splash screen
