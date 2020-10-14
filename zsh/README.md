@@ -24,8 +24,7 @@ and [zsh-syntax-highlighting](https://github.com/zsh-users/zsh-syntax-highlighti
 ## Oh My ZSH
 
 
-
-Alternatively, you can install run
+Alternatively, you can run
 ```
 sudo apt-get update
 sudo apt-get install git
@@ -37,6 +36,9 @@ To activate the plugins, add the plugin name to your `.zshrc` config file like
 ```
 plugins=([... zsh-syntax-highlighting)
 ```
+
+### Plugins
+Install ruby, [colorls](https://github.com/athityakumar/colorls), and [auto-color-ls](https://github.com/gretzky/auto-color-ls)
 
 ### Powerlevel10k
 
