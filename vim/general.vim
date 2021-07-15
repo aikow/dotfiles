@@ -1,3 +1,10 @@
+if !exists("g:os")
+    if has("win64") || has("win32") || has("win16")
+        let g:os = "Windows"
+    else
+        let g:os = substitute(system('uname'), '\n', '', '')
+    endif
+endif
 
 " Search recursively downward from CWD; provides TAB completion for filenames
 " e.g., `:find vim* <TAB>`
@@ -82,13 +89,15 @@ set noshowmode
 
 " Use system clipboard
 " http://vim.wikia.com/wiki/Accessing_the_system_clipboard
-" for linux
-set clipboard=unnamedplus
-" for macOS
-" set clipboard=unnamed
+if g:os == "Darwin"
+  set clipboard=unnamed
+elseif g:os == "Linux"
+  set clipboard=unnamedplus
+elseif g:os == "Windows"
+endif
 
 " Folding
-" https://vim.fandom.com/wiki/Folding
+" https:/vim.fandom.com/wiki/Folding
 " https://vim.fandom.com/wiki/All_folds_open_when_opening_a_file
 " https://stackoverflow.com/questions/8316139/how-to-set-the-default-to-unfolded-when-you-open-a-file
 set foldmethod=indent
