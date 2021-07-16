@@ -35,7 +35,7 @@ set backspace=indent,eol,start
 set nobackup
 
 " don't create temp files
-set noswapfile
+" set noswapfile
 
 " line numbers and distances
 " set relativenumber 
@@ -53,7 +53,7 @@ set expandtab tabstop=2 shiftwidth=2 softtabstop=2
 set autoindent
 
 " statusline indicates insert or normal mode
-set showmode showcmd
+" set showmode showcmd
 
 " make scrolling and painting fast
 " ttyfast kept for vim compatibility but not needed for nvim
@@ -136,12 +136,13 @@ syntax enable
 set termguicolors 
 
 " Dark scheme
-colorscheme falcon
+colorscheme onedark
 set background=dark
 
 " Height of the command bar
 set cmdheight=2
 
+set cursorline
 
 
 " RULERS
