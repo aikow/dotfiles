@@ -1,0 +1,23 @@
+Host rg3
+  HostName rg3hpc1.ira.uka.de
+  User aiko
+  Port 22
+  IdentityFile ~/.ssh/id_rsa_rg3hpc1
+  
+Host integrity
+  Hostname 192.168.178.8
+  User aikow
+  Port 22
+  IdentityFile ~/.ssh/id_rsa_aikow@integrity
+  
+Host celebrant
+  Hostname 192.168.178.9
+  User aikow
+  Port 22
+  IdentityFile ~/.ssh/id_rsa_aikow@celebrant
+
+Host apple_shortcuts
+  Hostname 192.168.178.8
+  User apple_shortcuts
+  Port 22
+  IdentityFile ~/.ssh/id_rsa_apple_shortcuts@integrity

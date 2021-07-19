@@ -1,0 +1,8 @@
+eval "$(ssh-agent)"
+
+ssh-add /home/aikow/.ssh/id_rsa_a-donkey
+ssh-add /home/aikow/.ssh/id_rsa_m-donkey
+ssh-add /home/aikow/.ssh/id_rsa_bitbucket
+ssh-add /home/aikow/.ssh/id_rsa_github
+ssh-add /home/aikow/.ssh/id_rsa_gitlab
+
