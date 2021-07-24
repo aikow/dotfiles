@@ -2,6 +2,10 @@
 
 call plug#begin('~/.vim/plugged')
 
+" Plug 'ycm-core/YouCompleteMe', {'do': './install.py'}
+  " let g:ycm_key_list_select_completion=['<c-n>', '<Down>']
+  " let g:ycm_key_list_previous_completion=['<c-p>', '<Up>']
+
 Plug 'lervag/vimtex'
   let g:tex_flavor='latex'
   let g:vimtex_view_method='zathura'
@@ -122,9 +126,12 @@ Plug 'plasticboy/vim-markdown'
 
 
 Plug 'sirver/ultisnips'
-  let g:UltiSnipsExpandTrigger = '<tab>'
-  let g:UltiSnipsJumpForwardTrigger = '<tab>'
-  let g:UltiSnipsJumpBackwardTrigger = '<s-tab>'
+  let g:UltiSnipsExpandTrigger = '<c-j>'
+  let g:UltiSnipsJumpForwardTrigger = '<c-j>'
+  let g:UltiSnipsJumpBackwardTrigger = '<c-k>'
+  " let g:UltiSnipsExpandTrigger = '<tab>'
+  " let g:UltiSnipsJumpForwardTrigger = '<tab>'
+  " let g:UltiSnipsJumpBackwardTrigger = '<s-tab>'
 
 Plug 'tpope/vim-commentary'
 
