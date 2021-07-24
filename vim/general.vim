@@ -90,9 +90,9 @@ set noshowmode
 " Use system clipboard
 " http://vim.wikia.com/wiki/Accessing_the_system_clipboard
 if g:os == "Darwin"
-  set clipboard=unnamed
+  set clipboard+=unnamed
 elseif g:os == "Linux"
-  set clipboard=unnamedplus
+  set clipboard+=unnamedplus
 elseif g:os == "Windows"
 endif
 
