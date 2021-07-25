@@ -16,6 +16,8 @@ call plug#begin('~/.config/nvim/plugins')
 " let g:ycm_key_list_select_completion=['<c-n>', '<Down>']
 " let g:ycm_key_list_previous_completion=['<c-p>', '<Up>']
 
+" Syntax checking
+Plug 'scrooloose/syntastic'
 
 " Snippets and snippets
 Plug 'sirver/ultisnips'
@@ -184,47 +186,47 @@ let g:vim_markdown_strikethrough = 1
 " Customizes the status bar
 Plug 'itchyny/lightline.vim'
 let g:lightline = {
-      \ 'colorscheme': 'onedark',
-      \ 'active': {
-        \   'left': [ [ 'mode', 'paste' ], [ 'fugitive', 'filename' ], ['ctrlpmark'] ],
-        \   'right': [ [ 'syntastic', 'lineinfo' ], ['percent'], ['filetype' ] ]
-        \ },
-        \ 'component_function': {
-          \   'fugitive': 'LightlineFugitive',
-          \   'filename': 'LightlineFilename',
-          \   'fileformat': 'LightlineFileformat',
-          \   'filetype': 'LightlineFiletype',
-          \   'fileencoding': 'LightlineFileencoding',
-          \   'mode': 'LightlineMode',
-          \   'ctrlpmark': 'CtrlPMark',
-          \   'lineinfo': 'LightlineLineinfo'
-          \ },
-          \ 'component_visible_condition': {
-            \    'mode' : '1',
-            \    'filename' : '(&filetype!="qf")',
-            \   'modified': '&modified||!&modifiable',
-            \   'readonly': '&readonly',
-            \   'paste': '&paste',
-            \   'spell': '&spell'
-            \ },
-            \ 'component_function_visible_condition': {
-              \    'mode' : '1',
-              \    'filename' : '(&filetype!="qf")',
-              \   'modified': '&modified||!&modifiable',
-              \   'readonly': '&readonly',
-              \   'paste': '&paste',
-              \   'spell': '&spell'
-              \ },
-              \ 'component_expand': {
-                \   'syntastic': 'SyntasticStatuslineFlag',
-                \ },
-                \ 'component_type': {
-                  \   'syntastic': 'error',
-                  \ },
-                  \ 'separator': { 'left': "\ue0b0", 'right': "\ue0b2" },
-                  \ 'subseparator': { 'left': "\ue0b1", 'right': "\ue0b3" },
-                  \ 'enable': { 'tabline': 0 },
-                  \ }
+    \ 'colorscheme': 'onedark',
+    \ 'active': {
+      \   'left': [ [ 'mode', 'paste' ], [ 'fugitive', 'filename' ], ['ctrlpmark'] ],
+      \   'right': [ [ 'syntastic', 'lineinfo' ], ['percent'], ['filetype' ] ]
+      \ },
+    \ 'component_function': {
+      \   'fugitive': 'LightlineFugitive',
+      \   'filename': 'LightlineFilename',
+      \   'fileformat': 'LightlineFileformat',
+      \   'filetype': 'LightlineFiletype',
+      \   'fileencoding': 'LightlineFileencoding',
+      \   'mode': 'LightlineMode',
+      \   'ctrlpmark': 'CtrlPMark',
+      \   'lineinfo': 'LightlineLineinfo'
+    \ },
+    \ 'component_visible_condition': {
+      \    'mode' : '1',
+      \    'filename' : '(&filetype!="qf")',
+      \   'modified': '&modified||!&modifiable',
+      \   'readonly': '&readonly',
+      \   'paste': '&paste',
+      \   'spell': '&spell'
+    \ },
+    \ 'component_function_visible_condition': {
+      \    'mode' : '1',
+      \    'filename' : '(&filetype!="qf")',
+      \   'modified': '&modified||!&modifiable',
+      \   'readonly': '&readonly',
+      \   'paste': '&paste',
+      \   'spell': '&spell'
+    \ },
+    \ 'component_expand': {
+      \   'syntastic': 'SyntasticStatuslineFlag',
+    \ },
+    \ 'component_type': {
+      \   'syntastic': 'error',
+    \ },
+    \ 'separator': { 'left': "\ue0b0", 'right': "\ue0b2" },
+    \ 'subseparator': { 'left': "\ue0b1", 'right': "\ue0b3" },
+    \ 'enable': { 'tabline': 0 },
+  \ }
 
 augroup LightlineColorscheme
   autocmd!
