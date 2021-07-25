@@ -8,3 +8,7 @@ inoremap <C-l> <c-g>u<Esc>[s1z=`]a<c-g>u
 
 " Clear the search buffer to remove highlighting from the last search
 nnoremap <silent> <c-_> :let @/ = ""<CR>
+
+" Use <gp> to select the text that was last pasted
+nnoremap <expr> gp '`[' . strpart(getregtype(), 0,  1) . '`]'
+
