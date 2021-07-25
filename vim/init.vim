@@ -1,7 +1,5 @@
 source $HOME/.config/nvim/plugins.vim 	" Load plugins and apply custom settings
 
-" source $HOME/.config/nvim/snippets.vim  " Load all the snippets
-
 source $HOME/.config/nvim/general.vim   " General settings
 
 source $HOME/.config/nvim/leader.vim	  " Leader key settings
