@@ -10,6 +10,8 @@ export PATH=$HOME/.bin:/$HOME/.local/bin:/usr/local/bin:/opt/vc/bin:$PATH
 
 # Path to your oh-my-zsh installation.
 export ZSH="/home/aikow/.oh-my-zsh"
+export VISUAL="nvim"
+export EDITOR="${VISUAL}"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -80,9 +82,12 @@ POWERLEVEL9K_MODE="nerdfont-complete"
 plugins=(
   git github
   python
+  zsh-completions
   zsh-syntax-highlighting
   zsh-autosuggestions
 )
+  
+autoload -U compinit && compinit
 
 source $ZSH/oh-my-zsh.sh
 
@@ -113,8 +118,8 @@ _comp_options+=(globdots)
 # users are encouraged to define aliases within the ZSH_CUSTOM folder.
 # For a full list of active aliases, run `alias`.
 #
-source $HOME/.aliases.local
 source $HOME/.aliases
+source $HOME/.aliases.local
 
 export LESS=-R
 export LESS_TERMCAP_mb=$'\E[1;31m'     # begin blink

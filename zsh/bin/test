@@ -1,0 +1,13 @@
+echo $0
+echo $1
+
+prn() {
+  echo "$0"
+  echo "$1"
+  echo "$2" >&2
+}
+
+a=$(prn Oopa Doopa)
+
+echo "a is $a"
+
