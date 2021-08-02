@@ -1,0 +1,19 @@
+export PATH="$PATH"
+
+export VISUAL=vim
+export EDITOR=vim
+
+export PS1="\[\n\e[0;32m[\] \[\e[0m\e[1;31m\]\u\[\e[0m\e[1;33m\]@\[\e[0m\e[1;32m\]\h\[\e[0m\] \[\e[0;34m\]\w\[\e[0m\e[0;32m\] ]\n\$ \[\e[0m\]"
+
+
+export MONO_DIR=/project/mt2020/student_projects/aiko/mono
+export MULTI_DIR=/project/mt2020/student_projects/aiko/multi/run1
+export BACKUP_DIR=/project/mt2020/student_projects/aiko/backup
+
+alias ..="cd .."
+alias ...="cd ../.."
+alias ls="ls --color"
+alias ll="ls -AlGh --color"
+
+alias head="head -5"
+alias tail="tail -5"
