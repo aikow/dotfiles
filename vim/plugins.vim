@@ -191,49 +191,52 @@ Plug 'itchyny/lightline.vim'
 let g:lightline = {}
 let g:lightline.colorscheme = 'onedark'
 let g:lightline.active = {
-  \   'left': [ [ 'mode', 'paste' ], [ 'fugitive', 'filename' ], ['ctrlpmark'] ],
-  \   'right': [ [ 'syntastic', 'lineinfo' ], ['percent'], ['filetype' ] ]
-  \ }
+      \   'left': [ [ 'mode', 'paste' ], [ 'fugitive', 'filename' ], ['ctrlpmark'] ],
+      \   'right': [ [ 'syntastic', 'lineinfo' ], ['percent'], ['filetype' ] ]
+      \ }
 let g:lightline.tabline = {
-  \   'left': [ ['tabs'] ],
-  \   'right': [ ['close'] ]
-  \ }
+      \   'left': [ ['tabs'] ],
+      \   'right': [ ['close'] ]
+      \ }
 let g:lightline.tab = {
-  \   'active': [ 'tabnum', 'filename', 'modified' ],
-  \   'inactive': [ 'tabnum', 'filename', 'modified' ]
-  \ }
+      \   'active': [ 'tabnum', 'filename', 'modified' ],
+      \   'inactive': [ 'tabnum', 'filename', 'modified' ]
+      \ }
+let g:lightline.tab_component_function = {
+      \   'tabnum': 'LightlineWebDevIcons'
+      \ }
 let g:lightline.component_function = {
-  \   'fugitive': 'LightlineFugitive',
-  \   'filename': 'LightlineFilename',
-  \   'fileformat': 'LightlineFileformat',
-  \   'filetype': 'LightlineFiletype',
-  \   'fileencoding': 'LightlineFileencoding',
-  \   'mode': 'LightlineMode',
-  \   'ctrlpmark': 'CtrlPMark',
-  \   'lineinfo': 'LightlineLineinfo'
-  \ }
+      \   'fugitive': 'LightlineFugitive',
+      \   'filename': 'LightlineFilename',
+      \   'fileformat': 'LightlineFileformat',
+      \   'filetype': 'LightlineFiletype',
+      \   'fileencoding': 'LightlineFileencoding',
+      \   'mode': 'LightlineMode',
+      \   'ctrlpmark': 'CtrlPMark',
+      \   'lineinfo': 'LightlineLineinfo'
+      \ }
 let g:lightline.component_visible_condition = {
-  \   'mode' : '1',
-  \   'filename' : '(&filetype!="qf")',
-  \   'modified': '&modified||!&modifiable',
-  \   'readonly': '&readonly',
-  \   'paste': '&paste',
-  \   'spell': '&spell'
-  \ }
+      \   'mode' : '1',
+      \   'filename' : '(&filetype!="qf")',
+      \   'modified': '&modified||!&modifiable',
+      \   'readonly': '&readonly',
+      \   'paste': '&paste',
+      \   'spell': '&spell'
+      \ }
 let g:lightline.component_function_visible_condition = {
-  \   'mode' : '1',
-  \   'filename' : '(&filetype!="qf")',
-  \   'modified': '&modified||!&modifiable',
-  \   'readonly': '&readonly',
-  \   'paste': '&paste',
-  \   'spell': '&spell'
-  \ }
+      \   'mode' : '1',
+      \   'filename' : '(&filetype!="qf")',
+      \   'modified': '&modified||!&modifiable',
+      \   'readonly': '&readonly',
+      \   'paste': '&paste',
+      \   'spell': '&spell'
+      \ }
 let g:lightline.component_expand = {
-  \   'syntastic': 'SyntasticStatuslineFlag',
-  \ }
+      \   'syntastic': 'SyntasticStatuslineFlag',
+      \ }
 let g:lightline.component_type = {
-  \   'syntastic': 'error',
-  \ }
+      \   'syntastic': 'error',
+      \ }
 let g:lightline.separator = { 'left': "\ue0b0", 'right': "\ue0b2" }
 let g:lightline.subseparator = { 'left': "\ue0b1", 'right': "\ue0b3" }
 
@@ -261,6 +264,11 @@ function! s:lightline_update()
     endif
   catch
   endtry
+endfunction
+
+function! LightlineWebDevIcons(n)
+  let l:bufnr = tabpagebuflist(a:n)[tabpagewinnr(a:n) - 1]
+  return WebDevIconsGetFileTypeSymbol(bufname(l:bufnr))
 endfunction
 
 function! LightlineModified()
@@ -340,6 +348,8 @@ function! CtrlPMark()
     return ''
   endif
 endfunction
+
+Plug 'ryanoasis/vim-devicons'
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
