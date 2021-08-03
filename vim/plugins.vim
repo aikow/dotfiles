@@ -187,48 +187,55 @@ let g:vim_markdown_strikethrough = 1
 " 
 " Customizes the status bar
 Plug 'itchyny/lightline.vim'
-let g:lightline = {
-    \ 'colorscheme': 'onedark',
-    \ 'active': {
-      \   'left': [ [ 'mode', 'paste' ], [ 'fugitive', 'filename' ], ['ctrlpmark'] ],
-      \   'right': [ [ 'syntastic', 'lineinfo' ], ['percent'], ['filetype' ] ]
-      \ },
-    \ 'component_function': {
-      \   'fugitive': 'LightlineFugitive',
-      \   'filename': 'LightlineFilename',
-      \   'fileformat': 'LightlineFileformat',
-      \   'filetype': 'LightlineFiletype',
-      \   'fileencoding': 'LightlineFileencoding',
-      \   'mode': 'LightlineMode',
-      \   'ctrlpmark': 'CtrlPMark',
-      \   'lineinfo': 'LightlineLineinfo'
-    \ },
-    \ 'component_visible_condition': {
-      \    'mode' : '1',
-      \    'filename' : '(&filetype!="qf")',
-      \   'modified': '&modified||!&modifiable',
-      \   'readonly': '&readonly',
-      \   'paste': '&paste',
-      \   'spell': '&spell'
-    \ },
-    \ 'component_function_visible_condition': {
-      \    'mode' : '1',
-      \    'filename' : '(&filetype!="qf")',
-      \   'modified': '&modified||!&modifiable',
-      \   'readonly': '&readonly',
-      \   'paste': '&paste',
-      \   'spell': '&spell'
-    \ },
-    \ 'component_expand': {
-      \   'syntastic': 'SyntasticStatuslineFlag',
-    \ },
-    \ 'component_type': {
-      \   'syntastic': 'error',
-    \ },
-    \ 'separator': { 'left': "\ue0b0", 'right': "\ue0b2" },
-    \ 'subseparator': { 'left': "\ue0b1", 'right': "\ue0b3" },
-    \ 'enable': { 'tabline': 0 },
+
+let g:lightline = {}
+let g:lightline.colorscheme = 'onedark'
+let g:lightline.active = {
+  \   'left': [ [ 'mode', 'paste' ], [ 'fugitive', 'filename' ], ['ctrlpmark'] ],
+  \   'right': [ [ 'syntastic', 'lineinfo' ], ['percent'], ['filetype' ] ]
   \ }
+let g:lightline.tabline = {
+  \   'left': [ ['tabs'] ],
+  \   'right': [ ['close'] ]
+  \ }
+let g:lightline.tab = {
+  \   'active': [ 'tabnum', 'filename', 'modified' ],
+  \   'inactive': [ 'tabnum', 'filename', 'modified' ]
+  \ }
+let g:lightline.component_function = {
+  \   'fugitive': 'LightlineFugitive',
+  \   'filename': 'LightlineFilename',
+  \   'fileformat': 'LightlineFileformat',
+  \   'filetype': 'LightlineFiletype',
+  \   'fileencoding': 'LightlineFileencoding',
+  \   'mode': 'LightlineMode',
+  \   'ctrlpmark': 'CtrlPMark',
+  \   'lineinfo': 'LightlineLineinfo'
+  \ }
+let g:lightline.component_visible_condition = {
+  \   'mode' : '1',
+  \   'filename' : '(&filetype!="qf")',
+  \   'modified': '&modified||!&modifiable',
+  \   'readonly': '&readonly',
+  \   'paste': '&paste',
+  \   'spell': '&spell'
+  \ }
+let g:lightline.component_function_visible_condition = {
+  \   'mode' : '1',
+  \   'filename' : '(&filetype!="qf")',
+  \   'modified': '&modified||!&modifiable',
+  \   'readonly': '&readonly',
+  \   'paste': '&paste',
+  \   'spell': '&spell'
+  \ }
+let g:lightline.component_expand = {
+  \   'syntastic': 'SyntasticStatuslineFlag',
+  \ }
+let g:lightline.component_type = {
+  \   'syntastic': 'error',
+  \ }
+let g:lightline.separator = { 'left': "\ue0b0", 'right': "\ue0b2" }
+let g:lightline.subseparator = { 'left': "\ue0b1", 'right': "\ue0b3" }
 
 augroup LightlineColorscheme
   autocmd!
@@ -255,7 +262,6 @@ function! s:lightline_update()
   catch
   endtry
 endfunction
-
 
 function! LightlineModified()
   return (&ft =~ 'help' || &ft =~ 'qf') ? '' : &modified ? '+' : &modifiable ? '' : '-'

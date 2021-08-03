@@ -141,6 +141,7 @@ set background=dark
 
 " Height of the command bar
 set cmdheight=2
+set showtabline=2
 
 set cursorline
 
