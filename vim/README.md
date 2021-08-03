@@ -9,4 +9,4 @@ For Vim, clone the repository to `~/.config/nvim` and then create a symbolic lin
 ```
 ln -s ~/.config/nvim/init.vim ~/.vimrc
 ```
-
+like so.
