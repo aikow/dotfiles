@@ -133,7 +133,10 @@ set spelllang=en,de
 syntax enable
 
 " Neovim only
-set termguicolors 
+if has("neovim")
+  set termguicolors 
+endif
+
 
 " Dark scheme
 colorscheme onedark
