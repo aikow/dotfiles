@@ -133,7 +133,7 @@ set spelllang=en,de
 syntax enable
 
 " Neovim only
-if has("neovim")
+if has("nvim")
   set termguicolors 
 endif
 
