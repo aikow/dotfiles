@@ -15,11 +15,11 @@ set rtp+=$GOROOT/misc/vim
 
 " number of lines at the beginning and end of files checked for file-specific vars
 set modelines=0
-
-" reload files changed outside of Vim not currently modified in Vim (needs below)
-set autoread
+set modeline
 
 " http://stackoverflow.com/questions/2490227/how-does-vims-autoread-work#20418591
+" reload files changed outside of Vim not currently modified in Vim (needs below)
+set autoread
 au FocusGained,BufEnter * :silent! !
 
 " use Unicode
@@ -38,8 +38,8 @@ set nobackup
 " set noswapfile
 
 " line numbers and distances
-" set relativenumber 
-set number 
+set relativenumber 
+" set number 
 
 " number of lines offset when jumping
 set scrolloff=2
@@ -52,8 +52,12 @@ set expandtab tabstop=2 shiftwidth=2 softtabstop=2
 " Indent new line the same as the preceding line
 set autoindent
 
-" statusline indicates insert or normal mode
-" set showmode showcmd
+" StatusLine always visible, display full path
+" http://learnvimscriptthehardway.stevelosh.com/chapters/17.html
+" set laststatus=2 statusline=%F
+
+" Hide mode indicator
+set noshowmode
 
 " make scrolling and painting fast
 " ttyfast kept for vim compatibility but not needed for nvim
@@ -65,10 +69,10 @@ set showmatch
 " http://vim.wikia.com/wiki/Searching
 set hlsearch incsearch ignorecase smartcase
 
-" As opposed to `wrap`
+" Wrap lines
 set wrap
 
-" http://vim.wikia.com/wiki/Set_working_directory_to_the_current_file
+" Set working directory to the current files
 set autochdir
 
 " open new buffers without saving current modifications (buffer remains open)
@@ -79,13 +83,6 @@ set wildmenu wildmode=list:longest,full
 
 " Ignore compiled files
 set wildignore=*.o,*~,*.pyc
-
-" StatusLine always visible, display full path
-" http://learnvimscriptthehardway.stevelosh.com/chapters/17.html
-set laststatus=2 statusline=%F
-
-" Hide mode indicator
-set noshowmode
 
 " Use system clipboard
 " http://vim.wikia.com/wiki/Accessing_the_system_clipboard
@@ -104,7 +101,6 @@ set foldmethod=indent
 set foldnestmax=1
 set foldlevelstart=1
 
-
 " Filetype plugins
 filetype plugin on
 filetype indent on
@@ -113,30 +109,21 @@ filetype indent on
 set so=7
 
 
-
-" WINDOWS
-"
-"
+" Open new splits to the right or down instead of moving current window
 set splitright
 set splitbelow
 
-
-
-" SPELLING
+" Set spell location to English and German
 setlocal spell
 set spelllang=en,de
 
-
-
-" COLORS AND THEMES
-
+" Enable syntax highlighting for languages
 syntax enable
 
 " Neovim only
 if has("nvim")
   set termguicolors 
 endif
-
 
 " Dark scheme
 colorscheme onedark
@@ -148,11 +135,9 @@ set showtabline=2
 
 set cursorline
 
-
-" RULERS
-"
 " Show character column
 set colorcolumn=80
 
 "Always show current position
 set ruler
+
