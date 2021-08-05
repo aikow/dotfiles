@@ -165,6 +165,7 @@ cython_debug/
 [._]s[a-rt-v][a-z]
 [._]ss[a-gi-z]
 [._]sw[a-p]
+.swp
 
 # Session
 Session.vim
