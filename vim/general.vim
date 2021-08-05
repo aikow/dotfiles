@@ -56,6 +56,9 @@ set autoindent
 " Hide mode indicator
 set noshowmode
 
+" Status line always visible
+set laststatus=2
+
 " make scrolling and painting fast
 " ttyfast kept for vim compatibility but not needed for nvim
 set ttyfast lazyredraw
