@@ -41,9 +41,6 @@ set nobackup
 set relativenumber 
 " set number 
 
-" number of lines offset when jumping
-set scrolloff=2
-
 " Tab key enters 2 spaces
 " To enter a TAB character when `expandtab` is in effect,
 " CTRL-v-TAB
@@ -106,7 +103,7 @@ filetype plugin on
 filetype indent on
 
 " Set 7 lines to the cursor - when moving vertically using j/k
-set so=7
+set scrolloff=7
 
 
 " Open new splits to the right or down instead of moving current window
