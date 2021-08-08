@@ -126,7 +126,8 @@ if has("nvim")
 endif
 
 " Dark scheme
-colorscheme onedark
+" colorscheme onedark
+colorscheme nord
 set background=dark
 
 " Height of the command bar

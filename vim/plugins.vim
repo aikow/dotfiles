@@ -244,6 +244,7 @@ augroup LightlineColorscheme
   autocmd!
   autocmd ColorScheme * call s:lightline_update()
 augroup END
+
 function! s:lightline_update()
   if !exists('g:loaded_lightline')
     return
@@ -256,7 +257,7 @@ function! s:lightline_update()
       call lightline#colorscheme()
       call lightline#update()
     endif
-    if g:colors_name =~# 'onedark\|onelight'
+    if g:colors_name =~# 'nord\|onedark\|onelight'
       let g:lightline.colorscheme = g:colors_name
       call lightline#init()
       call lightline#colorscheme()
@@ -362,6 +363,8 @@ Plug 'dylanaraps/wal'
 Plug 'fenetikm/falcon'
 
 Plug 'joshdick/onedark.vim'
+
+Plug 'arcticicestudio/nord-vim'
 
 call plug#end()
 
