@@ -10,9 +10,6 @@ endif
 " e.g., `:find vim* <TAB>`
 set path+=**
 
-" Enable Go syntax
-set rtp+=$GOROOT/misc/vim
-
 " number of lines at the beginning and end of files checked for file-specific vars
 set modelines=0
 set modeline
