@@ -4,6 +4,8 @@ export VISUAL=vim
 export EDITOR=vim
 export TERM=xterm-256color
 
+export HISTSIZE=10000
+export HISTFILESIZE=100000
 
 #######################################################################
 #                        Prompt Customization                         #

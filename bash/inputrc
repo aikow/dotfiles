@@ -40,8 +40,10 @@ set keymap vi-command
 # "\033\033[B".
 # Feel free to bind to whatever you want. Delete the first '\e' in the keymap
 # to set plain up/down to do a history search by default.
-"\c-p": history-search-backward
-"\c-n": history-search-forward
+"\e[A": history-search-backward
+"\e[B": history-search-forward
+"\e[C": forward-char
+"\e[D": backward-char
 
 
 #######################################################################
@@ -51,8 +53,10 @@ set keymap vi-command
 set keymap vi-insert
 "\C-x\C-e": edit-and-execute-command
 
-"\c-p":history-search-backward
-"\c-n":history-search-forward
+"\e[A": history-search-backward
+"\e[B": history-search-forward
+"\e[C": forward-char
+"\e[D": backward-char
 
 # Pressing tab will list all completions & select the first one. Pressing it 
 # again will cycle through available completions.
