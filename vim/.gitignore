@@ -1,3 +1,4 @@
 # Don't add the plugins directory
 plugged/
+*.sug
 
