@@ -189,7 +189,7 @@ let g:vim_markdown_strikethrough = 1
 Plug 'itchyny/lightline.vim'
 
 let g:lightline = {}
-let g:lightline.colorscheme = 'onedark'
+let g:lightline.colorscheme = 'nord'
 let g:lightline.active = {
       \   'left': [ [ 'mode', 'paste' ], [ 'fugitive', 'filename' ], ['ctrlpmark'] ],
       \   'right': [ [ 'syntastic', 'lineinfo' ], ['percent'], ['filetype' ] ]
