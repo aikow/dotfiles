@@ -65,7 +65,7 @@ Plug 'godlygeek/tabular'
 
 " Fuzzy file finding
 Plug 'ctrlpvim/ctrlp.vim'
-  let g:ctrlp_map = '<leader>p'
+  let g:ctrlp_map = '<C-p>'
   let g:ctrlp_cmd = 'CtrlP'
   let g:ctrlp_working_path_mode = 'ra'
 
