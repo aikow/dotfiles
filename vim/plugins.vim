@@ -28,10 +28,13 @@ endif
 "
 call plug#begin('~/.config/dotfiles/vim/plugged')
 
-" Code completion plugin
-" Plug 'ycm-core/YouCompleteMe', {'do': './install.py'}
-  " let g:ycm_key_list_select_completion=['<c-n>', '<Down>']
-  " let g:ycm_key_list_previous_completion=['<c-p>', '<Up>']
+if !empty($VIM_IDE_YCM)
+  " Code completion plugin
+  Plug 'ycm-core/YouCompleteMe', {'do': './install.py'}
+    let g:ycm_key_list_select_completion=['<c-n>', '<Down>']
+    let g:ycm_key_list_previous_completion=['<c-p>', '<Up>']
+    let g:ycm_autoclose_preview_window_after_completions=1
+endif
 
 " Syntax checking
 Plug 'scrooloose/syntastic'
@@ -77,62 +80,66 @@ Plug 'ctrlpvim/ctrlp.vim'
 " Language pack for 600 file types
 Plug 'sheerun/vim-polyglot'
 
-" Tex - Latex compiler, syntax highlighting, preview with zathura
-Plug 'lervag/vimtex'
-  let g:tex_flavor='latex'
-  let g:vimtex_view_method='zathura'
-  let g:vimtex_quickfix_mode=0
-  let g:vvimtex_compiler_prognam='nvr'
-  let g:vimtex_compiler_latexmk = {
-        \ 'build_dir' : 'build',
-        \ 'callback' : 1,
-        \ 'continuous' : 1,
-        \ 'executable' : 'latexmk',
-        \ 'hooks' : [],
-        \ 'options' : [
-          \   '-verbose',
-          \   '-file-line-error',
-          \   '-synctex=1',
-          \   '-interaction=nonstopmode',
-          \ ],
-          \}
+if !empty($VIM_IDE_LATEX)
+  " Tex - Latex compiler, syntax highlighting, preview with zathura
+  Plug 'lervag/vimtex'
+    let g:tex_flavor='latex'
+    let g:vimtex_view_method='zathura'
+    let g:vimtex_quickfix_mode=0
+    let g:vvimtex_compiler_prognam='nvr'
+    let g:vimtex_compiler_latexmk = {
+          \ 'build_dir' : 'build',
+          \ 'callback' : 1,
+          \ 'continuous' : 1,
+          \ 'executable' : 'latexmk',
+          \ 'hooks' : [],
+          \ 'options' : [
+            \   '-verbose',
+            \   '-file-line-error',
+            \   '-synctex=1',
+            \   '-interaction=nonstopmode',
+            \ ],
+            \}
 
-" Tex - conceals math operators and other items and replaces with compiled
-" item.
-Plug 'KeitaNakamura/tex-conceal.vim'
-  set conceallevel=1
-  let g:tex_conceal='abdmg'
-  hi Conceal ctermbg=none
+  " Tex - conceals math operators and other items and replaces with compiled
+  " item.
+  Plug 'KeitaNakamura/tex-conceal.vim'
+    set conceallevel=1
+    let g:tex_conceal='abdmg'
+    hi Conceal ctermbg=none
+endif
 
-" Markdown preview in google chrome
-Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
-  let g:mkdp_auto_start = 0
-  let g:mkdp_auto_close = 1
-  let g:mkdp_refresh_slow = 0
-  let g:mkdp_command_for_global = 0
-  let g:mkdp_open_to_the_world = 0
-  let g:mkdp_open_ip = ''
-  let g:mkdp_browser = 'firefox'
-  let g:mkdp_echo_preview_url = 0
-  let g:mkdp_browserfunc = ''
-  let g:mkdp_preview_options = {
-        \ 'mkit': {},
-        \ 'katex': {},
-        \ 'uml': {},
-        \ 'maid': {},
-        \ 'disable_sync_scroll': 0,
-        \ 'sync_scroll_type': 'middle',
-        \ 'hide_yaml_meta': 1,
-        \ 'sequence_diagrams': {},
-        \ 'flowchart_diagrams': {},
-        \ 'content_editable': v:false,
-        \ 'disable_filename': 0
-        \ }
-  let g:mkdp_markdown_css = ''
-  let g:mkdp_highlight_css = ''
-  let g:mkdp_port = ''
-  let g:mkdp_page_title = '「${name}」'
-  let g:mkdp_filetypes = ['markdown', 'md']
+if !empty($VIM_IDE_MARKDOWN_PREVIEW)
+  " Markdown preview in google chrome
+  Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
+    let g:mkdp_auto_start = 0
+    let g:mkdp_auto_close = 1
+    let g:mkdp_refresh_slow = 0
+    let g:mkdp_command_for_global = 0
+    let g:mkdp_open_to_the_world = 0
+    let g:mkdp_open_ip = ''
+    let g:mkdp_browser = 'firefox'
+    let g:mkdp_echo_preview_url = 0
+    let g:mkdp_browserfunc = ''
+    let g:mkdp_preview_options = {
+          \ 'mkit': {},
+          \ 'katex': {},
+          \ 'uml': {},
+          \ 'maid': {},
+          \ 'disable_sync_scroll': 0,
+          \ 'sync_scroll_type': 'middle',
+          \ 'hide_yaml_meta': 1,
+          \ 'sequence_diagrams': {},
+          \ 'flowchart_diagrams': {},
+          \ 'content_editable': v:false,
+          \ 'disable_filename': 0
+          \ }
+    let g:mkdp_markdown_css = ''
+    let g:mkdp_highlight_css = ''
+    let g:mkdp_port = ''
+    let g:mkdp_page_title = '「${name}」'
+    let g:mkdp_filetypes = ['markdown', 'md']
+endif
 
 " Markdown syntax highlighting
 Plug 'plasticboy/vim-markdown'

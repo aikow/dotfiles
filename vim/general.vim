@@ -139,3 +139,38 @@ set colorcolumn=80
 "Always show current position
 set ruler
 
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                             File Type Specific                             "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"
+" Python
+autocmd BufNewFile,BufRead *.py set tabstop=4
+autocmd BufNewFile,BufRead *.py set softtabstop=4
+autocmd BufNewFile,BufRead *.py set shiftwidth=4
+autocmd BufNewFile,BufRead *.py set textwidth=79
+autocmd BufNewFile,BufRead *.py set expandtab
+autocmd BufNewFile,BufRead *.py set autoindent
+autocmd BufNewFile,BufRead *.py set fileformat=unix
+
+" Function to activate a virtualenv in the embedded interpeter
+function LoadVirtualEnv(path)
+  let activate_this = a:path . '/bin/activate_this.py'
+  if getftype(a:path) == "dir" && filereadable(activate_this)
+    python << EOF
+import vim
+activate_this = vim.eval('l:activate_this')
+execfile(activate_this, dict(__file__=activate_this))
+EOF
+  endif
+endfunction
+let defaultvirtualenv = $HOME . "/.virtualenvs/stable"
+
+" Only attempt to load this virtualenv if the defaultvirtualenv actually
+" exists and we aren't running with a virtualenv active.
+if has("python")
+  if empty($VIRTUAL_ENV) && getftype(defaultvirtualenv) == "dir"
+    call LoadVirtualEnv(defaultvirtualenv)
+  endif
+endif
+
