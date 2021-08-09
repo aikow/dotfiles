@@ -8,4 +8,4 @@ source $HOME/.config/nvim/keys.vim     	" Custom key bindings
 
 source $HOME/.config/nvim/functions.vim " Custom functions
 
-
+autocmd VimEnter * echo ''
