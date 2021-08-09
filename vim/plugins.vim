@@ -9,9 +9,15 @@ if has('nvim')
     let plug_install = 1
   endif
   unlet autoload_plug_path
+else
+  if empty(glob('~/.vim/autoload/plug.vim'))
+    silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+        \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+    autocmd VimEnter * PlugInstall | source $MYVIMRC
+  endif
 endif
 
-call plug#begin('~/.config/nvim/plugins')
+call plug#begin('~/.config/dotfiles/vim/plugged')
 
 " Code completion plugin
 " Plug 'ycm-core/YouCompleteMe', {'do': './install.py'}
