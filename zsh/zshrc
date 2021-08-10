@@ -150,6 +150,9 @@ source $ZSH/oh-my-zsh.sh
 autoload edit-command-line; zle -N edit-command-line
 bindkey '^e' edit-command-line
 
+bindkey "^P" history-beginning-search-backward
+bindkey "^N" history-beginning-search-forward
+
 # Load completions 
 autoload -U compinit && compinit
 
