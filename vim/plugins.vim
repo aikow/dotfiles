@@ -141,11 +141,6 @@ if !empty($VIM_IDE_MARKDOWN_PREVIEW)
     let g:mkdp_filetypes = ['markdown', 'md']
 endif
 
-" Markdown syntax highlighting
-Plug 'plasticboy/vim-markdown'
-  let g:vim_markdown_math = 1
-  let g:vim_markdown_strikethrough = 1
-
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                           Customization Plugins                            "

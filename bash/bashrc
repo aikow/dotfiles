@@ -127,10 +127,10 @@ export PS0="\e[5 q"
 #######################################################################
 
 if [[ -f $HOME/.aliases ]]; then
-  source .aliases
+  source "${HOME}/.aliases"
 fi
 
 if [[ -f $HOME/.aliases.bash ]]; then
-  source .aliases.bash
+  source "${HOME}/.aliases.bash"
 fi
 
