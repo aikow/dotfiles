@@ -4,13 +4,14 @@
 
 augroup ft_python
   autocmd!
-  autocmd BufNewFile,BufRead *.py setlocal tabstop=4
-  autocmd BufNewFile,BufRead *.py setlocal softtabstop=4
-  autocmd BufNewFile,BufRead *.py setlocal shiftwidth=4
-  autocmd BufNewFile,BufRead *.py setlocal textwidth=79
-  autocmd BufNewFile,BufRead *.py setlocal expandtab
-  autocmd BufNewFile,BufRead *.py setlocal autoindent
-  autocmd BufNewFile,BufRead *.py setlocal fileformat=unix
+  autocmd FileType python setlocal tabstop=4
+  autocmd FileType python setlocal softtabstop=4
+  autocmd FileType python setlocal shiftwidth=4
+  autocmd FileType python setlocal textwidth=79
+  autocmd FileType python setlocal expandtab
+  autocmd FileType python setlocal autoindent
+  autocmd FileType python setlocal fileformat=unix
+  autocmd FileType python setlocal foldmethod=indent
 augroup END
 
 " Function to activate a virtualenv in the embedded interpeter
@@ -36,3 +37,12 @@ if has("python")
   endif
 endif
 
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                                 VimScript                                  "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+augroup filetype_vim
+  autocmd!
+  autocmd FileType vim setlocal foldmethod=marker
+augroup END

@@ -125,7 +125,7 @@ function! LightlineMode()
 endfunction
 
 function! LightlineLineinfo()
-  return winwidth(0) > 70 ? (line(".")) : '' 
+  return winwidth(0) > 70 ? (line(".") . "," . col(".")) : '' 
 endfunction
 
 function! CtrlPMark()
