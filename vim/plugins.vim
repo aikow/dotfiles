@@ -50,6 +50,9 @@ Plug 'sirver/ultisnips'
 "                           Functionality Plugins                            "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " 
+" Repeat commands from plugins
+Plug 'tpope/vim-repeat'
+
 " Comment and uncomment according to filetype
 Plug 'tpope/vim-commentary'
 
