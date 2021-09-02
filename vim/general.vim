@@ -88,6 +88,11 @@ set incsearch
 set ignorecase
 set smartcase
 
+if executable('ag')
+  set grepprg=ag\ --nogroup\ --nocolor
+  set grepformat=%f:%l:%m
+endif
+
 " Folding
 set foldmethod=indent
 set foldnestmax=1

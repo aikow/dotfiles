@@ -12,6 +12,9 @@ nnoremap <silent> <c-_> :let @/ = ""<CR>
 " Use <gp> to select the text that was last pasted
 nnoremap <expr> gp '`[' . strpart(getregtype(), 0,  1) . '`]'
 
+" Use <c-f> to search for the word under the cursor with ag
+nnoremap <C-f> :grep! "\b<C-R><C-W>\b"<CR>:cwindow<CR>
+
 " Make Y behave like other capital numbers
 nnoremap Y y$
 

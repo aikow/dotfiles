@@ -50,6 +50,9 @@ Plug 'sirver/ultisnips'
 "                           Functionality Plugins                            "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " 
+" Repeat commands from plugins
+Plug 'tpope/vim-repeat'
+
 " Comment and uncomment according to filetype
 Plug 'tpope/vim-commentary'
 
@@ -71,7 +74,10 @@ Plug 'ctrlpvim/ctrlp.vim'
   let g:ctrlp_map = '<C-p>'
   let g:ctrlp_cmd = 'CtrlP'
   let g:ctrlp_working_path_mode = 'ra'
-
+  if executable('ag')
+    let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+    let g:ctrp_use_caching = 0
+  endif
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                              Language Plugins                              "
