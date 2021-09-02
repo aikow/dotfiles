@@ -53,8 +53,8 @@ __mkps1_host() {
     echo "\[${fg_orange}\] \h \[${st_reset}\]"
 }
 
-__mkps1_arrows() {
-    echo "\[${st_bold}${fg_red}\]\[${fg_green}\]\[${st_reset}\]";
+__mkps1_arrow() {
+    echo "\[${st_bold}${fg_red}\]❯\[${st_reset}\]";
 }
 
 __mkps1_workdir() {
@@ -65,6 +65,24 @@ __mkps1_git() {
     # Escaping the $ is intentional:
     # This is evaluated when the prompt is generated.
     echo "\$(__git_ps1 ' (\[${fg_magenta}\]%s\[${st_reset}\])')"
+}
+
+__mkps1_conda() {
+    # Check if conda prefix is set
+    if [[ ! -z "${CONDA_PREFIX}" ]]; then
+        echo '\[${st_bold}${fg_red}\]❯ \[${st_reset}\]\[${fg_green}\] $(basename ${CONDA_PREFIX}) \[${st_reset}\]'
+    else
+        echo ""
+    fi
+}
+
+__mkps1_venv() {
+    # Check if virtual env exists
+    if [[ ! -z "${VRITUAL_ENV}" ]]; then
+        echo '\[${st_bold}${fg_red}\]❯ \[${st_reset}\]\[${fg_green}\] $(basename ${VIRTUAL_ENV}) \[${st_reset}\]'
+    else
+        echo ""
+    fi
 }
 
 __mkps1_box_top() {
@@ -80,7 +98,16 @@ __mkps1_user_prompt() {
 }
 
 __mkps1() {
-    local ps1="\n$(__mkps1_box_top)$(__mkps1_debian_chroot)$(__mkps1_exitcode)$(__mkps1_time)$(__mkps1_username)$(__mkps1_arrows) $(__mkps1_workdir)$(__mkps1_git)\n$(__mkps1_box_bottom)$(__mkps1_user_prompt)";
+    local ps1="\n$(__mkps1_box_top)"
+    ps1+="$(__mkps1_exitcode)$(__mkps1_time)"
+    ps1+="$(__mkps1_username)"
+    ps1+="$(__mkps1_conda)"
+    ps1+="$(__mkps1_venv)"
+    ps1+="$(__mkps1_arrow) "
+    ps1+="$(__mkps1_workdir)"
+    ps1+="$(__mkps1_git)"
+    ps1+="\n$(__mkps1_box_bottom)"
+    ps1+="$(__mkps1_user_prompt)";
 
     echo "$ps1";
 }
