@@ -1,0 +1,78 @@
+---
+- defaults:
+    link:
+      create: true
+      relink: true
+
+- clean: ['~', '~/.config']
+
+- create:
+  - ~/.config
+  - ~/Developer
+
+- shell:
+  - [git submodule update --init --recursive, Installing submodules]
+  - [./conda/bootstrap.sh]
+
+- link:
+    ~/.dotfiles: .
+
+    # Bash
+    ~/.bashrc: bash/bashrc
+    ~/.ps1rc: bash/ps1rc
+
+    # ZSH
+    ~/.zshrc:
+      if: 'command -v zsh &>/dev/null'
+      path: zsh/zshrc
+      force: true
+    
+    # Tmux
+    ~/.tmux.conf:
+      if: 'command -v tmux &>/dev/null'
+      path: tmux/tmux.conf
+
+    # Neovim
+    ~/.config/nvim/init.vim:
+      if: 'command -v nvim &>/dev/null'
+      path: vim/init.vim
+
+    # Vim
+    ~/.vimrc:
+      if: 'command -v vim &>/dev/null || command -v vi &>/dev/null'
+      path: vim/init.vim
+    ~/.vim: vim
+
+    # Terminator
+    ~/.config/terminator/config:
+      if: 'command -v terminator &>/dev/null'
+      path: terminator/config
+    
+    # Git
+    ~/.gitconfig: git/gitconfig
+    ~/.gitignore_global: git/gitignore_global
+
+    # Jetbrains vim emulator
+    ~/.ideavimrc: jetbrains/ideavimrc
+
+    # VSCode Linux
+    ~/.config/Code/User:
+      if: '[[ $(uname) = Linux ]]'
+      glob: true
+      path: vscode/linux/*.json
+      force: true
+    
+    # VSCode MacOS
+    ~/Library/Application Support/Code/User:
+      if: '[[ $(uname) = Darwin ]]'
+      glob: true
+      path: vscode/macos/*.json
+      force: true
+
+    # Screen
+    ~/.screenrc:
+      if: 'command -v screen &>/dev/null'
+      path: screen/screenrc
+    
+    # Conda
+    ~/.condarc: conda/condarc

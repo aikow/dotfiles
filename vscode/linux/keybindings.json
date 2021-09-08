@@ -1,0 +1,8 @@
+// Empty
+
+[
+    {
+        "key": "ctrl+shift+alt+j",
+        "command": "latex-workshop.synctexto"
+    }
+]
