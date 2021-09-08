@@ -2,6 +2,8 @@
   enabled_plugins = LaunchpadBugURLHandler, LaunchpadCodeURLHandler, APTURLHandler, TerminatorThemes
   suppress_multiple_term_dialog = True
   always_split_with_profile = True
+  title_use_system_font = False
+  title_font = Hack 9
 [keybindings]
   preferences = <Primary>comma
 [profiles]
@@ -10,7 +12,7 @@
     background_darkness = 0.9
     cursor_shape = ibeam
     cursor_color = "#676c76"
-    font = MesloLGS NF 11
+    font = Hack Nerd Font 11
     foreground_color = "#5c6370"
     scrollback_lines = 10000
     palette = "#000000:#e06c75:#98c379:#d19a66:#61afef:#c678dd:#56b6c2:#abb2bf:#5c6370:#e06c75:#98c379:#d19a66:#61afef:#c678dd:#56b6c2:#fffefe"
@@ -19,7 +21,7 @@
     background_color = "#002b36"
     cursor_shape = ibeam
     cursor_color = "#aaaaaa"
-    font = MesloLGS Nerd Font 11
+    font = Hack Nerd Font 11
     foreground_color = "#839496"
     palette = "#073642:#dc322f:#859900:#b58900:#268bd2:#d33682:#2aa198:#eee8d5:#002b36:#cb4b16:#586e75:#657b83:#839496:#6c71c4:#93a1a1:#fdf6e3"
     use_system_font = False
@@ -28,7 +30,7 @@
     background_darkness = 0.98
     cursor_shape = ibeam
     cursor_color = "#bbbbbb"
-    font = MesloLGS Nerd Font 11
+    font = Hack Nerd Font 11
     foreground_color = "#abb2bf"
     show_titlebar = False
     scrollbar_position = hidden
@@ -37,16 +39,69 @@
     palette = "#000000:#eb6e67:#95ee8f:#f8c456:#6eaafb:#d886f3:#6cdcf7:#b2b2b2:#50536b:#eb6e67:#95ee8f:#f8c456:#6eaafb:#d886f3:#6cdcf7:#dfdfdf"
     use_system_font = False
     copy_on_selection = True
+  [[Aurora]]
+    cursor_shape = ibeam
+    cursor_color = "#bbbbbb"
+    font = Hack Nerd Font 11
+    foreground_color = "#abb2bf"
+    show_titlebar = False
+    scrollbar_position = hidden
+    scrollback_lines = 10000
+    disable_mousewheel_zoom = True
+    palette = "#0f1c21:#046655:#04c975:#b5bd68:#308891:#94a5bc:#8abeb7:#80b6ad:#3d3846:#046655:#04c975:#b5bd68:#308891:#94a5bc:#8abeb7:#80b6ad"
+    use_system_font = False
+    copy_on_selection = True
+  [[Candy]]
+    background_darkness = 0.9
+    cursor_shape = ibeam
+    cursor_color = "#aaaaaa"
+    font = Hack Nerd Font 11
+    scrollback_lines = 10000
+    palette = "#2e3436:#fa2573:#a6e32d:#fc951e:#c48dff:#fa2573:#67d9f0:#f2f2f2:#555753:#fa2573:#8ae234:#fce94f:#729fcf:#fa2573:#34e2e2:#eeeeec"
+    use_system_font = False
+  [[MaterialDark]]
+    background_color = "#232322"
+    background_darkness = 0.9
+    cursor_shape = ibeam
+    cursor_color = "#16afca"
+    font = Hack Nerd Font 11
+    foreground_color = "#e5e5e5"
+    scrollback_lines = 10000
+    palette = "#212121:#b7141f:#457b24:#f6981e:#134eb2:#560088:#0e717c:#efefef:#424242:#e83b3f:#7aba3a:#ffea2e:#54a4f3:#aa4dbc:#26bbd1:#d9d9d9"
+    use_system_font = False
+  [[One dark]]
+    background_color = "#1e2127"
+    background_darkness = 0.9
+    cursor_shape = ibeam
+    cursor_color = "#676c76"
+    font = Hack Nerd Font 11
+    foreground_color = "#5c6370"
+    scrollback_lines = 10000
+    palette = "#000000:#e06c75:#98c379:#d19a66:#61afef:#c678dd:#56b6c2:#abb2bf:#5c6370:#e06c75:#98c379:#d19a66:#61afef:#c678dd:#56b6c2:#fffefe"
+    use_system_font = False
+  [[Nord]]
+    background_color = "#2E3440"
+    cursor_shape = ibeam
+    cursor_color = "#D8DEE9"
+    font = Hack Nerd Font 11
+    foreground_color = "#D8DEE9"
+    show_titlebar = False
+    scrollbar_position = hidden
+    scrollback_lines = 10000
+    disable_mousewheel_zoom = True
+    palette = "#3B4252:#BF616A:#A3BE8C:#EBCB8B:#81A1C1:#B48EAD:#88C0D0:#E5E9F0:#4C566A:#BF616A:#A3BE8C:#EBCB8B:#81A1C1:#B48EAD:#8FBCBB:#ECEFF4"
+    use_system_font = False
+    copy_on_selection = True
 [layouts]
   [[default]]
     [[[child0]]]
       type = Window
       parent = ""
       order = 0
-      position = 1080:266
-      maximised = True
+      position = 1744:659
+      maximised = False
       fullscreen = False
-      size = 2560, 1375
+      size = 742, 453
       title = aikow@alethkar:~/.themes
       last_active_term = 72dd0ba2-de44-4667-a597-1ba53f64f632
       last_active_window = True
@@ -54,7 +109,7 @@
       type = Terminal
       parent = child0
       order = 0
-      profile = OneDark
+      profile = Nord
       uuid = 72dd0ba2-de44-4667-a597-1ba53f64f632
   [[VPN + SSH]]
     [[[child0]]]

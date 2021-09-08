@@ -1,0 +1,8 @@
+[submodule "meta/dotbot"]
+	path = meta/dotbot
+	url = https://github.com/anishathalye/dotbot.git
+	ignore = dirty
+
+[submodule "zsh/zinit"]
+	path = zsh/zinit
+	url = https://github.com/zdharma/zinit.git

@@ -65,9 +65,29 @@ endif
 filetype plugin on
 filetype indent on
 
+" TODO: Export to global variable
 if has('nvim')
-  let g:python_host_prog='~/.miniconda3/envs/neovim2/bin/python'
-  let g:python3_host_prog='~/.miniconda3/envs/neovim/bin/python'
+  let s:pynvim_path = expand("$HOME/.conda3/envs/pynvim/bin/python")
+  let s:pynvim3_path = expand("$HOME/.conda3/envs/pynvim3/bin/python")
+
+  " Check if the conda envs exist
+  if !filereadable(s:pynvim_path)
+    " Bootstrap the python2 conda env with pynvim 
+    echom "Bootstrapping the conda python2 env..."
+    " call system(expand('conda env create -f $HOME/.dotfiles/vim/python_envs/pynvim.yml'))
+    execute "!" . expand('conda env create -f $HOME/.dotfiles/vim/python_envs/pynvim.yml')
+  endif
+
+  if !filereadable(s:pynvim3_path)
+    " Bootstrap the python3 conda env with pynvim
+    echom "Bootstrapping the conda python3 env..."
+    " call system(expand('conda env create -f $HOME/.dotfiles/vim/python_envs/pynvim3.yml'))
+    execute "!" . expand('conda env create -f $HOME/.dotfiles/vim/python_envs/pynvim3.yml')
+  endif
+
+  " Set the python provider for neovim
+  let g:python_host_prog = s:pynvim_path
+  let g:python3_host_prog = s:pynvim3_path
 endif
 
 

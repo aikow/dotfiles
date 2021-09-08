@@ -1,0 +1,6 @@
+name: pynvim
+dependencies:
+- python=2 
+- pip
+- pip:
+  - pynvim

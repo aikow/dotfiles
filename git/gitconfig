@@ -1,10 +1,37 @@
-[user]
-	name = Aiko Wessels
-	email = aiko.wessels@gmail.com
-[github]
-	user = SupremeCommandaPanda
 [core]
-	editor = /usr/bin/vim
-	excludesfile = ~/.gitignore_global
+  editor = /usr/bin/vim
+  excludesfile = ~/.gitignore_global
+
+[diff]
+  external = vimdiff
+  external = m
+
+[init]
+  defaultBranch = trunk
+
+[github]
+  user = commanda-panda
+
+[merge]
+  # set "nvim" as tool for merging
+  tool = vim
+  tool = nvim
+  conflictstyle = diff3
+
+[mergetool]
+  # automatically launch merge tool without displaying a prompt
+  prompt = false
+
+[mergetool "nvim"]
+  # define command which will be used when "nvim" is set as a merge tool
+  cmd = nvim -f -c \"Gdiffsplit!\" \"$MERGED\"
+
 [push]
-	default = current
+  default = current
+
+[user]
+  email = aiko.wessels@gmail.com
+  name = Aiko Wessels
+
+# [url "git@github.com:"]
+  # insteadOf = https://github.com/
