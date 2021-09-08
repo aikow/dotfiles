@@ -65,6 +65,11 @@ endif
 filetype plugin on
 filetype indent on
 
+if has('nvim')
+  let g:python_host_prog='~/.miniconda3/envs/neovim2/bin/python'
+  let g:python3_host_prog='~/.miniconda3/envs/neovim/bin/python'
+endif
+
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                                  Editing                                   "
