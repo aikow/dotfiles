@@ -60,3 +60,6 @@ This is a complete list of all the programs I usually like to have installed.
 - GeForce Experience
 - Minecraft
 - Rockstart
+# Total Commander
+## Setup
+Copy the [key](./Wincmd.key) into the `C:\Program Files\totalcmd\` installation directory.
