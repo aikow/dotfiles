@@ -2,17 +2,24 @@
 
 set -e
 
-CONFIG_DIR="meta"
-DEFAULT_CONFIG_PREFIX="default"
-CONFIG_SUFFIX=".conf.yml"
+readonly CONFIG_DIR="meta"
+readonly DEFAULT_CONFIG_PREFIX="default"
+readonly CONFIG_SUFFIX=".conf.yml"
+readonly SAVED_CONFIGS_FILE="${CONFIG_DIR}/conf.sh"
 
-DOTBOT_DIR="meta/dotbot"
-DOTBOT_BIN="bin/dotbot"
-BASEDIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+readonly DOTBOT_DIR="meta/dotbot"
+readonly DOTBOT_BIN="bin/dotbot"
+readonly BASEDIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 cd "${BASEDIR}"
 git submodule update --init --recursive "${DOTBOT_DIR}"
 
-for conf in ${DEFAULT_CONFIG_PREFIX} ${@}; do
-    "${BASEDIR}/${DOTBOT_DIR}/${DOTBOT_BIN}" -d "${BASEDIR}" -c "${CONFIG_DIR}/${conf}${CONFIG_SUFFIX}"
+# Create the ${SAVED_CONFIGS_FILE} if it does not exist
+if [[ ! -f "${SAVED_CONFIGS_FILE}" ]]; then
+  echo 'SAVED_CONFIGS=(default)' >"${SAVED_CONFIGS_FILE}"
+fi
+source "${SAVED_CONFIGS_FILE}"
+
+for conf in "${SAVED_CONFIGS[@]}" ${@}; do
+  "${BASEDIR}/${DOTBOT_DIR}/${DOTBOT_BIN}" -d "${BASEDIR}" -c "${CONFIG_DIR}/${conf}${CONFIG_SUFFIX}"
 done

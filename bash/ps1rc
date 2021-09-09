@@ -2,7 +2,7 @@
 
 # For Git PS1
 # source /usr/lib/git-core/git-sh-prompt;
-source $HOME/.bash_git
+source "${DOTFILES}/bash/bash_git"
 GIT_PS1_SHOWDIRTYSTATE=1
 GIT_PS1_SHOWUPSTREAM="verbose"
 
