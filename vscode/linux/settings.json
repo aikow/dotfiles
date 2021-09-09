@@ -82,7 +82,7 @@
   "vim.smartRelativeLine": true,
   "vim.vimrc.enable": false,
   "vim.vimrc.path": "$HOME/.config/nvim/init.vim",
-  "terminal.integrated.defaultProfile.linux": "zsh",
+  "terminal.integrated.defaultProfile.linux": "/usr/bin/zsh",
   "[jsonc]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
