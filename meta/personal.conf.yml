@@ -6,16 +6,22 @@
 
 - clean: ['~/.config', '~/.config/nvim']
 
+- create:
+  - ~/.config/nvim/
+  - ~/.config/terminator/
+
 - link:
     # Neovim
     ~/.config/nvim/init.vim:
       if: 'command -v nvim &>/dev/null'
       path: vim/init.vim
+      create: true
 
     # Terminator
     ~/.config/terminator/config:
       if: 'command -v terminator &>/dev/null'
       path: terminator/config
+      create: true
 
     # Jetbrains vim emulator
     ~/.ideavimrc: jetbrains/ideavimrc
@@ -26,6 +32,7 @@
       glob: true
       path: vscode/linux/*.json
       force: true
+      create: true
     
     # VSCode MacOS
     ~/Library/Application Support/Code/User:
@@ -33,3 +40,4 @@
       glob: true
       path: vscode/macos/*.json
       force: true
+      create: true
