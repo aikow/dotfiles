@@ -45,6 +45,8 @@ set keymap vi-command
 "\e[C": forward-char
 "\e[D": backward-char
 
+"\C-l": clear-screen
+
 
 #######################################################################
 #                           Vi Insert Mode                            #
@@ -70,7 +72,9 @@ TAB: menu-complete
 
 # Edit options before rerunning previous command, eg: ls a b c -> ls -al a b c
 "\C-o": "\e-0eli "
+"\C-l": clear-screen
 
 # glob patterns without executing, eg: 'rm *x'
 "\C-e": glob-expand-word
 
+[[ -f "${HOME}/.local.inputrc" ]] || "${HOME}/.inputrc.local"

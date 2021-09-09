@@ -73,7 +73,7 @@ if [ "${color_prompt}" = yes ]; then
     # export PS1="\[\n\e[0;32m[\] \[\e[0m\e[1;31m\]\u\[\e[0m\e[1;33m\]@\[\e[0m\e[1;32m\]\h\[\e[0m\] \[\e[0;34m\]\w\[\e[0m\e[0;32m\] ]\n\$ \[\e[0m\]" #\[\033[5 q\]"
  
     # Read Mike's custom prompt, apply it to PS1.
-    source "$HOME/.ps1rc"
+    source "${DOTFILES}/bash/ps1rc"
     PS1="$(__mkps1)"
 else
     # Modified to support git status in PS1.
@@ -121,14 +121,11 @@ fi
 #                               Aliases                               #
 #######################################################################
 
-if [[ -f $HOME/.aliases ]]; then
-  source "${HOME}/.aliases"
-fi
+[[ -f "${DOTFILES}/bash/.aliases" ]] || source "${DOTFILES}/bash/aliases"
 
-if [[ -f $HOME/.aliases.bash ]]; then
-  source "${HOME}/.aliases.bash"
-fi
-
+# Local configurations
+[[ ! -f "${HOME}/.aliases.local" ]] || source "${HOME}/.aliases.local"
+[[ ! -f "${HOME}/.bashrc.local" ]] || source "${HOME}/.bashrc.local"
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!

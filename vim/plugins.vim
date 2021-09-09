@@ -15,10 +15,19 @@ if has('nvim')
   unlet autoload_plug_path
 else
   if empty(glob('~/.vim/autoload/plug.vim'))
-    silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
-        \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+    silent exe '!curl -fLo ~/.vim/autoload/plug.vim --create-dirs ' .
+        \ 'https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
     autocmd VimEnter * PlugInstall | source $MYVIMRC
   endif
+endif
+
+" Set a different plugin directory depending on whether the config is for neovim
+" and gvim or for classic vim
+let load_extended_config = (has('nvim') || has('gvim'))
+if load_extended_config
+  let plug_dir = stdpath('config') . '/plugged'
+else
+  let plug_dir = glob('~/.vim/plugged')
 endif
 
 
@@ -26,11 +35,11 @@ endif
 "                               Start VimPlug                                "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "
-call plug#begin('~/.config/dotfiles/vim/plugged')
+call plug#begin(plug_dir)
 
-if !empty($VIM_IDE_YCM)
+if load_extended_config
   " Code completion plugin
-  Plug 'ycm-core/YouCompleteMe', {'do': './install.py'}
+  Plug 'ycm-core/YouCompleteMe', {'do': 'conda deactivate ; ./install.py'}
     let g:ycm_key_list_select_completion=['<c-n>', '<Down>']
     let g:ycm_key_list_previous_completion=['<c-p>', '<Up>']
     let g:ycm_autoclose_preview_window_after_completions=1
@@ -86,7 +95,7 @@ Plug 'ctrlpvim/ctrlp.vim'
 " Language pack for 600 file types
 Plug 'sheerun/vim-polyglot'
 
-if !empty($VIM_IDE_LATEX)
+if load_extended_config
   " Tex - Latex compiler, syntax highlighting, preview with zathura
   Plug 'lervag/vimtex'
     let g:tex_flavor='latex'
@@ -113,9 +122,7 @@ if !empty($VIM_IDE_LATEX)
     set conceallevel=1
     let g:tex_conceal='abdmg'
     hi Conceal ctermbg=none
-endif
 
-if !empty($VIM_IDE_MARKDOWN_PREVIEW)
   " Markdown preview in google chrome
   Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
     let g:mkdp_auto_start = 0
@@ -216,12 +223,9 @@ Plug 'ryanoasis/vim-devicons'
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " 
 " Plugins for color themes
-Plug 'dylanaraps/wal'
-
-Plug 'fenetikm/falcon'
-
-Plug 'joshdick/onedark.vim'
-
+" Plug 'dylanaraps/wal'
+" Plug 'fenetikm/falcon'
+" Plug 'joshdick/onedark.vim'
 Plug 'arcticicestudio/nord-vim'
 
 call plug#end()
@@ -236,4 +240,4 @@ if plug_install
     PlugInstall --sync
 endif
 unlet plug_install
-
+unlet plug_dir

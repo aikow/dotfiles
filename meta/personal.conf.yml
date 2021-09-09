@@ -1,0 +1,35 @@
+---
+- defaults:
+    links:
+      create: true
+      relink: true
+
+- clean: ['~/.config', '~/.config/nvim']
+
+- link:
+    # Neovim
+    ~/.config/nvim/init.vim:
+      if: 'command -v nvim &>/dev/null'
+      path: vim/init.vim
+
+    # Terminator
+    ~/.config/terminator/config:
+      if: 'command -v terminator &>/dev/null'
+      path: terminator/config
+
+    # Jetbrains vim emulator
+    ~/.ideavimrc: jetbrains/ideavimrc
+
+    # VSCode Linux
+    ~/.config/Code/User:
+      if: '[[ $(uname) = Linux ]]'
+      glob: true
+      path: vscode/linux/*.json
+      force: true
+    
+    # VSCode MacOS
+    ~/Library/Application Support/Code/User:
+      if: '[[ $(uname) = Darwin ]]'
+      glob: true
+      path: vscode/macos/*.json
+      force: true

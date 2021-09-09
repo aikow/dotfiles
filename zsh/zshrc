@@ -119,6 +119,7 @@ bindkey "^n" history-beginning-search-forward
 
 # Load completions 
 autoload -U compinit && compinit
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
 
 # Preferred editor for local and remote sessions
 if [[ -n $SSH_CONNECTION ]]; then
@@ -154,7 +155,6 @@ export VIM_DIE_MARKDOWN_PREVIEW=1
 
 # Local configurations
 [[ ! -f "${HOME}/.aliases.local" ]] || source "${HOME}/.aliases.local"
-
 [[ ! -f "${HOME}/.zshrc.local" ]] || source "${HOME}/.zshrc.local"
 
 # >>> conda initialize >>>

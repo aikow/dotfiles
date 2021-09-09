@@ -38,3 +38,8 @@ vnoremap <c-j> :m '>+1<CR>gv=gv
 vnoremap <c-k> :m '<-2<CR>gv=gv
 nnoremap <leader>j :m .+1<CR>==
 nnoremap <leader>k :m .-2<CR>== 
+
+" Automatically jump to the end of pasted text
+vnoremap <silent> y y`]
+vnoremap <silent> p p`]
+nnoremap <silent> p p`]
