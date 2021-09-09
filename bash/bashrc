@@ -116,6 +116,10 @@ if ! shopt -oq posix; then
   fi
 fi
 
+# Return time on long running processes
+REPORTTIME=2
+TIMEFMT="%U user %S system %P cpu %*Es total"
+
 
 #######################################################################
 #                               Aliases                               #
