@@ -128,18 +128,6 @@ else
   export EDITOR='nvim'
 fi
 
-# Compilation flags
-# export ARCHFLAGS="-arch x86_64"
-
-
-#######################################################################
-#                          VIM Configuration                          #
-#######################################################################
-
-export VIM_IDE_YCM=1
-export VIM_IDE_LATEX=1
-export VIM_DIE_MARKDOWN_PREVIEW=1
-
 
 #######################################################################
 #                               Aliases                               #
@@ -159,14 +147,14 @@ export VIM_DIE_MARKDOWN_PREVIEW=1
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('/home/aikow/.conda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+__conda_setup="$('/Users/aikow/.conda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
 if [ $? -eq 0 ]; then
     eval "$__conda_setup"
 else
-    if [ -f "/home/aikow/.conda3/etc/profile.d/conda.sh" ]; then
-        . "/home/aikow/.conda3/etc/profile.d/conda.sh"
+    if [ -f "/Users/aikow/.conda3/etc/profile.d/conda.sh" ]; then
+        . "/Users/aikow/.conda3/etc/profile.d/conda.sh"
     else
-        export PATH="/home/aikow/.conda3/bin:$PATH"
+        export PATH="/Users/aikow/.conda3/bin:$PATH"
     fi
 fi
 unset __conda_setup
