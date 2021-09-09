@@ -12,12 +12,13 @@ endif
 "                                  Internal                                  "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "
+set nocompatible
 " Search recursively downward from CWD; provides TAB completion for filenames
 " e.g., `:find vim* <TAB>`
 set path+=**
 
 " Set working directory to the current files
-set autochdir
+" set autochdir
 
 " number of lines at the beginning and end of files checked for file-specific vars
 set modelines=0
@@ -50,7 +51,7 @@ set hidden
 
 " Wildmenu options
 set wildmenu
-set wildmode=list:longest,full
+" set wildmode=longest,list
 set wildignore=*.o,*~,*.pyc
 
 " Use system clipboard
