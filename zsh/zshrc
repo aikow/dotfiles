@@ -47,6 +47,8 @@ zinit snippet OMZP::command-not-found
 # zgen load agkozak/zsh-z
 # zgen load andrewferrier/fzf-z
 
+zinit light commanda-panda/zsh-auto-ls
+
 # These 2 must be in this order
 zinit load zsh-users/zsh-autosuggestions
 zinit load zsh-users/zsh-syntax-highlighting
@@ -147,8 +149,13 @@ export VIM_DIE_MARKDOWN_PREVIEW=1
 # users are encouraged to define aliases within the ZSH_CUSTOM folder.
 # For a full list of active aliases, run `alias`.
 #
-source $HOME/.aliases.local
-source $HOME/.aliases
+
+[[ ! -f "${DOTFILES}/zsh/aliases" ]]  || source "${DOTFILES}/zsh/aliases"
+
+# Local configurations
+[[ ! -f "${HOME}/.aliases.local" ]] || source "${HOME}/.aliases.local"
+
+[[ ! -f "${HOME}/.zshrc.local" ]] || source "${HOME}/.zshrc.local"
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
