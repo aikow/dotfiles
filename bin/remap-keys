@@ -1,0 +1,56 @@
+#!/bin/bash
+
+# Use hidutil from the apple developer guidelines
+# https://developer.apple.com/library/archive/technotes/tn2450/_index.html
+
+target=${1?"Missing target"}
+
+case "${target}" in
+  "magic")
+    hidutil property --set '
+{
+  "UserKeyMapping": [
+    {
+      "HIDKeyboardModifierMappingSrc": 0x700000064,
+      "HIDKeyboardModifierMappingDst": 0x700000035
+    },
+    {
+      "HIDKeyboardModifierMappingSrc": 0x700000035,
+      "HIDKeyboardModifierMappingDst": 0x700000064
+    },
+    {
+      "HIDKeyboardModifierMappingSrc": 0x700000039,
+      "HIDKeyboardModifierMappingDst": 0x700000029
+    }
+  ]
+}'
+
+    ;;
+
+  "macbook")
+    hidutil property --set '
+{
+  "UserKeyMapping": [
+    {
+      "HIDKeyboardModifierMappingSrc": 0x700000039,
+      "HIDKeyboardModifierMappingDst": 0x700000029
+    }
+  ]
+}'
+
+    ;;
+
+  "reset")
+    hidutil property --set '
+{
+  "UserKeyMapping": []
+}'
+
+    ;;
+
+  *)
+    echo "Invalid target name '${target}'. Allowed targets are [magic|macbook|reset]."
+    exit 1
+    ;;
+esac
+    

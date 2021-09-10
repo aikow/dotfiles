@@ -1,6 +1,6 @@
 # Stores the local config containing a bash array with the configs that should
 # be installed.
-/meta/conf.sh
+.install.conf
 
 # Created by https://www.toptal.com/developers/gitignore/api/vim,visualstudiocode,python,zsh,latex
 # Edit at https://www.toptal.com/developers/gitignore?templates=vim,visualstudiocode,python,zsh,latex

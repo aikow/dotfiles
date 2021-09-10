@@ -1,0 +1,99 @@
+---
+- defaults:
+    links:
+      create: true
+      relink: true
+
+- clean: ['~', '~/.config', '~/.config/nvim']
+
+- create:
+  - ~/.bin
+  - ~/.config
+  - ~/.config/nvim/
+  - ~/.config/terminator/
+  - ~/Developer
+
+- shell:
+  - [git submodule update --init --recursive, Installing submodules]
+  - [./conda/bootstrap.sh]
+
+- link:
+    ~/.dotfiles:
+      if: '[[ ! -d ~/.dotfiles ]]'
+      path: ""
+
+    # Bash
+    ~/.bashrc: bash/bashrc
+
+    # Readline
+    ~/.inputrc: readline/inputrc
+
+    # ZSH
+    ~/.zshrc:
+      if: 'command -v zsh &>/dev/null'
+      path: zsh/zshrc
+      force: true
+    
+    # Scripts
+    ~/.bin:
+      path: bin/*
+      glob: true
+      exclude:
+        - bin/README.md
+    
+    # Tmux
+    ~/.tmux.conf:
+      if: 'command -v tmux &>/dev/null'
+      path: tmux/tmux_full.conf
+
+    # Vim
+    ~/.vimrc:
+      if: 'command -v vim &>/dev/null || command -v vi &>/dev/null'
+      path: vim/light.vim
+
+    # Git
+    ~/.gitconfig: git/gitconfig
+    ~/.gitignore_global: git/gitignore_global
+
+    # Screen
+    ~/.screenrc:
+      if: 'command -v screen &>/dev/null'
+      path: screen/screenrc
+    
+    # Dir colors
+    ~/.dir_colors: dircolors/dir_colors
+
+    # Conda
+    ~/.condarc: conda/condarc
+
+    # Neovim
+    ~/.config/nvim/init.vim:
+      if: 'command -v nvim &>/dev/null'
+      path: vim/full.vim
+      create: true
+
+    # Terminator
+    ~/.config/terminator/config:
+      if: 'command -v terminator &>/dev/null'
+      path: terminator/config
+      create: true
+
+    # Jetbrains vim emulator
+    ~/.ideavimrc: jetbrains/ideavimrc
+
+    # VSCode Linux
+    ~/.config/Code/User:
+      if: '[[ $(uname) = Linux ]]'
+      glob: true
+      path: vscode/linux/*.json
+      force: true
+      create: true
+    
+    # VSCode MacOS
+    ~/Library/Application Support/Code/User:
+      if: '[[ $(uname) = Darwin ]]'
+      glob: true
+      path: vscode/macos/*.json
+      force: true
+      create: true
+

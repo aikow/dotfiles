@@ -2,24 +2,49 @@
 
 set -e
 
-readonly CONFIG_DIR="meta"
-readonly DEFAULT_CONFIG_PREFIX="default"
-readonly CONFIG_SUFFIX=".conf.yml"
-readonly SAVED_CONFIGS_FILE="${CONFIG_DIR}/conf.sh"
+# Config file settings
+readonly CONFIG_DIR="meta/configs"
+readonly CONFIG_SUFFIX="yml"
+readonly INSTALL_CONFIG_FILE=".install.conf"
 
+# Dotbot path
 readonly DOTBOT_DIR="meta/dotbot"
 readonly DOTBOT_BIN="bin/dotbot"
+
+# Base directory of the git repository
 readonly BASEDIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
+# Update the git repository
 cd "${BASEDIR}"
 git submodule update --init --recursive "${DOTBOT_DIR}"
 
-# Create the ${SAVED_CONFIGS_FILE} if it does not exist
-if [[ ! -f "${SAVED_CONFIGS_FILE}" ]]; then
-  echo 'SAVED_CONFIGS=(default)' >"${SAVED_CONFIGS_FILE}"
-fi
-source "${SAVED_CONFIGS_FILE}"
+# Create the ${INSTALL_CONFIG_FILE} and add the minimal config if it does not exist
+if [[ ! -f "${INSTALL_CONFIG_FILE}" ]]; then
+  printf "No config file found. Please choose from the following:\n"
 
-for conf in "${SAVED_CONFIGS[@]}" ${@}; do
-  "${BASEDIR}/${DOTBOT_DIR}/${DOTBOT_BIN}" -d "${BASEDIR}" -c "${CONFIG_DIR}/${conf}${CONFIG_SUFFIX}"
-done
+  # Read all config files found in the ${CONFIG_DIR}
+  unset options i
+  while IFS= read -r -d $'\0' f; do
+    f1="${f#${CONFIG_DIR}/}"
+    f2="${f1%.${CONFIG_SUFFIX}}"
+    options[i++]="${f2}"
+  done < <(find "${CONFIG_DIR}" -maxdepth 1 -type f -name "*.${CONFIG_SUFFIX}" -print0)
+
+  select opt in "${options[@]}" "Abort"; do
+    if [[ " ${options[@]} " =~ " ${opt} " ]]; then
+      echo "$opt config file selected"
+      echo "${opt}" >"${INSTALL_CONFIG_FILE}"
+      break
+    elif [[ "${opt}" = "Abort" ]]; then
+      echo "Aborting"
+      exit
+    else
+      echo "Not a valid config file"
+    fi 
+  done
+fi
+
+# Read the first line from the config file
+unset config
+read -r config <"${INSTALL_CONFIG_FILE}"
+"${BASEDIR}/${DOTBOT_DIR}/${DOTBOT_BIN}" -d "${BASEDIR}" -c "${CONFIG_DIR}/${config}.${CONFIG_SUFFIX}"

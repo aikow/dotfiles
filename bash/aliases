@@ -5,8 +5,8 @@
 
 alias ..="cd .."
 alias ...="cd ../.."
-alias ls="ls --color"
-alias ll="ls -AlGh --color"
+alias ls="ls"
+alias ll="ls -AlGh"
 
 
 #######################################################################
