@@ -31,6 +31,8 @@ set keymap vi-command
 
 # Insert the arguments from the last command
 "p": "i !!*\r"
+"P": "-A | "
+"o": "-0eli "
 
 # When hitting option-up/option-down, cycle through the previous commands
 # which start with the prefix you've entered, rather than just cycling through
@@ -69,6 +71,7 @@ TAB: menu-complete
 # Needed because binding 'p' in command mode above wipes its insert mode
 # function, too. This fixes that, and will insert 'p' when you type 'p'.
 "p": self-insert
+"P": self-insert
 
 # Edit options before rerunning previous command, eg: ls a b c -> ls -al a b c
 "\C-o": "\e-0eli "

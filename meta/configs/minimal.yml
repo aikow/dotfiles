@@ -1,0 +1,63 @@
+
+---
+- defaults:
+    link:
+      create: true
+      relink: true
+
+- clean: ['~']
+
+- create:
+  - ~/.config
+  - ~/Developer
+  - ~/.bin
+
+- shell:
+  - [git submodule update --init --recursive, Installing submodules]
+  - [./conda/bootstrap.sh]
+
+- link:
+    ~/.dotfiles:
+      if: '[[ ! -d ~/.dotfiles ]]'
+      path: ""
+
+    # Bash
+    ~/.bashrc: bash/bashrc
+
+    # Readline
+    ~/.inputrc: readline/inputrc
+
+    # ZSH
+    ~/.zshrc:
+      if: 'command -v zsh &>/dev/null'
+      path: zsh/zshrc
+      force: true
+    
+    # Scripts
+    ~/.bin:
+      path: bin/*
+      glob: true
+      exclude:
+        - bin/README.md
+    
+    # Tmux
+    ~/.tmux.conf:
+      if: 'command -v tmux &>/dev/null'
+      path: tmux/tmux_minimal.conf
+
+    # Vim
+    ~/.vimrc:
+      if: 'command -v vim &>/dev/null || command -v vi &>/dev/null'
+      path: vim/minimal.vim
+
+    # Git
+    ~/.gitconfig: git/gitconfig
+    ~/.gitignore_global: git/gitignore_global
+
+    # Screen
+    ~/.screenrc:
+      if: 'command -v screen &>/dev/null'
+      path: screen/screenrc
+    
+    # Dir colors
+    ~/.dir_colors: dircolors/dir_colors
