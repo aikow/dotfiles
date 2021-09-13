@@ -116,6 +116,7 @@ bindkey -s '^o' '^[k\^Ea '
 
 bindkey "^p" history-beginning-search-backward
 bindkey "^n" history-beginning-search-forward
+bindkey "^l" clear-screen
 
 # Load completions 
 autoload -U compinit && compinit
