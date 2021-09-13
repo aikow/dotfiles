@@ -5,6 +5,7 @@
 " Automatically try to install vim-plug if it not already installed.
 let data_dir = has('nvim') ? stdpath('data') . '/site' : '~/.vim'
 if empty(glob(data_dir . '/autoload/plug.vim'))
+  echom "Installing vim-plug, " . data_dir . '/autoload/plug.vim was empty' 
   silent execute '!curl -fLo ' . data_dir . '/autoload/plug.vim --create-dirs 
     \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
   autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
