@@ -12,7 +12,7 @@
 #     -u update an existing installation
 #     -t run package tests after installation (may install conda-build)
 
-readonly CONDA_INSTALL_DIR="${HOME}/.conda3"
+readonly CONDA_INSTALL_DIR="${HOME}/.miniconda3"
 
 if [[ -d "${CONDA_INSTALL_DIR}" ]]; then
   echo "Miniconda3 already installed"

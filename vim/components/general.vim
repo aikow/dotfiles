@@ -71,8 +71,8 @@ filetype indent on
 
 " TODO: Export to global variable
 if has('nvim')
-  let s:pynvim_path = expand("$HOME/.conda3/envs/pynvim/bin/python")
-  let s:pynvim3_path = expand("$HOME/.conda3/envs/pynvim3/bin/python")
+  let s:pynvim_path = expand("$HOME/.miniconda3/envs/pynvim/bin/python")
+  let s:pynvim3_path = expand("$HOME/.miniconda3/envs/pynvim3/bin/python")
 
   " Check if the conda envs exist
   if !filereadable(s:pynvim_path)
