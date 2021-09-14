@@ -1,6 +1,9 @@
 #!/usr/bin/env bash
 
-export PATH="$PATH"
+export DOTFILES="$HOME/.dotfiles"
+
+# If you come from bash you might have to change your $PATH.
+export PATH="${HOME}/.bin:${DOTFILES}/bin:/${HOME}/.local/bin:/usr/local/bin:/opt/vc/bin:${PATH}"
 
 export VISUAL=vim
 export EDITOR=vim
