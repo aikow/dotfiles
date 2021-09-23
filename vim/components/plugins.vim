@@ -34,11 +34,13 @@ endif
 " Syntax checking
 Plug 'scrooloose/syntastic'
 
-" Snippets and snippets
-Plug 'sirver/ultisnips'
-  let g:UltiSnipsExpandTrigger = '<c-j>'
-  let g:UltiSnipsJumpForwardTrigger = '<c-j>'
-  let g:UltiSnipsJumpBackwardTrigger = '<c-k>'
+if has("python3")
+  " Snippets and snippets
+  Plug 'sirver/ultisnips'
+    let g:UltiSnipsExpandTrigger = '<c-j>'
+    let g:UltiSnipsJumpForwardTrigger = '<c-j>'
+    let g:UltiSnipsJumpBackwardTrigger = '<c-k>'
+endif
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""

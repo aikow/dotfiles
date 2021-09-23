@@ -36,6 +36,7 @@ source "${DOTFILES}/zsh/zinit/zinit.zsh"
 zinit snippet OMZL::git.zsh
 zinit snippet OMZP::git
 zinit snippet OMZP::github
+zinit snippet OMZP::kubectl
 zinit snippet OMZP::colored-man-pages
 zinit snippet OMZP::command-not-found
 # zgen oh-my-zsh plugins/sudo
@@ -145,21 +146,22 @@ fi
 # Local configurations
 [[ ! -f "${HOME}/.aliases.local" ]] || source "${HOME}/.aliases.local"
 [[ ! -f "${HOME}/.zshrc.local" ]] || source "${HOME}/.zshrc.local"
-[[ ! -f "${HOME}/.conda.zsh" ]] || source "${HOME}/.conda.zsh"
+# [[ ! -f "${HOME}/.conda.zsh" ]] || source "${HOME}/.conda.zsh"
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
+
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('/home/aikow/.miniconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+__conda_setup="$('/Users/aikow/.miniconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
 if [ $? -eq 0 ]; then
     eval "$__conda_setup"
 else
-    if [ -f "/home/aikow/.miniconda3/etc/profile.d/conda.sh" ]; then
-        . "/home/aikow/.miniconda3/etc/profile.d/conda.sh"
+    if [ -f "/Users/aikow/.miniconda3/etc/profile.d/conda.sh" ]; then
+        . "/Users/aikow/.miniconda3/etc/profile.d/conda.sh"
     else
-        export PATH="/home/aikow/.miniconda3/bin:$PATH"
+        export PATH="/Users/aikow/.miniconda3/bin:$PATH"
     fi
 fi
 unset __conda_setup
