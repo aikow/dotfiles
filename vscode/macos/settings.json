@@ -76,5 +76,13 @@
     "*.ipynb": "jupyter-notebook"
   },
   "workbench.iconTheme": "material-icon-theme",
-  "git.ignoreLegacyWarning": true
+  "git.ignoreLegacyWarning": true,
+  "terminal.integrated.macOptionIsMeta": true,
+  "files.exclude": {
+    "**/*.swp": true
+  },
+  "[yaml]": {
+    "editor.defaultFormatter": "redhat.vscode-yaml"
+  },
+  "redhat.telemetry.enabled": false
 }
