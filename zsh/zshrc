@@ -9,28 +9,37 @@ fi
 #######################################################################
 #                               Exports                               #
 #######################################################################
-
+# Set the dotfiles path
 export DOTFILES="$HOME/.dotfiles"
 
-# If you come from bash you might have to change your $PATH.
-export PATH="${HOME}/.bin:${DOTFILES}/bin:/${HOME}/.local/bin:/usr/local/bin:/opt/vc/bin:${PATH}"
+export PATH="${HOME}/.bin:${DOTFILES}/bin:${HOME}/.local/bin:/usr/local/bin:/opt/vc/bin:${PATH}"
 
-# Set gem home directory
-export GEM_HOME=$(ruby -e 'puts Gem.user_dir')
-export PATH=$PATH:$GEM_HOME/bin
+### Ruby ###
+if command -v gem &>/dev/null; then
+  # Set gem home directory
+  export GEM_HOME=$(ruby -e 'puts Gem.user_dir')
+  export PATH=$PATH:$GEM_HOME/bin
+fi
 
-# Editor
-export VISUAL=nvim
-export EDITOR=$VISUAL
+### Editor ###
+if command -v nvim &>/dev/null; then
+  export VISUAL=nvim
+else;
+  export VISUAL=vim
+fi
+export EDITOR=${VISUAL}
+
+### FZF ###
+if command -v fzf &>/dev/null && command -v ag &>/dev/null; then
+  export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow --glob "!.git/*"'
+fi
 
 
 #######################################################################
 #                                 zinit                               #
 #######################################################################
-
+# Source the zinit script
 source "${DOTFILES}/zsh/zinit/zinit.zsh"
-
-# zinit load oh-my-zsh
 
 # Plugins
 zinit snippet OMZL::git.zsh
@@ -39,15 +48,6 @@ zinit snippet OMZP::github
 zinit snippet OMZP::kubectl
 zinit snippet OMZP::colored-man-pages
 zinit snippet OMZP::command-not-found
-# zgen oh-my-zsh plugins/sudo
-# zgen oh-my-zsh plugins/kubectl
-# zgen oh-my-zsh plugins/docker
-# zgen oh-my-zsh plugins/docker-compose
-# zgen load michaelaquilina/zsh-autoswitch-virtualenv
-
-# zgen load agkozak/zsh-z
-# zgen load andrewferrier/fzf-z
-
 zinit light commanda-panda/zsh-auto-ls
 
 # These 2 must be in this order
@@ -67,19 +67,21 @@ zinit load softmoth/zsh-vim-mode
 # Warn you when you run a command that you've got an alias for
 zinit load djui/alias-tips
 
+# Load additional zsh completions
 zinit wait lucid atload"zicompinit; zicdreplay" blockf for \
     zsh-users/zsh-completions
 
-# Theme
+# Powerlevel10k theme
 zinit ice depth"1"
 zinit light romkatv/powerlevel10k
 
+# Load the powerlevel10k prompt
 source "${DOTFILES}/zsh/p10k.zsh"
+
 
 #######################################################################
 #                               History                               #
 #######################################################################
-
 # History Options
 setopt append_history
 setopt extended_history
@@ -99,55 +101,47 @@ setopt hist_verify
 HISTSIZE=100000
 SAVEHIST=100000
 HISTFILE=~/.zsh_history
-export HISTIGNORE="ls:cd:cd -:pwd:exit:date:* --help"
-
-# Return time on long running processes
-REPORTTIME=2
-TIMEFMT="%U user %S system %P cpu %*Es total"
+export HISTIGNORE="ls:ll:cd:cd -:pwd:exit:date:* --help"
 
 
 #######################################################################
 #                         User Configuration                          #
 #######################################################################
-
 # Bind C-e to edit the command line
 autoload edit-command-line; zle -N edit-command-line
 bindkey '^x^e' edit-command-line
-bindkey -s '^o' '^[k\^Ea '
 
+# Bind C-o to add an argument to the previous command
+bindkey -s '^o' '^[k0Ea '
+
+# Bind C-x C-l to pipe the previous command into less
+bindkey -s '^x^l' '^[kA | less'
+
+# Bind C-x C-p to pipe the previous command
+bindkey -s '^x^p' '^[kA | '
+
+# History seach
 bindkey "^p" history-beginning-search-backward
 bindkey "^n" history-beginning-search-forward
+
+# Clear screen
 bindkey "^l" clear-screen
 
 # Load completions 
 autoload -U compinit && compinit
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
 
-# Preferred editor for local and remote sessions
-if [[ -n $SSH_CONNECTION ]]; then
-  export EDITOR='nvim'
-else
-  export EDITOR='nvim'
-fi
-
 
 #######################################################################
-#                               Aliases                               #
+#                               Sources                               #
 #######################################################################
+# Load OS specific settings
+[[ -f "${DOTFILES}/zsh/os/${OSTYPE}.zsh" ]] && source "${DOTFILES}/zsh/os/${OSTYPE}.zsh" 
 
-# Set personal aliases, overriding those provided by oh-my-zsh libs,
-# plugins, and themes. Aliases can be placed here, though oh-my-zsh
-# users are encouraged to define aliases within the ZSH_CUSTOM folder.
-# For a full list of active aliases, run `alias`.
-#
+# Load user aliases
+[[ -f "${DOTFILES}/zsh/aliases" ]]  && source "${DOTFILES}/zsh/aliases"
 
-[[ ! -f "${DOTFILES}/zsh/aliases" ]]  || source "${DOTFILES}/zsh/aliases"
-
-# Local configurations
-[[ ! -f "${HOME}/.aliases.local" ]] || source "${HOME}/.aliases.local"
-[[ ! -f "${HOME}/.zshrc.local" ]] || source "${HOME}/.zshrc.local"
-# [[ ! -f "${HOME}/.conda.zsh" ]] || source "${HOME}/.conda.zsh"
-
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+# Load local settings and aliases
+[[ -f "${HOME}/.aliases.local" ]] && source "${HOME}/.aliases.local"
+[[ -f "${HOME}/.zshrc.local" ]] && source "${HOME}/.zshrc.local"
 
