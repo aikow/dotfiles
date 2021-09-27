@@ -66,15 +66,25 @@ Plug 'tpope/vim-fugitive'
 " Plugin to align text
 Plug 'godlygeek/tabular'
 
-" Fuzzy file finding
-Plug 'ctrlpvim/ctrlp.vim'
-  let g:ctrlp_map = '<C-p>'
-  let g:ctrlp_cmd = 'CtrlP'
-  let g:ctrlp_working_path_mode = 'ra'
-  if executable('ag')
-    let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
-    let g:ctrp_use_caching = 0
-  endif
+if executable("fzf")
+  Plug 'junegunn/fzf'
+
+  " Enable per-command history
+  " - History files will be stored in the specified directory
+  " - When set, CTRL-N and CTRL-P will be bound to 'next-history' and
+  "   'previous-history' instead of 'down' and 'up'.
+  let g:fzf_history_dir = '~/.local/share/fzf-history'
+else
+  " Fuzzy file finding
+  Plug 'ctrlpvim/ctrlp.vim'
+    let g:ctrlp_map = '<C-p>'
+    let g:ctrlp_cmd = 'CtrlP'
+    let g:ctrlp_working_path_mode = 'ra'
+    if executable('ag')
+      let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+      let g:ctrp_use_caching = 0
+    endif
+endif
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                              Language Plugins                              "

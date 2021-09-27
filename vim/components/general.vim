@@ -229,7 +229,11 @@ nnoremap <silent> p p`]
 nnoremap <SPACE> <Nop>
 let mapleader=" "
 
-nnoremap <leader>o :CtrlP<CR>
+if executable("fzf")
+  nnoremap <leader>o :FZF<CR>
+else
+  nnoremap <leader>o :CtrlP<CR>
+endif
 nnoremap <leader>w :w<CR>
 
 " Copy and paste to system clipboard
