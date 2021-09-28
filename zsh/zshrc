@@ -142,10 +142,14 @@ zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
 # Load OS specific settings
 [[ -f "${DOTFILES}/zsh/os/${OSTYPE}.zsh" ]] && source "${DOTFILES}/zsh/os/${OSTYPE}.zsh" 
 
+# Source fzf if installed
+[[ -f ~/.fzf.zsh ]] && source ~/.fzf.zsh
+
 # Load user aliases
 [[ -f "${DOTFILES}/zsh/aliases" ]]  && source "${DOTFILES}/zsh/aliases"
 
 # Load local settings and aliases
 [[ -f "${HOME}/.aliases.local" ]] && source "${HOME}/.aliases.local"
 [[ -f "${HOME}/.zshrc.local" ]] && source "${HOME}/.zshrc.local"
+
 

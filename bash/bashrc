@@ -96,10 +96,14 @@ bind -m vi-insert '"\C-o": "\e-0Eli "'
 # Load OS specific settings
 [[ -f "${DOTFILES}/bash/os/${OSTYPE}.bash" ]] && source "${DOTFILES}/bash/os/${OSTYPE}.bash" 
 
+# Source fzf if installed
+[[ -f ~/.fzf.bash ]] && source ~/.fzf.bash
+
 # Load user aliases
 [[ -f "${DOTFILES}/bash/aliases" ]] && source "${DOTFILES}/bash/aliases"
 
 # Load local aliases and configurations
 [[ -f "${HOME}/.aliases.local" ]] && source "${HOME}/.aliases.local"
 [[ -f "${HOME}/.bashrc.local" ]] && source "${HOME}/.bashrc.local"
+
 
