@@ -229,11 +229,34 @@ nnoremap <silent> p p`]
 nnoremap <SPACE> <Nop>
 let mapleader=" "
 
-if executable("fzf")
-  nnoremap <leader>o :FZF<CR>
-else
-  nnoremap <leader>o :CtrlP<CR>
-endif
+nnoremap <leader>: :Commands<CR>
+nnoremap <leader>o :Files<CR>
+nnoremap <leader>fb :Buffers<CR>
+nnoremap <leader>fr :Rg<CR>
+nnoremap <leader>fa :Ag<CR>
+nnoremap <leader>fls :Lines<CR>
+nnoremap <leader>flb :BLines<CR>
+nnoremap <leader>fts :Tags<CR>
+nnoremap <leader>ftb :BTags<CR>
+nnoremap <leader>fm :Marks<CR>
+nnoremap <leader>fw :Windows<CR>
+nnoremap <leader>fp :Locate<CR>
+nnoremap <leader>fh :History<CR>
+nnoremap <leader>f: :History:<CR>
+
+nnoremap <leader>go :GFiles<CR>
+nnoremap <leader>gs :GFiles?<CR>
+nnoremap <leader>gc :Commits<CR>
+nnoremap <leader>gb :BCommits<CR>
+
+command! Settings call fzf#run(fzf#wrap({'source': ':options', 'sink': ':set'}))
+
+nnoremap <leader>hs :Settings<CR>
+nnoremap <leader>hc :Colors<CR>
+nnoremap <leader>hh :Helptags<CR>
+nnoremap <leader>hm: :Maps<CR>
+nnoremap <leader>hf :Filetypes<CR>
+
 nnoremap <leader>w :w<CR>
 
 " Copy and paste to system clipboard
@@ -307,7 +330,7 @@ augroup ft_python
 augroup END
 
 " Function to activate a virtualenv in the embedded interpeter
-function LoadVirtualEnv(path)
+function! LoadVirtualEnv(path)
   let activate_this = a:path . '/bin/activate_this.py'
   if getftype(a:path) == "dir" && filereadable(activate_this)
     python << EOF

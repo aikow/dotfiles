@@ -66,25 +66,14 @@ Plug 'tpope/vim-fugitive'
 " Plugin to align text
 Plug 'godlygeek/tabular'
 
-if executable("fzf")
-  Plug 'junegunn/fzf'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
 
   " Enable per-command history
   " - History files will be stored in the specified directory
   " - When set, CTRL-N and CTRL-P will be bound to 'next-history' and
   "   'previous-history' instead of 'down' and 'up'.
   let g:fzf_history_dir = '~/.local/share/fzf-history'
-else
-  " Fuzzy file finding
-  Plug 'ctrlpvim/ctrlp.vim'
-    let g:ctrlp_map = '<C-p>'
-    let g:ctrlp_cmd = 'CtrlP'
-    let g:ctrlp_working_path_mode = 'ra'
-    if executable('ag')
-      let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
-      let g:ctrp_use_caching = 0
-    endif
-endif
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                              Language Plugins                              "
@@ -313,16 +302,6 @@ Plug 'itchyny/lightline.vim'
     return winwidth(0) > 70 ? (line(".") . "," . col(".")) : '' 
   endfunction
 
-  function! CtrlPMark()
-    if expand('%:t') =~ 'ControlP' && has_key(g:lightline, 'ctrlp_item')
-      call lightline#link('iR'[g:lightline.ctrlp_regex])
-      return lightline#concatenate([g:lightline.ctrlp_prev, g:lightline.ctrlp_item
-            \ , g:lightline.ctrlp_next], 0)
-    else
-      return ''
-    endif
-  endfunction
-
 if g:plugin_enabled_icons
   " Nerd font icons
   Plug 'ryanoasis/vim-devicons'
@@ -332,11 +311,10 @@ endif
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                                Color Themes                                "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" 
 " Plugins for color themes
-" Plug 'dylanaraps/wal'
-" Plug 'fenetikm/falcon'
-" Plug 'joshdick/onedark.vim'
+Plug 'dylanaraps/wal'
+Plug 'fenetikm/falcon'
+Plug 'joshdick/onedark.vim'
 Plug 'arcticicestudio/nord-vim'
 
 call plug#end()
