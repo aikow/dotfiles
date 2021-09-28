@@ -1,0 +1,165 @@
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
+
+#######################################################################
+#                               Exports                               #
+#######################################################################
+
+# If you come from bash you might have to change your $PATH.
+export PATH="${HOME}/.bin:/${HOME}/.local/bin:/usr/local/bin:/opt/vc/bin:${PATH}"
+export AWS_SHARED_CREDENTIALS_FILE=/root/.aws/credentials
+
+# Editor
+export VISUAL=vim
+export EDITOR=$VISUAL
+export FZF_DEFAULT_COMMAND='ag -l --path-to-ignore ~/.gitignore_global --nocolor --hidden -g ""'
+
+
+#######################################################################
+#                                 zinit                               #
+#######################################################################
+
+source "${HOME}/.zinit/bin/zinit.zsh"
+
+# zinit load oh-my-zsh
+
+# Plugins
+zinit snippet OMZL::git.zsh
+zinit snippet OMZP::git
+zinit snippet OMZP::github
+#zinit snippet OMZP::kubectl
+zinit snippet OMZP::colored-man-pages
+zinit snippet OMZP::command-not-found
+
+zinit light commanda-panda/zsh-auto-ls
+
+# These 2 must be in this order
+zinit load zsh-users/zsh-autosuggestions
+zinit load zsh-users/zsh-syntax-highlighting
+zinit load zsh-users/zsh-history-substring-search
+
+#zinit load softmoth/zsh-vim-mode
+  # zsh-vim-mode Options
+  MODE_CURSOR_VIINS="#00ff00 blinking bar"
+  MODE_CURSOR_REPLACE="$MODE_CURSOR_VIINS #ff0000"
+  MODE_CURSOR_VICMD="green block"
+  MODE_CURSOR_SEARCH="#ff00ff steady underline"
+  MODE_CURSOR_VISUAL="$MODE_CURSOR_VICMD steady bar"
+  MODE_CURSOR_VLINE="$MODE_CURSOR_VISUAL #00ffff"
+
+# Warn you when you run a command that you've got an alias for
+zinit load djui/alias-tips
+
+zinit wait lucid atload"zicompinit; zicdreplay" blockf for \
+    zsh-users/zsh-completions
+
+# Theme
+zinit ice depth"1"
+zinit light bhilburn/powerlevel9k
+# zinit light romkatv/powerlevel10k
+POWERLEVEL9K_PROMPT_ON_NEWLINE=true
+POWERLEVEL9K_PROMPT_ADD_NEWLINE=true
+POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(context dir )
+POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status anaconda virtualenv time)
+
+POWERLEVEL9K_SHORTEN_DIR_LENGTH=1
+POWERLEVEL9K_SHORTEN_DELIMITER=""
+#POWERLEVEL9K_SHORTEN_STRATEGY="truncate_from_right"
+POWERLEVEL9K_SHORTEN_STRATEGY="truncate_to_unique"
+POWERLEVEL9K_DIR_SHOW_WRITABLE=true
+
+
+#######################################################################
+#                               History                               #
+#######################################################################
+
+# History Options
+setopt append_history
+setopt extended_history
+setopt hist_expire_dups_first
+setopt hist_ignore_all_dups
+setopt hist_ignore_dups
+setopt hist_ignore_space
+setopt hist_reduce_blanks
+setopt hist_save_no_dups
+setopt hist_verify
+
+# Share history across all your terminal windows
+setopt share_history
+setopt noclobber
+
+# Increase history size
+HISTSIZE=100000
+SAVEHIST=100000
+HISTFILE=~/.zsh_history
+export HISTIGNORE="ls:ll:cd:cd -:pwd:exit:date:* --help"
+
+
+#######################################################################
+#                         User Configuration                          #
+#######################################################################
+# Bind C-e to edit the command line
+autoload edit-command-line; zle -N edit-command-line
+bindkey '^x^e' edit-command-line
+
+# Bind C-o to add an argument to the previous command
+bindkey -s '^o' '^[k0Ea '
+
+# Bind C-x C-l to pipe the previous command into less
+bindkey -s '^x^l' '^[kA | less'
+
+# Bind C-x C-p to pipe the previous command
+bindkey -s '^x^p' '^[kA | '
+
+# History seach
+bindkey "^p" history-beginning-search-backward
+bindkey "^n" history-beginning-search-forward
+
+# Clear screen
+bindkey "^l" clear-screen
+
+# Load completions
+autoload -U compinit && compinit
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
+
+
+#######################################################################
+#                               Aliases                               #
+#######################################################################
+
+# Set personal aliases, overriding those provided by oh-my-zsh libs,
+# plugins, and themes. Aliases can be placed here, though oh-my-zsh
+# users are encouraged to define aliases within the ZSH_CUSTOM folder.
+# For a full list of active aliases, run `alias`.
+#
+
+[[ ! -f "${HOME}/.aliases" ]]  || source "${HOME}/.aliases"
+
+# Local configurations
+[[ ! -f "${HOME}/.aliases.local" ]] || source "${HOME}/.aliases.local"
+[[ ! -f "${HOME}/.zshrc.local" ]] || source "${HOME}/.zshrc.local"
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/home/aiko.wessels/.miniconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/home/aiko.wessels/.miniconda3/etc/profile.d/conda.sh" ]; then
+        . "/home/aiko.wessels/.miniconda3/etc/profile.d/conda.sh"
+    else
+        export PATH="/home/aiko.wessels/.miniconda3/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+# <<< conda initialize <<<
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
