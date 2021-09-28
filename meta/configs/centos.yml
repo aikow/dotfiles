@@ -29,7 +29,7 @@
     # ZSH
     ~/.zshrc:
       if: 'command -v zsh &>/dev/null'
-      path: zsh/zshrc
+      path: zsh/zshrc_5_0
       force: true
     
     # Scripts
