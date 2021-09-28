@@ -16,6 +16,7 @@
 - shell:
   - [git submodule update --init --recursive, Installing submodules]
   - [./conda/bootstrap.sh]
+  - [./fzf/bootstrap.sh]
 
 - link:
     ~/.dotfiles:
