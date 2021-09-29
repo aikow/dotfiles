@@ -88,7 +88,7 @@ if has('nvim')
   endif
 
   " Set the python provider for neovim
-  let g:python_host_prog = s:pynvim_path
+  " let g:python_host_prog = s:pynvim_path
   let g:python3_host_prog = s:pynvim3_path
 endif
 
@@ -176,8 +176,12 @@ set wrap
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "
 " Treat long lines as break lines (useful when moving around in them)
-map j gj
-map k gk
+noremap j gj
+noremap k gk
+
+" Don't deselect visual when indenting in visual mode
+vnoremap < <gv
+vnoremap > >gv
 
 " Automatically correct spelling with the first option
 inoremap <C-l> <c-g>u<Esc>[s1z=`]a<c-g>u
@@ -249,12 +253,10 @@ nnoremap <leader>gs :GFiles?<CR>
 nnoremap <leader>gc :Commits<CR>
 nnoremap <leader>gb :BCommits<CR>
 
-command! Settings call fzf#run(fzf#wrap({'source': ':options', 'sink': ':set'}))
-
 nnoremap <leader>hs :Settings<CR>
 nnoremap <leader>hc :Colors<CR>
 nnoremap <leader>hh :Helptags<CR>
-nnoremap <leader>hm: :Maps<CR>
+nnoremap <leader>hm :Maps<CR>
 nnoremap <leader>hf :Filetypes<CR>
 
 nnoremap <leader>w :w<CR>
@@ -312,6 +314,20 @@ function! EchoSynStack()
   echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
 endfunction
 
+" Get a list of all options that can be set in vim
+function! s:opt_list()
+  redir => ls
+  silent set
+  redir END
+  return split(ls, '\v\W+')
+endfunction
+
+function! s:opt_sink()
+endfunction
+
+command! Settings call fzf#run(fzf#wrap({
+      \ 'source': s:opt_list(), 
+      \ 'sink': function('s:opt_sink')}))
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                                   Python                                   "
