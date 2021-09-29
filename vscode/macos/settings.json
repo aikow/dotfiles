@@ -66,6 +66,18 @@
     {
       "before": ["leader", "w"],
       "commands": ["workbench.action.files.save"]
+    },
+    {
+      "before": ["leader", "h", "f"],
+      "commands": [""]
+    },
+    {
+      "before": ["<"],
+      "after": ["<", "g", "v"]
+    },
+    {
+      "before": [">"],
+      "after": [">", "g", "v"]
     }
   ],
   "vim.smartRelativeLine": true,

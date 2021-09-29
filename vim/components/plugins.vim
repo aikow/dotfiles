@@ -23,18 +23,18 @@ let plug_dir = data_dir . '/plugged'
 "
 call plug#begin(plug_dir)
 
-if g:plugin_enabled_completion
-  " Code completion plugin
-  Plug 'ycm-core/YouCompleteMe', {'do': 'conda deactivate ; ./install.py'}
-    let g:ycm_key_list_select_completion=['<c-n>', '<Down>']
-    let g:ycm_key_list_previous_completion=['<c-p>', '<Up>']
-    let g:ycm_autoclose_preview_window_after_completions=1
+if has("nvim")
+  Plug 'neovim/nvim-lspconfig'
+
+" lua << EOF
+" require'lspconfig'.pyright.setup{}
+" EOF
 endif
 
 " Syntax checking
 Plug 'scrooloose/syntastic'
 
-if has("python3")
+if executable("python3")
   " Snippets and snippets
   Plug 'sirver/ultisnips'
     let g:UltiSnipsExpandTrigger = '<c-j>'

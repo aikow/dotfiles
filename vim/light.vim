@@ -1,5 +1,4 @@
 let g:plugin_enabled_icons = 1
-let g:plugin_enabled_completion = 0
 let g:plugin_enabled_markdown = 0
 let g:plugin_enabled_tex = 0
 

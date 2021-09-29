@@ -1,13 +1,65 @@
-source $HOME/.config/nvim/plugins.vim 	" Load plugins and apply custom settings
+set relativenumber
+set showmode
+set smartcase
+set hlsearch
+set incsearch
+set number
+set scrolloff=7
+set shell=/bin/zsh
+set novisualbell
 
-" source $HOME/.config/nvim/snippets.vim  " Load all the snippets
+""" Editing and Reloading the Config
+set clipboard+=unnamed
+set clipboard+=ideaput
 
-source $HOME/.config/nvim/general.vim   " General settings
+""" The Leader Key
+let mapleader=" "
 
-source $HOME/.config/nvim/leader.vim	  " Leader key settings
+""" Distraction Free Mode
+nnoremap <c-z> :action ToggleDistractionFreeMode<CR>
 
-source $HOME/.config/nvim/keys.vim     	" Custom key bindings
+""" Terminal
+nnoremap <c-t> :action ActivateTerminalToolWindow<CR>
+nnoremap <leader>t :action Terminal.OpenInTerminal<CR>
 
-source $HOME/.config/nvim/functions.vim " Custom functions
+""" Navigation
+nnoremap <c-\> :action SplitVertically<CR>
+nnoremap <c--> :action SplitHorizontally<CR>
+nnoremap <c-=> :action Unsplit<CR>
+nnoremap <c-m> :action MoveEditorToOppositeTabGroup<CR>
 
+sethandler <c-j> a:vim
+sethandler <c-k> a:vim
+nnoremap <c-h> <c-w>h
+nnoremap <c-l> <c-w>l
+nnoremap <c-j> <c-w>j
+nnoremap <c-k> <c-w>k
+nnoremap <TAB> :action PreviousTab<CR>
+nnoremap <s-TAB> :action NextTab<CR>
+nnoremap <Leader>en :action EditSourceInNewWindow<CR>
+nnoremap <Leader>n :action NextWindow<CR>
+nnoremap <Leader>q :action CloseContent<CR>
+nnoremap <Leader>qa :action CloseAllEditors<CR>
+
+""" Editing source code
+set ideajoin
+set idearefactormode=keep
+vnoremap < <gv
+vnoremap > >gv
+nnoremap [[ :action MethodUp<CR>
+nnoremap ]] :action MethodDown<CR>
+nnoremap zc :action CollapseRegion<CR>
+nnoremap zo :action ExpandRegion<CR>
+nnoremap zC :action CollapseAllRegions<CR>
+nnoremap zO :action ExpandAllRegions<CR>
+nnoremap <leader>c :action CommentByLineComment<CR>
+nnoremap <leader>r :action Refactorings.QuickListPopupAction<CR>
+nnoremap <Leader>=  :action ReformatCode<CR>
+nnoremap <leader>i  :action OptimizeImports<CR>
+nnoremap <leader>or :action RecentFiles<CR>
+nnoremap <leader>ol :action RecentLocations<CR>
+nnoremap <leader>oh :action LocalHistory.ShowHistory<CR>
+nnoremap [e :action GotoNextError<CR>
+nnoremap ]e :action GotoPreviousError<CR>
+nnoremap <leader>w :write<CR>
 
