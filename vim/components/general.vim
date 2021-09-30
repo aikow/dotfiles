@@ -152,7 +152,7 @@ endif
 " errors flash screen rather than emit beep
 set novisualbell
 
-colorscheme nord
+colorscheme onedark
 set background=dark
 
 " Always show the status line and tabline
@@ -316,10 +316,28 @@ endfunction
 
 " Get a list of all options that can be set in vim
 function! s:opt_list()
-  redir => ls
-  silent set
-  redir END
-  return split(ls, '\v\W+')
+  let l:file = globpath(&rtp, 'doc/options.txt')
+  let l:lines = readfile(file)
+  let l:flines = []
+
+  for line in l:lines
+    " echom line
+    let matches = matchlist(line, '\v^''(\w+)''( ''(\w+)'')?\s+(\w+)\s+\(default:?\s+([^)]+)\)?')
+    if len(matches) != 0
+      let full = matches[1]
+      let abbr = matches[3]
+      let type = matches[4]
+      let default = matches[5]
+      let fline = full . "\t" . (len(abbr) == 0 ? "\t" : abbr) . "\t" . type . "\t" . default
+      call add(l:flines, fline)
+    endif
+  endfor
+
+  return l:flines
+endfunction
+
+function! s:set_list()
+
 endfunction
 
 function! s:opt_sink()
