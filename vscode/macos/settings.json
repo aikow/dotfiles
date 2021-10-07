@@ -16,7 +16,7 @@
   "editor.fontLigatures": true,
   "editor.rulers": [80],
   "editor.tabSize": 2,
-  "editor.wordWrap": "on",
+  "editor.wordWrap": "off",
   "javascript.updateImportsOnFileMove.enabled": "always",
   "notebook.cellToolbarLocation": {
     "default": "right",
@@ -70,7 +70,9 @@
     {
       "before": ["leader", "h", "f"],
       "commands": [""]
-    },
+    }
+  ],
+  "vim.visualModeKeyBindingsNonRecursive": [
     {
       "before": ["<"],
       "after": ["<", "g", "v"]

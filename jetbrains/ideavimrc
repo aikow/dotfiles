@@ -1,3 +1,5 @@
+source ~/.vimrc
+
 set relativenumber
 set showmode
 set smartcase
