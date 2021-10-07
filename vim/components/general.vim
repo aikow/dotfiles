@@ -48,7 +48,15 @@ set lazyredraw
 " Backups and Swap files
 set nobackup
 set swapfile
-"
+
+" Set the timeout times
+set timeoutlen=500
+set ttimeoutlen=5
+
+if !(has('nvim') || has('gvim'))
+  set noesckeys
+endif
+
 " open new buffers without saving current modifications (buffer remains open)
 set hidden
 
