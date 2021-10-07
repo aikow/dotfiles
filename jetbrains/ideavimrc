@@ -1,67 +1,183 @@
-source ~/.vimrc
-
-set relativenumber
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                                  Options                                   "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"
 set showmode
+set showcmd
+
+" Searching
 set smartcase
 set hlsearch
 set incsearch
-set number
-set scrolloff=7
-set shell=/bin/zsh
-set novisualbell
 
-""" Editing and Reloading the Config
+" Numbers
+set number
+set relativenumber
+
+set scrolloff=7
+
+set shell=/bin/zsh
+
+set visualbell
+
+" IdeaVim specific settings
+set ideajoin
+set ideaput
+set ideamarks
+set idearefactormode=keep
+
+set ideastatusicon
+
+" Clipboard
 set clipboard+=unnamed
 set clipboard+=ideaput
 
-""" The Leader Key
-let mapleader=" "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                                   leader                                   "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"
+let mapleader=' '
+let localleader='\'
 
-""" Distraction Free Mode
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                                  Plugins                                   "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"
+set NERDTree
+set surround
+set commentary
+
+" NERDTree
+nnoremap - :action :NERDTree<CR>
+nnoremap <leader>to :NERDTree<CR>
+nnoremap <leader>tf :NERDTreeFocus<CR>
+nnoremap <leader>tt :NERDTreeToggle<CR>
+nnoremap <leader>tc :NERDTreeClose<CR>
+nnoremap <leader>t/ :NERDTreeFind<CR>
+nnoremap <leader>tl :NERDTreeRefreshRoot<CR>
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                                  General                                   "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Distraction Free Mode
 nnoremap <c-z> :action ToggleDistractionFreeMode<CR>
 
-""" Terminal
+nnoremap \pr :source ~/.ideavimrc<CR>
+nnoremap \pe :open ~/.ideavimrc<CR>
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                                  Terminal                                  "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"
 nnoremap <c-t> :action ActivateTerminalToolWindow<CR>
 nnoremap <leader>t :action Terminal.OpenInTerminal<CR>
 
-""" Navigation
-nnoremap <c-\> :action SplitVertically<CR>
-nnoremap <c--> :action SplitHorizontally<CR>
-nnoremap <c-=> :action Unsplit<CR>
-nnoremap <c-m> :action MoveEditorToOppositeTabGroup<CR>
 
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                                 Navigation                                 "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"
+" Move around the windows using control plus vim movement keys hjkl
 sethandler <c-j> a:vim
 sethandler <c-k> a:vim
 nnoremap <c-h> <c-w>h
 nnoremap <c-l> <c-w>l
 nnoremap <c-j> <c-w>j
 nnoremap <c-k> <c-w>k
-nnoremap <TAB> :action PreviousTab<CR>
-nnoremap <s-TAB> :action NextTab<CR>
-nnoremap <Leader>en :action EditSourceInNewWindow<CR>
-nnoremap <Leader>n :action NextWindow<CR>
-nnoremap <Leader>q :action CloseContent<CR>
-nnoremap <Leader>qa :action CloseAllEditors<CR>
 
-""" Editing source code
-set ideajoin
-set idearefactormode=keep
-vnoremap < <gv
-vnoremap > >gv
-nnoremap [[ :action MethodUp<CR>
-nnoremap ]] :action MethodDown<CR>
+" Closing tabs
+nmap <leader>q :action CloseContent<CR>
+nmap <leader>Q :action ReopenClosedTab<CR>
+
+" To navigate between split panes
+nmap <leader>wo :action NextSplitter<CR>
+nmap <leader>wp :action PrevSplitter<CR>
+nmap <leader>j :action PrevSplitter<CR>
+
+" Splits manipulation
+nmap <leader>ws :action SplitHorizontally<CR>
+nmap <leader>wv :action SplitVertically<CR>
+nmap <leader>wc :action Unsplit<CR>
+nmap <leader>wC :action UnsplitAll<CR>
+nmap <leader>wd :action OpenEditorInOppositeTabGroup<CR>
+nmap <leader><leader> :action VimFilePrevious<CR>
+" nmap <leader>ww :action JumpToLastWindow<CR>
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                                    Run                                     "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"
+nnoremap ,c :action CompileDirty<CR>
+nnoremap ,r :action Run<CR>
+nnoremap ,R :action RunAnything<CR>
+nnoremap ,c :action RunClass<CR>
+nnoremap ,d :action Debug<CR>
+nnoremap ,b :action DebugClass<CR>
+nnoremap ,t :action RerunTests<CR>
+nnoremap ,T :action RerunFailedTests<CR>
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                                Refactoring                                 "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+""" Refactoring
+nnoremap <leader>rq :action Refactorings.QuickListPopupAction<CR>
+nnoremap <leader>rf :action ReformatCode<CR>
+nnoremap <leader>rr :action RenameElement<CR>
+nnoremap <leader>ri :action OptimizeImports<CR>
+nnoremap <leader>rg :action Generate<CR>
+nnoremap <leader>rI :action InspectCode<CR>
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                             Editing / Movement                             "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"
+" Folding
 nnoremap zc :action CollapseRegion<CR>
 nnoremap zo :action ExpandRegion<CR>
 nnoremap zC :action CollapseAllRegions<CR>
 nnoremap zO :action ExpandAllRegions<CR>
+
 nnoremap <leader>c :action CommentByLineComment<CR>
-nnoremap <leader>r :action Refactorings.QuickListPopupAction<CR>
-nnoremap <Leader>=  :action ReformatCode<CR>
-nnoremap <leader>i  :action OptimizeImports<CR>
-nnoremap <leader>or :action RecentFiles<CR>
-nnoremap <leader>ol :action RecentLocations<CR>
-nnoremap <leader>oh :action LocalHistory.ShowHistory<CR>
+
+nnoremap <leader>gh :action Back<CR>
+nnoremap <leader>gl :action Forward<CR>
+nnoremap <leader>gr :action RecentFiles<CR>
+nnoremap <leader>gL :action RecentLocations<CR>
+nnoremap <leader>gd :action GotoDeclaration<CR>
+nnoremap <leader>gu :action FindUsages<CR>
+nnoremap <leader>gf :action GotoFile<CR>
+nnoremap <leader>gc :action GotoClass<CR>
+nnoremap <leader>gs :action GotoSymbol<CR>
+nnoremap <leader>g; :action FileStructurePopup<CR>
+nnoremap <leader>gM :action ActivateStructureToolWindow<CR>
+nnoremap <leader>ge :action ShowErrorDescription<CR>
+nnoremap <leader>gi :action GotoImplementation<CR>
+nnoremap <leader>gI :action SelectIn<CR>
+nnoremap <leader>gt :action GotoTest<CR>
+nnoremap <leader>gp :action JumpToLastWindow<CR>
+nnoremap <leader>gb :action ShowBookmarks<CR>
+
+" Keep selection when indenting in visual mode
+vnoremap < <gv
+vnoremap > >gv
+
+" Movement
 nnoremap [e :action GotoNextError<CR>
 nnoremap ]e :action GotoPreviousError<CR>
+
+nnoremap [m :action MethodUp<CR>
+nnoremap ]m :action MethodDown<CR>
+
+nnoremap [c :action VcsShowPrevChangeMerker<CR>
+nnoremap ]c :action VcsShowNextChangeMerker<CR>
+
+nnoremap [q :action PreviousOccurence<CR>
+nnoremap ]q :action NextOccurence<CR>
+
+" Saving
 nnoremap <leader>w :write<CR>
 
