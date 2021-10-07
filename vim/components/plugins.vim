@@ -99,6 +99,7 @@ if g:plugin_enabled_tex
             \   '-verbose',
             \   '-file-line-error',
             \   '-synctex=1',
+            \   '-shell-escape',
             \   '-interaction=nonstopmode',
             \ ],
             \}
