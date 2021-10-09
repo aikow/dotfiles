@@ -124,6 +124,7 @@ nnoremap ,T :action RerunFailedTests<CR>
 
 """ Refactoring
 nnoremap <leader>rq :action Refactorings.QuickListPopupAction<CR>
+vnoremap <leader>rq :action Refactorings.QuickListPopupAction<CR>
 nnoremap <leader>rf :action ReformatCode<CR>
 nnoremap <leader>rr :action RenameElement<CR>
 nnoremap <leader>ri :action OptimizeImports<CR>
