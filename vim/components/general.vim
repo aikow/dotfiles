@@ -152,7 +152,7 @@ endif
 " errors flash screen rather than emit beep
 set novisualbell
 
-colorscheme onedark
+colorscheme nord
 set background=dark
 
 " Always show the status line and tabline
@@ -314,11 +314,21 @@ function! EchoSynStack()
   echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
 endfunction
 
+function s:format_options(pairs, lengths)
+  let l:format_str = ""
+  for n in a:lengths
+    let l:format_str = l:format_str."%-".n."s "
+  endfor
+  echom l:format_str
+  return printf(l:format_str, a:pairs[0], a:pairs[1], a:pairs[2], a:pairs[3])
+endfunction
+
 " Get a list of all options that can be set in vim
 function! s:opt_list()
   let l:file = globpath(&rtp, 'doc/options.txt')
   let l:lines = readfile(file)
-  let l:flines = []
+  let l:pairs = []
+  let l:max_len = [0, 0, 0, 0]
 
   for line in l:lines
     " echom line
@@ -328,16 +338,21 @@ function! s:opt_list()
       let abbr = matches[3]
       let type = matches[4]
       let default = matches[5]
-      let fline = full . "\t" . (len(abbr) == 0 ? "\t" : abbr) . "\t" . type . "\t" . default
-      call add(l:flines, fline)
+
+      let pair = [full, abbr, type, default]
+      call add(l:pairs, pair)
+      
+      for i in range(len(pair))
+        if l:max_len[i] > len(pair[i])
+          let l:max_len[i] = len(pair[i])
+        endif
+      endfor
     endif
   endfor
 
+  let l:flines = map(pairs, {_, val -> call <SID>format_options(val, max_len)})
+
   return l:flines
-endfunction
-
-function! s:set_list()
-
 endfunction
 
 function! s:opt_sink()
