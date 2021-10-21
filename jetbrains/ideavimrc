@@ -108,14 +108,14 @@ nmap <leader><leader> :action VimFilePrevious<CR>
 "                                    Run                                     "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "
-nnoremap ,c :action CompileDirty<CR>
-nnoremap ,r :action Run<CR>
-nnoremap ,R :action RunAnything<CR>
-nnoremap ,c :action RunClass<CR>
-nnoremap ,d :action Debug<CR>
-nnoremap ,b :action DebugClass<CR>
-nnoremap ,t :action RerunTests<CR>
-nnoremap ,T :action RerunFailedTests<CR>
+nnoremap \c :action CompileDirty<CR>
+nnoremap \r :action Run<CR>
+nnoremap \R :action RunAnything<CR>
+nnoremap \c :action RunClass<CR>
+nnoremap \d :action Debug<CR>
+nnoremap \b :action DebugClass<CR>
+nnoremap \t :action RerunTests<CR>
+nnoremap \T :action RerunFailedTests<CR>
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -161,6 +161,17 @@ nnoremap <leader>gI :action SelectIn<CR>
 nnoremap <leader>gt :action GotoTest<CR>
 nnoremap <leader>gp :action JumpToLastWindow<CR>
 nnoremap <leader>gb :action ShowBookmarks<CR>
+
+" Search everywhere
+nnoremap <leader>ss :action SearchEverywhere<CR>
+" nnoremap <Tab>ss :action SearchEverywhere.CompleteCommand <Tab><CR>
+" nnoremap <c-n> :action SearchEverywhere.NavigateToNextGroup <Pagedown> <M-Down><CR>
+" nnoremap <c-p> :action SearchEverywhere.NavigateToPrevGroup <Pageup> <M-Up><CR>
+" nnoremap <c-n> :action SearchEverywhere.NextTab <Tab><CR>
+" nnoremap <c-p> :action SearchEverywhere.PrevTab <S-Tab><CR>
+" nnoremap <TAB> :action SearchEverywhere.SelectItem <CR><CR>
+noremap <leader>sa :action SearchEverywhereActions<CR>
+nnoremap <leader>st :action SearchEverywhereNewToolbarAction<CR>
 
 " Keep selection when indenting in visual mode
 vnoremap < <gv
