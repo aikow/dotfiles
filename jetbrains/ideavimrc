@@ -66,6 +66,9 @@ nnoremap <c-z> :action ToggleDistractionFreeMode<CR>
 nnoremap \pr :source ~/.ideavimrc<CR>
 nnoremap \pe :open ~/.ideavimrc<CR>
 
+" Clear the search buffer to remove highlighting from the last search
+nnoremap <silent> <c-/> /^goawaystupidthing$/<CR>
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                                  Terminal                                  "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -91,9 +94,9 @@ nmap <leader>q :action CloseContent<CR>
 nmap <leader>Q :action ReopenClosedTab<CR>
 
 " To navigate between split panes
-nmap <leader>wo :action NextSplitter<CR>
+nmap <leader>wn :action NextSplitter<CR>
 nmap <leader>wp :action PrevSplitter<CR>
-nmap <leader>j :action PrevSplitter<CR>
+nmap <leader><leader> :action PrevSplitter<CR>
 
 " Splits manipulation
 nmap <leader>ws :action SplitHorizontally<CR>
@@ -101,7 +104,6 @@ nmap <leader>wv :action SplitVertically<CR>
 nmap <leader>wc :action Unsplit<CR>
 nmap <leader>wC :action UnsplitAll<CR>
 nmap <leader>wd :action OpenEditorInOppositeTabGroup<CR>
-nmap <leader><leader> :action VimFilePrevious<CR>
 " nmap <leader>ww :action JumpToLastWindow<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -125,11 +127,32 @@ nnoremap \T :action RerunFailedTests<CR>
 """ Refactoring
 nnoremap <leader>rq :action Refactorings.QuickListPopupAction<CR>
 vnoremap <leader>rq :action Refactorings.QuickListPopupAction<CR>
+
 nnoremap <leader>rf :action ReformatCode<CR>
 nnoremap <leader>rr :action RenameElement<CR>
 nnoremap <leader>ri :action OptimizeImports<CR>
 nnoremap <leader>rg :action Generate<CR>
 nnoremap <leader>rI :action InspectCode<CR>
+
+nnoremap <leader>rem :action ExtractMethod<CR>
+vnoremap <leader>rem :action ExtractMethod<CR>
+
+nnoremap <leader>rep :action ExtractInterface<CR>
+vnoremap <leader>rep :action ExtractInterface<CR>
+
+nnoremap <leader>rei :action ExtractImport<CR>
+vnoremap <leader>rei :action ExtractImport<CR>
+
+nnoremap <leader>rec :action ExtractClass<CR>
+vnoremap <leader>rec :action ExtractClass<CR>
+
+nnoremap <leader>res :action ExtractSuperclass<CR>
+vnoremap <leader>res :action ExtractSuperclass<CR>
+
+nnoremap gww :action FillParagraph<CR>
+vnoremap gw :action FillParagraph<CR>
+nnoremap gqq :action FillParagraph<CR>
+vnoremap gq :action FillParagraph<CR>
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -164,12 +187,6 @@ nnoremap <leader>gb :action ShowBookmarks<CR>
 
 " Search everywhere
 nnoremap <leader>ss :action SearchEverywhere<CR>
-" nnoremap <Tab>ss :action SearchEverywhere.CompleteCommand <Tab><CR>
-" nnoremap <c-n> :action SearchEverywhere.NavigateToNextGroup <Pagedown> <M-Down><CR>
-" nnoremap <c-p> :action SearchEverywhere.NavigateToPrevGroup <Pageup> <M-Up><CR>
-" nnoremap <c-n> :action SearchEverywhere.NextTab <Tab><CR>
-" nnoremap <c-p> :action SearchEverywhere.PrevTab <S-Tab><CR>
-" nnoremap <TAB> :action SearchEverywhere.SelectItem <CR><CR>
 noremap <leader>sa :action SearchEverywhereActions<CR>
 nnoremap <leader>st :action SearchEverywhereNewToolbarAction<CR>
 
@@ -178,17 +195,17 @@ vnoremap < <gv
 vnoremap > >gv
 
 " Movement
-nnoremap [e :action GotoNextError<CR>
-nnoremap ]e :action GotoPreviousError<CR>
+nnoremap [e :action GotoPreviousError<CR>
+nnoremap ]e :action GotoNextError<CR>
 
 nnoremap [m :action MethodUp<CR>
 nnoremap ]m :action MethodDown<CR>
 
-nnoremap [c :action VcsShowPrevChangeMerker<CR>
-nnoremap ]c :action VcsShowNextChangeMerker<CR>
+nnoremap [c :action VcsShowPrevChangeMarker<CR>
+nnoremap ]c :action VcsShowNextChangeMarker<CR>
 
-nnoremap [q :action PreviousOccurence<CR>
-nnoremap ]q :action NextOccurence<CR>
+nnoremap [q :action PreviousOccurrence<CR>
+nnoremap ]q :action NextOccurrence<CR>
 
 " Saving
 nnoremap <leader>w :write<CR>

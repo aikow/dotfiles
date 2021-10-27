@@ -15,7 +15,7 @@
 
 [merge]
   # set "nvim" as tool for merging
-  tool = vim
+  tool = vimdiff
   tool = nvim
   conflictstyle = diff3
 
@@ -31,8 +31,10 @@
   default = current
 
 [user]
-  email = aiko.wessels@gmail.com
+  email = aiko.wessels@zoom.us
   name = Aiko Wessels
 
 # [url "git@github.com:"]
   # insteadOf = https://github.com/
+[pull]
+	rebase = false
