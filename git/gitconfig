@@ -27,6 +27,9 @@
   # define command which will be used when "nvim" is set as a merge tool
   cmd = nvim -f -c \"Gdiffsplit!\" \"$MERGED\"
 
+[pull]
+	rebase = false
+
 [push]
   default = current
 
@@ -34,5 +37,5 @@
   email = aiko.wessels@gmail.com
   name = Aiko Wessels
 
-[pull]
-	rebase = false
+[include]
+  path = ~/.gitconfig_local
