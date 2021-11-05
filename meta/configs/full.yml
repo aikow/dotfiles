@@ -15,8 +15,8 @@
 
 - shell:
   - [git submodule update --init --recursive, Installing submodules]
-  - [./conda/bootstrap.sh]
-  - [./fzf/bootstrap.sh]
+  - [./environments/conda/bootstrap.sh]
+  - [./tools/fzf/bootstrap.sh]
 
 - link:
     ~/.dotfiles:
@@ -24,20 +24,20 @@
       path: ""
 
     # Bash
-    ~/.bashrc: bash/bashrc
+    ~/.bashrc: shells/bash/bashrc
 
     # Readline
-    ~/.inputrc: readline/inputrc
+    ~/.inputrc: shells/readline/inputrc
 
     # ZSH
     ~/.zshrc:
       if: 'command -v zsh &>/dev/null'
-      path: zsh/zshrc
+      path: shells/zsh/zshrc
       force: true
     
     # Scripts
     ~/.bin:
-      path: bin/*
+      path: shells/bin/*
       glob: true
       exclude:
         - bin/README.md
@@ -45,48 +45,48 @@
     # Tmux
     ~/.tmux.conf:
       if: 'command -v tmux &>/dev/null'
-      path: tmux/tmux_full.conf
+      path: tools/tmux/tmux_full.conf
 
     # Vim
     ~/.vimrc:
       if: 'command -v vim &>/dev/null || command -v vi &>/dev/null'
-      path: vim/light.vim
+      path: tools/vim/light.vim
 
     # Git
-    ~/.gitconfig: git/gitconfig
-    ~/.gitignore_global: git/gitignore_global
+    ~/.gitconfig: tools/git/gitconfig
+    ~/.gitignore_global: tools/git/gitignore_global
 
     # Screen
     ~/.screenrc:
       if: 'command -v screen &>/dev/null'
-      path: screen/screenrc
+      path: tools/screen/screenrc
     
     # Dir colors
-    ~/.dir_colors: dircolors/dir_colors
+    ~/.dir_colors: shells/dircolors/dir_colors
 
     # Conda
-    ~/.condarc: conda/condarc
+    ~/.condarc: environments/conda/condarc
 
     # Neovim
     ~/.config/nvim/init.vim:
       if: 'command -v nvim &>/dev/null'
-      path: vim/full.vim
+      path: tools/vim/full.vim
       create: true
 
     # Terminator
     ~/.config/terminator/config:
       if: 'command -v terminator &>/dev/null'
-      path: terminator/config
+      path: emulators/terminator/config
       create: true
 
     # Jetbrains vim emulator
-    ~/.ideavimrc: jetbrains/ideavimrc
+    ~/.ideavimrc: ides/jetbrains/ideavimrc
 
     # VSCode Linux
     ~/.config/Code/User:
       if: '[[ $(uname) = Linux ]]'
       glob: true
-      path: vscode/linux/*.json
+      path: ides/vscode/linux/*.json
       force: true
       create: true
     
@@ -94,7 +94,7 @@
     ~/Library/Application Support/Code/User:
       if: '[[ $(uname) = Darwin ]]'
       glob: true
-      path: vscode/macos/*.json
+      path: ides/vscode/macos/*.json
       force: true
       create: true
 
