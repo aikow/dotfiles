@@ -6,6 +6,4 @@
 [submodule "zsh/zinit"]
 	path = zsh/zinit
 	url = https://github.com/zdharma/zinit.git
-[submodule "fzf/fzf"]
-	path = fzf/fzf
-	url = https://github.com/junegunn/fzf.git
+
