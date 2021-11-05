@@ -1,0 +1,154 @@
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
+
+#######################################################################
+#                               Exports                               #
+#######################################################################
+# Set the dotfiles path
+export DOTFILES="$HOME/.dotfiles"
+
+export PATH="${HOME}/.bin:${DOTFILES}/shells/bin:${HOME}/.local/bin:/usr/local/bin:/opt/vc/bin:${PATH}"
+
+### Ruby ###
+if command -v gem &>/dev/null; then
+  # Set gem home directory
+  export GEM_HOME=$(ruby -e 'puts Gem.user_dir')
+  export PATH=$PATH:$GEM_HOME/bin
+fi
+
+### Editor ###
+if command -v nvim &>/dev/null; then
+  export VISUAL=nvim
+else;
+  export VISUAL=vim
+fi
+export EDITOR=${VISUAL}
+
+### FZF ###
+if command -v fzf &>/dev/null; then
+  if command -v ag &>/dev/null; then
+    export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow --glob "!.git/*"'
+  elif command -v ag &>/dev/null; then
+    export FZF_DEFAULT_COMMAND='ag -l --path-to-ignore ~/.ignore --nocolor --hidden -g ""'
+  fi
+fi
+
+
+#######################################################################
+#                                 zinit                               #
+#######################################################################
+# Source the zinit script
+source "${DOTFILES}/shells/zsh/zinit/zinit.zsh"
+
+# Plugins
+zinit snippet OMZL::git.zsh
+zinit snippet OMZP::git
+zinit snippet OMZP::github
+zinit snippet OMZP::kubectl
+zinit snippet OMZP::colored-man-pages
+zinit snippet OMZP::command-not-found
+zinit light commanda-panda/zsh-auto-ls
+
+# These 2 must be in this order
+zinit load zsh-users/zsh-autosuggestions
+zinit load zsh-users/zsh-syntax-highlighting
+zinit load zsh-users/zsh-history-substring-search
+
+zinit load softmoth/zsh-vim-mode
+  # zsh-vim-mode Options
+  MODE_CURSOR_VIINS="#00ff00 blinking bar"
+  MODE_CURSOR_REPLACE="$MODE_CURSOR_VIINS #ff0000"
+  MODE_CURSOR_VICMD="green block"
+  MODE_CURSOR_SEARCH="#ff00ff steady underline"
+  MODE_CURSOR_VISUAL="$MODE_CURSOR_VICMD steady bar"
+  MODE_CURSOR_VLINE="$MODE_CURSOR_VISUAL #00ffff"
+
+# Warn you when you run a command that you've got an alias for
+zinit load djui/alias-tips
+
+# Load additional zsh completions
+zinit wait lucid atload"zicompinit; zicdreplay" blockf for \
+    zsh-users/zsh-completions
+
+# Powerlevel10k theme
+zinit ice depth"1"
+zinit light romkatv/powerlevel10k
+
+# Load the powerlevel10k prompt
+source "${DOTFILES}/shells/zsh/p10k.zsh"
+
+
+#######################################################################
+#                               History                               #
+#######################################################################
+# History Options
+setopt append_history
+setopt extended_history
+setopt hist_expire_dups_first
+setopt hist_ignore_all_dups
+setopt hist_ignore_dups
+setopt hist_ignore_space
+setopt hist_reduce_blanks
+setopt hist_save_no_dups
+setopt hist_verify
+
+# Share history across all your terminal windows
+# setopt share_history
+# setopt noclobber
+
+# Increase history size
+HISTSIZE=100000
+SAVEHIST=100000
+HISTFILE=~/.zsh_history
+export HISTIGNORE="ls:ll:cd:cd -:pwd:exit:date:* --help"
+
+
+#######################################################################
+#                         User Configuration                          #
+#######################################################################
+# Bind C-e to edit the command line
+autoload edit-command-line; zle -N edit-command-line
+bindkey '^x^e' edit-command-line
+
+# Bind C-o to add an argument to the previous command
+bindkey -s '^o' '^[k0Ea '
+
+# Bind C-x C-l to pipe the previous command into less
+bindkey -s '^x^l' '^[kA | less'
+
+# Bind C-x C-p to pipe the previous command
+bindkey -s '^x^p' '^[kA | '
+
+# History seach
+bindkey "^p" history-beginning-search-backward
+bindkey "^n" history-beginning-search-forward
+
+# Clear screen
+bindkey "^l" clear-screen
+
+# Load completions 
+autoload -U compinit && compinit
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
+
+
+#######################################################################
+#                               Sources                               #
+#######################################################################
+# Load OS specific settings
+[[ -f "${DOTFILES}/shells/zsh/os/${OSTYPE}.zsh" ]] && source "${DOTFILES}/shells/zsh/os/${OSTYPE}.zsh" 
+
+# Source fzf if installed
+[[ -f ~/.fzf.zsh ]] && source ~/.fzf.zsh
+
+# Load user aliases
+[[ -f "${DOTFILES}/shells/zsh/aliases" ]]  && source "${DOTFILES}/shells/zsh/aliases"
+
+# Load local settings and aliases
+[[ -f "${HOME}/.aliases.local" ]] && source "${HOME}/.aliases.local"
+[[ -f "${HOME}/.zshrc.local" ]] && source "${HOME}/.zshrc.local"
+
