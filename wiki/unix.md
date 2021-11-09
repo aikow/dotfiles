@@ -15,4 +15,8 @@ Very similar to `the_silver_searcher`
 A fuzzy file finder.
 
 
+## Cool random programs
 
+- Cbonsai
+- Spotify-tui
+- pscircle
