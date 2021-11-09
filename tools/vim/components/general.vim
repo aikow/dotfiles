@@ -86,13 +86,13 @@ if has('nvim')
   if !filereadable(s:pynvim_path)
     " Bootstrap the python2 conda env with pynvim 
     echom "Bootstrapping the conda python2 env..."
-    execute "!" . expand('conda env create -f $HOME/.dotfiles/vim/envs/pynvim.yml')
+    execute "!" . expand('conda env create -f $HOME/.dotfiles/tools/vim/envs/pynvim.yml')
   endif
 
   if !filereadable(s:pynvim3_path)
     " Bootstrap the python3 conda env with pynvim
     echom "Bootstrapping the conda python3 env..."
-    execute "!" . expand('conda env create -f $HOME/.dotfiles/vim/envs/pynvim3.yml')
+    execute "!" . expand('conda env create -f $HOME/.dotfiles/tools/vim/envs/pynvim3.yml')
   endif
 
   " Set the python provider for neovim
