@@ -204,11 +204,11 @@ bindsym $mod+m bar mode toggle
 # My colors
 client.background	$background
 
-client.focused         	$foreground	$background	$foreground	$color4		$color4	
-client.unfocused       	$foreground	$background	$foreground	$background	$background
-client.focused_inactive	$foreground	$background	$foreground	$background	$background
-client.urgent		$foreground	$background	$foreground	$background	$background
-client.placeholder	$foreground	$background	$foreground	$background	$background
+# client.focused         	$foreground	$background	$foreground	$color4		$color4	
+# client.unfocused       	$foreground	$background	$foreground	$background	$background
+# client.focused_inactive	$foreground	$background	$foreground	$background	$background
+# client.urgent		$foreground	$background	$foreground	$background	$background
+# client.placeholder	$foreground	$background	$foreground	$background	$background
 
 
 #############################
@@ -216,8 +216,8 @@ client.placeholder	$foreground	$background	$foreground	$background	$background
 #############################
 
 # Set inner/outer gaps
-gaps inner 8
-gaps outer -4
+# gaps inner 8
+# gaps outer -4
 
 # Additionally, you can issue commands with the following syntax. This is useful to bind keys to changing the gap size.
 # gaps inner|outer current|all set|plus|minus <px>
