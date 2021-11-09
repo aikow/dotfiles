@@ -33,6 +33,10 @@ exec --no-startup-id nm-applet
 # Set the desktop wallpaper
 exec --no-startup-id feh --bg-scale ~/Pictures/Backgrounds/nord_theme_mountain.png
 
+# Remap capslock as escape
+exec --no-startup-id xmodmap -e "clear lock"
+exec --no-startup-id xmodmap -e "keysym Caps_Lock = Escape"
+
 # Use pactl to adjust volume in PulseAudio.
 set $refresh_i3status killall -SIGUSR1 i3status
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +10% && $refresh_i3status
@@ -80,6 +84,10 @@ bindsym $mod+Shift+Left move left
 bindsym $mod+Shift+Down move down
 bindsym $mod+Shift+Up move up
 bindsym $mod+Shift+Right move right
+
+# move to next/previous workspace:
+bindsym $mod+n workspace next
+bindsym $mod+p workspace prev
 
 # split in horizontal orientation
 bindsym $mod+Shift+v split h
