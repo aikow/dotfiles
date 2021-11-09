@@ -14,7 +14,7 @@ endif
 "
 set nocompatible
 
-set rtp+=~/.dotfiles/vim/rtp
+set rtp+=~/.dotfiles/tools/vim/rtp
 
 " Search recursively downward from CWD; provides TAB completion for filenames
 " e.g., `:find vim* <TAB>`
@@ -270,12 +270,15 @@ nnoremap <leader>hf :Filetypes<CR>
 nnoremap <leader>w :w<CR>
 
 " Copy and paste to system clipboard
-vmap <Leader>y "+y
-vmap <Leader>d "+d
-nmap <Leader>p "+p
-nmap <Leader>P "+P
-vmap <Leader>p "+p
-vmap <Leader>P "+P
+vmap <Leader>sy "+y
+vmap <Leader>sd "+d
+nmap <Leader>sp "+p
+nmap <Leader>sP "+P
+vmap <Leader>sp "+p
+vmap <Leader>sP "+P
+
+" Plugins
+nnoremap <leader>pur :call UltiSnips#RefreshSnippets()<CR>
 
 
 " Show syntax highlighting groups for the word under the cursor

@@ -26,6 +26,7 @@ def complete(tab, opts):
     if len(opts) > 5: cads += "|..."
     return "({0})".format(cads)
 
+
 def _parse_comments(s):
     """ Parses vim's comments option to extract comment format """
     i = iter(s.split(","))
@@ -63,6 +64,7 @@ def _parse_comments(s):
     except StopIteration:
         return rv
 
+
 def get_comment_format():
     """ Returns a 4-element tuple (first_line, middle_lines, end_line, indent)
     representing the comment format for the current file.
@@ -93,6 +95,7 @@ def make_box(twidth, bwidth=None):
     eline = i + m + bwidth_inner * m0 + 2 * m0 + e
     return sline, mlines, mlinee, eline
 
+
 def foldmarker():
     "Return a tuple of (open fold marker, close fold marker)"
     return vim.eval("&foldmarker").split(",")
@@ -111,9 +114,11 @@ def display_width(str):
             result += 2 if east_asian_width(c) in ('W', 'F') else 1
         return result
 
+
 # http://stackoverflow.com/questions/2718196/find-all-chinese-text-in-a-string-using-python-and-regex
 def has_cjk(s):
     """Detect if s contains CJK characters."""
     cjk_re = re.compile(u'[⺀-⺙⺛-⻳⼀-⿕々〇〡-〩〸-〺〻㐀-䶵一-鿃豈-鶴侮-頻並-龎]', re.UNICODE)
 
     return cjk_re.search(s) is not None
+

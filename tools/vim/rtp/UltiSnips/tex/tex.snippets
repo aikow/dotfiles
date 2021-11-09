@@ -1,3 +1,163 @@
+global !p
+from vimsnippets import foldmarker, make_box, get_comment_format
+
+def convert_to_snake(string):
+		string = string.replace('ü', 'ue')
+    string = string.replace('Ü', 'Ue')
+    string = string.replace('ä', 'ae')
+    string = string.replace('Ä', 'Ae')
+    string = string.replace('ö', 'oe')
+    string = string.replace('Ö', 'Oe')
+    string = string.replace('ß', 'ss')
+
+		return string.lower().replace(' ', '_')
+
+endglobal
+
+
+#######################################################################
+#                               General                               #
+#######################################################################
+
+snippet pac "Package" b
+\usepackage[${1:options}]{${2:package}}
+$0
+endsnippet
+
+snippet box "Small box" b
+`!p
+text_length = len(t[1])
+comment = '%% '
+snip.rv = comment + '--' + ('-' * text_length) + '--'
+snip += comment + '|' + ' '
+`${1:${VISUAL:content}}`!p
+text_length = len(t[1])
+comment = '%% '
+snip.rv = ' |'
+snip += comment + '--' + ('-' * text_length) + '--'
+`
+$0
+endsnippet
+
+
+snippet bbox "Big box" b
+`!p
+text_length = len(t[1])
+comment = '%% '
+snip.rv = comment + '===' + ('=' * text_length) + '==='
+snip += comment + '|==' + ('=' * text_length) + '==|'
+snip += comment + '|| ' + (' ' * text_length) + ' ||'
+snip += comment + '|| '
+`${1:${VISUAL:content}}`!p
+text_length = len(t[1])
+comment = '%% '
+snip.rv = ' ||'
+snip += comment + '|| ' + (' ' * text_length) + ' ||'
+snip += comment + '|==' + ('=' * text_length) + '==|'
+snip += comment + '===' + ('=' * text_length) + '==='
+`
+$0
+endsnippet
+
+#######################################################################
+#                            Environments                             #
+#######################################################################
+
+snippet beg "begin{} / end{}" bA
+\begin{$1}$2
+	$0
+\end{$1}
+endsnippet
+
+snippet table "Table environment" b
+\begin{table}[${1:htpb}]
+	\centering
+	\caption{${2:caption}}
+	\label{tab:${3:label}}
+	\begin{tabular}{${5:c}}
+		$0${5/((?<=.)c|l|r)|./(?1: & )/g}
+	\end{tabular}
+\end{table}
+endsnippet
+
+snippet fig "Figure environment" b
+\begin{figure}[${1:htpb}]
+	\centering
+	${2:\includegraphics[width=0.8\textwidth]{$3}}
+	\caption{${4:$3}}
+	\label{fig:${5:${3/\W+/-/g}}}
+\end{figure}
+endsnippet
+
+snippet enum "Enumerate" bA
+\begin{enumerate}
+	\item $0
+\end{enumerate}
+endsnippet
+
+snippet item "Itemize" bA
+\begin{itemize}
+	\item $0
+\end{itemize}
+endsnippet
+
+snippet desc "Description" b
+\begin{description}
+	\item[$1] $0
+\end{description}
+endsnippet
+
+#######################################################################
+#                              Sections                               #
+#######################################################################
+
+snippet chap "chapter" bA
+\chapter{$1}
+\label{chap:`!p snip.rv = convert_to_snake(t[1])`}
+
+$0
+endsnippet
+
+snippet sec "section" bA
+\section{$1}
+\label{sec:`!p snip.rv = convert_to_snake(t[1])`}
+
+$0
+endsnippet
+
+snippet ssec "subsection" bA
+\subsection{$1}
+\label{ssec:`!p snip.rv = convert_to_snake(t[1])`}
+
+$0
+endsnippet
+
+snippet sssec "subsubsection" bA
+\subsubsection{$1}
+\label{sssec:`!p snip.rv = convert_to_snake(t[1])`}
+
+$0
+endsnippet
+
+snippet par "paragraph" bA
+\paragraph{$1}
+\label{par:`!p snip.rv = convert_to_snake(t[1])`}
+
+$0
+endsnippet
+
+snippet spar "subparagraph" bA
+\subparagraph{$1}
+\label{spar:`!p snip.rv = convert_to_snake(t[1])`}
+
+$0
+endsnippet
+
+
+#######################################################################
+#                            Type Setting                             #
+#######################################################################
+
 snippet it "italics" w
 \textit{$1}`!p
 if t[2] and t[2][0] not in [',', '.', '?', '-', ' ', ':', ';']:
@@ -24,3 +184,4 @@ else:
 	snip.rv = ''
 `$2
 endsnippet
+
