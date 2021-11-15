@@ -21,7 +21,7 @@ export EDITOR=${VISUAL}
 export TERM=xterm-256color
 
 ### FZF ###
-if command -v fzf &>/dev/null && command -v ag &>/dev/null; then
+if command -v rg &>/dev/null; then
   export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow --glob "!.git/*"'
 fi
 
@@ -105,5 +105,4 @@ bind -m vi-insert '"\C-o": "\e-0Eli "'
 # Load local aliases and configurations
 [[ -f "${HOME}/.aliases.local" ]] && source "${HOME}/.aliases.local"
 [[ -f "${HOME}/.bashrc.local" ]] && source "${HOME}/.bashrc.local"
-
 
