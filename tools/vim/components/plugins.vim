@@ -88,22 +88,56 @@ if g:plugin_enabled_tex
   Plug 'lervag/vimtex'
     let g:tex_flavor='latex'
     let g:vimtex_view_method='zathura'
-    let g:vimtex_quickfix_mode=0
-    let g:vvimtex_compiler_prognam='nvr'
+    let g:vimtex_quickfix_mode=2
+    let g:vimtex_compiler_progname='nvr'
+    let g:vimtex_compiler_method='latexmk'
     let g:vimtex_compiler_latexmk = {
-          \ 'build_dir' : 'build',
-          \ 'callback' : 1,
+          \ 'build_dir'  : 'build',
+          \ 'callback'   : 1,
           \ 'continuous' : 1,
           \ 'executable' : 'latexmk',
-          \ 'hooks' : [],
-          \ 'options' : [
+          \ 'hooks'      : [],
+          \ 'options'    : [
             \   '-verbose',
             \   '-file-line-error',
             \   '-synctex=1',
-            \   '-shell-escape',
             \   '-interaction=nonstopmode',
             \ ],
             \}
+    let g:vimtex_compiler_latexmk_engines = {
+        \ '_'                : '-pdf',
+        \ 'pdflatex'         : '-pdf',
+        \ 'dvipdfex'         : '-pdfdvi',
+        \ 'lualatex'         : '-lualatex',
+        \ 'xelatex'          : '-xelatex',
+        \ 'context (pdftex)' : '-pdf -pdflatex=texexec',
+        \ 'context (luatex)' : '-pdf -pdflatex=context',
+        \ 'context (xetex)'  : '-pdf -pdflatex=''texexec --xtx''',
+        \}
+    let g:vimtex_compiler_latexrun = {
+        \ 'build_dir' : '',
+        \ 'options' : [
+        \   '-verbose-cmds',
+        \   '--latex-args="-synctex=1"',
+        \ ],
+        \}
+    let g:vimtex_compiler_latexrun_engines = {
+        \ '_'                : 'pdflatex',
+        \ 'pdflatex'         : 'pdflatex',
+        \ 'lualatex'         : 'lualatex',
+        \ 'xelatex'          : 'xelatex',
+        \}
+
+    augroup latexSurround
+       autocmd!
+       autocmd FileType tex call s:latexSurround()
+    augroup END
+
+    function! s:latexSurround()
+       let b:surround_{char2nr("e")}
+         \ = "\\begin{\1environment: \1}\n\t\r\n\\end{\1\1}"
+       let b:surround_{char2nr("c")} = "\\\1command: \1{\r}"
+    endfunction
 endif
 
 " Tex - conceals math operators and other items and replaces with compiled

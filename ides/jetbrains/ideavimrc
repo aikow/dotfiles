@@ -113,11 +113,12 @@ nmap <leader>wd :action OpenEditorInOppositeTabGroup<CR>
 nnoremap \c :action CompileDirty<CR>
 nnoremap \r :action Run<CR>
 nnoremap \R :action RunAnything<CR>
-nnoremap \c :action RunClass<CR>
+nnoremap \s :action RunClass<CR>
 nnoremap \d :action Debug<CR>
 nnoremap \b :action DebugClass<CR>
 nnoremap \t :action RerunTests<CR>
 nnoremap \T :action RerunFailedTests<CR>
+nnoremap \p :action PyRunFileInConsole<CR>
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -133,6 +134,7 @@ nnoremap <leader>rr :action RenameElement<CR>
 nnoremap <leader>ri :action OptimizeImports<CR>
 nnoremap <leader>rg :action Generate<CR>
 nnoremap <leader>rI :action InspectCode<CR>
+nnoremap <leader>rl :action Inline<CR>
 
 nnoremap <leader>rem :action ExtractMethod<CR>
 vnoremap <leader>rem :action ExtractMethod<CR>
@@ -148,6 +150,22 @@ vnoremap <leader>rec :action ExtractClass<CR>
 
 nnoremap <leader>res :action ExtractSuperclass<CR>
 vnoremap <leader>res :action ExtractSuperclass<CR>
+
+nnoremap <leader>rev :action IntroduceVariable<CR>
+vnoremap <leader>rev :action IntroduceVariable<CR>
+
+nnoremap <leader>ref :action IntroduceField<CR>
+vnoremap <leader>ref :action IntroduceField<CR>
+
+nnoremap <leader>rec :action IntroduceConstant<CR>
+vnoremap <leader>rec :action IntroduceConstant<CR>
+
+nnoremap <leader>rep :action IntroduceParameter<CR>
+vnoremap <leader>rep :action IntroduceParameter<CR>
+
+nnoremap <leader>reo :action IntroduceParameterObject<CR>
+vnoremap <leader>reo :action IntroduceParameterObject<CR>
+
 
 nnoremap gww :action FillParagraph<CR>
 vnoremap gw :action FillParagraph<CR>
