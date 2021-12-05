@@ -157,6 +157,12 @@ if has("nvim")
   set termguicolors 
 endif
 
+if exists('+termguicolors')
+  let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+  let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+  set termguicolors
+endif
+
 " errors flash screen rather than emit beep
 set novisualbell
 
@@ -200,8 +206,8 @@ nnoremap <silent> <c-_> :let @/ = ""<CR>
 " Use <gp> to select the text that was last pasted
 nnoremap <expr> gp '`[' . strpart(getregtype(), 0,  1) . '`]'
 
-" Use <c-f> to search for the word under the cursor with ag
-nnoremap <C-f> :grep! "\b<C-R><C-W>\b"<CR>:cwindow<CR>
+"
+vnoremap <leader>us :'<'>!sort<CR>
 
 " Make Y behave like other capital numbers
 nnoremap Y y$
