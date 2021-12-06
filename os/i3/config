@@ -9,43 +9,38 @@
 #
 # Please see https://i3wm.org/docs/userguide.html for a complete reference!
 
+set_from_resource $darkred     color1  #000000
+set_from_resource $red         color9  #000000
+set_from_resource $darkgreen   color2  #000000
+set_from_resource $green       color10 #000000
+set_from_resource $darkyellow  color3  #000000
+set_from_resource $yellow      color11 #000000
+set_from_resource $darkblue    color4  #000000
+set_from_resource $blue        color12 #000000
+set_from_resource $darkmagenta color5  #000000
+set_from_resource $magenta     color13 #000000
+set_from_resource $darkcyan    color6  #000000
+set_from_resource $cyan        color14 #000000
+set_from_resource $darkwhite   color7  #000000
+set_from_resource $white       color15 #000000
+# Use custom colors for black
+set $black       #282828
+set $darkblack   #1d2021
+set $transparent #00000000
+
+set $height 34
+
+# Set mod key
 set $mod Mod4
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
-font pango:Noto 8
+# font pango:Noto 8
 
 # This font is widely installed, provides lots of unicode glyphs, right-to-left
 # text rendering and scalability on retina/hidpi displays (thanks to pango).
-#font pango:DejaVu Sans Mono 8
+font pango:DejaVu Sans Mono 8
 
-# The combination of xss-lock, nm-applet and pactl is a popular choice, so
-# they are included here as an example. Modify as you see fit.
-
-# xss-lock grabs a logind suspend inhibit lock and will use i3lock to lock the
-# screen before suspend. Use loginctl lock-session to lock your screen.
-exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
-
-# NetworkManager is the most popular way to manage wireless networks on Linux,
-# and nm-applet is a desktop environment-independent system tray GUI for it.
-exec --no-startup-id nm-applet
-
-# Set the desktop wallpaper
-exec --no-startup-id feh --bg-scale ~/Pictures/Backgrounds/nord_theme_mountain.png
-
-# Remap capslock as escape
-exec --no-startup-id xmodmap -e "clear lock"
-exec --no-startup-id xmodmap -e "keysym Caps_Lock = Escape"
-
-# Use pactl to adjust volume in PulseAudio.
-set $refresh_i3status killall -SIGUSR1 i3status
-bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +10% && $refresh_i3status
-bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -10% && $refresh_i3status
-bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_i3status
-bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
-
-# Start polybar
-exec --no-startup-id $HOME/.dotfiles/os/polybar/launch.sh
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
@@ -60,10 +55,6 @@ bindsym $mod+Shift+q kill
 # bindsym $mod+d exec --no-startup-id dmenu_run
 # A more modern dmenu replacement is rofi:
 bindsym $mod+d exec "rofi -modi drun,run -show drun"
-# bindcode $mod+40 exec "rofi -modi drun,run -show drun"
-# There also is i3-dmenu-desktop which only displays applications shipping a
-# .desktop file. It is a wrapper around dmenu, so you need that installed.
-# bindcode $mod+40 exec --no-startup-id i3-dmenu-desktop
 
 # change focus
 bindsym $mod+h focus left
@@ -94,7 +85,7 @@ bindsym $mod+n workspace next
 bindsym $mod+p workspace prev
 
 # split in horizontal orientation
-bindsym $mod+Shift+v split h
+bindsym $mod+b split h
 
 # split in vertical orientation
 bindsym $mod+v split v
@@ -121,16 +112,16 @@ bindsym $mod+a focus parent
 
 # Define names for default workspaces for which we configure key bindings later on.
 # We use variables to avoid repeating the names in multiple places.
-set $ws1 "1"
-set $ws2 "2"
-set $ws3 "3"
-set $ws4 "4"
-set $ws5 "5"
-set $ws6 "6"
-set $ws7 "7"
-set $ws8 "8"
-set $ws9 "9"
-set $ws10 "10"
+set $ws1  "1:  "
+set $ws2  "2:  "
+set $ws3  "3:  "
+set $ws4  "4:  "
+set $ws5  "5:  "
+set $ws6  "6:  "
+set $ws7  "7:  "
+set $ws8  "8:  "
+set $ws9  "9:  "
+set $ws10 "10:  "
 
 # switch to workspace
 bindsym $mod+1 workspace number $ws1
@@ -163,7 +154,30 @@ bindsym $mod+Shift+r restart
 # exit i3 (logs you out of your X session)
 bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
 
+################
+#  Power Mode  #
+################
+set $mode_power power
+bindsym $mod+Mod1+Control+l mode "$mode_power"
+mode "$mode_power" {
+    bindsym l mode "default", exec --no-startup-id $HOME/.dotfiles/os/i3/i3exit lock
+    bindsym e mode "default", exec --no-startup-id $HOME/.dotfiles/os/i3/i3exit logout
+    bindsym s mode "default", exec --no-startup-id $HOME/.dotfiles/os/i3/i3exit suspend
+    bindsym h mode "default", exec --no-startup-id $HOME/.dotfiles/os/i3/i3exit hibernate
+    bindsym r mode "default", exec --no-startup-id $HOME/.dotfiles/os/i3/i3exit reboot
+    bindsym p mode "default", exec --no-startup-id $HOME/.dotfiles/os/i3/i3exit shutdown
+
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+
+
+##############
+#  Resizing  #
+##############
+#
 # resize window (you can also use the mouse for that)
+set $resize_step 4
 mode "resize" {
         # These bindings trigger as soon as you enter the resize mode
 
@@ -171,16 +185,16 @@ mode "resize" {
         # Pressing right will grow the window’s width.
         # Pressing up will shrink the window’s height.
         # Pressing down will grow the window’s height.
-        bindsym j resize shrink width 10 px or 10 ppt
-        bindsym k resize grow height 10 px or 10 ppt
-        bindsym l resize shrink height 10 px or 10 ppt
-        bindsym semicolon resize grow width 10 px or 10 ppt
+        bindsym h resize shrink width $resize_step px or $resize_step ppt
+        bindsym j resize grow height $resize_step px or $resize_step ppt
+        bindsym k resize shrink height $resize_step px or $resize_step ppt
+        bindsym l resize grow width $resize_step px or $resize_step ppt
 
         # same bindings, but for the arrow keys
-        bindsym Left resize shrink width 10 px or 10 ppt
-        bindsym Down resize grow height 10 px or 10 ppt
-        bindsym Up resize shrink height 10 px or 10 ppt
-        bindsym Right resize grow width 10 px or 10 ppt
+        bindsym Left resize shrink width $resize_step px or $resize_step ppt
+        bindsym Up resize grow height $resize_step px or $resize_step ppt
+        bindsym Down resize shrink height $resize_step px or $resize_step ppt
+        bindsym Right resize grow width $resize_step px or $resize_step ppt
 
         # back to normal: Enter or Escape or $mod+r
         bindsym Return mode "default"
@@ -188,8 +202,139 @@ mode "resize" {
         bindsym $mod+r mode "default"
 }
 
+############
+#  Moving  #
+############
+#
+# move floating windows with keys
+bindsym $mod+m mode "move" focus floating
+mode "move" {
+    bindsym $mod+Tab focus right
+
+    bindsym Left  move left
+    bindsym Down  move down
+    bindsym Up    move up
+    bindsym Right move right
+
+    bindsym h     move left
+    bindsym j     move down
+    bindsym k     move up
+    bindsym l     move right
+
+    # back to normal: Enter or Escape
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+
 bindsym $mod+r mode "resize"
 
+
+#######################################################################
+#                               I3 Gaps                               #
+#######################################################################
+# Set inner/outer gaps
+gaps inner 8
+gaps outer 4
+
+# Smart gaps (gaps used if only more than one container on the workspace)
+smart_gaps on
+
+# Smart borders (draw borders around container only if it is not the only container on this workspace) 
+# on|no_gaps (on=always activate and no_gaps=only activate if the gap size to the edge of the screen is 0)
+smart_borders on
+
+# Press $mod+Shift+g to enter the gap mode. Choose o or i for modifying outer/inner gaps. Press one of + / - (in-/decrement for current workspace) or 0 (remove gaps for current workspace). If you also press Shift with these keys, the change will be global for all workspaces.
+set $mode_gaps Gaps: (o) outer, (i) inner
+set $mode_gaps_outer Outer Gaps: +|-|0 (local), Shift + +|-|0 (global)
+set $mode_gaps_inner Inner Gaps: +|-|0 (local), Shift + +|-|0 (global)
+
+###############
+#  Gaps mode  #
+###############
+
+bindsym $mod+Shift+g mode "$mode_gaps"
+mode "$mode_gaps" {
+        bindsym o      mode "$mode_gaps_outer"
+        bindsym i      mode "$mode_gaps_inner"
+
+        bindsym 0      mode "default", exec --no-startup-id i3-msg "gaps inner current set 0" && i3-msg "gaps outer current set 0"
+        bindsym d      mode "default", exec --no-startup-id i3-msg "gaps inner current set $default_gaps_inner" && i3-msg "gaps outer current set $default_gaps_outer"
+
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+}
+mode "$mode_gaps_inner" {
+        bindsym plus  gaps inner current plus 1
+        bindsym minus gaps inner current minus 1
+        bindsym j     gaps outer current plus 1
+        bindsym k     gaps outer current minus 1
+        bindsym 0     gaps inner current set 0
+
+        bindsym Shift+plus  gaps inner all plus 1
+        bindsym Shift+minus gaps inner all minus 1
+        bindsym Shift+j     gaps outer current plus 1
+        bindsym Shift+k     gaps outer current minus 1
+        bindsym Shift+0     gaps inner all set 0
+
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+}
+mode "$mode_gaps_outer" {
+        bindsym plus  gaps outer current plus 1
+        bindsym minus gaps outer current minus 1
+        bindsym j     gaps outer current plus 1
+        bindsym k     gaps outer current minus 1
+        bindsym 0     gaps outer current set 0
+
+        bindsym Shift+plus  gaps outer all plus 1
+        bindsym Shift+minus gaps outer all minus 1
+        bindsym Shift+j     gaps outer current plus 1
+        bindsym Shift+k     gaps outer current minus 1
+        bindsym Shift+0     gaps outer all set 0
+
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+}
+
+#######################################################################
+#                        Set Floating windows                         #
+#######################################################################
+
+new_window none
+new_float none
+
+for_window [window_role="pop-up"] floating enable
+for_window [window_role="bubble"] floating enable
+for_window [window_role="task_dialog"] floating enable
+for_window [window_role="Preferences"] floating enable
+
+for_window [window_type="dialog"] floating enable
+for_window [window_type="menu"] floating enable
+
+for_window [class="(?i)gsimplecal"] floating enable, move position mouse, move down $height px
+for_window [class="(?i)VirtualBox" title="(?i)Manager"] floating enable
+for_window [class="(?i)VirtualBox"] floating enable
+for_window [class="(?i)blueman"] floating enable
+for_window [class="(?i)pinentry"] floating enable
+for_window [class="(?i)nm-connection-editor"] floating enable
+#for_window [class=zoom] floating enable, move position center
+for_window [class="^zoom$" title="^.*(?<!Zoom Meeting)$"] floating enable, move position center
+
+#for_window [instance="sun-awt-X11-XFramePeer"] floating enable
+for_window [instance="__scratchpad"] floating enable, resize set 900 px 500 px, move position center
+for_window [instance="__nmtui"] floating enable
+for_window [class="(?i)recordmydesktop"] floating enable
+
+for_window [class="(?i)pavucontrol"] floating enable, move position mouse
+for_window [class="(?i)pavucontrol" instance="pavucontrol-bar"] move down $height px
+
+assign [class="(?i)spotify"]     $ws7
+assign [class="(?i)zoom"]        $ws8
+assign [class="(?i)thunderbird"] $ws9
+
+#######################################################################
+#                                Theme                                #
+#######################################################################
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 # bar {
@@ -197,74 +342,44 @@ bindsym $mod+r mode "resize"
 # }
 
 # hide/unhide i3status bar
-bindsym $mod+m bar mode toggle
+bindsym $mod+Shift+b bar mode toggle
 
 # Theme colors
-# class                 border  	backgr. 	text    	indic.  	child_border
-# My colors
-client.background	$background
-
-# client.focused         	$foreground	$background	$foreground	$color4		$color4	
-# client.unfocused       	$foreground	$background	$foreground	$background	$background
-# client.focused_inactive	$foreground	$background	$foreground	$background	$background
-# client.urgent		$foreground	$background	$foreground	$background	$background
-# client.placeholder	$foreground	$background	$foreground	$background	$background
+#                       BORDER      BACKGROUND  TEXT        INDICATOR   CHILD_BORDER
+client.focused          $black      $black      $darkwhite  $darkblack  $darkblack
+client.unfocused        $black      $black      $white      $darkblack  $darkblack
+client.focused_inactive $black      $black      $white      $darkblack  $darkblack
+client.urgent           $darkred    $darkred    $black      $darkred    $darkred
+client.background       $black
 
 
-#############################
-### settings for i3-gaps: ###
-#############################
+#######################################################################
+#                             Auto start                              #
+#######################################################################
+# The combination of xss-lock, nm-applet and pactl is a popular choice, so
+# they are included here as an example. Modify as you see fit.
 
-# Set inner/outer gaps
-# gaps inner 8
-# gaps outer -4
+# xss-lock grabs a logind suspend inhibit lock and will use i3lock to lock the
+# screen before suspend. Use loginctl lock-session to lock your screen.
+exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
 
-# Additionally, you can issue commands with the following syntax. This is useful to bind keys to changing the gap size.
-# gaps inner|outer current|all set|plus|minus <px>
-# gaps inner all set 10
-# gaps outer all plus 5
+# NetworkManager is the most popular way to manage wireless networks on Linux,
+# and nm-applet is a desktop environment-independent system tray GUI for it.
+exec --no-startup-id nm-applet
 
-# Smart gaps (gaps used if only more than one container on the workspace)
-smart_gaps on
+# Set the desktop wallpaper
+exec --no-startup-id feh --bg-scale ~/Pictures/Backgrounds/nord_theme_mountain.png
 
-# Smart borders (draw borders around container only if it is not the only container on this workspace) 
-# on|no_gaps (on=always activate and no_gaps=only activate if the gap size to the edge of the screen is 0)
-#smart_borders on
+# Remap capslock as escape
+exec --no-startup-id xmodmap -e "clear lock"
+exec --no-startup-id xmodmap -e "keysym Caps_Lock = Escape"
 
-# Press $mod+Shift+g to enter the gap mode. Choose o or i for modifying outer/inner gaps. Press one of + / - (in-/decrement for current workspace) or 0 (remove gaps for current workspace). If you also press Shift with these keys, the change will be global for all workspaces.
-set $mode_gaps Gaps: (o) outer, (i) inner
-set $mode_gaps_outer Outer Gaps: +|-|0 (local), Shift + +|-|0 (global)
-set $mode_gaps_inner Inner Gaps: +|-|0 (local), Shift + +|-|0 (global)
-bindsym $mod+Shift+g mode "$mode_gaps"
+# Use pactl to adjust volume in PulseAudio.
+set $refresh_i3status killall -SIGUSR1 i3status
+bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +10% && $refresh_i3status
+bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -10% && $refresh_i3status
+bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_i3status
+bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
 
-mode "$mode_gaps" {
-        bindsym o      mode "$mode_gaps_outer"
-        bindsym i      mode "$mode_gaps_inner"
-        bindsym Return mode "default"
-        bindsym Escape mode "default"
-}
-mode "$mode_gaps_inner" {
-        bindsym plus  gaps inner current plus 5
-        bindsym minus gaps inner current minus 5
-        bindsym 0     gaps inner current set 0
-
-        bindsym Shift+plus  gaps inner all plus 5
-        bindsym Shift+minus gaps inner all minus 5
-        bindsym Shift+0     gaps inner all set 0
-
-        bindsym Return mode "default"
-        bindsym Escape mode "default"
-}
-mode "$mode_gaps_outer" {
-        bindsym plus  gaps outer current plus 5
-        bindsym minus gaps outer current minus 5
-        bindsym 0     gaps outer current set 0
-
-        bindsym Shift+plus  gaps outer all plus 5
-        bindsym Shift+minus gaps outer all minus 5
-        bindsym Shift+0     gaps outer all set 0
-
-        bindsym Return mode "default"
-        bindsym Escape mode "default"
-}
-
+# Start polybar
+exec --no-startup-id $HOME/.dotfiles/os/polybar/launch.sh
