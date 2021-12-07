@@ -76,6 +76,8 @@ Plug 'junegunn/fzf.vim'
   "   'previous-history' instead of 'down' and 'up'.
   let g:fzf_history_dir = '~/.local/share/fzf-history'
 
+Plug 'Yggdroot/indentLine'
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                              Language Plugins                              "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
