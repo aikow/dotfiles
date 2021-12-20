@@ -4,3 +4,5 @@ dependencies:
 - pip 
 - pip:
   - pynvim
+  - neovim-remote
+
