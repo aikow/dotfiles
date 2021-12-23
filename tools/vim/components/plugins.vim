@@ -25,10 +25,33 @@ call plug#begin(plug_dir)
 
 if has("nvim")
   Plug 'neovim/nvim-lspconfig'
+  Plug 'nvim-lua/plenary.nvim'
 
-" lua << EOF
-" require'lspconfig'.pyright.setup{}
-" EOF
+    " Completion framework
+  Plug 'hrsh7th/nvim-cmp'
+
+  " LSP completion source for nvim-cmp
+  Plug 'hrsh7th/cmp-nvim-lsp'
+
+  " Snippet completion source for nvim-cmp
+  Plug 'hrsh7th/cmp-vsnip'
+  Plug 'quangnguyen30192/cmp-nvim-ultisnips'
+
+  " Other usefull completion sources
+  Plug 'hrsh7th/cmp-path'
+  Plug 'hrsh7th/cmp-buffer'
+  Plug 'saecki/crates.nvim', { 'tag': 'v0.1.0' }
+
+  " See hrsh7th's other plugins for more completion sources!
+
+  " To enable more of the features of rust-analyzer, such as inlay hints and more!
+  Plug 'simrat39/rust-tools.nvim'
+
+  " Fuzzy finder
+  " Optional
+  " Plug 'nvim-lua/popup.nvim'
+  " Plug 'nvim-lua/plenary.nvim'
+
 endif
 
 " Syntax checking
@@ -356,3 +379,150 @@ Plug 'joshdick/onedark.vim'
 Plug 'arcticicestudio/nord-vim'
 
 call plug#end()
+
+if has('nvim')
+
+  " Set completeopt to have a better completion experience
+  " :help completeopt
+  " menuone: popup even when there's only one match
+  " noinsert: Do not insert text until a selection is made
+  " noselect: Do not select, force user to select one from the menu
+  set completeopt=menuone,noinsert,noselect
+
+  " Avoid showing extra messages when using completion
+  set shortmess+=c
+
+  " Configure LSP through rust-tools.nvim plugin.
+  " rust-tools will configure and enable certain LSP features for us.
+  " See https://github.com/simrat39/rust-tools.nvim#configuration
+  lua <<EOF
+    local nvim_lsp = require'lspconfig'
+
+    -- Use an on_attach function to only map the following keys
+    -- after the language server attaches to the current buffer
+    local on_attach = function(client, bufnr)
+      local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
+      local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
+
+      -- Enable completion triggered by <c-x><c-o>
+      buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
+
+      -- Mappings.
+      local opts = { noremap=true, silent=true }
+
+      -- See `:help vim.lsp.*` for documentation on any of the below functions
+      buf_set_keymap('n', '<leader>gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
+      buf_set_keymap('n', '<leader>gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
+      buf_set_keymap('n', '<leader>K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
+      buf_set_keymap('n', '<leader>gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
+      buf_set_keymap('n', '<leader>h', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
+      buf_set_keymap('n', '<leader>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
+      buf_set_keymap('n', '<leader>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
+      buf_set_keymap('n', '<leader>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
+      buf_set_keymap('n', '<leader>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
+      buf_set_keymap('n', '<leader>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
+      buf_set_keymap('n', '<leader>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
+      buf_set_keymap('n', '<leader>gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
+      buf_set_keymap('n', '<leader>e', '<cmd>lua vim.diagnostic.open_float()<CR>', opts)
+      buf_set_keymap('n', '[e', '<cmd>lua vim.diagnostic.goto_prev()<CR>', opts)
+      buf_set_keymap('n', ']e', '<cmd>lua vim.diagnostic.goto_next()<CR>', opts)
+      buf_set_keymap('n', '<leader>q', '<cmd>lua vim.diagnostic.setloclist()<CR>', opts)
+      buf_set_keymap('n', '<keader>f', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
+
+    end
+
+    local opts = {
+      tools = { -- rust-tools options
+        autoSetHints = true,
+        hover_with_actions = true,
+        inlay_hints = {
+          show_parameter_hints = false,
+          parameter_hints_prefix = "",
+          other_hints_prefix = "",
+        },
+      },
+      -- all the opts to send to nvim-lspconfig
+      -- these override the defaults set by rust-tools.nvim
+      -- see https://github.com/neovim/nvim-lspconfig/blob/master/CONFIG.md#rust_analyzer
+      server = {
+        -- on_attach is a callback called when the language server attachs to the buffer
+        on_attach = on_attach,
+        settings = {
+          -- to enable rust-analyzer settings visit:
+          -- https://github.com/rust-analyzer/rust-analyzer/blob/master/docs/user/generated_config.adoc
+          ["rust-analyzer"] = {
+            -- enable clippy on save
+            checkOnSave = {
+              command = "clippy"
+            },
+          }
+        }
+      },
+    }
+
+    require('rust-tools').setup(opts)
+
+    nvim_lsp.pyright.setup{
+      on_attach = on_attach,
+    }
+EOF
+
+  " Setup Completion
+  " See https://github.com/hrsh7th/nvim-cmp#basic-configuration
+  lua <<EOF
+    -- Setup nvim-cmp
+    local cmp = require'cmp'
+
+    cmp.setup({
+      -- Enable LSP snippets
+      snippet = {
+        expand = function(args)
+            vim.fn["UltiSnips#Anon"](args.body)
+        end,
+      },
+      mapping = {
+        ['<C-p>'] = cmp.mapping.select_prev_item(),
+        ['<C-n>'] = cmp.mapping.select_next_item(),
+        -- Add tab support
+        ['<S-Tab>'] = cmp.mapping.select_prev_item(),
+        ['<Tab>'] = cmp.mapping.select_next_item(),
+        ['<C-b>'] = cmp.mapping.scroll_docs(-4),
+        ['<C-f>'] = cmp.mapping.scroll_docs(4),
+        ['<C-Space>'] = cmp.mapping.complete(),
+        ['<C-e>'] = cmp.mapping({
+          i = cmp.mapping.abort(),
+          c = cmp.mapping.close(),
+        }),
+        ['<CR>'] = cmp.mapping.confirm({
+          behavior = cmp.ConfirmBehavior.Insert,
+          select = true,
+        })
+      },
+
+      -- Installed sources
+      sources = {
+        { name = 'nvim_lsp' },
+        { name = 'ultisnips' },
+        { name = 'path' },
+        { name = 'buffer' },
+        { name = 'crates' },
+      },
+    })
+
+    -- Use buffer source for `/` (if you enabled `native_menu`, this won't work anymore).
+    cmp.setup.cmdline('/', {
+      sources = {
+        { name = 'buffer' }
+      }
+    })
+
+    -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
+    cmp.setup.cmdline(':', {
+      sources = cmp.config.sources({
+        { name = 'path' }
+      }, {
+        { name = 'cmdline' }
+      })
+    })
+EOF
+endif
