@@ -100,6 +100,8 @@ Plug 'junegunn/fzf.vim'
   let g:fzf_history_dir = '~/.local/share/fzf-history'
 
 Plug 'Yggdroot/indentLine'
+  let g:indentLine_setConceal = 2
+  let g:indentLine_concealcursor = ""
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                              Language Plugins                              "
