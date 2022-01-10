@@ -85,7 +85,7 @@
   "vim.smartRelativeLine": true,
   "vim.vimrc.enable": false,
   "vim.vimrc.path": "$HOME/.config/nvim/init.vim",
-  "workbench.colorTheme": "Nord",
+  "workbench.colorTheme": "One Dark Pro Darker",
   "workbench.editorAssociations": {
     "*.ipynb": "jupyter-notebook"
   },
