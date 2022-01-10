@@ -40,6 +40,7 @@ if has("nvim")
   " Other usefull completion sources
   Plug 'hrsh7th/cmp-path'
   Plug 'hrsh7th/cmp-buffer'
+  Plug 'hrsh7th/cmp-omni'
   Plug 'saecki/crates.nvim', { 'tag': 'v0.1.0' }
 
   " See hrsh7th's other plugins for more completion sources!
@@ -415,23 +416,23 @@ if has('nvim')
       local opts = { noremap=true, silent=true }
 
       -- See `:help vim.lsp.*` for documentation on any of the below functions
-      buf_set_keymap('n', '<leader>gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
+      buf_set_keymap('n', '<leader>gc', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
       buf_set_keymap('n', '<leader>gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
-      buf_set_keymap('n', '<leader>K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
+      buf_set_keymap('n', '<leader>gk', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
       buf_set_keymap('n', '<leader>gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
       buf_set_keymap('n', '<leader>h', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
       buf_set_keymap('n', '<leader>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
       buf_set_keymap('n', '<leader>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
       buf_set_keymap('n', '<leader>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
-      buf_set_keymap('n', '<leader>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
-      buf_set_keymap('n', '<leader>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
-      buf_set_keymap('n', '<leader>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
+      buf_set_keymap('n', '<leader>gt', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
+      buf_set_keymap('n', '<leader>rr', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
+      buf_set_keymap('n', '<leader>rq', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
       buf_set_keymap('n', '<leader>gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
-      buf_set_keymap('n', '<leader>e', '<cmd>lua vim.diagnostic.open_float()<CR>', opts)
+      buf_set_keymap('n', '<leader>do', '<cmd>lua vim.diagnostic.open_float()<CR>', opts)
       buf_set_keymap('n', '[e', '<cmd>lua vim.diagnostic.goto_prev()<CR>', opts)
       buf_set_keymap('n', ']e', '<cmd>lua vim.diagnostic.goto_next()<CR>', opts)
-      buf_set_keymap('n', '<leader>q', '<cmd>lua vim.diagnostic.setloclist()<CR>', opts)
-      buf_set_keymap('n', '<keader>f', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
+      buf_set_keymap('n', '<leader>dl', '<cmd>lua vim.diagnostic.setloclist()<CR>', opts)
+      buf_set_keymap('n', '<leader>rf', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
 
     end
 
@@ -529,4 +530,11 @@ EOF
       })
     })
 EOF
+  
+  augroup VimTeX
+    autocmd!
+    autocmd FileType tex
+          \ lua require('cmp').setup.buffer { sources = { { name = 'omni' } } }
+  augroup END
+
 endif
