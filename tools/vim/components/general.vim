@@ -123,7 +123,10 @@ set incsearch
 set ignorecase
 set smartcase
 
-if executable('ag')
+if executable('rg')
+  set grepprg=rg\ --vimgrep\ --no-heading\ --smart-case
+  set grepformat=%f:%l:%c:%m,%f:%l:%m
+elseif executable('ag')
   set grepprg=ag\ --nogroup\ --nocolor
   set grepformat=%f:%l:%m
 endif
@@ -224,8 +227,8 @@ inoremap ! !<c-g>u
 inoremap ? ?<c-g>u
 
 " Number 2: Jumplist mutations
-nnoremap <expr> k (v:count > 5 ? "m'" . v:count : "") . 'k'
-nnoremap <expr> j (v:count > 5 ? "m'" . v:count : "") . 'j'
+nnoremap <expr> k (v:count > 5 ? "m'" . v:count : "") . 'gk'
+nnoremap <expr> j (v:count > 5 ? "m'" . v:count : "") . 'gj'
 
 " Moving lines
 vnoremap <c-j> :m '>+1<CR>gv=gv
@@ -247,55 +250,65 @@ nnoremap <silent> p p`]
 nnoremap <SPACE> <Nop>
 let mapleader=" "
 
-nnoremap <leader>: :Commands<CR>
-nnoremap <leader>o :Files<CR>
-nnoremap <leader>fb :Buffers<CR>
-nnoremap <leader>fr :Rg<CR>
-nnoremap <leader>fa :Ag<CR>
-nnoremap <leader>fls :Lines<CR>
-nnoremap <leader>flb :BLines<CR>
-nnoremap <leader>fts :Tags<CR>
-nnoremap <leader>ftb :BTags<CR>
-nnoremap <leader>fm :Marks<CR>
-nnoremap <leader>fw :Windows<CR>
-nnoremap <leader>fp :Locate<CR>
-nnoremap <leader>fh :History<CR>
-nnoremap <leader>f: :History:<CR>
+" Finding searching and navigating
+nnoremap <silent> <leader>: :Commands<CR>
+nnoremap <silent> <leader>o :Files<CR>
+nnoremap <silent> <leader>fb :Buffers<CR>
+nnoremap <silent> <leader>fr :Rg<CR>
+nnoremap <silent> <leader>fa :Ag<CR>
+nnoremap <silent> <leader>fls :Lines<CR>
+nnoremap <silent> <leader>flb :BLines<CR>
+nnoremap <silent> <leader>fts :Tags<CR>
+nnoremap <silent> <leader>ftb :BTags<CR>
+nnoremap <silent> <leader>fm :Marks<CR>
+nnoremap <silent> <leader>fw :Windows<CR>
+nnoremap <silent> <leader>fp :Locate<CR>
+nnoremap <silent> <leader>fh :History<CR>
+nnoremap <silent> <leader>f: :History:<CR>
 
-nnoremap <leader>go :GFiles<CR>
-nnoremap <leader>gs :GFiles?<CR>
-nnoremap <leader>gc :Commits<CR>
-nnoremap <leader>gb :BCommits<CR>
+" Git shortcuts
+nnoremap <silent> <leader>go :GFiles<CR>
+nnoremap <silent> <leader>gs :GFiles?<CR>
+nnoremap <silent> <leader>gc :Commits<CR>
+nnoremap <silent> <leader>gb :BCommits<CR>
 
-nnoremap <leader>hs :Settings<CR>
-nnoremap <leader>hc :Colors<CR>
-nnoremap <leader>hh :Helptags<CR>
-nnoremap <leader>hm :Maps<CR>
-nnoremap <leader>hf :Filetypes<CR>
+" Setting shortcuts
+nnoremap <silent> <leader>hs :Settings<CR>
+nnoremap <silent> <leader>hc :Colors<CR>
+nnoremap <silent> <leader>hh :Helptags<CR>
+nnoremap <silent> <leader>hm :Maps<CR>
+nnoremap <silent> <leader>hf :Filetypes<CR>
 
-nnoremap <leader>w :w<CR>
+nnoremap <silent> <leader>w :w<CR>
 
 " Copy and paste to system clipboard
-vmap <Leader>sy "+y
-vmap <Leader>sd "+d
-nmap <Leader>sp "+p
-nmap <Leader>sP "+P
-vmap <Leader>sp "+p
-vmap <Leader>sP "+P
+vnoremap <silent> <leader>sy "+y
+vnoremap <silent> <leader>sd "+d
+nnoremap <silent> <leader>sp "+p
+nnoremap <silent> <leader>sP "+P
+vnoremap <silent> <leader>sp "+p
+vnoremap <silent> <leader>sP "+P
+
+" Resizing splits
+nnoremap <silent> <leader>wvp :exe "vertical resize " . (winwidth(0) * 3/2)<CR>
+nnoremap <silent> <leader>wvm :exe "vertical resize " . (winwidth(0) * 2/3)<CR>
+nnoremap <silent> <leader>whp :exe "resize " . (winheight(0) * 3/2)<CR>
+nnoremap <silent> <leader>whm :exe "resize " . (winheight(0) * 2/3)<CR>
+nnoremap <c-w>< 5<c-w><
+nnoremap <c-w>> 5<c-w>>
+nnoremap <c-w>- 5<c-w>-
+nnoremap <c-w>+ 5<c-w>+
 
 " Plugins
-nnoremap <leader>pur :call UltiSnips#RefreshSnippets()<CR>
-
+nnoremap <silent> <leader>ppi :PlugInstall<CR>
+nnoremap <silent> <leader>ppu :PlugUpdate<CR>
+nnoremap <silent> <leader>ppp :PlugUpgrade<CR>
+nnoremap <silent> <leader>ps :source $MYVIMRC<CR>
+nnoremap <silent> <leader>po :tabe $MYVIMRC<CR>
+nnoremap <silent> <leader>pur :call UltiSnips#RefreshSnippets()<CR>
 
 " Show syntax highlighting groups for the word under the cursor
-" 
-nmap <leader>z :call EchoSynStack()<CR>
-
-" You Complete Me goto definition
-nnoremap <leader>g :YcmCompleter GoToDefinitionElseDeclaration<CR>
-
-" Map leader v to open the corresponding .vimrc
-nnoremap <leader>sv :source $MYVIMRC
+nnoremap <leader>z :call EchoSynStack()<CR>
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
