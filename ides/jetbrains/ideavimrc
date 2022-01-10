@@ -228,3 +228,7 @@ nnoremap ]q :action NextOccurrence<CR>
 " Saving
 nnoremap <leader>w :write<CR>
 
+
+" Zen Mode
+nnoremap zm :action ToggleZenMode<CR>
+
