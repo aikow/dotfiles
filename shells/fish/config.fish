@@ -8,17 +8,6 @@ set -x FZF_DEFAULT_COMMAND 'fd --type file --hidden --no-ignore'
 set PATH $HOME/.bin $PATH
 
 if status is-interactive
-    # Commands to run in interactive sessions can go here
-    alias ls='exa -F'
-    alias ll='exa -Fla'
-    alias lt='exa --tree'
-    alias ..='cd ..'
-    alias ...='cd ../..'
-    alias ....='cd ../../..'
-    alias .....='cd ../../../..'
-
-    source $HOME/.config/fish/conf.d/aliases.fish
-
     # Auto LS command on cd
     function __autols_hook --description "Auto ls" --on-event fish_prompt
         if test "$__autols_last" != "$PWD"
@@ -60,10 +49,8 @@ if status is-interactive
     starship init fish | source
 end
 
-
-
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
-eval /Users/aikow/.miniconda3/bin/conda "shell.fish" "hook" $argv | source
+eval $HOME/.miniconda3/bin/conda "shell.fish" "hook" $argv | source
 # <<< conda initialize <<<
 
