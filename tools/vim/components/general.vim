@@ -169,7 +169,7 @@ endif
 " errors flash screen rather than emit beep
 set novisualbell
 
-colorscheme nord
+colorscheme gruvbox-material
 set background=dark
 
 " Always show the status line and tabline
