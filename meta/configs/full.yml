@@ -79,7 +79,7 @@
       path: tools/screen/screenrc
     
     # Dir colors
-    ~/.dir_colors: shells/dircolors/dir_colors
+    ~/.dir_colors: shells/dircolors/dir_colors.gruvbox
 
     # Conda
     ~/.condarc: environments/conda/condarc
