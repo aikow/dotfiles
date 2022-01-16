@@ -215,9 +215,10 @@ endif
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " 
 " Customizes the status bar
+Plug 'shinchu/lightline-gruvbox.vim'
 Plug 'itchyny/lightline.vim'
   let g:lightline = {}
-  let g:lightline.colorscheme = 'nord'
+  let g:lightline.colorscheme = 'gruvbox.vim'
   let g:lightline.active = {
         \   'left': [ [ 'mode', 'paste' ], [ 'fugitive', 'filename' ], ['ctrlpmark'] ],
         \   'right': [ [ 'syntastic', 'lineinfo' ], ['percent'], ['filetype' ] ]
@@ -382,6 +383,9 @@ Plug 'dylanaraps/wal'
 Plug 'fenetikm/falcon'
 Plug 'joshdick/onedark.vim'
 Plug 'arcticicestudio/nord-vim'
+Plug 'sainnhe/everforest'
+Plug 'sainnhe/gruvbox-material'
+Plug 'morhetz/gruvbox'
 
 call plug#end()
 
