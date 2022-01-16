@@ -35,7 +35,7 @@ if status is-interactive
 
     bind -M insert \ce edit-command-buffer
     # bind -M insert \co history-prefix-search-backward beginning-of-line forward-bigword
-    bind -M insert \co "commandline -i (commandline -f history-prefix-search-backward beginning-of-line forward-bigword)"
+    # bind -M insert \co "commandline -i (commandline -f history-prefix-search-backward beginning-of-line forward-bigword)"
 
     function fish_user_key_bindings
         # Set Vim keybindings
