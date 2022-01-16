@@ -34,6 +34,23 @@
       if: 'command -v zsh &>/dev/null'
       path: shells/zsh/zshrc
       force: true
+      
+    # Fish
+    ~/.config/fish/config.fish:
+      if: 'command -v fish &>/dev/null'
+      path: shells/fish/config.fish
+      force: true
+    
+    ~/.config/fish/conf.d:
+      if: 'command -v fish &>/dev/null'
+      glob: true
+      path: shells/fish/conf.d/*.fish
+      force: true
+      create: true
+
+    ~/.config/starship.toml:
+      path: shells/starship/starship.toml
+      force: true
     
     # Scripts
     ~/.bin:
