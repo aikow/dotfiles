@@ -1,30 +1,24 @@
+# Which is equivalent to
 format = """
 $username\
 $hostname\
 $shlvl\
+$singularity\
+$kubernetes\
 $directory\
+$vcsh\
 $git_branch\
 $git_commit\
 $git_state\
+$git_metrics\
 $git_status\
 $hg_branch\
 $docker_context\
-$memory_usage\
-$openstack\
-$env_var\
-$crystal\
-$custom\
-$line_break\
-$lua\
-$battery\
-$status\
-$character"""
-
-right_format = """
-$conda\
 $package\
 $cmake\
+$cobol\
 $dart\
+$deno\
 $dotnet\
 $elixir\
 $elm\
@@ -34,27 +28,44 @@ $helm\
 $java\
 $julia\
 $kotlin\
+$lua\
 $nim\
 $nodejs\
 $ocaml\
 $perl\
 $php\
+$pulumi\
 $purescript\
 $python\
+$rlang\
+$red\
 $ruby\
 $rust\
+$scala\
 $swift\
 $terraform\
+$vlang\
 $vagrant\
 $zig\
 $nix_shell\
+$conda\
+$memory_usage\
 $aws\
 $gcloud\
-$kubernetes\
-$jobs\
+$openstack\
+$azure\
+$env_var\
+$crystal\
+$custom\
+$sudo\
 $cmd_duration\
+$line_break\
+$jobs\
+$battery\
 $time\
-"""
+$status\
+$shell\
+$character"""
 
 [git_status]
 ahead = "⇡${count}"
@@ -74,10 +85,6 @@ disabled = false
 [kubernetes]
 format = 'on [⛵ $context \($namespace\)](dimmed green) '
 disabled = true
-[kubernetes.context_aliases]
-"dev.local.cluster.k8s" = "dev"
-".*/openshift-cluster/.*" = "openshift"
-"gke_.*_(?P<cluster>[\\w-]+)" = "gke-$cluster"
 
 [time]
 disabled = false
