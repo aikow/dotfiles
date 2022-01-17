@@ -5,7 +5,7 @@
 set -x EDITOR 'nvim'
 set -x VISUAL 'nvim'
 set -x FZF_DEFAULT_COMMAND 'fd --type file --hidden --no-ignore'
-set PATH $HOME/.bin $PATH
+set PATH $HOME/.cargo/bin $HOME/.bin $PATH
 
 if status is-interactive
     # Auto LS command on cd
