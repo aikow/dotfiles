@@ -218,7 +218,7 @@ endif
 Plug 'shinchu/lightline-gruvbox.vim'
 Plug 'itchyny/lightline.vim'
   let g:lightline = {}
-  let g:lightline.colorscheme = 'gruvbox.vim'
+  let g:lightline.colorscheme = 'gruvbox'
   let g:lightline.active = {
         \   'left': [ [ 'mode', 'paste' ], [ 'fugitive', 'filename' ], ['ctrlpmark'] ],
         \   'right': [ [ 'syntastic', 'lineinfo' ], ['percent'], ['filetype' ] ]
