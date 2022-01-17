@@ -24,7 +24,7 @@ set path+=**
 " set autochdir
 
 " number of lines at the beginning and end of files checked for file-specific vars
-set modelines=0
+set modelines=3
 set modeline
 
 " Reload files changed outside of Vim not currently modified in Vim 
