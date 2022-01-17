@@ -5,8 +5,8 @@
 
 alias ..="cd .."
 alias ...="cd ../.."
-alias ls="ls --color=auto"
-alias ll="ls -AFlGh --color=auto"
+alias ls="exa"
+alias ll="exa -la"
 
 
 #######################################################################

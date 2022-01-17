@@ -11,6 +11,7 @@ set vi-cmd-mode-string "\1\e[2 q\2"
 set vi-ins-mode-string "\1\e[5 q\2"
 
 set colored-stats On
+set colored-completion-prefix On
 set completion-ignore-case On
 set completion-prefix-display-length 3
 set mark-symlinked-directories On
@@ -29,8 +30,12 @@ set keymap vi-command
 
 "\C-x\C-r": re-read-init-file
 
-"\C-p": history-search-backward
-"\C-n": history-search-forward
+"\C-k": history-search-backward
+"\C-j": history-search-forward
+"\C-f": yank-nth-arg
+"\C-b": yank-last-arg
+"\C-n": menu-complete
+"\C-p": menu-complete-backward
 
 "\C-l": clear-screen
 
@@ -45,8 +50,8 @@ set keymap vi-insert
 # glob patterns without executing, eg: 'rm *x'
 "\C-x\C-e": glob-expand-word
 
-"\C-p": history-search-backward
-"\C-n": history-search-forward
+"\C-k": history-search-backward
+"\C-j": history-search-forward
 
 # Pressing tab will list all completions & select the first one. Pressing it 
 # again will cycle through available completions.
