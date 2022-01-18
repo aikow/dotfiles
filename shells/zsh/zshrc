@@ -30,12 +30,12 @@ fi
 export EDITOR=${VISUAL}
 
 ### FZF ###
-if command -v fzf &>/dev/null; then
-  if command -v rg &>/dev/null; then
-    export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow --glob "!.git/*"'
-  elif command -v ag &>/dev/null; then
-    export FZF_DEFAULT_COMMAND='ag -l --path-to-ignore ~/.ignore --nocolor --hidden -g ""'
-  fi
+if command -v fd &>/dev/null; then
+  export FZF_DEFAULT_COMMAND='fd --type file --follow --hidden --exclude .git --color=always'
+  export FZF_CTRL_T_COMMAND="${FZF_DEFAULT_COMMAND}"
+  export FZF_DEFAULT_OPTS='--ansi'
+elif command -v rg &>/dev/null; then
+  export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow --glob "!.git/*"'
 fi
 
 
