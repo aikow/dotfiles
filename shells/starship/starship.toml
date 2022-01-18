@@ -79,6 +79,11 @@ staged = "+${count}"
 renamed = "»${count}"
 deleted = "✘${count}"
 
+[hostname]
+ssh_only = false
+format = "@[$hostname]($style) "
+disabled = false
+
 [jobs]
 disabled = false
 
@@ -90,7 +95,7 @@ disabled = true
 disabled = false
 
 [username]
-format = "[$user]($style) "
+format = "[$user]($style)"
 show_always = true
 disabled = false
 
