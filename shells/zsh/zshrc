@@ -125,8 +125,8 @@ bindkey -s '^x^l' '^[kA | less'
 bindkey -s '^x^p' '^[kA | '
 
 # History seach
-bindkey "^p" history-beginning-search-backward
-bindkey "^n" history-beginning-search-forward
+bindkey "^k" history-beginning-search-backward
+bindkey "^j" history-beginning-search-forward
 
 # Clear screen
 bindkey "^l" clear-screen
