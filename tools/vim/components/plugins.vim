@@ -91,6 +91,7 @@ Plug 'tpope/vim-fugitive'
 " Plugin to align text
 Plug 'godlygeek/tabular'
 
+Plug 'airblade/vim-rooter'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 
@@ -397,6 +398,9 @@ if has('nvim')
   " noinsert: Do not insert text until a selection is made
   " noselect: Do not select, force user to select one from the menu
   set completeopt=menuone,noinsert,noselect
+  " Better display for messages
+  set cmdheight=2
+  set updatetime=300
 
   " Avoid showing extra messages when using completion
   set shortmess+=c
@@ -490,8 +494,8 @@ EOF
         end,
       },
       mapping = {
-        ['<C-p>'] = cmp.mapping.select_prev_item(),
-        ['<C-n>'] = cmp.mapping.select_next_item(),
+        ['<C-k>'] = cmp.mapping.select_prev_item(),
+        ['<C-j>'] = cmp.mapping.select_next_item(),
         -- Add tab support
         ['<S-Tab>'] = cmp.mapping.select_prev_item(),
         ['<Tab>'] = cmp.mapping.select_next_item(),

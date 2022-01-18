@@ -45,6 +45,10 @@ set backspace=indent,eol,start
 set ttyfast
 set lazyredraw
 
+" Permanent undo
+set undodir=~/.vimdid
+set undofile
+
 " Backups and Swap files
 set nobackup
 set swapfile
@@ -62,8 +66,8 @@ set hidden
 
 " Wildmenu options
 set wildmenu
-" set wildmode=longest,list
-set wildignore=*.o,*~,*.pyc
+set wildmode=list:longest
+set wildignore=*.o,*~,*.pyc,.hg,.svn,*.png,*.jpg,*.gif,*.settings,*.min.js,*.swp,publish/*
 
 " Use system clipboard
 if g:os == "Darwin"
@@ -131,6 +135,13 @@ elseif executable('ag')
   set grepformat=%f:%l:%m
 endif
 
+" Wrapping options
+set formatoptions=tc " wrap text and comments using textwidth
+set formatoptions+=r " continue comments when pressing ENTER in I mode
+set formatoptions+=q " enable formatting of comments with gq
+set formatoptions+=n " detect lists for formatting
+set formatoptions+=b " auto-wrap in insert mode, and do not wrap old long lines
+
 " Folding
 set foldmethod=indent
 set foldnestmax=1
@@ -142,6 +153,12 @@ set scrolloff=7
 " Open new splits to the right or down instead of moving current window
 set splitright
 set splitbelow
+
+" Diff options
+set diffopt+=iwhite " No whitespace in vimdiff
+" Make diffing better: https://vimways.org/2018/the-power-of-diff/
+set diffopt+=algorithm:patience
+set diffopt+=indent-heuristic
 
 " Set spell location to English and German
 setlocal spell
@@ -200,6 +217,23 @@ noremap k gk
 vnoremap < <gv
 vnoremap > >gv
 
+" Very magic by default
+nnoremap ? ?\v
+nnoremap / /\v
+cnoremap %s/ %sm/
+
+" <leader><leader> toggles between buffers
+nnoremap <leader><leader> <c-^>
+
+" <leader>, shows/hides hidden characters
+nnoremap <leader>, :set invlist<cr>
+
+" <leader>q shows stats
+nnoremap <leader>q g<c-g>
+
+" Keymap for replacing up to next _ or -
+noremap <leader>m ct_
+
 " Automatically correct spelling with the first option
 inoremap <C-l> <c-g>u<Esc>[s1z=`]a<c-g>u
 
@@ -253,11 +287,10 @@ let mapleader=" "
 " Finding searching and navigating
 nnoremap <silent> <leader>: :Commands<CR>
 nnoremap <silent> <leader>o :Files<CR>
-nnoremap <silent> <leader>fb :Buffers<CR>
+nnoremap <silent> <leader>; :Buffers<CR>
 nnoremap <silent> <leader>fr :Rg<CR>
-nnoremap <silent> <leader>fa :Ag<CR>
-nnoremap <silent> <leader>fls :Lines<CR>
-nnoremap <silent> <leader>flb :BLines<CR>
+nnoremap <silent> <leader>fl :Lines<CR>
+nnoremap <silent> <leader>fb :BLines<CR>
 nnoremap <silent> <leader>fts :Tags<CR>
 nnoremap <silent> <leader>ftb :BTags<CR>
 nnoremap <silent> <leader>fm :Marks<CR>
@@ -327,14 +360,34 @@ let maplocalleader = "\\"
 let &t_SI = "\e[6 q"
 let &t_EI = "\e[2 q"
 
+" Prevent accidental writes to buffers that shouldn't be edited
+augroup unmodifiable
+  autocmd BufRead *.orig set readonly
+  autocmd BufRead *.pacnew set readonly
+augroup END
+
 " reset the cursor on start (for older versions of vim, usually not required)
 augroup myCmds
-au!
-autocmd VimEnter * silent !echo -ne "\e[2 q"
+  au!
+  autocmd VimEnter * silent !echo -ne "\e[2 q"
 augroup END
 
 autocmd InsertEnter * set cul
 autocmd InsertLeave * set nocul
+
+" Jump to last edit position on opening file
+if has("autocmd")
+  " https://stackoverflow.com/questions/31449496/vim-ignore-specifc-file-in-autocommand
+  au BufReadPost * if expand('%:p') !~# '\m/\.git/' && line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+endif
+
+" Help filetype detection
+autocmd BufRead *.plot set filetype=gnuplot
+autocmd BufRead *.md set filetype=markdown
+autocmd BufRead *.lds set filetype=ld
+autocmd BufRead *.tex set filetype=tex
+autocmd BufRead *.trm set filetype=c
+autocmd BufRead *.xlsx.axlsx set filetype=ruby
 
 " Prints the syntax stack at the current cursor
 function! EchoSynStack()
