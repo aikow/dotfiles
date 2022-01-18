@@ -2,10 +2,18 @@
 #  Environment Variables  #
 ###########################
 
+set PATH $HOME/.cargo/bin $HOME/.bin $PATH
+
 set -x EDITOR 'nvim'
 set -x VISUAL 'nvim'
-set -x FZF_DEFAULT_COMMAND 'fd --type file --hidden --no-ignore'
-set PATH $HOME/.cargo/bin $HOME/.bin $PATH
+
+if command -v fd &>/dev/null
+  set -x FZF_DEFAULT_COMMAND 'fd --type file --follow --hidden --exclude .git --color=always'
+  set -x FZF_CTRL_T_COMMAND $FZF_DEFAULT_COMMAND
+  set -x FZF_DEFAULT_OPTS '--ansi'
+else if command -v rg &>/dev/null
+  set -x FZF_DEFAULT_COMMAND 'rg --files --no-ignore --hidden --follow --glob "!.git/*"'
+end
 
 if status is-interactive
     # Auto LS command on cd
