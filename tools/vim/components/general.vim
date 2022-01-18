@@ -156,9 +156,11 @@ set splitbelow
 
 " Diff options
 set diffopt+=iwhite " No whitespace in vimdiff
-" Make diffing better: https://vimways.org/2018/the-power-of-diff/
-set diffopt+=algorithm:patience
-set diffopt+=indent-heuristic
+if has("patch-8.1.0360")
+  " Make diffing better: https://vimways.org/2018/the-power-of-diff/
+  set diffopt+=algorithm:patience
+  set diffopt+=indent-heuristic
+endif
 
 " Set spell location to English and German
 setlocal spell
