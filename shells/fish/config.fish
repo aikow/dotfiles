@@ -35,15 +35,57 @@ if status is-interactive
     bind -M default \ck history-search-backward
     bind -M default \cj history-search-forward
 
-    bind -M insert \cn complete
-    bind -M insert \cp complete-and-search
+    # bind -M insert \cn complete
+    # bind -M insert \cp complete-and-search
 
     bind -M insert \cf history-token-search-forward
     bind -M insert \cb history-token-search-backward
-
     bind -M insert \ce edit-command-buffer
-    # bind -M insert \co history-prefix-search-backward beginning-of-line forward-bigword
-    # bind -M insert \co "commandline -i (commandline -f history-prefix-search-backward beginning-of-line forward-bigword)"
+
+    function add_pipe
+        fish_commandline_append " | "
+        commandline -f end-of-buffer
+    end
+    bind -M insert \cp add_pipe
+
+    function add_argument
+        set cmd $history[1]
+        set cursor (string length (string split " " $cmd | head -1))
+        
+        commandline -r $history[1]
+        commandline -C $cursor
+        commandline -i " -"
+    end
+    bind -M insert \co add_argument
+
+    function add_less
+        if command -v bat &>/dev/null
+            set cmd " | bat"
+        else
+            set cm " | less"
+        end
+
+        fish_commandline_append cmd
+    end
+    bind -M insert \cx\cl add_less
+
+    function add_fzf
+        fish_commandline_append " | fzf"
+    end
+    bind -M insert \cx\cf add_fzf
+    
+    function reload_config
+        commandline -r "source $HOME/.config/fish/config.fish"
+        commandline -f execute
+    end
+    bind -M insert \cx\cr reload_config
+
+    function cdg
+        commandline -r "cd (git rev-parse --show-toplevel)"
+        commandline -f execute
+    end
+    bind -M insert \cg cdg
+
 
     function fish_user_key_bindings
         # Set Vim keybindings
