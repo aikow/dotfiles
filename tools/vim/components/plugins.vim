@@ -475,7 +475,9 @@ if has('nvim')
 
     require('rust-tools').setup(opts)
 
-    nvim_lsp.pyright.setup{
+    -- Install the pylsp language server using via `pip install 'python-lsp-server[all]'`
+    -- See: https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#pylsp
+    nvim_lsp.pylsp.setup{
       on_attach = on_attach,
     }
 EOF
