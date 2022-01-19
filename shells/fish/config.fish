@@ -2,7 +2,30 @@
 #  Environment Variables  #
 ###########################
 
-set PATH $HOME/.cargo/bin $HOME/.bin $PATH
+function varclear --description 'Remove duplicates from environment variable'
+    if test (count $argv) = 1
+        set -l newvar
+        set -l count 0
+        for v in $$argv
+            if contains -- $v $newvar
+                set count (math $count+1)
+            else
+                set newvar $newvar $v
+            end
+        end
+        set $argv $newvar
+        test $count -gt 0
+    else
+        for a in $argv
+            varclear $a
+        end
+    end
+end
+
+set -x DOTFILES $HOME/.dotfiles
+set -x PATH $HOME/.cargo/bin $HOME/.bin $DOTFILES/shells/bin $HOME/.local/bin /usr/local/bin /opt/vc/bin $PATH
+# set -x XDG_DATA_DIRS /var/lib/snapd/desktop $XDG_DATA_DIRS
+varclear PATH
 
 set -x EDITOR 'nvim'
 set -x VISUAL 'nvim'
