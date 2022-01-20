@@ -24,40 +24,34 @@ let plug_dir = data_dir . '/plugged'
 call plug#begin(plug_dir)
 
 if has("nvim")
-  Plug 'neovim/nvim-lspconfig'
+  " Basic lua functions
   Plug 'nvim-lua/plenary.nvim'
 
-    " Completion framework
+  " LSP server for neovim
+  Plug 'neovim/nvim-lspconfig'
+
+  " Completion framework
   Plug 'hrsh7th/nvim-cmp'
 
-  " LSP completion source for nvim-cmp
-  Plug 'hrsh7th/cmp-nvim-lsp'
+  " Completion sources for nvim-cmp
+  " LSP completion
+  Plug 'hrsh7th/cmp-nvim-lsp' 
 
-  " Snippet completion source for nvim-cmp
-  Plug 'hrsh7th/cmp-vsnip'
-  Plug 'quangnguyen30192/cmp-nvim-ultisnips'
+  " Vsnip completion
+  Plug 'hrsh7th/cmp-vsnip' 
 
-  " Other usefull completion sources
+  " Ultisnip completion
+  Plug 'quangnguyen30192/cmp-nvim-ultisnips' 
+
+  " Other useful completion sources for path, buffer, and omnifunc
   Plug 'hrsh7th/cmp-path'
   Plug 'hrsh7th/cmp-buffer'
   Plug 'hrsh7th/cmp-omni'
-  Plug 'saecki/crates.nvim', { 'tag': 'v0.1.0' }
-
-  " See hrsh7th's other plugins for more completion sources!
 
   " To enable more of the features of rust-analyzer, such as inlay hints and more!
   Plug 'simrat39/rust-tools.nvim'
-
-  " Fuzzy finder
-  " Optional
-  " Plug 'nvim-lua/popup.nvim'
-  " Plug 'nvim-lua/plenary.nvim'
-
+  Plug 'saecki/crates.nvim', { 'tag': 'v0.1.0' }
 endif
-
-" Syntax checking
-" The plugin incorrectly identifies errors in Latex files.
-" Plug 'scrooloose/syntastic'
 
 if executable("python3")
   " Snippets and snippets
@@ -91,85 +85,53 @@ Plug 'tpope/vim-fugitive'
 " Plugin to align text
 Plug 'godlygeek/tabular'
 
+" Fuzzy finder
 Plug 'airblade/vim-rooter'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
-
   " Enable per-command history
   " - History files will be stored in the specified directory
   " - When set, CTRL-N and CTRL-P will be bound to 'next-history' and
   "   'previous-history' instead of 'down' and 'up'.
   let g:fzf_history_dir = '~/.local/share/fzf-history'
 
-Plug 'Yggdroot/indentLine'
-  let g:indentLine_setConceal = 2
-  let g:indentLine_concealcursor = ""
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                              Language Plugins                              "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"
-" Language pack for 600 file types
-Plug 'sheerun/vim-polyglot'
 
-if g:plugin_enabled_tex
-  " Tex - Latex compiler, syntax highlighting, preview with zathura
-  Plug 'lervag/vimtex'
-    let g:tex_flavor='latex'
-    let g:vimtex_view_method='zathura'
-   
-    " Never opened Automatically
-    let g:vimtex_quickfix_mode=0
-    let g:vimtex_compiler_progname='nvr'
-    let g:vimtex_compiler_method='latexmk'
-    let g:vimtex_compiler_latexmk = {
-          \ 'build_dir'  : 'build',
-          \ 'callback'   : 1,
-          \ 'continuous' : 1,
-          \ 'executable' : 'latexmk',
-          \ 'hooks'      : [],
-          \ 'options'    : [
-            \   '-verbose',
-            \   '-file-line-error',
-            \   '-synctex=1',
-            \   '-interaction=nonstopmode',
-            \ ],
-            \}
-    let g:vimtex_compiler_latexmk_engines = {
-        \ '_'                : '-pdf',
-        \ 'pdflatex'         : '-pdf',
-        \ 'dvipdfex'         : '-pdfdvi',
-        \ 'lualatex'         : '-lualatex',
-        \ 'xelatex'          : '-xelatex',
-        \ 'context (pdftex)' : '-pdf -pdflatex=texexec',
-        \ 'context (luatex)' : '-pdf -pdflatex=context',
-        \ 'context (xetex)'  : '-pdf -pdflatex=''texexec --xtx''',
-        \}
-    let g:vimtex_compiler_latexrun = {
-        \ 'build_dir' : '',
-        \ 'options' : [
-        \   '-verbose-cmds',
-        \   '--latex-args="-synctex=1"',
-        \ ],
-        \}
-    let g:vimtex_compiler_latexrun_engines = {
-        \ '_'                : 'pdflatex',
-        \ 'pdflatex'         : 'pdflatex',
-        \ 'lualatex'         : 'lualatex',
-        \ 'xelatex'          : 'xelatex',
-        \}
+" Tex - Latex compiler, syntax highlighting, preview with zathura
+Plug 'lervag/vimtex'
+  let g:tex_flavor='latex'
+  let g:vimtex_view_method='zathura'
+ 
+  " Never opened Automatically
+  let g:vimtex_quickfix_mode=0
+  let g:vimtex_compiler_method='latexmk'
+  let g:vimtex_compiler_latexmk = {
+        \ 'build_dir'  : 'build',
+        \ 'callback'   : 1,
+        \ 'continuous' : 1,
+        \ 'executable' : 'latexmk',
+        \ 'hooks'      : [],
+        \ 'options'    : [
+          \   '-verbose',
+          \   '-file-line-error',
+          \   '-synctex=1',
+          \   '-interaction=nonstopmode',
+          \ ],
+          \}
 
-    augroup latexSurround
-       autocmd!
-       autocmd FileType tex call s:latexSurround()
-    augroup END
+  augroup latexSurround
+     autocmd!
+     autocmd FileType tex call s:latexSurround()
+  augroup END
 
-    function! s:latexSurround()
-       let b:surround_{char2nr("e")}
-         \ = "\\begin{\1environment: \1}\n\t\r\n\\end{\1\1}"
-       let b:surround_{char2nr("c")} = "\\\1command: \1{\r}"
-    endfunction
-endif
+  function! s:latexSurround()
+     let b:surround_{char2nr("e")}
+       \ = "\\begin{\1environment: \1}\n\t\r\n\\end{\1\1}"
+     let b:surround_{char2nr("c")} = "\\\1command: \1{\r}"
+  endfunction
 
 " Tex - conceals math operators and other items and replaces with compiled
 " item.
@@ -178,37 +140,25 @@ Plug 'KeitaNakamura/tex-conceal.vim'
   let g:tex_conceal='abdmg'
   hi Conceal ctermbg=none
 
-if g:plugin_enabled_markdown
-  " Markdown preview in google chrome
-  Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
-    let g:mkdp_auto_start = 0
-    let g:mkdp_auto_close = 1
-    let g:mkdp_refresh_slow = 0
-    let g:mkdp_command_for_global = 0
-    let g:mkdp_open_to_the_world = 0
-    let g:mkdp_open_ip = ''
-    let g:mkdp_browser = 'firefox'
-    let g:mkdp_echo_preview_url = 0
-    let g:mkdp_browserfunc = ''
-    let g:mkdp_preview_options = {
-          \ 'mkit': {},
-          \ 'katex': {},
-          \ 'uml': {},
-          \ 'maid': {},
-          \ 'disable_sync_scroll': 0,
-          \ 'sync_scroll_type': 'middle',
-          \ 'hide_yaml_meta': 1,
-          \ 'sequence_diagrams': {},
-          \ 'flowchart_diagrams': {},
-          \ 'content_editable': v:false,
-          \ 'disable_filename': 0
-          \ }
-    let g:mkdp_markdown_css = ''
-    let g:mkdp_highlight_css = ''
-    let g:mkdp_port = ''
-    let g:mkdp_page_title = '「${name}」'
-    let g:mkdp_filetypes = ['markdown', 'md']
-endif
+" Markdown preview in google chrome
+Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
+  let g:mkdp_browser = 'firefox'
+  let g:mkdp_page_title = '「${name}」'
+  let g:mkdp_filetypes = ['markdown', 'md']
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                                Color Themes                                "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Plugins for color themes
+Plug 'dylanaraps/wal'
+Plug 'fenetikm/falcon'
+Plug 'joshdick/onedark.vim'
+Plug 'arcticicestudio/nord-vim'
+Plug 'sainnhe/everforest'
+Plug 'sainnhe/gruvbox-material'
+Plug 'shinchu/lightline-gruvbox.vim'
+Plug 'morhetz/gruvbox'
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -216,7 +166,6 @@ endif
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " 
 " Customizes the status bar
-Plug 'shinchu/lightline-gruvbox.vim'
 Plug 'itchyny/lightline.vim'
   let g:lightline = {}
   let g:lightline.colorscheme = 'gruvbox'
@@ -269,33 +218,6 @@ Plug 'itchyny/lightline.vim'
         \ }
   let g:lightline.separator = { 'left': "\ue0b0", 'right': "\ue0b2" }
   let g:lightline.subseparator = { 'left': "\ue0b1", 'right': "\ue0b3" }
-
-  augroup LightlineColorscheme
-    autocmd!
-    autocmd ColorScheme * call s:lightline_update()
-  augroup END
-
-  function! s:lightline_update()
-    if !exists('g:loaded_lightline')
-      return
-    endif
-    try
-      if g:colors_name =~# 'wombat\|solarized\|landscape\|jellybeans\|seoul256\|Tomorrow'
-        let g:lightline.colorscheme =
-              \ substitute(substitute(g:colors_name, '-', '_', 'g'), '256.*', '', '')
-        call lightline#init()
-        call lightline#colorscheme()
-        call lightline#update()
-      endif
-      if g:colors_name =~# 'nord\|onedark\|onelight'
-        let g:lightline.colorscheme = g:colors_name
-        call lightline#init()
-        call lightline#colorscheme()
-        call lightline#update()
-      endif
-    catch
-    endtry
-  endfunction
 
   function! LightlineWebDevIcons(n)
     let l:bufnr = tabpagebuflist(a:n)[tabpagewinnr(a:n) - 1]
@@ -370,41 +292,12 @@ Plug 'itchyny/lightline.vim'
     return winwidth(0) > 70 ? (line(".") . "," . col(".")) : '' 
   endfunction
 
-if g:plugin_enabled_icons
-  " Nerd font icons
-  Plug 'ryanoasis/vim-devicons'
-endif
-
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"                                Color Themes                                "
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Plugins for color themes
-Plug 'dylanaraps/wal'
-Plug 'fenetikm/falcon'
-Plug 'joshdick/onedark.vim'
-Plug 'arcticicestudio/nord-vim'
-Plug 'sainnhe/everforest'
-Plug 'sainnhe/gruvbox-material'
-Plug 'morhetz/gruvbox'
+" Nerd font icons
+Plug 'ryanoasis/vim-devicons'
 
 call plug#end()
 
 if has('nvim')
-
-  " Set completeopt to have a better completion experience
-  " :help completeopt
-  " menuone: popup even when there's only one match
-  " noinsert: Do not insert text until a selection is made
-  " noselect: Do not select, force user to select one from the menu
-  set completeopt=menuone,noinsert,noselect
-  " Better display for messages
-  set cmdheight=2
-  set updatetime=300
-
-  " Avoid showing extra messages when using completion
-  set shortmess+=c
-
   " Configure LSP through rust-tools.nvim plugin.
   " rust-tools will configure and enable certain LSP features for us.
   " See https://github.com/simrat39/rust-tools.nvim#configuration
@@ -474,6 +367,7 @@ if has('nvim')
     }
 
     require('rust-tools').setup(opts)
+    require('crates').setup()
 
     -- Install the pylsp language server using via `pip install 'python-lsp-server[all]'`
     -- See: https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#pylsp
@@ -548,3 +442,4 @@ EOF
   augroup END
 
 endif
+

@@ -208,6 +208,8 @@ nnoremap <leader>ss :action SearchEverywhere<CR>
 noremap <leader>sa :action SearchEverywhereActions<CR>
 nnoremap <leader>st :action SearchEverywhereNewToolbarAction<CR>
 
+vnoremap <leader>rs :!sort<CR>
+
 " Keep selection when indenting in visual mode
 vnoremap < <gv
 vnoremap > >gv
