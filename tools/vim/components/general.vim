@@ -12,38 +12,37 @@ endif
 "                                  Internal                                  "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "
+" Set runtimepath to the source files in the dotfiles directory
+set rtp+=~/.dotfiles/tools/vim/rtp
+
+" Don't need vi compatibility
 set nocompatible
 
-set rtp+=~/.dotfiles/tools/vim/rtp
+" make scrolling and painting fast
+" ttyfast kept for vim compatibility but not needed for nvim
+set ttyfast
+set lazyredraw
+
+if !(has('nvim') || has('gvim'))
+  set noesckeys
+endif
+
+" use Unicode
+set encoding=utf-8
 
 " Search recursively downward from CWD; provides TAB completion for filenames
 " e.g., `:find vim* <TAB>`
 set path+=**
 
 " Set working directory to the current files
-" set autochdir
+set noautochdir
 
-" number of lines at the beginning and end of files checked for file-specific vars
+" Number of lines at the beginning and end of files checked for file-specific vars
 set modelines=3
 set modeline
 
-" Reload files changed outside of Vim not currently modified in Vim 
-set autoread
-augroup general_autoread
-  autocmd!
-  autocmd FocusGained,BufEnter * :silent! !
-augroup END
-
-" use Unicode
-set encoding=utf-8
-
 " make Backspace work like Delete
 set backspace=indent,eol,start
-
-" make scrolling and painting fast
-" ttyfast kept for vim compatibility but not needed for nvim
-set ttyfast
-set lazyredraw
 
 " Permanent undo
 set undodir=~/.vimdid
@@ -53,21 +52,15 @@ set undofile
 set nobackup
 set swapfile
 
-" Set the timeout times
-set timeoutlen=500
-set ttimeoutlen=5
-
-if !(has('nvim') || has('gvim'))
-  set noesckeys
-endif
+" Better display for messages
+set updatetime=1000
 
 " open new buffers without saving current modifications (buffer remains open)
 set hidden
 
-" Wildmenu options
-set wildmenu
-set wildmode=list:longest
-set wildignore=*.o,*~,*.pyc,.hg,.svn,*.png,*.jpg,*.gif,*.settings,*.min.js,*.swp,publish/*
+" Set the timeout times
+set timeoutlen=500
+set ttimeoutlen=5
 
 " Use system clipboard
 if g:os == "Darwin"
@@ -81,27 +74,17 @@ endif
 filetype plugin on
 filetype indent on
 
-" TODO: Export to global variable
+" Set the python provider for neovim
 if has('nvim')
-  let s:pynvim_path = expand("$HOME/.miniconda3/envs/pynvim/bin/python")
-  let s:pynvim3_path = expand("$HOME/.miniconda3/envs/pynvim3/bin/python")
+  let s:pynvim_path = expand("$HOME/.miniconda3/envs/pynvim3/bin/python")
 
-  " Check if the conda envs exist
   if !filereadable(s:pynvim_path)
-    " Bootstrap the python2 conda env with pynvim 
-    echom "Bootstrapping the conda python2 env..."
-    execute "!" . expand('conda env create -f $HOME/.dotfiles/tools/vim/envs/pynvim.yml')
-  endif
-
-  if !filereadable(s:pynvim3_path)
     " Bootstrap the python3 conda env with pynvim
     echom "Bootstrapping the conda python3 env..."
     execute "!" . expand('conda env create -f $HOME/.dotfiles/tools/vim/envs/pynvim3.yml')
   endif
 
-  " Set the python provider for neovim
-  " let g:python_host_prog = s:pynvim_path
-  let g:python3_host_prog = s:pynvim3_path
+  let g:python3_host_prog = s:pynvim_path
 endif
 
 
@@ -109,17 +92,32 @@ endif
 "                                  Editing                                   "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "
+" Indent new line the same as the preceding line
+set autoindent
+
 " Tab key enters 2 spaces
 set expandtab
 set tabstop=2
 set shiftwidth=2
 set softtabstop=2 
 
-" Indent new line the same as the preceding line
-set autoindent
-
 " highlight matching parens, braces, brackets, etc
 set showmatch
+
+" Wildmenu options
+set wildmenu
+set wildmode=list:longest
+set wildignore=*.o,*~,*.pyc,.hg,.svn,*.png,*.jpg,*.gif,*.settings,*.min.js,*.swp,publish/*
+
+" Set completeopt to have a better completion experience
+" :help completeopt
+" menuone: popup even when there's only one match
+" noinsert: Do not insert text until a selection is made
+" noselect: Do not select, force user to select one from the menu
+set completeopt=menuone,noinsert,noselect
+
+" Avoid showing extra messages when using completion
+set shortmess+=c
 
 " Searching
 set hlsearch 
@@ -185,11 +183,11 @@ if exists('+termguicolors')
   set termguicolors
 endif
 
-" errors flash screen rather than emit beep
+" Turn of bell and visual bell
 set novisualbell
 
-colorscheme gruvbox-material
 set background=dark
+colorscheme gruvbox-material
 
 " Always show the status line and tabline
 set showtabline=2
@@ -200,7 +198,6 @@ set noshowmode
 " Show character column
 set colorcolumn=80
 set ruler
-set cursorline
 set relativenumber 
 
 " Wrap lines
@@ -211,6 +208,13 @@ set wrap
 "                                 Keybindings                                "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "
+" Set the leader key to the space key
+nnoremap <SPACE> <Nop>
+let mapleader=" "
+
+" Set local leader to the backslash
+let maplocalleader = "\\"
+
 " Treat long lines as break lines (useful when moving around in them)
 noremap j gj
 noremap k gk
@@ -234,7 +238,7 @@ nnoremap <leader>, :set invlist<cr>
 nnoremap <leader>q g<c-g>
 
 " Keymap for replacing up to next _ or -
-noremap <leader>m ct_
+nnoremap <leader>m ct_
 
 " Automatically correct spelling with the first option
 inoremap <C-l> <c-g>u<Esc>[s1z=`]a<c-g>u
@@ -245,8 +249,12 @@ nnoremap <silent> <c-_> :let @/ = ""<CR>
 " Use <gp> to select the text that was last pasted
 nnoremap <expr> gp '`[' . strpart(getregtype(), 0,  1) . '`]'
 
-"
-vnoremap <leader>us :'<'>!sort<CR>
+" Switch buffers using gb and gB, similar to tabs.
+nnoremap <silent> gb :bnext<CR>
+nnoremap <silent> gB :bprev<CR>
+
+" Sort the selected lines
+vnoremap <leader>rs :!sort<CR>
 
 " Make Y behave like other capital numbers
 nnoremap Y y$
@@ -262,16 +270,6 @@ inoremap . .<c-g>u
 inoremap ! !<c-g>u
 inoremap ? ?<c-g>u
 
-" Number 2: Jumplist mutations
-nnoremap <expr> k (v:count > 5 ? "m'" . v:count : "") . 'gk'
-nnoremap <expr> j (v:count > 5 ? "m'" . v:count : "") . 'gj'
-
-" Moving lines
-vnoremap <c-j> :m '>+1<CR>gv=gv
-vnoremap <c-k> :m '<-2<CR>gv=gv
-nnoremap <leader>j :m .+1<CR>==
-nnoremap <leader>k :m .-2<CR>== 
-
 " Automatically jump to the end of pasted text
 vnoremap <silent> y y`]
 vnoremap <silent> p p`]
@@ -282,14 +280,10 @@ nnoremap <silent> p p`]
 "                                   Leader                                   "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "
-" Set the leader key to the space key
-nnoremap <SPACE> <Nop>
-let mapleader=" "
-
 " Finding searching and navigating
-nnoremap <silent> <leader>: :Commands<CR>
+nnoremap <silent> <leader>; :Commands<CR>
 nnoremap <silent> <leader>o :Files<CR>
-nnoremap <silent> <leader>; :Buffers<CR>
+nnoremap <silent> <leader>p :Buffers<CR>
 nnoremap <silent> <leader>fr :Rg<CR>
 nnoremap <silent> <leader>fl :Lines<CR>
 nnoremap <silent> <leader>fb :BLines<CR>
@@ -299,13 +293,28 @@ nnoremap <silent> <leader>fm :Marks<CR>
 nnoremap <silent> <leader>fw :Windows<CR>
 nnoremap <silent> <leader>fp :Locate<CR>
 nnoremap <silent> <leader>fh :History<CR>
-nnoremap <silent> <leader>f: :History:<CR>
+nnoremap <silent> <leader>f; :History:<CR>
 
 " Git shortcuts
 nnoremap <silent> <leader>go :GFiles<CR>
 nnoremap <silent> <leader>gs :GFiles?<CR>
 nnoremap <silent> <leader>gc :Commits<CR>
 nnoremap <silent> <leader>gb :BCommits<CR>
+
+" Cargo shortcuts
+nnoremap <silent> <leader>ct :lua require('crates').toggle()<cr>
+nnoremap <silent> <leader>cr :lua require('crates').reload()<cr>
+
+nnoremap <silent> <leader>cv :lua require('crates').show_versions_popup()<cr>
+nnoremap <silent> <leader>cf :lua require('crates').show_features_popup()<cr>
+nnoremap <silent> K :call <SID>show_documentation()<cr>
+
+nnoremap <silent> <leader>cu :lua require('crates').update_crate()<cr>
+vnoremap <silent> <leader>cu :lua require('crates').update_crates()<cr>
+nnoremap <silent> <leader>ca :lua require('crates').update_all_crates()<cr>
+nnoremap <silent> <leader>cU :lua require('crates').upgrade_crate()<cr>
+vnoremap <silent> <leader>cU :lua require('crates').upgrade_crates()<cr>
+nnoremap <silent> <leader>cA :lua require('crates').upgrade_all_crates()<cr>
 
 " Setting shortcuts
 nnoremap <silent> <leader>hs :Settings<CR>
@@ -350,17 +359,18 @@ nnoremap <leader>z :call EchoSynStack()<CR>
 "                                Local Leader                                "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "
-" Set local leader to the backslash
-let maplocalleader = "\\"
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                                  Functions                                 "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "
-" Reset cursors when coming from bash
-let &t_SI = "\e[6 q"
-let &t_EI = "\e[2 q"
+" Reload files changed outside of Vim not currently modified in Vim 
+set autoread
+augroup general_autoread
+  autocmd!
+  autocmd FocusGained,BufEnter * :silent! !
+augroup END
 
 " Prevent accidental writes to buffers that shouldn't be edited
 augroup unmodifiable
@@ -368,14 +378,11 @@ augroup unmodifiable
   autocmd BufRead *.pacnew set readonly
 augroup END
 
-" reset the cursor on start (for older versions of vim, usually not required)
-augroup myCmds
-  au!
-  autocmd VimEnter * silent !echo -ne "\e[2 q"
+" Enable the cursor line only when in insert mode
+augroup cursorline
+  autocmd InsertEnter * set cul
+  autocmd InsertLeave * set nocul
 augroup END
-
-autocmd InsertEnter * set cul
-autocmd InsertLeave * set nocul
 
 " Jump to last edit position on opening file
 if has("autocmd")
@@ -384,12 +391,32 @@ if has("autocmd")
 endif
 
 " Help filetype detection
-autocmd BufRead *.plot set filetype=gnuplot
-autocmd BufRead *.md set filetype=markdown
-autocmd BufRead *.lds set filetype=ld
-autocmd BufRead *.tex set filetype=tex
-autocmd BufRead *.trm set filetype=c
-autocmd BufRead *.xlsx.axlsx set filetype=ruby
+augroup filetype_help
+  autocmd BufRead *.plot set filetype=gnuplot
+  autocmd BufRead *.md set filetype=markdown
+  autocmd BufRead *.lds set filetype=ld
+  autocmd BufRead *.tex set filetype=tex
+  autocmd BufRead *.trm set filetype=c
+  autocmd BufRead *.xlsx.axlsx set filetype=ruby
+augroup END
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                                 Functions                                  "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"
+" Show the cargo.toml documentation.
+function! s:show_documentation()
+    if (index(['vim','help'], &filetype) >= 0)
+        execute 'h '.expand('<cword>')
+    elseif (index(['man'], &filetype) >= 0)
+        execute 'Man '.expand('<cword>')
+    elseif (expand('%:t') == 'Cargo.toml')
+        lua require('crates').show_popup()
+    else
+        lua vim.lsp.buf.hover()
+    endif
+endfunction
 
 " Prints the syntax stack at the current cursor
 function! EchoSynStack()
@@ -399,64 +426,18 @@ function! EchoSynStack()
   echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
 endfunction
 
-function s:format_options(pairs, lengths)
-  let l:format_str = ""
-  for n in a:lengths
-    let l:format_str = l:format_str."%-".n."s "
-  endfor
-  echom l:format_str
-  return printf(l:format_str, a:pairs[0], a:pairs[1], a:pairs[2], a:pairs[3])
-endfunction
-
-" Get a list of all options that can be set in vim
-function! s:opt_list()
-  let l:file = globpath(&rtp, 'doc/options.txt')
-  let l:lines = readfile(file)
-  let l:pairs = []
-  let l:max_len = [0, 0, 0, 0]
-
-  for line in l:lines
-    " echom line
-    let matches = matchlist(line, '\v^''(\w+)''( ''(\w+)'')?\s+(\w+)\s+\(default:?\s+([^)]+)\)?')
-    if len(matches) != 0
-      let full = matches[1]
-      let abbr = matches[3]
-      let type = matches[4]
-      let default = matches[5]
-
-      let pair = [full, abbr, type, default]
-      call add(l:pairs, pair)
-      
-      for i in range(len(pair))
-        if l:max_len[i] > len(pair[i])
-          let l:max_len[i] = len(pair[i])
-        endif
-      endfor
-    endif
-  endfor
-
-  let l:flines = map(pairs, {_, val -> call <SID>format_options(val, max_len)})
-
-  return l:flines
-endfunction
-
-function! s:opt_sink()
-endfunction
-
-command! Settings call fzf#run(fzf#wrap({
-      \ 'source': s:opt_list(), 
-      \ 'sink': function('s:opt_sink')}))
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                                   Python                                   "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
+"
+" Set settings for python files
 augroup ft_python
   autocmd!
   autocmd FileType python setlocal tabstop=4
   autocmd FileType python setlocal softtabstop=4
   autocmd FileType python setlocal shiftwidth=4
-  autocmd FileType python setlocal textwidth=79
+  autocmd FileType python setlocal textwidth=80
   autocmd FileType python setlocal expandtab
   autocmd FileType python setlocal autoindent
   autocmd FileType python setlocal fileformat=unix
@@ -476,7 +457,7 @@ EOF
 endfunction
 
 " Set default virtual environment
-let defaultvirtualenv = $HOME . "/.virtualenvs/stable"
+let defaultvirtualenv = $HOME . "/.miniconda3/bin"
 
 " Only attempt to load this virtualenv if the defaultvirtualenv actually
 " exists and we aren't running with a virtualenv active.
@@ -490,8 +471,10 @@ endif
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                                 VimScript                                  "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
+"
+" Set the fold method to marker for vim files
 augroup filetype_vim
   autocmd!
   autocmd FileType vim setlocal foldmethod=marker
 augroup END
+
