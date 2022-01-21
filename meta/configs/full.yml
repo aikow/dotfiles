@@ -15,8 +15,9 @@
 
 - shell:
   - [git submodule update --init --recursive, Installing submodules]
-  - [./environments/conda/bootstrap.sh]
-  - ['git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf && ~/.fzf/install']
+  - [./environments/conda/bootstrap-conda.sh]
+  - [./environments/rust/bootstrap-rust.sh]
+  - [./tools/fzf/bootstrap-fzf.sh]
 
 - link:
     ~/.dotfiles:

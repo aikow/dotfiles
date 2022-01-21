@@ -14,13 +14,6 @@ export DOTFILES="$HOME/.dotfiles"
 
 export PATH="${HOME}/.bin:${DOTFILES}/shells/bin:${HOME}/.local/bin:/usr/local/bin:/opt/vc/bin:${PATH}"
 
-### Ruby ###
-if command -v gem &>/dev/null; then
-  # Set gem home directory
-  export GEM_HOME=$(ruby -e 'puts Gem.user_dir')
-  export PATH=$PATH:$GEM_HOME/bin
-fi
-
 ### Editor ###
 if command -v nvim &>/dev/null; then
   export VISUAL=nvim
@@ -122,7 +115,7 @@ bindkey -s '^o' '^[k0Ea '
 bindkey -s '^x^l' '^[kA | less'
 
 # Bind C-x C-p to pipe the previous command
-bindkey -s '^x^p' '^[kA | '
+bindkey -s '^p' '^[kA | '
 
 # History seach
 bindkey "^k" history-beginning-search-backward
@@ -139,6 +132,7 @@ zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
 #######################################################################
 #                               Sources                               #
 #######################################################################
+#
 # Load OS specific settings
 [[ -f "${DOTFILES}/shells/zsh/os/${OSTYPE}.zsh" ]] && source "${DOTFILES}/shells/zsh/os/${OSTYPE}.zsh" 
 

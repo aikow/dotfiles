@@ -14,8 +14,8 @@
 
 - shell:
   - [git submodule update --init --recursive, Installing submodules]
-  - [./conda/bootstrap.sh]
-  - [./fzf/bootstrap.sh]
+  - [./environments/conda/bootstrap-conda.sh]
+  - [./tools/fzf/bootstrap-fzf.sh]
 
 - link:
     ~/.dotfiles:
@@ -23,42 +23,35 @@
       path: ""
 
     # Bash
-    ~/.bashrc: bash/bashrc
+    ~/.bashrc: shells/bash/bashrc
 
     # Readline
-    ~/.inputrc: readline/inputrc
+    ~/.inputrc: shells/readline/inputrc
 
     # ZSH
     ~/.zshrc:
-      if: 'command -v zsh &>/dev/null'
-      path: zsh/zshrc
+      path: shells/zsh/zshrc
       force: true
     
     # Scripts
     ~/.bin:
-      path: bin/*
+      path: shells/bin/*
       glob: true
       exclude:
         - bin/README.md
     
     # Tmux
-    ~/.tmux.conf:
-      if: 'command -v tmux &>/dev/null'
-      path: tmux/tmux_minimal.conf
+    ~/.tmux.conf: tmux/tmux_minimal.conf
 
     # Vim
-    ~/.vimrc:
-      if: 'command -v vim &>/dev/null || command -v vi &>/dev/null'
-      path: vim/minimal.vim
+    ~/.vimrc: tools/vim/light.vim
 
     # Git
-    ~/.gitconfig: git/gitconfig
-    ~/.gitignore_global: git/gitignore_global
+    ~/.gitconfig: tools/git/gitconfig
+    ~/.gitignore_global: tools/git/gitignore_global
 
     # Screen
-    ~/.screenrc:
-      if: 'command -v screen &>/dev/null'
-      path: screen/screenrc
+    ~/.screenrc: tools/screen/screenrc
     
     # Dir colors
     ~/.dir_colors: dircolors/dir_colors
