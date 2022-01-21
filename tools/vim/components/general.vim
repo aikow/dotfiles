@@ -114,7 +114,9 @@ set wildignore=*.o,*~,*.pyc,.hg,.svn,*.png,*.jpg,*.gif,*.settings,*.min.js,*.swp
 " menuone: popup even when there's only one match
 " noinsert: Do not insert text until a selection is made
 " noselect: Do not select, force user to select one from the menu
-set completeopt=menuone,noinsert,noselect
+if has('patch-7.4.775')
+  set completeopt=menuone,noinsert,noselect
+endif
 
 " Avoid showing extra messages when using completion
 set shortmess+=c
@@ -154,7 +156,7 @@ set splitbelow
 
 " Diff options
 set diffopt+=iwhite " No whitespace in vimdiff
-if has("patch-8.1.0360")
+if has('patch-8.1.0360')
   " Make diffing better: https://vimways.org/2018/the-power-of-diff/
   set diffopt+=algorithm:patience
   set diffopt+=indent-heuristic
@@ -178,8 +180,8 @@ if has("nvim")
 endif
 
 if exists('+termguicolors')
-  let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
-  let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+  let &t_8f = '\<Esc>[38;2;%lu;%lu;%lum'
+  let &t_8b = '\<Esc>[48;2;%lu;%lu;%lum'
   set termguicolors
 endif
 

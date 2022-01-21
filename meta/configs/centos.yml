@@ -12,8 +12,9 @@
 
 - shell:
   - [git submodule update --init --recursive, Installing submodules]
-  - [./conda/bootstrap.sh]
-  - [./fzf/bootstrap.sh]
+  - [./environments/conda/bootstrap-conda.sh]
+  - [./environments/rust/bootstrap-rust.sh]
+  - [./tools/fzf/bootstrap-fzf.sh]
 
 - link:
     ~/.dotfiles:
@@ -21,46 +22,45 @@
       path: ""
 
     # Bash
-    ~/.bashrc: bash/bashrc
+    ~/.bashrc: shells/bash/bashrc
 
     # Readline
-    ~/.inputrc: readline/inputrc
+    ~/.inputrc: shells/readline/inputrc
 
     # ZSH
     ~/.zshrc:
       if: 'command -v zsh &>/dev/null'
-      path: zsh/zshrc_5_0
+      path: shells/zsh/zshrc_5_0
       force: true
     
     # Scripts
     ~/.bin:
-      path: bin/*
+      path: shells/bin/*
       glob: true
       exclude:
         - bin/README.md
     
     # Tmux
     ~/.tmux.conf:
-      if: 'command -v tmux &>/dev/null'
-      path: tmux/tmux_1_9.conf
+      path: tools/tmux/tmux_1_9.conf
 
     # Vim
-    ~/.vimrc:
-      if: 'command -v vim &>/dev/null || command -v vi &>/dev/null'
-      path: vim/light.vim
+    ~/.vimrc: tools/vim/light.vim
+    ~/.config/nvim/init/vim: 
+        path: tools/vim/full.vim
+        create: true
 
     # Git
-    ~/.gitconfig: git/gitconfig
-    ~/.gitignore_global: git/gitignore_global
+    ~/.gitconfig: tools/git/gitconfig
+    ~/.gitignore_global: tools/git/gitignore_global
 
     # Screen
     ~/.screenrc:
-      if: 'command -v screen &>/dev/null'
-      path: screen/screenrc
+      path: tools/screen/screenrc
     
     # Dir colors
-    ~/.dir_colors: dircolors/dir_colors
+    ~/.dir_colors: shells/dircolors/dir_colors.gruvbox
 
     # Conda
-    ~/.condarc: conda/condarc
+    ~/.condarc: environments/conda/condarc
 
