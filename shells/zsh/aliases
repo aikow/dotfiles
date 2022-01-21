@@ -11,7 +11,7 @@ alias .....='cd ../../../..'
 if command -v exa &>/dev/null; then
   alias l='exa'
   alias ls='exa'
-  alias lg='exa --git'
+  alias lg='exa -l --git'
   alias ll='exa -l'
   alias lt='exa --tree'
   alias lll='exa -la'
