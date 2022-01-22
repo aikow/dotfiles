@@ -30,6 +30,10 @@ varclear PATH
 set -x EDITOR 'nvim'
 set -x VISUAL 'nvim'
 
+if command -v bat &>/dev/null
+  set -x BAT_THEME "gruvbox-dark"
+end
+
 if command -v fd &>/dev/null
   set -x FZF_DEFAULT_COMMAND 'fd --type file --follow --hidden --exclude .git --color=always'
   set -x FZF_CTRL_T_COMMAND $FZF_DEFAULT_COMMAND
