@@ -7,33 +7,22 @@ end
 
 return require('packer').startup(function(use)
   -- LSP server for neovim
-  Plug 'neovim/nvim-lspconfig'
+  use 'neovim/nvim-lspconfig'
 
   -- Completion framework
   use {
-  Plug 'hrsh7th/nvim-cmp'
+    'hrsh7th/nvim-cmp',
 
-  -- Completion sources for nvim-cmp
-  -- LSP completion
-  Plug 'hrsh7th/cmp-nvim-lsp' 
-
-  -- Vsnip completion
-  Plug 'hrsh7th/cmp-vsnip' 
-
-  -- Ultisnip completion
-  Plug 'quangnguyen30192/cmp-nvim-ultisnips' 
-
-  -- Other useful completion sources for path, buffer, and omnifunc
-  Plug 'hrsh7th/cmp-path'
-  Plug 'hrsh7th/cmp-buffer'
-  Plug 'hrsh7th/cmp-omni'
-
-  -- To enable more of the features of rust-analyzer, such as inlay hints and more!
-  Plug 'simrat39/rust-tools.nvim'
-  Plug {
-    'saecki/crates.nvim',
-    tag = 'v0.1.0'
+    -- Completion sources for nvim-cmp
+    -- LSP completion
+    'hrsh7th/cmp-nvim-lsp',
+    'hrsh7th/cmp-vsnip',
+    'quangnguyen30192/cmp-nvim-ultisnips',
+    'hrsh7th/cmp-path',
+    'hrsh7th/cmp-buffer',
+    'hrsh7th/cmp-omni',
   }
+
 
   -- Search
   use {
@@ -67,7 +56,7 @@ return require('packer').startup(function(use)
     },
   }
 
-   use {
+  use {
     'nvim-treesitter/nvim-treesitter',
     requires = {
       'nvim-treesitter/nvim-treesitter-refactor',
@@ -78,12 +67,50 @@ return require('packer').startup(function(use)
 
   -- Git
   use {
-    { 'tpope/vim-fugitive', cmd = { 'Git', 'Gstatus', 'Gblame', 'Gpush', 'Gpull' }, disable = true },
+    {
+      'tpope/vim-fugitive',
+      cmd = { 'Git', 'Gstatus', 'Gblame', 'Gpush', 'Gpull' },
+      disable = true 
+    },
     {
       'lewis6991/gitsigns.nvim',
       requires = { 'nvim-lua/plenary.nvim' },
       config = [[require('config.gitsigns')]],
     }
+  }
+
+  -- Rust
+  -- To enable more of the features of rust-analyzer, such as inlay hints and more!
+  use {
+    'simrat39/rust-tools.nvim',
+    requires = 'neovim/nvim-lspconfig',
+    ft = {'rust'}
+  }
+  use {
+    'saecki/crates.nvim',
+    tag = 'v0.1.0',
+    requires = { 'nvim-lua/plenary.nvim' },
+    config = function()
+        require('crates').setup()
+    end,
+    ft = {'toml'}
+  }
+
+  -- Latex
+  use {
+    'lervag/vimtex',
+    ft = {'tex'}
+  }
+  use {
+    'KeitaNakamura/tex-conceal.vim',
+    ft = {'tex'}
+  }
+
+  -- Markdown
+  use {
+    'iamcco/markdown-preview.nvim',
+    run = function() vim.fn['mkdp#util#install']() end,
+    ft = {'markdown'}
   }
 
   -- Automatically set up the configuration after cloning packer.nvim.
