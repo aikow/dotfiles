@@ -135,6 +135,10 @@
       path: os/i3/config
       create: true
 
+    ~/.config/picom/picom.conf:
+      path: os/picom/picom.conf
+      create: true
+
     ~/.config/rofi/config.rasi:
       path: os/rofi/config.rasi
       create: true
