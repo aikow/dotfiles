@@ -49,6 +49,12 @@
       force: true
       create: true
 
+    ~/.config/fish/functions:
+      if: 'command -v fish &>/dev/null'
+      glob: true
+      path: shells/fish/functions/*.fish
+      create: true
+
     ~/.config/starship.toml:
       path: shells/starship/starship.toml
       force: true

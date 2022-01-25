@@ -15,6 +15,11 @@ endif
 " Set runtimepath to the source files in the dotfiles directory
 set rtp+=~/.dotfiles/tools/vim/rtp
 
+" If launching vim from fish, set the shell to bash.
+if &shell =~# 'fish$'
+    set shell=bash
+endif
+
 " Don't need vi compatibility
 set nocompatible
 
