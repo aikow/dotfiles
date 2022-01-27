@@ -10,11 +10,11 @@ alias .....='cd ../../../..'
 
 if command -v exa &>/dev/null; then
   alias l='exa'
-  alias ls='exa'
-  alias lg='exa -l --git'
-  alias ll='exa -l'
-  alias lt='exa --tree'
-  alias lll='exa -la'
+  alias ls='exa --group-directories-first --icons'
+  alias lg='exa -l --group-directories-first --icons --git'
+  alias ll='exa -l --group-directories-first --icons'
+  alias lt='exa --group-directories-first --tree --level 2 --icons'
+  alias lll='exa -la --group-directories-first --icons --group'
 else
   alias l='ls'
   alias ll='ls -l'
