@@ -50,6 +50,11 @@ if has("nvim")
 
   " To enable more of the features of rust-analyzer, such as inlay hints and more!
   Plug 'simrat39/rust-tools.nvim'
+    let g:rustfmt_autosave = 1
+    let g:rustfmt_emit_files = 1
+    let g:rustfmt_fail_silently = 0
+    let g:rust_clip_command = 'xclip -selection clipboard'
+
   Plug 'saecki/crates.nvim', { 'tag': 'v0.1.0' }
 endif
 
