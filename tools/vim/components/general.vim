@@ -206,6 +206,7 @@ set noshowmode
 set colorcolumn=80
 set ruler
 set relativenumber 
+set cursorline
 
 " Wrap lines
 set wrap
@@ -383,12 +384,6 @@ augroup END
 augroup unmodifiable
   autocmd BufRead *.orig set readonly
   autocmd BufRead *.pacnew set readonly
-augroup END
-
-" Enable the cursor line only when in insert mode
-augroup cursorline
-  autocmd InsertEnter * set cul
-  autocmd InsertLeave * set nocul
 augroup END
 
 " Jump to last edit position on opening file
