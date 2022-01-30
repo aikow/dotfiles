@@ -41,6 +41,7 @@ if command -v fd &>/dev/null
 else if command -v rg &>/dev/null
   set -x FZF_DEFAULT_COMMAND 'rg --files --no-ignore --hidden --follow --glob "!.git/*"'
 end
+set -x FZF_DEFAULT_OPTS $FZF_DEFAULT_OPTS' --bind ctrl-f:preview-half-page-down,ctrl-b:preview-half-page-up'
 
 if status is-interactive
     # Auto LS command on cd
