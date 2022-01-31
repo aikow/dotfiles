@@ -363,10 +363,13 @@ if has('nvim')
         settings = {
           -- to enable rust-analyzer settings visit:
           -- https://github.com/rust-analyzer/rust-analyzer/blob/master/docs/user/generated_config.adoc
-          ["rust-analyzer"] = {
+          ['rust-analyzer'] = {
             -- enable clippy on save
             checkOnSave = {
-              command = "clippy"
+              command = 'clippy'
+            },
+            procMacro = {
+              enable = false
             },
           }
         }
