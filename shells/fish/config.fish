@@ -127,6 +127,10 @@ if status is-interactive
     starship init fish | source
 end
 
+if test -f ~/.fish.local
+  source ~/.fish.local
+end
+
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
 eval $HOME/.miniconda3/bin/conda "shell.fish" "hook" $argv | source
