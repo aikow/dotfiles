@@ -92,9 +92,15 @@
     ~/.condarc: environments/conda/condarc
 
     # Neovim
-    ~/.config/nvim/init.vim:
+    ~/.config/nvim/init.lua:
       if: 'command -v nvim &>/dev/null'
-      path: tools/vim/full.vim
+      path: tools/nvim/init.lua
+      create: true
+    ~/.config/nvim/lua:
+      if: 'command -v nvim &>/dev/null'
+      path: tools/nvim/lua/*.lua
+      glob: true
+      force: true
       create: true
 
     # Terminator
