@@ -218,7 +218,7 @@ o.cmdheight = 1
 o.showmode = false
 
 -- Show character column
-o.colorcolumn = 80
+o.colorcolumn = '80'
 o.ruler = true
 o.relativenumber = true
 o.cursorline = true
@@ -313,10 +313,19 @@ map('n', '<leader>l', '<cmd>lua vim.lsp.buf.signature_help()<CR>')
 
 -- Goto references with <leader>j...
 map('n', '<leader>jc', '<cmd>lua vim.lsp.buf.declaration()<CR>')
-map('n', '<leader>jd', '<cmd>lua vim.lsp.buf.definition()<CR>')
-map('n', '<leader>jr', '<cmd>lua vim.lsp.buf.references()<CR>')
-map('n', '<leader>ji', '<cmd>lua vim.lsp.buf.implementation()<CR>')
-map('n', '<leader>jt', '<cmd>lua vim.lsp.buf.type_definition()<CR>')
+map('n', '<leader>jD', '<cmd>lua vim.lsp.buf.definition()<CR>')
+map('n', '<leader>jd', [[<cmd>lua require('telescope.builtin').lsp_definitions()<CR>]])
+map('n', '<leader>jR', '<cmd>lua vim.lsp.buf.references()<CR>')
+map('n', '<leader>jr', [[<cmd>lua require('telescope.builtin').lsp_references()<CR>]])
+map('n', '<leader>jI', '<cmd>lua vim.lsp.buf.implementation()<CR>')
+map('n', '<leader>ji', [[<cmd>lua require('telescope.builtin').lsp_implementations()<CR>]])
+map('n', '<leader>jT', '<cmd>lua vim.lsp.buf.type_definition()<CR>')
+map('n', '<leader>jt', [[<cmd>lua require('telescope.builtin').lsp_type_definitions()<CR>]])
+
+map('n', '<leader>ja', [[<cmd>lua require('telescope.builtin').lsp_code_actions()<CR>]])
+map('n', '<leader>jA', [[<cmd>lua require('telescope.builtin').lsp_range_code_actions()<CR>]])
+map('n', '<leader>jw', [[<cmd>lua require('telescope.builtin').lsp_workspace_symbols()<CR>]])
+map('n', '<leader>js', [[<cmd>lua require('telescope.builtin').lsp_document_symbols()<CR>]])
 
 -- Workspace settings with <leader>w...
 map('n', '<leader>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>')
@@ -347,6 +356,25 @@ smap('n', '<leader>gb', [[<cmd>lua require('telescope.builtin').git_branches()<c
 smap('n', '<leader>gt', [[<cmd>lua require('telescope.builtin').git_status()<cr>]])
 smap('n', '<leader>gh', [[<cmd>lua require('telescope.builtin').git_stash()<cr>]])
 
+-- Navigation
+smap('n', ']c', "&diff ? ']c' : '<cmd>Gitsigns next_hunk<CR>'", {expr=true})
+smap('n', '[c', "&diff ? '[c' : '<cmd>Gitsigns prev_hunk<CR>'", {expr=true})
+
+-- -- Git actions related actions with <leader>g...
+smap({'n', 'v'}, '<leader>gs', '<cmd>Gitsigns stage_hunk<CR>')
+smap({'n', 'v'}, '<leader>gr', '<cmd>Gitsigns reset_hunk<CR>')
+smap('n', '<leader>gS', '<cmd>Gitsigns stage_buffer<CR>')
+smap('n', '<leader>gu', '<cmd>Gitsigns undo_stage_hunk<CR>')
+smap('n', '<leader>gR', '<cmd>Gitsigns reset_buffer<CR>')
+smap('n', '<leader>gp', '<cmd>Gitsigns preview_hunk<CR>')
+-- map('n', '<leader>gl', function() gs.blame_line{full=true} end)
+smap('n', '<leader>gL', '<cmd>Gitsigns toggle_current_line_blame<CR>')
+smap('n', '<leader>gd', '<cmd>Gitsigns diffthis<CR>')
+-- map('n', '<leader>gD', function() gs.diffthis('~') end)
+smap('n', '<leader>gtd', '<cmd>Gitsigns toggle_deleted<CR>')
+
+-- -- Text object
+smap({'o', 'x'}, 'ig', ':<C-U>Gitsigns select_hunk<CR>')
 
 -- Cargo shortcuts
 smap('n', '<leader>ct', [[<cmd>lua require('crates').toggle()<cr>]])
