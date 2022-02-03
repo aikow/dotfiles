@@ -236,6 +236,26 @@ plugins = require('packer').startup(function(use)
 end)
 
 
+-- -------------------
+-- | Setup Telescope |
+-- -------------------
+-- You dont need to set any of these options. These are the default ones. Only
+-- the loading is important
+require('telescope').setup {
+  extensions = {
+    fzf = {
+      fuzzy = true,                    -- false will only do exact matching
+      override_generic_sorter = true,  -- override the generic sorter
+      override_file_sorter = true,     -- override the file sorter
+      case_mode = "smart_case",        -- or "ignore_case" or "respect_case"
+                                       -- the default case_mode is "smart_case"
+    }
+  }
+}
+-- To get fzf loaded and working with telescope, you need to call
+-- load_extension, somewhere after setup function:
+require('telescope').load_extension('fzf')
+
 -- Setup the neovim LSP server form lspconfig
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
@@ -250,12 +270,13 @@ local on_attach = function(client, bufnr)
 end
 
 -- Setup all language servers
-local servers = { 'pylsp' }
-for _, lsp in pairs(servers) do
-  require('lspconfig')[lsp].setup {
-    on_attach = on_attach,
-  }
-end
+-- local servers = { 'pylsp' }
+-- for _, lsp in pairs(servers) do
+--   require('lspconfig')[lsp].setup {
+--     on_attach = on_attach,
+--   }
+-- end
+require('lspconfig').pylsp.setup{}
 
 -- Setup rust LSP separately, since rust-tools overwrites the LSP server.
 require('rust-tools').setup {
