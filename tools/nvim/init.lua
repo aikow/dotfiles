@@ -162,9 +162,11 @@ set formatoptions+=n " detect lists for formatting
 set formatoptions+=b " auto-wrap in insert mode, and do not wrap old long lines
 
 " Folding
-set foldmethod=indent
-set foldnestmax=1
-set foldlevelstart=1
+set foldmethod=expr
+set foldexpr=nvim_treesitter#foldexpr()
+set foldlevel=20
+" set foldnestmax=20
+" set foldlevelstart=1
 
 " Set 7 lines to the cursor - when moving vertically using j/k
 set scrolloff=7
@@ -181,33 +183,24 @@ if has('patch-8.1.0360')
   set diffopt+=indent-heuristic
 endif
 
-" Set spell location to English and German
-setlocal spell
-set spelllang=en,de
-
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"                                 Appearance                                 "
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"
-" Enable syntax highlighting for languages
-syntax enable
-
-" Neovim only
-if has("nvim")
-  set termguicolors 
-endif
-
-if exists('+termguicolors')
-  let &t_8f = '\<Esc>[38;2;%lu;%lu;%lum'
-  let &t_8b = '\<Esc>[48;2;%lu;%lu;%lum'
-  set termguicolors
-endif
 ]], false)
+
+-- Set spell location to English and German
+o.spell = true
+o.spelllang = 'en,de'
+
+-- -----------------------
+-- | Appearance Settings |
+-- -----------------------
+--
+-- Enable syntax highlighting for languages
+cmd [[syntax enable]]
 
 -- Turn of bell and visual bell
 o.visualbell = false
 
+-- Colorscheme and background
+o.termguicolors = true
 o.background = 'dark'
 cmd [[colorscheme gruvbox-material]]
 
@@ -226,13 +219,21 @@ o.cursorline = true
 -- Wrap lines
 o.wrap = true
 
--- Keybindings
+-- =========================
+-- |=======================|
+-- ||                     ||
+-- || General Keybindings ||
+-- ||                     ||
+-- |=======================|
+-- =========================
+--
 -- Set the leader key to the space key
 map('n', '<SPACE>', '<Nop>')
 g.mapleader = ' '
 
 -- Set local leader to the backslash
 g.maplocalleader = [[\]]
+
 -- Treat long lines as break lines (useful when moving around in them)
 map('n', 'j', 'gj')
 map('n', 'k', 'gk')
@@ -322,6 +323,7 @@ map('n', '<leader>ji', [[<cmd>lua require('telescope.builtin').lsp_implementatio
 map('n', '<leader>jT', '<cmd>lua vim.lsp.buf.type_definition()<CR>')
 map('n', '<leader>jt', [[<cmd>lua require('telescope.builtin').lsp_type_definitions()<CR>]])
 
+-- Telescope LSP pickers
 map('n', '<leader>ja', [[<cmd>lua require('telescope.builtin').lsp_code_actions()<CR>]])
 map('n', '<leader>jA', [[<cmd>lua require('telescope.builtin').lsp_range_code_actions()<CR>]])
 map('n', '<leader>jw', [[<cmd>lua require('telescope.builtin').lsp_workspace_symbols()<CR>]])
@@ -342,8 +344,8 @@ smap('n', '<leader>;', [[<cmd>lua require('telescope.builtin').commands()<cr>]])
 smap('n', '<leader>o', [[<cmd>lua require('telescope.builtin').find_files()<cr>]])
 smap('n', '<leader>p', [[<cmd>lua require('telescope.builtin').buffers()<cr>]])
 smap('n', '<leader>ff', [[<cmd>lua require('telescope.builtin').live_grep()<cr>]])
-smap('n', '<leader>fs', [[:lua require('telescope.builtin').spell_suggest()<cr>]])
-smap('n', '<leader>fb', [[:lua require('telescope.builtin').current_buffer_fuzzy_fund()<cr>]])
+smap('n', '<leader>fs', [[<cmd>lua require('telescope.builtin').spell_suggest()<cr>]])
+smap('n', '<leader>fb', [[<cmd>lua require('telescope.builtin').current_buffer_fuzzy_find()<cr>]])
 smap('n', '<leader>fts', [[<cmd>lua require('telescope.builtin').tags()<cr>]])
 smap('n', '<leader>fh', [[<cmd>lua require('telescope.builtin').search_history()<cr>]])
 smap('n', '<leader>f;', [[<cmd>lua require('telescope.builtin').command_history()<cr>]])
@@ -367,10 +369,8 @@ smap('n', '<leader>gS', '<cmd>Gitsigns stage_buffer<CR>')
 smap('n', '<leader>gu', '<cmd>Gitsigns undo_stage_hunk<CR>')
 smap('n', '<leader>gR', '<cmd>Gitsigns reset_buffer<CR>')
 smap('n', '<leader>gp', '<cmd>Gitsigns preview_hunk<CR>')
--- map('n', '<leader>gl', function() gs.blame_line{full=true} end)
 smap('n', '<leader>gL', '<cmd>Gitsigns toggle_current_line_blame<CR>')
 smap('n', '<leader>gd', '<cmd>Gitsigns diffthis<CR>')
--- map('n', '<leader>gD', function() gs.diffthis('~') end)
 smap('n', '<leader>gtd', '<cmd>Gitsigns toggle_deleted<CR>')
 
 -- -- Text object
@@ -503,7 +503,6 @@ augroup ft_python
   autocmd FileType python setlocal expandtab
   autocmd FileType python setlocal autoindent
   autocmd FileType python setlocal fileformat=unix
-  autocmd FileType python setlocal foldmethod=indent
 augroup END
 
 " Function to activate a virtualenv in the embedded interpeter
@@ -528,17 +527,6 @@ if has("python")
     call LoadVirtualEnv(defaultvirtualenv)
   endif
 endif
-
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"                                 VimScript                                  "
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"
-" Set the fold method to marker for vim files
-augroup filetype_vim
-  autocmd!
-  autocmd FileType vim setlocal foldmethod=marker
-augroup END
 
 ]], false)
 
