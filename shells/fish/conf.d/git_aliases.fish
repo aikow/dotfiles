@@ -13,14 +13,14 @@ set -l git_version (string split ' ' (git version))[3]
 
 # The name of the current branch
 # Usage example: git pull origin (current_branch)
-function current_branch  
+function git_current_branch  
     set ref (git symbolic-ref HEAD 2> /dev/null); or \
     set ref (git rev-parse --short HEAD 2> /dev/null); or return
     echo $ref | sed -e 's|^refs/heads/||'
 end
 
 # Pretty log messages
-function _git_log_prettily
+function git_log_prettily
   if ! [ -z $1 ]; then
     git log --pretty=$1
   end
@@ -37,7 +37,7 @@ function work_in_progress
   end
 end
 
-function current_repository
+function git_current_repository
   set ref (git symbolic-ref HEAD 2> /dev/null); or \
   set ref (git rev-parse --short HEAD 2> /dev/null); or return
   echo (git remote -v | cut -d':' -f 2)
@@ -255,7 +255,7 @@ alias glods="git log --graph --pretty='%Cred%h%Creset -%C(auto)%d%Creset %s %Cgr
 alias glola="git log --graph --pretty='%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%ar) %C(bold blue)<%an>%Creset' --all"
 abbr glog 'git log --oneline --decorate --graph'
 abbr gloga 'git log --oneline --decorate --graph --all'
-abbr glp "_git_log_prettily"
+abbr glp "git_log_prettily"
 
 abbr gm 'git merge'
 abbr gmom 'git merge origin/(git_main_branch)'
