@@ -88,6 +88,15 @@ plugins = require('packer').startup(function(use)
   }
 
   use {
+    'lewis6991/spellsitter.nvim',
+    config = function()
+      require('spellsitter').setup {
+        enable = true,
+      }
+    end,
+  }
+
+  use {
     'sirver/ultisnips',
     config = function()
       vim.api.nvim_exec([[
