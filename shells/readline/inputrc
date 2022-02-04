@@ -63,5 +63,3 @@ TAB: menu-complete
 
 "\C-l": clear-screen
 
-[[ -f "${HOME}/.inputrc.local" ]] && source "${HOME}/.inputrc.local"
-
