@@ -165,28 +165,27 @@ set formatoptions+=b " auto-wrap in insert mode, and do not wrap old long lines
 set foldmethod=expr
 set foldexpr=nvim_treesitter#foldexpr()
 set foldlevel=20
-" set foldnestmax=20
-" set foldlevelstart=1
+]], false)
 
-" Set 7 lines to the cursor - when moving vertically using j/k
-set scrolloff=7
+-- Set 7 lines to the cursor - when moving vertically using j/k
+o.scrolloff = 7
 
-" Open new splits to the right or down instead of moving current window
-set splitright
-set splitbelow
 
-" Diff options
-set diffopt+=iwhite " No whitespace in vimdiff
+-- Open new splits to the right or down instead of moving current window
+o.splitright = true
+o.splitbelow = true
+
+-- Diff options
+cmd [[set diffopt+=iwhite " No whitespace in vimdiff
 if has('patch-8.1.0360')
   " Make diffing better: https://vimways.org/2018/the-power-of-diff/
   set diffopt+=algorithm:patience
   set diffopt+=indent-heuristic
 endif
-
-]], false)
+]]
 
 -- Set spell location to English and German
-o.spell = true
+wo.spell = true
 o.spelllang = 'en,de'
 
 -- -----------------------
@@ -251,7 +250,7 @@ map('c', [[%s/]], [[%sm/]])
 map('n', '<leader><leader>', '<c-^>')
 
 -- <leader>, shows/hides hidden characters
-smap('n', '<leader>,', ':set invlist<cr>')
+smap('n', '<leader>,', ':set invlist<CR>')
 
 -- <leader>q shows stats
 map('n', '<leader>q', 'g<c-g>')
@@ -266,7 +265,7 @@ map('i', '<C-l>', '<c-g>u<Esc>[s1z=`]a<c-g>u')
 smap('n', '<c-_>', [[:let @/ = ""<CR>]])
 
 -- Use <gp> to select the text that was last pasted
-map('n', 'gp', [=[`[' . strpart(getregtype(), 0,  1) . '`]]=], { noremap=true, expr=true })
+map('n', 'gp', [['`[' . strpart(getregtype(), 0,  1) . '`]']], { noremap=true, expr=true })
 
 -- Switch buffers using gb and gB, similar to tabs.
 smap('n', 'gb', ':bnext<CR>')
@@ -304,8 +303,8 @@ map('n', '<space>e', '<cmd>lua vim.diagnostic.open_float()<CR>')
 map('n', '[e', '<cmd>lua vim.diagnostic.goto_prev()<CR>')
 map('n', ']e', '<cmd>lua vim.diagnostic.goto_next()<CR>')
 map('n', '<space>dq', '<cmd>lua vim.diagnostic.setloclist()<CR>')
-map('n', '<space>do', [[:lua require('telescope.builtin').diagnostics()<cr>]])
-map('n', '<space>ds', [[:lua require('telescope.builtin').spell_suggest()<cr>]])
+map('n', '<space>do', [[:lua require('telescope.builtin').diagnostics()<CR>]])
+map('n', '<space>ds', [[:lua require('telescope.builtin').spell_suggest()<CR>]])
 
 -- LSP functions
 -- See `:help vim.lsp.*` for documentation on any of the below functions
@@ -340,23 +339,23 @@ map('n', '<leader>rq', '<cmd>lua vim.lsp.buf.code_action()<CR>')
 map('n', '<leader>rf', '<cmd>lua vim.lsp.buf.formatting()<CR>')
 
 -- Finding searching and navigating
-smap('n', '<leader>;', [[<cmd>lua require('telescope.builtin').commands()<cr>]])
-smap('n', '<leader>o', [[<cmd>lua require('telescope.builtin').find_files()<cr>]])
-smap('n', '<leader>p', [[<cmd>lua require('telescope.builtin').buffers()<cr>]])
-smap('n', '<leader>ff', [[<cmd>lua require('telescope.builtin').live_grep()<cr>]])
-smap('n', '<leader>fs', [[<cmd>lua require('telescope.builtin').spell_suggest()<cr>]])
-smap('n', '<leader>fb', [[<cmd>lua require('telescope.builtin').current_buffer_fuzzy_find()<cr>]])
-smap('n', '<leader>fts', [[<cmd>lua require('telescope.builtin').tags()<cr>]])
-smap('n', '<leader>fh', [[<cmd>lua require('telescope.builtin').search_history()<cr>]])
-smap('n', '<leader>f;', [[<cmd>lua require('telescope.builtin').command_history()<cr>]])
+smap('n', '<leader>;', [[<cmd>lua require('telescope.builtin').commands()<CR>]])
+smap('n', '<leader>o', [[<cmd>lua require('telescope.builtin').find_files()<CR>]])
+smap('n', '<leader>p', [[<cmd>lua require('telescope.builtin').buffers()<CR>]])
+smap('n', '<leader>ff', [[<cmd>lua require('telescope.builtin').live_grep()<CR>]])
+smap('n', '<leader>fs', [[<cmd>lua require('telescope.builtin').spell_suggest()<CR>]])
+smap('n', '<leader>fb', [[<cmd>lua require('telescope.builtin').current_buffer_fuzzy_find()<CR>]])
+smap('n', '<leader>fts', [[<cmd>lua require('telescope.builtin').tags()<CR>]])
+smap('n', '<leader>fh', [[<cmd>lua require('telescope.builtin').search_history()<CR>]])
+smap('n', '<leader>f;', [[<cmd>lua require('telescope.builtin').command_history()<CR>]])
 
 -- Git shortcuts
-smap('n', '<leader>go', [[<cmd>lua require('telescope.builtin').git_files()<cr>]])
-smap('n', '<leader>gC', [[<cmd>lua require('telescope.builtin').git_commits()<cr>]])
-smap('n', '<leader>gc', [[<cmd>lua require('telescope.builtin').git_bcommits()<cr>]])
-smap('n', '<leader>gb', [[<cmd>lua require('telescope.builtin').git_branches()<cr>]])
-smap('n', '<leader>gt', [[<cmd>lua require('telescope.builtin').git_status()<cr>]])
-smap('n', '<leader>gh', [[<cmd>lua require('telescope.builtin').git_stash()<cr>]])
+smap('n', '<leader>go', [[<cmd>lua require('telescope.builtin').git_files()<CR>]])
+smap('n', '<leader>gC', [[<cmd>lua require('telescope.builtin').git_commits()<CR>]])
+smap('n', '<leader>gc', [[<cmd>lua require('telescope.builtin').git_bcommits()<CR>]])
+smap('n', '<leader>gb', [[<cmd>lua require('telescope.builtin').git_branches()<CR>]])
+smap('n', '<leader>gt', [[<cmd>lua require('telescope.builtin').git_status()<CR>]])
+smap('n', '<leader>gh', [[<cmd>lua require('telescope.builtin').git_stash()<CR>]])
 
 -- Navigation
 smap('n', ']c', "&diff ? ']c' : '<cmd>Gitsigns next_hunk<CR>'", {expr=true})
@@ -377,32 +376,32 @@ smap('n', '<leader>gtd', '<cmd>Gitsigns toggle_deleted<CR>')
 smap({'o', 'x'}, 'ig', ':<C-U>Gitsigns select_hunk<CR>')
 
 -- Cargo shortcuts
-smap('n', '<leader>ct', [[<cmd>lua require('crates').toggle()<cr>]])
-smap('n', '<leader>cr', [[<cmd>lua require('crates').reload()<cr>]])
+smap('n', '<leader>ct', [[<cmd>lua require('crates').toggle()<CR>]])
+smap('n', '<leader>cr', [[<cmd>lua require('crates').reload()<CR>]])
 
-smap('n', '<leader>cv', [[<cmd>lua require('crates').show_versions_popup()<cr>]])
-smap('n', '<leader>cf', [[<cmd>lua require('crates').show_features_popup()<cr>]])
-smap('n', 'K', [[:call <SID>show_documentation()<cr>]])
+smap('n', '<leader>cv', [[<cmd>lua require('crates').show_versions_popup()<CR>]])
+smap('n', '<leader>cf', [[<cmd>lua require('crates').show_features_popup()<CR>]])
+smap('n', 'K', [[:call <SID>show_documentation()<CR>]])
 
 -- update creates
-smap('n', '<leader>cu', [[<cmd>lua require('crates').update_crate()<cr>]])
-smap('n', '<leader>cu', [[<cmd>lua require('crates').update_crates()<cr>]])
-smap('n', '<leader>ca', [[<cmd>lua require('crates').update_all_crates()<cr>]])
-smap('n', '<leader>cU', [[<cmd>lua require('crates').upgrade_crate()<cr>]])
-smap('n', '<leader>cU', [[<cmd>lua require('crates').upgrade_crates()<cr>]])
-smap('n', '<leader>cA', [[<cmd>lua require('crates').upgrade_all_crates()<cr>]])
+smap('n', '<leader>cu', [[<cmd>lua require('crates').update_crate()<CR>]])
+smap('n', '<leader>cu', [[<cmd>lua require('crates').update_crates()<CR>]])
+smap('n', '<leader>ca', [[<cmd>lua require('crates').update_all_crates()<CR>]])
+smap('n', '<leader>cU', [[<cmd>lua require('crates').upgrade_crate()<CR>]])
+smap('n', '<leader>cU', [[<cmd>lua require('crates').upgrade_crates()<CR>]])
+smap('n', '<leader>cA', [[<cmd>lua require('crates').upgrade_all_crates()<CR>]])
 
 -- Setting shortcuts
-smap('n', '<leader>ho', [[<cmd>lua require('telescope.builtin').vim_options()<cr>]])
-smap('n', '<leader>hc', [[<cmd>lua require('telescope.builtin').colorscheme()<cr>]])
-smap('n', '<leader>hh', [[<cmd>lua require('telescope.builtin').help_tags()<cr>]])
-smap('n', '<leader>hm', [[<cmd>lua require('telescope.builtin').man_pages()<cr>]])
-smap('n', '<leader>h\'', [[<cmd>lua require('telescope.builtin').marks()<cr>]])
-smap('n', '<leader>hk', [[<cmd>lua require('telescope.builtin').keymaps()<cr>]])
-smap('n', '<leader>hf', [[<cmd>lua require('telescope.builtin').filetypes()<cr>]])
-smap('n', '<leader>hr', [[<cmd>lua require('telescope.builtin').registers()<cr>]])
-smap('n', '<leader>ha', [[<cmd>lua require('telescope.builtin').autocommands()<cr>]])
-smap('n', '<leader>ht', [[<cmd>lua require('telescope.builtin').pickers()<cr>]])
+smap('n', '<leader>ho', [[<cmd>lua require('telescope.builtin').vim_options()<CR>]])
+smap('n', '<leader>hc', [[<cmd>lua require('telescope.builtin').colorscheme()<CR>]])
+smap('n', '<leader>hh', [[<cmd>lua require('telescope.builtin').help_tags()<CR>]])
+smap('n', '<leader>hm', [[<cmd>lua require('telescope.builtin').man_pages()<CR>]])
+smap('n', '<leader>h\'', [[<cmd>lua require('telescope.builtin').marks()<CR>]])
+smap('n', '<leader>hk', [[<cmd>lua require('telescope.builtin').keymaps()<CR>]])
+smap('n', '<leader>hf', [[<cmd>lua require('telescope.builtin').filetypes()<CR>]])
+smap('n', '<leader>hr', [[<cmd>lua require('telescope.builtin').registers()<CR>]])
+smap('n', '<leader>ha', [[<cmd>lua require('telescope.builtin').autocommands()<CR>]])
+smap('n', '<leader>ht', [[<cmd>lua require('telescope.builtin').pickers()<CR>]])
 
 -- Faster write/save current buffer
 smap('n', '<leader>w', ':w<CR>')
