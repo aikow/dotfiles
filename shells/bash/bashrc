@@ -6,7 +6,7 @@
 # Set the dotfiles config
 export DOTFILES="$HOME/.dotfiles"
 
-export PATH="${HOME}/.bin:${DOTFILES}/bin:${HOME}/.local/bin:/usr/local/bin:/opt/vc/bin:${PATH}"
+export PATH="${HOME}/.bin:${HOME}/.local/bin:/usr/local/bin:/opt/vc/bin:${PATH}"
 
 ### Editor ###
 if command -v nvim &>/dev/null; then
@@ -111,3 +111,4 @@ bind -m vi-insert '"\C-o": "\e-0Eli "'
 [[ -f "${HOME}/.aliases.local" ]] && source "${HOME}/.aliases.local"
 [[ -f "${HOME}/.bashrc.local" ]] && source "${HOME}/.bashrc.local"
 
+. "$HOME/.cargo/env"
