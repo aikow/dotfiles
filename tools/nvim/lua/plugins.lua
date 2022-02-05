@@ -114,6 +114,7 @@ plugins = require('packer').startup(function(use)
     'tpope/vim-surround',
     'tpope/vim-vinegar',
     'godlygeek/tabular',
+    'christoomey/vim-tmux-navigator',
     'airblade/vim-rooter',
     'junegunn/fzf',
     {
