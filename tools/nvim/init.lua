@@ -94,17 +94,15 @@ filetype plugin on
 filetype indent on
 
 " Set the python provider for neovim
-if has('nvim')
-  let s:pynvim_path = expand("$HOME/.miniconda3/envs/pynvim3/bin/python")
+let s:pynvim_path = expand("$HOME/.miniconda3/envs/pynvim3/bin/python")
 
-  if !filereadable(s:pynvim_path)
-    " Bootstrap the python3 conda env with pynvim
-    echom "Bootstrapping the conda python3 env..."
-    execute "!" . expand('conda env create -f $HOME/.dotfiles/tools/vim/envs/pynvim3.yml')
-  endif
-
-  let g:python3_host_prog = s:pynvim_path
+if !filereadable(s:pynvim_path)
+" Bootstrap the python3 conda env with pynvim
+echom "Bootstrapping the conda python3 env..."
+execute "!" . expand('conda env create -f $HOME/.dotfiles/tools/vim/envs/pynvim3.yml')
 endif
+
+let g:python3_host_prog = s:pynvim_path
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
