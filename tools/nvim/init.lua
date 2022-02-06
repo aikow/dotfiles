@@ -240,7 +240,7 @@ smap('n', '<M-h>', [[<cmd>TmuxNavigateLeft<CR>]])
 smap('n', '<M-j>', [[<cmd>TmuxNavigateDown<CR>]])
 smap('n', '<M-k>', [[<cmd>TmuxNavigateUp<CR>]])
 smap('n', '<M-l>', [[<cmd>TmuxNavigateRight<CR>]])
-smap('n', '<M-\\>', [[<cmd>TmuxNavigatePrevious<CR>]])
+smap('n', '<M-o>', [[<cmd>TmuxNavigatePrevious<CR>]])
 
 -- Treat long lines as break lines (useful when moving around in them)
 map('n', 'j', 'gj')
