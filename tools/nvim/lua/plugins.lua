@@ -181,17 +181,16 @@ plugins = require('packer').startup(function(use)
                 \ ],
                 \}
 
-        augroup latexSurround
-           autocmd!
-           autocmd FileType tex call s:latexSurround()
-        augroup END
-
-        function! s:latexSurround()
-           let b:surround_{char2nr("e")}
-             \ = "\\begin{\1environment: \1}\n\t\r\n\\end{\1\1}"
-           let b:surround_{char2nr("c")} = "\\\1command: \1{\r}"
-        endfunction
       ]], false)
+      -- augroup latexSurround
+      --    autocmd!
+      --    autocmd FileType tex call s:latexSurround()
+      -- augroup END
+
+      -- function! s:latexSurround()
+      --    let b:surround_{char2nr("e")} = "\\begin{\1environment: \1}\n\t\r\n\\end{\1\1}"
+      --    let b:surround_{char2nr("c")} = "\\\1command: \1{\r}"
+      -- endfunction
     end,
     ft = {'tex'}
   }
