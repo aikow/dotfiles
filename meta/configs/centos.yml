@@ -45,7 +45,7 @@
       path: tools/tmux/tmux_1_9.conf
 
     # Vim
-    ~/.vimrc: tools/vim/light.vim
+    ~/.vimrc: tools/vim/full.vim
     ~/.config/nvim/init/vim: 
         path: tools/vim/full.vim
         create: true
