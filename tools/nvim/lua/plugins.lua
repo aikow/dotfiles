@@ -109,10 +109,16 @@ plugins = require('packer').startup(function(use)
   -- ----------------------------
   -- Search
   use {
-    'nvim-telescope/telescope.nvim',
-    requires = {
-      'nvim-lua/plenary.nvim',
-      { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make', },
+    {
+      'nvim-telescope/telescope.nvim',
+      requires = {
+        'nvim-lua/plenary.nvim',
+        'telescope-fzf-native.nvim',
+      },
+    },
+    {
+      'nvim-telescope/telescope-fzf-native.nvim',
+      run = 'make',
     },
     config = function() 
       -- You dont need to set any of these options. These are the default ones. Only
@@ -139,7 +145,7 @@ plugins = require('packer').startup(function(use)
     config = function()
       require('nvim-treesitter.configs').setup {
         -- Ensure that all maintained languages are always installed.
-        ensure_installed = 'maintained',
+        -- ensure_installed = 'maintained',
         sync_install = false,
         -- Allow incremental selection using TreeSitter code regions.
         incremental_selection = {

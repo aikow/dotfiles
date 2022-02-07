@@ -51,6 +51,16 @@
       if: 'command -v vim &>/dev/null || command -v vi &>/dev/null'
       path: tools/vim/light.vim
 
+    # Neovim
+    ~/.config/nvim/init.lua:
+      path: tools/nvim/init.lua
+      create: true
+    ~/.config/nvim/lua:
+      path: tools/nvim/lua/*.lua
+      glob: true
+      force: true
+      create: true
+
     # Git
     ~/.gitconfig: tools/git/gitconfig
     ~/.gitignore_global: tools/git/gitignore_global
@@ -65,9 +75,4 @@
 
     # Conda
     ~/.condarc: environments/conda/condarc
-
-    # Neovim
-    ~/.config/nvim/init.vim:
-      path: tools/vim/full.vim
-      create: true
 
