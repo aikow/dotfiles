@@ -1,5 +1,10 @@
--- For bootstrapping packer
+-- Convenience definitions.
+local g = vim.g
 local fn = vim.fn
+local cmd = vim.cmd
+local o, wo, bo = vim.o, vim.wo, vim.bo
+
+-- For bootstrapping packer local fn = vim.fn
 local install_path = fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
 if fn.empty(fn.glob(install_path)) > 0 then
   packer_bootstrap = fn.system({'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path})
@@ -27,32 +32,106 @@ plugins = require('packer').startup(function(use)
   -- Completion framework
   use {
     'hrsh7th/nvim-cmp',
+    requires = {
+      -- Completion sources for nvim-cmp
+      'hrsh7th/cmp-nvim-lsp',
+      'hrsh7th/cmp-path',
+      'hrsh7th/cmp-buffer',
+      'hrsh7th/cmp-omni',
+      'quangnguyen30192/cmp-nvim-ultisnips',
+    },
+    config = function()
+      -- Setup completion framework nvim-cmp.
+      -- See https://github.com/hrsh7th/nvim-cmp#basic-configuration
+      local cmp = require('cmp')
 
-    -- Completion sources for nvim-cmp
-    -- LSP completion
-    'hrsh7th/cmp-nvim-lsp',
-    'hrsh7th/cmp-vsnip',
-    'quangnguyen30192/cmp-nvim-ultisnips',
-    'hrsh7th/cmp-path',
-    'hrsh7th/cmp-buffer',
-    'hrsh7th/cmp-omni',
+      cmp.setup({
+        -- Enable LSP snippets
+        snippet = {
+          expand = function(args)
+              vim.fn['UltiSnips#Anon'](args.body)
+          end,
+        },
+        mapping = {
+          -- Select items with <c-n> and <c-p> or <tab> and <s-tab>
+          ['<C-p>'] = cmp.mapping.select_prev_item(),
+          ['<C-n>'] = cmp.mapping.select_next_item(),
+          ['<S-Tab>'] = cmp.mapping.select_prev_item(),
+          ['<Tab>'] = cmp.mapping.select_next_item(),
+
+          -- Scroll documentation
+          ['<C-b>'] = cmp.mapping.scroll_docs(-4),
+          ['<C-f>'] = cmp.mapping.scroll_docs(4),
+
+          -- Confirm/abort/complete mappings
+          ['<C-Space>'] = cmp.mapping.complete(),
+          ['<C-e>'] = cmp.mapping({
+            i = cmp.mapping.abort(),
+            c = cmp.mapping.close(),
+          }),
+          ['<CR>'] = cmp.mapping.confirm({
+            behavior = cmp.ConfirmBehavior.Insert,
+            select = true,
+          })
+        },
+
+        -- Installed sources
+        sources = {
+          { name = 'nvim_lsp' },
+          { name = 'ultisnips' },
+          { name = 'path' },
+          { name = 'buffer' },
+          { name = 'crates' },
+          { name = 'omni' },
+        },
+      })
+
+      -- Use buffer source for `/` (if you enabled `native_menu`, this won't work anymore).
+      cmp.setup.cmdline('/', {
+        sources = {
+          { name = 'buffer' }
+        }
+      })
+
+      -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
+      cmp.setup.cmdline(':', {
+        sources = cmp.config.sources({
+          { name = 'path' }
+        }, {
+          { name = 'cmdline' }
+        })
+      })
+    end
   }
 
   -- ----------------------------
-  -- | Telescope and Treesitter |
+  -- | Telescope and TreeSitter |
   -- ----------------------------
   -- Search
   use {
-    {
-      'nvim-telescope/telescope.nvim',
-      requires = {
-        'nvim-lua/plenary.nvim',
-      },
+    'nvim-telescope/telescope.nvim',
+    requires = {
+      'nvim-lua/plenary.nvim',
+      { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make', },
     },
-    {
-      'nvim-telescope/telescope-fzf-native.nvim',
-      run = 'make',
-    },
+    config = function() 
+      -- You dont need to set any of these options. These are the default ones. Only
+      -- the loading is important
+      require('telescope').setup {
+        extensions = {
+          fzf = {
+            fuzzy = true,                    -- false will only do exact matching
+            override_generic_sorter = true,  -- override the generic sorter
+            override_file_sorter = true,     -- override the file sorter
+            case_mode = 'smart_case',        -- or 'ignore_case' or 'respect_case'
+                                             -- the default case_mode is 'smart_case'
+          }
+        }
+      }
+      -- To get fzf loaded and working with telescope, you need to call
+      -- load_extension, somewhere after setup function:
+      require('telescope').load_extension('fzf')
+    end
   }
 
   use {
@@ -60,16 +139,16 @@ plugins = require('packer').startup(function(use)
     config = function()
       require('nvim-treesitter.configs').setup {
         -- Ensure that all maintained languages are always installed.
-        ensure_installed = "maintained",
+        ensure_installed = 'maintained',
         sync_install = false,
         -- Allow incremental selection using TreeSitter code regions.
         incremental_selection = {
           enable = true,
           keymaps = {
-            init_selection = "gnn",
-            node_incremental = "grn",
-            scope_incremental = "grc",
-            node_decremental = "grm",
+            init_selection = 'gnn',
+            node_incremental = 'grn',
+            scope_incremental = 'grc',
+            node_decremental = 'grm',
           },
         },
         -- Enable TreeSitter syntax highlighing.
@@ -99,11 +178,9 @@ plugins = require('packer').startup(function(use)
   use {
     'sirver/ultisnips',
     config = function()
-      vim.cmd([[
-        let g:UltiSnipsExpandTrigger = '<c-j>'
-        let g:UltiSnipsJumpForwardTrigger = '<c-j>'
-        let g:UltiSnipsJumpBackwardTrigger = '<c-k>'
-      ]])
+      vim.g.UltiSnipsExpandTrigger = '<c-j>'
+      vim.g.UltiSnipsJumpForwardTrigger = '<c-j>'
+      vim.g.UltiSnipsJumpBackwardTrigger = '<c-k>'
     end
   }
 
@@ -190,8 +267,8 @@ plugins = require('packer').startup(function(use)
                 \}
 
         function! s:latexSurround()
-           let b:surround_{char2nr("e")} = "\\begin{\1environment: \1}\n\t\r\n\\end{\1\1}"
-           let b:surround_{char2nr("c")} = "\\\1command: \1{\r}"
+           let b:surround_{char2nr('e')} = '\\begin{\1environment: \1}\n\t\r\n\\end{\1\1}'
+           let b:surround_{char2nr('c')} = '\\\1command: \1{\r}'
         endfunction
       ]])
     end,
@@ -301,25 +378,6 @@ end)
 -- |===========================|
 -- =============================
 --
--- -------------------
--- | Setup Telescope |
--- -------------------
--- You dont need to set any of these options. These are the default ones. Only
--- the loading is important
-require('telescope').setup {
-  extensions = {
-    fzf = {
-      fuzzy = true,                    -- false will only do exact matching
-      override_generic_sorter = true,  -- override the generic sorter
-      override_file_sorter = true,     -- override the file sorter
-      case_mode = "smart_case",        -- or "ignore_case" or "respect_case"
-                                       -- the default case_mode is "smart_case"
-    }
-  }
-}
--- To get fzf loaded and working with telescope, you need to call
--- load_extension, somewhere after setup function:
-require('telescope').load_extension('fzf')
 
 -- -------------------------
 -- | Setup Language Server |
@@ -346,12 +404,11 @@ require('rust-tools').setup {
     hover_with_actions = true, -- Show action inside the hover menu
     inlay_hints = {
       show_parameter_hints = true, -- Show parameter hints
-      parameter_hints_prefix = "<- ",
-      other_hints_prefix = "=> ",
+      parameter_hints_prefix = '<- ',
+      other_hints_prefix = '=> ',
     },
   },
-  -- all the opts to send to nvim-lspconfig
-  -- these override the defaults set by rust-tools.nvim
+  -- These override the defaults set by rust-tools.nvim.
   -- see https://github.com/neovim/nvim-lspconfig/blob/master/CONFIG.md#rust_analyzer
   server = {
     on_attach = on_attach,
@@ -370,77 +427,6 @@ require('rust-tools').setup {
     },
   },
 }
-
--- ------------------------------
--- | Setup Completion Framework |
--- ------------------------------
---
--- Setup completion framework nvim-cmp.
--- See https://github.com/hrsh7th/nvim-cmp#basic-configuration
-local cmp = require('cmp')
-
-cmp.setup({
-  -- Enable LSP snippets
-  snippet = {
-    expand = function(args)
-        vim.fn["UltiSnips#Anon"](args.body)
-    end,
-  },
-  mapping = {
-    -- Select items with <c-n> and <c-p> or <tab> and <s-tab>
-    ['<C-p>'] = cmp.mapping.select_prev_item(),
-    ['<C-n>'] = cmp.mapping.select_next_item(),
-    ['<S-Tab>'] = cmp.mapping.select_prev_item(),
-    ['<Tab>'] = cmp.mapping.select_next_item(),
-
-    -- Scroll documentation
-    ['<C-b>'] = cmp.mapping.scroll_docs(-4),
-    ['<C-f>'] = cmp.mapping.scroll_docs(4),
-
-    -- Confirm/abort/complete mappings
-    ['<C-Space>'] = cmp.mapping.complete(),
-    ['<C-e>'] = cmp.mapping({
-      i = cmp.mapping.abort(),
-      c = cmp.mapping.close(),
-    }),
-    ['<CR>'] = cmp.mapping.confirm({
-      behavior = cmp.ConfirmBehavior.Insert,
-      select = true,
-    })
-  },
-
-  -- Installed sources
-  sources = {
-    { name = 'nvim_lsp' },
-    { name = 'ultisnips' },
-    { name = 'path' },
-    { name = 'buffer' },
-    { name = 'crates' },
-  },
-})
-
--- Use buffer source for `/` (if you enabled `native_menu`, this won't work anymore).
-cmp.setup.cmdline('/', {
-  sources = {
-    { name = 'buffer' }
-  }
-})
-
--- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
-cmp.setup.cmdline(':', {
-  sources = cmp.config.sources({
-    { name = 'path' }
-  }, {
-    { name = 'cmdline' }
-  })
-})
-
-vim.cmd([[
-  augroup VimTeX
-    autocmd!
-    autocmd FileType tex lua require('cmp').setup.buffer { sources = { { name = 'omni' } } }
-  augroup END
-]])
 
 -- Automaticaclly recompile packer plugins.
 vim.cmd([[

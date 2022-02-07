@@ -1,7 +1,6 @@
 require('plugins')
 
 local g = vim.g
-local cmd = vim.cmd
 local o, wo, bo = vim.o, vim.wo, vim.bo
 
 local utils = require('utils')
@@ -10,90 +9,92 @@ local autocmd = utils.autocmd
 local map = utils.map
 local smap = utils.smap
 
+-- Check the host operating system
+if vim.fn.has('win64') == 1 
+  or vim.fn.has('win32') == 1
+  or vim.fn.has('win16') == 1
+then
+  g.os = "Windows"
+else
+  g.os = vim.fn.substitute(vim.fn.system('uname'), '\n', '', '')
+end
 
-vim.api.nvim_exec([[
-" Check the host operating system
-if !exists("g:os")
-    if has("win64") || has("win32") || has("win16")
-        let g:os = "Windows"
-    else
-        let g:os = substitute(system('uname'), '\n', '', '')
-    endif
-endif
 
+-- =======================
+-- |=====================|
+-- ||                   ||
+-- || Internal Settings ||
+-- ||                   ||
+-- |=====================|
+-- =======================
+--
+-- Set runtimepath to the source files in the dotfiles directory
+o.rtp = o.rtp .. ',~/.dotfiles/tools/vim/rtp'
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"                                  Internal                                  "
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"
-" Set runtimepath to the source files in the dotfiles directory
-set rtp+=~/.dotfiles/tools/vim/rtp
+-- If launching vim from fish, set the shell to bash.
+if string.match(vim.o.shell, 'fish$') then
+  o.shell = 'bash'
+end
 
-" If launching vim from fish, set the shell to bash.
-if &shell =~# 'fish$'
-    set shell=bash
-endif
+-- Don't need vi compatibility
+o.compatible = false
 
-" Don't need vi compatibility
-set nocompatible
+-- make scrolling and painting fast
+-- ttyfast kept for vim compatibility but not needed for nvim
+o.ttyfast = true
+o.lazyredraw = true
 
-" make scrolling and painting fast
-" ttyfast kept for vim compatibility but not needed for nvim
-set ttyfast
-set lazyredraw
+-- use Unicode
+o.encoding = 'utf-8'
 
-if !(has('nvim') || has('gvim'))
-  set noesckeys
-endif
+-- Search recursively downward from CWD; provides TAB completion for filenames
+-- e.g., `:find vim* <TAB>`
+o.path = o.path .. ',**'
 
-" use Unicode
-set encoding=utf-8
+-- Set working directory to the current files
+o.autochdir = false
 
-" Search recursively downward from CWD; provides TAB completion for filenames
-" e.g., `:find vim* <TAB>`
-set path+=**
+-- Number of lines at the beginning and end of files checked for file-specific vars
+o.modelines = 3
+o.modeline = true
 
-" Set working directory to the current files
-set noautochdir
+-- make Backspace work like Delete
+o.backspace = 'indent,eol,start'
 
-" Number of lines at the beginning and end of files checked for file-specific vars
-set modelines=3
-set modeline
+-- Permanent undo
+o.undodir = '~/.vimdid'
+o.undofile = true
 
-" make Backspace work like Delete
-set backspace=indent,eol,start
+-- Backups and Swap files
+o.backup = false
+o.swapfile = true
 
-" Permanent undo
-set undodir=~/.vimdid
-set undofile
+-- Better display for messages
+o.updatetime = 1000
 
-" Backups and Swap files
-set nobackup
-set swapfile
+-- open new buffers without saving current modifications (buffer remains open)
+o.hidden = true
 
-" Better display for messages
-set updatetime=1000
+-- Set the timeout times
+o.timeoutlen = 500
+o.ttimeoutlen = 5
 
-" open new buffers without saving current modifications (buffer remains open)
-set hidden
+-- Use system clipboard
+if g.os == 'Darwin' then
+  o.clipboard = 'unnamed'
+elseif g.os == 'Linux' then
+  o.clipboard = 'unnamedplus'
+elseif g.os == 'Windows' then
+end
 
-" Set the timeout times
-set timeoutlen=500
-set ttimeoutlen=5
-
-" Use system clipboard
-if g:os == "Darwin"
-  set clipboard+=unnamed
-elseif g:os == "Linux"
-  set clipboard+=unnamedplus
-elseif g:os == "Windows"
-endif
-
-" Filetype plugins
+-- Filetype plugins
+vim.cmd [[
 filetype plugin on
 filetype indent on
+]]
 
-" Set the python provider for neovim
+-- Set the python provider for neovim
+vim.cmd [[
 let s:pynvim_path = expand("$HOME/.miniconda3/envs/pynvim3/bin/python")
 
 if !filereadable(s:pynvim_path)
@@ -103,47 +104,53 @@ execute "!" . expand('conda env create -f $HOME/.dotfiles/tools/vim/envs/pynvim3
 endif
 
 let g:python3_host_prog = s:pynvim_path
+]]
 
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"                                  Editing                                   "
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"
-" Indent new line the same as the preceding line
-set autoindent
+-- ===========================
+-- |=========================|
+-- ||                       ||
+-- || Editing and Searching ||
+-- ||                       ||
+-- |=========================|
+-- ===========================
+--
+-- Indent new line the same as the preceding line
+o.autoindent = true
 
-" Tab key enters 2 spaces
-set expandtab
-set tabstop=2
-set shiftwidth=2
-set softtabstop=2 
+-- Tab key enters 2 spaces
+o.expandtab = true
+o.tabstop = 2
+o.shiftwidth = 2
+o.softtabstop = 2 
 
-" highlight matching parens, braces, brackets, etc
-set showmatch
+-- highlight matching parens, braces, brackets, etc
+o.showmatch = true
 
-" Wildmenu options
-set wildmenu
-set wildmode=list:longest
-set wildignore=*.o,*~,*.pyc,.hg,.svn,*.png,*.jpg,*.gif,*.settings,*.min.js,*.swp,publish/*
+-- Wildmenu options
+o.wildmenu = true
+o.wildmode = 'list:longest'
+o.wildignore = [[*.o,*~,*.pyc,.hg,.svn,*.png,*.jpg,*.gif,*.settings,*.min.js,*.swp,publish/*]]
 
-" Set completeopt to have a better completion experience
-" :help completeopt
-" menuone: popup even when there's only one match
-" noinsert: Do not insert text until a selection is made
-" noselect: Do not select, force user to select one from the menu
-if has('patch-7.4.775')
-  set completeopt=menuone,noinsert,noselect
-endif
+-- Set completeopt to have a better completion experience
+-- :help completeopt
+-- menuone: popup even when there's only one match
+-- noinsert: Do not insert text until a selection is made
+-- noselect: Do not select, force user to select one from the menu
+o.completeopt = 'menuone,noinsert,noselect'
 
-" Avoid showing extra messages when using completion
-set shortmess+=c
+-- Avoid showing extra messages when using completion
+o.shortmess = 'filnxtToOF'
+o.shortmess = o.shortmess .. 'c'
 
-" Searching
-set hlsearch 
-set incsearch
-set ignorecase
-set smartcase
+-- Searching
+o.hlsearch = true
+o.incsearch = true
+o.ignorecase = true
+o.smartcase = true
 
+-- Set ripgrep as default search tool
+vim.cmd [[
 if executable('rg')
   set grepprg=rg\ --vimgrep\ --no-heading\ --smart-case
   set grepformat=%f:%l:%c:%m,%f:%l:%m
@@ -151,19 +158,25 @@ elseif executable('ag')
   set grepprg=ag\ --nogroup\ --nocolor
   set grepformat=%f:%l:%m
 endif
+]]
 
-" Wrapping options
-set formatoptions=tc " wrap text and comments using textwidth
-set formatoptions+=r " continue comments when pressing ENTER in I mode
-set formatoptions+=q " enable formatting of comments with gq
-set formatoptions+=n " detect lists for formatting
-set formatoptions+=b " auto-wrap in insert mode, and do not wrap old long lines
+-- Format options
+-- + 't'    -- auto-wrap text using textwidth
+-- + 'c'    -- auto-wrap comments using textwidth
+-- + 'r'    -- auto insert comment leader on pressing enter
+-- - 'o'    -- don't insert comment leader on pressing o
+-- + 'q'    -- format comments with gq
+-- - 'a'    -- don't autoformat the paragraphs (use some formatter instead)
+-- + 'n'    -- autoformat numbered list
+-- + 'b'    -- auto-wrap in insert mode, and do not wrap old long lines
+-- - '2'    -- I am a programmer and not a writer
+-- + 'j'    -- Join comments smartly
+o.formatoptions = 'tcroqnbj2'
 
-" Folding
-set foldmethod=expr
-set foldexpr=nvim_treesitter#foldexpr()
-set foldlevel=20
-]], false)
+-- Folding
+o.foldmethod = 'expr'
+o.foldexpr = 'nvim_treesitter#foldexpr()'
+o.foldlevel = 20
 
 -- Set 7 lines to the cursor - when moving vertically using j/k
 o.scrolloff = 7
@@ -174,7 +187,8 @@ o.splitright = true
 o.splitbelow = true
 
 -- Diff options
-cmd [[set diffopt+=iwhite " No whitespace in vimdiff
+vim.cmd [[
+set diffopt+=iwhite " No whitespace in vimdiff
 if has('patch-8.1.0360')
   " Make diffing better: https://vimways.org/2018/the-power-of-diff/
   set diffopt+=algorithm:patience
@@ -191,7 +205,7 @@ o.spelllang = 'en,de'
 -- -----------------------
 --
 -- Enable syntax highlighting for languages
-cmd [[syntax enable]]
+vim.cmd [[syntax enable]]
 
 -- Turn of bell and visual bell
 o.visualbell = false
@@ -199,7 +213,7 @@ o.visualbell = false
 -- Colorscheme and background
 o.termguicolors = true
 o.background = 'dark'
-cmd [[colorscheme gruvbox-material]]
+vim.cmd [[colorscheme gruvbox-material]]
 
 -- Always show the status line and tabline
 o.showtabline = 2
@@ -426,7 +440,7 @@ map('n', '<c-w>-', '5<c-w>-')
 map('n', '<c-w>+', '5<c-w>+')
 
 
-vim.api.nvim_exec([[
+vim.cmd [[
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                                  Functions                                 "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -536,5 +550,5 @@ if has("python")
   endif
 endif
 
-]], false)
+]]
 
