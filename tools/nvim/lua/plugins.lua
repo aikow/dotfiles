@@ -5,10 +5,22 @@ if fn.empty(fn.glob(install_path)) > 0 then
   packer_bootstrap = fn.system({'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path})
 end
 
+-- =====================
+-- |===================|
+-- ||                 ||
+-- || Include Plugins ||
+-- ||                 ||
+-- |===================|
+-- =====================
+
 plugins = require('packer').startup(function(use)
   -- Have packer manage itself
   use 'wbthomason/packer.nvim'
 
+  -- -----------------------------------
+  -- | Language Servers and Completion |
+  -- -----------------------------------
+  --
   -- LSP server for neovim
   use 'neovim/nvim-lspconfig'
 
@@ -26,14 +38,15 @@ plugins = require('packer').startup(function(use)
     'hrsh7th/cmp-omni',
   }
 
+  -- ----------------------------
+  -- | Telescope and Treesitter |
+  -- ----------------------------
   -- Search
   use {
     {
       'nvim-telescope/telescope.nvim',
       requires = {
-        'nvim-lua/popup.nvim',
         'nvim-lua/plenary.nvim',
-        'telescope-fzf-native.nvim',
       },
     },
     {
@@ -44,21 +57,12 @@ plugins = require('packer').startup(function(use)
 
   use {
     'nvim-treesitter/nvim-treesitter',
-    requires = {
-      'nvim-treesitter/nvim-treesitter-refactor',
-      'RRethy/nvim-treesitter-textsubjects',
-    },
     config = function()
       require('nvim-treesitter.configs').setup {
-        -- One of "all", "maintained" (parsers with maintainers), or a list of languages
+        -- Ensure that all maintained languages are always installed.
         ensure_installed = "maintained",
-
-        -- Install languages synchronously (only applied to `ensure_installed`)
         sync_install = false,
-
-        -- List of parsers to ignore installing
-        -- ignore_install = { "javascript" },
-
+        -- Allow incremental selection using TreeSitter code regions.
         incremental_selection = {
           enable = true,
           keymaps = {
@@ -68,18 +72,9 @@ plugins = require('packer').startup(function(use)
             node_decremental = "grm",
           },
         },
-
+        -- Enable TreeSitter syntax highlighing.
         highlight = {
-          -- `false` will disable the whole extension
           enable = true,
-
-          -- list of language that will be disabled
-          -- disable = { "c", "rust" },
-
-          -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
-          -- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
-          -- Using this option may slow down your editor, and you may see some duplicate highlights.
-          -- Instead of true it can also be a list of languages
           additional_vim_regex_highlighting = false,
         }
       }
@@ -87,6 +82,7 @@ plugins = require('packer').startup(function(use)
     run = ':TSUpdate',
   }
 
+  -- Enable correct spelling syntax highlighting with TreeSitter.
   use {
     'lewis6991/spellsitter.nvim',
     config = function()
@@ -96,17 +92,25 @@ plugins = require('packer').startup(function(use)
     end,
   }
 
+  -- -----------------
+  -- | Code Snippets |
+  -- -----------------
+  --
   use {
     'sirver/ultisnips',
     config = function()
-      vim.api.nvim_exec([[
+      vim.cmd([[
         let g:UltiSnipsExpandTrigger = '<c-j>'
         let g:UltiSnipsJumpForwardTrigger = '<c-j>'
         let g:UltiSnipsJumpBackwardTrigger = '<c-k>'
-      ]], false)
+      ]])
     end
   }
 
+  -- -------------------
+  -- | General Plugins |
+  -- -------------------
+  --
   -- Nice helper plugins
   use {
     'tpope/vim-repeat',
@@ -116,17 +120,21 @@ plugins = require('packer').startup(function(use)
     'godlygeek/tabular',
     'christoomey/vim-tmux-navigator',
     'airblade/vim-rooter',
-    'junegunn/fzf',
     {
       'junegunn/fzf.vim',
       config = function()
-        vim.api.nvim_exec([[
+        vim.cmd([[
           let g:fzf_history_dir = '~/.local/share/fzf-history'
-        ]], false)
+        ]])
       end
     },
   }
 
+
+  -- --------------------
+  -- | Language Add-Ons |
+  -- --------------------
+  --
   -- Git
   use {
     { 'tpope/vim-fugitive', },
@@ -161,7 +169,7 @@ plugins = require('packer').startup(function(use)
   use {
     'lervag/vimtex',
     config = function()
-      vim.api.nvim_exec([[    
+      vim.cmd([[    
         let g:tex_flavor='latex'
         let g:vimtex_view_method='zathura'
 
@@ -181,16 +189,11 @@ plugins = require('packer').startup(function(use)
                 \ ],
                 \}
 
-      ]], false)
-      -- augroup latexSurround
-      --    autocmd!
-      --    autocmd FileType tex call s:latexSurround()
-      -- augroup END
-
-      -- function! s:latexSurround()
-      --    let b:surround_{char2nr("e")} = "\\begin{\1environment: \1}\n\t\r\n\\end{\1\1}"
-      --    let b:surround_{char2nr("c")} = "\\\1command: \1{\r}"
-      -- endfunction
+        function! s:latexSurround()
+           let b:surround_{char2nr("e")} = "\\begin{\1environment: \1}\n\t\r\n\\end{\1\1}"
+           let b:surround_{char2nr("c")} = "\\\1command: \1{\r}"
+        endfunction
+      ]])
     end,
     ft = {'tex'}
   }
@@ -206,81 +209,98 @@ plugins = require('packer').startup(function(use)
     ft = {'markdown'}
   }
 
+  -- Fish shell syntax support
   use {
     'dag/vim-fish',
   }
 
-  --Themes and customization
+  -- ----------------------------
+  -- | Themes and customization |
+  -- ----------------------------
+  -- Vim status line
+  use {
+    'nvim-lualine/lualine.nvim',
+    requires = { 'kyazdani42/nvim-web-devicons', opt = true },
+    config = function()
+      require('lualine').setup {
+        options = {
+          icons_enabled = true,
+          theme = 'auto',
+          component_separators = { left = '', right = ''},
+          section_separators = { left = '', right = ''},
+          disabled_filetypes = {},
+          always_divide_middle = true,
+        },
+        sections = {
+          lualine_a = {'mode'},
+          lualine_b = {'branch', 'diff', 'diagnostics'},
+          lualine_c = {'filename'},
+          lualine_x = {'fileformat', 'filetype', 'encoding'},
+          lualine_y = {'progress'},
+          lualine_z = {'location'}
+        },
+        inactive_sections = {
+          lualine_a = {},
+          lualine_b = {},
+          lualine_c = {'filename'},
+          lualine_x = {'location'},
+          lualine_y = {},
+          lualine_z = {}
+        },
+        tabline = {
+          lualine_a = {
+            {
+              'tabs',
+              max_length = vim.o.columns / 3,
+              mode = 2
+            }
+          },
+          lualine_b = {},
+          lualine_c = {},
+          lualine_x = {},
+          lualine_y = {},
+          lualine_z = {
+            {
+              'diagnostics',
+              sources = { 'nvim_diagnostic', 'nvim_lsp' },
+              sections = { 'error', 'warn', 'info', 'hint' },
+              symbols = {error = 'E', warn = 'W', info = 'I', hint = 'H'},
+              colored = true,
+              update_in_insert = false,
+              always_visible = true,
+            }
+          },
+        },
+        extensions = {}
+      }
+    end,
+  }
+
+  -- Colorschemes
   use { 
-    'ryanoasis/vim-devicons',
-    'itchyny/lightline.vim',
-    'shinchu/lightline-gruvbox.vim',
     'joshdick/onedark.vim',
     'arcticicestudio/nord-vim',
     'sainnhe/gruvbox-material',
   }
-  vim.api.nvim_exec([[
-    let g:lightline = {}
-    let g:lightline.colorscheme = 'gruvbox'
-    let g:lightline.active = {
-          \   'left': [ [ 'mode', 'paste' ], [ 'gitbranch', ], [ 'filename' ] ],
-          \   'right': [ [ 'lineinfo' ], ['percent'], ['filetype' ] ]
-          \ }
-    let g:lightline.tabline = {
-          \   'left': [ ['tabs'] ],
-          \   'right': [ ['close'] ]
-          \ }
-    let g:lightline.tab = {
-          \   'active': [ 'tabnum', 'filename', 'modified' ],
-          \   'inactive': [ 'tabnum', 'filename', 'modified' ]
-          \ }
-    let g:lightline.tab_component_function = {
-          \   'tabnum': 'LightlineWebDevIcons'
-          \ }
-    let g:lightline.component_function = {
-          \   'gitbranch': 'FugitiveHead',
-          \   'readonly': 'LightlineReadonly',
-          \ }
-    let g:lightline.component_visible_condition = {
-          \   'mode' : '1',
-          \   'filename' : '(&filetype!="qf")',
-          \   'modified': '&modified||!&modifiable',
-          \   'readonly': '&readonly',
-          \   'paste': '&paste',
-          \   'spell': '&spell'
-          \ }
-    let g:lightline.component_function_visible_condition = {
-          \   'mode' : '1',
-          \   'filename' : '(&filetype!="qf")',
-          \   'modified': '&modified||!&modifiable',
-          \   'readonly': '&readonly',
-          \   'paste': '&paste',
-          \   'spell': '&spell'
-          \ }
-    let g:lightline.separator = { 'left': "\ue0b0", 'right': "\ue0b2" }
-    let g:lightline.subseparator = { 'left': "\ue0b1", 'right': "\ue0b3" }
 
-    function! LightlineWebDevIcons(n)
-      let l:bufnr = tabpagebuflist(a:n)[tabpagewinnr(a:n) - 1]
-      return WebDevIconsGetFileTypeSymbol(bufname(l:bufnr))
-    endfunction
-
-    function! LightlineModified()
-      return (&ft =~ 'help' || &ft =~ 'qf') ? '' : &modified ? '+' : &modifiable ? '' : '-'
-    endfunction
-
-    function! LightlineReadonly()
-      return &ft !~? 'help' && &readonly ? 'RO' : ''
-    endfunction
-    ]], false)
-
+  -- --------------------
+  -- | Bootstrap Packer |
+  -- --------------------
+  --
   -- Automatically set up the configuration after cloning packer.nvim.
   if packer_bootstrap then
     require('packer').sync()
   end
 end)
 
-
+-- =============================
+-- |===========================|
+-- ||                         ||
+-- || Additional Plugin Setup ||
+-- ||                         ||
+-- |===========================|
+-- =============================
+--
 -- -------------------
 -- | Setup Telescope |
 -- -------------------
@@ -301,9 +321,11 @@ require('telescope').setup {
 -- load_extension, somewhere after setup function:
 require('telescope').load_extension('fzf')
 
+-- -------------------------
+-- | Setup Language Server |
+-- -------------------------
+-- 
 -- Setup the neovim LSP server form lspconfig
--- Use an on_attach function to only map the following keys
--- after the language server attaches to the current buffer
 local on_attach = function(client, bufnr)
   -- Helper functions to define mappins inside the buffer.
   local function set_option(...)
@@ -314,13 +336,7 @@ local on_attach = function(client, bufnr)
   set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
 end
 
--- Setup all language servers
--- local servers = { 'pylsp' }
--- for _, lsp in pairs(servers) do
---   require('lspconfig')[lsp].setup {
---     on_attach = on_attach,
---   }
--- end
+-- Python language server.
 require('lspconfig').pylsp.setup{}
 
 -- Setup rust LSP separately, since rust-tools overwrites the LSP server.
@@ -355,7 +371,10 @@ require('rust-tools').setup {
   },
 }
 
-
+-- ------------------------------
+-- | Setup Completion Framework |
+-- ------------------------------
+--
 -- Setup completion framework nvim-cmp.
 -- See https://github.com/hrsh7th/nvim-cmp#basic-configuration
 local cmp = require('cmp')
@@ -415,6 +434,13 @@ cmp.setup.cmdline(':', {
     { name = 'cmdline' }
   })
 })
+
+vim.cmd([[
+  augroup VimTeX
+    autocmd!
+    autocmd FileType tex lua require('cmp').setup.buffer { sources = { { name = 'omni' } } }
+  augroup END
+]])
 
 -- Automaticaclly recompile packer plugins.
 vim.cmd([[
