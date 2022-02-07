@@ -28,10 +28,6 @@ set nocompatible
 set ttyfast
 set lazyredraw
 
-if !(has('nvim') || has('gvim'))
-  set noesckeys
-endif
-
 " use Unicode
 set encoding=utf-8
 
@@ -78,20 +74,6 @@ endif
 " Filetype plugins
 filetype plugin on
 filetype indent on
-
-" Set the python provider for neovim
-if has('nvim')
-  let s:pynvim_path = expand("$HOME/.miniconda3/envs/pynvim3/bin/python")
-
-  if !filereadable(s:pynvim_path)
-    " Bootstrap the python3 conda env with pynvim
-    echom "Bootstrapping the conda python3 env..."
-    execute "!" . expand('conda env create -f $HOME/.dotfiles/tools/vim/envs/pynvim3.yml')
-  endif
-
-  let g:python3_host_prog = s:pynvim_path
-endif
-
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                                  Editing                                   "
@@ -178,11 +160,6 @@ set spelllang=en,de
 "
 " Enable syntax highlighting for languages
 syntax enable
-
-" Neovim only
-if has("nvim")
-  set termguicolors 
-endif
 
 if exists('+termguicolors')
   let &t_8f = '\<Esc>[38;2;%lu;%lu;%lum'
@@ -309,21 +286,6 @@ nnoremap <silent> <leader>gs :GFiles?<CR>
 nnoremap <silent> <leader>gc :Commits<CR>
 nnoremap <silent> <leader>gb :BCommits<CR>
 
-" Cargo shortcuts
-nnoremap <silent> <leader>ct :lua require('crates').toggle()<cr>
-nnoremap <silent> <leader>cr :lua require('crates').reload()<cr>
-
-nnoremap <silent> <leader>cv :lua require('crates').show_versions_popup()<cr>
-nnoremap <silent> <leader>cf :lua require('crates').show_features_popup()<cr>
-nnoremap <silent> K :call <SID>show_documentation()<cr>
-
-nnoremap <silent> <leader>cu :lua require('crates').update_crate()<cr>
-vnoremap <silent> <leader>cu :lua require('crates').update_crates()<cr>
-nnoremap <silent> <leader>ca :lua require('crates').update_all_crates()<cr>
-nnoremap <silent> <leader>cU :lua require('crates').upgrade_crate()<cr>
-vnoremap <silent> <leader>cU :lua require('crates').upgrade_crates()<cr>
-nnoremap <silent> <leader>cA :lua require('crates').upgrade_all_crates()<cr>
-
 " Setting shortcuts
 nnoremap <silent> <leader>hs :Settings<CR>
 nnoremap <silent> <leader>hc :Colors<CR>
@@ -407,19 +369,6 @@ augroup END
 "                                 Functions                                  "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "
-" Show the cargo.toml documentation.
-function! s:show_documentation()
-    if (index(['vim','help'], &filetype) >= 0)
-        execute 'h '.expand('<cword>')
-    elseif (index(['man'], &filetype) >= 0)
-        execute 'Man '.expand('<cword>')
-    elseif (expand('%:t') == 'Cargo.toml')
-        lua require('crates').show_popup()
-    else
-        lua vim.lsp.buf.hover()
-    endif
-endfunction
-
 " Prints the syntax stack at the current cursor
 function! EchoSynStack()
   if !exists("*synstack")
