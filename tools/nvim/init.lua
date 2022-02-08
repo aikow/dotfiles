@@ -29,7 +29,7 @@ end
 -- =======================
 --
 -- Set runtimepath to the source files in the dotfiles directory
-o.rtp = o.rtp .. ',~/.dotfiles/tools/vim/rtp'
+o.rtp = o.rtp .. ',' .. vim.fn.expand('~/.dotfiles/tools/vim/rtp')
 
 -- If launching vim from fish, set the shell to bash.
 if string.match(vim.o.shell, 'fish$') then
@@ -62,7 +62,6 @@ o.modeline = true
 o.backspace = 'indent,eol,start'
 
 -- Permanent undo
-o.undodir = '~/.vimdid'
 o.undofile = true
 
 -- Backups and Swap files
