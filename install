@@ -4,7 +4,7 @@ set -e
 
 # Config file settings
 readonly CONFIG_DIR="meta/configs"
-readonly CONFIG_SUFFIX="yml"
+readonly CONFIG_SUFFIX="yaml"
 readonly INSTALL_CONFIG_FILE=".install.conf"
 
 # Dotbot path
