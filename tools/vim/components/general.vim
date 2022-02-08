@@ -46,7 +46,6 @@ set modeline
 set backspace=indent,eol,start
 
 " Permanent undo
-set undodir=~/.vimdid
 set undofile
 
 " Backups and Swap files
