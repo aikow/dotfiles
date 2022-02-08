@@ -10,8 +10,7 @@
   - ~/.bin
   - ~/.config
   - ~/.config/nvim/
-  - ~/.config/terminator/
-  - ~/Developer
+  - ~/Workspace
 
 - shell:
   - [git submodule update --init --recursive, Installing submodules]
@@ -99,12 +98,6 @@
     # Conda
     ~/.condarc: environments/conda/condarc
 
-    # Terminator
-    ~/.config/terminator/config:
-      if: 'command -v terminator &>/dev/null'
-      path: emulators/terminator/config
-      create: true
-
     # Alacritty
     ~/.config/alacritty/config:
       path: emulators/alacritty/alacritty.yml
@@ -129,18 +122,3 @@
       force: true
       create: true
 
-    ~/.Xresources:
-      path: os/Xorg/xresources
-      create: true
-
-    ~/.config/i3/config:
-      path: os/i3/config
-      create: true
-
-    ~/.config/picom/picom.conf:
-      path: os/picom/picom.conf
-      create: true
-
-    ~/.config/rofi/config.rasi:
-      path: os/rofi/config.rasi
-      create: true
