@@ -1,4 +1,8 @@
-#!/bin/bash
+#!/usr/bin/env bash
+
+set -o errexit
+set -o pipefail
+set -o nounset
 
 # Installs Miniconda3 4.6.14
 # 
@@ -19,11 +23,14 @@ if [[ -d "${CONDA_INSTALL_DIR}" ]]; then
 else
   echo "Bootstrapping Miniconda3"
   mkdir -p "${CONDA_INSTALL_DIR}"
+
+  # Get the correct miniconda source depending on the OS.
   if [[ $(uname) == Darwin ]]; then
     wget https://repo.anaconda.com/miniconda/Miniconda3-latest-MacOSX-x86_64.sh -O "${CONDA_INSTALL_DIR}/miniconda.sh"
   elif [[ $(uname) == Linux ]]; then
     wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O "${CONDA_INSTALL_DIR}/miniconda.sh"
   fi
+
   bash "${CONDA_INSTALL_DIR}/miniconda.sh" -b -u -p "${CONDA_INSTALL_DIR}"
   rm -rf "${CONDA_INSTALL_DIR}/miniconda.sh"
   "${CONDA_INSTALL_DIR}/bin/conda" init bash

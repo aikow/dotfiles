@@ -29,8 +29,7 @@
 
     # ZSH
     ~/.zshrc:
-      if: 'command -v zsh &>/dev/null'
-      path: shells/zsh/zshrc_5_0
+      path: shells/zsh/zshrc
       force: true
     
     # Scripts
@@ -42,13 +41,13 @@
     
     # Tmux
     ~/.tmux.conf:
-      path: tools/tmux/tmux_1_9.conf
+      path: tools/tmux/tmux_full.conf
 
     # Vim
-    ~/.vimrc: tools/vim/full.vim
-    ~/.config/nvim/init/vim: 
-        path: tools/vim/full.vim
-        create: true
+    ~/.vimrc: tools/vim/light.vim
+
+    # Neovim
+    ~/.config/nvim/init.vim: tools/vim/full.vim
 
     # Git
     ~/.gitconfig: tools/git/gitconfig
@@ -56,10 +55,11 @@
 
     # Screen
     ~/.screenrc:
+      if: 'command -v screen &>/dev/null'
       path: tools/screen/screenrc
     
     # Dir colors
-    ~/.dir_colors: shells/dircolors/dir_colors.gruvbox
+    ~/.dir_colors: shells/dircolors/dir_colors
 
     # Conda
     ~/.condarc: environments/conda/condarc

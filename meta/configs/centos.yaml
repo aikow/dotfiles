@@ -9,7 +9,6 @@
 - create:
   - ~/.bin
   - ~/.config
-  - ~/Developer
 
 - shell:
   - [git submodule update --init --recursive, Installing submodules]
@@ -29,10 +28,7 @@
     ~/.inputrc: shells/readline/inputrc
 
     # ZSH
-    ~/.zshrc:
-      if: 'command -v zsh &>/dev/null'
-      path: shells/zsh/zshrc
-      force: true
+    ~/.zshrc: shells/zsh/zshrc_5_0
     
     # Scripts
     ~/.bin:
@@ -43,23 +39,15 @@
     
     # Tmux
     ~/.tmux.conf:
-      if: 'command -v tmux &>/dev/null'
-      path: tools/tmux/tmux_full.conf
+      path: tools/tmux/tmux_1_9.conf
 
     # Vim
-    ~/.vimrc:
-      if: 'command -v vim &>/dev/null || command -v vi &>/dev/null'
-      path: tools/vim/light.vim
+    ~/.vimrc: tools/vim/light.vim
 
-    # Neovim
-    ~/.config/nvim/init.lua:
-      path: tools/nvim/init.lua
-      create: true
-    ~/.config/nvim/lua:
-      path: tools/nvim/lua/*.lua
-      glob: true
-      force: true
-      create: true
+    # NeoVim
+    ~/.config/nvim/init.vim: 
+        path: tools/vim/full.vim
+        create: true
 
     # Git
     ~/.gitconfig: tools/git/gitconfig
@@ -67,11 +55,10 @@
 
     # Screen
     ~/.screenrc:
-      if: 'command -v screen &>/dev/null'
       path: tools/screen/screenrc
     
     # Dir colors
-    ~/.dir_colors: shells/dircolors/dir_colors
+    ~/.dir_colors: shells/dircolors/dir_colors.gruvbox
 
     # Conda
     ~/.condarc: environments/conda/condarc

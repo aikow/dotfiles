@@ -70,46 +70,6 @@ Plug 'junegunn/fzf.vim'
 "                              Language Plugins                              "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-" Tex - Latex compiler, syntax highlighting, preview with zathura
-Plug 'lervag/vimtex'
-  let g:tex_flavor='latex'
-  let g:vimtex_view_method='zathura'
- 
-  " Never opened Automatically
-  let g:vimtex_quickfix_mode=0
-  let g:vimtex_compiler_method='latexmk'
-  let g:vimtex_compiler_latexmk = {
-        \ 'build_dir'  : 'build',
-        \ 'callback'   : 1,
-        \ 'continuous' : 1,
-        \ 'executable' : 'latexmk',
-        \ 'hooks'      : [],
-        \ 'options'    : [
-          \   '-verbose',
-          \   '-file-line-error',
-          \   '-synctex=1',
-          \   '-interaction=nonstopmode',
-          \ ],
-          \}
-
-  augroup latexSurround
-     autocmd!
-     autocmd FileType tex call s:latexSurround()
-  augroup END
-
-  function! s:latexSurround()
-     let b:surround_{char2nr("e")}
-       \ = "\\begin{\1environment: \1}\n\t\r\n\\end{\1\1}"
-     let b:surround_{char2nr("c")} = "\\\1command: \1{\r}"
-  endfunction
-
-" Tex - conceals math operators and other items and replaces with compiled
-" item.
-Plug 'KeitaNakamura/tex-conceal.vim'
-  set conceallevel=1
-  let g:tex_conceal='abdmg'
-  hi Conceal ctermbg=none
-
 " Markdown preview in google chrome
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
   let g:mkdp_browser = 'firefox'
