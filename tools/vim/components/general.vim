@@ -185,7 +185,11 @@ endif
 set novisualbell
 
 set background=dark
-colorscheme gruvbox-material
+try
+  colorscheme gruvbox-material
+catch /^Vim\%((\a\+)\)\=:E185/
+  colorscheme slate
+endtry
 
 " Always show the status line and tabline
 set showtabline=2
