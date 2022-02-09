@@ -35,8 +35,9 @@ plugins = require('packer').startup(function(use)
     requires = {
       -- Completion sources for nvim-cmp
       'hrsh7th/cmp-nvim-lsp',
-      'hrsh7th/cmp-path',
       'hrsh7th/cmp-buffer',
+      'hrsh7th/cmp-path',
+      'hrsh7th/cmp-cmdline',
       'hrsh7th/cmp-omni',
       'quangnguyen30192/cmp-nvim-ultisnips',
     },
@@ -76,14 +77,15 @@ plugins = require('packer').startup(function(use)
         },
 
         -- Installed sources
-        sources = {
+        sources = cmp.config.sources({
           { name = 'nvim_lsp' },
           { name = 'ultisnips' },
           { name = 'path' },
           { name = 'buffer' },
+          { name = 'cmdline' },
           { name = 'crates' },
           { name = 'omni' },
-        },
+        }),
       })
 
       -- Use buffer source for `/` (if you enabled `native_menu`, this won't work anymore).
@@ -93,13 +95,25 @@ plugins = require('packer').startup(function(use)
         }
       })
 
-      -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
+      cmp.setup.cmdline('?', {
+        sources = {
+          { name = 'buffer' }
+        }
+      })
+
+      cmp.setup.cmdline('@', {
+        sources = {
+          { name = 'nvim_lsp' },
+          { name = 'buffer' },
+        }
+      })
+
+      -- Use cmdline & path source for ':'
       cmp.setup.cmdline(':', {
         sources = cmp.config.sources({
-          { name = 'path' }
-        }, {
-          { name = 'cmdline' }
-        })
+          { name = 'cmdline' },
+          { name = 'path' },
+        }),
       })
     end
   }
@@ -225,8 +239,7 @@ plugins = require('packer').startup(function(use)
       'lewis6991/gitsigns.nvim',
       requires = { 'nvim-lua/plenary.nvim' },
       config = function()
-        require('gitsigns').setup{
-        }
+        require('gitsigns').setup {}
       end
     }
   }
@@ -342,17 +355,7 @@ plugins = require('packer').startup(function(use)
           lualine_c = {},
           lualine_x = {},
           lualine_y = {},
-          lualine_z = {
-            {
-              'diagnostics',
-              sources = { 'nvim_diagnostic', 'nvim_lsp' },
-              sections = { 'error', 'warn', 'info', 'hint' },
-              symbols = {error = 'E', warn = 'W', info = 'I', hint = 'H'},
-              colored = true,
-              update_in_insert = false,
-              always_visible = true,
-            }
-          },
+          lualine_z = {},
         },
         extensions = {}
       }
@@ -400,8 +403,23 @@ local on_attach = function(client, bufnr)
   set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
 end
 
+-- Setup nvim-cmp with lspconfig.
+local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
+require('lspconfig')
+
 -- Python language server.
-require('lspconfig').pylsp.setup{}
+require('lspconfig').pyright.setup {
+  capabilities = capabilities,
+  settings = {
+    formatCommand = "black",
+  },
+}
+
+-- YAML language server
+require('lspconfig').yamlls.setup {}
+
+-- Bash language server
+require('lspconfig').bashls.setup {}
 
 -- Setup rust LSP separately, since rust-tools overwrites the LSP server.
 require('rust-tools').setup {
@@ -418,6 +436,7 @@ require('rust-tools').setup {
   -- see https://github.com/neovim/nvim-lspconfig/blob/master/CONFIG.md#rust_analyzer
   server = {
     on_attach = on_attach,
+    capabilities = capabilities,
     settings = {
       -- to enable rust-analyzer settings visit:
       -- https://github.com/rust-analyzer/rust-analyzer/blob/master/docs/user/generated_config.adoc
