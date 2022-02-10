@@ -73,10 +73,15 @@ def get_comment_format():
     Otherwise it parses '&comments' and prefers single character comment
     markers if there are any.
     """
-    commentstring = vim.eval("&commentstring")
-    if commentstring.endswith("%s"):
+    commentstring = vim.eval('&commentstring')
+
+    # If a the comment string ends with the text, just strip the %s marker and
+    # return.
+    if commentstring.endswith('%s'):
         c = commentstring[:-2]
         return (c.rstrip(), c.rstrip(), c.rstrip(), "")
+
+    # Parse the slightly more complex comment string
     comments = _parse_comments(vim.eval("&comments"))
     for c in comments:
         if c[0] == "SINGLE_CHAR":
@@ -88,12 +93,12 @@ def make_box(twidth, bwidth=None):
     b, m, e, i = (s.strip() for s in get_comment_format())
     m0 = m[0] if m else ''
     bwidth_inner = bwidth - 3 - max(len(b), len(i + e)) if bwidth else twidth + 2
-    sline = b + m + bwidth_inner * m0 + 2 * m0
+    line_1 = b + m + bwidth_inner * m0 + 2 * m0
     nspaces = (bwidth_inner - twidth) // 2
-    mlines = i + m + " " + " " * nspaces
-    mlinee = " " + " "*(bwidth_inner - twidth - nspaces) + m
-    eline = i + m + bwidth_inner * m0 + 2 * m0 + e
-    return sline, mlines, mlinee, eline
+    line_2_start = i + m + " " + " " * nspaces
+    line_2_end = " " + " "*(bwidth_inner - twidth - nspaces) + m
+    line_3 = i + m + bwidth_inner * m0 + 2 * m0 + e
+    return line_1, line_2_start, line_2_end, line_3
 
 
 def foldmarker():

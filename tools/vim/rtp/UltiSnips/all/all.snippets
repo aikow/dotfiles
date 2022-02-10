@@ -34,7 +34,7 @@ endsnippet
 snippet bbox "A nice box over the full width" b
 `!p
 if not snip.c:
-	width = int(vim.eval("&textwidth - (virtcol('.') == 1 ? 0 : virtcol('.'))")) or 71
+		width = int(vim.eval("&textwidth - (virtcol('.') == 1 ? 0 : virtcol('.'))")) or 71
 box = make_box(len(t[1]), width)
 snip.rv = box[0]
 snip += box[1]
@@ -42,6 +42,53 @@ snip += box[1]
 box = make_box(len(t[1]), width)
 snip.rv = box[2]
 snip += box[3]`
+$0
+endsnippet
+
+snippet lsep "Line seperator" b
+`!p
+if not snip.c:
+		width = 71
+comment = get_comment_format()[0] + ' '
+snip.rv = comment + '-' * width
+snip += comment 
+`${1:${VISUAL:content}}`!p
+snip += comment + '-' * width
+`
+$0
+endsnippet
+
+snippet pbox "Small pretty box" b
+`!p
+text_length = len(t[1])
+comment = get_comment_format()[0] + ' '
+snip.rv = comment + '--' + ('-' * text_length) + '--'
+snip += comment + '|' + ' '
+`${1:${VISUAL:content}}`!p
+text_length = len(t[1])
+comment = get_comment_format()[0] + ' '
+snip.rv = ' |'
+snip += comment + '--' + ('-' * text_length) + '--'
+`
+$0
+endsnippet
+
+snippet ppbox "Big pretty box" b
+`!p
+text_length = len(t[1])
+comment = get_comment_format()[0] + ' '
+snip.rv = comment + '===' + ('=' * text_length) + '==='
+snip += comment + '|==' + ('=' * text_length) + '==|'
+snip += comment + '|| ' + (' ' * text_length) + ' ||'
+snip += comment + '|| '
+`${1:${VISUAL:content}}`!p
+text_length = len(t[1])
+comment = get_comment_format()[0] + ' '
+snip.rv = ' ||'
+snip += comment + '|| ' + (' ' * text_length) + ' ||'
+snip += comment + '|==' + ('=' * text_length) + '==|'
+snip += comment + '===' + ('=' * text_length) + '==='
+`
 $0
 endsnippet
 
