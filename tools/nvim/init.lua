@@ -266,7 +266,8 @@ map('v', '>', '>gv')
 -- Very magic by default
 map('n', '?', [[?\v]])
 map('n', '/', [[/\v]])
-map('c', [[%s/]], [[%sm/]])
+map('n', '<C-s>', [[:%s/\v]])
+map('c', '<C-s>', [[%s/\v]])
 
 -- <leader><leader> toggles between buffers
 map('n', '<leader><leader>', '<c-^>')
@@ -275,16 +276,16 @@ map('n', '<leader><leader>', '<c-^>')
 smap('n', '<leader>,', ':set invlist<CR>')
 
 -- <leader>q shows stats
-map('n', '<leader>q', 'g<c-g>')
+map('n', '<leader>q', 'g<C-g>')
 
 -- Keymap for replacing up to next _ or -
 map('n', '<leader>m', 'ct_')
 
 -- Automatically correct spelling with the first option
-map('i', '<C-l>', '<C-g>u<Esc>[s1z=`]a<c-g>u')
+map('i', '<C-l>', '<C-g>u<Esc>[s1z=`]a<C-g>u')
 
-map('i', '<c-_>', '<c-o><Plug>CommentaryLine', { noremap = false })
-map('n', '<c-c>', '<Plug>CommentaryLine', { noremap = false })
+map('i', '<c-_>', '<C-o><Plug>CommentaryLine', { noremap = false })
+map('n', '<C-c>', '<Plug>CommentaryLine', { noremap = false })
 
 -- Clear the search buffer to remove highlighting from the last search
 smap('n', '<c-_>', [[:let @/ = ""<CR>]])
@@ -308,10 +309,10 @@ map('n', 'N', 'Nzzzv')
 -- map('n', 'J', 'mzJ`z')
 
 -- Undo Break points
-map('i', ',', ',<c-g>u')
-map('i', '.', '.<c-g>u')
-map('i', '!', '!<c-g>u')
-map('i', '?', '?<c-g>u')
+map('i', ',', ',<C-g>u')
+map('i', '.', '.<C-g>u')
+map('i', '!', '!<C-g>u')
+map('i', '?', '?<C-g>u')
 
 -- Automatically jump to the end of pasted text
 map('v', 'y', 'y`]')
@@ -436,10 +437,10 @@ smap('n', '<leader>wvp', ':exe "vertical resize " . (winwidth(0) * 3/2)<CR>')
 smap('n', '<leader>wvm', ':exe "vertical resize " . (winwidth(0) * 2/3)<CR>')
 smap('n', '<leader>whp', ':exe "resize " . (winheight(0) * 3/2)<CR>')
 smap('n', '<leader>whm', ':exe "resize " . (winheight(0) * 2/3)<CR>')
-map('n', '<c-w><', '5<c-w><')
-map('n', '<c-w>>', '5<c-w>>')
-map('n', '<c-w>-', '5<c-w>-')
-map('n', '<c-w>+', '5<c-w>+')
+map('n', '<C-w><', '5<C-w><')
+map('n', '<C-w>>', '5<C-w>>')
+map('n', '<C-w>-', '5<C-w>-')
+map('n', '<C-w>+', '5<C-w>+')
 
 
 vim.cmd [[
