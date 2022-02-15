@@ -62,13 +62,13 @@ snippet pbox "Small pretty box" b
 `!p
 text_length = len(t[1])
 comment = get_comment_format()[0] + ' '
-snip.rv = comment + '--' + ('-' * text_length) + '--'
-snip += comment + '|' + ' '
+snip.rv = comment + '----' + ('-' * text_length) + '----'
+snip += comment + '|' + '   '
 `${1:${VISUAL:content}}`!p
 text_length = len(t[1])
 comment = get_comment_format()[0] + ' '
-snip.rv = ' |'
-snip += comment + '--' + ('-' * text_length) + '--'
+snip.rv = '   |'
+snip += comment + '----' + ('-' * text_length) + '----'
 `
 $0
 endsnippet
@@ -77,17 +77,17 @@ snippet ppbox "Big pretty box" b
 `!p
 text_length = len(t[1])
 comment = get_comment_format()[0] + ' '
-snip.rv = comment + '===' + ('=' * text_length) + '==='
-snip += comment + '|==' + ('=' * text_length) + '==|'
-snip += comment + '|| ' + (' ' * text_length) + ' ||'
-snip += comment + '|| '
+snip.rv = comment + '=====' + ('=' * text_length) + '====='
+snip += comment + '|====' + ('=' * text_length) + '====|'
+snip += comment + '||   ' + (' ' * text_length) + '   ||'
+snip += comment + '||   '
 `${1:${VISUAL:content}}`!p
 text_length = len(t[1])
 comment = get_comment_format()[0] + ' '
-snip.rv = ' ||'
-snip += comment + '|| ' + (' ' * text_length) + ' ||'
-snip += comment + '|==' + ('=' * text_length) + '==|'
-snip += comment + '===' + ('=' * text_length) + '==='
+snip.rv = '   ||'
+snip += comment + '||   ' + (' ' * text_length) + '   ||'
+snip += comment + '|====' + ('=' * text_length) + '====|'
+snip += comment + '=====' + ('=' * text_length) + '====='
 `
 $0
 endsnippet
