@@ -2,7 +2,7 @@ global !p
 from vimsnippets import foldmarker, make_box, get_comment_format
 
 def convert_to_snake(string):
-    string = string.replace('ü', 'ue')
+		string = string.replace('ü', 'ue')
     string = string.replace('Ü', 'Ue')
     string = string.replace('ä', 'ae')
     string = string.replace('Ä', 'Ae')
@@ -10,7 +10,7 @@ def convert_to_snake(string):
     string = string.replace('Ö', 'Oe')
     string = string.replace('ß', 'ss')
 
-    return string.lower().replace(' ', '_')
+		return string.lower().replace(' ', '_')
 
 endglobal
 
@@ -24,40 +24,6 @@ snippet pac "Package" b
 $0
 endsnippet
 
-snippet box "Small box" b
-`!p
-text_length = len(t[1])
-comment = '%% '
-snip.rv = comment + '--' + ('-' * text_length) + '--'
-snip += comment + '|' + ' '
-`${1:${VISUAL:content}}`!p
-text_length = len(t[1])
-comment = '%% '
-snip.rv = ' |'
-snip += comment + '--' + ('-' * text_length) + '--'
-`
-$0
-endsnippet
-
-
-snippet bbox "Big box" b
-`!p
-text_length = len(t[1])
-comment = '%% '
-snip.rv = comment + '===' + ('=' * text_length) + '==='
-snip += comment + '|==' + ('=' * text_length) + '==|'
-snip += comment + '|| ' + (' ' * text_length) + ' ||'
-snip += comment + '|| '
-`${1:${VISUAL:content}}`!p
-text_length = len(t[1])
-comment = '%% '
-snip.rv = ' ||'
-snip += comment + '|| ' + (' ' * text_length) + ' ||'
-snip += comment + '|==' + ('=' * text_length) + '==|'
-snip += comment + '===' + ('=' * text_length) + '==='
-`
-$0
-endsnippet
 
 #######################################################################
 #                            Environments                             #
@@ -89,12 +55,6 @@ snippet fig "Figure environment" b
 \end{figure}
 endsnippet
 
-snippet frame "Beamer frame" bA
-\begin{frame}{$1}
-	$0
-\end{frame}
-endsnippet
-
 snippet enum "Enumerate" bA
 \begin{enumerate}
 	\item $0
@@ -116,6 +76,7 @@ endsnippet
 #######################################################################
 #                              Sections                               #
 #######################################################################
+# sections {{{ #
 
 snippet chap "chapter" bA
 \chapter{$1}
@@ -158,11 +119,13 @@ snippet spar "subparagraph" bA
 
 $0
 endsnippet
+# }}} sections #
 
 
 #######################################################################
 #                            Type Setting                             #
 #######################################################################
+# type setting {{{ #
 
 snippet it "italics" w
 \textit{$1}`!p
@@ -191,3 +154,4 @@ else:
 `$2
 endsnippet
 
+# }}} type setting #
