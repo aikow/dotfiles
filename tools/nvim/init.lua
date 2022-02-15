@@ -31,17 +31,10 @@ end
 -- Set runtimepath to the source files in the dotfiles directory
 o.rtp = o.rtp .. ',' .. vim.fn.expand('~/.dotfiles/tools/vim/rtp')
 
--- If launching vim from fish, set the shell to bash.
-if string.match(vim.o.shell, 'fish$') then
-  o.shell = 'bash'
-end
-
 -- Don't need vi compatibility
 o.compatible = false
 
 -- make scrolling and painting fast
--- ttyfast kept for vim compatibility but not needed for nvim
-o.ttyfast = true
 o.lazyredraw = true
 
 -- use Unicode
@@ -188,11 +181,9 @@ o.splitbelow = true
 -- Diff options
 vim.cmd [[
 set diffopt+=iwhite " No whitespace in vimdiff
-if has('patch-8.1.0360')
-  " Make diffing better: https://vimways.org/2018/the-power-of-diff/
-  set diffopt+=algorithm:patience
-  set diffopt+=indent-heuristic
-endif
+" Make diffing better: https://vimways.org/2018/the-power-of-diff/
+set diffopt+=algorithm:patience
+set diffopt+=indent-heuristic
 ]]
 
 -- Set spell location to English and German
@@ -495,15 +486,6 @@ function! s:show_documentation()
     endif
 endfunction
 
-" Prints the syntax stack at the current cursor
-function! EchoSynStack()
-  if !exists("*synstack")
-    return
-  endif
-  echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
-endfunction
-
-
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                                    Rust                                    "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -552,6 +534,5 @@ if has("python")
     call LoadVirtualEnv(defaultvirtualenv)
   endif
 endif
-
 ]]
 

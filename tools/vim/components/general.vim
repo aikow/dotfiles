@@ -17,7 +17,11 @@ set rtp+=~/.dotfiles/tools/vim/rtp
 
 " If launching vim from fish, set the shell to bash.
 if &shell =~# 'fish$'
+  if executable('zsh')
+    set shell=zsh
+  else
     set shell=bash
+  endif
 endif
 
 " Don't need vi compatibility
@@ -145,7 +149,7 @@ set formatoptions+=b " auto-wrap in insert mode, and do not wrap old long lines
 " Folding
 set foldmethod=indent
 set foldnestmax=1
-set foldlevelstart=1
+set foldlevelstart=99
 
 " Set 7 lines to the cursor - when moving vertically using j/k
 set scrolloff=7
@@ -173,12 +177,6 @@ set spelllang=en,de
 "
 " Enable syntax highlighting for languages
 syntax enable
-
-if exists('+termguicolors')
-  let &t_8f = '\<Esc>[38;2;%lu;%lu;%lum'
-  let &t_8b = '\<Esc>[48;2;%lu;%lu;%lum'
-  set termguicolors
-endif
 
 " Turn of bell and visual bell
 set novisualbell
@@ -228,7 +226,6 @@ vnoremap > >gv
 " Very magic by default
 nnoremap ? ?\v
 nnoremap / /\v
-cnoremap %s/ %sm/
 
 " <leader><leader> toggles between buffers
 nnoremap <leader><leader> <c-^>
@@ -264,7 +261,6 @@ nnoremap Y y$
 " Keep it centered
 nnoremap n nzzzv
 nnoremap N Nzzzv
-" nnoremap J mzJ`z
 
 " Undo Break points
 inoremap , ,<c-g>u
@@ -311,24 +307,7 @@ nnoremap <silent> <leader>hm :Maps<CR>
 nnoremap <silent> <leader>hf :Filetypes<CR>
 
 nnoremap <silent> <leader>w :w<CR>
-
-" Copy and paste to system clipboard
-vnoremap <silent> <leader>sy "+y
-vnoremap <silent> <leader>sd "+d
-nnoremap <silent> <leader>sp "+p
-nnoremap <silent> <leader>sP "+P
-vnoremap <silent> <leader>sp "+p
-vnoremap <silent> <leader>sP "+P
-
-" Resizing splits
-nnoremap <silent> <leader>wvp :exe "vertical resize " . (winwidth(0) * 3/2)<CR>
-nnoremap <silent> <leader>wvm :exe "vertical resize " . (winwidth(0) * 2/3)<CR>
-nnoremap <silent> <leader>whp :exe "resize " . (winheight(0) * 3/2)<CR>
-nnoremap <silent> <leader>whm :exe "resize " . (winheight(0) * 2/3)<CR>
-nnoremap <c-w>< 5<c-w><
-nnoremap <c-w>> 5<c-w>>
-nnoremap <c-w>- 5<c-w>-
-nnoremap <c-w>+ 5<c-w>+
+nnoremap <silent> <leader>W :wa<CR>
 
 " Plugins
 nnoremap <silent> <leader>ppi :PlugInstall<CR>
@@ -338,16 +317,7 @@ nnoremap <silent> <leader>ps :source $MYVIMRC<CR>
 nnoremap <silent> <leader>po :tabe $MYVIMRC<CR>
 nnoremap <silent> <leader>pur :call UltiSnips#RefreshSnippets()<CR>
 
-" Show syntax highlighting groups for the word under the cursor
-nnoremap <leader>z :call EchoSynStack()<CR>
-
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"                                Local Leader                                "
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "
-
-
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                                  Functions                                 "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -383,19 +353,6 @@ augroup END
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"                                 Functions                                  "
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"
-" Prints the syntax stack at the current cursor
-function! EchoSynStack()
-  if !exists("*synstack")
-    return
-  endif
-  echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
-endfunction
-
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                                    Rust                                    "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "
@@ -421,29 +378,6 @@ augroup ft_python
   autocmd FileType python setlocal fileformat=unix
   autocmd FileType python setlocal foldmethod=indent
 augroup END
-
-" Function to activate a virtualenv in the embedded interpeter
-function! LoadVirtualEnv(path)
-  let activate_this = a:path . '/bin/activate_this.py'
-  if getftype(a:path) == "dir" && filereadable(activate_this)
-    python << EOF
-import vim
-activate_this = vim.eval('l:activate_this')
-execfile(activate_this, dict(__file__=activate_this))
-EOF
-  endif
-endfunction
-
-" Set default virtual environment
-let defaultvirtualenv = $HOME . "/.miniconda3/bin"
-
-" Only attempt to load this virtualenv if the defaultvirtualenv actually
-" exists and we aren't running with a virtualenv active.
-if has("python")
-  if empty($VIRTUAL_ENV) && getftype(defaultvirtualenv) == "dir"
-    call LoadVirtualEnv(defaultvirtualenv)
-  endif
-endif
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
