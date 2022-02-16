@@ -29,6 +29,7 @@
 
     # ZSH
     ~/.zshrc: shells/zsh/zshrc_5_0
+    ~/.zshenv: shells/zsh/zshenv
     
     # Scripts
     ~/.bin:
