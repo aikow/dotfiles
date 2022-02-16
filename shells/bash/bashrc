@@ -8,6 +8,8 @@ export DOTFILES="$HOME/.dotfiles"
 
 export PATH="${HOME}/.bin:${HOME}/.local/bin:/usr/local/bin:/opt/vc/bin:${PATH}"
 
+export SHELL="/bin/bash"
+
 ### Editor ###
 if command -v nvim &>/dev/null; then
   export VISUAL=nvim
@@ -92,6 +94,17 @@ bind -m vi-insert '"\C-x\C-l": "\e-A | less\r"'
 # Insert the arguments from the last command
 bind -m vi-command '"o": "0Eli "'
 bind -m vi-insert '"\C-o": "\e-0Eli "'
+
+source "${DOTFILES}/shells/functions/fzf-git.sh"
+if [[ $- =~ i ]]; then
+  bind '"\er": redraw-current-line'
+  bind '"\C-g\C-f": "$(_gf)\e\C-e\er"'
+  bind '"\C-g\C-b": "$(_gb)\e\C-e\er"'
+  bind '"\C-g\C-t": "$(_gt)\e\C-e\er"'
+  bind '"\C-g\C-h": "$(_gh)\e\C-e\er"'
+  bind '"\C-g\C-r": "$(_gr)\e\C-e\er"'
+  bind '"\C-g\C-s": "$(_gs)\e\C-e\er"'
+fi
 
 
 #######################################################################

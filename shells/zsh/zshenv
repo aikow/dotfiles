@@ -1,0 +1,4 @@
+export SHELL="/bin/zsh"
+
+. "$HOME/.cargo/env"
+

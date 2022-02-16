@@ -34,6 +34,11 @@
       if: 'command -v zsh &>/dev/null'
       path: shells/zsh/zshrc
       force: true
+
+    ~/.zshenv:
+      if: 'command -v zsh &>/dev/null'
+      path: shells/zsh/zshenv
+      force: true
       
     # Fish
     ~/.config/fish/config.fish:
