@@ -5,9 +5,7 @@
 #######################################################################
 # Set the dotfiles config
 export DOTFILES="$HOME/.dotfiles"
-
 export PATH="${HOME}/.bin:${HOME}/.local/bin:/usr/local/bin:/opt/vc/bin:${PATH}"
-
 export SHELL="/bin/bash"
 
 ### Editor ###
@@ -29,7 +27,7 @@ if command -v fd &>/dev/null; then
 elif command -v rg &>/dev/null; then
   export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow --glob "!.git/*"'
 fi
-export FZF_DEFAULT_OPTS="${FZF_DEFAULT_OPTS} --bind ctrl-f:preview-half-page-down,ctrl-b:preview-half-page-up"
+export FZF_DEFAULT_OPTS="${FZF_DEFAULT_OPTS} --bind ctrl-f:preview-half-page-down,ctrl-b:preview-half-page-up --bind ctrl-/:toggle-preview --border --height 50% --min-height 20"
 
 
 #######################################################################
