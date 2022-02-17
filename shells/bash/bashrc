@@ -111,8 +111,9 @@ fi
 # Load OS specific settings
 [[ -f "${DOTFILES}/shells/bash/os/${OSTYPE}.bash" ]] && source "${DOTFILES}/shells/bash/os/${OSTYPE}.bash" 
 
-# Source fzf if installed
-[[ -f ~/.fzf.bash ]] && source ~/.fzf.bash
+# Source fzf and cargo
+[[ -f "${HOME}/.fzf.bash" ]] && source "${HOME}/.fzf.bash"
+[[ -f "${HOME}/.cargo/env" ]] && source "${HOME}/.cargo.env"
 
 # Load user aliases
 [[ -f "${DOTFILES}/shells/bash/aliases" ]] && source "${DOTFILES}/shells/bash/aliases"
@@ -122,4 +123,3 @@ fi
 [[ -f "${HOME}/.aliases.local" ]] && source "${HOME}/.aliases.local"
 [[ -f "${HOME}/.bashrc.local" ]] && source "${HOME}/.bashrc.local"
 
-. "$HOME/.cargo/env"
