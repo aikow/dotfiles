@@ -1,6 +1,45 @@
+#######################################################################
+#                               Exports                               #
+#######################################################################
+#
 export SHELL="/bin/zsh"
 
-if [[ -f "${HOME}/.cargo/env" ]]; then
-  source "${HOME}/.cargo/env"
+# Set the dotfiles directory
+export DOTFILES="$HOME/.dotfiles"
+
+# Modify the path
+export PATH="${HOME}/.bin:${DOTFILES}/shells/bin:${HOME}/.local/bin:/usr/local/bin:/opt/vc/bin:${PATH}"
+
+### Ruby ###
+if command -v gem &>/dev/null; then
+  # Set gem home directory
+  export GEM_HOME=$(ruby -e 'puts Gem.user_dir')
+  export PATH=$PATH:$GEM_HOME/bin
 fi
+
+### Bat ###
+if command -v bat &>/dev/null; then
+  export BAT_THEME=gruvbox-dark
+fi
+
+### Editor ###
+if command -v nvim &>/dev/null; then
+  export VISUAL=nvim
+else;
+  export VISUAL=vim
+fi
+export EDITOR=${VISUAL}
+
+### FZF ###
+if command -v fd &>/dev/null; then
+  export FZF_DEFAULT_COMMAND='fd --type file --follow --hidden --exclude .git --color=always'
+  export FZF_CTRL_T_COMMAND="${FZF_DEFAULT_COMMAND}"
+  export FZF_DEFAULT_OPTS='--ansi'
+elif command -v rg &>/dev/null; then
+  export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow --glob "!.git/*"'
+fi
+export FZF_DEFAULT_OPTS="${FZF_DEFAULT_OPTS} --bind ctrl-f:preview-half-page-down,ctrl-b:preview-half-page-up --bind ctrl-/:toggle-preview --border --height 50% --min-height 20"
+
+### Cargo and Rust ###
+[[ -f "${HOME}/.cargo/env" ]] && source "${HOME}/.cargo/env"
 
