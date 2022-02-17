@@ -9,6 +9,7 @@ varclear PATH
 
 set -x EDITOR 'nvim'
 set -x VISUAL 'nvim'
+set -x SHELL (which fish)
 
 if command -v bat &>/dev/null
   set -x BAT_THEME "gruvbox-dark"

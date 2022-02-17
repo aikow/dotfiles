@@ -13,7 +13,7 @@ function __fzf_git_is_repo
 end
 
 function __fzf_down
-  fzf --height 50% --min-height 20 --border --bind ctrl-/:toggle-preview $argv
+  fzf --height 50% --min-height 20 --border --bind 'ctrl-/:toggle-preview' $argv
 end
 
 function fzf_git_toplevel
@@ -24,7 +24,7 @@ end
 function fzf_git_status
   __fzf_git_is_repo || return
   git -c color.status=always status --short \
-    | __fzf_down -m --ansi --nth 2 \
+    | __fzf_down -m --ansi --nth 2..,.. \
         --preview 'git diff --color=always HEAD -- {-1} | head -500' \
     | cut -c4- \
     | sed 's/.* -> //' \
@@ -82,7 +82,7 @@ end
 function fzf_git_stash
   __fzf_git_is_repo || return
 
-  git stash \
+  git stash list \
     | __fzf_down --reverse -d: --preview 'git show --color=always {1}' \
     | cut -d: -f1 \
     | fzf_add_to_commandline
