@@ -113,7 +113,7 @@ fi
 
 # Source fzf and cargo
 [[ -f "${HOME}/.fzf.bash" ]] && source "${HOME}/.fzf.bash"
-[[ -f "${HOME}/.cargo/env" ]] && source "${HOME}/.cargo.env"
+[[ -f "${HOME}/.cargo/env" ]] && source "${HOME}/.cargo/env"
 
 # Load user aliases
 [[ -f "${DOTFILES}/shells/bash/aliases" ]] && source "${DOTFILES}/shells/bash/aliases"
