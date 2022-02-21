@@ -468,6 +468,11 @@ augroup filetype_help
   autocmd BufRead *.xlsx.axlsx set filetype=ruby
 augroup END
 
+" Set options for terminals inside nvim.
+augroup terminal
+  autocmd TermOpen * setlocal nospell nonumber norelativenumber
+augroup END
+
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                                 Functions                                  "

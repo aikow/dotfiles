@@ -9,6 +9,7 @@ fi
 #######################################################################
 #                                 zinit                               #
 #######################################################################
+#
 # Source the zinit script
 source "${DOTFILES}/shells/zsh/zinit/zinit.zsh"
 
@@ -50,6 +51,7 @@ source "${DOTFILES}/shells/zsh/p10k.zsh"
 #######################################################################
 #                               History                               #
 #######################################################################
+#
 # History Options
 setopt append_history
 setopt extended_history
@@ -79,7 +81,6 @@ export HISTIGNORE="l:ls:ll:lll:lt:lg:cd:cd -:pwd:exit:date:* --help:man"
 # Set up automatic ls on cd
 auto_ls() {
 	emulate -L zsh
-	echo
 	echo
   if command -v exa &>/dev/null; then
     exa --icons -a --group-directories-first
