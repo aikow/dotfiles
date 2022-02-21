@@ -15,8 +15,6 @@ source "${DOTFILES}/shells/zsh/zinit/zinit.zsh"
 # Plugins
 zinit snippet OMZL::git.zsh
 zinit snippet OMZP::git
-zinit snippet OMZP::github
-zinit snippet OMZP::kubectl
 zinit snippet OMZP::colored-man-pages
 zinit snippet OMZP::command-not-found
 
@@ -64,13 +62,13 @@ setopt hist_save_no_dups
 setopt hist_verify
 
 # Share history across all your terminal windows
-# setopt share_history
-# setopt noclobber
+setopt share_history
+setopt noclobber
 
 # Increase history size
-HISTSIZE=100000
-SAVEHIST=100000
-HISTFILE=~/.zsh_history
+export HISTSIZE=100000
+export SAVEHIST=100000
+export HISTFILE=~/.zsh_history
 export HISTIGNORE="l:ls:ll:lll:lt:lg:cd:cd -:pwd:exit:date:* --help:man"
 
 
