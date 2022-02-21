@@ -19,7 +19,6 @@ zinit snippet OMZP::github
 zinit snippet OMZP::kubectl
 zinit snippet OMZP::colored-man-pages
 zinit snippet OMZP::command-not-found
-zinit light commanda-panda/zsh-auto-ls
 
 # These 2 must be in this order
 zinit load zsh-users/zsh-autosuggestions
@@ -72,7 +71,7 @@ setopt hist_verify
 HISTSIZE=100000
 SAVEHIST=100000
 HISTFILE=~/.zsh_history
-export HISTIGNORE="ls:ll:cd:cd -:pwd:exit:date:* --help"
+export HISTIGNORE="l:ls:ll:lll:lt:lg:cd:cd -:pwd:exit:date:* --help:man"
 
 
 #######################################################################
@@ -93,12 +92,13 @@ auto_ls() {
 
 # Check if auto-ls has already been added to the chpwd_functions array. This
 # ensures that resourcing the zshrc file doesnt cause ls to be run twice.
-if [[ ! " ${chpwd_functions[*]} " =~ "auto_ls" ]]; then
+if [[ ! "${chpwd_functions[*]}" =~ "auto_ls" ]]; then
   chpwd_functions=(auto_ls $chpwd_functions)
 fi
 
 # Bind C-e to edit the command line
-autoload edit-command-line; zle -N edit-command-line
+autoload edit-command-line
+zle -N edit-command-line
 bindkey '^x^e' edit-command-line
 
 # Bind C-o to add an argument to the previous command
@@ -108,32 +108,44 @@ bindkey -s '^o' '^[k0Ea '
 bindkey -s '^x^l' '^[kA | less'
 
 # Bind C-x C-p to pipe the previous command
-bindkey -s '^p' '^[kA | '
+bindkey -s '^x^p' '^[kA | '
 
 # History seach
-bindkey "^k" history-beginning-search-backward
-bindkey "^j" history-beginning-search-forward
+bindkey '^k' history-beginning-search-backward
+bindkey '^j' history-beginning-search-forward
 
 # Clear screen
 bindkey "^l" clear-screen
 
 # Git bindings
 source "${DOTFILES}/shells/functions/fzf-git.sh"
-join-lines() {
+source "${DOTFILES}/shells/functions/fzf-k8s.sh"
+
+function join-lines() {
   local item
   while read item; do
     echo -n "${(q)item} "
   done
 }
 
-() {
-  local c
-  for c in $@; do
-    eval "fzf-g$c-widget() { local result=\$(_g$c | join-lines); zle reset-prompt; LBUFFER+=\$result }"
-    eval "zle -N fzf-g$c-widget"
-    eval "bindkey '^g^$c' fzf-g$c-widget"
-  done
-} f b t r h s
+function bind_function() {
+  local func="${1?Missing function to bind}"
+  local key="${2?Missing key to bind to}"
+  eval "function fzf-${func}-widget() { local result=\$(${func} | join-lines); zle reset-prompt; LBUFFER+=\$result }"
+  eval "zle -N fzf-${func}-widget"
+  eval "bindkey '${key}' fzf-${func}-widget"
+}
+
+bind_function fzf_git_status ^g^f
+bind_function fzf_git_branches ^g^b
+bind_function fzf_git_tags ^g^t
+bind_function fzf_git_remotes ^g^r
+bind_function fzf_git_commits ^g^h
+bind_function fzf_git_stash ^g^s
+bind_function fzf_k8s_pods ^g^p
+bind_function fzf_k8s_jobs ^g^j
+
+
 
 # Load completions 
 autoload -U compinit && compinit
