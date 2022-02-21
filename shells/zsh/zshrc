@@ -78,6 +78,25 @@ export HISTIGNORE="ls:ll:cd:cd -:pwd:exit:date:* --help"
 #######################################################################
 #                         User Configuration                          #
 #######################################################################
+#
+# Set up automatic ls on cd
+auto_ls() {
+	emulate -L zsh
+	echo
+	echo
+  if command -v exa &>/dev/null; then
+    exa --icons -a --group-directories-first
+  else
+    ls -AG --color=always
+  fi
+}
+
+# Check if auto-ls has already been added to the chpwd_functions array. This
+# ensures that resourcing the zshrc file doesnt cause ls to be run twice.
+if [[ ! " ${chpwd_functions[*]} " =~ "auto_ls" ]]; then
+  chpwd_functions=(auto_ls $chpwd_functions)
+fi
+
 # Bind C-e to edit the command line
 autoload edit-command-line; zle -N edit-command-line
 bindkey '^x^e' edit-command-line
