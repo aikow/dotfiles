@@ -84,10 +84,10 @@ nnoremap <leader>t :action Terminal.OpenInTerminal<CR>
 " Move around the windows using control plus vim movement keys hjkl
 sethandler <c-j> a:vim
 sethandler <c-k> a:vim
-nnoremap <c-h> <c-w>h
-nnoremap <c-l> <c-w>l
-nnoremap <c-j> <c-w>j
-nnoremap <c-k> <c-w>k
+nnoremap <M-h> <c-w>h
+nnoremap <M-l> <c-w>l
+nnoremap <M-j> <c-w>j
+nnoremap <M-k> <c-w>k
 
 " Closing tabs
 nmap <leader>q :action CloseContent<CR>

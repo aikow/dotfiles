@@ -55,6 +55,7 @@ function fish_user_key_bindings
   bind -M insert \co add_argument
 
   fzf_git_key_bindings
+  fzf_k8s_key_bindings
 
   fzf_key_bindings
 end
