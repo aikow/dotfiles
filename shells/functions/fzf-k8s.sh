@@ -10,6 +10,8 @@ function fzf_k8s_pods() {
 
   kubectl get pods -o wide \
     | fzf --header-lines=1 \
+        --preview-window='hidden' \
+        --preview='kubectl logs "$(cut -d" " -f1 <<<{} | sed -E "s:.*/::g")"' \
     | cut -d' ' -f1 \
     | sed -E 's:.*/::g'
 }
@@ -20,6 +22,8 @@ function fzf_k8s_jobs() {
 
   kubectl get jobs,pytorchjobs -o wide \
     | fzf --header-lines=1 \
+        --preview-window='hidden' \
+        --preview='kubectl logs "$(cut -d" " -f1 <<<{} | sed -E "s:.*/::g")"' \
     | cut -d' ' -f1 \
     | sed -E 's:.*/::g'
 }
