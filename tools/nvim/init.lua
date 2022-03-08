@@ -61,6 +61,9 @@ o.undofile = true
 o.backup = false
 o.swapfile = true
 
+-- Automatically update buffer if modified outside of neovim.
+o.autoread = true
+
 -- Better display for messages
 o.updatetime = 1000
 
@@ -362,7 +365,7 @@ smap('n', '<leader>p', [[<cmd>lua require('telescope.builtin').buffers()<CR>]])
 smap('n', '<leader>ff', [[<cmd>lua require('telescope.builtin').live_grep()<CR>]])
 smap('n', '<leader>fs', [[<cmd>lua require('telescope.builtin').spell_suggest()<CR>]])
 smap('n', '<leader>fb', [[<cmd>lua require('telescope.builtin').current_buffer_fuzzy_find()<CR>]])
-smap('n', '<leader>fts', [[<cmd>lua require('telescope.builtin').tags()<CR>]])
+smap('n', '<leader>ft', [[<cmd>lua require('telescope.builtin').tags()<CR>]])
 smap('n', '<leader>fh', [[<cmd>lua require('telescope.builtin').search_history()<CR>]])
 smap('n', '<leader>f;', [[<cmd>lua require('telescope.builtin').command_history()<CR>]])
 
@@ -387,7 +390,7 @@ smap('n', '<leader>gR', '<cmd>Gitsigns reset_buffer<CR>')
 smap('n', '<leader>gp', '<cmd>Gitsigns preview_hunk<CR>')
 smap('n', '<leader>gL', '<cmd>Gitsigns toggle_current_line_blame<CR>')
 smap('n', '<leader>gd', '<cmd>Gitsigns diffthis<CR>')
-smap('n', '<leader>gtd', '<cmd>Gitsigns toggle_deleted<CR>')
+smap('n', '<leader>gD', '<cmd>Gitsigns toggle_deleted<CR>')
 
 -- -- Text object
 smap({'o', 'x'}, 'ig', ':<C-U>Gitsigns select_hunk<CR>')
@@ -434,51 +437,54 @@ map('n', '<C-w>-', '5<C-w>-')
 map('n', '<C-w>+', '5<C-w>+')
 
 
+-- ---------------------
+-- |   Auto Commands   |
+-- ---------------------
+-- Reload files changed outside of Vim not currently modified in Vim 
+autocmd('general_autoread', [[FocusGained,BufEnter * :silent! !]])
+
+-- Prevent accidental writes to buffers that shouldn't be edited
+autocmd(
+  'unmodifiable',
+  {
+    [[BufRead *.orig set readonly]],
+    [[BufRead *.pacnew set readonly]],
+  }
+)
+
+-- Jump to last edit position on opening file
+-- https://stackoverflow.com/questions/31449496/vim-ignore-specifc-file-in-autocommand
+autocmd(
+  'buf_read_post',
+  [[BufReadPost * if expand('%:p') !~# '\m/\.git/' && line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif]]
+)
+
+-- Help filetype detection
+autocmd(
+  'filetype_help',
+  {
+    [[BufRead *.plot set filetype=gnuplot]],
+    [[BufRead *.md set filetype=markdown]],
+    [[BufRead *.lds set filetype=ld]],
+    [[BufRead *.tex set filetype=tex]],
+    [[BufRead *.trm set filetype=c]],
+    [[BufRead *.xlsx.axlsx set filetype=ruby]],
+  }
+)
+
+-- Set options for terminals inside nvim.
+autocmd('terminal', [[TermOpen * setlocal nospell nonumber norelativenumber]])
+
+-- ===================
+-- |=================|
+-- ||               ||
+-- ||   Functions   ||
+-- ||               ||
+-- |=================|
+-- ===================
+--
+-- Show the cargo.toml documentation.
 vim.cmd [[
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"                                  Functions                                 "
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"
-" Reload files changed outside of Vim not currently modified in Vim 
-set autoread
-augroup general_autoread
-  autocmd!
-  autocmd FocusGained,BufEnter * :silent! !
-augroup END
-
-" Prevent accidental writes to buffers that shouldn't be edited
-augroup unmodifiable
-  autocmd BufRead *.orig set readonly
-  autocmd BufRead *.pacnew set readonly
-augroup END
-
-" Jump to last edit position on opening file
-if has("autocmd")
-  " https://stackoverflow.com/questions/31449496/vim-ignore-specifc-file-in-autocommand
-  au BufReadPost * if expand('%:p') !~# '\m/\.git/' && line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
-endif
-
-" Help filetype detection
-augroup filetype_help
-  autocmd BufRead *.plot set filetype=gnuplot
-  autocmd BufRead *.md set filetype=markdown
-  autocmd BufRead *.lds set filetype=ld
-  autocmd BufRead *.tex set filetype=tex
-  autocmd BufRead *.trm set filetype=c
-  autocmd BufRead *.xlsx.axlsx set filetype=ruby
-augroup END
-
-" Set options for terminals inside nvim.
-augroup terminal
-  autocmd TermOpen * setlocal nospell nonumber norelativenumber
-augroup END
-
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"                                 Functions                                  "
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"
-" Show the cargo.toml documentation.
 function! s:show_documentation()
     if (index(['vim','help'], &filetype) >= 0)
         execute 'h '.expand('<cword>')
@@ -490,33 +496,46 @@ function! s:show_documentation()
         lua vim.lsp.buf.hover()
     endif
 endfunction
+]]
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"                                    Rust                                    "
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"
-" Set rust specific vim settings.
-augroup ft_rust
-  autocmd FileType rust setlocal colorcolumn=100
-augroup END
+-- ===========================
+-- |=========================|
+-- ||                       ||
+-- ||   Filetype Settings   ||
+-- ||                       ||
+-- |=========================|
+-- ===========================
+--
+-- Contains settings specific to certain file types.
+
+-- ------------
+-- |   Rust   |
+-- ------------
+--
+-- Set rust specific vim settings.
+autocmd('ft_rust', [[FileType rust setlocal colorcolumn=100]])
+
+-- --------------
+-- |   Python   |
+-- --------------
+--
+-- Set settings for python files
+autocmd(
+  'ft_python', 
+  {
+    [[FileType python setlocal tabstop=4]],
+    [[FileType python setlocal softtabstop=4]],
+    [[FileType python setlocal shiftwidth=4]],
+    [[FileType python setlocal textwidth=80]],
+    [[FileType python setlocal expandtab]],
+    [[FileType python setlocal autoindent]],
+    [[FileType python setlocal fileformat=unix]],
+  },
+  clear
+)
 
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"                                   Python                                   "
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"
-" Set settings for python files
-augroup ft_python
-  autocmd!
-  autocmd FileType python setlocal tabstop=4
-  autocmd FileType python setlocal softtabstop=4
-  autocmd FileType python setlocal shiftwidth=4
-  autocmd FileType python setlocal textwidth=80
-  autocmd FileType python setlocal expandtab
-  autocmd FileType python setlocal autoindent
-  autocmd FileType python setlocal fileformat=unix
-augroup END
-
+vim.cmd [[
 " Function to activate a virtualenv in the embedded interpeter
 function! LoadVirtualEnv(path)
   let activate_this = a:path . '/bin/activate_this.py'
@@ -528,16 +547,18 @@ execfile(activate_this, dict(__file__=activate_this))
 EOF
   endif
 endfunction
-
-" Set default virtual environment
-let defaultvirtualenv = $HOME . "/.miniconda3/bin"
-
-" Only attempt to load this virtualenv if the defaultvirtualenv actually
-" exists and we aren't running with a virtualenv active.
-if has("python")
-  if empty($VIRTUAL_ENV) && getftype(defaultvirtualenv) == "dir"
-    call LoadVirtualEnv(defaultvirtualenv)
-  endif
-endif
 ]]
+
+-- Only attempt to load this virtualenv if the defaultvirtualenv actually
+-- exists and we aren't running with a virtualenv active.
+
+-- Set default virtual environment
+defaultvirtualenv = vim.fn.expand('~/.miniconda3/bin')
+
+if vim.fn.has('python') then
+  if vim.fn.empty(vim.fn.expand('$VIRTUAL_ENV')) and vim.fn.getftype(defaultvirtualenv) == 'dir' then
+    g.defaultvirtualenv = defaultvirtualenv
+    vim.cmd [[call LoadVirtualEnv(defaultvirtualenv)]]
+  end
+end
 
