@@ -43,8 +43,9 @@ while [[ ${#@} -gt 0 ]]; do
 	esac
 done
 
-# Restore positional arguments.
-set -- "${_POSITIONAL_ARGS+"${POSITIONAL_ARGS}"}"
+# Restore positional arguments and delete the temporary array.
+set -- "${_POSITIONAL_ARGS+"${_POSITIONAL_ARGS}"}"
+unset _POSITIONAL_ARGS
 endsnippet
 
 snippet fclap "command line flag" bA
