@@ -44,7 +44,7 @@ while [[ ${#@} -gt 0 ]]; do
 done
 
 # Restore positional arguments and delete the temporary array.
-set -- "${_POSITIONAL_ARGS+"${_POSITIONAL_ARGS}"}"
+set -- "${_POSITIONAL_ARGS[@]+"${_POSITIONAL_ARGS[@]}"}"
 unset _POSITIONAL_ARGS
 endsnippet
 
