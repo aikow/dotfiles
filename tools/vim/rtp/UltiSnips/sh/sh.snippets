@@ -77,7 +77,7 @@ set -o errexit
 set -o pipefail
 set -o nounset
 
-IFS=$'\n\t'
+IFS=$' \n\t'
 `!p snip.rv ='\n\n' `
 endsnippet
 
@@ -92,8 +92,8 @@ ${5:${6/(.+)/trap "/}${6:rm -f '$${1/.*\s//}'}${6/(.+)/" 0               # EXIT\
 
 endsnippet
 
-snippet script_dir "script directory"
-readonly SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" &>/dev/null && pwd -P)"
+snippet script_dir "script directory" b
+readonly SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &>/dev/null && pwd -P)"
 endsnippet
 
 # -----------------------------------------------------------------------
