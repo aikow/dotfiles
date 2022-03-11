@@ -110,7 +110,7 @@
       create: true
 
     # Alacritty
-    ~/.config/alacritty/config:
+    ~/.config/alacritty/alacritty.yml:
       path: emulators/alacritty/alacritty.yml
       create: true
 
