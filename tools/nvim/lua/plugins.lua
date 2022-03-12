@@ -446,7 +446,7 @@ require('rust-tools').setup {
           command = 'clippy'
         },
         procMacro = {
-          enable = false
+          enable = true
         },
       }
     },
