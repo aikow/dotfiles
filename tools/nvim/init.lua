@@ -366,7 +366,7 @@ smap('n', '<leader>ff', [[<cmd>lua require('telescope.builtin').live_grep()<CR>]
 smap('n', '<leader>fs', [[<cmd>lua require('telescope.builtin').spell_suggest()<CR>]])
 smap('n', '<leader>fb', [[<cmd>lua require('telescope.builtin').current_buffer_fuzzy_find()<CR>]])
 smap('n', '<leader>ft', [[<cmd>lua require('telescope.builtin').tags()<CR>]])
-smap('n', '<leader>fh', [[<cmd>lua require('telescope.builtin').search_history()<CR>]])
+smap('n', '<leader>f/', [[<cmd>lua require('telescope.builtin').search_history()<CR>]])
 smap('n', '<leader>f;', [[<cmd>lua require('telescope.builtin').command_history()<CR>]])
 
 -- Git shortcuts
@@ -416,7 +416,7 @@ smap('n', '<leader>ho', [[<cmd>lua require('telescope.builtin').vim_options()<CR
 smap('n', '<leader>hc', [[<cmd>lua require('telescope.builtin').colorscheme()<CR>]])
 smap('n', '<leader>hh', [[<cmd>lua require('telescope.builtin').help_tags()<CR>]])
 smap('n', '<leader>hm', [[<cmd>lua require('telescope.builtin').man_pages()<CR>]])
-smap('n', '<leader>h\'', [[<cmd>lua require('telescope.builtin').marks()<CR>]])
+smap('n', [[<leader>h']], [[<cmd>lua require('telescope.builtin').marks()<CR>]])
 smap('n', '<leader>hk', [[<cmd>lua require('telescope.builtin').keymaps()<CR>]])
 smap('n', '<leader>hf', [[<cmd>lua require('telescope.builtin').filetypes()<CR>]])
 smap('n', '<leader>hr', [[<cmd>lua require('telescope.builtin').registers()<CR>]])
@@ -424,7 +424,8 @@ smap('n', '<leader>ha', [[<cmd>lua require('telescope.builtin').autocommands()<C
 smap('n', '<leader>ht', [[<cmd>lua require('telescope.builtin').pickers()<CR>]])
 
 -- Faster write/save current buffer
-smap('n', '<leader>w', ':w<CR>')
+smap('n', '<leader>w', '<cmd>write<CR>')
+smap('n', '<leader>W', '<cmd>wall<CR>')
 
 -- Resizing splits
 smap('n', '<leader>wvp', ':exe "vertical resize " . (winwidth(0) * 3/2)<CR>')
@@ -441,7 +442,16 @@ map('n', '<C-w>+', '5<C-w>+')
 -- |   Auto Commands   |
 -- ---------------------
 -- Reload files changed outside of Vim not currently modified in Vim 
-autocmd('general_autoread', [[FocusGained,BufEnter * :silent! !]])
+autocmd(
+  'general_autoread',
+  [[FocusGained,BufEnter,WinEnter * silent! edit]],
+  true
+)
+autocmd(
+  'general_autowrite',
+  [[FocusLost,WinLeave * silent! noautocmd write]],
+  true
+)
 
 -- Prevent accidental writes to buffers that shouldn't be edited
 autocmd(

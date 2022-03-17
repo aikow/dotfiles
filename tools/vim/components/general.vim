@@ -282,28 +282,27 @@ nnoremap <silent> p p`]
 nnoremap <silent> <leader>; :Commands<CR>
 nnoremap <silent> <leader>o :Files<CR>
 nnoremap <silent> <leader>p :Buffers<CR>
-nnoremap <silent> <leader>fr :Rg<CR>
+nnoremap <silent> <leader>ff :Rg<CR>
 nnoremap <silent> <leader>fl :Lines<CR>
 nnoremap <silent> <leader>fb :BLines<CR>
-nnoremap <silent> <leader>fts :Tags<CR>
-nnoremap <silent> <leader>ftb :BTags<CR>
-nnoremap <silent> <leader>fm :Marks<CR>
+nnoremap <silent> <leader>ft :Tags<CR>
+nnoremap <silent> <leader>fT :BTags<CR>
+nnoremap <silent> <leader>f' :Marks<CR>
 nnoremap <silent> <leader>fw :Windows<CR>
 nnoremap <silent> <leader>fp :Locate<CR>
-nnoremap <silent> <leader>fh :History<CR>
+nnoremap <silent> <leader>f/ :History<CR>
 nnoremap <silent> <leader>f; :History:<CR>
 
 " Git shortcuts
 nnoremap <silent> <leader>go :GFiles<CR>
-nnoremap <silent> <leader>gs :GFiles?<CR>
-nnoremap <silent> <leader>gc :Commits<CR>
-nnoremap <silent> <leader>gb :BCommits<CR>
+nnoremap <silent> <leader>gO :GFiles?<CR>
+nnoremap <silent> <leader>gC :Commits<CR>
+nnoremap <silent> <leader>gc :BCommits<CR>
 
 " Setting shortcuts
-nnoremap <silent> <leader>hs :Settings<CR>
 nnoremap <silent> <leader>hc :Colors<CR>
 nnoremap <silent> <leader>hh :Helptags<CR>
-nnoremap <silent> <leader>hm :Maps<CR>
+nnoremap <silent> <leader>hk :Maps<CR>
 nnoremap <silent> <leader>hf :Filetypes<CR>
 
 nnoremap <silent> <leader>w :w<CR>
