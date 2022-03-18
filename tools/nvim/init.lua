@@ -278,8 +278,8 @@ map('n', '<leader>m', 'ct_')
 -- Automatically correct spelling with the first option
 map('i', '<C-l>', '<C-g>u<Esc>[s1z=`]a<C-g>u')
 
-map('i', '<c-_>', '<C-o><Plug>CommentaryLine', { noremap = false })
-map('n', '<C-c>', '<Plug>CommentaryLine', { noremap = false })
+map('i', '<c-_>', '<cmd>Commentary<CR>', { noremap = false })
+map('n', '<C-c>', '<cmd>Commentary<CR>', { noremap = false })
 
 -- Clear the search buffer to remove highlighting from the last search
 smap('n', '<c-_>', [[:let @/ = ""<CR>]])
