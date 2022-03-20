@@ -1,16 +1,16 @@
 global !p
 from vimsnippets import foldmarker, make_box, get_comment_format
 
-def convert_to_snake(string):
-		string = string.replace('ü', 'ue')
-    string = string.replace('Ü', 'Ue')
-    string = string.replace('ä', 'ae')
-    string = string.replace('Ä', 'Ae')
-    string = string.replace('ö', 'oe')
-    string = string.replace('Ö', 'Oe')
-    string = string.replace('ß', 'ss')
+def convert_to_snake(s):
+    s = s.replace('ü', 'ue')
+    s = s.replace('Ü', 'Ue')
+    s = s.replace('ä', 'ae')
+    s = s.replace('Ä', 'Ae')
+    s = s.replace('ö', 'oe')
+    s = s.replace('Ö', 'Oe')
+    s = s.replace('ß', 'ss')
 
-		return string.lower().replace(' ', '_')
+    return s.lower().replace(' ', '_')
 
 endglobal
 
@@ -24,6 +24,40 @@ snippet pac "Package" b
 $0
 endsnippet
 
+snippet box "Small box" b
+`!p
+text_length = len(t[1])
+comment = '%% '
+snip.rv = comment + '--' + ('-' * text_length) + '--'
+snip += comment + '|' + ' '
+`${1:${VISUAL:content}}`!p
+text_length = len(t[1])
+comment = '%% '
+snip.rv = ' |'
+snip += comment + '--' + ('-' * text_length) + '--'
+`
+$0
+endsnippet
+
+
+snippet bbox "Big box" b
+`!p
+text_length = len(t[1])
+comment = '%% '
+snip.rv = comment + '===' + ('=' * text_length) + '==='
+snip += comment + '|==' + ('=' * text_length) + '==|'
+snip += comment + '|| ' + (' ' * text_length) + ' ||'
+snip += comment + '|| '
+`${1:${VISUAL:content}}`!p
+text_length = len(t[1])
+comment = '%% '
+snip.rv = ' ||'
+snip += comment + '|| ' + (' ' * text_length) + ' ||'
+snip += comment + '|==' + ('=' * text_length) + '==|'
+snip += comment + '===' + ('=' * text_length) + '==='
+`
+$0
+endsnippet
 
 #######################################################################
 #                            Environments                             #
