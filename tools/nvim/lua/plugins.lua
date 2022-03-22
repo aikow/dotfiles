@@ -10,21 +10,21 @@ if fn.empty(fn.glob(install_path)) > 0 then
   packer_bootstrap = fn.system({'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path})
 end
 
--- =====================
--- |===================|
--- ||                 ||
--- || Include Plugins ||
--- ||                 ||
--- |===================|
--- =====================
+-- =========================
+-- |=======================|
+-- ||                     ||
+-- ||   Include Plugins   ||
+-- ||                     ||
+-- |=======================|
+-- =========================
 
 plugins = require('packer').startup(function(use)
   -- Have packer manage itself
   use 'wbthomason/packer.nvim'
 
-  -- -----------------------------------
-  -- | Language Servers and Completion |
-  -- -----------------------------------
+  -- ---------------------------------------
+  -- |   Language Servers and Completion   |
+  -- ---------------------------------------
   --
   -- LSP server for neovim
   use 'neovim/nvim-lspconfig'
@@ -118,9 +118,9 @@ plugins = require('packer').startup(function(use)
     end
   }
 
-  -- ----------------------------
-  -- | Telescope and TreeSitter |
-  -- ----------------------------
+  -- --------------------------------
+  -- |   Telescope and Treesitter   |
+  -- --------------------------------
   -- Search
   use {
     {
@@ -145,9 +145,17 @@ plugins = require('packer').startup(function(use)
 
                 ['<C-_>'] = actions_layout.toggle_preview,
 
+                -- Show keybindings.
+                ['<C-h>'] = actions.which_key,
+
+                -- Toggle selection without moving up or down.
+                ['<C-space>'] = actions.toggle_selection,
+
+                -- Smart add or send to quick fix list.
                 ['<C-q><C-q>'] = actions.smart_send_to_qflist + actions.open_qflist,
                 ['<C-q>q'] = actions.smart_add_to_qflist + actions.open_qflist,
 
+                -- Smart add or send to location list.
                 ['<C-l><C-l>'] = actions.smart_send_to_loclist + actions.open_loclist,
                 ['<C-l>l'] = actions.smart_add_to_loclist + actions.open_loclist,
               },
@@ -160,11 +168,17 @@ plugins = require('packer').startup(function(use)
 
                 ['<C-_>'] = actions_layout.toggle_preview,
 
+                -- Show keybindings.
+                ['<C-h>'] = actions.which_key,
+
+                -- Toggle selection without moving up or down.
                 ['<C-space>'] = actions.toggle_selection,
 
+                -- Smart add or send to quick fix list.
                 ['<C-q><C-q>'] = actions.smart_send_to_qflist + actions.open_qflist,
                 ['<C-q>q'] = actions.smart_add_to_qflist + actions.open_qflist,
 
+                -- Smart add or send to location list.
                 ['<C-l><C-l>'] = actions.smart_send_to_loclist + actions.open_loclist,
                 ['<C-l>l'] = actions.smart_add_to_loclist + actions.open_loclist,
               },
@@ -189,8 +203,6 @@ plugins = require('packer').startup(function(use)
                                                -- the default case_mode is 'smart_case'
             },
           },
-          pickers = {
-          }
         }
         -- To get fzf loaded and working with telescope, you need to call
         -- load_extension, somewhere after setup function:
@@ -210,17 +222,17 @@ plugins = require('packer').startup(function(use)
         -- Ensure that all maintained languages are always installed.
         -- ensure_installed = 'maintained',
         sync_install = false,
-        -- Allow incremental selection using TreeSitter code regions.
+        -- Allow incremental selection using Treesitter code regions.
         incremental_selection = {
           enable = true,
           keymaps = {
-            init_selection = 'gnn',
-            node_incremental = 'grn',
-            scope_incremental = 'grc',
-            node_decremental = 'grm',
+            init_selection = '<leader>v',
+            scope_incremental = '<C-l>',
+            node_incremental = '<C-k>',
+            node_decremental = '<C-j>',
           },
         },
-        -- Enable TreeSitter syntax highlighing.
+        -- Enable Treesitter syntax highlighting.
         highlight = {
           enable = true,
           additional_vim_regex_highlighting = "latex",
@@ -230,7 +242,7 @@ plugins = require('packer').startup(function(use)
     run = ':TSUpdate',
   }
 
-  -- Enable correct spelling syntax highlighting with TreeSitter.
+  -- Enable correct spelling syntax highlighting with Treesitter.
   use {
     'lewis6991/spellsitter.nvim',
     config = function()
@@ -240,9 +252,9 @@ plugins = require('packer').startup(function(use)
     end,
   }
 
-  -- -----------------
-  -- | Code Snippets |
-  -- -----------------
+  -- ---------------------
+  -- |   Code Snippets   |
+  -- ---------------------
   --
   use {
     'sirver/ultisnips',
@@ -253,9 +265,9 @@ plugins = require('packer').startup(function(use)
     end
   }
 
-  -- -------------------
-  -- | General Plugins |
-  -- -------------------
+  -- -----------------------
+  -- |   General Plugins   |
+  -- -----------------------
   --
   -- Nice helper plugins
   use {
@@ -277,9 +289,9 @@ plugins = require('packer').startup(function(use)
   }
 
 
-  -- --------------------
-  -- | Language Add-Ons |
-  -- --------------------
+  -- ------------------------
+  -- |   Language Add-Ons   |
+  -- ------------------------
   --
   -- Git
   use {
@@ -359,9 +371,9 @@ plugins = require('packer').startup(function(use)
     'dag/vim-fish',
   }
 
-  -- ----------------------------
-  -- | Themes and customization |
-  -- ----------------------------
+  -- --------------------------------
+  -- |   Themes and customization   |
+  -- --------------------------------
   -- Vim status line
   use {
     'nvim-lualine/lualine.nvim',
@@ -418,9 +430,9 @@ plugins = require('packer').startup(function(use)
     'sainnhe/gruvbox-material',
   }
 
-  -- --------------------
-  -- | Bootstrap Packer |
-  -- --------------------
+  -- ------------------------
+  -- |   Bootstrap Packer   |
+  -- ------------------------
   --
   -- Automatically set up the configuration after cloning packer.nvim.
   if packer_bootstrap then
@@ -428,18 +440,18 @@ plugins = require('packer').startup(function(use)
   end
 end)
 
--- =============================
--- |===========================|
--- ||                         ||
--- || Additional Plugin Setup ||
--- ||                         ||
--- |===========================|
--- =============================
---
 
--- -------------------------
--- | Setup Language Server |
--- -------------------------
+-- =================================
+-- |===============================|
+-- ||                             ||
+-- ||   Additional Plugin Setup   ||
+-- ||                             ||
+-- |===============================|
+-- =================================
+
+-- -----------------------------
+-- |   Setup Language Server   |
+-- -----------------------------
 -- 
 -- Setup the neovim LSP server form lspconfig
 local on_attach = function(client, bufnr)
