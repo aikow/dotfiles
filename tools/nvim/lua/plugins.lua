@@ -130,9 +130,56 @@ plugins = require('packer').startup(function(use)
         'telescope-fzf-native.nvim',
       },
       config = function() 
-        -- You dont need to set any of these options. These are the default ones. Only
-        -- the loading is important
+        local actions = require('telescope.actions')
+        local actions_layout = require('telescope.actions.layout')
+
         require('telescope').setup {
+          defaults = {
+            mappings = {
+              i = {
+                ['<C-n>'] = actions.cycle_history_next,
+                ['<C-p>'] = actions.cycle_history_prev,
+
+                ['<C-j>'] = actions.move_selection_next,
+                ['<C-k>'] = actions.move_selection_previous,
+
+                ['<C-_>'] = actions_layout.toggle_preview,
+
+                ['<C-q><C-q>'] = actions.smart_send_to_qflist + actions.open_qflist,
+                ['<C-q>q'] = actions.smart_add_to_qflist + actions.open_qflist,
+
+                ['<C-l><C-l>'] = actions.smart_send_to_loclist + actions.open_loclist,
+                ['<C-l>l'] = actions.smart_add_to_loclist + actions.open_loclist,
+              },
+              n = {
+                ['<C-n>'] = actions.cycle_history_next,
+                ['<C-p>'] = actions.cycle_history_prev,
+
+                ['<C-j>'] = actions.move_selection_next,
+                ['<C-k>'] = actions.move_selection_previous,
+
+                ['<C-_>'] = actions_layout.toggle_preview,
+
+                ['<C-space>'] = actions.toggle_selection,
+
+                ['<C-q><C-q>'] = actions.smart_send_to_qflist + actions.open_qflist,
+                ['<C-q>q'] = actions.smart_add_to_qflist + actions.open_qflist,
+
+                ['<C-l><C-l>'] = actions.smart_send_to_loclist + actions.open_loclist,
+                ['<C-l>l'] = actions.smart_add_to_loclist + actions.open_loclist,
+              },
+            },
+            vimgrep_arguments = {
+              'rg',
+              '--color=never',
+              '--no-heading',
+              '--with-filename',
+              '--line-number',
+              '--column',
+              '--smart-case',
+              '--trim',
+            }
+          },
           extensions = {
             fzf = {
               fuzzy = true,                    -- false will only do exact matching
@@ -140,7 +187,9 @@ plugins = require('packer').startup(function(use)
               override_file_sorter = true,     -- override the file sorter
               case_mode = 'smart_case',        -- or 'ignore_case' or 'respect_case'
                                                -- the default case_mode is 'smart_case'
-            }
+            },
+          },
+          pickers = {
           }
         }
         -- To get fzf loaded and working with telescope, you need to call
