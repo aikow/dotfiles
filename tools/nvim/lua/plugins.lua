@@ -135,21 +135,43 @@ plugins = require('packer').startup(function(use)
 
         require('telescope').setup {
           defaults = {
-            mappings = {
+            default_mappings = {
               i = {
-                ['<C-n>'] = actions.cycle_history_next,
-                ['<C-p>'] = actions.cycle_history_prev,
-
                 ['<C-j>'] = actions.move_selection_next,
                 ['<C-k>'] = actions.move_selection_previous,
 
+                ['<C-c>'] = actions.close,
+
+                -- Open selected.
+                ['<CR>'] = actions.select_default,
+                ['<C-x>'] = actions.select_horizontal,
+                ['<C-v>'] = actions.select_vertical,
+                ['<C-t>'] = actions.select_tab,
+
+                -- Scroll through buffer and results.
+                ['<C-u>'] = actions.preview_scrolling_up,
+                ['<C-d>'] = actions.preview_scrolling_down,
+
+                ['<C-b>'] = actions.results_scrolling_up,
+                ['<C-f>'] = actions.results_scrolling_down,
+
+                -- Toggle selection without moving up or down.
+                ['<C-space>'] = actions.toggle_selection,
+                ['<Tab>'] = actions.toggle_selection + actions.move_selection_worse,
+                ['<S-Tab>'] = actions.toggle_selection + actions.move_selection_better,
+
+                ['<C-l>'] = actions.complete_tag,
+                ['<C-w>'] = { "<c-s-w>", type = "command" },
+
+                -- Cycle through history.
+                ['<C-n>'] = actions.cycle_history_next,
+                ['<C-p>'] = actions.cycle_history_prev,
+
+                -- Toggle the preview window.
                 ['<C-_>'] = actions_layout.toggle_preview,
 
                 -- Show keybindings.
                 ['<C-h>'] = actions.which_key,
-
-                -- Toggle selection without moving up or down.
-                ['<C-space>'] = actions.toggle_selection,
 
                 -- Smart add or send to quick fix list.
                 ['<C-q><C-q>'] = actions.smart_send_to_qflist + actions.open_qflist,
@@ -160,19 +182,40 @@ plugins = require('packer').startup(function(use)
                 ['<C-l>l'] = actions.smart_add_to_loclist + actions.open_loclist,
               },
               n = {
-                ['<C-n>'] = actions.cycle_history_next,
-                ['<C-p>'] = actions.cycle_history_prev,
-
+                -- TODO: This would be weird if we switch the ordering.
                 ['<C-j>'] = actions.move_selection_next,
                 ['<C-k>'] = actions.move_selection_previous,
+                ['j'] = actions.move_selection_next,
+                ['k'] = actions.move_selection_previous,
+
+                ['H'] = actions.move_to_top,
+                ['M'] = actions.move_to_middle,
+                ['L'] = actions.move_to_bottom,
+                ['gg'] = actions.move_to_top,
+                ['G'] = actions.move_to_bottom,
+
+                ['<esc>'] = actions.close,
+
+                ['<CR>'] = actions.select_default,
+                ['<C-x>'] = actions.select_horizontal,
+                ['<C-v>'] = actions.select_vertical,
+                ['<C-t>'] = actions.select_tab,
+
+                -- Toggle selection without moving up or down.
+                ['<C-space>'] = actions.toggle_selection,
+                ['<Tab>'] = actions.toggle_selection + actions.move_selection_worse,
+                ['<S-Tab>'] = actions.toggle_selection + actions.move_selection_better,
+
+                ['<C-u>'] = actions.preview_scrolling_up,
+                ['<C-d>'] = actions.preview_scrolling_down,
+
+                ['<C-b>'] = actions.results_scrolling_up,
+                ['<C-f>'] = actions.results_scrolling_down,
 
                 ['<C-_>'] = actions_layout.toggle_preview,
 
                 -- Show keybindings.
                 ['<C-h>'] = actions.which_key,
-
-                -- Toggle selection without moving up or down.
-                ['<C-space>'] = actions.toggle_selection,
 
                 -- Smart add or send to quick fix list.
                 ['<C-q><C-q>'] = actions.smart_send_to_qflist + actions.open_qflist,
