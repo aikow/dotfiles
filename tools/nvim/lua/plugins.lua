@@ -509,53 +509,72 @@ end
 
 -- Setup nvim-cmp with lspconfig.
 local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
-require('lspconfig')
+local lspconfig = require('lspconfig')
 
 -- Python language server.
-require('lspconfig').pyright.setup {
-  capabilities = capabilities,
-  settings = {
-    formatCommand = "black",
-  },
-}
-
--- YAML language server
-require('lspconfig').yamlls.setup {}
-
--- Bash language server
-require('lspconfig').bashls.setup {}
-
--- Setup rust LSP separately, since rust-tools overwrites the LSP server.
-require('rust-tools').setup {
-  tools = { -- rust-tools options
-    autoSetHints = true, -- Automatically set inlay hints
-    hover_with_actions = true, -- Show action inside the hover menu
-    inlay_hints = {
-      show_parameter_hints = true, -- Show parameter hints
-      parameter_hints_prefix = '<- ',
-      other_hints_prefix = '=> ',
-    },
-  },
-  -- These override the defaults set by rust-tools.nvim.
-  -- see https://github.com/neovim/nvim-lspconfig/blob/master/CONFIG.md#rust_analyzer
-  server = {
-    on_attach = on_attach,
+if vim.fn.executable('pyright') == 1 then
+  lspconfig.pyright.setup {
     capabilities = capabilities,
     settings = {
-      -- to enable rust-analyzer settings visit:
-      -- https://github.com/rust-analyzer/rust-analyzer/blob/master/docs/user/generated_config.adoc
-      ['rust-analyzer'] = {
-        -- enable clippy on save
-        checkOnSave = {
-          command = 'clippy'
-        },
-        procMacro = {
-          enable = true
-        },
+      formatCommand = 'black',
+    },
+  }
+end
+
+-- CPP and C server
+if vim.fn.executable('clangd') == 1 then
+  lspconfig.clangd.setup {
+    capabilities = capabilities,
+  }
+end
+
+-- YAML language server
+if vim.fn.executable('yaml-language-server') == 1 then
+  lspconfig.yamlls.setup {
+    capabilities = capabilities,
+  }
+end
+
+-- Bash language server
+if vim.fn.executable('bash-language-server') == 1 then
+  lspconfig.bashls.setup {
+    capabilities = capabilities,
+  }
+end
+
+-- Setup rust LSP separately, since rust-tools overwrites the LSP server.
+if vim.fn.executable('rust-analyzer') == 1 then
+  require('rust-tools').setup {
+    tools = { -- rust-tools options
+      autoSetHints = true, -- Automatically set inlay hints
+      hover_with_actions = true, -- Show action inside the hover menu
+      inlay_hints = {
+        show_parameter_hints = true, -- Show parameter hints
+        parameter_hints_prefix = '<- ',
+        other_hints_prefix = '=> ',
       }
     },
-  },
-}
+    -- These override the defaults set by rust-tools.nvim.
+    -- see https://github.com/neovim/nvim-lspconfig/blob/master/CONFIG.md#rust_analyzer
+    server = {
+      on_attach = on_attach,
+      capabilities = capabilities,
+      settings = {
+        -- to enable rust-analyzer settings visit:
+        -- https://github.com/rust-analyzer/rust-analyzer/blob/master/docs/user/generated_config.adoc
+        ['rust-analyzer'] = {
+          -- enable clippy on save
+          checkOnSave = {
+            command = 'clippy'
+          },
+          procMacro = {
+            enable = true
+          },
+        }
+      },
+    },
+  }
+end
 
 -- Automaticaclly recompile packer plugins.
 vim.cmd([[
