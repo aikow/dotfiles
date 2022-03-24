@@ -322,9 +322,9 @@ map({'v', 'n'}, 'p', 'p`]')
 map('n', '<space>e', '<cmd>lua vim.diagnostic.open_float()<CR>')
 map('n', '[e', '<cmd>lua vim.diagnostic.goto_prev()<CR>')
 map('n', ']e', '<cmd>lua vim.diagnostic.goto_next()<CR>')
-map('n', '<space>dq', '<cmd>lua vim.diagnostic.setloclist()<CR>')
+map('n', '<space>dl', '<cmd>lua vim.diagnostic.setloclist()<CR>')
 map('n', '<space>do', [[:lua require('telescope.builtin').diagnostics()<CR>]])
-map('n', '<space>ds', [[:lua require('telescope.builtin').spell_suggest()<CR>]])
+map('n', '<space>ds', [[:lua require('telescope.builtin').spell_suggest(require('telescope.themes').get_cursor())<CR>]])
 
 -- LSP functions
 -- See `:help vim.lsp.*` for documentation on any of the below functions
@@ -343,9 +343,10 @@ map('n', '<leader>jT', '<cmd>lua vim.lsp.buf.type_definition()<CR>')
 map('n', '<leader>jt', [[<cmd>lua require('telescope.builtin').lsp_type_definitions()<CR>]])
 
 -- Telescope LSP pickers
-map('n', '<leader>ja', [[<cmd>lua require('telescope.builtin').lsp_code_actions()<CR>]])
-map('n', '<leader>jA', [[<cmd>lua require('telescope.builtin').lsp_range_code_actions()<CR>]])
-map('n', '<leader>jw', [[<cmd>lua require('telescope.builtin').lsp_workspace_symbols()<CR>]])
+map('n', '<leader>ja', [[<cmd>lua require('telescope.builtin').lsp_code_actions(require('telescope.themes').get_cursor())<CR>]])
+map('n', '<leader>jA', [[<cmd>lua require('telescope.builtin').lsp_range_code_actions(require('telescope.themes').get_cursor())<CR>]])
+map('n', '<leader>jT', [[<cmd>lua require('telescope.builtin').lsp_workspace_symbols()<CR>]])
+map('n', '<leader>jt', [[<cmd>lua require('telescope.builtin').lsp_dynamic_workspace_symbols()<CR>]])
 map('n', '<leader>js', [[<cmd>lua require('telescope.builtin').lsp_document_symbols()<CR>]])
 
 -- Workspace settings with <leader>w...
