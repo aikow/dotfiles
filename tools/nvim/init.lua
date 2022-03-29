@@ -319,45 +319,45 @@ map({'v', 'n'}, 'p', 'p`]')
 -- Diagnostics
 -- See `:help vim.diagnostic.*` for documentation on any of the below
 -- functions
-map('n', '<space>e', '<cmd>lua vim.diagnostic.open_float()<CR>')
-map('n', '[e', '<cmd>lua vim.diagnostic.goto_prev()<CR>')
-map('n', ']e', '<cmd>lua vim.diagnostic.goto_next()<CR>')
-map('n', '<space>dl', '<cmd>lua vim.diagnostic.setloclist()<CR>')
-map('n', '<space>do', [[:lua require('telescope.builtin').diagnostics()<CR>]])
-map('n', '<space>ds', [[:lua require('telescope.builtin').spell_suggest(require('telescope.themes').get_cursor())<CR>]])
+smap('n', '<space>e', '<cmd>lua vim.diagnostic.open_float()<CR>')
+smap('n', '[e', '<cmd>lua vim.diagnostic.goto_prev()<CR>')
+smap('n', ']e', '<cmd>lua vim.diagnostic.goto_next()<CR>')
+smap('n', '<space>dl', '<cmd>lua vim.diagnostic.setloclist()<CR>')
+smap('n', '<space>do', [[:lua require('telescope.builtin').diagnostics()<CR>]])
+smap('n', '<space>ds', [[:lua require('telescope.builtin').spell_suggest(require('telescope.themes').get_cursor())<CR>]])
 
 -- LSP functions
 -- See `:help vim.lsp.*` for documentation on any of the below functions
-map('n', '<leader>k', '<cmd>lua vim.lsp.buf.hover()<CR>')
-map('n', '<leader>l', '<cmd>lua vim.lsp.buf.signature_help()<CR>')
+smap('n', '<leader>k', '<cmd>lua vim.lsp.buf.hover()<CR>')
+smap('n', '<leader>l', '<cmd>lua vim.lsp.buf.signature_help()<CR>')
 
 -- Goto references with <leader>j...
-map('n', '<leader>jc', '<cmd>lua vim.lsp.buf.declaration()<CR>')
-map('n', '<leader>jD', '<cmd>lua vim.lsp.buf.definition()<CR>')
-map('n', '<leader>jd', [[<cmd>lua require('telescope.builtin').lsp_definitions()<CR>]])
-map('n', '<leader>jR', '<cmd>lua vim.lsp.buf.references()<CR>')
-map('n', '<leader>jr', [[<cmd>lua require('telescope.builtin').lsp_references()<CR>]])
-map('n', '<leader>jI', '<cmd>lua vim.lsp.buf.implementation()<CR>')
-map('n', '<leader>ji', [[<cmd>lua require('telescope.builtin').lsp_implementations()<CR>]])
-map('n', '<leader>jT', '<cmd>lua vim.lsp.buf.type_definition()<CR>')
-map('n', '<leader>jt', [[<cmd>lua require('telescope.builtin').lsp_type_definitions()<CR>]])
+smap('n', '<leader>jc', '<cmd>lua vim.lsp.buf.declaration()<CR>')
+smap('n', '<leader>jD', '<cmd>lua vim.lsp.buf.definition()<CR>')
+smap('n', '<leader>jd', [[<cmd>lua require('telescope.builtin').lsp_definitions()<CR>]])
+smap('n', '<leader>jR', '<cmd>lua vim.lsp.buf.references()<CR>')
+smap('n', '<leader>jr', [[<cmd>lua require('telescope.builtin').lsp_references()<CR>]])
+smap('n', '<leader>jI', '<cmd>lua vim.lsp.buf.implementation()<CR>')
+smap('n', '<leader>ji', [[<cmd>lua require('telescope.builtin').lsp_implementations()<CR>]])
+smap('n', '<leader>jT', '<cmd>lua vim.lsp.buf.type_definition()<CR>')
+smap('n', '<leader>jt', [[<cmd>lua require('telescope.builtin').lsp_type_definitions()<CR>]])
 
 -- Telescope LSP pickers
-map('n', '<leader>ja', [[<cmd>lua require('telescope.builtin').lsp_code_actions(require('telescope.themes').get_cursor())<CR>]])
-map('n', '<leader>jA', [[<cmd>lua require('telescope.builtin').lsp_range_code_actions(require('telescope.themes').get_cursor())<CR>]])
-map('n', '<leader>jT', [[<cmd>lua require('telescope.builtin').lsp_workspace_symbols()<CR>]])
-map('n', '<leader>jt', [[<cmd>lua require('telescope.builtin').lsp_dynamic_workspace_symbols()<CR>]])
-map('n', '<leader>js', [[<cmd>lua require('telescope.builtin').lsp_document_symbols()<CR>]])
+smap('n', '<leader>ja', [[<cmd>lua require('telescope.builtin').lsp_code_actions(require('telescope.themes').get_cursor())<CR>]])
+smap('n', '<leader>jA', [[<cmd>lua require('telescope.builtin').lsp_range_code_actions(require('telescope.themes').get_cursor())<CR>]])
+smap('n', '<leader>jT', [[<cmd>lua require('telescope.builtin').lsp_workspace_symbols()<CR>]])
+smap('n', '<leader>jt', [[<cmd>lua require('telescope.builtin').lsp_dynamic_workspace_symbols()<CR>]])
+smap('n', '<leader>js', [[<cmd>lua require('telescope.builtin').lsp_document_symbols()<CR>]])
 
 -- Workspace settings with <leader>w...
-map('n', '<leader>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>')
-map('n', '<leader>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>')
-map('n', '<leader>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>')
+smap('n', '<leader>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>')
+smap('n', '<leader>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>')
+smap('n', '<leader>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>')
 
 -- Refactoring with <leader>r...
-map('n', '<leader>rr', '<cmd>lua vim.lsp.buf.rename()<CR>')
-map('n', '<leader>rq', '<cmd>lua vim.lsp.buf.code_action()<CR>')
-map('n', '<leader>rf', '<cmd>lua vim.lsp.buf.formatting()<CR>')
+smap('n', '<leader>rr', '<cmd>lua vim.lsp.buf.rename()<CR>')
+smap('n', '<leader>rq', '<cmd>lua vim.lsp.buf.code_action()<CR>')
+smap('n', '<leader>rf', '<cmd>lua vim.lsp.buf.formatting()<CR>')
 
 -- Finding searching and navigating
 smap('n', '<leader>;', [[<cmd>lua require('telescope.builtin').commands()<CR>]])
