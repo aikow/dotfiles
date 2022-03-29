@@ -16,7 +16,7 @@ source "${DOTFILES}/shells/zsh/zinit/zinit.zsh"
 # Plugins
 zinit snippet OMZL::git.zsh
 zinit snippet OMZP::git
-zinit snippet OMZP::colored-man-pages
+# zinit snippet OMZP::colored-man-pages
 zinit snippet OMZP::command-not-found
 
 # These 2 must be in this order
@@ -25,20 +25,22 @@ zinit load zsh-users/zsh-syntax-highlighting
 zinit load zsh-users/zsh-history-substring-search
 
 zinit load softmoth/zsh-vim-mode
-  # zsh-vim-mode Options
-  MODE_CURSOR_VIINS="#00ff00 blinking bar"
-  MODE_CURSOR_REPLACE="$MODE_CURSOR_VIINS #ff0000"
-  MODE_CURSOR_VICMD="green block"
-  MODE_CURSOR_SEARCH="#ff00ff steady underline"
-  MODE_CURSOR_VISUAL="$MODE_CURSOR_VICMD steady bar"
-  MODE_CURSOR_VLINE="$MODE_CURSOR_VISUAL #00ffff"
+  # # zsh-vim-mode Options
+  # MODE_CURSOR_VIINS="#00ff00 blinking bar"
+  # MODE_CURSOR_REPLACE="$MODE_CURSOR_VIINS #ff0000"
+  # MODE_CURSOR_VICMD="green block"
+  # MODE_CURSOR_SEARCH="#ff00ff steady underline"
+  # MODE_CURSOR_VISUAL="$MODE_CURSOR_VICMD steady bar"
+  # MODE_CURSOR_VLINE="$MODE_CURSOR_VISUAL #00ffff"
 
 # Warn you when you run a command that you've got an alias for
 zinit load djui/alias-tips
 
 # Load additional zsh completions
-zinit wait lucid atload"zicompinit; zicdreplay" blockf for \
-    zsh-users/zsh-completions
+zinit wait lucid atload"zicompinit; zicdreplay" blockf for zsh-users/zsh-completions
+
+# ZSH tab completion with fzf
+zinit light Aloxaf/fzf-tab
 
 # Powerlevel10k theme
 zinit ice depth"1"
@@ -64,7 +66,7 @@ setopt hist_save_no_dups
 setopt hist_verify
 
 # Share history across all your terminal windows
-setopt share_history
+setopt noshare_history
 setopt noclobber
 
 # Increase history size
@@ -74,10 +76,20 @@ export HISTFILE=~/.zsh_history
 export HISTIGNORE="l:ls:ll:lll:lt:lg:cd:cd -:pwd:exit:date:* --help:man"
 
 
+
 #######################################################################
 #                         User Configuration                          #
 #######################################################################
 #
+# command correction
+setopt correct
+
+setopt auto_pushd
+setopt pushd_ignore_dups
+
+# better zsh correction prompt
+SPROMPT="Correct $fg[red]%R$reset_color to $fg[green]%r$reset_color? ([y]es, [n]o, [a]bort, [e]dit) "
+
 # Set up automatic ls on cd
 auto_ls() {
 	emulate -L zsh
@@ -143,8 +155,6 @@ bind_function fzf_git_commits ^g^h
 bind_function fzf_git_stash ^g^s
 bind_function fzf_k8s_pods ^g^p
 bind_function fzf_k8s_jobs ^g^j
-
-
 
 # Load completions 
 autoload -U compinit && compinit
