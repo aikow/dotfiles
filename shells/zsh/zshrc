@@ -5,7 +5,6 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
-
 #######################################################################
 #                                 zinit                               #
 #######################################################################
@@ -25,22 +24,19 @@ zinit load zsh-users/zsh-syntax-highlighting
 zinit load zsh-users/zsh-history-substring-search
 
 zinit load softmoth/zsh-vim-mode
-  # # zsh-vim-mode Options
-  # MODE_CURSOR_VIINS="#00ff00 blinking bar"
-  # MODE_CURSOR_REPLACE="$MODE_CURSOR_VIINS #ff0000"
-  # MODE_CURSOR_VICMD="green block"
-  # MODE_CURSOR_SEARCH="#ff00ff steady underline"
-  # MODE_CURSOR_VISUAL="$MODE_CURSOR_VICMD steady bar"
-  # MODE_CURSOR_VLINE="$MODE_CURSOR_VISUAL #00ffff"
+  # zsh-vim-mode Options
+  MODE_CURSOR_VIINS="#00ff00 blinking bar"
+  MODE_CURSOR_REPLACE="$MODE_CURSOR_VIINS #ff0000"
+  MODE_CURSOR_VICMD="green block"
+  MODE_CURSOR_SEARCH="#ff00ff steady underline"
+  MODE_CURSOR_VISUAL="$MODE_CURSOR_VICMD steady bar"
+  MODE_CURSOR_VLINE="$MODE_CURSOR_VISUAL #00ffff"
 
 # Warn you when you run a command that you've got an alias for
 zinit load djui/alias-tips
 
 # Load additional zsh completions
 zinit wait lucid atload"zicompinit; zicdreplay" blockf for zsh-users/zsh-completions
-
-# ZSH tab completion with fzf
-zinit light Aloxaf/fzf-tab
 
 # Powerlevel10k theme
 zinit ice depth"1"
@@ -159,6 +155,9 @@ bind_function fzf_k8s_jobs ^g^j
 # Load completions 
 autoload -U compinit && compinit
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
+
+# ZSH tab completion with fzf
+zinit light Aloxaf/fzf-tab
 
 
 #######################################################################
