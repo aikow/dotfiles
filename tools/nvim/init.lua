@@ -266,6 +266,8 @@ map('c', '<C-s>', [[%s/\v]])
 -- <leader><leader> toggles between buffers
 map('n', '<leader><leader>', '<c-^>')
 
+map('t', '<esc><leader>', [[<c-\><c-n>]])
+
 -- <leader>, shows/hides hidden characters
 smap('n', '<leader>,', ':set invlist<CR>')
 
@@ -278,14 +280,14 @@ map('n', '<leader>m', 'ct_')
 -- Automatically correct spelling with the first option
 map('i', '<C-l>', '<C-g>u<Esc>[s1z=`]a<C-g>u')
 
-map('i', '<c-_>', '<cmd>Commentary<CR>', { noremap = false })
-map('n', '<C-c>', '<cmd>Commentary<CR>', { noremap = false })
+smap('i', '<c-_>', '<cmd>Commentary<CR>', { noremap = false })
+smap('n', '<C-c>', '<cmd>Commentary<CR>', { noremap = false })
 
 -- Clear the search buffer to remove highlighting from the last search
 smap('n', '<c-_>', [[:let @/ = ""<CR>]])
 
 -- Use <gp> to select the text that was last pasted
-map('n', 'gp', [['`[' . strpart(getregtype(), 0,  1) . '`]']], { noremap=true, expr=true })
+smap('n', 'gp', [['`[' . strpart(getregtype(), 0,  1) . '`]']], { noremap=true, expr=true })
 
 -- Switch buffers using gb and gB, similar to tabs.
 smap('n', 'gb', ':bnext<CR>')
