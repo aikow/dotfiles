@@ -230,6 +230,8 @@ nnoremap / /\v
 " <leader><leader> toggles between buffers
 nnoremap <leader><leader> <c-^>
 
+tnoremap <esc><space> <c-\><C-n>
+
 " <leader>, shows/hides hidden characters
 nnoremap <leader>, :set invlist<cr>
 

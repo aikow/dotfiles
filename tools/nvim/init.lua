@@ -263,18 +263,19 @@ map('n', '/', [[/\v]])
 map('n', '<C-s>', [[:%s/\v]])
 map('c', '<C-s>', [[%s/\v]])
 
--- <leader><leader> toggles between buffers
+-- Toggles between most recent buffers
 map('n', '<leader><leader>', '<c-^>')
 
+-- More ergonomic normal mode from integrated terminal
 map('t', '<esc><leader>', [[<c-\><c-n>]])
 
--- <leader>, shows/hides hidden characters
+-- Shows/hides hidden characters
 smap('n', '<leader>,', ':set invlist<CR>')
 
--- <leader>q shows stats
+-- Shows stats
 map('n', '<leader>q', 'g<C-g>')
 
--- Keymap for replacing up to next _ or -
+-- Replacing up to next _ or -
 map('n', '<leader>m', 'ct_')
 
 -- Automatically correct spelling with the first option
@@ -286,7 +287,7 @@ smap('n', '<C-c>', '<cmd>Commentary<CR>', { noremap = false })
 -- Clear the search buffer to remove highlighting from the last search
 smap('n', '<c-_>', [[:let @/ = ""<CR>]])
 
--- Use <gp> to select the text that was last pasted
+-- Select the text that was last pasted
 smap('n', 'gp', [['`[' . strpart(getregtype(), 0,  1) . '`]']], { noremap=true, expr=true })
 
 -- Switch buffers using gb and gB, similar to tabs.
@@ -302,9 +303,8 @@ map('n', 'Y', 'y$')
 -- Keep it centered
 map('n', 'n', 'nzzzv')
 map('n', 'N', 'Nzzzv')
--- map('n', 'J', 'mzJ`z')
 
--- Undo Break points
+-- Undo breakpoints while typing
 map('i', ',', ',<C-g>u')
 map('i', '.', '.<C-g>u')
 map('i', '!', '!<C-g>u')
