@@ -7,6 +7,7 @@ local o, wo, bo = vim.o, vim.wo, vim.bo
 -- For bootstrapping packer local fn = vim.fn
 local install_path = fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
 if fn.empty(fn.glob(install_path)) > 0 then
+  vim.notify('Bootstrapping packer')
   packer_bootstrap = fn.system({'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path})
 end
 
@@ -350,7 +351,7 @@ plugins = require('packer').startup(function(use)
 
   -- Rust
   use {
-    {
+   {
       'simrat39/rust-tools.nvim',
       requires = 'neovim/nvim-lspconfig',
     },
@@ -472,16 +473,17 @@ plugins = require('packer').startup(function(use)
     'arcticicestudio/nord-vim',
     'sainnhe/gruvbox-material',
   }
-
-  -- ------------------------
-  -- |   Bootstrap Packer   |
-  -- ------------------------
-  --
-  -- Automatically set up the configuration after cloning packer.nvim.
-  if packer_bootstrap then
-    require('packer').sync()
-  end
 end)
+
+-- ------------------------
+-- |   Bootstrap Packer   |
+-- ------------------------
+--
+-- Automatically set up the configuration after cloning packer.nvim.
+if packer_bootstrap then
+  require('packer').compile()
+  require('packer').sync()
+end
 
 
 -- =================================
