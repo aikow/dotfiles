@@ -123,7 +123,7 @@ bindkey "^l" clear-screen
 source "${DOTFILES}/shells/functions/fzf-git.sh"
 source "${DOTFILES}/shells/functions/fzf-k8s.sh"
 
-function join-lines() {
+function join_lines() {
   local item
   while read item; do
     echo -n "${(q)item} "
@@ -133,9 +133,9 @@ function join-lines() {
 function bind_function() {
   local func="${1?Missing function to bind}"
   local key="${2?Missing key to bind to}"
-  eval "function fzf-${func}-widget() { local result=\$(${func} | join-lines); zle reset-prompt; LBUFFER+=\$result }"
-  eval "zle -N fzf-${func}-widget"
-  eval "bindkey '${key}' fzf-${func}-widget"
+  eval "function _${func}_widget() { local result=\"\$(${func} | join_lines)\"; zle reset-prompt; LBUFFER+=\"\${result}\" }"
+  eval "zle -N _${func}_widget"
+  eval "bindkey '${key}' _${func}_widget"
 }
 
 bind_function fzf_git_status ^g^f
