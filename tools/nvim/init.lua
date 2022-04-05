@@ -404,7 +404,7 @@ smap('n', '<leader>cr', [[<cmd>lua require('crates').reload()<CR>]])
 
 smap('n', '<leader>cv', [[<cmd>lua require('crates').show_versions_popup()<CR>]])
 smap('n', '<leader>cf', [[<cmd>lua require('crates').show_features_popup()<CR>]])
-smap('n', 'K', [[:call <SID>show_documentation()<CR>]])
+smap('n', 'K', [[:call show_documentation()<CR>]])
 
 -- update creates
 smap('n', '<leader>cu', [[<cmd>lua require('crates').update_crate()<CR>]])
@@ -498,7 +498,7 @@ autocmd('terminal', [[TermOpen * setlocal nospell nonumber norelativenumber]])
 --
 -- Show the cargo.toml documentation.
 vim.cmd [[
-function! s:show_documentation()
+function! ShowDocumentation()
     if (index(['vim','help'], &filetype) >= 0)
         execute 'h '.expand('<cword>')
     elseif (index(['man'], &filetype) >= 0)
