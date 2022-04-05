@@ -44,7 +44,6 @@ plugins = require('packer').startup(function(use)
     },
     config = function()
       -- Setup completion framework nvim-cmp.
-      -- See https://github.com/hrsh7th/nvim-cmp#basic-configuration
       local cmp = require('cmp')
 
       cmp.setup({
@@ -55,15 +54,14 @@ plugins = require('packer').startup(function(use)
           end,
         },
         mapping = {
-          -- Select items with <c-n> and <c-p> or <tab> and <s-tab>
-          ['<C-p>'] = cmp.mapping.select_prev_item(),
-          ['<C-n>'] = cmp.mapping.select_next_item(),
-          ['<S-Tab>'] = cmp.mapping.select_prev_item(),
+          ['<C-j>'] = cmp.mapping(cmp.mapping.select_next_item(), {'i', 'c'}),
+          ['<C-k>'] = cmp.mapping(cmp.mapping.select_prev_item(), {'i', 'c'}),
           ['<Tab>'] = cmp.mapping.select_next_item(),
+          ['<S-Tab>'] = cmp.mapping.select_prev_item(),
 
           -- Scroll documentation
-          ['<C-b>'] = cmp.mapping.scroll_docs(-4),
-          ['<C-f>'] = cmp.mapping.scroll_docs(4),
+          ['<C-d>'] = cmp.mapping.scroll_docs(-4),
+          ['<C-u>'] = cmp.mapping.scroll_docs(4),
 
           -- Confirm/abort/complete mappings
           ['<C-Space>'] = cmp.mapping.complete(),
@@ -80,25 +78,28 @@ plugins = require('packer').startup(function(use)
         -- Installed sources
         sources = cmp.config.sources({
           { name = 'nvim_lsp' },
-          { name = 'ultisnips' },
-          { name = 'path' },
-          { name = 'buffer' },
-          { name = 'cmdline' },
           { name = 'crates' },
+          { name = 'ultisnips' },
           { name = 'omni' },
+        }, {
+          { name = 'path' },
+        }, {
+          { name = 'buffer' },
         }),
       })
 
       -- Use buffer source for `/` (if you enabled `native_menu`, this won't work anymore).
       cmp.setup.cmdline('/', {
         sources = {
-          { name = 'buffer' }
+          { name = 'nvim_lsp' },
+          { name = 'buffer' },
         }
       })
 
       cmp.setup.cmdline('?', {
         sources = {
-          { name = 'buffer' }
+          { name = 'nvim_lsp' },
+          { name = 'buffer' },
         }
       })
 
@@ -112,9 +113,13 @@ plugins = require('packer').startup(function(use)
       -- Use cmdline & path source for ':'
       cmp.setup.cmdline(':', {
         sources = cmp.config.sources({
-          { name = 'cmdline' },
-          { name = 'path' },
-        }),
+            { name = 'cmdline' },
+          }, {
+            { name = 'path' },
+          }, {
+            { name = 'buffer' }, 
+          }
+        ),
       })
     end
   }
@@ -264,7 +269,7 @@ plugins = require('packer').startup(function(use)
     config = function()
       require('nvim-treesitter.configs').setup {
         -- Ensure that all maintained languages are always installed.
-        -- ensure_installed = 'maintained',
+        ensure_installed = 'maintained',
         sync_install = false,
         -- Allow incremental selection using Treesitter code regions.
         incremental_selection = {
@@ -303,9 +308,9 @@ plugins = require('packer').startup(function(use)
   use {
     'sirver/ultisnips',
     config = function()
-      vim.g.UltiSnipsExpandTrigger = '<c-j>'
-      vim.g.UltiSnipsJumpForwardTrigger = '<c-j>'
-      vim.g.UltiSnipsJumpBackwardTrigger = '<c-k>'
+      vim.g.UltiSnipsExpandTrigger = '<tab>'
+      vim.g.UltiSnipsJumpForwardTrigger = '<tab>'
+      vim.g.UltiSnipsJumpBackwardTrigger = '<s-tab>'
     end
   }
 
@@ -510,7 +515,9 @@ local on_attach = function(client, bufnr)
 end
 
 -- Setup nvim-cmp with lspconfig.
-local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
+local capabilities = require('cmp_nvim_lsp').update_capabilities(
+  vim.lsp.protocol.make_client_capabilities()
+)
 local lspconfig = require('lspconfig')
 
 -- Python language server.
