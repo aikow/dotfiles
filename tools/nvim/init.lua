@@ -497,7 +497,7 @@ vim.api.nvim_create_autocmd("TermOpen", {
 vim.api.nvim_create_autocmd("TermOpen", {
   pattern = "*",
   callback = function ()
-    vim.api.nvim_buf_set_keymap(0, "n", "<localleader>r", [[a<C-k><CR><C-\><C-n>]], { silent=true })
+    vim.api.nvim_buf_set_keymap(0, "n", "<localleader>r", [[a<C-k><CR><C-\><C-n>G]], { silent=true })
   end,
   group = "terminal",
 })
