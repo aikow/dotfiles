@@ -144,7 +144,7 @@ local plugins = packer.startup(function(use)
 
         require("telescope").setup {
           defaults = {
-            default_mappings = {
+            mappings = {
               i = {
                 ["<C-j>"] = actions.move_selection_next,
                 ["<C-k>"] = actions.move_selection_previous,
