@@ -483,8 +483,27 @@ autocmd(
   }
 )
 
+-- ----------------
+-- |   Terminal   |
+-- ----------------
+--
 -- Set options for terminals inside nvim.
-autocmd("terminal", [[TermOpen * setlocal nospell nonumber norelativenumber]])
+vim.api.nvim_create_augroup("terminal", {})
+vim.api.nvim_create_autocmd("TermOpen", {
+  pattern = "*",
+  command = "setlocal nospell nonumber norelativenumber",
+  group = "terminal"
+})
+vim.api.nvim_create_autocmd("TermOpen", {
+  pattern = "*",
+  callback = function ()
+    vim.api.nvim_buf_set_keymap(0, "n", "<localleader>r", [[a<C-k><CR><C-\><C-n>]], { silent=true })
+  end,
+  group = "terminal",
+})
+
+
+
 
 -- ===================
 -- |=================|
