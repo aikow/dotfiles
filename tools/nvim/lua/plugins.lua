@@ -4,11 +4,13 @@ local fn = vim.fn
 local cmd = vim.cmd
 local o, wo, bo = vim.o, vim.wo, vim.bo
 
+local utils = require("utils")
+
 -- For bootstrapping packer local fn = vim.fn
-local install_path = fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
+local install_path = fn.stdpath("data").."/site/pack/packer/start/packer.nvim"
 if fn.empty(fn.glob(install_path)) > 0 then
-  vim.notify('Bootstrapping packer')
-  packer_bootstrap = fn.system({'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path})
+  vim.notify("Bootstrapping packer")
+  local packer_bootstrap = fn.system({"git", "clone", "--depth", "1", "https://github.com/wbthomason/packer.nvim", install_path})
 end
 
 -- =========================
@@ -19,57 +21,58 @@ end
 -- |=======================|
 -- =========================
 
-plugins = require('packer').startup(function(use)
+local packer = require("packer")
+local plugins = packer.startup(function(use)
   -- Have packer manage itself
-  use 'wbthomason/packer.nvim'
+  use "wbthomason/packer.nvim"
 
   -- ---------------------------------------
   -- |   Language Servers and Completion   |
   -- ---------------------------------------
   --
   -- LSP server for neovim
-  use 'neovim/nvim-lspconfig'
+  use "neovim/nvim-lspconfig"
 
   -- Completion framework
   use {
-    'hrsh7th/nvim-cmp',
+    "hrsh7th/nvim-cmp",
     requires = {
       -- Completion sources for nvim-cmp
-      'hrsh7th/cmp-nvim-lsp',
-      'hrsh7th/cmp-buffer',
-      'hrsh7th/cmp-path',
-      'hrsh7th/cmp-cmdline',
-      'hrsh7th/cmp-omni',
-      'quangnguyen30192/cmp-nvim-ultisnips',
+      "hrsh7th/cmp-nvim-lsp",
+      "hrsh7th/cmp-buffer",
+      "hrsh7th/cmp-path",
+      "hrsh7th/cmp-cmdline",
+      "hrsh7th/cmp-omni",
+      "quangnguyen30192/cmp-nvim-ultisnips",
     },
     config = function()
       -- Setup completion framework nvim-cmp.
-      local cmp = require('cmp')
+      local cmp = require("cmp")
 
       cmp.setup({
         -- Enable LSP snippets
         snippet = {
           expand = function(args)
-              vim.fn['UltiSnips#Anon'](args.body)
+              vim.fn["UltiSnips#Anon"](args.body)
           end,
         },
         mapping = {
-          ['<C-j>'] = cmp.mapping(cmp.mapping.select_next_item(), {'i', 'c'}),
-          ['<C-k>'] = cmp.mapping(cmp.mapping.select_prev_item(), {'i', 'c'}),
-          ['<Tab>'] = cmp.mapping.select_next_item(),
-          ['<S-Tab>'] = cmp.mapping.select_prev_item(),
+          ["<C-j>"] = cmp.mapping(cmp.mapping.select_next_item(), {"i", "c"}),
+          ["<C-k>"] = cmp.mapping(cmp.mapping.select_prev_item(), {"i", "c"}),
+          ["<Tab>"] = cmp.mapping.select_next_item(),
+          ["<S-Tab>"] = cmp.mapping.select_prev_item(),
 
           -- Scroll documentation
-          ['<C-d>'] = cmp.mapping.scroll_docs(-4),
-          ['<C-u>'] = cmp.mapping.scroll_docs(4),
+          ["<C-d>"] = cmp.mapping.scroll_docs(-4),
+          ["<C-u>"] = cmp.mapping.scroll_docs(4),
 
           -- Confirm/abort/complete mappings
-          ['<C-Space>'] = cmp.mapping.complete(),
-          ['<C-e>'] = cmp.mapping({
+          ["<C-Space>"] = cmp.mapping.complete(),
+          ["<C-e>"] = cmp.mapping({
             i = cmp.mapping.abort(),
             c = cmp.mapping.close(),
           }),
-          ['<CR>'] = cmp.mapping.confirm({
+          ["<CR>"] = cmp.mapping.confirm({
             behavior = cmp.ConfirmBehavior.Insert,
             select = true,
           })
@@ -77,47 +80,47 @@ plugins = require('packer').startup(function(use)
 
         -- Installed sources
         sources = cmp.config.sources({
-          { name = 'nvim_lsp' },
-          { name = 'crates' },
-          { name = 'ultisnips' },
-          { name = 'omni' },
+          { name = "nvim_lsp" },
+          { name = "crates" },
+          { name = "ultisnips" },
+          { name = "omni" },
         }, {
-          { name = 'path' },
+          { name = "path" },
         }, {
-          { name = 'buffer' },
+          { name = "buffer" },
         }),
       })
 
       -- Use buffer source for `/` (if you enabled `native_menu`, this won't work anymore).
-      cmp.setup.cmdline('/', {
+      cmp.setup.cmdline("/", {
         sources = {
-          { name = 'nvim_lsp' },
-          { name = 'buffer' },
+          { name = "nvim_lsp" },
+          { name = "buffer" },
         }
       })
 
-      cmp.setup.cmdline('?', {
+      cmp.setup.cmdline("?", {
         sources = {
-          { name = 'nvim_lsp' },
-          { name = 'buffer' },
+          { name = "nvim_lsp" },
+          { name = "buffer" },
         }
       })
 
-      cmp.setup.cmdline('@', {
+      cmp.setup.cmdline("@", {
         sources = {
-          { name = 'nvim_lsp' },
-          { name = 'buffer' },
+          { name = "nvim_lsp" },
+          { name = "buffer" },
         }
       })
 
-      -- Use cmdline & path source for ':'
-      cmp.setup.cmdline(':', {
+      -- Use cmdline & path source for ":"
+      cmp.setup.cmdline(":", {
         sources = cmp.config.sources({
-            { name = 'cmdline' },
+            { name = "cmdline" },
           }, {
-            { name = 'path' },
+            { name = "path" },
           }, {
-            { name = 'buffer' }, 
+            { name = "buffer" }, 
           }
         ),
       })
@@ -130,117 +133,117 @@ plugins = require('packer').startup(function(use)
   -- Search
   use {
     {
-      'nvim-telescope/telescope.nvim',
+      "nvim-telescope/telescope.nvim",
       requires = {
-        'nvim-lua/plenary.nvim',
-        'telescope-fzf-native.nvim',
+        "nvim-lua/plenary.nvim",
+        "telescope-fzf-native.nvim",
       },
       config = function() 
-        local actions = require('telescope.actions')
-        local actions_layout = require('telescope.actions.layout')
+        local actions = require("telescope.actions")
+        local actions_layout = require("telescope.actions.layout")
 
-        require('telescope').setup {
+        require("telescope").setup {
           defaults = {
             default_mappings = {
               i = {
-                ['<C-j>'] = actions.move_selection_next,
-                ['<C-k>'] = actions.move_selection_previous,
+                ["<C-j>"] = actions.move_selection_next,
+                ["<C-k>"] = actions.move_selection_previous,
 
-                ['<C-c>'] = actions.close,
+                ["<C-c>"] = actions.close,
 
                 -- Open selected.
-                ['<CR>'] = actions.select_default,
-                ['<C-x>'] = actions.select_horizontal,
-                ['<C-v>'] = actions.select_vertical,
-                ['<C-t>'] = actions.select_tab,
+                ["<CR>"] = actions.select_default,
+                ["<C-x>"] = actions.select_horizontal,
+                ["<C-v>"] = actions.select_vertical,
+                ["<C-t>"] = actions.select_tab,
 
                 -- Scroll through buffer and results.
-                ['<C-u>'] = actions.preview_scrolling_up,
-                ['<C-d>'] = actions.preview_scrolling_down,
+                ["<C-u>"] = actions.preview_scrolling_up,
+                ["<C-d>"] = actions.preview_scrolling_down,
 
-                ['<C-b>'] = actions.results_scrolling_up,
-                ['<C-f>'] = actions.results_scrolling_down,
+                ["<C-b>"] = actions.results_scrolling_up,
+                ["<C-f>"] = actions.results_scrolling_down,
 
                 -- Toggle selection without moving up or down.
-                ['<C-space>'] = actions.toggle_selection,
-                ['<Tab>'] = actions.toggle_selection + actions.move_selection_worse,
-                ['<S-Tab>'] = actions.toggle_selection + actions.move_selection_better,
+                ["<C-space>"] = actions.toggle_selection,
+                ["<Tab>"] = actions.toggle_selection + actions.move_selection_worse,
+                ["<S-Tab>"] = actions.toggle_selection + actions.move_selection_better,
 
-                ['<C-l>'] = actions.complete_tag,
-                ['<C-w>'] = { "<c-s-w>", type = "command" },
+                ["<C-l>"] = actions.complete_tag,
+                ["<C-w>"] = { "<c-s-w>", type = "command" },
 
                 -- Cycle through history.
-                ['<C-n>'] = actions.cycle_history_next,
-                ['<C-p>'] = actions.cycle_history_prev,
+                ["<C-n>"] = actions.cycle_history_next,
+                ["<C-p>"] = actions.cycle_history_prev,
 
                 -- Toggle the preview window.
-                ['<C-_>'] = actions_layout.toggle_preview,
+                ["<C-_>"] = actions_layout.toggle_preview,
 
                 -- Show keybindings.
-                ['<C-h>'] = actions.which_key,
+                ["<C-h>"] = actions.which_key,
 
                 -- Smart add or send to quick fix list.
-                ['<C-q><C-q>'] = actions.smart_send_to_qflist + actions.open_qflist,
-                ['<C-q>q'] = actions.smart_add_to_qflist + actions.open_qflist,
+                ["<C-q><C-q>"] = actions.smart_send_to_qflist + actions.open_qflist,
+                ["<C-q>q"] = actions.smart_add_to_qflist + actions.open_qflist,
 
                 -- Smart add or send to location list.
-                ['<C-l><C-l>'] = actions.smart_send_to_loclist + actions.open_loclist,
-                ['<C-l>l'] = actions.smart_add_to_loclist + actions.open_loclist,
+                ["<C-l><C-l>"] = actions.smart_send_to_loclist + actions.open_loclist,
+                ["<C-l>l"] = actions.smart_add_to_loclist + actions.open_loclist,
               },
               n = {
                 -- TODO: This would be weird if we switch the ordering.
-                ['<C-j>'] = actions.move_selection_next,
-                ['<C-k>'] = actions.move_selection_previous,
-                ['j'] = actions.move_selection_next,
-                ['k'] = actions.move_selection_previous,
+                ["<C-j>"] = actions.move_selection_next,
+                ["<C-k>"] = actions.move_selection_previous,
+                ["j"] = actions.move_selection_next,
+                ["k"] = actions.move_selection_previous,
 
-                ['H'] = actions.move_to_top,
-                ['M'] = actions.move_to_middle,
-                ['L'] = actions.move_to_bottom,
-                ['gg'] = actions.move_to_top,
-                ['G'] = actions.move_to_bottom,
+                ["H"] = actions.move_to_top,
+                ["M"] = actions.move_to_middle,
+                ["L"] = actions.move_to_bottom,
+                ["gg"] = actions.move_to_top,
+                ["G"] = actions.move_to_bottom,
 
-                ['<esc>'] = actions.close,
+                ["<esc>"] = actions.close,
 
-                ['<CR>'] = actions.select_default,
-                ['<C-x>'] = actions.select_horizontal,
-                ['<C-v>'] = actions.select_vertical,
-                ['<C-t>'] = actions.select_tab,
+                ["<CR>"] = actions.select_default,
+                ["<C-x>"] = actions.select_horizontal,
+                ["<C-v>"] = actions.select_vertical,
+                ["<C-t>"] = actions.select_tab,
 
                 -- Toggle selection without moving up or down.
-                ['<C-space>'] = actions.toggle_selection,
-                ['<Tab>'] = actions.toggle_selection + actions.move_selection_worse,
-                ['<S-Tab>'] = actions.toggle_selection + actions.move_selection_better,
+                ["<C-space>"] = actions.toggle_selection,
+                ["<Tab>"] = actions.toggle_selection + actions.move_selection_worse,
+                ["<S-Tab>"] = actions.toggle_selection + actions.move_selection_better,
 
-                ['<C-u>'] = actions.preview_scrolling_up,
-                ['<C-d>'] = actions.preview_scrolling_down,
+                ["<C-u>"] = actions.preview_scrolling_up,
+                ["<C-d>"] = actions.preview_scrolling_down,
 
-                ['<C-b>'] = actions.results_scrolling_up,
-                ['<C-f>'] = actions.results_scrolling_down,
+                ["<C-b>"] = actions.results_scrolling_up,
+                ["<C-f>"] = actions.results_scrolling_down,
 
-                ['<C-_>'] = actions_layout.toggle_preview,
+                ["<C-_>"] = actions_layout.toggle_preview,
 
                 -- Show keybindings.
-                ['<C-h>'] = actions.which_key,
+                ["<C-h>"] = actions.which_key,
 
                 -- Smart add or send to quick fix list.
-                ['<C-q><C-q>'] = actions.smart_send_to_qflist + actions.open_qflist,
-                ['<C-q>q'] = actions.smart_add_to_qflist + actions.open_qflist,
+                ["<C-q><C-q>"] = actions.smart_send_to_qflist + actions.open_qflist,
+                ["<C-q>q"] = actions.smart_add_to_qflist + actions.open_qflist,
 
                 -- Smart add or send to location list.
-                ['<C-l><C-l>'] = actions.smart_send_to_loclist + actions.open_loclist,
-                ['<C-l>l'] = actions.smart_add_to_loclist + actions.open_loclist,
+                ["<C-l><C-l>"] = actions.smart_send_to_loclist + actions.open_loclist,
+                ["<C-l>l"] = actions.smart_add_to_loclist + actions.open_loclist,
               },
             },
             vimgrep_arguments = {
-              'rg',
-              '--color=never',
-              '--no-heading',
-              '--with-filename',
-              '--line-number',
-              '--column',
-              '--smart-case',
-              '--trim',
+              "rg",
+              "--color=never",
+              "--no-heading",
+              "--with-filename",
+              "--line-number",
+              "--column",
+              "--smart-case",
+              "--trim",
             }
           },
           extensions = {
@@ -248,37 +251,37 @@ plugins = require('packer').startup(function(use)
               fuzzy = true,                    -- false will only do exact matching
               override_generic_sorter = true,  -- override the generic sorter
               override_file_sorter = true,     -- override the file sorter
-              case_mode = 'smart_case',        -- or 'ignore_case' or 'respect_case'
-                                               -- the default case_mode is 'smart_case'
+              case_mode = "smart_case",        -- or "ignore_case" or "respect_case"
+                                               -- the default case_mode is "smart_case"
             },
           },
         }
         -- To get fzf loaded and working with telescope, you need to call
         -- load_extension, somewhere after setup function:
-        require('telescope').load_extension('fzf')
+        require("telescope").load_extension("fzf")
       end
     },
     {
-      'nvim-telescope/telescope-fzf-native.nvim',
-      run = 'make',
+      "nvim-telescope/telescope-fzf-native.nvim",
+      run = "make",
     },
   }
 
   use {
-    'nvim-treesitter/nvim-treesitter',
+    "nvim-treesitter/nvim-treesitter",
     config = function()
-      require('nvim-treesitter.configs').setup {
+      require("nvim-treesitter.configs").setup {
         -- Ensure that all maintained languages are always installed.
-        ensure_installed = 'maintained',
+        ensure_installed = "maintained",
         sync_install = false,
         -- Allow incremental selection using Treesitter code regions.
         incremental_selection = {
           enable = true,
           keymaps = {
-            init_selection = '<leader>v',
-            scope_incremental = '<C-l>',
-            node_incremental = '<C-k>',
-            node_decremental = '<C-j>',
+            init_selection = "<leader>v",
+            scope_incremental = "<C-l>",
+            node_incremental = "<C-k>",
+            node_decremental = "<C-j>",
           },
         },
         -- Enable Treesitter syntax highlighting.
@@ -288,14 +291,14 @@ plugins = require('packer').startup(function(use)
         }
       }
     end,
-    run = ':TSUpdate',
+    run = ":TSUpdate",
   }
 
   -- Enable correct spelling syntax highlighting with Treesitter.
   use {
-    'lewis6991/spellsitter.nvim',
+    "lewis6991/spellsitter.nvim",
     config = function()
-      require('spellsitter').setup {
+      require("spellsitter").setup {
         enable = true,
       }
     end,
@@ -306,11 +309,11 @@ plugins = require('packer').startup(function(use)
   -- ---------------------
   --
   use {
-    'sirver/ultisnips',
+    "sirver/ultisnips",
     config = function()
-      vim.g.UltiSnipsExpandTrigger = '<tab>'
-      vim.g.UltiSnipsJumpForwardTrigger = '<tab>'
-      vim.g.UltiSnipsJumpBackwardTrigger = '<s-tab>'
+      vim.g.UltiSnipsExpandTrigger = "<tab>"
+      vim.g.UltiSnipsJumpForwardTrigger = "<tab>"
+      vim.g.UltiSnipsJumpBackwardTrigger = "<s-tab>"
     end
   }
 
@@ -320,19 +323,17 @@ plugins = require('packer').startup(function(use)
   --
   -- Nice helper plugins
   use {
-    'tpope/vim-repeat',
-    'tpope/vim-commentary',
-    'tpope/vim-surround',
-    'tpope/vim-vinegar',
-    'godlygeek/tabular',
-    'christoomey/vim-tmux-navigator',
-    'airblade/vim-rooter',
+    "tpope/vim-repeat",
+    "tpope/vim-commentary",
+    "tpope/vim-surround",
+    "tpope/vim-vinegar",
+    "godlygeek/tabular",
+    "christoomey/vim-tmux-navigator",
+    "airblade/vim-rooter",
     {
-      'junegunn/fzf.vim',
+      "junegunn/fzf.vim",
       config = function()
-        vim.cmd([[
-          let g:fzf_history_dir = '~/.local/share/fzf-history'
-        ]])
+        vim.g.fzf_history_dir = vim.fn.expand("~/.local/share/fzf-history")
       end
     },
   }
@@ -344,12 +345,12 @@ plugins = require('packer').startup(function(use)
   --
   -- Git
   use {
-    { 'tpope/vim-fugitive', },
+    { "tpope/vim-fugitive", },
     {
-      'lewis6991/gitsigns.nvim',
-      requires = { 'nvim-lua/plenary.nvim' },
+      "lewis6991/gitsigns.nvim",
+      requires = { "nvim-lua/plenary.nvim" },
       config = function()
-        require('gitsigns').setup {}
+        require("gitsigns").setup {}
       end
     }
   }
@@ -357,67 +358,67 @@ plugins = require('packer').startup(function(use)
   -- Rust
   use {
    {
-      'simrat39/rust-tools.nvim',
-      requires = 'neovim/nvim-lspconfig',
+      "simrat39/rust-tools.nvim",
+      requires = "neovim/nvim-lspconfig",
     },
     {
-      'saecki/crates.nvim',
-      tag = 'v0.1.0',
-      requires = { 'nvim-lua/plenary.nvim' },
+      "saecki/crates.nvim",
+      tag = "v0.1.0",
+      requires = { "nvim-lua/plenary.nvim" },
       config = function()
-          require('crates').setup()
+        require("crates").setup()
       end,
-      ft = {'toml'}
+      ft = {"toml"},
     }
   }
 
   -- Latex
   use {
-    'lervag/vimtex',
+    "lervag/vimtex",
     config = function()
-      vim.cmd([[    
-        let g:tex_flavor='latex'
-        let g:vimtex_view_method='zathura'
+      vim.g.tex_flavor = "latex"
 
-        let g:vimtex_quickfix_mode=0
-        let g:vimtex_compiler_method='latexmk'
-        let g:vimtex_compiler_latexmk = {
-              \ 'build_dir'  : 'build',
-              \ 'callback'   : 1,
-              \ 'continuous' : 1,
-              \ 'executable' : 'latexmk',
-              \ 'hooks'      : [],
-              \ 'options'    : [
-                \   '-verbose',
-                \   '-file-line-error',
-                \   '-synctex=1',
-                \   '-interaction=nonstopmode',
-                \ ],
-                \}
+      vim.g.vimtex_view_method = "zathura"
+      
+      vim.g.vimtex_quickfix_mode = 0
+      vim.g.vimtex_compiler_method = "latexmk"
+      vim.g.vimtex_compiler_latexmk = {
+        build_dir = "build",
+        callback = 1,
+        continuous = 1,
+        executable = "latexmk",
+        hooks = {},
+        options = {
+          "-verbose",
+          "-file-line-error",
+          "-synctex=1",
+          "-interaction=nonstopmode",
+        }
+      }
 
-        function! s:latexSurround()
-           let b:surround_{char2nr('e')} = '\\begin{\1environment: \1}\n\t\r\n\\end{\1\1}'
-           let b:surround_{char2nr('c')} = '\\\1command: \1{\r}'
-        endfunction
-      ]])
+      vim.api.nvim_add_user_command("LatexSurround", function()
+          vim.b["surround"..vim.fn.char2nr("e")] = [[\\begin{\1environment: \1}\n\t\r\n\\end{\1\1}]]
+          vim.b["surround"..vim.fn.char2nr("c")] = [[\\\1command: \1{\r}]]
+        end, {nargs = 0})
     end,
-    ft = {'tex'}
+    ft = {"tex"},
   }
   use {
-    'KeitaNakamura/tex-conceal.vim',
-    ft = {'tex'}
+    "KeitaNakamura/tex-conceal.vim",
+    ft = {"tex"},
   }
 
   -- Markdown
   use {
-    'iamcco/markdown-preview.nvim',
-    run = function() vim.fn['mkdp#util#install']() end,
-    ft = {'markdown'}
+    "iamcco/markdown-preview.nvim",
+    run = function() vim.fn["mkdp#util#install"]() end,
+    ft = {"markdown"},
   }
 
   -- Fish shell syntax support
   use {
-    'dag/vim-fish',
+    "dag/vim-fish",
+    ft = {"fish"},
   }
 
   -- --------------------------------
@@ -425,38 +426,38 @@ plugins = require('packer').startup(function(use)
   -- --------------------------------
   -- Vim status line
   use {
-    'nvim-lualine/lualine.nvim',
-    requires = { 'kyazdani42/nvim-web-devicons', opt = true },
+    "nvim-lualine/lualine.nvim",
+    requires = { "kyazdani42/nvim-web-devicons", opt = true },
     config = function()
-      require('lualine').setup {
+      require("lualine").setup {
         options = {
           icons_enabled = true,
-          theme = 'auto',
-          component_separators = { left = '', right = ''},
-          section_separators = { left = '', right = ''},
+          theme = "auto",
+          component_separators = { left = "", right = ""},
+          section_separators = { left = "", right = ""},
           disabled_filetypes = {},
           always_divide_middle = true,
         },
         sections = {
-          lualine_a = {'mode'},
-          lualine_b = {'branch', 'diff', 'diagnostics'},
-          lualine_c = {'filename'},
-          lualine_x = {'fileformat', 'filetype', 'encoding'},
-          lualine_y = {'progress'},
-          lualine_z = {'location'}
+          lualine_a = {"mode"},
+          lualine_b = {"branch", "diff", "diagnostics"},
+          lualine_c = {"filename"},
+          lualine_x = {"fileformat", "filetype", "encoding"},
+          lualine_y = {"progress"},
+          lualine_z = {"location"}
         },
         inactive_sections = {
           lualine_a = {},
           lualine_b = {},
-          lualine_c = {'filename'},
-          lualine_x = {'location'},
+          lualine_c = {"filename"},
+          lualine_x = {"location"},
           lualine_y = {},
           lualine_z = {}
         },
         tabline = {
           lualine_a = {
             {
-              'tabs',
+              "tabs",
               max_length = vim.o.columns / 3,
               mode = 2
             }
@@ -474,9 +475,9 @@ plugins = require('packer').startup(function(use)
 
   -- Colorschemes
   use { 
-    'joshdick/onedark.vim',
-    'arcticicestudio/nord-vim',
-    'sainnhe/gruvbox-material',
+    "joshdick/onedark.vim",
+    "arcticicestudio/nord-vim",
+    "sainnhe/gruvbox-material",
   }
 end)
 
@@ -486,8 +487,8 @@ end)
 --
 -- Automatically set up the configuration after cloning packer.nvim.
 if packer_bootstrap then
-  require('packer').compile()
-  require('packer').sync()
+  packer.compile()
+  packer.sync()
 end
 
 
@@ -503,78 +504,74 @@ end
 -- |   Setup Language Server   |
 -- -----------------------------
 -- 
--- Setup the neovim LSP server form lspconfig
-local on_attach = function(client, bufnr)
-  -- Helper functions to define mappins inside the buffer.
-  local function set_option(...)
-    vim.api.nvim_buf_set_option(bufnr, ...)
-  end
-
-  -- Enable completion triggered by <c-x><c-o>
-  set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
-end
-
 -- Setup nvim-cmp with lspconfig.
-local capabilities = require('cmp_nvim_lsp').update_capabilities(
+local capabilities = require("cmp_nvim_lsp").update_capabilities(
   vim.lsp.protocol.make_client_capabilities()
 )
-local lspconfig = require('lspconfig')
+local lspconfig = require("lspconfig")
 
 -- Python language server.
-if vim.fn.executable('pyright') == 1 then
+if vim.fn.executable("pyright") == 1 then
   lspconfig.pyright.setup {
     capabilities = capabilities,
-    settings = {
-      formatCommand = 'black',
-    },
+    on_attach = function(client, buf_nr)
+      -- Create a buffer local command to reformat using black.
+      vim.api.nvim_buf_add_user_command(0, "BlackFormat", function ()
+          vim.api.nvim_command("write")
+          vim.api.nvim_command("silent !black " .. vim.api.nvim_buf_get_name(0))
+          vim.api.nvim_command("edit")
+        end, {})
+      -- Create a buffer local keymap to reformat, using the buffer local
+      -- command.
+      vim.api.nvim_buf_set_keymap(buf_nr, "n", "<leader>rf", "<cmd>BlackFormat<CR>", { silent = true})
+    end,
   }
 end
 
 -- CPP and C server
-if vim.fn.executable('clangd') == 1 then
+if vim.fn.executable("clangd") == 1 then
   lspconfig.clangd.setup {
     capabilities = capabilities,
   }
 end
 
 -- YAML language server
-if vim.fn.executable('yaml-language-server') == 1 then
+if vim.fn.executable("yaml-language-server") == 1 then
   lspconfig.yamlls.setup {
     capabilities = capabilities,
   }
 end
 
 -- Bash language server
-if vim.fn.executable('bash-language-server') == 1 then
+if vim.fn.executable("bash-language-server") == 1 then
   lspconfig.bashls.setup {
     capabilities = capabilities,
   }
 end
 
 -- Setup rust LSP separately, since rust-tools overwrites the LSP server.
-if vim.fn.executable('rust-analyzer') == 1 then
-  require('rust-tools').setup {
+if vim.fn.executable("rust-analyzer") == 1 then
+  require("rust-tools").setup {
     tools = { -- rust-tools options
       autoSetHints = true, -- Automatically set inlay hints
       hover_with_actions = true, -- Show action inside the hover menu
       inlay_hints = {
         show_parameter_hints = true, -- Show parameter hints
-        parameter_hints_prefix = '<- ',
-        other_hints_prefix = '=> ',
+        parameter_hints_prefix = "<- ",
+        other_hints_prefix = "=> ",
       }
     },
     -- These override the defaults set by rust-tools.nvim.
     -- see https://github.com/neovim/nvim-lspconfig/blob/master/CONFIG.md#rust_analyzer
     server = {
-      on_attach = on_attach,
       capabilities = capabilities,
       settings = {
         -- to enable rust-analyzer settings visit:
         -- https://github.com/rust-analyzer/rust-analyzer/blob/master/docs/user/generated_config.adoc
-        ['rust-analyzer'] = {
+        ["rust-analyzer"] = {
           -- enable clippy on save
           checkOnSave = {
-            command = 'clippy'
+            command = "clippy"
           },
           procMacro = {
             enable = true
@@ -586,11 +583,11 @@ if vim.fn.executable('rust-analyzer') == 1 then
 end
 
 -- Automaticaclly recompile packer plugins.
-vim.cmd([[
-  augroup packer_user_config
-    autocmd!
-    autocmd BufWritePost plugins.lua source <afile> | PackerCompile
-  augroup end
-]])
+vim.api.nvim_create_augroup("packer_user_config", {})
+vim.api.nvim_create_autocmd("BufWritePost", {
+  pattern = "plugins.lua",
+  command = "source <afile> | PackerCompile",
+  group = "packer_user_config",
+})
 
 return plugins
