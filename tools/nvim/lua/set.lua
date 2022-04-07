@@ -14,12 +14,12 @@ function Set.new(t)
 end
 
 function Set.union(a, b)
-  local res = Set.new {}
+  local res = Set.new({})
 
   for k in pairs(a) do
     res[k] = true
   end
-  for k in pairs(b) do 
+  for k in pairs(b) do
     res[k] = true
   end
 
@@ -27,7 +27,7 @@ function Set.union(a, b)
 end
 
 function Set.intersection(a, b)
-  local res = Set.new {}
+  local res = Set.new({})
 
   for k in pairs(a) do
     res[k] = b[k]
@@ -35,7 +35,6 @@ function Set.intersection(a, b)
 
   return res
 end
-
 
 function Set.tostring(set)
   local s = "{"

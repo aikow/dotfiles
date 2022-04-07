@@ -7,10 +7,17 @@ local o, wo, bo = vim.o, vim.wo, vim.bo
 local utils = require("utils")
 
 -- For bootstrapping packer local fn = vim.fn
-local install_path = fn.stdpath("data").."/site/pack/packer/start/packer.nvim"
+local install_path = fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
 if fn.empty(fn.glob(install_path)) > 0 then
   vim.notify("Bootstrapping packer")
-  local packer_bootstrap = fn.system({"git", "clone", "--depth", "1", "https://github.com/wbthomason/packer.nvim", install_path})
+  local packer_bootstrap = fn.system({
+    "git",
+    "clone",
+    "--depth",
+    "1",
+    "https://github.com/wbthomason/packer.nvim",
+    install_path,
+  })
 end
 
 -- =========================
@@ -24,17 +31,17 @@ end
 local packer = require("packer")
 local plugins = packer.startup(function(use)
   -- Have packer manage itself
-  use "wbthomason/packer.nvim"
+  use("wbthomason/packer.nvim")
 
   -- ---------------------------------------
   -- |   Language Servers and Completion   |
   -- ---------------------------------------
   --
   -- LSP server for neovim
-  use "neovim/nvim-lspconfig"
+  use("neovim/nvim-lspconfig")
 
   -- Completion framework
-  use {
+  use({
     "hrsh7th/nvim-cmp",
     requires = {
       -- Completion sources for nvim-cmp
@@ -53,12 +60,12 @@ local plugins = packer.startup(function(use)
         -- Enable LSP snippets
         snippet = {
           expand = function(args)
-              vim.fn["UltiSnips#Anon"](args.body)
+            vim.fn["UltiSnips#Anon"](args.body)
           end,
         },
         mapping = {
-          ["<C-j>"] = cmp.mapping(cmp.mapping.select_next_item(), {"i", "c"}),
-          ["<C-k>"] = cmp.mapping(cmp.mapping.select_prev_item(), {"i", "c"}),
+          ["<C-j>"] = cmp.mapping(cmp.mapping.select_next_item(), { "i", "c" }),
+          ["<C-k>"] = cmp.mapping(cmp.mapping.select_prev_item(), { "i", "c" }),
           ["<Tab>"] = cmp.mapping.select_next_item(),
           ["<S-Tab>"] = cmp.mapping.select_prev_item(),
 
@@ -75,7 +82,7 @@ local plugins = packer.startup(function(use)
           ["<CR>"] = cmp.mapping.confirm({
             behavior = cmp.ConfirmBehavior.Insert,
             select = true,
-          })
+          }),
         },
 
         -- Installed sources
@@ -96,53 +103,52 @@ local plugins = packer.startup(function(use)
         sources = {
           { name = "nvim_lsp" },
           { name = "buffer" },
-        }
+        },
       })
 
       cmp.setup.cmdline("?", {
         sources = {
           { name = "nvim_lsp" },
           { name = "buffer" },
-        }
+        },
       })
 
       cmp.setup.cmdline("@", {
         sources = {
           { name = "nvim_lsp" },
           { name = "buffer" },
-        }
+        },
       })
 
       -- Use cmdline & path source for ":"
       cmp.setup.cmdline(":", {
         sources = cmp.config.sources({
-            { name = "cmdline" },
-          }, {
-            { name = "path" },
-          }, {
-            { name = "buffer" }, 
-          }
-        ),
+          { name = "cmdline" },
+        }, {
+          { name = "path" },
+        }, {
+          { name = "buffer" },
+        }),
       })
-    end
-  }
+    end,
+  })
 
   -- --------------------------------
   -- |   Telescope and Treesitter   |
   -- --------------------------------
   -- Search
-  use {
+  use({
     {
       "nvim-telescope/telescope.nvim",
       requires = {
         "nvim-lua/plenary.nvim",
         "telescope-fzf-native.nvim",
       },
-      config = function() 
+      config = function()
         local actions = require("telescope.actions")
         local actions_layout = require("telescope.actions.layout")
 
-        require("telescope").setup {
+        require("telescope").setup({
           defaults = {
             mappings = {
               i = {
@@ -244,33 +250,33 @@ local plugins = packer.startup(function(use)
               "--column",
               "--smart-case",
               "--trim",
-            }
+            },
           },
           extensions = {
             fzf = {
-              fuzzy = true,                    -- false will only do exact matching
-              override_generic_sorter = true,  -- override the generic sorter
-              override_file_sorter = true,     -- override the file sorter
-              case_mode = "smart_case",        -- or "ignore_case" or "respect_case"
-                                               -- the default case_mode is "smart_case"
+              fuzzy = true, -- false will only do exact matching
+              override_generic_sorter = true, -- override the generic sorter
+              override_file_sorter = true, -- override the file sorter
+              case_mode = "smart_case", -- or "ignore_case" or "respect_case"
+              -- the default case_mode is "smart_case"
             },
           },
-        }
+        })
         -- To get fzf loaded and working with telescope, you need to call
         -- load_extension, somewhere after setup function:
         require("telescope").load_extension("fzf")
-      end
+      end,
     },
     {
       "nvim-telescope/telescope-fzf-native.nvim",
       run = "make",
     },
-  }
+  })
 
-  use {
+  use({
     "nvim-treesitter/nvim-treesitter",
     config = function()
-      require("nvim-treesitter.configs").setup {
+      require("nvim-treesitter.configs").setup({
         -- Ensure that all maintained languages are always installed.
         ensure_installed = "maintained",
         sync_install = false,
@@ -288,41 +294,41 @@ local plugins = packer.startup(function(use)
         highlight = {
           enable = true,
           additional_vim_regex_highlighting = "latex",
-        }
-      }
+        },
+      })
     end,
     run = ":TSUpdate",
-  }
+  })
 
   -- Enable correct spelling syntax highlighting with Treesitter.
-  use {
+  use({
     "lewis6991/spellsitter.nvim",
     config = function()
-      require("spellsitter").setup {
+      require("spellsitter").setup({
         enable = true,
-      }
+      })
     end,
-  }
+  })
 
   -- ---------------------
   -- |   Code Snippets   |
   -- ---------------------
   --
-  use {
+  use({
     "sirver/ultisnips",
     config = function()
       vim.g.UltiSnipsExpandTrigger = "<tab>"
       vim.g.UltiSnipsJumpForwardTrigger = "<tab>"
       vim.g.UltiSnipsJumpBackwardTrigger = "<s-tab>"
-    end
-  }
+    end,
+  })
 
   -- -----------------------
   -- |   General Plugins   |
   -- -----------------------
   --
   -- Nice helper plugins
-  use {
+  use({
     "tpope/vim-repeat",
     "tpope/vim-commentary",
     "tpope/vim-surround",
@@ -334,30 +340,29 @@ local plugins = packer.startup(function(use)
       "junegunn/fzf.vim",
       config = function()
         vim.g.fzf_history_dir = vim.fn.expand("~/.local/share/fzf-history")
-      end
+      end,
     },
-  }
-
+  })
 
   -- ------------------------
   -- |   Language Add-Ons   |
   -- ------------------------
   --
   -- Git
-  use {
-    { "tpope/vim-fugitive", },
+  use({
+    { "tpope/vim-fugitive" },
     {
       "lewis6991/gitsigns.nvim",
       requires = { "nvim-lua/plenary.nvim" },
       config = function()
-        require("gitsigns").setup {}
-      end
-    }
-  }
+        require("gitsigns").setup({})
+      end,
+    },
+  })
 
   -- Rust
-  use {
-   {
+  use({
+    {
       "simrat39/rust-tools.nvim",
       requires = "neovim/nvim-lspconfig",
     },
@@ -368,18 +373,18 @@ local plugins = packer.startup(function(use)
       config = function()
         require("crates").setup()
       end,
-      ft = {"toml"},
-    }
-  }
+      ft = { "toml" },
+    },
+  })
 
   -- Latex
-  use {
+  use({
     "lervag/vimtex",
     config = function()
       vim.g.tex_flavor = "latex"
 
       vim.g.vimtex_view_method = "zathura"
-      
+
       vim.g.vimtex_quickfix_mode = 0
       vim.g.vimtex_compiler_method = "latexmk"
       vim.g.vimtex_compiler_latexmk = {
@@ -393,74 +398,76 @@ local plugins = packer.startup(function(use)
           "-file-line-error",
           "-synctex=1",
           "-interaction=nonstopmode",
-        }
+        },
       }
 
       vim.api.nvim_add_user_command("LatexSurround", function()
-          vim.b["surround"..vim.fn.char2nr("e")] = [[\\begin{\1environment: \1}\n\t\r\n\\end{\1\1}]]
-          vim.b["surround"..vim.fn.char2nr("c")] = [[\\\1command: \1{\r}]]
-        end, {nargs = 0})
+        vim.b["surround" .. vim.fn.char2nr("e")] = [[\\begin{\1environment: \1}\n\t\r\n\\end{\1\1}]]
+        vim.b["surround" .. vim.fn.char2nr("c")] = [[\\\1command: \1{\r}]]
+      end, { nargs = 0 })
     end,
-    ft = {"tex"},
-  }
-  use {
+    ft = { "tex" },
+  })
+  use({
     "KeitaNakamura/tex-conceal.vim",
-    ft = {"tex"},
-  }
+    ft = { "tex" },
+  })
 
   -- Markdown
-  use {
+  use({
     "iamcco/markdown-preview.nvim",
-    run = function() vim.fn["mkdp#util#install"]() end,
-    ft = {"markdown"},
-  }
+    run = function()
+      vim.fn["mkdp#util#install"]()
+    end,
+    ft = { "markdown" },
+  })
 
   -- Fish shell syntax support
-  use {
+  use({
     "dag/vim-fish",
-    ft = {"fish"},
-  }
+    ft = { "fish" },
+  })
 
   -- --------------------------------
   -- |   Themes and customization   |
   -- --------------------------------
   -- Vim status line
-  use {
+  use({
     "nvim-lualine/lualine.nvim",
     requires = { "kyazdani42/nvim-web-devicons", opt = true },
     config = function()
-      require("lualine").setup {
+      require("lualine").setup({
         options = {
           icons_enabled = true,
           theme = "auto",
-          component_separators = { left = "", right = ""},
-          section_separators = { left = "", right = ""},
+          component_separators = { left = "", right = "" },
+          section_separators = { left = "", right = "" },
           disabled_filetypes = {},
           always_divide_middle = true,
         },
         sections = {
-          lualine_a = {"mode"},
-          lualine_b = {"branch", "diff", "diagnostics"},
-          lualine_c = {"filename"},
-          lualine_x = {"fileformat", "filetype", "encoding"},
-          lualine_y = {"progress"},
-          lualine_z = {"location"}
+          lualine_a = { "mode" },
+          lualine_b = { "branch", "diff", "diagnostics" },
+          lualine_c = { "filename" },
+          lualine_x = { "fileformat", "filetype", "encoding" },
+          lualine_y = { "progress" },
+          lualine_z = { "location" },
         },
         inactive_sections = {
           lualine_a = {},
           lualine_b = {},
-          lualine_c = {"filename"},
-          lualine_x = {"location"},
+          lualine_c = { "filename" },
+          lualine_x = { "location" },
           lualine_y = {},
-          lualine_z = {}
+          lualine_z = {},
         },
         tabline = {
           lualine_a = {
             {
               "tabs",
               max_length = vim.o.columns / 3,
-              mode = 2
-            }
+              mode = 2,
+            },
           },
           lualine_b = {},
           lualine_c = {},
@@ -468,17 +475,17 @@ local plugins = packer.startup(function(use)
           lualine_y = {},
           lualine_z = {},
         },
-        extensions = {}
-      }
+        extensions = {},
+      })
     end,
-  }
+  })
 
   -- Colorschemes
-  use { 
+  use({
     "joshdick/onedark.vim",
     "arcticicestudio/nord-vim",
     "sainnhe/gruvbox-material",
-  }
+  })
 end)
 
 -- ------------------------
@@ -491,7 +498,6 @@ if packer_bootstrap then
   packer.sync()
 end
 
-
 -- =================================
 -- |===============================|
 -- ||                             ||
@@ -503,55 +509,53 @@ end
 -- -----------------------------
 -- |   Setup Language Server   |
 -- -----------------------------
--- 
+--
 -- Setup nvim-cmp with lspconfig.
-local capabilities = require("cmp_nvim_lsp").update_capabilities(
-  vim.lsp.protocol.make_client_capabilities()
-)
+local capabilities = require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities())
 local lspconfig = require("lspconfig")
 
 -- Python language server.
 if vim.fn.executable("pyright") == 1 then
-  lspconfig.pyright.setup {
+  lspconfig.pyright.setup({
     capabilities = capabilities,
     on_attach = function(client, buf_nr)
       -- Create a buffer local command to reformat using black.
-      vim.api.nvim_buf_add_user_command(0, "BlackFormat", function ()
-          vim.api.nvim_command("write")
-          vim.api.nvim_command("silent !black " .. vim.api.nvim_buf_get_name(0))
-          vim.api.nvim_command("edit")
-        end, {})
+      vim.api.nvim_buf_add_user_command(0, "BlackFormat", function()
+        vim.api.nvim_command("write")
+        vim.api.nvim_command("silent !black " .. vim.api.nvim_buf_get_name(0))
+        vim.api.nvim_command("edit")
+      end, {})
       -- Create a buffer local keymap to reformat, using the buffer local
       -- command.
-      vim.api.nvim_buf_set_keymap(buf_nr, "n", "<leader>rf", "<cmd>BlackFormat<CR>", { silent = true})
+      vim.api.nvim_buf_set_keymap(buf_nr, "n", "<leader>rf", "<cmd>BlackFormat<CR>", { silent = true })
     end,
-  }
+  })
 end
 
 -- CPP and C server
 if vim.fn.executable("clangd") == 1 then
-  lspconfig.clangd.setup {
+  lspconfig.clangd.setup({
     capabilities = capabilities,
-  }
+  })
 end
 
 -- YAML language server
 if vim.fn.executable("yaml-language-server") == 1 then
-  lspconfig.yamlls.setup {
+  lspconfig.yamlls.setup({
     capabilities = capabilities,
-  }
+  })
 end
 
 -- Bash language server
 if vim.fn.executable("bash-language-server") == 1 then
-  lspconfig.bashls.setup {
+  lspconfig.bashls.setup({
     capabilities = capabilities,
-  }
+  })
 end
 
 -- Setup rust LSP separately, since rust-tools overwrites the LSP server.
 if vim.fn.executable("rust-analyzer") == 1 then
-  require("rust-tools").setup {
+  require("rust-tools").setup({
     tools = { -- rust-tools options
       autoSetHints = true, -- Automatically set inlay hints
       hover_with_actions = true, -- Show action inside the hover menu
@@ -559,7 +563,7 @@ if vim.fn.executable("rust-analyzer") == 1 then
         show_parameter_hints = true, -- Show parameter hints
         parameter_hints_prefix = "<- ",
         other_hints_prefix = "=> ",
-      }
+      },
     },
     -- These override the defaults set by rust-tools.nvim.
     -- see https://github.com/neovim/nvim-lspconfig/blob/master/CONFIG.md#rust_analyzer
@@ -571,15 +575,15 @@ if vim.fn.executable("rust-analyzer") == 1 then
         ["rust-analyzer"] = {
           -- enable clippy on save
           checkOnSave = {
-            command = "clippy"
+            command = "clippy",
           },
           procMacro = {
-            enable = true
+            enable = true,
           },
-        }
+        },
       },
     },
-  }
+  })
 end
 
 -- Automaticaclly recompile packer plugins.

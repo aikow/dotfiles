@@ -2,6 +2,7 @@ require("plugins")
 
 local g = vim.g
 local o, wo, bo = vim.o, vim.wo, vim.bo
+local fn = vim.fn
 
 local utils = require("utils")
 local opt = utils.opt
@@ -10,15 +11,11 @@ local map = utils.map
 local smap = utils.smap
 
 -- Check the host operating system
-if vim.fn.has("win64") == 1 
-  or vim.fn.has("win32") == 1
-  or vim.fn.has("win16") == 1
-then
+if fn.has("win64") == 1 or fn.has("win32") == 1 or fn.has("win16") == 1 then
   g.os = "Windows"
 else
-  g.os = vim.fn.substitute(vim.fn.system("uname"), "\n", "", "")
+  g.os = fn.substitute(fn.system("uname"), "\n", "", "")
 end
-
 
 -- =======================
 -- |=====================|
@@ -29,7 +26,7 @@ end
 -- =======================
 --
 -- Set runtimepath to the source files in the dotfiles directory
-o.rtp = o.rtp .. "," .. vim.fn.expand("~/.dotfiles/tools/vim/rtp")
+o.rtp = o.rtp .. "," .. fn.expand("~/.dotfiles/tools/vim/rtp")
 
 -- Don't need vi compatibility
 o.compatible = false
@@ -83,13 +80,13 @@ elseif g.os == "Windows" then
 end
 
 -- Filetype plugins
-vim.cmd [[
+vim.cmd([[
 filetype plugin on
 filetype indent on
-]]
+]])
 
 -- Set the python provider for neovim
-vim.cmd [[
+vim.cmd([[
 let s:pynvim_path = expand("$HOME/.miniconda3/envs/pynvim3/bin/python")
 
 if !filereadable(s:pynvim_path)
@@ -99,8 +96,7 @@ execute "!" . expand("conda env create -f $HOME/.dotfiles/tools/vim/envs/pynvim3
 endif
 
 let g:python3_host_prog = s:pynvim_path
-]]
-
+]])
 
 -- ===========================
 -- |=========================|
@@ -117,7 +113,7 @@ o.autoindent = true
 o.expandtab = true
 o.tabstop = 2
 o.shiftwidth = 2
-o.softtabstop = 2 
+o.softtabstop = 2
 
 -- highlight matching parens, braces, brackets, etc
 o.showmatch = true
@@ -145,7 +141,7 @@ o.ignorecase = true
 o.smartcase = true
 
 -- Set ripgrep as default search tool
-vim.cmd [[
+vim.cmd([[
 if executable("rg")
   set grepprg=rg\ --vimgrep\ --no-heading\ --smart-case
   set grepformat=%f:%l:%c:%m,%f:%l:%m
@@ -153,7 +149,7 @@ elseif executable("ag")
   set grepprg=ag\ --nogroup\ --nocolor
   set grepformat=%f:%l:%m
 endif
-]]
+]])
 
 -- Format options
 -- + "t"    -- auto-wrap text using textwidth
@@ -176,18 +172,17 @@ o.foldlevel = 20
 -- Set 7 lines to the cursor - when moving vertically using j/k
 o.scrolloff = 7
 
-
 -- Open new splits to the right or down instead of moving current window
 o.splitright = true
 o.splitbelow = true
 
 -- Diff options
-vim.cmd [[
+vim.cmd([[
 set diffopt+=iwhite " No whitespace in vimdiff
 " Make diffing better: https://vimways.org/2018/the-power-of-diff/
 set diffopt+=algorithm:patience
 set diffopt+=indent-heuristic
-]]
+]])
 
 -- Set spell location to English and German
 wo.spell = true
@@ -198,7 +193,7 @@ o.spelllang = "en,de"
 -- -----------------------
 --
 -- Enable syntax highlighting for languages
-vim.cmd [[syntax enable]]
+vim.cmd([[syntax enable]])
 
 -- Turn of bell and visual bell
 o.visualbell = false
@@ -206,7 +201,7 @@ o.visualbell = false
 -- Colorscheme and background
 o.termguicolors = true
 o.background = "dark"
-vim.cmd [[colorscheme gruvbox-material]]
+vim.cmd([[colorscheme gruvbox-material]])
 
 -- Always show the status line and tabline
 o.showtabline = 2
@@ -243,11 +238,11 @@ g.maplocalleader = [[\]]
 -- ----------------------------------
 g.tmux_navigator_no_mappings = 1
 
-smap({"i", "n", "t"}, "<M-h>", [[<cmd>TmuxNavigateLeft<CR>]])
-smap({"i", "n", "t"}, "<M-j>", [[<cmd>TmuxNavigateDown<CR>]])
-smap({"i", "n", "t"}, "<M-k>", [[<cmd>TmuxNavigateUp<CR>]])
-smap({"i", "n", "t"}, "<M-l>", [[<cmd>TmuxNavigateRight<CR>]])
-smap({"i", "n", "t"}, "<M-o>", [[<cmd>TmuxNavigatePrevious<CR>]])
+smap({ "i", "n", "t" }, "<M-h>", [[<cmd>TmuxNavigateLeft<CR>]])
+smap({ "i", "n", "t" }, "<M-j>", [[<cmd>TmuxNavigateDown<CR>]])
+smap({ "i", "n", "t" }, "<M-k>", [[<cmd>TmuxNavigateUp<CR>]])
+smap({ "i", "n", "t" }, "<M-l>", [[<cmd>TmuxNavigateRight<CR>]])
+smap({ "i", "n", "t" }, "<M-o>", [[<cmd>TmuxNavigatePrevious<CR>]])
 
 -- Treat long lines as break lines (useful when moving around in them)
 map("n", "j", "gj")
@@ -288,7 +283,7 @@ smap("n", "<C-c>", "<cmd>Commentary<CR>", { noremap = false })
 smap("n", "<c-_>", [[:let @/ = ""<CR>]])
 
 -- Select the text that was last pasted
-smap("n", "gp", [['`[' . strpart(getregtype(), 0,  1) . '`]']], { noremap=true, expr=true })
+smap("n", "gp", [['`[' . strpart(getregtype(), 0,  1) . '`]']], { noremap = true, expr = true })
 
 -- Switch buffers using gb and gB, similar to tabs.
 smap("n", "gb", ":bnext<CR>")
@@ -312,7 +307,7 @@ map("i", "?", "?<C-g>u")
 
 -- Automatically jump to the end of pasted text
 map("v", "y", "y`]")
-map({"v", "n"}, "p", "p`]")
+map({ "v", "n" }, "p", "p`]")
 
 -- ----------------------------------------------------
 -- | Telescope, LSP, Diagnostics, and Git keybindings |
@@ -326,7 +321,11 @@ smap("n", "[e", "<cmd>lua vim.diagnostic.goto_prev()<CR>")
 smap("n", "]e", "<cmd>lua vim.diagnostic.goto_next()<CR>")
 smap("n", "<space>dl", "<cmd>lua vim.diagnostic.setloclist()<CR>")
 smap("n", "<space>do", [[:lua require("telescope.builtin").diagnostics()<CR>]])
-smap("n", "<space>ds", [[:lua require("telescope.builtin").spell_suggest(require("telescope.themes").get_cursor())<CR>]])
+smap(
+  "n",
+  "<space>ds",
+  [[:lua require("telescope.builtin").spell_suggest(require("telescope.themes").get_cursor())<CR>]]
+)
 
 -- LSP functions
 -- See `:help vim.lsp.*` for documentation on any of the below functions
@@ -345,8 +344,16 @@ smap("n", "<leader>jT", "<cmd>lua vim.lsp.buf.type_definition()<CR>")
 smap("n", "<leader>jt", [[<cmd>lua require("telescope.builtin").lsp_type_definitions()<CR>]])
 
 -- Telescope LSP pickers
-smap("n", "<leader>ja", [[<cmd>lua require("telescope.builtin").lsp_code_actions(require("telescope.themes").get_cursor())<CR>]])
-smap("n", "<leader>jA", [[<cmd>lua require("telescope.builtin").lsp_range_code_actions(require("telescope.themes").get_cursor())<CR>]])
+smap(
+  "n",
+  "<leader>ja",
+  [[<cmd>lua require("telescope.builtin").lsp_code_actions(require("telescope.themes").get_cursor())<CR>]]
+)
+smap(
+  "n",
+  "<leader>jA",
+  [[<cmd>lua require("telescope.builtin").lsp_range_code_actions(require("telescope.themes").get_cursor())<CR>]]
+)
 smap("n", "<leader>jT", [[<cmd>lua require("telescope.builtin").lsp_workspace_symbols()<CR>]])
 smap("n", "<leader>jt", [[<cmd>lua require("telescope.builtin").lsp_dynamic_workspace_symbols()<CR>]])
 smap("n", "<leader>js", [[<cmd>lua require("telescope.builtin").lsp_document_symbols()<CR>]])
@@ -381,12 +388,12 @@ smap("n", "<leader>gt", [[<cmd>lua require("telescope.builtin").git_status()<CR>
 smap("n", "<leader>gh", [[<cmd>lua require("telescope.builtin").git_stash()<CR>]])
 
 -- Navigation
-smap("n", "]c", "&diff ? ']c' : '<cmd>Gitsigns next_hunk<CR>'", {expr=true})
-smap("n", "[c", "&diff ? '[c' : '<cmd>Gitsigns prev_hunk<CR>'", {expr=true})
+smap("n", "]c", "&diff ? ']c' : '<cmd>Gitsigns next_hunk<CR>'", { expr = true })
+smap("n", "[c", "&diff ? '[c' : '<cmd>Gitsigns prev_hunk<CR>'", { expr = true })
 
 -- -- Git actions related actions with <leader>g...
-smap({"n", "v"}, "<leader>gs", "<cmd>Gitsigns stage_hunk<CR>")
-smap({"n", "v"}, "<leader>gr", "<cmd>Gitsigns reset_hunk<CR>")
+smap({ "n", "v" }, "<leader>gs", "<cmd>Gitsigns stage_hunk<CR>")
+smap({ "n", "v" }, "<leader>gr", "<cmd>Gitsigns reset_hunk<CR>")
 smap("n", "<leader>gS", "<cmd>Gitsigns stage_buffer<CR>")
 smap("n", "<leader>gu", "<cmd>Gitsigns undo_stage_hunk<CR>")
 smap("n", "<leader>gR", "<cmd>Gitsigns reset_buffer<CR>")
@@ -396,7 +403,7 @@ smap("n", "<leader>gd", "<cmd>Gitsigns diffthis<CR>")
 smap("n", "<leader>gD", "<cmd>Gitsigns toggle_deleted<CR>")
 
 -- -- Text object
-smap({"o", "x"}, "ig", ":<C-U>Gitsigns select_hunk<CR>")
+smap({ "o", "x" }, "ig", ":<C-U>Gitsigns select_hunk<CR>")
 
 -- Cargo shortcuts
 smap("n", "<localleader>t", [[<cmd>lua require("crates").toggle()<CR>]])
@@ -437,31 +444,19 @@ map("n", "<C-w>>", "5<C-w>>")
 map("n", "<C-w>-", "5<C-w>-")
 map("n", "<C-w>+", "5<C-w>+")
 
-
 -- ---------------------
 -- |   Auto Commands   |
 -- ---------------------
--- Reload files changed outside of Vim not currently modified in Vim 
-autocmd(
-  "general_autoread",
-  [[FocusGained,BufEnter,WinEnter * silent! edit]],
-  true
-)
-autocmd(
-  "general_autowrite",
-  [[FocusLost,WinLeave * silent! noautocmd write]],
-  true
-)
+-- Reload files changed outside of Vim not currently modified in Vim
+autocmd("general_autoread", [[FocusGained,BufEnter,WinEnter * silent! edit]], true)
+autocmd("general_autowrite", [[FocusLost,WinLeave * silent! noautocmd write]], true)
 
 -- Prevent accidental writes to buffers that shouldn't be edited
-autocmd(
-  "unmodifiable",
-  {
-    [[FileType help set readonly]],
-    [[BufRead *.orig set readonly]],
-    [[BufRead *.pacnew set readonly]],
-  }
-)
+autocmd("unmodifiable", {
+  [[FileType help set readonly]],
+  [[BufRead *.orig set readonly]],
+  [[BufRead *.pacnew set readonly]],
+})
 
 -- Jump to last edit position on opening file
 -- https://stackoverflow.com/questions/31449496/vim-ignore-specifc-file-in-autocommand
@@ -471,17 +466,14 @@ autocmd(
 )
 
 -- Help filetype detection
-autocmd(
-  "filetype_help",
-  {
-    [[BufRead *.plot set filetype=gnuplot]],
-    [[BufRead *.md set filetype=markdown]],
-    [[BufRead *.lds set filetype=ld]],
-    [[BufRead *.tex set filetype=tex]],
-    [[BufRead *.trm set filetype=c]],
-    [[BufRead *.xlsx.axlsx set filetype=ruby]],
-  }
-)
+autocmd("filetype_help", {
+  [[BufRead *.plot set filetype=gnuplot]],
+  [[BufRead *.md set filetype=markdown]],
+  [[BufRead *.lds set filetype=ld]],
+  [[BufRead *.tex set filetype=tex]],
+  [[BufRead *.trm set filetype=c]],
+  [[BufRead *.xlsx.axlsx set filetype=ruby]],
+})
 
 -- ----------------
 -- |   Terminal   |
@@ -492,18 +484,15 @@ vim.api.nvim_create_augroup("terminal", {})
 vim.api.nvim_create_autocmd("TermOpen", {
   pattern = "*",
   command = "setlocal nospell nonumber norelativenumber",
-  group = "terminal"
+  group = "terminal",
 })
 vim.api.nvim_create_autocmd("TermOpen", {
   pattern = "*",
-  callback = function ()
-    vim.api.nvim_buf_set_keymap(0, "n", "<localleader>r", [[a<C-k><CR><C-\><C-n>G]], { silent=true })
+  callback = function()
+    vim.api.nvim_buf_set_keymap(0, "n", "<localleader>r", [[a<C-k><CR><C-\><C-n>G]], { silent = true })
   end,
   group = "terminal",
 })
-
-
-
 
 -- ===================
 -- |=================|
@@ -514,19 +503,18 @@ vim.api.nvim_create_autocmd("TermOpen", {
 -- ===================
 --
 -- Show the cargo.toml documentation.
-vim.api.nvim_add_user_command("ShowDocumentation", function ()
-    local ft = vim.bo.filetype
-    if ft == "vim" or ft == "help" then
-      vim.api.nvim_command("help "..vim.fn.expand("<cword>"))
-    elseif ft == "man" then
-      vim.api.nvim_command("Man "..vim.fn.expand("<cword>"))
-    elseif vim.fn.expand("%:t") == "Cargo.toml" then
-      require("crates").show_popup()
-    else
-      vim.lsp.buf.hover()
-    end
-  end, {nargs = 0}
-)
+vim.api.nvim_add_user_command("ShowDocumentation", function()
+  local ft = bo.filetype
+  if ft == "vim" or ft == "help" then
+    vim.api.nvim_command("help " .. fn.expand("<cword>"))
+  elseif ft == "man" then
+    vim.api.nvim_command("Man " .. fn.expand("<cword>"))
+  elseif fn.expand("%:t") == "Cargo.toml" then
+    require("crates").show_popup()
+  else
+    vim.lsp.buf.hover()
+  end
+end, { nargs = 0 })
 
 -- ===========================
 -- |=========================|
@@ -550,45 +538,12 @@ autocmd("ft_rust", [[FileType rust setlocal colorcolumn=100]])
 -- --------------
 --
 -- Set settings for python files
-autocmd(
-  "ft_python", 
-  {
-    [[FileType python setlocal tabstop=4]],
-    [[FileType python setlocal softtabstop=4]],
-    [[FileType python setlocal shiftwidth=4]],
-    [[FileType python setlocal textwidth=80]],
-    [[FileType python setlocal expandtab]],
-    [[FileType python setlocal autoindent]],
-    [[FileType python setlocal fileformat=unix]],
-  },
-  clear
-)
-
-
-vim.cmd [[
-" Function to activate a virtualenv in the embedded interpeter
-function! LoadVirtualEnv(path)
-  let activate_this = a:path . "/bin/activate_this.py"
-  if getftype(a:path) == "dir" && filereadable(activate_this)
-    python << EOF
-import vim
-activate_this = vim.eval("l:activate_this")
-execfile(activate_this, dict(__file__=activate_this))
-EOF
-  endif
-endfunction
-]]
-
--- Only attempt to load this virtualenv if the defaultvirtualenv actually
--- exists and we aren't running with a virtualenv active.
-
--- Set default virtual environment
-defaultvirtualenv = vim.fn.expand("~/.miniconda3/bin")
-
-if vim.fn.has("python") then
-  if vim.fn.empty(vim.fn.expand("$VIRTUAL_ENV")) and vim.fn.getftype(defaultvirtualenv) == "dir" then
-    g.defaultvirtualenv = defaultvirtualenv
-    vim.cmd [[call LoadVirtualEnv(defaultvirtualenv)]]
-  end
-end
-
+autocmd("ft_python", {
+  [[FileType python setlocal tabstop=4]],
+  [[FileType python setlocal softtabstop=4]],
+  [[FileType python setlocal shiftwidth=4]],
+  [[FileType python setlocal textwidth=80]],
+  [[FileType python setlocal expandtab]],
+  [[FileType python setlocal autoindent]],
+  [[FileType python setlocal fileformat=unix]],
+}, clear)
