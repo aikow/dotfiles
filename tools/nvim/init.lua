@@ -427,6 +427,7 @@ smap("n", [[<leader>h']], [[<cmd>lua require("telescope.builtin").marks()<CR>]])
 smap("n", "<leader>hk", [[<cmd>lua require("telescope.builtin").keymaps()<CR>]])
 smap("n", "<leader>hf", [[<cmd>lua require("telescope.builtin").filetypes()<CR>]])
 smap("n", "<leader>hr", [[<cmd>lua require("telescope.builtin").registers()<CR>]])
+smap("n", "<leader>hs", [[<cmd>lua require("telescope").extensions.ultisnips.ultisnips({})<CR>]])
 smap("n", "<leader>ha", [[<cmd>lua require("telescope.builtin").autocommands()<CR>]])
 smap("n", "<leader>ht", [[<cmd>lua require("telescope.builtin").pickers()<CR>]])
 
