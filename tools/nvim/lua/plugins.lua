@@ -143,12 +143,14 @@ local plugins = packer.startup(function(use)
       requires = {
         "nvim-lua/plenary.nvim",
         "telescope-fzf-native.nvim",
+        "fhill2/telescope-ultisnips.nvim",
       },
       config = function()
         local actions = require("telescope.actions")
         local actions_layout = require("telescope.actions.layout")
+        local telescope = require("telescope")
 
-        require("telescope").setup({
+        telescope.setup({
           defaults = {
             mappings = {
               i = {
@@ -264,7 +266,10 @@ local plugins = packer.startup(function(use)
         })
         -- To get fzf loaded and working with telescope, you need to call
         -- load_extension, somewhere after setup function:
-        require("telescope").load_extension("fzf")
+        telescope.load_extension("fzf")
+
+        -- Load ultisnips snippet support.
+        telescope.load_extension("ultisnips")
       end,
     },
     {
