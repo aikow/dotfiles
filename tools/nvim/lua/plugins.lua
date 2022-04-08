@@ -64,10 +64,29 @@ local plugins = packer.startup(function(use)
           end,
         },
         mapping = {
+          ["<Tab>"] = cmp.mapping(function(fallback)
+            if vim.fn["UltiSnips#CanJumpForwards"]() == 1 then
+              vim.fn["UltiSnips#JumpForwards"]()
+            elseif not cmp.visible() and vim.fn["UltiSnips#CanExpandSnippet"]() == 1 then
+              vim.fn["UltiSnips#ExpandSnippet"]()
+            elseif cmp.visible() then
+              cmp.select_next_item()
+            else
+              fallback()
+            end
+          end),
+          ["<S-Tab>"] = cmp.mapping(function(fallback)
+            if vim.fn["UltiSnips#CanJumpBackwards"]() == 1 then
+              vim.fn["UltiSnips#JumpBackwards"]()
+            elseif cmp.visible() then
+              cmp.select_prev_item()
+            else
+              fallback()
+            end
+          end),
+
           ["<C-j>"] = cmp.mapping(cmp.mapping.select_next_item(), { "i", "c" }),
           ["<C-k>"] = cmp.mapping(cmp.mapping.select_prev_item(), { "i", "c" }),
-          ["<Tab>"] = cmp.mapping.select_next_item(),
-          ["<S-Tab>"] = cmp.mapping.select_prev_item(),
 
           -- Scroll documentation
           ["<C-d>"] = cmp.mapping.scroll_docs(-4),
