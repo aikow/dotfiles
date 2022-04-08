@@ -249,8 +249,8 @@ map("n", "j", "gj")
 map("n", "k", "gk")
 
 -- Don't deselect visual when indenting in visual mode
-map("v", "<", "<gv")
-map("v", ">", ">gv")
+map("x", "<", "<gv")
+map("x", ">", ">gv")
 
 -- Very magic by default
 map("n", "?", [[?\v]])
@@ -258,17 +258,19 @@ map("n", "/", [[/\v]])
 map("n", "<C-s>", [[:%s/\v]])
 map("c", "<C-s>", [[%s/\v]])
 
+-- Search history on command line
+smap("c", "<C-p>", "<Up>")
+smap("c", "<C-n>", "<Down>")
+
 -- Toggles between most recent buffers
 map("n", "<leader><leader>", "<c-^>")
 
 -- More ergonomic normal mode from integrated terminal
-map("t", "<esc><leader>", [[<c-\><c-n>]])
+map("t", "jk", [[<c-\><c-n>]])
+map("t", "kj", [[<c-\><c-n>]])
 
 -- Shows/hides hidden characters
 smap("n", "<leader>,", ":set invlist<CR>")
-
--- Shows stats
-map("n", "<leader>q", "g<C-g>")
 
 -- Replacing up to next _ or -
 map("n", "<leader>m", "ct_")
@@ -306,8 +308,8 @@ map("i", "!", "!<C-g>u")
 map("i", "?", "?<C-g>u")
 
 -- Automatically jump to the end of pasted text
-map("v", "y", "y`]")
-map({ "v", "n" }, "p", "p`]")
+map("x", "y", "y`]")
+map({ "x", "n" }, "p", "p`]")
 
 -- ----------------------------------------------------
 -- | Telescope, LSP, Diagnostics, and Git keybindings |
@@ -490,7 +492,7 @@ vim.api.nvim_create_autocmd("TermOpen", {
 vim.api.nvim_create_autocmd("TermOpen", {
   pattern = "*",
   callback = function()
-    vim.api.nvim_buf_set_keymap(0, "n", "<localleader>r", [[a<C-k><CR><C-\><C-n>G]], { silent = true })
+    vim.api.nvim_buf_set_keymap(0, "n", "<localleader>r", [[a<C-k><CR><C-\><C-n>G]], { noremap = true, silent = true })
   end,
   group = "terminal",
 })
