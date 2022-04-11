@@ -319,7 +319,7 @@ local plugins = packer.startup(function(use)
     config = function()
       require("nvim-treesitter.configs").setup({
         -- Ensure that all maintained languages are always installed.
-        ensure_installed = "maintained",
+        ensure_installed = "all",
         sync_install = false,
         -- Allow incremental selection using Treesitter code regions.
         incremental_selection = {
