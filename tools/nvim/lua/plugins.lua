@@ -273,6 +273,20 @@ local plugins = packer.startup(function(use)
               "--trim",
             },
           },
+          pickers = {
+            find_files = {
+              find_command = {
+                "fd",
+                "--exclude",
+                ".git",
+                "--hidden",
+                "--no-ignore-vcs",
+                "--type",
+                "f",
+                "--strip-cwd-prefix",
+              },
+            },
+          },
           extensions = {
             fzf = {
               fuzzy = true, -- false will only do exact matching
@@ -299,6 +313,9 @@ local plugins = packer.startup(function(use)
 
   use({
     "nvim-treesitter/nvim-treesitter",
+    requires = {
+      "nvim-treesitter/nvim-treesitter-refactor",
+    },
     config = function()
       require("nvim-treesitter.configs").setup({
         -- Ensure that all maintained languages are always installed.
@@ -318,6 +335,18 @@ local plugins = packer.startup(function(use)
         highlight = {
           enable = true,
           additional_vim_regex_highlighting = "latex",
+        },
+        refactor = {
+          highlight_definitions = {
+            enable = true,
+            clear_on_custor_move = true,
+          },
+          smart_rename = {
+            enable = true,
+            keymaps = {
+              smart_rename = "<leader>rr",
+            },
+          },
         },
       })
     end,
