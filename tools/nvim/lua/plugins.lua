@@ -454,7 +454,7 @@ local plugins = packer.startup(function(use)
         },
       }
 
-      vim.api.nvim_add_user_command("LatexSurround", function()
+      vim.api.nvim_create_user_command("LatexSurround", function()
         vim.b["surround" .. vim.fn.char2nr("e")] = [[\\begin{\1environment: \1}\n\t\r\n\\end{\1\1}]]
         vim.b["surround" .. vim.fn.char2nr("c")] = [[\\\1command: \1{\r}]]
       end, { nargs = 0 })
@@ -573,7 +573,7 @@ if vim.fn.executable("pyright") == 1 then
     capabilities = capabilities,
     on_attach = function(client, buf_nr)
       -- Create a buffer local command to reformat using black.
-      vim.api.nvim_buf_add_user_command(0, "BlackFormat", function()
+      vim.api.nvim_buf_create_user_command(0, "BlackFormat", function()
         vim.api.nvim_command("write")
         vim.api.nvim_command("silent !black " .. vim.api.nvim_buf_get_name(0))
         vim.api.nvim_command("edit")

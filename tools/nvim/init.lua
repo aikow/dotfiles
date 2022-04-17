@@ -537,7 +537,7 @@ vim.api.nvim_create_autocmd("TermOpen", {
 -- ===================
 --
 -- Show the cargo.toml documentation.
-vim.api.nvim_add_user_command("ShowDocumentation", function()
+vim.api.nvim_create_user_command("ShowDocumentation", function()
 	local ft = bo.filetype
 	if ft == "vim" or ft == "help" then
 		vim.api.nvim_command("help " .. fn.expand("<cword>"))
