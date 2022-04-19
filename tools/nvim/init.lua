@@ -347,16 +347,16 @@ smap("n", "<leader>k", "<cmd>ShowDocumentation<CR>")
 smap("n", "<leader>l", "<cmd>lua vim.lsp.buf.signature_help()<CR>")
 
 -- Goto references with <leader>j...
-smap("n", "<leader>jf", [[<cmd>lua require("telescope.builtins").treesitter(telescope_dynamic_theme)<CR>]])
+smap("n", "<leader>jf", [[<cmd>lua require("telescope.builtins").treesitter(telescope_dynamic_theme())<CR>]])
 smap("n", "<leader>jc", "<cmd>lua vim.lsp.buf.declaration()<CR>")
 smap("n", "<leader>jD", "<cmd>lua vim.lsp.buf.definition()<CR>")
-smap("n", "<leader>jd", [[<cmd>lua require("telescope.builtin").lsp_definitions(telescope_dynamic_theme)<CR>]])
+smap("n", "<leader>jd", [[<cmd>lua require("telescope.builtin").lsp_definitions(telescope_dynamic_theme())<CR>]])
 smap("n", "<leader>jR", "<cmd>lua vim.lsp.buf.references()<CR>")
-smap("n", "<leader>jr", [[<cmd>lua require("telescope.builtin").lsp_references(telescope_dynamic_theme)<CR>]])
+smap("n", "<leader>jr", [[<cmd>lua require("telescope.builtin").lsp_references(telescope_dynamic_theme())<CR>]])
 smap("n", "<leader>jI", "<cmd>lua vim.lsp.buf.implementation()<CR>")
-smap("n", "<leader>ji", [[<cmd>lua require("telescope.builtin").lsp_implementations(telescope_dynamic_theme)<CR>]])
+smap("n", "<leader>ji", [[<cmd>lua require("telescope.builtin").lsp_implementations(telescope_dynamic_theme())<CR>]])
 smap("n", "<leader>jT", "<cmd>lua vim.lsp.buf.type_definition()<CR>")
-smap("n", "<leader>jt", [[<cmd>lua require("telescope.builtin").lsp_type_definitions(telescope_dynamic_theme)<CR>]])
+smap("n", "<leader>jt", [[<cmd>lua require("telescope.builtin").lsp_type_definitions(telescope_dynamic_theme())<CR>]])
 
 -- Telescope LSP pickers
 smap(
@@ -369,13 +369,13 @@ smap(
 	"<leader>jA",
 	[[<cmd>lua require("telescope.builtin").lsp_range_code_actions(require("telescope.themes").get_cursor())<CR>]]
 )
-smap("n", "<leader>jT", [[<cmd>lua require("telescope.builtin").lsp_workspace_symbols(telescope_dynamic_theme)<CR>]])
+smap("n", "<leader>jT", [[<cmd>lua require("telescope.builtin").lsp_workspace_symbols(telescope_dynamic_theme())<CR>]])
 smap(
 	"n",
 	"<leader>jt",
-	[[<cmd>lua require("telescope.builtin").lsp_dynamic_workspace_symbols(telescope_dynamic_theme)<CR>]]
+	[[<cmd>lua require("telescope.builtin").lsp_dynamic_workspace_symbols(telescope_dynamic_theme())<CR>]]
 )
-smap("n", "<leader>js", [[<cmd>lua require("telescope.builtin").lsp_document_symbols(telescope_dynamic_theme)<CR>]])
+smap("n", "<leader>js", [[<cmd>lua require("telescope.builtin").lsp_document_symbols(telescope_dynamic_theme())<CR>]])
 
 -- Workspace settings with <leader>w...
 smap("n", "<leader>wa", "<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>")
