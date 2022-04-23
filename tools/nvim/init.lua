@@ -1,10 +1,10 @@
-require("plugins")
+require("aiko.plugins")
 
 local g = vim.g
 local o, wo, bo = vim.o, vim.wo, vim.bo
 local fn = vim.fn
 
-local utils = require("utils")
+local utils = require("aiko.utils")
 local opt = utils.opt
 local autocmd = utils.autocmd
 local map = utils.map
@@ -26,7 +26,7 @@ end
 -- =======================
 --
 -- Set runtimepath to the source files in the dotfiles directory
-o.rtp = o.rtp .. "," .. fn.expand("~/.dotfiles/tools/vim/rtp")
+-- o.rtp = o.rtp .. "," .. fn.expand("~/.dotfiles/tools/nvim")
 
 -- Don't need vi compatibility
 o.compatible = false
@@ -120,19 +120,8 @@ o.showmatch = true
 
 -- Wildmenu options
 o.wildmenu = true
-o.wildmode = "list:longest"
+o.wildmode = "longest:full"
 o.wildignore = [[*.o,*~,*.pyc,.hg,.svn,*.png,*.jpg,*.gif,*.settings,*.min.js,*.swp,publish/*]]
-
--- Set completeopt to have a better completion experience
--- :help completeopt
--- menuone: popup even when there's only one match
--- noinsert: Do not insert text until a selection is made
--- noselect: Do not select, force user to select one from the menu
-o.completeopt = "menuone,noinsert,noselect"
-
--- Avoid showing extra messages when using completion
-o.shortmess = "filnxtToOF"
-o.shortmess = o.shortmess .. "c"
 
 -- Searching
 o.hlsearch = true
@@ -155,14 +144,14 @@ endif
 -- + "t"    -- auto-wrap text using textwidth
 -- + "c"    -- auto-wrap comments using textwidth
 -- + "r"    -- auto insert comment leader on pressing enter
--- - "o"    -- don't insert comment leader on pressing o
+-- + "o"    -- don't insert comment leader on pressing o
 -- + "q"    -- format comments with gq
 -- - "a"    -- don't autoformat the paragraphs (use some formatter instead)
 -- + "n"    -- autoformat numbered list
 -- + "b"    -- auto-wrap in insert mode, and do not wrap old long lines
 -- - "2"    -- I am a programmer and not a writer
 -- + "j"    -- Join comments smartly
-o.formatoptions = "tcroqnbj2"
+o.formatoptions = "tcroqnbj"
 
 -- Folding
 o.foldmethod = "expr"
@@ -493,41 +482,6 @@ autocmd(
 	[[BufReadPost * if expand('%:p') !~# '\m/\.git/' && line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif]]
 )
 
--- Help filetype detection
-autocmd("filetype_help", {
-	[[BufRead *.plot set filetype=gnuplot]],
-	[[BufRead *.md set filetype=markdown]],
-	[[BufRead *.lds set filetype=ld]],
-	[[BufRead *.tex set filetype=tex]],
-	[[BufRead *.trm set filetype=c]],
-	[[BufRead *.xlsx.axlsx set filetype=ruby]],
-})
-
--- ----------------
--- |   Terminal   |
--- ----------------
---
--- Set options for terminals inside nvim.
-vim.api.nvim_create_augroup("terminal", {})
-vim.api.nvim_create_autocmd("TermOpen", {
-	pattern = "*",
-	command = "setlocal nospell nonumber norelativenumber",
-	group = "terminal",
-})
-vim.api.nvim_create_autocmd("TermOpen", {
-	pattern = "*",
-	callback = function()
-		vim.api.nvim_buf_set_keymap(
-			0,
-			"n",
-			"<localleader>r",
-			[[a<C-k><CR><C-\><C-n>G]],
-			{ noremap = true, silent = true }
-		)
-	end,
-	group = "terminal",
-})
-
 -- ===================
 -- |=================|
 -- ||               ||
@@ -549,35 +503,3 @@ vim.api.nvim_create_user_command("ShowDocumentation", function()
 		vim.lsp.buf.hover()
 	end
 end, { nargs = 0 })
-
--- ===========================
--- |=========================|
--- ||                       ||
--- ||   Filetype Settings   ||
--- ||                       ||
--- |=========================|
--- ===========================
---
--- Contains settings specific to certain file types.
-
--- ------------
--- |   Rust   |
--- ------------
---
--- Set rust specific vim settings.
-autocmd("ft_rust", [[FileType rust setlocal colorcolumn=100]])
-
--- --------------
--- |   Python   |
--- --------------
---
--- Set settings for python files
-autocmd("ft_python", {
-	[[FileType python setlocal tabstop=4]],
-	[[FileType python setlocal softtabstop=4]],
-	[[FileType python setlocal shiftwidth=4]],
-	[[FileType python setlocal textwidth=80]],
-	[[FileType python setlocal expandtab]],
-	[[FileType python setlocal autoindent]],
-	[[FileType python setlocal fileformat=unix]],
-}, clear)
