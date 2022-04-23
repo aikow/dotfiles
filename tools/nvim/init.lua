@@ -259,8 +259,8 @@ map("n", "<C-s>", [[:%s/\v]])
 map("c", "<C-s>", [[%s/\v]])
 
 -- Search history on command line
-smap("c", "<C-p>", "<Up>")
-smap("c", "<C-n>", "<Down>")
+map("c", "<C-p>", "<Up>")
+map("c", "<C-n>", "<Down>")
 
 -- Toggles between most recent buffers
 map("n", "<leader><leader>", "<c-^>")
