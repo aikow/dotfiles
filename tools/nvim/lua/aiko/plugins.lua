@@ -1,5 +1,5 @@
-_ = vim.cmd [[packadd packer.nvim]]
-_ = vim.cmd [[packadd vimball]]
+_ = vim.cmd([[packadd packer.nvim]])
+_ = vim.cmd([[packadd vimball]])
 
 -- Convenience definitions.
 local g = vim.g
@@ -7,7 +7,7 @@ local fn = vim.fn
 local cmd = vim.cmd
 local o, wo, bo = vim.o, vim.wo, vim.bo
 
-local utils = require("utils")
+local utils = require("aiko.utils")
 
 -- For bootstrapping packer local fn = vim.fn
 local install_path = fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
@@ -48,102 +48,15 @@ local plugins = packer.startup(function(use)
 		"hrsh7th/nvim-cmp",
 		requires = {
 			-- Completion sources for nvim-cmp
+			"hrsh7th/cmp-nvim-lua",
 			"hrsh7th/cmp-nvim-lsp",
 			"hrsh7th/cmp-buffer",
 			"hrsh7th/cmp-path",
 			"hrsh7th/cmp-cmdline",
 			"hrsh7th/cmp-omni",
 			"quangnguyen30192/cmp-nvim-ultisnips",
+			"onsails/lspkind.nvim",
 		},
-		config = function()
-			-- Setup completion framework nvim-cmp.
-			local cmp = require("cmp")
-
-			cmp.setup({
-				-- Enable LSP snippets
-				snippet = {
-					expand = function(args)
-						vim.fn["UltiSnips#Anon"](args.body)
-					end,
-				},
-				window = {
-					completion = cmp.config.window.bordered(),
-					documentation = cmp.config.window.bordered(),
-				},
-				mapping = {
-					["<Tab>"] = cmp.mapping(function(fallback)
-						if vim.fn["UltiSnips#CanJumpForwards"]() == 1 then
-							vim.fn["UltiSnips#JumpForwards"]()
-						elseif not cmp.visible() and vim.fn["UltiSnips#CanExpandSnippet"]() == 1 then
-							vim.fn["UltiSnips#ExpandSnippet"]()
-						elseif cmp.visible() then
-							cmp.select_next_item()
-						else
-							fallback()
-						end
-					end),
-					["<S-Tab>"] = cmp.mapping(function(fallback)
-						print(cmp.visible())
-						if vim.fn["UltiSnips#CanJumpBackwards"]() == 1 then
-							vim.fn["UltiSnips#JumpBackwards"]()
-						elseif cmp.visible() then
-							cmp.select_prev_item()
-						else
-							fallback()
-						end
-					end),
-
-					["<C-j>"] = cmp.mapping(cmp.mapping.select_next_item(), { "i", "c" }),
-					["<C-k>"] = cmp.mapping(cmp.mapping.select_prev_item(), { "i", "c" }),
-
-					-- Scroll documentation
-					["<C-d>"] = cmp.mapping.scroll_docs(-4),
-					["<C-u>"] = cmp.mapping.scroll_docs(4),
-
-					-- Confirm/abort/complete mappings
-					["<C-Space>"] = cmp.mapping.complete(),
-					["<C-e>"] = cmp.mapping({
-						i = cmp.mapping.abort(),
-						c = cmp.mapping.close(),
-					}),
-					["<CR>"] = cmp.mapping.confirm({
-						behavior = cmp.ConfirmBehavior.Insert,
-						select = true,
-					}),
-				},
-				sources = cmp.config.sources({
-					{ name = "nvim_lsp" },
-					{ name = "crates" },
-					{ name = "ultisnips" },
-					{ name = "omni" },
-				}, {
-					{ name = "path" },
-				}, {
-					{ name = "buffer" },
-				}),
-			})
-
-			-- Use buffer source for `/` (if you enabled `native_menu`, this won't work anymore).
-			cmp.setup.cmdline("@", {
-				mapping = cmp.mapping.preset.cmdline(),
-				sources = {
-					{ name = "nvim_lsp" },
-					{ name = "buffer" },
-				},
-			})
-
-			-- Use cmdline & path source for ":"
-			cmp.setup.cmdline(":", {
-				mapping = cmp.mapping.preset.cmdline(),
-				sources = cmp.config.sources({
-					{ name = "cmdline" },
-				}, {
-					{ name = "path" },
-				}, {
-					{ name = "buffer" },
-				}),
-			})
-		end,
 	})
 
 	-- --------------------------------
@@ -372,6 +285,10 @@ local plugins = packer.startup(function(use)
 			vim.g.UltiSnipsJumpBackwardTrigger = "<s-tab>"
 		end,
 	})
+
+  use({
+    "L3MON4D3/luasnip"
+  })
 
 	use({
 		"numToStr/Comment.nvim",
