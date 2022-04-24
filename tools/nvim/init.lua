@@ -1,14 +1,22 @@
 require("aiko.plugins")
 
 local g = vim.g
+local opt, wo, bo = vim.opt, vim.wo, vim.opt_local
 local o, wo, bo = vim.o, vim.wo, vim.bo
 local fn = vim.fn
 
 local utils = require("aiko.utils")
-local opt = utils.opt
 local autocmd = utils.autocmd
 local map = utils.map
 local smap = utils.smap
+
+local keymap = require("aiko.keymap")
+local imap = keymap.imap
+local nmap = keymap.nmap
+local cmap = keymap.cmap
+local vmap = keymap.vmap
+local xmap = keymap.xmap
+local tmap = keymap.tmap
 
 -- Check the host operating system
 if fn.has("win64") == 1 or fn.has("win32") == 1 or fn.has("win16") == 1 then
@@ -29,53 +37,53 @@ end
 -- o.rtp = o.rtp .. "," .. fn.expand("~/.dotfiles/tools/nvim")
 
 -- Don't need vi compatibility
-o.compatible = false
+opt.compatible = false
 
 -- make scrolling and painting fast
-o.lazyredraw = true
+opt.lazyredraw = true
 
 -- use Unicode
-o.encoding = "utf-8"
+opt.encoding = "utf-8"
 
 -- Search recursively downward from CWD; provides TAB completion for filenames
 -- e.g., `:find vim* <TAB>`
-o.path = o.path .. ",**"
+opt.path = opt.path:append(",**")
 
 -- Set working directory to the current files
-o.autochdir = false
+opt.autochdir = false
 
 -- Number of lines at the beginning and end of files checked for file-specific vars
-o.modelines = 3
-o.modeline = true
+opt.modelines = 3
+opt.modeline = true
 
 -- make Backspace work like Delete
-o.backspace = "indent,eol,start"
+opt.backspace = "indent,eol,start"
 
 -- Permanent undo
-o.undofile = true
+opt.undofile = true
 
 -- Backups and Swap files
-o.backup = false
-o.swapfile = true
+opt.backup = false
+opt.swapfile = true
 
 -- Automatically update buffer if modified outside of neovim.
-o.autoread = true
+opt.autoread = true
 
 -- Better display for messages
-o.updatetime = 1000
+opt.updatetime = 1000
 
 -- open new buffers without saving current modifications (buffer remains open)
-o.hidden = true
+opt.hidden = true
 
 -- Set the timeout times
-o.timeoutlen = 500
-o.ttimeoutlen = 5
+opt.timeoutlen = 500
+opt.ttimeoutlen = 5
 
 -- Use system clipboard
 if g.os == "Darwin" then
-	o.clipboard = "unnamed"
+	opt.clipboard = "unnamed"
 elseif g.os == "Linux" then
-	o.clipboard = "unnamedplus"
+	opt.clipboard = "unnamedplus"
 elseif g.os == "Windows" then
 end
 
@@ -107,27 +115,28 @@ let g:python3_host_prog = s:pynvim_path
 -- ===========================
 --
 -- Indent new line the same as the preceding line
-o.autoindent = true
+opt.autoindent = true
 
 -- Tab key enters 2 spaces
-o.expandtab = true
-o.tabstop = 2
-o.shiftwidth = 2
-o.softtabstop = 2
+opt.expandtab = true
+opt.tabstop = 2
+opt.shiftwidth = 2
+opt.softtabstop = 2
 
 -- highlight matching parens, braces, brackets, etc
-o.showmatch = true
+opt.showmatch = true
 
 -- Wildmenu options
-o.wildmenu = true
-o.wildmode = "longest:full"
-o.wildignore = [[*.o,*~,*.pyc,.hg,.svn,*.png,*.jpg,*.gif,*.settings,*.min.js,*.swp,publish/*]]
+opt.wildmenu = true
+opt.wildmode = "longest:full"
+opt.wildoptions = "pum"
+opt.wildignore = [[*.o,*~,*.pyc,.hg,.svn,*.png,*.jpg,*.gif,*.settings,*.min.js,*.swp,publish/*]]
 
 -- Searching
-o.hlsearch = true
-o.incsearch = true
-o.ignorecase = true
-o.smartcase = true
+opt.hlsearch = true
+opt.incsearch = true
+opt.ignorecase = true
+opt.smartcase = true
 
 -- Set ripgrep as default search tool
 vim.cmd([[
@@ -141,29 +150,30 @@ endif
 ]])
 
 -- Format options
--- + "t"    -- auto-wrap text using textwidth
--- + "c"    -- auto-wrap comments using textwidth
--- + "r"    -- auto insert comment leader on pressing enter
--- + "o"    -- don't insert comment leader on pressing o
--- + "q"    -- format comments with gq
--- - "a"    -- don't autoformat the paragraphs (use some formatter instead)
--- + "n"    -- autoformat numbered list
--- + "b"    -- auto-wrap in insert mode, and do not wrap old long lines
--- - "2"    -- I am a programmer and not a writer
--- + "j"    -- Join comments smartly
-o.formatoptions = "tcroqnbj"
+opt.formatoptions = opt.formatoptions
+	- "a" -- turn off autoformatting
+	+ "t" -- auto-wrap text using textwidth
+	+ "c" -- auto-wrap comments using textwidth
+	+ "r" -- auto insert comment leader on pressing enter
+	+ "o" -- don't insert comment leader on pressing o
+	+ "q" -- format comments with gq
+	- "a" -- don't autoformat the paragraphs (use some formatter instead)
+	+ "n" -- autoformat numbered list
+	+ "b" -- auto-wrap in insert mode, and do not wrap old long lines
+	- "2" -- I am a programmer and not a writer
+	+ "j" -- Join comments smartly
 
 -- Folding
-o.foldmethod = "expr"
-o.foldexpr = "nvim_treesitter#foldexpr()"
-o.foldlevel = 20
+opt.foldmethod = "expr"
+opt.foldexpr = "nvim_treesitter#foldexpr()"
+opt.foldlevel = 20
 
 -- Set 7 lines to the cursor - when moving vertically using j/k
-o.scrolloff = 7
+opt.scrolloff = 7
 
 -- Open new splits to the right or down instead of moving current window
-o.splitright = true
-o.splitbelow = true
+opt.splitright = true
+opt.splitbelow = true
 
 -- Diff options
 vim.cmd([[
@@ -174,8 +184,8 @@ set diffopt+=indent-heuristic
 ]])
 
 -- Set spell location to English and German
-wo.spell = true
-o.spelllang = "en,de"
+opt.spell = true
+opt.spelllang = "en,de"
 
 -- -----------------------
 -- | Appearance Settings |
@@ -185,27 +195,28 @@ o.spelllang = "en,de"
 vim.cmd([[syntax enable]])
 
 -- Turn of bell and visual bell
-o.visualbell = false
+opt.visualbell = false
 
 -- Colorscheme and background
-o.termguicolors = true
-o.background = "dark"
+opt.termguicolors = true
+opt.background = "dark"
 vim.cmd([[colorscheme gruvbox-material]])
 
 -- Always show the status line and tabline
-o.showtabline = 2
-o.laststatus = 2
-o.cmdheight = 1
-o.showmode = false
+opt.showtabline = 2
+opt.laststatus = 2
+opt.cmdheight = 1
+opt.showmode = false
 
 -- Show character column
-o.colorcolumn = "80"
-o.ruler = true
-o.relativenumber = true
-o.cursorline = true
+opt.colorcolumn = "80"
+opt.ruler = true
+opt.relativenumber = true
+opt.number = true
+opt.cursorline = true
 
 -- Wrap lines
-o.wrap = true
+opt.wrap = true
 
 -- =========================
 -- |=======================|
@@ -216,10 +227,11 @@ o.wrap = true
 -- =========================
 --
 -- Set the leader key to the space key
-map("n", "<SPACE>", "<Nop>")
+nmap("<SPACE>", "<NOP>")
 g.mapleader = " "
 
 -- Set local leader to the backslash
+nmap([[\]], "<NOP>")
 g.maplocalleader = [[\]]
 
 -- ----------------------------------
@@ -227,77 +239,73 @@ g.maplocalleader = [[\]]
 -- ----------------------------------
 g.tmux_navigator_no_mappings = 1
 
-smap({ "i", "n", "t" }, "<M-h>", [[<cmd>TmuxNavigateLeft<CR>]])
-smap({ "i", "n", "t" }, "<M-j>", [[<cmd>TmuxNavigateDown<CR>]])
-smap({ "i", "n", "t" }, "<M-k>", [[<cmd>TmuxNavigateUp<CR>]])
-smap({ "i", "n", "t" }, "<M-l>", [[<cmd>TmuxNavigateRight<CR>]])
-smap({ "i", "n", "t" }, "<M-o>", [[<cmd>TmuxNavigatePrevious<CR>]])
+vim.keymap.set({ "i", "n", "t" }, "<M-h>", [[<cmd>TmuxNavigateLeft<CR>]])
+vim.keymap.set({ "i", "n", "t" }, "<M-j>", [[<cmd>TmuxNavigateDown<CR>]])
+vim.keymap.set({ "i", "n", "t" }, "<M-k>", [[<cmd>TmuxNavigateUp<CR>]])
+vim.keymap.set({ "i", "n", "t" }, "<M-l>", [[<cmd>TmuxNavigateRight<CR>]])
+vim.keymap.set({ "i", "n", "t" }, "<M-o>", [[<cmd>TmuxNavigatePrevious<CR>]])
 
 -- Treat long lines as break lines (useful when moving around in them)
-map("n", "j", "gj")
-map("n", "k", "gk")
+nmap("j", "gj")
+nmap("k", "gk")
 
 -- Don't deselect visual when indenting in visual mode
-map("x", "<", "<gv")
-map("x", ">", ">gv")
+xmap("<", "<gv")
+xmap(">", ">gv")
 
 -- Very magic by default
-map("n", "?", [[?\v]])
-map("n", "/", [[/\v]])
-map("n", "<C-s>", [[:%s/\v]])
-map("c", "<C-s>", [[%s/\v]])
+nmap("?", [[?\v]])
+nmap("/", [[/\v]])
+nmap("<C-s>", [[:%s/\v]])
+cmap("<C-s>", [[%s/\v]])
 
 -- Search history on command line
-map("c", "<C-p>", "<Up>")
-map("c", "<C-n>", "<Down>")
+cmap("<C-p>", "<Up>")
+cmap("<C-n>", "<Down>")
 
 -- Toggles between most recent buffers
-map("n", "<leader><leader>", "<c-^>")
+nmap("<leader><leader>", "<c-^>")
 
 -- More ergonomic normal mode from integrated terminal
-map("t", "jk", [[<c-\><c-n>]])
-map("t", "kj", [[<c-\><c-n>]])
+tmap("jk", [[<c-\><c-n>]])
+tmap("kj", [[<c-\><c-n>]])
 
 -- Shows/hides hidden characters
-smap("n", "<leader>,", ":set invlist<CR>")
+nmap("<leader>,", ":set invlist<CR>", { silent = true })
 
 -- Replacing up to next _ or -
-map("n", "<leader>m", "ct_")
+nmap("<leader>c", "ct_")
 
 -- Automatically correct spelling with the first option
-map("i", "<C-l>", "<C-g>u<Esc>[s1z=`]a<C-g>u")
-
-smap("i", "<c-_>", "<cmd>Commentary<CR>", { noremap = false })
-smap("n", "<C-c>", "<cmd>Commentary<CR>", { noremap = false })
+imap("<C-l>", [[<C-g>u<Esc>[s1z=`]a<C-g>u]])
 
 -- Clear the search buffer to remove highlighting from the last search
-smap("n", "<c-_>", [[:let @/ = ""<CR>]])
+nmap("<c-_>", [[:let @/ = ""<CR>]])
 
 -- Select the text that was last pasted
-smap("n", "gp", [['`[' . strpart(getregtype(), 0,  1) . '`]']], { noremap = true, expr = true })
-
--- Switch buffers using gb and gB, similar to tabs.
-smap("n", "gb", ":bnext<CR>")
-smap("n", "gB", ":bprev<CR>")
+nmap("gp", [['`[' . strpart(getregtype(), 0,  1) . '`]']], { expr = true })
 
 -- Sort the selected lines
-smap("v", "<leader>rs", ":!sort<CR>")
+vmap("<leader>rs", ":!sort<CR>", { silent = true })
 
 -- Make Y behave like other capital numbers
-map("n", "Y", "y$")
+nmap("Y", "y$")
+
+-- Delete to black hole register
+map({ "n", "x" }, "d", [["_d]])
 
 -- Keep it centered
-map("n", "n", "nzzzv")
-map("n", "N", "Nzzzv")
+nmap("n", "nzzzv")
+nmap("N", "Nzzzv")
 
 -- Undo breakpoints while typing
-map("i", ",", ",<C-g>u")
-map("i", ".", ".<C-g>u")
-map("i", "!", "!<C-g>u")
-map("i", "?", "?<C-g>u")
+imap(",", ",<C-g>u")
+imap(".", ".<C-g>u")
+imap("!", "!<C-g>u")
+imap("?", "?<C-g>u")
 
 -- Automatically jump to the end of pasted text
-map("x", "y", "y`]")
+xmap("y", "y`]")
 map({ "x", "n" }, "p", "p`]")
 
 -- ----------------------------------------------------
