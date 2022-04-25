@@ -1,1 +1,1 @@
-autocmd BufReadPost *.wiki set filetype=markdown
+autocmd BufNewFile,BufRead *.wiki set filetype=markdown

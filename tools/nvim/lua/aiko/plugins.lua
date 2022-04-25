@@ -416,6 +416,14 @@ local plugins = packer.startup(function(use)
 			vim.fn["mkdp#util#install"]()
 		end,
 		ft = { "markdown" },
+    config = function()
+      local keymap = require("aiko.keymap")
+      local nmap = keymap.nmap
+
+      nmap("<localleader>r", "<cmd>MarkdownPreview<CR>", { buffer = true })
+      nmap("<localleader>s", "<cmd>MarkdownPreviewStop<CR>", { buffer = true })
+      nmap("<localleader>t", "<cmd>MarkdownPreviewToggle<CR>", { buffer = true })
+    end,
 	})
 
 	-- Fish shell syntax support
