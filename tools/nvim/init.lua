@@ -11,9 +11,13 @@ else
 	vim.g.os = vim.fn.substitute(vim.fn.system("uname"), "\n", "", "")
 end
 
+-- Setup plugins, options and keymaps
 require("aiko.plugins")
 require("aiko.options")
 require("aiko.mappings")
+
+-- Setup python provider
+require("aiko.provider").setup_python()
 
 -- ---------------------
 -- |   Auto Commands   |
