@@ -2,3 +2,5 @@ reusability
 unpunctuated
 subwords
 BPE
+treesitter
+nvim
