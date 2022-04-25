@@ -4,12 +4,11 @@
       create: true
       relink: true
 
-- clean: ['~', '~/.config', '~/.config/nvim']
+- clean: ['~', '~/.config']
 
 - create:
   - ~/.bin
   - ~/.config
-  - ~/.config/nvim/
   - ~/Workspace
 
 - shell:
@@ -80,15 +79,9 @@
       path: tools/vim/light.vim
 
     # Neovim
-    ~/.config/nvim/init.lua:
-      path: tools/nvim/init.lua
+    ~/.config/nvim:
+      path: tools/nvim
       create: true
-    ~/.config/nvim/lua:
-      path: tools/nvim/lua/*.lua
-      glob: true
-      force: true
-      create: true
-
     # Git
     ~/.gitconfig: tools/git/gitconfig
     ~/.gitignore_global: tools/git/gitignore_global

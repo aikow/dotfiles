@@ -1,3 +1,7 @@
+if require("aiko.first_load")() then
+	return
+end
+
 require("aiko.plugins")
 
 local g = vim.g
@@ -18,8 +22,10 @@ local vmap = keymap.vmap
 local xmap = keymap.xmap
 local tmap = keymap.tmap
 
+local has = require("aiko.fn").has
+
 -- Check the host operating system
-if fn.has("win64") == 1 or fn.has("win32") == 1 or fn.has("win16") == 1 then
+if has("win64") or has("win32") or has("win16") then
 	g.os = "Windows"
 else
 	g.os = fn.substitute(fn.system("uname"), "\n", "", "")
@@ -87,24 +93,14 @@ elseif g.os == "Linux" then
 elseif g.os == "Windows" then
 end
 
--- Filetype plugins
-vim.cmd([[
-filetype plugin on
-filetype indent on
-]])
-
 -- Set the python provider for neovim
-vim.cmd([[
-let s:pynvim_path = expand("$HOME/.miniconda3/envs/pynvim3/bin/python")
-
-if !filereadable(s:pynvim_path)
-" Bootstrap the python3 conda env with pynvim
-echom "Bootstrapping the conda python3 env..."
-execute "!" . expand("conda env create -f $HOME/.dotfiles/tools/vim/envs/pynvim3.yml")
-endif
-
-let g:python3_host_prog = s:pynvim_path
-]])
+local pynvim_path = vim.fn.expand("$HOME/.miniconda3/envs/pynvim3/bin/python")
+if vim.fn.filereadable(pynvim_path) ~= 1 then
+	-- Bootstrap the python3 conda env with pynvim
+	print("Bootstrapping the conda python3 env...")
+	vim.fn.execute("!" .. vim.fn.expand("conda env create -f $HOME/.dotfiles/tools/vim/envs/pynvim3.yml"))
+end
+vim.g.python3_host_prog = pynvim_path
 
 -- ===========================
 -- |=========================|
@@ -139,29 +135,24 @@ opt.ignorecase = true
 opt.smartcase = true
 
 -- Set ripgrep as default search tool
-vim.cmd([[
-if executable("rg")
-  set grepprg=rg\ --vimgrep\ --no-heading\ --smart-case
-  set grepformat=%f:%l:%c:%m,%f:%l:%m
-elseif executable("ag")
-  set grepprg=ag\ --nogroup\ --nocolor
-  set grepformat=%f:%l:%m
-endif
-]])
+if vim.fn.executable("rg") == 1 then
+	opt.grepprg = "rg --vimgrep --no-heading --smart-case"
+	opt.grepformat = "%f:%l:%c:%m,%f:%l:%m"
+end
 
 -- Format options
 opt.formatoptions = opt.formatoptions
-	- "a" -- turn off autoformatting
-	+ "t" -- auto-wrap text using textwidth
-	+ "c" -- auto-wrap comments using textwidth
+	+ "t" -- auto wrap text using textwidth
+	+ "c" -- auto wrap comments using textwidth
 	+ "r" -- auto insert comment leader on pressing enter
-	+ "o" -- don't insert comment leader on pressing o
+	+ "o" -- auto insert comment leader on pressing o
 	+ "q" -- format comments with gq
-	- "a" -- don't autoformat the paragraphs (use some formatter instead)
-	+ "n" -- autoformat numbered list
-	+ "b" -- auto-wrap in insert mode, and do not wrap old long lines
-	- "2" -- I am a programmer and not a writer
-	+ "j" -- Join comments smartly
+	- "a" -- don't autoformat the paragraphs
+	+ "n" -- auto format numbered list
+	- "2" -- use the first line to specify indent width, not the second
+	+ "b" -- auto wrap in insert mode, and do not wrap old long lines
+	+ "l" -- long lines are not broken in insert mode
+	+ "j" -- remove comment leader when joining lines
 
 -- Folding
 opt.foldmethod = "expr"
@@ -191,9 +182,6 @@ opt.spelllang = "en,de"
 -- | Appearance Settings |
 -- -----------------------
 --
--- Enable syntax highlighting for languages
-vim.cmd([[syntax enable]])
-
 -- Turn of bell and visual bell
 opt.visualbell = false
 
@@ -209,6 +197,7 @@ opt.cmdheight = 1
 opt.showmode = false
 
 -- Show character column
+opt.textwidth = 80
 opt.colorcolumn = "80"
 opt.ruler = true
 opt.relativenumber = true
@@ -291,9 +280,6 @@ vmap("<leader>rs", ":!sort<CR>", { silent = true })
 -- Make Y behave like other capital numbers
 nmap("Y", "y$")
 
--- Delete to black hole register
-map({ "n", "x" }, "d", [["_d]])
-
 -- Keep it centered
 nmap("n", "nzzzv")
 nmap("N", "Nzzzv")
@@ -307,6 +293,13 @@ imap("?", "?<C-g>u")
 -- Automatically jump to the end of pasted text
 xmap("y", "y`]")
 map({ "x", "n" }, "p", "p`]")
+
+-- Shortcuts for inserting filename, directory name, and full path into command
+-- mode.
+cmap("%H", [[<C-R>=expand('%:h:p') . '/'<CR>]])
+cmap("%T", [[<C-R>=expand('%:t')<CR>]])
+cmap("%P", [[<C-R>=expand('%:p')<CR>]])
+cmap("E<S-space>", [[e<space>]])
 
 -- ----------------------------------------------------
 -- | Telescope, LSP, Diagnostics, and Git keybindings |
@@ -328,8 +321,8 @@ end
 -- See `:help vim.diagnostic.*` for documentation on any of the below
 -- functions
 smap("n", "<space>e", "<cmd>lua vim.diagnostic.open_float()<CR>")
-smap("n", "[e", "<cmd>lua vim.diagnostic.goto_prev()<CR>")
-smap("n", "]e", "<cmd>lua vim.diagnostic.goto_next()<CR>")
+smap({ "n", "v", "o" }, "[e", "<cmd>lua vim.diagnostic.goto_prev()<CR>")
+smap({ "n", "v", "o" }, "]e", "<cmd>lua vim.diagnostic.goto_next()<CR>")
 smap("n", "<space>dl", "<cmd>lua vim.diagnostic.setloclist()<CR>")
 smap("n", "<space>do", [[:lua require("telescope.builtin").diagnostics(telescope_dynamic_theme())<CR>]])
 smap(
@@ -408,8 +401,8 @@ smap("n", "<leader>gt", [[<cmd>lua require("telescope.builtin").git_status(teles
 smap("n", "<leader>gh", [[<cmd>lua require("telescope.builtin").git_stash(telescope_dynamic_theme())<CR>]])
 
 -- Navigation
-smap("n", "]c", "&diff ? ']c' : '<cmd>Gitsigns next_hunk<CR>'", { expr = true })
-smap("n", "[c", "&diff ? '[c' : '<cmd>Gitsigns prev_hunk<CR>'", { expr = true })
+smap({ "n", "v", "o" }, "]c", "&diff ? ']c' : '<cmd>Gitsigns next_hunk<CR>'", { expr = true })
+smap({ "n", "v", "o" }, "[c", "&diff ? '[c' : '<cmd>Gitsigns prev_hunk<CR>'", { expr = true })
 
 -- -- Git actions related actions with <leader>g...
 smap({ "n", "v" }, "<leader>gs", "<cmd>Gitsigns stage_hunk<CR>")
@@ -424,19 +417,6 @@ smap("n", "<leader>gD", "<cmd>Gitsigns toggle_deleted<CR>")
 
 -- -- Text object
 smap({ "o", "x" }, "ig", ":<C-U>Gitsigns select_hunk<CR>")
-
--- Cargo shortcuts
-smap("n", "<localleader>t", [[<cmd>lua require("crates").toggle()<CR>]])
-smap("n", "<localleader>r", [[<cmd>lua require("crates").reload()<CR>]])
-
-smap("n", "<localleader>v", [[<cmd>lua require("crates").show_versions_popup()<CR>]])
-smap("n", "<localleader>f", [[<cmd>lua require("crates").show_features_popup()<CR>]])
-
--- update creates
-smap("n", "<localleader>u", [[<cmd>lua require("crates").update_crates()<CR>]])
-smap("n", "<localleader>U", [[<cmd>lua require("crates").update_all_crates()<CR>]])
-smap("n", "<localleader>g", [[<cmd>lua require("crates").upgrade_crates()<CR>]])
-smap("n", "<localleader>G", [[<cmd>lua require("crates").upgrade_all_crates()<CR>]])
 
 -- Setting shortcuts
 smap("n", "<leader>ho", [[<cmd>lua require("telescope.builtin").vim_options(telescope_dynamic_theme())<CR>]])
@@ -456,18 +436,18 @@ smap("n", "<leader>ha", [[<cmd>lua require("telescope.builtin").autocommands(tel
 smap("n", "<leader>ht", [[<cmd>lua require("telescope.builtin").pickers(telescope_dynamic_theme())<CR>]])
 
 -- Faster write/save current buffer
-smap("n", "<leader>w", "<cmd>write<CR>")
-smap("n", "<leader>W", "<cmd>wall<CR>")
+nmap("<leader>w", "<cmd>write<CR>")
+nmap("<leader>W", "<cmd>wall<CR>")
 
 -- Resizing splits
-smap("n", "<leader>wvp", [[:exe "vertical resize " . (winwidth(0) * 3/2)<CR>]])
-smap("n", "<leader>wvm", [[:exe "vertical resize " . (winwidth(0) * 2/3)<CR>]])
-smap("n", "<leader>whp", [[:exe "resize " . (winheight(0) * 3/2)<CR>]])
-smap("n", "<leader>whm", [[:exe "resize " . (winheight(0) * 2/3)<CR>]])
-map("n", "<C-w><", "5<C-w><")
-map("n", "<C-w>>", "5<C-w>>")
-map("n", "<C-w>-", "5<C-w>-")
-map("n", "<C-w>+", "5<C-w>+")
+smap("n", "<leader>wvp", [[<cmd>exe "vertical resize " . (winwidth(0) * 3/2)<CR>]])
+smap("n", "<leader>wvm", [[<cmd>exe "vertical resize " . (winwidth(0) * 2/3)<CR>]])
+smap("n", "<leader>whp", [[<cmd>exe "resize " . (winheight(0) * 3/2)<CR>]])
+smap("n", "<leader>whm", [[<cmd>exe "resize " . (winheight(0) * 2/3)<CR>]])
+nmap("<C-w><", "5<C-w><")
+nmap("<C-w>>", "5<C-w>>")
+nmap("<C-w>-", "5<C-w>-")
+nmap("<C-w>+", "5<C-w>+")
 
 -- ---------------------
 -- |   Auto Commands   |
@@ -489,7 +469,6 @@ autocmd(
 	"buf_read_post",
 	[[BufReadPost * if expand('%:p') !~# '\m/\.git/' && line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif]]
 )
-
 -- ===================
 -- |=================|
 -- ||               ||
@@ -511,3 +490,31 @@ vim.api.nvim_create_user_command("ShowDocumentation", function()
 		vim.lsp.buf.hover()
 	end
 end, { nargs = 0 })
+
+-- --------------------------------
+-- |   Cargo.toml and crates.io   |
+-- --------------------------------
+local cargo_group = vim.api.nvim_create_augroup("cargo_keybindings", {})
+vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
+	group = cargo_group,
+	pattern = { "Cargo.toml" },
+	callback = function()
+		local nmap = require("aiko.keymap").nmap
+		local opts = {
+			silent = true,
+			buffer = true,
+		}
+		nmap("<localleader>t", [[<cmd>lua require("crates").toggle()<CR>]], opts)
+		nmap("<localleader>r", [[<cmd>lua require("crates").reload()<CR>]], opts)
+
+		nmap("<localleader>v", [[<cmd>lua require("crates").show_versions_popup()<CR>]], opts)
+		nmap("<localleader>f", [[<cmd>lua require("crates").show_features_popup()<CR>]], opts)
+
+		-- Update crates
+		nmap("<localleader>u", [[<cmd>lua require("crates").update_crates()<CR>]], opts)
+		nmap("<localleader>U", [[<cmd>lua require("crates").update_all_crates()<CR>]], opts)
+		nmap("<localleader>g", [[<cmd>lua require("crates").upgrade_crates()<CR>]], opts)
+		nmap("<localleader>G", [[<cmd>lua require("crates").upgrade_all_crates()<CR>]], opts)
+	end,
+	desc = [[Create buffer local keymaps for working with Cargo files]],
+})
