@@ -1,11 +1,4 @@
-
-local g = vim.g
-local opt, wo, bo = vim.opt, vim.wo, vim.opt_local
-local o, wo, bo = vim.o, vim.wo, vim.bo
-local fn = vim.fn
-
 local utils = require("aiko.utils")
-local autocmd = utils.autocmd
 local map = utils.map
 local smap = utils.smap
 
@@ -25,19 +18,8 @@ local tmap = keymap.tmap
 -- |=======================|
 -- =========================
 --
--- Set the leader key to the space key
-nmap("<SPACE>", "<NOP>")
-g.mapleader = " "
-
--- Set local leader to the backslash
-nmap([[\]], "<NOP>")
-g.maplocalleader = [[\]]
-
--- ----------------------------------
--- | Vim Tmux Navigator keybindings |
--- ----------------------------------
-g.tmux_navigator_no_mappings = 1
-
+-- Vim Tmux Navigator keybindings
+vim.g.tmux_navigator_no_mappings = 1
 vim.keymap.set({ "i", "n", "t" }, "<M-h>", [[<cmd>TmuxNavigateLeft<CR>]])
 vim.keymap.set({ "i", "n", "t" }, "<M-j>", [[<cmd>TmuxNavigateDown<CR>]])
 vim.keymap.set({ "i", "n", "t" }, "<M-k>", [[<cmd>TmuxNavigateUp<CR>]])
