@@ -1,5 +1,3 @@
-nmap = require("aiko.keymap").nmap
-
 vim.opt_local.expandtab = true
 vim.opt_local.autoindent = true
 vim.opt_local.smarttab = true
