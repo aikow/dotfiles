@@ -9,19 +9,27 @@ local function opt(o, v, scopes)
   end
 end
 
-local function autocmd(group, cmds, clear)
-  clear = clear == nil and false or clear
-  if type(cmds) == "string" then
-    cmds = { cmds }
+local function autocmd(group, autocmds, clear)
+  clear = clear ~= nil and clear or true
+
+  if autocmds.event ~= nil then
+    autocmds = { autocmds }
   end
-  cmd("augroup " .. group)
-  if clear then
-    cmd([[autocmd!]])
+
+  local group = vim.api.nvim_create_augroup(group, { clear = clear })
+
+  for _, autocmd in ipairs(autocmds) do
+    vim.api.nvim_create_autocmd(autocmd.event, {
+      group = group,
+      pattern = autocmd.pattern,
+      buffer = autocmd.buffer,
+      desc = autocmd.desc,
+      callback = autocmd.callback,
+      command = autocmd.command,
+      once = autocmd.once,
+      nested = autocmd.nested,
+    })
   end
-  for _, c in ipairs(cmds) do
-    cmd("autocmd " .. c)
-  end
-  cmd([[augroup END]])
 end
 
 local function map(modes, lhs, rhs, opts)
