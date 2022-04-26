@@ -1,8 +1,3 @@
--- Bootstrap stuff if this is the first time loading neovim on a machine.
-if require("aiko.first_load")() then
-	return
-end
-
 -- Check the host operating system
 local has = require("aiko.fn").has
 if has("win64") or has("win32") or has("win16") then
@@ -11,18 +6,35 @@ else
 	vim.g.os = vim.fn.substitute(vim.fn.system("uname"), "\n", "", "")
 end
 
--- Setup plugins, options and keymaps
-require("aiko.plugins")
-require("aiko.options")
-require("aiko.mappings")
+-- Bootstrap stuff if this is the first time loading neovim on a machine.
+if require("aiko.first_load")() then
+	return
+end
 
+-- -----------------------
+-- |   Python Provider   |
+-- -----------------------
 -- Setup python provider
 require("aiko.provider").setup_python()
+
+-- ------------------------------
+-- |   Leader and Localleader   |
+-- ------------------------------
+local nmap = require("aiko.keymap").nmap
+-- Set the leader key to the space key
+nmap("<SPACE>", "<NOP>")
+vim.g.mapleader = " "
+
+-- Set local leader to the backslash
+nmap([[\]], "<NOP>")
+vim.g.maplocalleader = [[\]]
+
+-- Setup plugins, options and keymaps
+require("aiko.plugins")
 
 -- ---------------------
 -- |   Auto Commands   |
 -- ---------------------
-
 local autocmd = require("aiko.utils").autocmd
 
 -- Reload files changed outside of Vim not currently modified in Vim
