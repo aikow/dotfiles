@@ -39,9 +39,9 @@ opt.ttimeoutlen = 5
 
 -- Use system clipboard
 if vim.g.os == "Darwin" then
-	opt.clipboard = "unnamed"
+  opt.clipboard = "unnamed"
 elseif vim.g.os == "Linux" then
-	opt.clipboard = "unnamedplus"
+  opt.clipboard = "unnamedplus"
 elseif vim.g.os == "Windows" then
 end
 
@@ -82,23 +82,23 @@ opt.smartcase = true
 
 -- Set ripgrep as default search tool
 if vim.fn.executable("rg") == 1 then
-	opt.grepprg = "rg --vimgrep --no-heading --smart-case"
-	opt.grepformat = "%f:%l:%c:%m,%f:%l:%m"
+  opt.grepprg = "rg --vimgrep --no-heading --smart-case"
+  opt.grepformat = "%f:%l:%c:%m,%f:%l:%m"
 end
 
 -- Format options
 opt.formatoptions = opt.formatoptions
-	+ "t" -- auto wrap text using textwidth
-	+ "c" -- auto wrap comments using textwidth
-	+ "r" -- auto insert comment leader on pressing enter
-	+ "o" -- auto insert comment leader on pressing o
-	+ "q" -- format comments with gq
-	- "a" -- don't autoformat the paragraphs
-	+ "n" -- auto format numbered list
-	- "2" -- use the first line to specify indent width, not the second
-	+ "b" -- auto wrap in insert mode, and do not wrap old long lines
-	+ "l" -- long lines are not broken in insert mode
-	+ "j" -- remove comment leader when joining lines
+  + "t" -- auto wrap text using textwidth
+  + "c" -- auto wrap comments using textwidth
+  + "r" -- auto insert comment leader on pressing enter
+  + "o" -- auto insert comment leader on pressing o
+  + "q" -- format comments with gq
+  - "a" -- don't autoformat the paragraphs
+  + "n" -- auto format numbered list
+  - "2" -- use the first line to specify indent width, not the second
+  + "b" -- auto wrap in insert mode, and do not wrap old long lines
+  + "l" -- long lines are not broken in insert mode
+  + "j" -- remove comment leader when joining lines
 
 -- Use treesitter for folding
 opt.foldmethod = "expr"
@@ -161,13 +161,13 @@ opt.number = true
 opt.cursorline = true -- Highlight the current line
 local group = vim.api.nvim_create_augroup("CursorLineControl", { clear = true })
 local set_cursorline = function(event, value, pattern)
-	vim.api.nvim_create_autocmd(event, {
-		group = group,
-		pattern = pattern,
-		callback = function()
-			vim.opt_local.cursorline = value
-		end,
-	})
+  vim.api.nvim_create_autocmd(event, {
+    group = group,
+    pattern = pattern,
+    callback = function()
+      vim.opt_local.cursorline = value
+    end,
+  })
 end
 set_cursorline("WinLeave", false)
 set_cursorline("WinEnter", true)

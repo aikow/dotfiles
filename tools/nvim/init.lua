@@ -20,13 +20,13 @@ require("aiko.provider").setup_python()
 -- ------------------------------
 -- |   Leader and Localleader   |
 -- ------------------------------
-local nmap = require("aiko.keymap").nmap
+local map = vim.keymap.set
 -- Set the leader key to the space key
-nmap("<SPACE>", "<NOP>")
+map("n", "<SPACE>", "<NOP>")
 vim.g.mapleader = " "
 
 -- Set local leader to the backslash
-nmap([[\]], "<NOP>")
+map("n", [[\]], "<NOP>")
 vim.g.maplocalleader = [[\]]
 
 -- Setup plugins, options and keymaps
@@ -59,32 +59,10 @@ autocmd("buf_read_post", {
 			and vim.fn.line([['"]]) > 1
 			and vim.fn.line([['"]]) <= vim.fn.line("$")
 		then
-        vim.cmd([[exe "normal! g'\""]])
+			vim.cmd([[exe "normal! g'\""]])
 		end
 	end,
 })
-
--- ===================
--- |=================|
--- ||               ||
--- ||   Functions   ||
--- ||               ||
--- |=================|
--- ===================
---
--- Show the cargo.toml documentation.
-vim.api.nvim_create_user_command("ShowDocumentation", function()
-	local ft = vim.bo.filetype
-	if ft == "vim" or ft == "help" then
-		vim.api.nvim_command("help " .. vim.fn.expand("<cword>"))
-	elseif ft == "man" then
-		vim.api.nvim_command("Man " .. vim.fn.expand("<cword>"))
-	elseif vim.fn.expand("%:t") == "Cargo.toml" then
-		require("crates").show_popup()
-	else
-		vim.lsp.buf.hover()
-	end
-end, { nargs = 0 })
 
 -- --------------------------------
 -- |   Cargo.toml and crates.io   |
@@ -94,21 +72,24 @@ vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
 	group = cargo_group,
 	pattern = { "Cargo.toml" },
 	callback = function()
-		local opts = {
-			silent = true,
-			buffer = true,
-		}
-		nmap("<localleader>t", [[<cmd>lua require("crates").toggle()<CR>]], opts)
-		nmap("<localleader>r", [[<cmd>lua require("crates").reload()<CR>]], opts)
+		local opts = function(desc)
+			return {
+				silent = true,
+				buffer = true,
+				desc = desc or "",
+			}
+		end
+		map("n", "<localleader>t", crates.toggle, opts("crates toggle menu"))
+		map("n", "<localleader>r", crates.reload, opts("crates reload source"))
 
-		nmap("<localleader>v", [[<cmd>lua require("crates").show_versions_popup()<CR>]], opts)
-		nmap("<localleader>f", [[<cmd>lua require("crates").show_features_popup()<CR>]], opts)
+		map("n", "<localleader>v", crates.show_versions_popup, opts("crates show versions popup"))
+		map("n", "<localleader>f", crates.show_features_popup, opts("crates show features popup"))
 
 		-- Update crates
-		nmap("<localleader>u", [[<cmd>lua require("crates").update_crates()<CR>]], opts)
-		nmap("<localleader>U", [[<cmd>lua require("crates").update_all_crates()<CR>]], opts)
-		nmap("<localleader>g", [[<cmd>lua require("crates").upgrade_crates()<CR>]], opts)
-		nmap("<localleader>G", [[<cmd>lua require("crates").upgrade_all_crates()<CR>]], opts)
+		map("n", "<localleader>u", crates.update_crates, opts("crates update"))
+		map("n", "<localleader>U", crates.update_all_crates, opts("crates update all"))
+		map("n", "<localleader>g", crates.upgrade_crates, opts("crates upgrade"))
+		map("n", "<localleader>G", crates.upgrade_all_crates, opts("crates upgrade all"))
 	end,
 	desc = [[Create buffer local keymaps for working with Cargo files]],
 })
