@@ -121,6 +121,24 @@ local plugins = packer.startup(function(use)
 		run = ":TSUpdate",
 	})
 
+	-- Refactoring support for select languages.
+	use({
+		"ThePrimeagen/refactoring.nvim",
+		requires = {
+			{ "nvim-lua/plenary.nvim" },
+			{ "nvim-treesitter/nvim-treesitter" },
+		},
+		config = function()
+			-- prompt for a refactor to apply when the remap is triggered
+			vim.api.nvim_set_keymap(
+				"v",
+				"<leader>rq",
+				"<cmd>lua require('refactoring').select_refactor()<CR>",
+				{ noremap = true, silent = true, expr = false }
+			)
+		end,
+	})
+
 	-- Enable correct spelling syntax highlighting with Treesitter.
 	use({
 		"lewis6991/spellsitter.nvim",
@@ -147,9 +165,9 @@ local plugins = packer.startup(function(use)
 		end,
 	})
 
-  use({
-    "L3MON4D3/luasnip"
-  })
+	use({
+		"L3MON4D3/luasnip",
+	})
 
 	use({
 		"numToStr/Comment.nvim",
@@ -277,14 +295,14 @@ local plugins = packer.startup(function(use)
 			vim.fn["mkdp#util#install"]()
 		end,
 		ft = { "markdown" },
-    config = function()
-      local keymap = require("aiko.keymap")
-      local nmap = keymap.nmap
+		config = function()
+			local keymap = require("aiko.keymap")
+			local nmap = keymap.nmap
 
-      nmap("<localleader>r", "<cmd>MarkdownPreview<CR>", { buffer = true })
-      nmap("<localleader>s", "<cmd>MarkdownPreviewStop<CR>", { buffer = true })
-      nmap("<localleader>t", "<cmd>MarkdownPreviewToggle<CR>", { buffer = true })
-    end,
+			nmap("<localleader>r", "<cmd>MarkdownPreview<CR>", { buffer = true })
+			nmap("<localleader>s", "<cmd>MarkdownPreviewStop<CR>", { buffer = true })
+			nmap("<localleader>t", "<cmd>MarkdownPreviewToggle<CR>", { buffer = true })
+		end,
 	})
 
 	-- Fish shell syntax support

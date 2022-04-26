@@ -4,3 +4,5 @@ subwords
 BPE
 treesitter
 nvim
+protobuf
+reentrant
