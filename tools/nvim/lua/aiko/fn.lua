@@ -7,7 +7,7 @@ local function executable(x)
 end
 
 local function is_wsl()
-  local output = vim.fn.systemlist "uname -r"
+  local output = vim.fn.systemlist("uname -r")
   return not not string.find(output[1] or "", "WSL")
 end
 
