@@ -1,19 +1,15 @@
-_ = vim.cmd([[packadd packer.nvim]])
-_ = vim.cmd([[packadd vimball]])
+vim.cmd([[packadd packer.nvim]])
+vim.cmd([[packadd vimball]])
 
 -- Convenience definitions.
-local g = vim.g
 local fn = vim.fn
-local cmd = vim.cmd
-local o, wo, bo = vim.o, vim.wo, vim.bo
-
-local utils = require("aiko.utils")
 
 -- For bootstrapping packer local fn = vim.fn
 local install_path = fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
+local packer_bootstrap
 if fn.empty(fn.glob(install_path)) > 0 then
 	vim.notify("Bootstrapping packer")
-	local packer_bootstrap = fn.system({
+	packer_bootstrap = fn.system({
 		"git",
 		"clone",
 		"--depth",
@@ -172,7 +168,7 @@ local plugins = packer.startup(function(use)
 	use({
 		"numToStr/Comment.nvim",
 		config = function()
-			comment = require("Comment")
+			local comment = require("Comment")
 			comment.setup({
 				padding = true,
 				sticky = true,
@@ -401,7 +397,7 @@ local lspconfig = require("lspconfig")
 if vim.fn.executable("pyright") == 1 then
 	lspconfig.pyright.setup({
 		capabilities = capabilities,
-		on_attach = function(client, buf_nr)
+		on_attach = function(_client, buf_nr)
 			-- Create a buffer local command to reformat using black.
 			vim.api.nvim_buf_create_user_command(0, "BlackFormat", function()
 				vim.api.nvim_command("write")

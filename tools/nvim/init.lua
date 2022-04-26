@@ -38,22 +38,32 @@ require("aiko.plugins")
 local autocmd = require("aiko.utils").autocmd
 
 -- Reload files changed outside of Vim not currently modified in Vim
-autocmd("general_autoread", [[FocusGained,BufEnter,WinEnter * silent! edit]], true)
-autocmd("general_autowrite", [[FocusLost,WinLeave * silent! noautocmd write]], true)
+autocmd("general_autoread", { event = { "FocusGained", "BufEnter", "WinEnter" }, command = "silent! edit" })
+autocmd("general_autowrite", { event = { "FocusLost", "WinLeave" }, command = "silent! noautocmd write" })
 
 -- Prevent accidental writes to buffers that shouldn't be edited
 autocmd("unmodifiable", {
-	[[FileType help set readonly]],
-	[[BufRead *.orig set readonly]],
-	[[BufRead *.pacnew set readonly]],
+	{ event = "FileType", pattern = "help", command = "setlocal readonly" },
+	{ event = "BufRead", pattern = "*.orig", command = "setlocal readonly" },
+	{ event = "BufRead", pattern = "*.pacnew", command = "setlocal readonly" },
 })
 
 -- Jump to last edit position on opening file
 -- https://stackoverflow.com/questions/31449496/vim-ignore-specifc-file-in-autocommand
-autocmd(
-	"buf_read_post",
-	[[BufReadPost * if expand('%:p') !~# '\m/\.git/' && line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif]]
-)
+autocmd("buf_read_post", {
+	event = "BufReadPost",
+	callback = function()
+		local regex = vim.regex([[/\.git/]])
+		if
+			not regex:match_str(vim.fn.expand("%:p"))
+			and vim.fn.line([['"]]) > 1
+			and vim.fn.line([['"]]) <= vim.fn.line("$")
+		then
+        vim.cmd([[exe "normal! g'\""]])
+		end
+	end,
+})
+
 -- ===================
 -- |=================|
 -- ||               ||
@@ -64,7 +74,7 @@ autocmd(
 --
 -- Show the cargo.toml documentation.
 vim.api.nvim_create_user_command("ShowDocumentation", function()
-	local ft = bo.filetype
+	local ft = vim.bo.filetype
 	if ft == "vim" or ft == "help" then
 		vim.api.nvim_command("help " .. vim.fn.expand("<cword>"))
 	elseif ft == "man" then
@@ -84,7 +94,6 @@ vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
 	group = cargo_group,
 	pattern = { "Cargo.toml" },
 	callback = function()
-		local nmap = require("aiko.keymap").nmap
 		local opts = {
 			silent = true,
 			buffer = true,
