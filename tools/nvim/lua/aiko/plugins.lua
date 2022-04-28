@@ -399,7 +399,7 @@ if vim.fn.executable("pyright") == 1 then
       local bufname = vim.api.nvim_buf_get_name(0)
       -- Create a buffer local keymap to reformat, using the buffer local
       -- command.
-      vim.keymap.set("n", "<leader>rf",function()
+      vim.keymap.set("n", "<leader>rf", function()
         if vim.fn.executable("black") ~= 1 then
           print("Missing executable 'black'")
           return
@@ -414,7 +414,7 @@ if vim.fn.executable("pyright") == 1 then
         vim.api.nvim_command("edit")
       end, { silent = true, buffer = 0, desc = "reformat python with black and isort" })
 
-      vim.keymap.set("n", "<leader>if", function() 
+      vim.keymap.set("n", "<leader>if", function()
         if vim.fn.executable("flake8") ~= 1 then
           print("Missing executable 'flake8'")
           return
@@ -457,7 +457,7 @@ if vim.fn.executable("pyright") == 1 then
 
         vim.api.nvim_win_set_buf(win, buf)
         vim.api.nvim_buf_set_lines(buf, 0, -1, false, vim.fn.split(output, "\n"))
-      end, { buffer = 0, desc = "run flake8 linting"})
+      end, { buffer = 0, desc = "run flake8 linting" })
     end,
   })
 end
