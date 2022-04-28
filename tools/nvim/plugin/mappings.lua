@@ -100,72 +100,72 @@ map({ "n", "v", "o" }, "[e", vim.diagnostic.goto_prev, { silent = true, desc = "
 map({ "n", "v", "o" }, "]e", vim.diagnostic.goto_next, { silent = true, desc = "go to next diagnostic" })
 map("n", "<space>dl", vim.diagnostic.setloclist, { silent = true, desc = "set location list to diagnostics" })
 map("n", "<space>do", function()
-	t_builtin.diagnostics(dynamic)
+  t_builtin.diagnostics(dynamic)
 end, { silent = true, desc = "telescope open diagnostics" })
 map("n", "<space>ds", function()
-	telescope_buildin.spell_suggest(t_cursor())
+  telescope_buildin.spell_suggest(t_cursor())
 end, { silent = true, desc = "telescope spell suggest" })
 
 -- LSP functions
 -- See `:help vim.lsp.*` for documentation on any of the below functions
 vim.keymap.set("n", "K", function()
-	local ft = vim.bo.filetype
-	if ft == "vim" or ft == "help" then
-		vim.api.nvim_command("help " .. vim.fn.expand("<cword>"))
-	elseif ft == "man" then
-		vim.api.nvim_command("Man " .. vim.fn.expand("<cword>"))
-	elseif vim.fn.expand("%:t") == "Cargo.toml" then
-		require("crates").show_popup()
-	else
-		vim.lsp.buf.hover()
-	end
+  local ft = vim.bo.filetype
+  if ft == "vim" or ft == "help" then
+    vim.api.nvim_command("help " .. vim.fn.expand("<cword>"))
+  elseif ft == "man" then
+    vim.api.nvim_command("Man " .. vim.fn.expand("<cword>"))
+  elseif vim.fn.expand("%:t") == "Cargo.toml" then
+    require("crates").show_popup()
+  else
+    vim.lsp.buf.hover()
+  end
 end, { desc = "show documentation" })
 vim.keymap.set("n", "<leader>k", vim.lsp.buf.signature_help, { desc = "signature help" })
 
 -- Goto references with <leader>j...
 map("n", "<leader>jf", function()
-	telescope_builtin.treesitter(t_dynamic())
+  telescope_builtin.treesitter(t_dynamic())
 end, { silent = true, desc = "telescope treesitter" })
 map("n", "<leader>jc", vim.lsp.buf.declaration, { silent = true, desc = "lsp go to declaration" })
 map("n", "<leader>jD", vim.lsp.buf.definition, { silent = true, desc = "lsp go to definition" })
 map("n", "<leader>jd", function()
-	telescope_builtin.lsp_definitions(t_dynamic())
+  telescope_builtin.lsp_definitions(t_dynamic())
 end, { silent = true, desc = "telescope lsp list definitions" })
 map("n", "<leader>jR", vim.lsp.buf.references, { silent = true, desc = "lsp go to references" })
 map("n", "<leader>jr", function()
-	telescope_builtin.lsp_references(t_dynamic())
+  telescope_builtin.lsp_references(t_dynamic())
 end, { silent = true, desc = "telescope lsp list references" })
 map("n", "<leader>jI", vim.lsp.buf.implementation, { silent = true, desc = "lsp go to implementation" })
 map("n", "<leader>ji", function()
-	telescope_builtin.lsp_implementations(t_dynamic())
+  telescope_builtin.lsp_implementations(t_dynamic())
 end, { silent = true, desc = "telescope lsp list implementations" })
 map("n", "<leader>jT", vim.lsp.buf.type_definition, { silent = true, desc = "lsp go to type definition" })
 map("n", "<leader>jt", function()
-	telescope_builtin.lsp_type_definitions(t_dynamic())
+  telescope_builtin.lsp_type_definitions(t_dynamic())
 end, { silent = true, desc = "telescope lsp list type definitions" })
 
 -- Telescope LSP pickers
 map("n", "<leader>ja", function()
-	telescope_builtin.lsp_code_actions(t_cursor())
+  telescope_builtin.lsp_code_actions(t_cursor())
 end, { silent = true, desc = "telescope lsp list code actions" })
 map("n", "<leader>jA", function()
-	telescope_builtin.lsp_range_code_actions(t_cursor())
+  telescope_builtin.lsp_range_code_actions(t_cursor())
 end, { silent = true, desc = "telescope lsp list range code actions" })
 map("n", "<leader>jT", function()
-	telescope_builtin.lsp_workspace_symbols(t_dynamic())
+  telescope_builtin.lsp_workspace_symbols(t_dynamic())
 end, { silent = true, desc = "telescope lsp list workspace symbols" })
 map("n", "<leader>jt", function()
-	telescope_builtin.lsp_dynamic_workspace_symbols(t_dynamic())
+  telescope_builtin.lsp_dynamic_workspace_symbols(t_dynamic())
 end, { silent = true, desc = "telescope lsp list dynamic workspace symbols" })
 map("n", "<leader>js", function()
-	telescope_builtin.lsp_document_symbols(t_dynamic())
+  telescope_builtin.lsp_document_symbols(t_dynamic())
 end, { silent = true, desc = "telescope lsp list document symbols" })
 
 -- Workspace settings with <leader>w...
 map("n", "<leader>wa", vim.lsp.buf.add_workspace_folder, { silent = true, desc = "lsp add workspace folder" })
 map("n", "<leader>wr", vim.lsp.buf.remove_workspace_folder, { silent = true, desc = "lsp remove workspace folder" })
 map("n", "<leader>wl", function()
-	print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+  print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
 end, { silent = true, desc = "print lsp workspace folders" })
 
 -- Refactoring with <leader>r...
@@ -175,73 +175,73 @@ map("n", "<leader>rf", vim.lsp.buf.formatting, { silent = true })
 
 -- Finding searching and navigating
 map("n", "<leader>;", function()
-	telescope_builtin.commands(t_dynamic())
+  telescope_builtin.commands(t_dynamic())
 end, { silent = true })
 
 map("n", "<leader>o", function()
-	telescope_builtin.find_files(t_dynamic())
+  telescope_builtin.find_files(t_dynamic())
 end, { silent = true })
 
 map("n", "<leader>p", function()
-	telescope_builtin.buffers(t_dynamic())
+  telescope_builtin.buffers(t_dynamic())
 end, { silent = true })
 
 map("n", "<leader>ff", function()
-	telescope_builtin.live_grep(t_dynamic())
+  telescope_builtin.live_grep(t_dynamic())
 end, { silent = true })
 
 map("n", "<leader>fs", function()
-	telescope_builtin.spell_suggest(t_dynamic())
+  telescope_builtin.spell_suggest(t_dynamic())
 end, { silent = true })
 
 map("n", "<leader>fb", function()
-	telescope_builtin.current_buffer_fuzzy_find(t_dynamic())
+  telescope_builtin.current_buffer_fuzzy_find(t_dynamic())
 end, { silent = true })
 
 map("n", "<leader>ft", function()
-	telescope_builtin.tags(t_dynamic())
+  telescope_builtin.tags(t_dynamic())
 end, { silent = true })
 
 map("n", "<leader>f/", function()
-	telescope_builtin.search_history(t_dynamic())
+  telescope_builtin.search_history(t_dynamic())
 end, { silent = true })
 
 map("n", "<leader>f;", function()
-	telescope_builtin.command_history(t_dynamic())
+  telescope_builtin.command_history(t_dynamic())
 end, { silent = true })
 
 -- Git shortcuts
 map("n", "<leader>go", function()
-	telescope_builtin.git_files(t_dynamic())
+  telescope_builtin.git_files(t_dynamic())
 end, { silent = true })
 map("n", "<leader>gC", function()
-	telescope_builtin.git_commits(t_dynamic())
+  telescope_builtin.git_commits(t_dynamic())
 end, { silent = true })
 map("n", "<leader>gc", function()
-	telescope_builtin.git_bcommits(t_dynamic())
+  telescope_builtin.git_bcommits(t_dynamic())
 end, { silent = true })
 map("n", "<leader>gb", function()
-	telescope_builtin.git_branches(t_dynamic())
+  telescope_builtin.git_branches(t_dynamic())
 end, { silent = true })
 map("n", "<leader>gt", function()
-	telescope_builtin.git_status(t_dynamic())
+  telescope_builtin.git_status(t_dynamic())
 end, { silent = true })
 map("n", "<leader>gh", function()
-	telescope_builtin.git_stash(t_dynamic())
+  telescope_builtin.git_stash(t_dynamic())
 end, { silent = true })
 
 -- Navigation
 map(
-	{ "n", "v", "o" },
-	"]c",
-	"&diff ? ']c' : '<cmd>Gitsigns next_hunk<CR>'",
-	{ expr = true, silent = true, desc = "go to next git hunk" }
+  { "n", "v", "o" },
+  "]c",
+  "&diff ? ']c' : '<cmd>Gitsigns next_hunk<CR>'",
+  { expr = true, silent = true, desc = "go to next git hunk" }
 )
 map(
-	{ "n", "v", "o" },
-	"[c",
-	"&diff ? '[c' : '<cmd>Gitsigns prev_hunk<CR>'",
-	{ expr = true, silent = true, desc = "go to previous git hunk" }
+  { "n", "v", "o" },
+  "[c",
+  "&diff ? '[c' : '<cmd>Gitsigns prev_hunk<CR>'",
+  { expr = true, silent = true, desc = "go to previous git hunk" }
 )
 
 -- -- Git actions related actions with <leader>g...
@@ -260,37 +260,37 @@ map({ "o", "x" }, "ig", ":<C-U>Gitsigns select_hunk<CR>", { silent = true })
 
 -- Setting shortcuts
 map("n", "<leader>ho", function()
-	telescope_builtin.vim_options(t_dynamic())
+  telescope_builtin.vim_options(t_dynamic())
 end, { silent = true })
 map("n", "<leader>hc", function()
-	telescope_builtin.colorscheme(t_dropdown())
+  telescope_builtin.colorscheme(t_dropdown())
 end, { silent = true })
 map("n", "<leader>hh", function()
-	telescope_builtin.help_tags(t_dynamic())
+  telescope_builtin.help_tags(t_dynamic())
 end, { silent = true })
 map("n", "<leader>hm", function()
-	telescope_builtin.man_pages(t_dynamic())
+  telescope_builtin.man_pages(t_dynamic())
 end, { silent = true })
 map("n", [[<leader>h']], function()
-	telescope_builtin.marks(t_dynamic())
+  telescope_builtin.marks(t_dynamic())
 end, { silent = true })
 map("n", "<leader>hk", function()
-	telescope_builtin.keymaps(t_dynamic())
+  telescope_builtin.keymaps(t_dynamic())
 end, { silent = true })
 map("n", "<leader>hf", function()
-	telescope_builtin.filetypes(t_dynamic())
+  telescope_builtin.filetypes(t_dynamic())
 end, { silent = true })
 map("n", "<leader>hr", function()
-	telescope_builtin.registers(t_dynamic())
+  telescope_builtin.registers(t_dynamic())
 end, { silent = true })
 map("n", "<leader>hs", function()
-	require("telescope").extensions.ultisnips.ultisnips(t_dynamic())
+  require("telescope").extensions.ultisnips.ultisnips(t_dynamic())
 end, { silent = true })
 map("n", "<leader>ha", function()
-	telescope_builtin.autocommands(t_dynamic())
+  telescope_builtin.autocommands(t_dynamic())
 end, { silent = true })
 map("n", "<leader>ht", function()
-	telescope_builtin.pickers(t_dynamic())
+  telescope_builtin.pickers(t_dynamic())
 end, { silent = true })
 
 -- Faster write/save current buffer
