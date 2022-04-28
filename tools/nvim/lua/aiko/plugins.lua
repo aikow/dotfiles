@@ -292,12 +292,9 @@ local plugins = packer.startup(function(use)
     end,
     ft = { "markdown" },
     config = function()
-      local keymap = require("aiko.keymap")
-      local nmap = keymap.nmap
-
-      nmap("<localleader>r", "<cmd>MarkdownPreview<CR>", { buffer = true })
-      nmap("<localleader>s", "<cmd>MarkdownPreviewStop<CR>", { buffer = true })
-      nmap("<localleader>t", "<cmd>MarkdownPreviewToggle<CR>", { buffer = true })
+      vim.keymap.set("n", "<localleader>r", "<cmd>MarkdownPreview<CR>", { buffer = true, silent = true })
+      vim.keymap.set("n", "<localleader>s", "<cmd>MarkdownPreviewStop<CR>", { buffer = true, silent = true })
+      vim.keymap.set("n", "<localleader>t", "<cmd>MarkdownPreviewToggle<CR>", { buffer = true, silent = true })
     end,
   })
 
@@ -323,6 +320,7 @@ local plugins = packer.startup(function(use)
           section_separators = { left = "", right = "" },
           disabled_filetypes = {},
           always_divide_middle = true,
+          globalstatus = false,
         },
         sections = {
           lualine_a = { "mode" },
@@ -398,15 +396,68 @@ if vim.fn.executable("pyright") == 1 then
   lspconfig.pyright.setup({
     capabilities = capabilities,
     on_attach = function(_client, buf_nr)
-      -- Create a buffer local command to reformat using black.
-      vim.api.nvim_buf_create_user_command(0, "BlackFormat", function()
-        vim.api.nvim_command("write")
-        vim.api.nvim_command("silent !black " .. vim.api.nvim_buf_get_name(0))
-        vim.api.nvim_command("edit")
-      end, {})
+      local bufname = vim.api.nvim_buf_get_name(0)
       -- Create a buffer local keymap to reformat, using the buffer local
       -- command.
-      vim.api.nvim_buf_set_keymap(buf_nr, "n", "<leader>rf", "<cmd>BlackFormat<CR>", { silent = true })
+      vim.keymap.set("n", "<leader>rf",function()
+        if vim.fn.executable("black") ~= 1 then
+          print("Missing executable 'black'")
+          return
+        end
+        if vim.fn.executable("isort") ~= 1 then
+          print("Missing executable 'isort'")
+          return
+        end
+        vim.api.nvim_command("write")
+        vim.api.nvim_command("silent !black " .. bufname)
+        vim.api.nvim_command("silent !isort " .. bufname)
+        vim.api.nvim_command("edit")
+      end, { silent = true, buffer = 0, desc = "reformat python with black and isort" })
+
+      vim.keymap.set("n", "<leader>if", function() 
+        if vim.fn.executable("flake8") ~= 1 then
+          print("Missing executable 'flake8'")
+          return
+        end
+        vim.api.nvim_command("write")
+
+        local bufpath = vim.api.nvim_buf_get_name(0)
+        local output = vim.fn.system("flake8 " .. bufpath)
+        local buf
+        for _, _buf in ipairs(vim.api.nvim_list_bufs()) do
+          local parts = vim.split(vim.api.nvim_buf_get_name(_buf), "/")
+          if parts[#parts] == "__Flake8__" then
+            buf = _buf
+            break
+          end
+        end
+
+        if not buf then
+          buf = vim.api.nvim_create_buf(false, false)
+          vim.api.nvim_buf_set_name(buf, "__Flake8__")
+          vim.api.nvim_buf_set_option(buf, "filetype", "flake8")
+          vim.api.nvim_buf_set_option(buf, "buftype", "quickfix")
+          vim.api.nvim_buf_set_option(buf, "bufhidden", "hide")
+          vim.api.nvim_buf_set_option(buf, "swapfile", false)
+          vim.api.nvim_buf_set_option(buf, "buflisted", false)
+        end
+
+        local win
+        local tabpage = vim.api.nvim_get_current_tabpage()
+        for _, _window in ipairs(vim.api.nvim_tabpage_list_wins(tabpage)) do
+          if vim.api.nvim_win_get_buf(_window) == buf then
+            win = _window
+          end
+        end
+
+        if not win then
+          vim.api.nvim_command("vsplit")
+          win = vim.api.nvim_get_current_win()
+        end
+
+        vim.api.nvim_win_set_buf(win, buf)
+        vim.api.nvim_buf_set_lines(buf, 0, -1, false, vim.fn.split(output, "\n"))
+      end, { buffer = 0, desc = "run flake8 linting"})
     end,
   })
 end

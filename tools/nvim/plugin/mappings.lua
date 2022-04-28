@@ -35,6 +35,9 @@ map("n", "/", [[/\v]])
 map("n", "<C-s>", [[:%s/\v]])
 map("c", "<C-s>", [[%s/\v]])
 
+map("n", "<C-l>", [[:lua ]])
+map("n", "<C-l><C-l>", [[:lua =]])
+
 -- Search history on command line
 map("c", "<C-p>", "<Up>")
 map("c", "<C-n>", "<Down>")
