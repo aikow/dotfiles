@@ -218,7 +218,11 @@ abbr gma 'git merge --abort'
 # |   Pull   |
 # ------------
 abbr gl 'git pull'
-abbr gpr 'git pull --rebase'
+abbr glr 'git pull --rebase'
+abbr glrv 'git pull --rebase -v'
+abbr glra 'git pull --rebase --autostash'
+abbr glrav 'git pull --rebase --autostash -v'
+abbr glum 'git pull upstream (git_main_branch)'
 abbr ggpull 'git pull origin (git_current_branch)'
 
 function ggu
@@ -278,7 +282,6 @@ function ggfl
   end
 end
 
-
 # --------------
 # |   Remote   |
 # --------------
@@ -286,7 +289,7 @@ abbr grm 'git remote'
 abbr grma 'git remote add'
 abbr grmr 'git remote rename'
 abbr grmd 'git remote remove'
-abbr grms'git remote set-url'
+abbr grms 'git remote set-url'
 abbr grmu 'git remote update'
 abbr grmv 'git remote -v'
 
@@ -311,10 +314,10 @@ abbr grv 'git revert'
 # -------------
 # |   Reset   |
 # -------------
-abbr grh 'git reset'
-abbr grhh 'git reset --hard'
-abbr groh 'git reset origin/(git_current_branch) --hard'
-abbr gru 'git reset --'
+abbr grr 'git reset'
+abbr grrh 'git reset --hard'
+abbr grroh 'git reset origin/(git_current_branch) --hard'
+abbr grru 'git reset --'
 abbr gpristine 'git reset --hard && git clean -dffx'
 
 # --------------
@@ -333,9 +336,9 @@ abbr grst 'git restore --staged'
 # --------------
 # |   Status   |
 # --------------
-abbr gsb 'git status -sb'
-abbr gss 'git status -s'
-abbr gst 'git status'
+abbr gssb 'git status -sb'
+abbr gsss 'git status -s'
+abbr gss 'git status'
 
 # ------------
 # |   Show   |
@@ -381,15 +384,6 @@ abbr gswd 'git switch (git_develop_branch)'
 abbr gts 'git tag -s'
 abbr gtv 'git tag | sort -V'
 abbr gtl 'git tag --sort=-v:refname -n -l $argv'
-
-# ------------
-# |   Pull   |
-# ------------
-abbr gup 'git pull --rebase'
-abbr gupv 'git pull --rebase -v'
-abbr gupa 'git pull --rebase --autostash'
-abbr gupav 'git pull --rebase --autostash -v'
-abbr glum 'git pull upstream (git_main_branch)'
 
 # ---------------------
 # |   Miscellaneous   |
