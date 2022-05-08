@@ -7,7 +7,7 @@ else
 end
 
 -- Bootstrap stuff if this is the first time loading neovim on a machine.
-if require("aiko.first_load")() then
+if require("aiko.first_load").setup() then
   return
 end
 
