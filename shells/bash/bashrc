@@ -6,7 +6,7 @@
 # Set the dotfiles config
 export DOTFILES="${HOME}/.dotfiles"
 export PATH="${HOME}/.bin:${HOME}/.local/bin:/usr/local/bin:/opt/vc/bin:${PATH}"
-export SHELL="/bin/bash"
+export MY_SHELL="bash"
 
 ### Editor ###
 if command -v nvim &>/dev/null; then

@@ -22,36 +22,39 @@
       path: ""
 
     # Bash
-    ~/.bashrc: shells/bash/bashrc
+    ~/.bashrc:
+      path: shells/bash/bashrc
+      force: true
 
     # Readline
-    ~/.inputrc: shells/readline/inputrc
+    ~/.inputrc:
+      path: shells/readline/inputrc
+      force: true
 
     # ZSH
     ~/.zshrc:
+      if: 'command -v zsh &>/dev/null'
       path: shells/zsh/zshrc
       force: true
+
     ~/.zshenv:
       if: 'command -v zsh &>/dev/null'
       path: shells/zsh/zshenv
       force: true
 
-    # Scripts
-    ~/.bin:
-      path: shells/bin/*
-      glob: true
-      exclude:
-        - bin/README.md
-    
     # Tmux
     ~/.tmux.conf:
+      if: 'command -v tmux &>/dev/null'
       path: tools/tmux/tmux_full.conf
 
     # Vim
     ~/.vimrc: tools/vim/light.vim
 
     # Neovim
-    ~/.config/nvim/init.vim: tools/vim/full.vim
+    ~/.config/nvim/init.vim:
+      if: 'command -v nvim &>/dev/null'
+      path: tools/vim/full.vim
+      force: true
 
     # Git
     ~/.gitconfig: tools/git/gitconfig
@@ -66,5 +69,7 @@
     ~/.dir_colors: shells/dircolors/dir_colors
 
     # Conda
-    ~/.condarc: environments/conda/condarc
+    ~/.condarc:
+      if: 'command -v conda &>/dev/null'
+      path: environments/conda/condarc
 

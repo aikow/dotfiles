@@ -9,7 +9,7 @@
 - create:
   - ~/.bin
   - ~/.config
-  - ~/Workspace
+  - ~/workspace
 
 - shell:
   - [git submodule update --init --recursive, Installing submodules]
@@ -40,38 +40,17 @@
       force: true
       
     # Fish
-    ~/.config/fish/config.fish:
+    ~/.config/fish:
       if: 'command -v fish &>/dev/null'
-      path: shells/fish/config.fish
-      force: true
+      path: shells/fish
     
-    ~/.config/fish/conf.d:
-      if: 'command -v fish &>/dev/null'
-      glob: true
-      path: shells/fish/conf.d/*.fish
-      force: true
-      create: true
-
-    ~/.config/fish/functions:
-      if: 'command -v fish &>/dev/null'
-      glob: true
-      path: shells/fish/functions/*.fish
-      create: true
-
     # Starship prompt
     ~/.config/starship.toml:
       path: shells/starship/starship.toml
-      force: true
-    
-    # Scripts
-    ~/.bin:
-      path: shells/bin/*
-      glob: true
-      exclude:
-        - bin/README.md
     
     # Tmux
     ~/.tmux.conf:
+      if: 'command -v tmux /dev/null'
       path: tools/tmux/tmux_full.conf
 
     # Vim
@@ -80,24 +59,29 @@
 
     # Neovim
     ~/.config/nvim:
+      if: 'command -v nvim &/dev/null'
       path: tools/nvim
-      create: true
+
     # Git
     ~/.gitconfig: tools/git/gitconfig
     ~/.gitignore_global: tools/git/gitignore_global
 
     # Screen
     ~/.screenrc:
+      if: 'command -v screen &>/dev/null'
       path: tools/screen/screenrc
     
     # Dir colors
     ~/.dir_colors: shells/dircolors/dir_colors.gruvbox
 
     # Conda
-    ~/.condarc: environments/conda/condarc
+    ~/.condarc:
+      if: 'command -v conda &>/dev/null'
+      path: environments/conda/condarc
 
     # Alacritty
     ~/.config/alacritty/config:
+      if: 'command -v alacritty &>/dev/null'
       path: emulators/alacritty/alacritty.yml
       create: true
 

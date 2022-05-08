@@ -8,9 +8,9 @@
 - clean: ['~']
 
 - create:
-  - ~/.config
-  - ~/Developer
   - ~/.bin
+  - ~/.config
+  - ~/workspace
 
 - shell:
   - [git submodule update --init --recursive, Installing submodules]
@@ -37,13 +37,6 @@
       path: shells/zsh/zshenv
       force: true
 
-    # Scripts
-    ~/.bin:
-      path: shells/bin/*
-      glob: true
-      exclude:
-        - bin/README.md
-    
     # Tmux
     ~/.tmux.conf: tmux/tmux_minimal.conf
 

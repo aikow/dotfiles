@@ -2,7 +2,7 @@
 #                               Exports                               #
 #######################################################################
 #
-export SHELL="/bin/zsh"
+export MY_SHELL="zsh"
 
 # Set the dotfiles directory
 export DOTFILES="${HOME}/.dotfiles"
