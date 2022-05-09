@@ -7,6 +7,7 @@
 export DOTFILES="${HOME}/.dotfiles"
 export PATH="${HOME}/.bin:${HOME}/.local/bin:/usr/local/bin:/opt/vc/bin:${PATH}"
 export MY_SHELL="bash"
+export LC_ALL=en_US.UTF-8
 
 ### Editor ###
 if command -v nvim &>/dev/null; then

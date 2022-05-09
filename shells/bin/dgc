@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+
+set -o errexit
+set -o pipefail
+set -o nounset
+
+docker container ls --all \
+  | fzf \
+    --header-lines=1 \
+    --multi \
+    --height 80% --min-height 30 \
+    --preview 'docker container inspect {1}' \
+    --preview-window 'up,50%,hidden,follow,nowrap' \
+    --bind 'ctrl-l:preview(docker logs -f {1})' \
+    --bind 'ctrl-o:preview(docker container inspect {1})' \
+    --bind 'ctrl-p:preview(docker port {1})' \
+    --bind 'ctrl-t:toggle-preview-wrap' \
+  | cut -d' ' -f 1

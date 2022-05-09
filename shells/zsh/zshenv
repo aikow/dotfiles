@@ -3,6 +3,7 @@
 #######################################################################
 #
 export MY_SHELL="zsh"
+export LC_ALL=en_US.UTF-8
 
 # Set the dotfiles directory
 export DOTFILES="${HOME}/.dotfiles"

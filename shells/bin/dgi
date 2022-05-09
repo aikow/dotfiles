@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+set -o errexit
+set -o pipefail
+set -o nounset
+
+docker image ls \
+  | fzf \
+    --header-lines=1 \
+    --multi \
+    --preview='docker image inspect {3}' \
+    --preview-window='hidden,nowrap' \
+    --bind 'ctrl-t:toggle-preview-wrap' \
+  | sed -E 's/^(\S+)\s+(\S+)\s+.*$/\1:\2/'
