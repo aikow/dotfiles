@@ -7,7 +7,7 @@ set -x PATH $HOME/.cargo/bin $HOME/.bin $DOTFILES/shells/bin $HOME/.local/bin /u
 # set -x XDG_DATA_DIRS /var/lib/snapd/desktop $XDG_DATA_DIRS
 varclear PATH
 
-set -x LC_ALL C
+set -x LC_ALL en_US.UTF-8
 
 set -x EDITOR 'nvim'
 set -x VISUAL 'nvim'
