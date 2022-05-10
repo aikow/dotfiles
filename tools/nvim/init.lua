@@ -81,33 +81,3 @@ autocmd("buf_read_post", {
     end
   end,
 })
-
--- --------------------------------
--- |   Cargo.toml and crates.io   |
--- --------------------------------
-local cargo_group = vim.api.nvim_create_augroup("cargo_keybindings", {})
-vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
-  group = cargo_group,
-  pattern = { "Cargo.toml" },
-  callback = function()
-    local opts = function(desc)
-      return {
-        silent = true,
-        buffer = true,
-        desc = desc or "",
-      }
-    end
-    map("n", "<localleader>t", crates.toggle, opts("crates toggle menu"))
-    map("n", "<localleader>r", crates.reload, opts("crates reload source"))
-
-    map("n", "<localleader>v", crates.show_versions_popup, opts("crates show versions popup"))
-    map("n", "<localleader>f", crates.show_features_popup, opts("crates show features popup"))
-
-    -- Update crates
-    map("n", "<localleader>u", crates.update_crates, opts("crates update"))
-    map("n", "<localleader>U", crates.update_all_crates, opts("crates update all"))
-    map("n", "<localleader>g", crates.upgrade_crates, opts("crates upgrade"))
-    map("n", "<localleader>G", crates.upgrade_all_crates, opts("crates upgrade all"))
-  end,
-  desc = [[Create buffer local keymaps for working with Cargo files]],
-})
