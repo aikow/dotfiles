@@ -2,29 +2,30 @@
 #  Environment Variables  #
 ###########################
 
-set -x DOTFILES $HOME/.dotfiles
-set -x PATH $HOME/.cargo/bin $HOME/.bin $DOTFILES/shells/bin $HOME/.local/bin /usr/local/bin /opt/vc/bin $PATH
-# set -x XDG_DATA_DIRS /var/lib/snapd/desktop $XDG_DATA_DIRS
-varclear PATH
+set -gx DOTFILES $HOME/.dotfiles
+fish_add_path --path --move $HOME/.cargo/bin
+fish_add_path --path --move $HOME/.local/bin
+fish_add_path --path --move $DOTFILES/shells/bin
+fish_add_path --path --move $HOME/.bin
 
-set -x LC_ALL en_US.UTF-8
+set -gx LC_ALL en_US.UTF-8
 
-set -x EDITOR 'nvim'
-set -x VISUAL 'nvim'
-set -x MY_SHELL 'fish'
+set -gx EDITOR nvim
+set -gx VISUAL nvim
+set -gx MY_SHELL fish
 
 if command -v bat &>/dev/null
-  set -x BAT_THEME "gruvbox-dark"
+  set -gx BAT_THEME gruvbox-dark
 end
 
 if command -v fd &>/dev/null
-  set -x FZF_DEFAULT_COMMAND 'fd --type file --follow --hidden --exclude .git --color=always'
-  set -x FZF_CTRL_T_COMMAND $FZF_DEFAULT_COMMAND
-  set -x FZF_DEFAULT_OPTS '--ansi'
+  set -gx FZF_DEFAULT_COMMAND 'fd --type file --follow --hidden --exclude .git --color=always'
+  set -gx FZF_CTRL_T_COMMAND $FZF_DEFAULT_COMMAND
+  set -gx FZF_DEFAULT_OPTS '--ansi'
 else if command -v rg &>/dev/null
-  set -x FZF_DEFAULT_COMMAND 'rg --files --no-ignore --hidden --follow --glob "!.git/*"'
+  set -gx FZF_DEFAULT_COMMAND 'rg --files --no-ignore --hidden --follow --glob "!.git/*"'
 end
-set -x FZF_DEFAULT_OPTS $FZF_DEFAULT_OPTS' --bind ctrl-f:preview-half-page-down,ctrl-b:preview-half-page-up --bind ctrl-/:toggle-preview --border --height 50% --min-height 20'
+set -gx FZF_DEFAULT_OPTS $FZF_DEFAULT_OPTS' --bind ctrl-f:preview-half-page-down,ctrl-b:preview-half-page-up --bind ctrl-/:toggle-preview --border --height 50% --min-height 20'
 
 # ----------------------------
 # |   Interactive settings   |

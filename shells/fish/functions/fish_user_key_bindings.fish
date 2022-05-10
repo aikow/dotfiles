@@ -35,6 +35,12 @@ function reload_config
 end
 
 function fish_user_key_bindings
+  fish_vi_key_bindings insert
+  set fish_cursor_default block
+  set fish_cursor_insert line
+  set fish_cursor_replace_one underscore
+  set fish_cursor_visual block
+
   bind -M insert \cx\cr reload_config
 
   bind -M insert \ck history-prefix-search-backward
