@@ -103,7 +103,7 @@ map("n", "<space>do", function()
 	t_builtin.diagnostics(dynamic)
 end, { silent = true, desc = "telescope open diagnostics" })
 map("n", "<space>ds", function()
-	telescope_buildin.spell_suggest(t_cursor())
+	telescope_builtin.spell_suggest(t_cursor())
 end, { silent = true, desc = "telescope spell suggest" })
 
 -- LSP functions

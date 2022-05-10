@@ -9,7 +9,14 @@ if command -v fzf &>/dev/null; then
   exit 0
 fi
 
-# If the FZF directory does not exist, then clone the rpeository and run the installer.
-if [[ ! -d ~/.fzf ]]; then
-  git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf && ~/.fzf/install
+install_dir="${HOME}/.local/share/fzf"
+
+# Create the parent directory of the install dir.
+mkdir -p "${install_dir%/*}"
+
+# If the FZF directory does not exist, then clone the repository and run the
+# installer.
+if [[ ! -d "${install_dir}" ]]; then
+  git clone --depth 1 https://github.com/junegunn/fzf.git "${install_dir}"
+  "${install_dir}/install"
 fi
