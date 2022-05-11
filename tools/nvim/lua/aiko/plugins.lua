@@ -98,6 +98,9 @@ local plugins = packer.startup(function(use)
         -- Enable Treesitter syntax highlighting.
         highlight = {
           enable = true,
+          -- Disable tree-sitter syntax highlighting for tex files, since
+          -- vimtex depends on its own syntax highlighting for some features.
+          disable = { "latex" },
           additional_vim_regex_highlighting = "latex",
         },
         refactor = {
