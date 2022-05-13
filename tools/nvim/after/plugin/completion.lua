@@ -24,10 +24,6 @@ cmp.setup({
       vim.fn["UltiSnips#Anon"](args.body)
     end,
   },
-  window = {
-    completion = cmp.config.window.bordered(),
-    documentation = cmp.config.window.bordered(),
-  },
   mapping = {
     ["<Tab>"] = cmp.mapping(function(fallback)
       if vim.fn["UltiSnips#CanJumpForwards"]() == 1 then
