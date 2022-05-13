@@ -339,6 +339,7 @@ abbr grst 'git restore --staged'
 abbr gssb 'git status -sb'
 abbr gsss 'git status -s'
 abbr gss 'git status'
+abbr gst 'git status'
 
 # ------------
 # |   Show   |
