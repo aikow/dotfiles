@@ -2,7 +2,7 @@ if exists("b:current_syntax")
   finish
 endif
 
-syntax keyword	gitignoreTodo	contained TODO FIXME XXX
+syntax keyword gitignoreTodo contained TODO FIXME XXX
 " Avoid matching "text#text", used in /etc/disktab and /etc/gettytab
 syntax match gitignoreComment "^#.*" contains=gitignoreTodo
 syntax match gitignoreComment "\s#.*"ms=s+1 contains=gitignoreTodo
