@@ -11,4 +11,4 @@ docker volume ls \
     --preview='docker volume inspect {1}' \
     --preview-window='hidden,nowrap' \
     --bind 'ctrl-t:toggle-preview-wrap' \
-  | sed -e 's/^\w+\s+//'
+  | sed -e 's/^\w\+\s\+//'
