@@ -188,4 +188,18 @@ else:
 `$2
 endsnippet
 
-# }}} type setting #
+
+################################################################################
+#                                   Glossary                                   #
+################################################################################
+
+snippet newgls "new glossary entry" bA
+\newglossaryentry{$1}{%
+	name={$2},%
+	description={$3}%
+}
+endsnippet
+
+snippet newacr "new acronym" bA
+\newacronym{$1}{${2:`!p snip.rv = t[1].upper()`}}{$3}
+endsnippet

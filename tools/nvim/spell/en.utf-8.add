@@ -6,3 +6,5 @@ treesitter
 nvim
 protobuf
 reentrant
+untokenized
+detokenizing
