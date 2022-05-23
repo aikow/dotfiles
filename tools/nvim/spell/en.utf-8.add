@@ -6,6 +6,7 @@ treesitter
 nvim
 protobuf
 reentrant
-init
 config
 configs
+untokenized
+detokenizing
