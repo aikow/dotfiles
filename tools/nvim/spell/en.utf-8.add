@@ -6,3 +6,6 @@ treesitter
 nvim
 protobuf
 reentrant
+init
+config
+configs
