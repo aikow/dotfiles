@@ -418,6 +418,7 @@ myStartupHook = do
   -- Set background to last set background image
   spawnOnce "nitrogen --restore &"
   spawnOnce "picom &"
+  spawnOnce "command -v yakuake &>/dev/null && yakuake &"
 
   -- Remap caps lock to escape
   spawnOnce "xmodmap -e 'clear lock'"
