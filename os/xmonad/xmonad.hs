@@ -348,25 +348,32 @@ myManageHook = composeAll
      -- using 'doShift ( myWorkspaces !! 7)' sends program to workspace 8!
      -- I'm doing it this way because otherwise I would have to write out the full
      -- name of my workspaces and the names would be very long if using clickable workspaces.
-     [ className =? "confirm"         --> doFloat
-     , className =? "file_progress"   --> doFloat
-     , className =? "dialog"          --> doFloat
-     , className =? "download"        --> doFloat
-     , className =? "error"           --> doFloat
-     , className =? "Gimp"            --> doFloat
-     , className =? "notification"    --> doFloat
-     , className =? "pinentry-gtk-2"  --> doFloat
-     , className =? "splash"          --> doFloat
-     , className =? "toolbar"         --> doFloat
-     , className =? "Yad"             --> doCenterFloat
-     , title =? "Oracle VM VirtualBox Manager"  --> doFloat
-     , title =? "Mozilla Firefox"     --> doShift ( myWorkspaces !! 1 )
-     , className =? "Brave-browser"   --> doShift ( myWorkspaces !! 1 )
-     , className =? "mpv"             --> doShift ( myWorkspaces !! 7 )
-     , className =? "Gimp"            --> doShift ( myWorkspaces !! 8 )
-     , className =? "VirtualBox Manager" --> doShift  ( myWorkspaces !! 4 )
-     , (className =? "firefox" <&&> resource =? "Dialog") --> doFloat  -- Float Firefox Dialog
-     , isFullscreen -->  doFullFloat
+     [ className =? "confirm"                                       --> doFloat
+     , className =? "file_progress"                                 --> doFloat
+     , className =? "dialog"                                        --> doFloat
+     , className =? "download"                                      --> doFloat
+     , className =? "error"                                         --> doFloat
+     , className =? "Gimp"                                          --> doFloat
+     , className =? "notification"                                  --> doFloat
+     , className =? "pinentry-gtk-2"                                --> doFloat
+     , className =? "splash"                                        --> doFloat
+     , className =? "toolbar"                                       --> doFloat
+     , className =? "Yad"                                           --> doCenterFloat
+     , title =? "Oracle VM VirtualBox Manager"                      --> doFloat
+     , title =? "Mozilla Firefox"                                   --> doShift ( myWorkspaces !! 1 )
+     , className =? "Brave-browser"                                 --> doShift ( myWorkspaces !! 1 )
+     , className =? "Code"                                          --> doShift ( myWorkspaces !! 2 )
+     , className =? "jetbrains-pycharm"                             --> doShift ( myWorkspaces !! 2 )
+     , className =? "jetbrains-clion"                               --> doShift ( myWorkspaces !! 2 )
+     , className =? "Zathura"                                       --> doShift ( myWorkspaces !! 3 )
+     , className =? "okular"                                        --> doShift ( myWorkspaces !! 3 )
+     , className =? "VirtualBox Manager"                            --> doShift ( myWorkspaces !! 4 )
+     , className =? "Spotify"                                       --> doShift ( myWorkspaces !! 6 )
+     , className =? "Gimp"                                          --> doShift ( myWorkspaces !! 8 )
+     , (className =? "firefox" <&&> resource =? "Dialog")           --> doFloat
+     , (className =? "jetbrains-pycharm" <&&> resource =? "Dialog") --> doFloat
+     , (className =? "jetbrains-clion" <&&> resource =? "Dialog")   --> doFloat
+     , isFullscreen                                                 --> doFullFloat
      ]
 
 

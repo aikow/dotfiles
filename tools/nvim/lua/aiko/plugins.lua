@@ -348,6 +348,22 @@ local plugins = packer.startup(function(use)
     ft = { "fish" },
   })
 
+  -- Nvim Org mode plugin
+  use({
+    "nvim-neorg/neorg",
+    config = function()
+      require("neorg").setup {
+      load = {
+        ["core.defaults"] = {},
+        ["core.norg.concealer"] = {},
+        ["core.norg.completion"] = {},
+      }
+    }
+    end,
+    requires = "nvim-lua/plenary.nvim",
+    tag = "*",
+  })
+
   -- --------------------------------
   -- |   Themes and customization   |
   -- --------------------------------
