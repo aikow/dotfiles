@@ -329,9 +329,9 @@ for_window [class="(?i)recordmydesktop"] floating enable
 for_window [class="(?i)pavucontrol"] floating enable, move position mouse
 for_window [class="(?i)pavucontrol" instance="pavucontrol-bar"] move down $height px
 
-assign [class="(?i)spotify"]     $ws7
 assign [class="(?i)zoom"]        $ws8
-assign [class="(?i)thunderbird"] $ws9
+assign [class="(?i)thunderbird"] $ws8
+assign [class="(?i)spotify"]     $ws9
 
 #######################################################################
 #                                Theme                                #

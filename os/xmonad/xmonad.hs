@@ -368,8 +368,10 @@ myManageHook = composeAll
      , className =? "Zathura"                                       --> doShift ( myWorkspaces !! 3 )
      , className =? "okular"                                        --> doShift ( myWorkspaces !! 3 )
      , className =? "VirtualBox Manager"                            --> doShift ( myWorkspaces !! 4 )
-     , className =? "Spotify"                                       --> doShift ( myWorkspaces !! 6 )
-     , className =? "Gimp"                                          --> doShift ( myWorkspaces !! 8 )
+     , className =? "Gimp"                                          --> doShift ( myWorkspaces !! 5 )
+     , className =? "Thunderbird"                                   --> doShift ( myWorkspaces !! 7 )
+     , className =? "Zoom"                                          --> doShift ( myWorkspaces !! 7 )
+     , className =? "Spotify"                                       --> doShift ( myWorkspaces !! 8 )
      , (className =? "firefox" <&&> resource =? "Dialog")           --> doFloat
      , (className =? "jetbrains-pycharm" <&&> resource =? "Dialog") --> doFloat
      , (className =? "jetbrains-clion" <&&> resource =? "Dialog")   --> doFloat
