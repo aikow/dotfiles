@@ -83,7 +83,22 @@ local plugins = packer.startup(function(use)
 		config = function()
 			require("nvim-treesitter.configs").setup({
 				-- Ensure that all maintained languages are always installed.
-				ensure_installed = "all",
+				ensure_installed = {
+						"bash",
+            "c",
+            "cmake",
+						"cpp",
+						"fish",
+						"go",
+						"json",
+						"lua",
+						"markdown",
+						"python",
+						"rust",
+						"toml",
+						"vim",
+						"yaml",
+					},
 				sync_install = false,
 				-- Allow incremental selection using Treesitter code regions.
 				incremental_selection = {
@@ -97,21 +112,7 @@ local plugins = packer.startup(function(use)
 				},
 				-- Enable Treesitter syntax highlighting.
 				highlight = {
-					enable = {
-						"bash",
-						"cpp",
-						"fish",
-						"go",
-						"json",
-						"lua",
-						"markdown",
-						"python",
-						"rust",
-						"toml",
-						"vim",
-						"yaml",
-						"zsh",
-					},
+					enable = true,
 					-- Disable tree-sitter syntax highlighting for tex files, since
 					-- vimtex depends on its own syntax highlighting for some features.
 					disable = { "latex" },
