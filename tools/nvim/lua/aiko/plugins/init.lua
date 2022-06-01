@@ -35,14 +35,10 @@ M.plugins = function(use)
     },
     {
       "nvim-telescope/telescope-fzf-native.nvim",
-      cmd = "Telescope",
-      module = "telescope",
       run = "make",
     },
     {
       "fhill2/telescope-ultisnips.nvim",
-      cmd = "Telescope",
-      module = "telescope",
     },
   })
 
