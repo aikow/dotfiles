@@ -66,7 +66,7 @@ opt.softtabstop = 2
 opt.showmatch = true
 
 -- Menu options
-opt.pumblend = 17
+-- opt.pumblend = 17
 
 -- Wildmenu options
 opt.wildmenu = true
