@@ -10,11 +10,23 @@ local map = vim.keymap.set
 --
 -- Vim Tmux Navigator keybindings
 vim.g.tmux_navigator_no_mappings = 1
-map({ "i", "n", "t" }, "<M-h>", [[<cmd>TmuxNavigateLeft<CR>]])
-map({ "i", "n", "t" }, "<M-j>", [[<cmd>TmuxNavigateDown<CR>]])
-map({ "i", "n", "t" }, "<M-k>", [[<cmd>TmuxNavigateUp<CR>]])
-map({ "i", "n", "t" }, "<M-l>", [[<cmd>TmuxNavigateRight<CR>]])
-map({ "i", "n", "t" }, "<M-o>", [[<cmd>TmuxNavigatePrevious<CR>]])
+map("n", "<M-h>", [[<cmd>TmuxNavigateLeft<CR>]], { silent = true })
+map("n", "<M-j>", [[<cmd>TmuxNavigateDown<CR>]], { silent = true })
+map("n", "<M-k>", [[<cmd>TmuxNavigateUp<CR>]], { silent = true })
+map("n", "<M-l>", [[<cmd>TmuxNavigateRight<CR>]], { silent = true })
+map("n", "<M-o>", [[<cmd>TmuxNavigatePrevious<CR>]], { silent = true })
+
+map("i", "<M-h>", [[<esc>:TmuxNavigateLeft<CR>]], { silent = true })
+map("i", "<M-j>", [[<esc>:TmuxNavigateDown<CR>]], { silent = true })
+map("i", "<M-k>", [[<esc>:TmuxNavigateUp<CR>]], { silent = true })
+map("i", "<M-l>", [[<esc>:TmuxNavigateRight<CR>]], { silent = true })
+map("i", "<M-o>", [[<esc>:TmuxNavigatePrevious<CR>]], { silent = true })
+
+map("t", "<M-h>", [[<C-\><C-n>:TmuxNavigateLeft<CR>]], { silent = true })
+map("t", "<M-j>", [[<C-\><C-n>:TmuxNavigateDown<CR>]], { silent = true })
+map("t", "<M-k>", [[<C-\><C-n>:TmuxNavigateUp<CR>]], { silent = true })
+map("t", "<M-l>", [[<C-\><C-n>:TmuxNavigateRight<CR>]], { silent = true })
+map("t", "<M-o>", [[<C-\><C-n>:TmuxNavigatePrevious<CR>]], { silent = true })
 
 -- Treat long lines as break lines (useful when moving around in them)
 map("n", "j", "gj")
@@ -334,3 +346,9 @@ map("n", "<leader>gD", "<cmd>Gitsigns toggle_deleted<CR>", { silent = true })
 
 -- Text object
 map({ "o", "x" }, "ig", ":<C-U>Gitsigns select_hunk<CR>", { silent = true })
+
+-- Reload all my files
+map("n", "<leader>sr", function()
+  require("plenary.reload").reload_module("aiko", true)
+  require("aiko")
+end)

@@ -37,7 +37,7 @@ M.plugins = function(use)
       "nvim-telescope/telescope-fzf-native.nvim",
       run = "make",
     },
-   {
+    {
       "benfowler/telescope-luasnip.nvim",
       -- module = "telescope._extensions.luasnip",
     },
@@ -95,7 +95,7 @@ M.plugins = function(use)
   use({
     {
       "rafamadriz/friendly-snippets",
-      event = {"InsertEnter", "CmdlineEnter"},
+      event = { "InsertEnter", "CmdlineEnter" },
       module = "nvim_cmp_lsp",
     },
     {
@@ -195,7 +195,7 @@ M.plugins = function(use)
       "airblade/vim-rooter",
       config = function()
         vim.g.rooter_silent_chdir = 1
-      end
+      end,
     },
     {
       "lukas-reineke/indent-blankline.nvim",
