@@ -8,7 +8,7 @@ M.setup = function()
   telescope.setup({
     defaults = {
       prompt_prefix = "> ",
-      selection_caret = "+ ",
+      selection_caret = "> ",
       entry_prefix = "  ",
 
       initial_mode = "insert",
@@ -40,7 +40,7 @@ M.setup = function()
 
       color_devicons = true,
 
-      set_env = { ["COLORTERM"] = "truecolor" }, -- default = nil,
+      set_env = { ["COLORTERM"] = "truecolor" },
 
       mappings = {
         i = {
