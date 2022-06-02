@@ -9,7 +9,7 @@ M.setup = function()
 		updateevents = "TextChanged,TextChangedI",
 	})
 
-	map({ "i" }, "<Tab>", "<Plug>luasnip-expand-or-jump", { silent = true, expr = true })
+	map({ "i" }, "<Tab>", "luasnip#expand_or_jumpable() ? '<Plug>luasnip-expand-or-jump' : '<Tab>'", { silent = true, expr = true })
 	map("s", "<Tab>", function()
 		require("luasnip").jump(1)
 	end, { silent = true })
@@ -28,6 +28,11 @@ M.setup = function()
 	)
 
 	require("luasnip.loaders.from_vscode").lazy_load()
+	require("luasnip.loaders.from_vscode").lazy_load({
+    paths = { "~/.dotfiles/tools/nvim/snippets" }
+  })
+
+  luasnip.snippets = require("aiko.snippets").snippets
 end
 
 return M
