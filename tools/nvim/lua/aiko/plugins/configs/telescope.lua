@@ -164,8 +164,8 @@ M.setup = function()
   -- load_extension, somewhere after setup function:
   telescope.load_extension("fzf")
 
-  -- Load ultisnips snippet support.
-  telescope.load_extension("ultisnips")
+  -- Load luasnip snippet support.
+  telescope.load_extension("luasnip")
 end
 
 -- Custom themes

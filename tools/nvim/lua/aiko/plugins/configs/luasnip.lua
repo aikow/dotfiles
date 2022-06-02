@@ -9,6 +9,8 @@ M.setup = function()
   })
 
   require("luasnip.loaders.from_vscode").lazy_load()
+
+  print("Luasnip")
 end
 
 return M

@@ -7,15 +7,9 @@ else
 end
 
 -- Bootstrap stuff if this is the first time loading neovim on a machine.
--- if require("aiko.first_load").setup() then
---   return
--- end
-
--- -----------------------
--- |   Python Provider   |
--- -----------------------
--- Setup python provider
-require("aiko.provider").setup_python()
+if require("aiko.first_load").setup() then
+  return
+end
 
 -- ------------------------------
 -- |   Leader and Localleader   |
@@ -28,9 +22,6 @@ vim.g.mapleader = " "
 -- Set local leader to the backslash
 map("n", [[\]], "<NOP>")
 vim.g.maplocalleader = [[\]]
-
--- Setup plugins, options and keymaps
-require("aiko.plugins")
 
 -- ---------------------
 -- |   Auto Commands   |
