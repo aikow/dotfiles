@@ -11,13 +11,15 @@
       "IFS=$' \\n\\t'",
       "",
       ""
-    ]
+    ],
+    "description": "Header for a safe bash script."
   },
   "Script directory": {
-    "prefix": "scriptdir",
+    "prefix": "dirname",
     "body": [
-      "readonly SCRIPT_DIR=\"$(cd -- \"$(dirname -- \"${BASH_SOURCE[0]}\")\" &>/dev/null && pwd -P)\""
-    ]
+      "readonly __DIRNAME=\"$(cd -- \"$(dirname -- \"\\${BASH_SOURCE[0]}\")\" &>/dev/null && pwd -P)\""
+    ],
+    "description": "A readonly variable with the path to the directory of the current file."
   },
   "Command line argument parser": {
     "prefix": "clap",
@@ -52,7 +54,8 @@
       "\t$3=\"$4\"",
       "\tshift  # Past argument",
       "\t;;"
-    ]
+    ],
+    "description": "Parse a flag from the CLI arguments."
   },
   "Argument command line argument": {
     "prefix": "aclap",
@@ -62,6 +65,7 @@
       "\tshift  # Past argument",
       "\tshift  # Past value",
       "\t;;"
-    ]
+    ],
+    "description": "Parse an optional argument from the CLI arguments."
   }
 }

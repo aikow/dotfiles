@@ -10,10 +10,15 @@ M.plugins = function(use)
   -- |   LSP Config   |
   -- ------------------
   use({
-    "neovim/nvim-lspconfig",
-    config = function()
-      require("aiko.plugins.configs.lspconfig").setup()
-    end,
+    {
+      "neovim/nvim-lspconfig",
+      config = function()
+        require("aiko.plugins.configs.lspconfig").setup()
+      end,
+    },
+    {
+      "williamboman/nvim-lsp-installer",
+    }
   })
 
   -- -----------------
