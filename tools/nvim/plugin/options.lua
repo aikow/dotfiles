@@ -1,4 +1,7 @@
 local opt = vim.opt
+local g = vim.g
+
+g.do_filetype_lua = 1
 
 -- make scrolling and painting fast
 opt.lazyredraw = true
@@ -36,6 +39,7 @@ opt.hidden = true
 -- Set the timeout times
 opt.timeoutlen = 500
 opt.ttimeoutlen = 5
+opt.confirm = true
 
 -- Use system clipboard
 if vim.g.os == "Darwin" then
@@ -139,7 +143,7 @@ opt.belloff = "all" -- Turn off the bell for everything for good measure
 -- Colorscheme and background
 opt.termguicolors = true -- 24-bit RGB color support
 opt.background = "dark"
-vim.cmd([[colorscheme gruvbox-material]])
+vim.cmd([[colorscheme onedark]])
 
 -- Always show the status line and tabline
 opt.showtabline = 2 -- Always show the tab line
@@ -151,11 +155,14 @@ opt.showcmd = true --Show the last line of the last command
 -- Show a ruler at 80 characters.
 opt.textwidth = 80
 opt.colorcolumn = { 80 }
-opt.ruler = true
+opt.ruler = false
 
 -- Enable relative numbers, but display the line number in the current line.
 opt.relativenumber = true
 opt.number = true
+opt.numberwidth = 2
+
+opt.fillchars = { eob = " " }
 
 -- Only enable the cursor line in the current buffer.
 opt.cursorline = true -- Highlight the current line
@@ -175,4 +182,4 @@ set_cursorline("FileType", false, "TelescopePrompt")
 
 -- Wrap lines
 opt.wrap = true
-opt.showbreak = string.rep(" ", 3)
+opt.showbreak = string.rep(" ", 4)

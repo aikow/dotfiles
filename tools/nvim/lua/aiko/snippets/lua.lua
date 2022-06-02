@@ -14,20 +14,14 @@ local fmt = require("luasnip.extras.fmt").fmt
 local m = require("luasnip.extras").m
 local lambda = require("luasnip.extras").l
 
-return {
-
-},
-{
-	s("rq", {
-		fmt(
-			[[local {} = require("{}")]],
-			{
-				f(function(import_name)
-					local parts = vim.split(import_name[1], ".", true)
-					return parts[-1]
-				end, { 1 }),
-				i(1),
-			}
-		),
-	}),
+return {}, {
+  s("rq", {
+    fmt([[local {} = require("{}")]], {
+      f(function(import_name)
+        local parts = vim.split(import_name[1], ".", true)
+        return parts[-1]
+      end, { 1 }),
+      i(1),
+    }),
+  }),
 }
