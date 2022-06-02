@@ -1,0 +1,67 @@
+{
+  "Safe bash options": {
+    "prefix": "sbash",
+    "body": [
+      "#!/usr/bin/env bash",
+      "",
+      "set -o errexit",
+      "set -o pipefail",
+      "set -o nounset",
+      "",
+      "IFS=$' \n\t'",
+      "",
+      ""
+    ]
+  },
+  "Script directory": {
+    "prefix": "scriptdir",
+    "body": [
+      "readonly SCRIPT_DIR=\"$(cd -- \"$(dirname -- \"${BASH_SOURCE[0]}\")\" &>/dev/null && pwd -P)\""
+    ]
+  },
+	"Command line argument parser": {
+		"prefix": "clap",
+		"body": [
+      "# Store positional args in an array.",
+      "declare -a _POSITIONAL_ARGS=()",
+      "",
+      "while [[ ${#@} -gt 0 ]]; do",
+      "\tcase \"\${1}\" in",
+      "\t\t$0",
+      "\t\t-*|--*)",
+      "\t\t\techo \"Unknown option \${1}\"",
+      "\t\t\texit 1",
+      "\t\t\t;;",
+      "\t\t*)",
+      "\t\t\t_POSITIONAL_ARGS+=(\"\${1}\")  # Save positional argument",
+      "\t\t\tshift  # Past argument.",
+      "\t\t\t;;",
+      "\tesac",
+      "done",
+      "",
+      "# Restore positional arguments and delete the temporary array.",
+      "set -- \"${_POSITIONAL_ARGS[@]+\"${_POSITIONAL_ARGS[@]}\"}\"",
+      "unset _POSITIONAL_ARGS"
+		],
+    "description": "Small heading to separate sections."
+	},
+  "Flag command line argument": {
+    "prefix": "fclap",
+    "body": [
+      "-$1|--$2)",
+      "\t$3=\"$4\"",
+      "\tshift  # Past argument",
+      "\t;;"
+    ]
+  },
+  "Argument command line argument": {
+    "prefix": "aclap",
+    "body": [
+      "-$1|--$2)",
+      "\t$3=\"\${2}\"",
+      "\tshift  # Past argument",
+      "\tshift  # Past value",
+      "\t;;",
+    ]
+  }
+}

@@ -1,0 +1,18 @@
+{
+	"name": "aiko-vscode-snippets",
+  "engines": {
+    "vscode": "^1.11.0"
+  },
+	"contributes": {
+		"snippets": [
+			{
+        "language": "lua",
+				"path": "./snips/global.json"
+			},
+      {
+        "language": "bash",
+        "path": "./snips/bash.json"
+      }
+		]
+	}
+}
