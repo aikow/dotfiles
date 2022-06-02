@@ -98,21 +98,6 @@ M.setup = function()
   -- Use cmdline & path source for ":"
   cmp.setup.cmdline(":", {
     mapping = {
-      ["<Tab>"] = cmp.mapping(function(fallback)
-        if cmp.visible() then
-          cmp.select_next_item()
-        else
-          cmp.mapping.complete()
-        end
-      end, { "c" }),
-      ["<S-Tab>"] = cmp.mapping(function(fallback)
-        if cmp.visible() then
-          cmp.select_prev_item()
-        else
-          cmp.mapping.complete()
-        end
-      end, { "c" }),
-
       ["<C-j>"] = cmp.mapping(cmp.mapping.select_next_item(), { "c" }),
       ["<C-k>"] = cmp.mapping(cmp.mapping.select_prev_item(), { "c" }),
 
