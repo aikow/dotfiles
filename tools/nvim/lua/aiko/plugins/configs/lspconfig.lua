@@ -2,9 +2,10 @@ local M = {}
 
 M.setup = function()
   -- Setup nvim-cmp with lspconfig.
+  require("nvim-lsp-installer").setup({})
   local lspconfig = require("lspconfig")
 
-  -- Borders for LspInfo winodw
+  -- Borders for LspInfo window
   local win = require("lspconfig.ui.windows")
   local _default_opts = win.default_opts
 
@@ -15,24 +16,6 @@ M.setup = function()
   end
 
   local capabilities = require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities())
-
-  capabilities.textDocument.completion.completionItem = {
-    documentationFormat = { "markdown", "plaintext" },
-    snippetSupport = true,
-    preselectSupport = true,
-    insertReplaceSupport = true,
-    labelDetailsSupport = true,
-    deprecatedSupport = true,
-    commitCharactersSupport = true,
-    tagSupport = { valueSet = { 1 } },
-    resolveSupport = {
-      properties = {
-        "documentation",
-        "detail",
-        "additionalTextEdits",
-      },
-    },
-  }
 
   -- Python language server.
   if vim.fn.executable("pyright") == 1 then
