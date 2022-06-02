@@ -75,7 +75,7 @@ M.plugins = function(use)
     end,
   })
 
-  -- Enable correct spelling syntax highlighting with Treesitter.
+  -- Enable correct spelling syntax highlighting with Tree-sitter.
   use({
     "lewis6991/spellsitter.nvim",
     after = "nvim-treesitter",
@@ -95,15 +95,15 @@ M.plugins = function(use)
   use({
     {
       "rafamadriz/friendly-snippets",
+      event = {"InsertEnter", "CmdlineEnter"},
       module = "nvim_cmp_lsp",
-      event = "InsertEnter",
     },
     {
       "L3MON4D3/luasnip",
+      after = "nvim-cmp",
       requires = {
         "friendly-snippets",
       },
-      after = "nvim-cmp",
       config = function()
         require("aiko.plugins.configs.luasnip").setup()
       end,
