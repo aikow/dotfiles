@@ -1,18 +1,5 @@
 local M = {}
 
-M.border = function(hl_name)
-  return {
-    { "╭", hl_name },
-    { "─", hl_name },
-    { "╮", hl_name },
-    { "│", hl_name },
-    { "╯", hl_name },
-    { "─", hl_name },
-    { "╰", hl_name },
-    { "│", hl_name },
-  }
-end
-
 M.setup = function()
   -- Set completeopt to have a better completion experience
   -- :help completeopt
@@ -33,21 +20,10 @@ M.setup = function()
   end
   lspkind.init()
 
-  local cmp_window = require("cmp.utils.window")
-
   cmp.setup({
-    window = {
-      completion = {
-        border = M.border("CmpBorder"),
-      },
-      documentation = {
-        border = M.border("CmpDocBorder"),
-      },
-    },
     snippet = {
       expand = function(args)
         require("luasnip").lsp_expand(args.body)
-        -- vim.fn["UltiSnips#Anon"](args.body)
       end,
     },
     mapping = {
@@ -92,7 +68,6 @@ M.setup = function()
       { name = "nvim_lua" },
       { name = "nvim_lsp" },
       { name = "crates" },
-      { name = "ultisnips" },
       { name = "luasnip" },
       { name = "omni" },
     }, {

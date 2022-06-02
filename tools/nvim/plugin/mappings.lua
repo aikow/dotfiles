@@ -288,17 +288,7 @@ map("n", "<leader>hr", function()
 end, { silent = true })
 
 map("n", "<leader>hs", function()
-  require("telescope").extensions.ultisnips.ultisnips({
-    layout_strategy = "vertical",
-    layout_config = {
-      width = function(_, max_columns, max_lines)
-        if max_columns > 120 then
-          max_columns = 120
-        end
-        return require("math").floor(max_columns * 0.80)
-      end,
-    },
-  })
+  require("telescope").extensions.luasnip.luasnip(require("aiko.plugins.configs.telescope").dynamic())
 end, { silent = true })
 
 map("n", "<leader>ha", function()

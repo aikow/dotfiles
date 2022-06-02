@@ -27,7 +27,7 @@ M.plugins = function(use)
       requires = {
         "nvim-lua/plenary.nvim",
         "telescope-fzf-native.nvim",
-        "fhill2/telescope-ultisnips.nvim",
+        "benfowler/telescope-luasnip.nvim",
       },
       config = function()
         require("aiko.plugins.configs.telescope").setup()
@@ -37,8 +37,9 @@ M.plugins = function(use)
       "nvim-telescope/telescope-fzf-native.nvim",
       run = "make",
     },
-    {
-      "fhill2/telescope-ultisnips.nvim",
+   {
+      "benfowler/telescope-luasnip.nvim",
+      -- module = "telescope._extensions.luasnip",
     },
   })
 
@@ -98,20 +99,14 @@ M.plugins = function(use)
       event = "InsertEnter",
     },
     {
-      "sirver/ultisnips",
-      after = "nvim-cmp",
-      -- config = function()
-      -- vim.g.UltiSnipsExpandTrigger = "<tab>"
-      -- vim.g.UltiSnipsJumpForwardTrigger = "<tab>"
-      -- vim.g.UltiSnipsJumpBackwardTrigger = "<s-tab>"
-      -- end,
-    },
-    {
       "L3MON4D3/luasnip",
       requires = {
         "friendly-snippets",
       },
       after = "nvim-cmp",
+      config = function()
+        require("aiko.plugins.configs.luasnip").setup()
+      end,
     },
   })
 
@@ -132,7 +127,6 @@ M.plugins = function(use)
         "hrsh7th/cmp-path",
         "hrsh7th/cmp-cmdline",
         "hrsh7th/cmp-omni",
-        "quangnguyen30192/cmp-nvim-ultisnips",
         "saadparwaiz1/cmp_luasnip",
         "onsails/lspkind.nvim",
       },
@@ -162,10 +156,6 @@ M.plugins = function(use)
     },
     {
       "hrsh7th/cmp-omni",
-      after = "nvim-cmp",
-    },
-    {
-      "quangnguyen30192/cmp-nvim-ultisnips",
       after = "nvim-cmp",
     },
     {
@@ -201,7 +191,12 @@ M.plugins = function(use)
     "tpope/vim-vinegar",
     "godlygeek/tabular",
     "christoomey/vim-tmux-navigator",
-    "airblade/vim-rooter",
+    {
+      "airblade/vim-rooter",
+      config = function()
+        vim.g.rooter_silent_chdir = 1
+      end
+    },
     {
       "lukas-reineke/indent-blankline.nvim",
       event = "BufRead",
