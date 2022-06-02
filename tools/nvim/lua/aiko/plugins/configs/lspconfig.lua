@@ -31,6 +31,13 @@ M.setup = function()
     })
   end
 
+  -- Bash language server
+  if vim.fn.executable("bash-language-server") == 1 then
+    lspconfig.bashls.setup({
+      capabilities = capabilities,
+    })
+  end
+
   -- YAML language server
   if vim.fn.executable("yaml-language-server") == 1 then
     lspconfig.yamlls.setup({
@@ -38,12 +45,29 @@ M.setup = function()
     })
   end
 
-  -- Bash language server
-  if vim.fn.executable("bash-language-server") == 1 then
-    lspconfig.bashls.setup({
-      capabilities = capabilities,
-    })
-  end
+  lspconfig.jsonls.setup({
+    capabilities = capabilities,
+  })
+
+  -- Lua language server
+  lspconfig.sumneko_lua.setup({
+    capabilities = capabilities,
+    settings = {
+      Lua = {
+        diagnostics = {
+          globals = { "vim" },
+        },
+        workspace = {
+          library = {
+            [vim.fn.expand("$VIMRUNTIME/lua")] = true,
+            [vim.fn.expand("$VIMRUNTIME/lua/vim/lsp")] = true,
+          },
+          maxPreload = 100000,
+          preloadFileSize = 10000,
+        },
+      },
+    },
+  })
 end
 
 return M
