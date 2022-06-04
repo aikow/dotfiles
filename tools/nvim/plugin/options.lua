@@ -39,7 +39,6 @@ opt.hidden = true
 -- Set the timeout times
 opt.timeoutlen = 500
 opt.ttimeoutlen = 5
-opt.confirm = true
 
 -- Use system clipboard
 if vim.g.os == "Darwin" then
