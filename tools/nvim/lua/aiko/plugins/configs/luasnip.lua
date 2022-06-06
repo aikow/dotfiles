@@ -2,15 +2,23 @@ local M = {}
 
 M.setup = function()
   local map = vim.keymap.set
-  local luasnip = require("luasnip")
+  local rs = require("luasnip")
+  local types = require("luasnip.util.types")
 
   -- --------------
   -- |   Config   |
   -- --------------
-  luasnip.config.set_config({
+  rs.config.set_config({
     autotrigger = true,
     history = true,
     updateevents = "TextChanged,TextChangedI",
+    ext_opts = {
+      [types.choiceNode] = {
+        active = {
+          virt_text = { { " <- Current Choice", "NonTest" } },
+        },
+      },
+    },
   })
 
   -- -----------------------
@@ -65,7 +73,7 @@ M.setup = function()
   })
 
   require("luasnip.loaders.from_lua").lazy_load({
-    paths = "~/.dotfiles/tools/nvim/lua/aiko/snippets",
+    paths = "~/.dotfiles/tools/nvim/snippets",
   })
 end
 

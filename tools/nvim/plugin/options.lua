@@ -71,7 +71,7 @@ opt.showmatch = true
 -- Menu options
 -- opt.pumblend = 17
 
--- Wildmenu options
+-- Wild menu options
 opt.wildmenu = true
 opt.wildmode = "longest:full"
 opt.wildoptions = "pum" -- Fancy menu
@@ -139,7 +139,7 @@ opt.spelllang = "en,de"
 opt.visualbell = false
 opt.belloff = "all" -- Turn off the bell for everything for good measure
 
--- Colorscheme and background
+-- Color scheme and background
 opt.termguicolors = true -- 24-bit RGB color support
 opt.background = "dark"
 vim.cmd([[colorscheme onedark]])
@@ -178,6 +178,8 @@ end
 set_cursorline("WinLeave", false)
 set_cursorline("WinEnter", true)
 set_cursorline("FileType", false, "TelescopePrompt")
+
+opt.conceallevel = 2
 
 -- Wrap lines
 opt.wrap = true

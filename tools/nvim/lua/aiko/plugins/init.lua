@@ -192,11 +192,28 @@ M.plugins = function(use)
   --
   -- Nice helper plugins
   use({
+    -- Use '.' to repeat plugin code actions.
     "tpope/vim-repeat",
+
+    -- Work with parenthesis, quotes, and other text surroundings.
     "tpope/vim-surround",
+
+    -- Improve netrw built-in plugin.
     "tpope/vim-vinegar",
-    "godlygeek/tabular",
+
+    -- Effortlessly switch between vim and tmux windows.
     "christoomey/vim-tmux-navigator",
+
+    {
+      "godlygeek/tabular",
+      cmd = { "Tabular", "Tabularize" },
+      config = function()
+        -- Add tabular pattern to parse latex table with multicolumns
+        vim.cmd([[
+          AddTabularPattern latex_table /\v(\&)|(\\multicolumn(\{[^}]*\}){3})@=/
+        ]])
+      end,
+    },
     {
       "airblade/vim-rooter",
       config = function()
@@ -253,7 +270,12 @@ M.plugins = function(use)
         { silent = true, buffer = 0, desc = "reformat python with black and isort" }
       )
 
-      vim.keymap.set("n", "<leader>if", require("python-nvim").flake8, { buffer = 0, desc = "run flake8 linting" })
+      vim.keymap.set(
+        "n",
+        "<leader>if",
+        require("python-nvim").flake8,
+        { buffer = 0, desc = "run flake8 linting" }
+      )
     end,
   })
 
@@ -309,10 +331,6 @@ M.plugins = function(use)
     end,
     ft = { "tex" },
   })
-  use({
-    "KeitaNakamura/tex-conceal.vim",
-    ft = { "tex" },
-  })
 
   -- Markdown
   use({
@@ -322,9 +340,24 @@ M.plugins = function(use)
     end,
     ft = { "markdown" },
     config = function()
-      vim.keymap.set("n", "<localleader>r", "<cmd>MarkdownPreview<CR>", { buffer = true, silent = true })
-      vim.keymap.set("n", "<localleader>s", "<cmd>MarkdownPreviewStop<CR>", { buffer = true, silent = true })
-      vim.keymap.set("n", "<localleader>t", "<cmd>MarkdownPreviewToggle<CR>", { buffer = true, silent = true })
+      vim.keymap.set(
+        "n",
+        "<localleader>r",
+        "<cmd>MarkdownPreview<CR>",
+        { buffer = true, silent = true }
+      )
+      vim.keymap.set(
+        "n",
+        "<localleader>s",
+        "<cmd>MarkdownPreviewStop<CR>",
+        { buffer = true, silent = true }
+      )
+      vim.keymap.set(
+        "n",
+        "<localleader>t",
+        "<cmd>MarkdownPreviewToggle<CR>",
+        { buffer = true, silent = true }
+      )
     end,
   })
 
@@ -334,7 +367,13 @@ M.plugins = function(use)
     ft = { "fish" },
   })
 
-  -- Nvim Org mode plugin
+  -- CSV helper plugin.
+  use({
+    "chrisbra/csv.vim",
+    ft = { "csv", "tsv" },
+  })
+
+  -- Nvim Org mode plugin.
   use({
     "nvim-neorg/neorg",
     ft = { "norg" },

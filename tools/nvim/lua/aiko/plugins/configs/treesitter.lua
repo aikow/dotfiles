@@ -2,7 +2,6 @@ local M = {}
 
 M.setup = function()
   require("nvim-treesitter.configs").setup({
-    -- Ensure that all maintained languages are always installed.
     ensure_installed = {
       "bash",
       "c",
@@ -19,7 +18,9 @@ M.setup = function()
       "vim",
       "yaml",
     },
+
     sync_install = false,
+
     -- Allow incremental selection using Treesitter code regions.
     incremental_selection = {
       enable = true,
@@ -30,6 +31,7 @@ M.setup = function()
         node_decremental = "<C-j>",
       },
     },
+
     -- Enable Treesitter syntax highlighting.
     highlight = {
       enable = true,
@@ -37,11 +39,13 @@ M.setup = function()
       -- vimtex depends on its own syntax highlighting for some features.
       disable = { "latex" },
     },
+
     refactor = {
       highlight_definitions = {
         enable = true,
         clear_on_custor_move = true,
       },
+
       smart_rename = {
         enable = true,
         keymaps = {

@@ -103,9 +103,24 @@ map("c", "E<S-space>", [[e<space>]])
 -- See `:help vim.diagnostic.*` for documentation on any of the below
 -- functions
 map("n", "<space>e", vim.diagnostic.open_float, { silent = true, desc = "open diagnostic window" })
-map({ "n", "v", "o" }, "[e", vim.diagnostic.goto_prev, { silent = true, desc = "go to previous diagnostic" })
-map({ "n", "v", "o" }, "]e", vim.diagnostic.goto_next, { silent = true, desc = "go to next diagnostic" })
-map("n", "<space>dl", vim.diagnostic.setloclist, { silent = true, desc = "set location list to diagnostics" })
+map(
+  { "n", "v", "o" },
+  "[e",
+  vim.diagnostic.goto_prev,
+  { silent = true, desc = "go to previous diagnostic" }
+)
+map(
+  { "n", "v", "o" },
+  "]e",
+  vim.diagnostic.goto_next,
+  { silent = true, desc = "go to next diagnostic" }
+)
+map(
+  "n",
+  "<space>dl",
+  vim.diagnostic.setloclist,
+  { silent = true, desc = "set location list to diagnostics" }
+)
 
 -- LSP functions
 -- See `:help vim.lsp.*` for documentation on any of the below functions
@@ -127,12 +142,32 @@ vim.keymap.set("n", "<leader>k", vim.lsp.buf.signature_help, { desc = "signature
 map("n", "<leader>lc", vim.lsp.buf.declaration, { silent = true, desc = "lsp go to declaration" })
 map("n", "<leader>lD", vim.lsp.buf.definition, { silent = true, desc = "lsp go to definition" })
 map("n", "<leader>lR", vim.lsp.buf.references, { silent = true, desc = "lsp go to references" })
-map("n", "<leader>lI", vim.lsp.buf.implementation, { silent = true, desc = "lsp go to implementation" })
-map("n", "<leader>lT", vim.lsp.buf.type_definition, { silent = true, desc = "lsp go to type definition" })
+map(
+  "n",
+  "<leader>lI",
+  vim.lsp.buf.implementation,
+  { silent = true, desc = "lsp go to implementation" }
+)
+map(
+  "n",
+  "<leader>lT",
+  vim.lsp.buf.type_definition,
+  { silent = true, desc = "lsp go to type definition" }
+)
 
 -- Workspace settings with <leader>w...
-map("n", "<leader>wa", vim.lsp.buf.add_workspace_folder, { silent = true, desc = "lsp add workspace folder" })
-map("n", "<leader>wr", vim.lsp.buf.remove_workspace_folder, { silent = true, desc = "lsp remove workspace folder" })
+map(
+  "n",
+  "<leader>wa",
+  vim.lsp.buf.add_workspace_folder,
+  { silent = true, desc = "lsp add workspace folder" }
+)
+map(
+  "n",
+  "<leader>wr",
+  vim.lsp.buf.remove_workspace_folder,
+  { silent = true, desc = "lsp remove workspace folder" }
+)
 map("n", "<leader>wl", function()
   print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
 end, { silent = true, desc = "print lsp workspace folders" })
@@ -147,8 +182,18 @@ map("n", "<leader>w", "<cmd>write<CR>")
 map("n", "<leader>W", "<cmd>wall<CR>")
 
 -- Resizing splits
-map("n", "<leader>wvp", [[<cmd>exe "vertical resize " . (winwidth(0) * 3/2)<CR>]], { silent = true })
-map("n", "<leader>wvm", [[<cmd>exe "vertical resize " . (winwidth(0) * 2/3)<CR>]], { silent = true })
+map(
+  "n",
+  "<leader>wvp",
+  [[<cmd>exe "vertical resize " . (winwidth(0) * 3/2)<CR>]],
+  { silent = true }
+)
+map(
+  "n",
+  "<leader>wvm",
+  [[<cmd>exe "vertical resize " . (winwidth(0) * 2/3)<CR>]],
+  { silent = true }
+)
 map("n", "<leader>whp", [[<cmd>exe "resize " . (winheight(0) * 3/2)<CR>]], { silent = true })
 map("n", "<leader>whm", [[<cmd>exe "resize " . (winheight(0) * 2/3)<CR>]], { silent = true })
 map("n", "<C-w><", "5<C-w><")
@@ -177,11 +222,15 @@ map("n", "<leader>jr", function()
 end, { silent = true, desc = "telescope lsp list references" })
 
 map("n", "<leader>ji", function()
-  require("telescope.builtin").lsp_implementations(require("aiko.plugins.configs.telescope").dynamic())
+  require("telescope.builtin").lsp_implementations(
+    require("aiko.plugins.configs.telescope").dynamic()
+  )
 end, { silent = true, desc = "telescope lsp list implementations" })
 
 map("n", "<leader>jt", function()
-  require("telescope.builtin").lsp_type_definitions(require("aiko.plugins.configs.telescope").dynamic())
+  require("telescope.builtin").lsp_type_definitions(
+    require("aiko.plugins.configs.telescope").dynamic()
+  )
 end, { silent = true, desc = "telescope lsp list type definitions" })
 
 map("n", "<leader>ja", function()
@@ -193,15 +242,21 @@ map("n", "<leader>jA", function()
 end, { silent = true, desc = "telescope lsp list range code actions" })
 
 map("n", "<leader>jw", function()
-  require("telescope.builtin").lsp_workspace_symbols(require("aiko.plugins.configs.telescope").dynamic())
+  require("telescope.builtin").lsp_workspace_symbols(
+    require("aiko.plugins.configs.telescope").dynamic()
+  )
 end, { silent = true, desc = "telescope lsp list workspace symbols" })
 
 map("n", "<leader>jW", function()
-  require("telescope.builtin").lsp_dynamic_workspace_symbols(require("aiko.plugins.configs.telescope").dynamic())
+  require("telescope.builtin").lsp_dynamic_workspace_symbols(
+    require("aiko.plugins.configs.telescope").dynamic()
+  )
 end, { silent = true, desc = "telescope lsp list dynamic workspace symbols" })
 
 map("n", "<leader>js", function()
-  require("telescope.builtin").lsp_document_symbols(require("aiko.plugins.configs.telescope").dynamic())
+  require("telescope.builtin").lsp_document_symbols(
+    require("aiko.plugins.configs.telescope").dynamic()
+  )
 end, { silent = true, desc = "telescope lsp list document symbols" })
 
 -- Finding searching and navigating
@@ -226,7 +281,9 @@ map("n", "<leader>fs", function()
 end, { silent = true })
 
 map("n", "<leader>fb", function()
-  require("telescope.builtin").current_buffer_fuzzy_find(require("aiko.plugins.configs.telescope").dynamic())
+  require("telescope.builtin").current_buffer_fuzzy_find(
+    require("aiko.plugins.configs.telescope").dynamic()
+  )
 end, { silent = true })
 
 map("n", "<leader>ft", function()
@@ -300,7 +357,9 @@ map("n", "<leader>hr", function()
 end, { silent = true })
 
 map("n", "<leader>hs", function()
-  require("telescope").extensions.luasnip.luasnip(require("aiko.plugins.configs.telescope").dynamic())
+  require("telescope").extensions.luasnip.luasnip(
+    require("aiko.plugins.configs.telescope").dynamic()
+  )
 end, { silent = true })
 
 map("n", "<leader>ha", function()
