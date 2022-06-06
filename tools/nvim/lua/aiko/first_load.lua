@@ -9,7 +9,11 @@ local download_packer = function()
 
   print("Downloading packer.nvim...")
   local out = vim.fn.system(
-    string.format("git clone %s %s", "https://github.com/wbthomason/packer.nvim", directory .. "/packer.nvim")
+    string.format(
+      "git clone %s %s",
+      "https://github.com/wbthomason/packer.nvim",
+      directory .. "/packer.nvim"
+    )
   )
 
   print(out)

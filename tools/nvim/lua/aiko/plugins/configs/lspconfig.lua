@@ -15,7 +15,9 @@ M.setup = function()
     return opts
   end
 
-  local capabilities = require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities())
+  local capabilities = require("cmp_nvim_lsp").update_capabilities(
+    vim.lsp.protocol.make_client_capabilities()
+  )
 
   -- Python language server.
   if vim.fn.executable("pyright") == 1 then
