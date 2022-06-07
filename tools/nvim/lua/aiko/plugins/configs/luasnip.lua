@@ -9,7 +9,7 @@ M.setup = function()
   -- |   Config   |
   -- --------------
   rs.config.set_config({
-    autotrigger = true,
+    enable_autosnippets = true,
     history = true,
     updateevents = "TextChanged,TextChangedI",
     ext_opts = {
@@ -30,21 +30,21 @@ M.setup = function()
     "luasnip#expand_or_jumpable() ? '<Plug>luasnip-expand-or-jump' : '<Tab>'",
     { silent = true, expr = true, desc = "luasnip jump forward one or insert tab" }
   )
-  map("s", "<Tab>", function()
+  map("s", "<C-j>", function()
     require("luasnip").jump(1)
   end, { silent = true, desc = "luasnip jump forward one" })
-  map("i", "<S-Tab>", function()
+  map("i", "<C-k>", function()
     require("luasnip").jump(-1)
   end, { silent = true, desc = "luasnip jump back one" })
-  map("s", "<S-Tab>", function()
+  map("s", "<C-k>", function()
     require("luasnip").jump(-1)
   end, { silent = true, desc = "luasnip jump back one" })
 
   map(
     { "i", "s" },
     "<C-s>",
-    [[luasnip#choice_active() ? '<Plug>luasnip-next-choice' : '<C-E>']],
-    { silent = true, expr = true, desc = "luasnip next choice" }
+    "<Plug>luasnip-next-choice",
+    { silent = true, desc = "luasnip next choice" }
   )
 
   -- ----------------------------
