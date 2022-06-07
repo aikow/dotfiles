@@ -1,16 +1,13 @@
 local M = {}
 
 M.setup = function()
-  -- Set completeopt to have a better completion experience
-  -- :help completeopt
   -- menuone: popup even when there's only one match
   -- noinsert: Do not insert text until a selection is made
   -- noselect: Do not select, force user to select one from the menu
   vim.opt.completeopt = { "menu", "menuone", "noselect" }
 
   -- Avoid showing extra messages when using completion
-  vim.opt.shortmess = "filnxtToOF"
-  vim.opt.shortmess:append("c")
+  vim.opt.shortmess = "filnxtToOFc"
 
   -- Setup completion framework nvim-cmp.
   local cmp = require("cmp")
@@ -27,33 +24,8 @@ M.setup = function()
       end,
     },
     mapping = {
-      ["<Tab>"] = cmp.mapping(function(fallback)
-        if cmp.visible() then
-          cmp.select_next_item()
-        elseif require("luasnip").expand_or_jumpable() then
-          vim.fn.feedkeys(
-            vim.api.nvim_replace_termcodes("<Plug>luasnip-expand-or-jump", true, true, true),
-            ""
-          )
-        else
-          fallback()
-        end
-      end, { "i", "s" }),
-      ["<S-Tab>"] = cmp.mapping(function(fallback)
-        if cmp.visible() then
-          cmp.select_prev_item()
-        elseif require("luasnip").jumpable(-1) then
-          vim.fn.feedkeys(
-            vim.api.nvim_replace_termcodes("<Plug>luasnip-jump-prev", true, true, true),
-            ""
-          )
-        else
-          fallback()
-        end
-      end, { "i", "s" }),
-
-      ["<C-j>"] = cmp.mapping(cmp.mapping.select_next_item(), { "i", "c" }),
-      ["<C-k>"] = cmp.mapping(cmp.mapping.select_prev_item(), { "i", "c" }),
+      ["<Tab>"] = cmp.mapping(cmp.mapping.select_next_item(), { "i", "c" }),
+      ["<S-Tab>"] = cmp.mapping(cmp.mapping.select_prev_item(), { "i", "c" }),
 
       -- Scroll documentation
       ["<C-f>"] = cmp.mapping.scroll_docs(-4),
@@ -104,33 +76,8 @@ M.setup = function()
   -- Use cmdline & path source for ":"
   cmp.setup.cmdline(":", {
     mapping = {
-      ["<Tab>"] = cmp.mapping(function(fallback)
-        if cmp.visible() then
-          cmp.select_next_item()
-        elseif require("luasnip").expand_or_jumpable() then
-          vim.fn.feedkeys(
-            vim.api.nvim_replace_termcodes("<Plug>luasnip-expand-or-jump", true, true, true),
-            ""
-          )
-        else
-          fallback()
-        end
-      end, { "c" }),
-      ["<S-Tab>"] = cmp.mapping(function(fallback)
-        if cmp.visible() then
-          cmp.select_prev_item()
-        elseif require("luasnip").jumpable(-1) then
-          vim.fn.feedkeys(
-            vim.api.nvim_replace_termcodes("<Plug>luasnip-jump-prev", true, true, true),
-            ""
-          )
-        else
-          fallback()
-        end
-      end, { "c" }),
-
-      ["<C-j>"] = cmp.mapping(cmp.mapping.select_next_item(), { "c" }),
-      ["<C-k>"] = cmp.mapping(cmp.mapping.select_prev_item(), { "c" }),
+      ["<Tab>"] = cmp.mapping(cmp.mapping.select_next_item(), { "c" }),
+      ["<S-Tab>"] = cmp.mapping(cmp.mapping.select_prev_item(), { "c" }),
 
       -- Unmap so that they can be used to cycle history.
       ["<C-n>"] = nil,
