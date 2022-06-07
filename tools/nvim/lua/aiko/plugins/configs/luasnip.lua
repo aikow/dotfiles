@@ -26,9 +26,9 @@ M.setup = function()
   -- -----------------------
   map(
     { "i" },
-    "<Tab>",
-    "luasnip#expand_or_jumpable() ? '<Plug>luasnip-expand-or-jump' : '<Tab>'",
-    { silent = true, expr = true, desc = "luasnip jump forward one or insert tab" }
+    "<C-j>",
+    "<Plug>luasnip-expand-or-jump",
+    { silent = true, desc = "luasnip jump forward one" }
   )
   map("s", "<C-j>", function()
     require("luasnip").jump(1)
@@ -67,7 +67,7 @@ M.setup = function()
   -- --------------------------
   -- |   Lazy Load Snippets   |
   -- --------------------------
-  require("luasnip.loaders.from_vscode").lazy_load()
+  require("luasnip.loaders.from_vscode").lazy_load({ exclude = { "tex" }})
   require("luasnip.loaders.from_vscode").lazy_load({
     paths = "~/.dotfiles/snips",
   })
