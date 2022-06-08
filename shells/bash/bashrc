@@ -6,19 +6,19 @@
 # Set the dotfiles config
 export DOTFILES="${HOME}/.dotfiles"
 export PATH="${HOME}/.bin:${HOME}/.local/bin:/usr/local/bin:/opt/vc/bin:${PATH}"
+
 export MY_SHELL="bash"
 export LC_ALL=en_US.UTF-8
 
 ### Editor ###
 if command -v nvim &>/dev/null; then
-  export VISUAL=nvim
+  export VISUAL="nvim"
 else
-  export VISUAL=vim
+  export VISUAL="vim"
 fi
 
 ### Editor ###
-export EDITOR=${VISUAL}
-export TERM=xterm-256color
+export EDITOR="${VISUAL}"
 
 ### FZF ###
 if command -v fd &>/dev/null; then
@@ -43,16 +43,13 @@ HISTCONTROL=ignoreboth
 shopt -s histappend
 
 # for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
-HISTSIZE=20000
-HISTFILESIZE=20000
+HISTSIZE=100000
+HISTFILESIZE=100000
 export HISTIGNORE="ls:ll:cd:cd -:pwd:exit:date:* --help"
 
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
 shopt -s checkwinsize
-
-# make less more friendly for non-text input files, see lesspipe(1)
-[ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
 
 
 #######################################################################
@@ -68,9 +65,6 @@ export PS0="\e[5 q"
 # Load the custom prompt
 source "${DOTFILES}/shells/bash/ps1rc"
 PS1="$(__mkps1)"
-
-# colored GCC warnings and errors
-export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 
 # Enable programmable completion features
 if ! shopt -oq posix; then
@@ -110,8 +104,6 @@ fi
 #######################################################################
 #                               Aliases                               #
 #######################################################################
-# Load OS specific settings
-[[ -f "${DOTFILES}/shells/bash/os/${OSTYPE}.bash" ]] && source "${DOTFILES}/shells/bash/os/${OSTYPE}.bash" 
 
 # Source fzf and cargo
 [[ -f "${HOME}/.fzf.bash" ]] && source "${HOME}/.fzf.bash"
@@ -124,4 +116,3 @@ fi
 # Load local aliases and configurations
 [[ -f "${HOME}/.aliases.local" ]] && source "${HOME}/.aliases.local"
 [[ -f "${HOME}/.bashrc.local" ]] && source "${HOME}/.bashrc.local"
-
