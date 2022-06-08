@@ -11,6 +11,9 @@ if require("aiko.first_load").setup() then
   return
 end
 
+require("aiko.options")
+require("aiko.mappings")
+
 -- ------------------------------
 -- |   Leader and Localleader   |
 -- ------------------------------
