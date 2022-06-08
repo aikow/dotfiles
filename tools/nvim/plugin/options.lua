@@ -1,7 +1,10 @@
 local opt = vim.opt
 local g = vim.g
 
+-- Opt into lua filetype recognition.
 g.do_filetype_lua = 1
+
+opt.shell = "/bin/bash -i"
 
 -- make scrolling and painting fast
 opt.lazyredraw = true
@@ -10,34 +13,20 @@ opt.lazyredraw = true
 -- e.g., `:find vim* <TAB>`
 opt.path = opt.path:append(",**")
 
--- Set working directory to the current files
-opt.autochdir = false
-
 -- Number of lines at the beginning and end of files checked for file-specific vars
 opt.modelines = 3
-opt.modeline = true
-
--- make Backspace work like Delete
-opt.backspace = "indent,eol,start"
 
 -- Permanent undo
 opt.undofile = true
 
 -- Backups and Swap files
 opt.backup = false
-opt.swapfile = true
-
--- Automatically update buffer if modified outside of neovim.
-opt.autoread = true
 
 -- Better display for messages
 opt.updatetime = 1000
 
--- open new buffers without saving current modifications (buffer remains open)
-opt.hidden = true
-
 -- Set the timeout times
-opt.timeoutlen = 500
+opt.timeoutlen = 250
 opt.ttimeoutlen = 5
 
 -- Use system clipboard
@@ -56,9 +45,6 @@ end
 -- |=========================|
 -- ===========================
 --
--- Indent new line the same as the preceding line
-opt.autoindent = true
-
 -- Tab key enters 2 spaces
 opt.expandtab = true
 opt.tabstop = 2
@@ -68,18 +54,12 @@ opt.softtabstop = 2
 -- highlight matching parens, braces, brackets, etc
 opt.showmatch = true
 
--- Menu options
--- opt.pumblend = 17
-
 -- Wild menu options
-opt.wildmenu = true
 opt.wildmode = "longest:full"
 opt.wildoptions = "pum" -- Fancy menu
 opt.wildignore = [[*.o,*~,*.pyc,.hg,.svn,*.png,*.jpg,*.gif,*.settings,*.min.js,*.swp,publish/*]]
 
 -- Searching
-opt.hlsearch = true
-opt.incsearch = true
 opt.ignorecase = true
 opt.smartcase = true
 
@@ -116,12 +96,12 @@ opt.splitright = true
 opt.splitbelow = true
 
 -- Diff options
-vim.cmd([[
-set diffopt+=iwhite " No whitespace in vimdiff
-" Make diffing better: https://vimways.org/2018/the-power-of-diff/
-set diffopt+=algorithm:patience
-set diffopt+=indent-heuristic
-]])
+--
+-- Make diffing better: https://vimways.org/2018/the-power-of-diff/
+opt.diffopt = opt.diffopt
+  + "iwhite" -- No whitespace in vimdiff
+  + "algorithm:patience"
+  + "indent-heuristic"
 
 -- Set spell location to English and German
 opt.spell = true
@@ -135,10 +115,6 @@ opt.spelllang = "en,de"
 -- |============================|
 -- ==============================
 --
--- Turn of bell and visual bell
-opt.visualbell = false
-opt.belloff = "all" -- Turn off the bell for everything for good measure
-
 -- Color scheme and background
 opt.termguicolors = true -- 24-bit RGB color support
 opt.background = "dark"
@@ -147,21 +123,17 @@ vim.cmd([[colorscheme onedark]])
 -- Always show the status line and tabline
 opt.showtabline = 2 -- Always show the tab line
 opt.laststatus = 3 -- Use the global status line
-opt.cmdheight = 1 -- Only need 1 line for the command prompt
-opt.showmode = false -- Don't show the mode in the prompt, handled by the theme
-opt.showcmd = true --Show the last line of the last command
+opt.showmode = false -- Don't show the mode in the prompt, handled by theme.
+opt.ruler = false -- Don't show column and row position, handled by theme.
 
 -- Show a ruler at 80 characters.
 opt.textwidth = 80
 opt.colorcolumn = { 80 }
-opt.ruler = false
 
 -- Enable relative numbers, but display the line number in the current line.
 opt.relativenumber = true
 opt.number = true
 opt.numberwidth = 2
-
-opt.fillchars = { eob = " " }
 
 -- Only enable the cursor line in the current buffer.
 opt.cursorline = true -- Highlight the current line
@@ -180,7 +152,5 @@ set_cursorline("WinEnter", true)
 set_cursorline("FileType", false, "TelescopePrompt")
 
 opt.conceallevel = 2
-
--- Wrap lines
-opt.wrap = true
-opt.showbreak = string.rep(" ", 4)
+opt.showbreak = " -> "
+opt.fillchars = { eob = " " }

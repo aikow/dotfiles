@@ -35,7 +35,7 @@ autocmd("general_autoread", {
     if vim.api.nvim_buf_get_option(0, "buftype") ~= "" then
       return
     end
-    vim.api.nvim_command("silent! edit")
+    vim.api.nvim_command("silent! checktime")
   end,
   desc = "perform a read when entering a new buffer",
 })
