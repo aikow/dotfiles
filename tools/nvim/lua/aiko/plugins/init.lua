@@ -202,8 +202,13 @@ M.plugins = function(use)
     "tpope/vim-vinegar",
 
     -- Effortlessly switch between vim and tmux windows.
-    "christoomey/vim-tmux-navigator",
-
+    {
+      "christoomey/vim-tmux-navigator",
+      config = function()
+        vim.g.tmux_navigator_no_mappings = 1
+        vim.g.tmux_navigator_disable_when_zoomed = 1
+      end,
+    },
     {
       "godlygeek/tabular",
       cmd = { "Tabular", "Tabularize" },

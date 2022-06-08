@@ -1,15 +1,35 @@
+-- Key Mappings
+-- ============
+--
+-- Leader Mappings
+-- ---------------
+--
+-- | leader<key> | Layered | Category                       |
+-- | ----------- |         | ------------------------       |
+-- | c           |         | Change text up to next _       |
+-- | d           |         | Diagnostics                    |
+-- | e           |         | Open diagnostic window         |
+-- | f           |         | Find                           |
+-- | g           | Yes     | Git                            |
+-- | h           |         | Vim internal settings and help |
+-- | i           |         | Telescope previous picker      |
+-- | j           |         | Telescope LSP                  |
+-- | k           |         | LSP signature help             |
+-- | l           |         | Builtin LSP                    |
+-- | o           |         | Telescope find files           |
+-- | p           |         | Telescope buffers              |
+-- | r           |         | Refactoring                    |
+-- | s           |         | Snippets                       |
+-- | v           |         | Tree-Sitter select region      |
+-- | w           |         | Write current file             |
+-- | W           |         | Write all files                |
+-- | <leader>    |         | Switch to most recent buffer   |
+-- | ;           |         | Telescope commands             |
+
 local map = vim.keymap.set
 
--- =========================
--- |=======================|
--- ||                     ||
--- || General Keybindings ||
--- ||                     ||
--- |=======================|
--- =========================
---
--- Vim Tmux Navigator keybindings
-vim.g.tmux_navigator_no_mappings = 1
+-- Vim tmux navigator keybindings to seamlessly switch between vim and tmux
+-- panes.
 map("n", "<M-h>", [[<cmd>TmuxNavigateLeft<CR>]], { silent = true })
 map("n", "<M-j>", [[<cmd>TmuxNavigateDown<CR>]], { silent = true })
 map("n", "<M-k>", [[<cmd>TmuxNavigateUp<CR>]], { silent = true })
@@ -28,20 +48,22 @@ map("t", "<M-k>", [[<C-\><C-n>:TmuxNavigateUp<CR>]], { silent = true })
 map("t", "<M-l>", [[<C-\><C-n>:TmuxNavigateRight<CR>]], { silent = true })
 map("t", "<M-o>", [[<C-\><C-n>:TmuxNavigatePrevious<CR>]], { silent = true })
 
--- Treat long lines as break lines (useful when moving around in them)
+-- Treat long lines as break lines.
 map("n", "j", "gj")
 map("n", "k", "gk")
 
--- Don't deselect visual when indenting in visual mode
+-- Don't deselect visual when indenting in visual mode>
 map("x", "<", "<gv")
 map("x", ">", ">gv")
 
--- Very magic by default
+-- Very magic regexps by default.
 map("n", "?", [[?\v]])
 map("n", "/", [[/\v]])
 map("n", "<C-s>", [[:%s/\v]])
+map("v", "<C-s>", [[:s/\v]])
 map("c", "<C-s>", [[%s/\v]])
 
+-- Enter a lua command.
 map("n", "<C-l>", [[:lua ]])
 map("n", "<C-l><C-l>", [[:lua =]])
 
@@ -93,7 +115,6 @@ map({ "x", "n" }, "p", "p`]")
 map("c", "%H", [[<C-R>=expand('%:h:p') . '/'<CR>]])
 map("c", "%T", [[<C-R>=expand('%:t')<CR>]])
 map("c", "%P", [[<C-R>=expand('%:p')<CR>]])
-map("c", "E<S-space>", [[e<space>]])
 
 -- ----------------------------------------------------
 -- | Telescope, LSP, Diagnostics, and Git keybindings |
@@ -102,7 +123,7 @@ map("c", "E<S-space>", [[e<space>]])
 -- Diagnostics
 -- See `:help vim.diagnostic.*` for documentation on any of the below
 -- functions
-map("n", "<space>e", vim.diagnostic.open_float, { silent = true, desc = "open diagnostic window" })
+map("n", "<leader>e", vim.diagnostic.open_float, { silent = true, desc = "open diagnostic window" })
 map(
   { "n", "v", "o" },
   "[e",
@@ -117,7 +138,7 @@ map(
 )
 map(
   "n",
-  "<space>dl",
+  "<leader>dl",
   vim.diagnostic.setloclist,
   { silent = true, desc = "set location list to diagnostics" }
 )
@@ -155,57 +176,31 @@ map(
   { silent = true, desc = "lsp go to type definition" }
 )
 
--- Workspace settings with <leader>w...
-map(
-  "n",
-  "<leader>wa",
-  vim.lsp.buf.add_workspace_folder,
-  { silent = true, desc = "lsp add workspace folder" }
-)
-map(
-  "n",
-  "<leader>wr",
-  vim.lsp.buf.remove_workspace_folder,
-  { silent = true, desc = "lsp remove workspace folder" }
-)
-map("n", "<leader>wl", function()
-  print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-end, { silent = true, desc = "print lsp workspace folders" })
-
 -- Refactoring with <leader>r...
-map("n", "<leader>rr", vim.lsp.buf.rename, { silent = true })
-map("n", "<leader>rq", vim.lsp.buf.code_action, { silent = true })
-map("n", "<leader>rf", vim.lsp.buf.formatting, { silent = true })
+map("n", "<leader>rr", vim.lsp.buf.rename, { silent = true, desc = "LSP rename" })
+map("n", "<leader>rq", vim.lsp.buf.code_action, { silent = true, desc = "LSP code actions"})
+map("n", "<leader>rf", vim.lsp.buf.formatting, { silent = true, desc = "LSP format file" })
 
 -- Faster write/save current buffer
 map("n", "<leader>w", "<cmd>write<CR>")
 map("n", "<leader>W", "<cmd>wall<CR>")
 
--- Resizing splits
-map(
-  "n",
-  "<leader>wvp",
-  [[<cmd>exe "vertical resize " . (winwidth(0) * 3/2)<CR>]],
-  { silent = true }
-)
-map(
-  "n",
-  "<leader>wvm",
-  [[<cmd>exe "vertical resize " . (winwidth(0) * 2/3)<CR>]],
-  { silent = true }
-)
-map("n", "<leader>whp", [[<cmd>exe "resize " . (winheight(0) * 3/2)<CR>]], { silent = true })
-map("n", "<leader>whm", [[<cmd>exe "resize " . (winheight(0) * 2/3)<CR>]], { silent = true })
+-- Faster pane resizing
 map("n", "<C-w><", "5<C-w><")
 map("n", "<C-w>>", "5<C-w>>")
 map("n", "<C-w>-", "5<C-w>-")
 map("n", "<C-w>+", "5<C-w>+")
 
-map("n", "<space>do", function()
+-- Telescope
+map("n", "<leader>i", function()
+  require("telescope.builtin").resume()
+end, { silent = true, desc = "telescope reopen last telescope window" })
+
+map("n", "<leader>do", function()
   require("telescope.builtin").diagnostics(require("aiko.plugins.configs.telescope").dynamic())
 end, { silent = true, desc = "telescope open diagnostics" })
 
-map("n", "<space>ds", function()
+map("n", "<leader>ds", function()
   require("telescope.builtin").spell_suggest(require("telescope.themes").get_cursor())
 end, { silent = true, desc = "telescope spell suggest" })
 
