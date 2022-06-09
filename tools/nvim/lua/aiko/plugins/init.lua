@@ -14,12 +14,19 @@ M.plugins = function(use)
       "neovim/nvim-lspconfig",
       requires = { "williamboman/nvim-lsp-installer" },
       config = function()
-        require("aiko.plugins.configs.lspconfig").setup()
+        require("aiko.plugins.configs.lsp").setup()
       end,
     },
     {
       "williamboman/nvim-lsp-installer",
     },
+    {
+      "mfussenegger/nvim-dap",
+      module = { "dap" },
+      config = function()
+        require("aiko.plugins.configs.dap").setup()
+      end
+    }
   })
 
   -- -----------------
