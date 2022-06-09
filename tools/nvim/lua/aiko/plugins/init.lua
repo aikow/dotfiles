@@ -99,9 +99,6 @@ M.plugins = function(use)
     end,
   })
 
-  -- Fancy UI which replaces vim.ui.select and vim.ui.input.
-  use({ "stevearc/dressing.nvim" })
-
   -- ---------------------
   -- |   Code Snippets   |
   -- ---------------------
