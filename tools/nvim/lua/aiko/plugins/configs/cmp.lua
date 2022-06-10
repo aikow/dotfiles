@@ -10,38 +10,74 @@ M.setup = function()
   vim.opt.shortmess = "filnxtToOFc"
 
   -- Setup completion framework nvim-cmp.
-  local cmp = require("cmp")
-  local ok, lspkind = pcall(require, "lspkind")
-  if not ok then
+  local ok_cmp, cmp = pcall(require, "cmp")
+  if not ok_cmp then
     return
   end
+
+  local ok_lspkind, lspkind = pcall(require, "lspkind")
+  if not ok_lspkind then
+    return
+  end
+
   lspkind.init()
 
+  -- Insert and command mappings.
+  local mappings = {
+    ["<C-j>"] = {
+      i = cmp.mapping.select_next_item(),
+      c = cmp.mapping.select_next_item(),
+    },
+    ["<C-k>"] = {
+      i = cmp.mapping.select_prev_item(),
+      c = cmp.mapping.select_prev_item(),
+    },
+
+    -- Scroll documentation
+    ["<C-f>"] = {
+      i = cmp.mapping.scroll_docs(-4),
+      c = cmp.mapping.scroll_docs(-4),
+    },
+    ["<C-b>"] = {
+      i = cmp.mapping.scroll_docs(4),
+      c = cmp.mapping.scroll_docs(4),
+    },
+
+    -- Confirm/abort/complete mappings
+    ["<C-Space>"] = {
+      i = cmp.mapping.complete(),
+      c = cmp.mapping.complete(),
+    },
+    ["<C-e>"] = cmp.mapping({
+      i = cmp.mapping.abort(),
+      c = cmp.mapping.close(),
+    }),
+    ["<C-y>"] = {
+      i = cmp.mapping.confirm({ select = false }),
+      c = cmp.mapping.confirm({ select = false }),
+    },
+    ["<CR>"] = {
+      i = cmp.mapping.confirm({
+        behavior = cmp.ConfirmBehavior.Insert,
+        select = true,
+      }),
+    },
+    ["<M-CR>"] = {
+      i = cmp.mapping.confirm({
+        behavior = cmp.ConfirmBehavior.Replace,
+        select = true,
+      }),
+    },
+  }
+
+  -- Setup the insert mode completion.
   cmp.setup({
     snippet = {
       expand = function(args)
         require("luasnip").lsp_expand(args.body)
       end,
     },
-    mapping = {
-      ["<Tab>"] = cmp.mapping(cmp.mapping.select_next_item(), { "i", "c" }),
-      ["<S-Tab>"] = cmp.mapping(cmp.mapping.select_prev_item(), { "i", "c" }),
-
-      -- Scroll documentation
-      ["<C-f>"] = cmp.mapping.scroll_docs(-4),
-      ["<C-b>"] = cmp.mapping.scroll_docs(4),
-
-      -- Confirm/abort/complete mappings
-      ["<C-Space>"] = cmp.mapping.complete(),
-      ["<C-e>"] = cmp.mapping({
-        i = cmp.mapping.abort(),
-        c = cmp.mapping.close(),
-      }),
-      ["<CR>"] = cmp.mapping.confirm({
-        behavior = cmp.ConfirmBehavior.Insert,
-        select = true,
-      }),
-    },
+    mapping = mappings,
     sources = cmp.config.sources({
       { name = "nvim_lua" },
       { name = "nvim_lsp" },
@@ -65,7 +101,7 @@ M.setup = function()
 
   -- Use buffer source for `/` (if you enabled `native_menu`, this won't work anymore).
   cmp.setup.cmdline("@", {
-    mapping = cmp.mapping.preset.cmdline(),
+    mapping = mappings,
     sources = cmp.config.sources({
       { name = "nvim_lsp" },
     }, {
@@ -75,26 +111,7 @@ M.setup = function()
 
   -- Use cmdline & path source for ":"
   cmp.setup.cmdline(":", {
-    mapping = {
-      ["<Tab>"] = cmp.mapping(cmp.mapping.select_next_item(), { "c" }),
-      ["<S-Tab>"] = cmp.mapping(cmp.mapping.select_prev_item(), { "c" }),
-
-      -- Unmap so that they can be used to cycle history.
-      ["<C-n>"] = nil,
-      ["<C-p>"] = nil,
-
-      -- Scroll documentation
-      ["<C-d>"] = cmp.mapping.scroll_docs(-4),
-      ["<C-u>"] = cmp.mapping.scroll_docs(4),
-
-      -- Confirm/abort/complete mappings
-      ["<C-Space>"] = cmp.mapping(cmp.mapping.complete(), { "c" }),
-      ["<C-e>"] = cmp.mapping.close(),
-      ["<CR>"] = cmp.mapping.confirm({
-        behavior = cmp.ConfirmBehavior.Insert,
-        select = true,
-      }, { "c" }),
-    },
+    mapping = mappings,
     sources = cmp.config.sources({
       { name = "cmdline" },
     }, {

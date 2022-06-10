@@ -1,7 +1,12 @@
 local M = {}
 
 M.setup = function()
-  require("nvim-treesitter.configs").setup({
+  local ok_configs, configs = pcall(require, "nvim-treesitter.configs")
+  if not ok_configs then
+    return
+  end
+
+  configs.setup({
     ensure_installed = {
       "bash",
       "c",

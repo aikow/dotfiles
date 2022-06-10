@@ -1,11 +1,19 @@
 local M = {}
 
 M.setup = function()
-  local capabilities = require("cmp_nvim_lsp").update_capabilities(
-    vim.lsp.protocol.make_client_capabilities()
-  )
+  local ok_rust_tools, rust_tools = pcall(require, "rust-tools")
+  if not ok_rust_tools then
+    return
+  end
 
-  require("rust-tools").setup({
+  local ok_cmp_nvim_lsp, cmp_lsp = pcall(require, "cmp_nvim_lsp")
+  if not ok_cmp_nvim_lsp then
+    return
+  end
+
+  local capabilities = cmp_lsp.update_capabilities(vim.lsp.protocol.make_client_capabilities())
+
+  rust_tools.setup({
     tools = { -- rust-tools options
       autoSetHints = true, -- Automatically set inlay hints
       hover_with_actions = true, -- Show action inside the hover menu

@@ -1,14 +1,19 @@
 local M = {}
 
 M.setup = function()
-  local map = vim.keymap.set
-  local rs = require("luasnip")
+  local ok_luasnip, ls = pcall(require, "luasnip")
+  if not ok_luasnip then
+    return
+  end
+
   local types = require("luasnip.util.types")
+
+  local map = vim.keymap.set
 
   -- --------------
   -- |   Config   |
   -- --------------
-  rs.config.set_config({
+  ls.config.set_config({
     enable_autosnippets = true,
     history = true,
     updateevents = "TextChanged,TextChangedI",
@@ -24,28 +29,46 @@ M.setup = function()
   -- -----------------------
   -- |   Trigger Keymaps   |
   -- -----------------------
-  map(
-    { "i" },
-    "<C-j>",
-    "<Plug>luasnip-expand-or-jump",
-    { silent = true, desc = "luasnip jump forward one" }
-  )
-  map("s", "<C-j>", function()
-    require("luasnip").jump(1)
+  map({ "i" }, "<Tab>", function()
+    if ls.expand_or_jumpable() then
+      ls.expand_or_jump()
+    else
+      vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Tab>", true, true, true), "n", false)
+    end
+  end, {
+    silent = true,
+    desc = "luasnip expand or jump forward one, or if neither are avialable, expand tab",
+  })
+
+  map("s", "<Tab>", function()
+    if ls.jumpable() then
+      ls.jump(1)
+    end
   end, { silent = true, desc = "luasnip jump forward one" })
-  map("i", "<C-k>", function()
-    require("luasnip").jump(-1)
-  end, { silent = true, desc = "luasnip jump back one" })
-  map("s", "<C-k>", function()
-    require("luasnip").jump(-1)
+
+  map({ "i", "s" }, "<S-Tab>", function()
+    if ls.jumpable() then
+      ls.jump(-1)
+    end
   end, { silent = true, desc = "luasnip jump back one" })
 
-  map(
-    { "i", "s" },
-    "<C-s>",
-    "<Plug>luasnip-next-choice",
-    { silent = true, desc = "luasnip next choice" }
-  )
+  map({ "i", "s" }, "<C-l>", function()
+    if ls.choice_active() then
+      ls.change_choice(1)
+    end
+  end, { silent = true, desc = "luasnip next choice" })
+
+  map({ "i", "s" }, "<C-h>", function()
+    if ls.choice_active() then
+      ls.change_choice(-1)
+    end
+  end, { silent = true, desc = "luasnip prev choice" })
+
+  map({ "i", "s" }, "<C-u>", function()
+    if ls.choice_active() then
+      require("luasnip.extra.select_choice")()
+    end
+  end, { silent = true, desc = "luasnip prev choice" })
 
   -- ----------------------------
   -- |   Convenience Key Maps   |
@@ -67,13 +90,18 @@ M.setup = function()
   -- --------------------------
   -- |   Lazy Load Snippets   |
   -- --------------------------
-  require("luasnip.loaders.from_vscode").lazy_load({ exclude = { "tex" } })
+  require("luasnip.loaders.from_vscode").lazy_load({
+    exclude = { "tex" },
+    default_priority = 100,
+  })
   require("luasnip.loaders.from_vscode").lazy_load({
     paths = "~/.dotfiles/snips",
+    default_priority = 100,
   })
 
   require("luasnip.loaders.from_lua").lazy_load({
     paths = "~/.dotfiles/tools/nvim/snippets",
+    default_priority = 1000,
   })
 end
 

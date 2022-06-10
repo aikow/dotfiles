@@ -1,7 +1,11 @@
 local M = {}
 
 M.setup = function()
-  local comment = require("Comment")
+  local ok_comment, comment = pcall(require, "Comment")
+  if not ok_comment then
+    return
+  end
+
   comment.setup({
     padding = true,
     sticky = true,

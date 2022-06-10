@@ -26,7 +26,7 @@ opt.backup = false
 opt.updatetime = 1000
 
 -- Set the timeout times
-opt.timeoutlen = 250
+opt.timeoutlen = 500
 opt.ttimeoutlen = 5
 
 -- Use system clipboard

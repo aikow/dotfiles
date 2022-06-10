@@ -1,7 +1,10 @@
 local M = {}
 
 M.setup = function()
-  local gitsigns = require("gitsigns")
+  local ok_gitsigns, gitsigns = pcall(require, "gitsigns")
+  if not ok_gitsigns then
+    return
+  end
 
   gitsigns.setup({
     -- signs = {

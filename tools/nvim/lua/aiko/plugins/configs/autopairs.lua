@@ -1,10 +1,13 @@
 local M = {}
 
 M.setup = function()
-  local present1, autopairs = pcall(require, "nvim-autopairs")
-  local present2, cmp = pcall(require, "cmp")
+  local ok_autopairs, autopairs = pcall(require, "nvim-autopairs")
+  if not ok_autopairs then
+    return
+  end
 
-  if not present1 and present2 then
+  local ok_cmp, cmp = pcall(require, "cmp")
+  if not ok_cmp then
     return
   end
 
