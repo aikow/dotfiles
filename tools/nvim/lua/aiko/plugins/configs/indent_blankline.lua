@@ -1,9 +1,8 @@
 local M = {}
 
 M.setup = function()
-  local present, blankline = pcall(require, "indent_blankline")
-
-  if not present then
+  local ok_blankline, blankline = pcall(require, "indent_blankline")
+  if not ok_blankline then
     return
   end
 

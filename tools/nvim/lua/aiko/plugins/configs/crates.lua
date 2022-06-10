@@ -1,6 +1,11 @@
 local M = {}
 
 M.setup = function()
+  local ok_crates, crates = pcall(require, "crates")
+  if not ok_crates then
+    return
+  end
+
   local map = vim.keymap.set
   local opts = function(desc)
     return {
@@ -10,7 +15,6 @@ M.setup = function()
     }
   end
 
-  local crates = require("crates")
   crates.setup()
 
   map("n", "<localleader>t", crates.toggle, opts("crates toggle menu"))

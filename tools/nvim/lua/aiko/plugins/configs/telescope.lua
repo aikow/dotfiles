@@ -1,9 +1,13 @@
 local M = {}
 
 M.setup = function()
+  local ok_telescope, telescope = pcall(require, "telescope")
+  if not ok_telescope then
+    return
+  end
+
   local actions = require("telescope.actions")
   local actions_layout = require("telescope.actions.layout")
-  local telescope = require("telescope")
 
   telescope.setup({
     defaults = {

@@ -1,9 +1,18 @@
 local M = {}
 
 M.setup = function()
+  local ok_lsp_installer, lsp_installer = pcall(require, "nvim-lsp-installer")
+  if not ok_lsp_installer then
+    return
+  end
+
   -- Setup nvim-cmp with lspconfig.
-  require("nvim-lsp-installer").setup({})
-  local lspconfig = require("lspconfig")
+  lsp_installer.setup({})
+
+  local ok_lspconfig, lspconfig = pcall(require, "lspconfig")
+  if not ok_lspconfig then
+    return
+  end
 
   -- Borders for LspInfo window
   local win = require("lspconfig.ui.windows")

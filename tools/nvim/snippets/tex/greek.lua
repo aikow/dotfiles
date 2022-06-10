@@ -114,19 +114,15 @@ return {},
       { t([[\frac{]]), i(1), t([[}{]]), i(2), t([[}]]) },
       context.math()
     ),
-    s(
-      { trig = [=[([a-zA-Z0-9_^\{}]+)/]=], wordTrig = false, regTrig = true },
-      {
-        t([[\frac{]]),
-        f(function(_, snip)
-          return snip.captures[1]
-        end),
-        t([[}{]]),
-        i(1),
-        t([[}]]),
-      },
-      context.math()
-    ),
+    s({ trig = [=[([a-zA-Z0-9_^\{}]+)/]=], wordTrig = false, regTrig = true }, {
+      t([[\frac{]]),
+      f(function(_, snip)
+        return snip.captures[1]
+      end),
+      t([[}{]]),
+      i(1),
+      t([[}]]),
+    }, context.math()),
     s({ trig = [=[^(.*[%)%}])/]=], wordTrig = false, regTrig = true }, {
       f(function(_, snip)
         local str = snip.captures[1]
