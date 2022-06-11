@@ -399,8 +399,15 @@ M.plugins = function(use)
   -- |   Color Schemes   |
   -- ---------------------
   use({
-    "joshdick/onedark.vim",
-    "arcticicestudio/nord-vim",
+    {
+      "navarasu/onedark.nvim",
+      config = function()
+        require("onedark").setup {
+          style = "darker",
+        }
+        vim.cmd([[colorscheme onedark]])
+      end
+    },
     "sainnhe/gruvbox-material",
   })
 end
