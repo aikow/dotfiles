@@ -68,6 +68,14 @@ M.setup = function()
         diagnostics = {
           globals = { "vim" },
         },
+        format = {
+          enable = true,
+          -- All values must be of type string.
+          defaultConfig = {
+            indent_style = "space",
+            indent_size = "2",
+          },
+        },
         workspace = {
           library = {
             [vim.fn.expand("$VIMRUNTIME/lua")] = true,
