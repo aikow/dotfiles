@@ -11,8 +11,6 @@ if require("aiko.first_load").setup() then
   return
 end
 
-require("aiko.options")
-
 -- ------------------------------
 -- |   Leader and Localleader   |
 -- ------------------------------
@@ -26,6 +24,7 @@ map("n", [[\]], "<NOP>")
 vim.g.maplocalleader = [[\]]
 
 require("aiko.mappings")
+require("aiko.options")
 
 -- ---------------------
 -- |   Auto Commands   |

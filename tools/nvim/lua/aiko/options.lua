@@ -117,8 +117,6 @@ opt.spelllang = "en,de"
 --
 -- Color scheme and background
 opt.termguicolors = true -- 24-bit RGB color support
-opt.background = "dark"
-vim.cmd([[colorscheme onedark]])
 
 -- Always show the status line and tabline
 opt.showtabline = 2 -- Always show the tab line

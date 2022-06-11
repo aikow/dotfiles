@@ -4,11 +4,11 @@ if present then
   impatient.enable_profile()
 end
 
-require("aiko")
-
 -- Setup packer and plugins
 require("aiko.packer").bootstrap()
 require("aiko.packer").setup()
+
+require("aiko")
 
 vim.filetype.add({
   extension = {
