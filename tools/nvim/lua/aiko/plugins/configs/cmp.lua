@@ -82,8 +82,8 @@ M.setup = function()
       { name = "nvim_lua" },
       { name = "nvim_lsp" },
       { name = "crates" },
-      { name = "luasnip" },
       { name = "omni" },
+      { name = "luasnip" },
     }, {
       { name = "path" },
     }, {
