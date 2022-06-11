@@ -82,7 +82,7 @@ map("t", "kj", [[<c-\><c-n>]])
 map("n", "<leader>c", "ct_", { desc = "change text up to next underscore '_'" })
 
 -- Automatically correct spelling with the first option
-map("i", "<C-l>", [[<C-g>u<Esc>[s1z=`]a<C-g>u]], { desc = "correct last spelling mistake" })
+map("i", "<C-s>", [[<C-g>u<Esc>[s1z=`]a<C-g>u]], { desc = "correct last spelling mistake" })
 
 -- Clear the search buffer to remove highlighting from the last search
 map("n", "<c-_>", [[:let @/ = ""<CR>]], { silent = true, desc = "clear search buffer register" })

@@ -37,6 +37,7 @@ M.plugins = function(use)
       "nvim-telescope/telescope.nvim",
       cmd = "Telescope",
       module = "telescope",
+      fn = { "vim.ui.select", "vim.ui.input" },
       requires = {
         "nvim-lua/plenary.nvim",
         "telescope-fzf-native.nvim",
@@ -385,6 +386,13 @@ M.plugins = function(use)
     config = function()
       require("aiko.plugins.configs.lualine").setup()
     end,
+  })
+  use({
+    "stevearc/dressing.nvim",
+    requires = { "nvim-telescope/telescope.nvim" },
+    config = function()
+      require("aiko.plugins.configs.dressing").setup()
+    end
   })
 
   -- ---------------------
