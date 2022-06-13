@@ -75,17 +75,19 @@ map("c", "<C-n>", "<Down>")
 map("n", "<leader><leader>", "<c-^>", { desc = "switch to most recent buffer" })
 
 -- More ergonomic normal mode from integrated terminal
-map("t", "jk", [[<c-\><c-n>]])
-map("t", "kj", [[<c-\><c-n>]])
+map("t", "jk", [[<c-\><C-n>]])
+map("t", "kj", [[<c-\><C-n>]])
 
 -- Replacing up to next _ or -
 map("n", "<leader>c", "ct_", { desc = "change text up to next underscore '_'" })
 
+-- TODO: Find out why this isn't working. Possible create issue on GitHub.
 -- Automatically correct spelling with the first option
 map("i", "<C-s>", [[<C-g>u<Esc>[s1z=`]a<C-g>u]], { desc = "correct last spelling mistake" })
+vim.cmd([[imap <C-s> <C-g>u<Esc>[s1z=`]a<C-g>u]])
 
 -- Clear the search buffer to remove highlighting from the last search
-map("n", "<c-_>", [[:let @/ = ""<CR>]], { silent = true, desc = "clear search buffer register" })
+map("n", "<C-_>", [[:let @/ = ""<CR>]], { silent = true, desc = "clear search buffer register" })
 
 -- Select the text that was last pasted
 map(
@@ -457,7 +459,7 @@ map(
 map(
   { "o", "x" },
   "ig",
-  ":<C-U>Gitsigns select_hunk<CR>",
+  ":<C-u>Gitsigns select_hunk<CR>",
   { silent = true, desc = "git hunk text object" }
 )
 
