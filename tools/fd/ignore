@@ -1,0 +1,16 @@
+# vim: ft=gitignore
+
+## Git ##
+.git/
+
+## Build ##
+build/
+target/
+*.o
+*.so
+
+## Python ##
+*.egg-info/
+__pycache__/
+venv/
+.venv/

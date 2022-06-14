@@ -47,6 +47,10 @@
     # Starship prompt
     ~/.config/starship.toml:
       path: shells/starship/starship.toml
+
+    # FD ignore file.
+    ~/.config/fd:
+      path: tools/fd
     
     # Tmux
     ~/.tmux.conf:
