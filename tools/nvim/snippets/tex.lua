@@ -65,6 +65,12 @@ local autoinsert_space = {
   },
 }
 
+local same = function (index)
+  return f(function (args)
+    return args[1][1]
+  end, { index })
+end
+
 -- Convert content of node at index to snake case.
 local to_snake = function(index)
   return f(function(args)
@@ -113,7 +119,7 @@ recursive_list = function()
     c(1, {
       -- important!! Having the sn(...) as the first choice will cause infinite recursion.
       t({ "" }),
-      -- The same dynamicNode as in the snippet (also note: self reference).
+      -- The same dynamic node as in the snippet (also note: self reference).
       sn(nil, { t({ "", "\t\\item " }), i(1), d(2, recursive_list, {}) }),
     }),
   })
@@ -142,7 +148,7 @@ rec_table = function()
     c(1, {
       t({ "" }),
       sn(nil, {
-        t({ [[\\]], [[]] }),
+        t({ [[\\]], }),
         d(1, table_node, { ai[1] }),
         d(2, rec_table, { ai[1] }),
       })
@@ -217,14 +223,16 @@ return {
     { trig = "^%s*beg", regTrig = true },
     fmta(
       [[
-        \begin{<1>}<3><2><4>
-          <0>
-        \end{<1>}
+        \begin{<name>}<leftpar><options><rightpar>
+          <stop>
+        \end{<name2>}
       ]], {
-      [1] = i(1),
-      [2] = i(2),
-      [3] = show_not_empty(2, "{"),
-      [4] = show_not_empty(2, "}")
+      name = i(1),
+      name2 = same(1),
+      options = i(2),
+      leftpar = show_not_empty(2, "{"),
+      rightpar = show_not_empty(2, "}"),
+      stop = i(0),
     })
   ),
 
@@ -290,12 +298,10 @@ return {
       end),
       i(1),
     })
-  },
-    {
-      condition = ctx.math,
-      show_condition = ctx.math,
-    }
-  ),
+  }, {
+    condition = ctx.math,
+    show_condition = ctx.math,
+  }),
   s({ trig = [=[^(.*[%)%}])/]=], regTrig = true }, {
     f(function(_, snip)
       local str = snip.captures[1]
@@ -325,12 +331,10 @@ return {
     t([[}{]]),
     i(1),
     t([[}]]),
-  },
-    {
-      condition = ctx.math,
-      show_condition = ctx.math,
-    }
-  ),
+  }, {
+    condition = ctx.math,
+    show_condition = ctx.math,
+  }),
 
   -- -------------------------
   -- |   Math Environments   |
@@ -343,12 +347,11 @@ return {
           <2>
         \end{align<1>}
       ]],
-      { i(1), toggle_text(2, "*") })
-    {
-      condition = ctx.not_math,
-      show_condition = ctx.not_math,
-    }
-  ),
+      { toggle_text(1, "*"), i(2) }
+    ), {
+    condition = ctx.not_math,
+    show_condition = ctx.not_math,
+  }),
 
   s(
     { trig = "^%s*mlt", regTrig = true },
@@ -358,10 +361,9 @@ return {
           <2>
         \end{multline<1>}
       ]],
-      { i(1), toggle_text(2, "*") })
-    {
-      condition = ctx.not_math,
-      show_condition = ctx.not_math,
-    }
-  ),
+      { toggle_text(1, "*"), i(2) }
+    ), {
+    condition = ctx.not_math,
+    show_condition = ctx.not_math,
+  }),
 }
