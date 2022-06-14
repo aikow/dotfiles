@@ -1,9 +1,0 @@
-{
-  "Package": {
-    "prefix": "pac",
-    "body": [
-      "\\usepackage${2:[${3:options}]}{${1:package}}",
-      "$0"
-    ]
-  }
-}
