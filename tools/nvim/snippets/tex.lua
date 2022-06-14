@@ -270,9 +270,10 @@ return {
       [[
         \[
           <1>
-        \]
+        <2>\]
       ]], {
-      i(1)
+      i(1),
+      toggle_text(2, ".", true)
     }),
     {
       condition = ctx.not_math,
@@ -366,4 +367,31 @@ return {
     condition = ctx.not_math,
     show_condition = ctx.not_math,
   }),
+
+  -- ---------------------------------------------
+  -- |   Super and Subscripts and Text in Math   |
+  -- ---------------------------------------------
+  s(
+    { trig = "_", wordTrig = false },
+    { t("_{"), i(1), t("}"), i(0) },
+    { condition = ctx.math, show_condition = ctx.math }
+  ),
+
+  s(
+    { trig = "sts", wordTrig = false },
+    { t([[_{\text{]]), i(1), t("}}"), i(0) },
+    { condition = ctx.math, show_condition = ctx.math }
+  ),
+
+  s(
+    { trig = "td", wordTrig = false },
+    { t("^{"), i(1), t("}"), i(0) },
+    { condition = ctx.math, show_condition = ctx.math }
+  ),
+
+  s(
+    { trig = "tt", wordTrig = false },
+    { t([[\text{]]), i(1), t("}"), i(0) },
+    { condition = ctx.math, show_condition = ctx.math }
+  )
 }
