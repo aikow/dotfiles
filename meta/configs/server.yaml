@@ -56,6 +56,10 @@
       path: tools/vim/full.vim
       force: true
 
+    # FD ignore file.
+    ~/.config/fd:
+      path: shells/fd
+    
     # Git
     ~/.gitconfig: tools/git/gitconfig
     ~/.gitignore_global: tools/git/gitignore_global

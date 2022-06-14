@@ -49,6 +49,10 @@
       path: shells/starship/starship.toml
       force: true
     
+    # FD ignore file.
+    ~/.config/fd:
+      path: tools/fd
+    
     # Tmux
     ~/.tmux.conf:
       if: 'command -v tmux &>/dev/null'
