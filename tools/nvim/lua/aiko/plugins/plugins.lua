@@ -257,7 +257,7 @@ M.use = function(use)
   use({
     {
       "tpope/vim-fugitive",
-      cmd = { "G", "Git" },
+      cmd = { "G", "Git", "Gdiffsplit", "Gvdiffsplit", "Ghdiffsplit", "G*" },
     },
     {
       "lewis6991/gitsigns.nvim",
