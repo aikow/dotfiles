@@ -30,12 +30,7 @@ opt.timeoutlen = 500
 opt.ttimeoutlen = 5
 
 -- Use system clipboard
-if vim.g.os == "Darwin" then
-  opt.clipboard = "unnamed"
-elseif vim.g.os == "Linux" then
-  opt.clipboard = "unnamedplus"
-elseif vim.g.os == "Windows" then
-end
+opt.clipboard = "unnamedplus"
 
 -- ===========================
 -- |=========================|

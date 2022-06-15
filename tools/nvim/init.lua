@@ -1,11 +1,15 @@
-local present, impatient = pcall(require, "impatient")
-
-if present then
+local ok_impatient, impatient = pcall(require, "impatient")
+if ok_impatient then
   impatient.enable_profile()
 end
 
--- Setup packer and plugins
-require("aiko.packer").bootstrap()
-require("aiko.packer").setup()
+-- Set the leader key to the space key
+vim.keymap.set("n", "<SPACE>", "<NOP>")
+vim.g.mapleader = " "
 
-require("aiko")
+-- Set local leader to the backslash
+vim.keymap.set("n", [[\]], "<NOP>")
+vim.g.maplocalleader = [[\]]
+
+-- Setup config.
+require("aiko").setup()
