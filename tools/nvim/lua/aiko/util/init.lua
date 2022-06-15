@@ -22,14 +22,14 @@ M.close_buffer = function(force)
   vim.cmd(close_cmd)
 end
 
-M.autocmd = function(group, autocmds, clear)
+M.autocmd = function(name, autocmds, clear)
   clear = clear ~= nil and clear or true
 
   if autocmds.event ~= nil then
     autocmds = { autocmds }
   end
 
-  local group = vim.api.nvim_create_augroup(group, { clear = clear })
+  local group = vim.api.nvim_create_augroup(name, { clear = clear })
 
   for _, autocmd in ipairs(autocmds) do
     vim.api.nvim_create_autocmd(autocmd.event, {
@@ -43,12 +43,6 @@ M.autocmd = function(group, autocmds, clear)
       nested = autocmd.nested,
     })
   end
-end
-
-M.packer_lazy_load = function(plugin)
-  vim.defer_fn(function()
-    require("packer").loader(plugin)
-  end, 0)
 end
 
 return M
