@@ -7,7 +7,6 @@ vim.opt_local.softtabstop = 4
 vim.opt_local.fileformat = "unix"
 vim.opt_local.textwidth = 80
 
-
 -- Create a buffer local keymap to reformat, using the buffer local
 -- command.
 vim.keymap.set(
