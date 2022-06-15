@@ -7,7 +7,7 @@ M.setup = function()
   end
 
   dressing.setup({
-    winhighlight = 'NormalFloat:DiagnosticError',
+    winhighlight = "NormalFloat:DiagnosticError",
   })
 end
 

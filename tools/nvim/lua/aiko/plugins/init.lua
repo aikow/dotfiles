@@ -392,7 +392,7 @@ M.plugins = function(use)
     requires = { "nvim-telescope/telescope.nvim" },
     config = function()
       require("aiko.plugins.configs.dressing").setup()
-    end
+    end,
   })
 
   -- ---------------------
@@ -402,11 +402,11 @@ M.plugins = function(use)
     {
       "navarasu/onedark.nvim",
       config = function()
-        require("onedark").setup {
+        require("onedark").setup({
           style = "darker",
-        }
+        })
         vim.cmd([[colorscheme onedark]])
-      end
+      end,
     },
     "sainnhe/gruvbox-material",
   })
