@@ -66,9 +66,9 @@ M.setup = function()
 
   map({ "i", "s" }, "<C-u>", function()
     if ls.choice_active() then
-      require("luasnip.extra.select_choice")()
+      require("luasnip.extras.select_choice")()
     end
-  end, { silent = true, desc = "luasnip prev choice" })
+  end, { silent = true, desc = "luasnip select choice" })
 
   -- ----------------------------
   -- |   Convenience Key Maps   |
@@ -91,7 +91,7 @@ M.setup = function()
   -- |   Lazy Load Snippets   |
   -- --------------------------
   require("luasnip.loaders.from_vscode").lazy_load({
-    -- exclude = { "tex" },
+    exclude = { "tex" },
     default_priority = 100,
   })
   require("luasnip.loaders.from_vscode").lazy_load({

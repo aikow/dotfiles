@@ -19,37 +19,62 @@ local lambda = require("luasnip.extras").l
 -- |   Vimtex Regions   |
 -- ----------------------
 
-local tex = {
-  math = function()
+local x = {
+  --- Returns true if the cursor is currently in a math zone.
+  -- @return boolean
+  m = function()
     return vim.fn["vimtex#syntax#in_mathzone"]() == 1
   end,
-  not_math = function()
+
+  --- Returns true if the cursor is not currently in a math zone.
+  -- @return boolean
+  M = function()
     return vim.fn["vimtex#syntax#in_mathzone"]() ~= 1
   end,
-  comment = function()
+
+  --- Returns true if the cursor is currently in a latex comment.
+  -- @return boolean
+  c = function()
     return vim.fn["vimtex#syntax_in_comment"]() == 1
   end,
-  notcomment = function()
+
+  --- Returns a true if the cursor is currently not in a latex comment.
+  C = function()
     return vim.fn["vimtex#syntax_in_comment"]() ~= 1
   end,
-  env = function(name)
-    local bounds = vim.fn["vimtex#env#is_inside"](name)
-    return bounds[1] ~= 0 and bounds[2] ~= 0
-  end,
-  notenv = function(name)
-    local bounds = vim.fn["vimtex#env#is_inside"](name)
-    return bounds[1] == 0 or bounds[2] == 0
-  end,
-}
 
-local cond = {
+  --- Returns a function that returns true if the cursor is currently inside an
+  -- environment specified by name.
+  -- @param name The name of the environment
+  e = function(name)
+    return function()
+      local bounds = vim.fn["vimtex#env#is_inside"](name)
+      return bounds[1] ~= 0 and bounds[2] ~= 0
+    end
+  end,
+
+  --- Returns a function that returns true if the cursor is currently not inside
+  -- an environment specified by name.
+  -- @param name The name of the environment
+  E = function(name)
+    return function()
+      local bounds = vim.fn["vimtex#env#is_inside"](name)
+      return bounds[1] == 0 or bounds[2] == 0
+    end
+  end,
+
+  --- Returns true if the current line starts with any amount of whitespace
+  -- followed by the trigger.
+  -- @param trig The trigger used to expand the snippet.
   b = function(trig)
     return function(line_to_cursor)
       return string.match(line_to_cursor, "^%s*" .. trig .. "$")
     end
   end,
 
-  -- Join multiple conditions into a single condition.
+  --- Join multiple conditions into a single condition.
+  -- @param conditions A list of conditions, all of which have to be true for
+  -- the entire function to evaluate to true.
   join = function(conditions)
     return function(line_to_cursor)
       for _, cond in ipairs(conditions) do
@@ -224,7 +249,7 @@ return {
         rec = d(6, rec_table, { 4 }),
       }
     ),
-    { condition = tex.not_math, show_condition = tex.not_math }
+    { condition = x.join({ x.M, x.b("table") }), show_condition = x.M }
   ),
 
   s(
@@ -252,7 +277,7 @@ return {
         label = i(3, "label"),
       }
     ),
-    { condition = tex.not_math, show_condition = tex.not_math }
+    { condition = x.join({ x.M, x.b("fig") }), show_condition = x.M }
   ),
 
   s(
@@ -263,9 +288,9 @@ return {
           \item <item>
         \end{enumerate}
       ]],
-      { item = i(1) }
+      { item = i(0) }
     ),
-    { condition = tex.not_math, show_condition = tex.not_math }
+    { condition = x.join({ x.M, x.b("enum") }), show_condition = x.M }
   ),
 
   s(
@@ -276,9 +301,9 @@ return {
           \item <item>
         \end{itemize}
       ]],
-      { item = i(1) }
+      { item = i(0) }
     ),
-    { condition = tex.not_math, show_condition = tex.not_math }
+    { condition = x.join({ x.M, x.b("item") }), show_condition = x.M }
   ),
 
   s(
@@ -289,9 +314,9 @@ return {
           \item[<desc>] <item>
         \end{description}
       ]],
-      { desc = i(1), item = i(2) }
+      { desc = i(1), item = i(0) }
     ),
-    { condition = tex.not_math, show_condition = tex.not_math }
+    { condition = x.join({ x.M, x.b("desc") }), show_condition = x.M }
   ),
 
   s(
@@ -304,7 +329,7 @@ return {
       ]],
       { star = toggle_text(1, "*"), input = i(2) }
     ),
-    { condition = tex.not_math, show_condition = tex.not_math }
+    { condition = x.join({ x.M, x.b("ali") }), show_condition = x.M }
   ),
 
   s(
@@ -317,7 +342,60 @@ return {
       ]],
       { star = toggle_text(1, "*"), input = i(2) }
     ),
-    { condition = tex.not_math, show_condition = tex.not_math }
+    { condition = x.join({ x.M, x.b("mlt") }), show_condition = x.M }
+  ),
+
+  -- -----------------------------
+  -- |   Glossary and Acronyms   |
+  -- -----------------------------
+  s(
+    { trig = "glossary" },
+    fmta(
+      [[
+        \newglossaryentry{<id>}{%
+          name={<name>},%
+          description={<desc>}%
+        }
+      ]],
+      { id = i(1, "id"), name = i(2, "name"), desc = i(3, "description") }
+    ),
+    {
+      condition = x.join({ x.M, x.b("glossary") }),
+      show_condition = x.M,
+    }
+  ),
+
+  s(
+    { trig = "acronym" },
+    fmta(
+      [[\newacronym{<id>}{<name>}{<desc>}]],
+      { id = i(1, "id"), name = i(2, "name"), desc = i(3, "description") }
+    ),
+    {
+      condition = x.join({ x.M, x.b("acronym") }),
+      show_condition = x.M,
+    }
+  ),
+
+  -- --------------------
+  -- |   Type Setting   |
+  -- --------------------
+  s(
+    { trig = "it" },
+    { t([[\textit{]]), i(1), t("}") },
+    { condition = x.M, show_condition = x.M, callbacks = autoinsert_space }
+  ),
+
+  s(
+    { trig = "bf" },
+    { t([[\textbf{]]), i(1), t("}") },
+    { condition = x.M, show_condition = x.M, callbacks = autoinsert_space }
+  ),
+
+  s(
+    { trig = "em" },
+    { t([[\textem{]]), i(1), t("}") },
+    { condition = x.M, show_condition = x.M, callbacks = autoinsert_space }
   ),
 },
   {
@@ -340,17 +418,74 @@ return {
       fmta(
         [[
           \chapter{<name>}
-          \label{<label>}
+          \label{chap:<label>}
         ]],
         {
           name = i(1),
-          label = c(2, {
-            sn(nil, { t("chap:"), to_snake(ai[1]) }),
-            i(1, "label"),
-          }),
+          label = to_snake(ai[1]),
         }
       ),
-      { condition = cond.b("chap"), show_condition = cond.b("chap") }
+      { condition = x.join({ x.M, x.b("chap") }), show_condition = x.M }
+    ),
+
+    s(
+      { trig = "sec" },
+      fmta(
+        [[
+          \section{<name>}
+          \label{sec:<label>}
+        ]],
+        {
+          name = i(1),
+          label = to_snake(ai[1]),
+        }
+      ),
+      { condition = x.join({ x.M, x.b("sec") }), show_condition = x.M }
+    ),
+
+    s(
+      { trig = "ssec" },
+      fmta(
+        [[
+          \subsection{<name>}
+          \label{ssec:<label>}
+        ]],
+        {
+          name = i(1),
+          label = to_snake(ai[1]),
+        }
+      ),
+      { condition = x.join({ x.M, x.b("ssec") }), show_condition = x.M }
+    ),
+
+    s(
+      { trig = "sssec" },
+      fmta(
+        [[
+          \subsubsection{<name>}
+          \label{sssec:<label>}
+        ]],
+        {
+          name = i(1),
+          label = to_snake(ai[1]),
+        }
+      ),
+      { condition = x.join({ x.M, x.b("sssec") }), show_condition = x.M }
+    ),
+
+    s(
+      { trig = "par" },
+      fmta(
+        [[
+          \paragraph{<name>}
+          \label{par:<label>}
+        ]],
+        {
+          name = i(1),
+          label = to_snake(ai[1]),
+        }
+      ),
+      { condition = x.join({ x.M, x.b("par") }), show_condition = x.M }
     ),
 
     -- --------------------
@@ -374,8 +509,8 @@ return {
         }
       ),
       {
-        condition = cond.join({ tex.not_math, cond.b("beg") }),
-        show_condition = cond.join({ tex.not_math, cond.b("beg") }),
+        condition = x.join({ x.M, x.b("beg") }),
+        show_condition = x.M,
       }
     ),
 
@@ -383,9 +518,9 @@ return {
     -- |   Enter Math mode   |
     -- -----------------------
     -- Inline math
-    s({ trig = "mk", priority = 100 }, fmta([[$<1>$]], { i(1) }), {
-      condition = tex.math,
-      show_condition = tex.math,
+    s({ trig = "mk", priority = 100 }, { t("$"), i(1), t("$") }, {
+      condition = x.M,
+      show_condition = x.M,
       callbacks = autoinsert_space,
     }),
 
@@ -396,8 +531,8 @@ return {
         return "$" .. snip.captures[1] .. "$"
       end),
       {
-        condition = tex.not_math,
-        show_condition = tex.not_math,
+        condition = x.M,
+        show_condition = x.M,
         callbacks = autoinsert_space,
       }
     ),
@@ -413,7 +548,7 @@ return {
         ]],
         { i(1), toggle_text(2, ".", true) }
       ),
-      { condition = tex.not_math, show_condition = tex.not_math }
+      { condition = x.M, show_condition = x.M }
     ),
 
     -- -----------------
@@ -422,7 +557,7 @@ return {
     s(
       { trig = "//", wordTrig = false },
       fmta([[\frac{<1>}{<2>}]], { i(1), i(2) }),
-      { condition = tex.math, show_condition = tex.math }
+      { condition = x.m, show_condition = x.m }
     ),
 
     s(
@@ -433,7 +568,7 @@ return {
         end),
         i(1),
       }),
-      { condition = tex.math, show_condition = tex.math }
+      { condition = x.m, show_condition = x.m }
     ),
 
     s({ trig = [=[^(.*[%)%}])/]=], regTrig = true }, {
@@ -453,7 +588,6 @@ return {
             depth = depth + 1
           end
 
-          print(depth)
           if depth == 0 then
             break
           end
@@ -465,7 +599,7 @@ return {
       t([[}{]]),
       i(1),
       t([[}]]),
-    }, { condition = tex.math, show_condition = tex.math }),
+    }, { condition = x.m, show_condition = x.m }),
 
     -- ---------------------------------------------
     -- |   Super and Subscripts and Text in Math   |
@@ -473,24 +607,32 @@ return {
     s(
       { trig = "_", wordTrig = false },
       { t("_{"), i(1), t("}"), i(0) },
-      { condition = tex.math, show_condition = tex.math }
+      { condition = x.m, show_condition = x.m }
     ),
 
     s(
       { trig = "sts", wordTrig = false },
       { t([[_{\text{]]), i(1), t("}}"), i(0) },
-      { condition = tex.math, show_condition = tex.math }
+      { condition = x.m, show_condition = x.m }
     ),
 
     s(
       { trig = "td", wordTrig = false },
       { t("^{"), i(1), t("}"), i(0) },
-      { condition = tex.math, show_condition = tex.math }
+      { condition = x.m, show_condition = x.m }
     ),
 
     s(
       { trig = "tt", wordTrig = false },
       { t([[\text{]]), i(1), t("}"), i(0) },
-      { condition = tex.math, show_condition = tex.math }
+      { condition = x.m, show_condition = x.m }
     ),
+
+    -- ------------
+    -- |   Dots   |
+    -- ------------
+    s({trig = "...", wordTrig = false}, t([[\ldots ]], { condition = x.m, show_condition = x.m }))
+    s({trig = "c..", wordTrig = false}, t([[\cdots ]], { condition = x.m, show_condition = x.m }))
+    s({trig = "d..", wordTrig = false}, t([[\ddots ]], { condition = x.m, show_condition = x.m }))
+    s({trig = "v..", wordTrig = false}, t([[\vdots ]], { condition = x.m, show_condition = x.m }))
   }
