@@ -128,6 +128,10 @@
       path: os/i3/config
       create: true
 
+    ~/.config/awesome:
+      if: 'command -v awesome &>/dev/null'
+      path: os/awesome
+
     ~/.xmonad:
       if: 'command -v xmonad &>/dev/null'
       path: os/xmonad
