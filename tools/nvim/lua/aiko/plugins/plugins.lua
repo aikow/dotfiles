@@ -63,6 +63,7 @@ M.use = function(use)
     {
       "nvim-treesitter/nvim-treesitter",
       event = { "BufRead", "BufNewFile" },
+      module = { "nvim-treesitter" },
       requires = {
         "nvim-treesitter/nvim-treesitter-refactor",
       },
@@ -78,7 +79,7 @@ M.use = function(use)
   -- Refactoring support for select languages.
   use({
     "ThePrimeagen/refactoring.nvim",
-    after = "nvim-treesitter",
+    ft = { "typescript", "javascript", "lua", "c", "cpp", "go", "python", "java", "php" },
     requires = {
       { "nvim-lua/plenary.nvim" },
       { "nvim-treesitter/nvim-treesitter" },
@@ -234,13 +235,6 @@ M.use = function(use)
       event = "BufRead",
       config = function()
         require("aiko.plugins.configs.indent_blankline").setup()
-      end,
-    },
-    {
-      "windwp/nvim-autopairs",
-      after = "nvim-cmp",
-      config = function()
-        require("aiko.plugins.configs.autopairs").setup()
       end,
     },
     {
