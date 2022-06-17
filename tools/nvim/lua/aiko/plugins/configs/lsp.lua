@@ -66,7 +66,7 @@ M.setup = function()
     settings = {
       Lua = {
         diagnostics = {
-          globals = { "vim" },
+          globals = { "vim", "awesome", "client", "root", },
         },
         format = {
           enable = true,
