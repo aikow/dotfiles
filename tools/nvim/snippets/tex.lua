@@ -631,8 +631,27 @@ return {
     -- ------------
     -- |   Dots   |
     -- ------------
-    s({trig = "...", wordTrig = false}, t([[\ldots ]], { condition = x.m, show_condition = x.m }))
-    s({trig = "c..", wordTrig = false}, t([[\cdots ]], { condition = x.m, show_condition = x.m }))
-    s({trig = "d..", wordTrig = false}, t([[\ddots ]], { condition = x.m, show_condition = x.m }))
-    s({trig = "v..", wordTrig = false}, t([[\vdots ]], { condition = x.m, show_condition = x.m }))
+    s(
+      { trig = "...", wordTrig = false },
+      t([[\ldots ]]),
+      { condition = x.m, show_condition = x.m }
+    ),
+
+    s(
+      { trig = "c..", wordTrig = false },
+      t([[\cdots ]]),
+      { condition = x.m, show_condition = x.m }
+    ),
+
+    s(
+      { trig = "d..", wordTrig = false },
+      t([[\ddots ]]),
+      { condition = x.m, show_condition = x.m }
+    ),
+
+    s(
+      { trig = "v..", wordTrig = false },
+      t([[\vdots ]]),
+      { condition = x.m, show_condition = x.m }
+    ),
   }
