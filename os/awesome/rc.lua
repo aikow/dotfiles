@@ -56,6 +56,8 @@ end
 -- {{{ Variable definitions
 -- Themes define colours, icons, font and wallpapers.
 beautiful.init(gears.filesystem.get_themes_dir() .. "default/theme.lua")
+beautiful.useless_gap = 5
+beautiful.gap_single_client = false
 
 -- This is used later as the default terminal and editor to run.
 local terminal = "alacritty"
@@ -599,6 +601,6 @@ end)
 
 awful.spawn.with_shell([[nitrogen --restore]])
 awful.spawn.with_shell([[picom]])
-awful.spawn.with_shell([[command -v yakuake &>/dev/null && yakuake &]])
+awful.spawn.with_shell([[ps aux | grep yakuake || command -v yakuake &>/dev/null && yakuake &]])
 awful.spawn.with_shell([[xmodmap -e 'clear lock']])
 awful.spawn.with_shell([[xmodmap -e 'keysym Caps_Lock = Escape']])
