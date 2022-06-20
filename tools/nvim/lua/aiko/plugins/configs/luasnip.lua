@@ -29,6 +29,19 @@ M.setup = function()
   -- -----------------------
   -- |   Trigger Keymaps   |
   -- -----------------------
+  map({ "i" }, "<C-n>", function()
+    if ls.jumpable(1) then
+      ls.jump(1)
+    elseif ls.expandable() then
+      ls.expand()
+    else
+      vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Tab>", true, true, true), "n", false)
+    end
+  end, {
+    silent = true,
+    desc = "luasnip jump forward one or expand tab",
+  })
+
   map({ "i" }, "<Tab>", function()
     if ls.expand_or_jumpable() then
       ls.expand_or_jump()

@@ -13,9 +13,6 @@ opt.lazyredraw = true
 -- e.g., `:find vim* <TAB>`
 opt.path = opt.path:append(",**")
 
--- Number of lines at the beginning and end of files checked for file-specific vars
-opt.modelines = 3
-
 -- Permanent undo
 opt.undofile = true
 

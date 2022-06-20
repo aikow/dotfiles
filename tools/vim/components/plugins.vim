@@ -3,7 +3,8 @@
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "
 " Automatically try to install vim-plug if it not already installed.
-let data_dir = has('nvim') ? stdpath('data') . '/site' : '~/.vim'
+set rtp+=~/.local/vim
+let data_dir = has('nvim') ? stdpath('data') . '/site' : '~/.local/vim'
 if empty(glob(data_dir . '/autoload/plug.vim'))
   echom "Installing vim-plug, " . data_dir . '/autoload/plug.vim was empty' 
   silent execute '!curl -fLo ' . data_dir . '/autoload/plug.vim --create-dirs 
@@ -26,9 +27,9 @@ call plug#begin(plug_dir)
 if executable("python3")
   " Snippets and snippets
   Plug 'sirver/ultisnips'
-    let g:UltiSnipsExpandTrigger = '<c-j>'
-    let g:UltiSnipsJumpForwardTrigger = '<c-j>'
-    let g:UltiSnipsJumpBackwardTrigger = '<c-k>'
+    let g:UltiSnipsExpandTrigger = '<Tab>'
+    let g:UltiSnipsJumpForwardTrigger = '<Tab>'
+    let g:UltiSnipsJumpBackwardTrigger = '<S-Tab>'
 endif
 
 
@@ -210,11 +211,6 @@ Plug 'itchyny/lightline.vim'
     endif
     let fname = expand('%:t')
     return fname == '__Tagbar__' ? 'Tagbar' :
-          \ fname == 'ControlP' ? 'CtrlP' :
-          \ fname == '__Gundo__' ? 'Gundo' :
-          \ fname == '__Gundo_Preview__' ? 'Gundo Preview' :
-          \ fname =~ 'NERD_tree' ? 'NERDTree' :
-          \ &ft == 'unite' ? 'Unite' :
           \ &ft == 'vimfiler' ? 'VimFiler' :
           \ &ft == 'vimshell' ? 'VimShell' :
           \ winwidth(0) > 10 ? lightline#mode() : ''
