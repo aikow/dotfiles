@@ -400,7 +400,7 @@ M.use = function(use)
       "navarasu/onedark.nvim",
       config = function()
         require("onedark").setup({
-          style = "darker",
+          style = "warm",
         })
         vim.cmd([[colorscheme onedark]])
       end,
