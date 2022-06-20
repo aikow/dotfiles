@@ -1,28 +1,12 @@
-" Check the host operating system
-if !exists("g:os")
-    if has("win64") || has("win32") || has("win16")
-        let g:os = "Windows"
-    else
-        let g:os = substitute(system('uname'), '\n', '', '')
-    endif
-endif
-
-
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                                  Internal                                  "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "
 " Set runtimepath to the source files in the dotfiles directory
-set rtp+=~/.dotfiles/tools/vim/rtp
+set rtp+=~/.dotfiles/tools/vim
 
-" If launching vim from fish, set the shell to bash.
-if &shell =~# 'fish$'
-  if executable('zsh')
-    set shell=zsh
-  else
-    set shell=bash
-  endif
-endif
+" Set the shell to bash.
+set shell=bash
 
 " Don't need vi compatibility
 set nocompatible
@@ -39,22 +23,11 @@ set encoding=utf-8
 " e.g., `:find vim* <TAB>`
 set path+=**
 
-" Set working directory to the current files
-set noautochdir
-
-" Number of lines at the beginning and end of files checked for file-specific vars
-set modelines=3
-set modeline
-
-" make Backspace work like Delete
-set backspace=indent,eol,start
-
 " Permanent undo
 set undofile
 
 " Backups and Swap files
 set nobackup
-set swapfile
 
 " Better display for messages
 set updatetime=1000
@@ -67,12 +40,7 @@ set timeoutlen=500
 set ttimeoutlen=5
 
 " Use system clipboard
-if g:os == "Darwin"
-  set clipboard+=unnamed
-elseif g:os == "Linux"
-  set clipboard+=unnamedplus
-elseif g:os == "Windows"
-endif
+set clipboard+=unnamedplus
 
 " Filetype plugins
 filetype plugin on
@@ -140,15 +108,10 @@ elseif executable('ag')
 endif
 
 " Wrapping options
-set formatoptions=tc " wrap text and comments using textwidth
-set formatoptions+=r " continue comments when pressing ENTER in I mode
-set formatoptions+=q " enable formatting of comments with gq
-set formatoptions+=n " detect lists for formatting
-set formatoptions+=b " auto-wrap in insert mode, and do not wrap old long lines
+set formatoptions=tcroqan2blj
 
 " Folding
 set foldmethod=indent
-set foldnestmax=1
 set foldlevelstart=99
 
 " Set 7 lines to the cursor - when moving vertically using j/k
@@ -198,6 +161,7 @@ set noshowmode
 set colorcolumn=80
 set ruler
 set relativenumber 
+set number
 set cursorline
 
 " Wrap lines
@@ -226,33 +190,34 @@ vnoremap > >gv
 " Very magic by default
 nnoremap ? ?\v
 nnoremap / /\v
+nnoremap <C-s> :%s/\v
+cnoremap <C-s> %s/\v
+vnoremap <C-s> :s/\v
+
+if has("nvim")
+  nnoremap <C-l> :lua<space>
+  nnoremap <C-l><C-l> :lua=<space>
+endif
 
 " <leader><leader> toggles between buffers
 nnoremap <leader><leader> <c-^>
 
-tnoremap <esc><space> <c-\><C-n>
-
-" <leader>, shows/hides hidden characters
-nnoremap <leader>, :set invlist<cr>
-
-" <leader>q shows stats
-nnoremap <leader>q g<c-g>
+if has("nvim")
+  tnoremap jk <c-\><C-n>
+  tnoremap kj <c-\><C-n>
+endif
 
 " Keymap for replacing up to next _ or -
 nnoremap <leader>m ct_
 
 " Automatically correct spelling with the first option
-inoremap <C-l> <c-g>u<Esc>[s1z=`]a<c-g>u
+inoremap <C-s> <c-g>u<Esc>[s1z=`]a<c-g>u
 
 " Clear the search buffer to remove highlighting from the last search
 nnoremap <silent> <c-_> :let @/ = ""<CR>
 
 " Use <gp> to select the text that was last pasted
 nnoremap <expr> gp '`[' . strpart(getregtype(), 0,  1) . '`]'
-
-" Switch buffers using gb and gB, similar to tabs.
-nnoremap <silent> gb :bnext<CR>
-nnoremap <silent> gB :bprev<CR>
 
 " Sort the selected lines
 vnoremap <leader>rs :!sort<CR>
@@ -271,9 +236,13 @@ inoremap ! !<c-g>u
 inoremap ? ?<c-g>u
 
 " Automatically jump to the end of pasted text
-vnoremap <silent> y y`]
-vnoremap <silent> p p`]
+xnoremap <silent> y y`]
+xnoremap <silent> p p`]
 nnoremap <silent> p p`]
+
+cnoremap %H <C-r>=expand('%:h:p') . '/'<CR>
+cnoremap %T <C-r>=expand('%:t')<CR>
+cnoremap %P <C-r>=expand('%:p')<CR>
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -310,14 +279,6 @@ nnoremap <silent> <leader>hf :Filetypes<CR>
 nnoremap <silent> <leader>w :w<CR>
 nnoremap <silent> <leader>W :wa<CR>
 
-" Plugins
-nnoremap <silent> <leader>ppi :PlugInstall<CR>
-nnoremap <silent> <leader>ppu :PlugUpdate<CR>
-nnoremap <silent> <leader>ppp :PlugUpgrade<CR>
-nnoremap <silent> <leader>ps :source $MYVIMRC<CR>
-nnoremap <silent> <leader>po :tabe $MYVIMRC<CR>
-nnoremap <silent> <leader>pur :call UltiSnips#RefreshSnippets()<CR>
-
 "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                                  Functions                                 "
@@ -327,7 +288,7 @@ nnoremap <silent> <leader>pur :call UltiSnips#RefreshSnippets()<CR>
 set autoread
 augroup general_autoread
   autocmd!
-  autocmd FocusGained,BufEnter * :silent! !
+  autocmd FocusGained,BufEnter * :silent! checktime
 augroup END
 
 " Prevent accidental writes to buffers that shouldn't be edited
@@ -336,61 +297,13 @@ augroup unmodifiable
   autocmd BufRead *.pacnew set readonly
 augroup END
 
-augroup term_opts
-  autocmd TermOpen * setlocal nospell nonumber norelativenumber
-augroup END
+if has("nvim")
+  augroup term_opts
+    autocmd TermOpen * setlocal nospell nonumber norelativenumber
+  augroup END
+end
 
 " https://stackoverflow.com/questions/31449496/vim-ignore-specifc-file-in-autocommand
 augroup last_pos
   autocmd BufReadPost * if expand('%:p') !~# '\m/\.git/' && line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 augroup END
-
-" Help filetype detection
-augroup filetype_help
-  autocmd BufRead *.plot set filetype=gnuplot
-  autocmd BufRead *.md set filetype=markdown
-  autocmd BufRead *.lds set filetype=ld
-  autocmd BufRead *.tex set filetype=tex
-  autocmd BufRead *.trm set filetype=c
-  autocmd BufRead *.xlsx.axlsx set filetype=ruby
-augroup END
-
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"                                    Rust                                    "
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"
-" Set rust specific vim settings.
-augroup ft_rust
-  autocmd FileType rust setlocal colorcolumn=100
-augroup END
-
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"                                   Python                                   "
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"
-" Set settings for python files
-augroup ft_python
-  autocmd!
-  autocmd FileType python setlocal tabstop=4
-  autocmd FileType python setlocal softtabstop=4
-  autocmd FileType python setlocal shiftwidth=4
-  autocmd FileType python setlocal textwidth=80
-  autocmd FileType python setlocal expandtab
-  autocmd FileType python setlocal autoindent
-  autocmd FileType python setlocal fileformat=unix
-  autocmd FileType python setlocal foldmethod=indent
-augroup END
-
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"                                 VimScript                                  "
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"
-" Set the fold method to marker for vim files
-augroup filetype_vim
-  autocmd!
-  autocmd FileType vim setlocal foldmethod=marker
-augroup END
-
