@@ -62,18 +62,7 @@ if vim.fn.executable("rg") == 1 then
 end
 
 -- Format options
-opt.formatoptions = opt.formatoptions
-  + "t" -- auto wrap text using textwidth
-  + "c" -- auto wrap comments using textwidth
-  + "r" -- auto insert comment leader on pressing enter
-  + "o" -- auto insert comment leader on pressing o
-  + "q" -- format comments with gq
-  - "a" -- don't autoformat the paragraphs
-  + "n" -- auto format numbered list
-  - "2" -- use the first line to specify indent width, not the second
-  + "b" -- auto wrap in insert mode, and do not wrap old long lines
-  + "l" -- long lines are not broken in insert mode
-  + "j" -- remove comment leader when joining lines
+opt.formatoptions = "tcroqnblj"
 
 -- Use treesitter for folding
 opt.foldmethod = "expr"
