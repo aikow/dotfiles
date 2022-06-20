@@ -91,7 +91,7 @@ if has('patch-7.4.775')
 endif
 
 " Avoid showing extra messages when using completion
-set shortmess+=c
+set shortmess=filnxtToOFc
 
 " Searching
 set hlsearch 
@@ -108,7 +108,7 @@ elseif executable('ag')
 endif
 
 " Wrapping options
-set formatoptions=tcroqan2blj
+set formatoptions=tcroqnblj
 
 " Folding
 set foldmethod=indent
@@ -130,7 +130,7 @@ if has('patch-8.1.0360')
 endif
 
 " Set spell location to English and German
-setlocal spell
+set spell
 set spelllang=en,de
 
 
