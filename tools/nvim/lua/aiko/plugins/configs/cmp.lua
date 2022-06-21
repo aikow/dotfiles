@@ -7,7 +7,7 @@ M.setup = function()
   vim.opt.completeopt = { "menu", "menuone", "noselect" }
 
   -- Avoid showing extra messages when using completion
-  vim.opt.shortmess = "filnxtToOFc"
+  vim.opt.shortmess = vim.opt.shortmess + "c"
 
   -- Setup completion framework nvim-cmp.
   local ok_cmp, cmp = pcall(require, "cmp")
