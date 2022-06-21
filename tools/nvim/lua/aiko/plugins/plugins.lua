@@ -352,7 +352,7 @@ M.use = function(use)
 
   -- Fish shell syntax support
   use({
-    "dag/vim-fish",
+    "aikow/vim-fish",
     ft = { "fish" },
   })
 
