@@ -34,7 +34,7 @@
   diffFilter = delta --color-only --features=interactive
 
 [github]
-  user = commanda-panda
+  user = aikow
 
 [merge]
   # set "nvim" as tool for merging
@@ -51,7 +51,7 @@
   cmd = nvim -c \"Gvdiffsplit!\" \"$MERGED\"
 
 [pull]
-	rebase = false
+	rebase = true
 
 [push]
   default = current
@@ -62,5 +62,3 @@
 
 [include]
   path = ~/.gitconfig_local
-
-# vim: ft=gitconfig
