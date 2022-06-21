@@ -77,7 +77,7 @@ Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': 
   let g:mkdp_page_title = '「${name}」'
   let g:mkdp_filetypes = ['markdown', 'md']
 
-Plug 'dag/vim-fish'
+Plug 'aikow/vim-fish'
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
