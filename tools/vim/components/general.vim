@@ -91,7 +91,7 @@ if has('patch-7.4.775')
 endif
 
 " Avoid showing extra messages when using completion
-set shortmess=filnxtToOFc
+set shortmess+=c
 
 " Searching
 set hlsearch 
