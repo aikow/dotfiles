@@ -77,18 +77,23 @@ awful.layout.layouts = {
 	-- awful.layout.suit.tile.left,
 	awful.layout.suit.tile.bottom,
 	-- awful.layout.suit.tile.top,
+
 	awful.layout.suit.fair,
 	awful.layout.suit.fair.horizontal,
+
 	-- awful.layout.suit.spiral,
 	-- awful.layout.suit.spiral.dwindle,
-	-- awful.layout.suit.max,
-	awful.layout.suit.max.fullscreen,
-	-- awful.layout.suit.magnifier,
+
+	awful.layout.suit.max,
+	-- awful.layout.suit.max.fullscreen,
+	awful.layout.suit.magnifier,
+
 	awful.layout.suit.corner.nw,
-	awful.layout.suit.floating,
 	-- awful.layout.suit.corner.ne,
 	-- awful.layout.suit.corner.sw,
 	-- awful.layout.suit.corner.se,
+
+	awful.layout.suit.floating,
 }
 -- }}}
 
@@ -116,6 +121,7 @@ local mymainmenu = awful.menu({
 	items = {
 		{ "awesome", myawesomemenu, beautiful.awesome_icon },
 		{ "open terminal", terminal },
+		{ "run program", [[dmenu_run]] },
 	},
 })
 
@@ -204,7 +210,7 @@ awful.screen.connect_for_each_screen(function(s)
 
 	-- Each screen has its own tag table.
 	local l = awful.layout.suit
-	local names = { "main", "www", "dev", "doc", "img", "mail", "chat", "media", "misc" }
+	local names = { "DEV", "WWW", "SYS", "DOC", "IMG", "CHAT", "MUS", "GFX", "MISC" }
 	local layouts = { l.tile, l.tile, l.tile, l.tile, l.tile, l.tile, l.tile, l.tile, l.tile }
 	awful.tag(names, s, layouts)
 
@@ -231,17 +237,140 @@ awful.screen.connect_for_each_screen(function(s)
 		end)
 	))
 	-- Create a taglist widget
+	-- s.mytaglist = awful.widget.taglist({
+	-- 	screen = s,
+	-- 	filter = awful.widget.taglist.filter.all,
+	-- 	buttons = taglist_buttons,
+	-- })
 	s.mytaglist = awful.widget.taglist({
 		screen = s,
 		filter = awful.widget.taglist.filter.all,
+		style = {
+			shape = gears.shape.powerline,
+		},
+		layout = {
+			spacing = -12,
+			spacing_widget = {
+				color = "#dddddd",
+				shape = gears.shape.powerline,
+				widget = wibox.widget.separator,
+			},
+			layout = wibox.layout.fixed.horizontal,
+		},
+		widget_template = {
+			{
+				{
+					{
+						{
+							{
+								id = "index_role",
+								widget = wibox.widget.textbox,
+							},
+							margins = 4,
+							widget = wibox.container.margin,
+						},
+						bg = "#dddddd",
+						shape = gears.shape.circle,
+						widget = wibox.container.background,
+					},
+					{
+						{
+							id = "icon_role",
+							widget = wibox.widget.imagebox,
+						},
+						margins = 2,
+						widget = wibox.container.margin,
+					},
+					{
+						id = "text_role",
+						widget = wibox.widget.textbox,
+					},
+					layout = wibox.layout.fixed.horizontal,
+				},
+				left = 18,
+				right = 18,
+				widget = wibox.container.margin,
+			},
+			id = "background_role",
+			widget = wibox.container.background,
+			-- Add support for hover colors and an index label
+			create_callback = function(self, _c3, index, _objects) --luacheck: no unused args
+				self:get_children_by_id("index_role")[1].markup = "<b> " .. index .. " </b>"
+				self:connect_signal("mouse::enter", function()
+					if self.bg ~= "#ff0000" then
+						self.backup = self.bg
+						self.has_backup = true
+					end
+					self.bg = "#ff0000"
+				end)
+				self:connect_signal("mouse::leave", function()
+					if self.has_backup then
+						self.bg = self.backup
+					end
+				end)
+			end,
+			update_callback = function(self, _c3, index, _objects) --luacheck: no unused args
+				self:get_children_by_id("index_role")[1].markup = "<b> " .. index .. " </b>"
+			end,
+		},
 		buttons = taglist_buttons,
 	})
 
 	-- Create a tasklist widget
+	-- s.mytasklist = awful.widget.tasklist({
+	-- 	screen = s,
+	-- 	filter = awful.widget.tasklist.filter.currenttags,
+	-- 	buttons = tasklist_buttons,
+	-- })
 	s.mytasklist = awful.widget.tasklist({
 		screen = s,
 		filter = awful.widget.tasklist.filter.currenttags,
 		buttons = tasklist_buttons,
+		style = {
+			shape_border_width = 1,
+			shape_border_color = "#777777",
+			shape = gears.shape.rounded_bar,
+		},
+		layout = {
+			spacing = 10,
+			spacing_widget = {
+				{
+					forced_width = 5,
+					shape = gears.shape.circle,
+					widget = wibox.widget.separator,
+				},
+				valign = "center",
+				halign = "center",
+				widget = wibox.container.place,
+			},
+			layout = wibox.layout.flex.horizontal,
+		},
+		-- Notice that there is *NO* wibox.wibox prefix, it is a template,
+		-- not a widget instance.
+		widget_template = {
+			{
+				{
+					{
+						{
+							id = "icon_role",
+							widget = wibox.widget.imagebox,
+						},
+						margins = 2,
+						widget = wibox.container.margin,
+					},
+					{
+						id = "text_role",
+						widget = wibox.widget.textbox,
+					},
+					layout = wibox.layout.fixed.horizontal,
+				},
+				left = 10,
+				right = 10,
+				widget = wibox.container.margin,
+			},
+			id = "background_role",
+			widget = wibox.container.background,
+		},
 	})
 
 	-- Create the wibox
