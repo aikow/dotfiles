@@ -713,9 +713,18 @@ client.connect_signal("unfocus", function(c)
 	c.border_color = beautiful.border_normal
 end)
 
+-- Background wallpaper
 awful.spawn.with_shell("nitrogen -- restore")
+
+-- Start picom compositer
 awful.spawn.with_shell("picom")
 awful.spawn.with_shell("volumeicon")
+
+-- Autostart yakuake and enpass
 awful.spawn.with_shell([[! pgrep yakuake &>/dev/null && command -v yakuake &>/dev/null && yakuake &]])
+awful.spawn.with_shell([[command -v enpass &>/dev/null && enpass start]])
+
+
+-- Remap Caps Lock to Escape
 awful.spawn.with_shell([[xmodmap -e 'clear lock']])
 awful.spawn.with_shell([[xmodmap -e 'keysym Caps_Lock = Escape']])
