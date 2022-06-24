@@ -23,6 +23,7 @@ M.use = function(use)
     {
       "mfussenegger/nvim-dap",
       module = { "dap" },
+      keys = { "<F5>" },
       config = function()
         require("aiko.plugins.configs.dap").setup()
       end,
@@ -51,29 +52,23 @@ M.use = function(use)
       "nvim-telescope/telescope-fzf-native.nvim",
       run = "make",
     },
-    {
-      "benfowler/telescope-luasnip.nvim",
-    },
   })
 
   -- -------------------
   -- |   Tree-Sitter   |
   -- -------------------
   use({
-    {
-      "nvim-treesitter/nvim-treesitter",
-      event = { "BufRead", "BufNewFile" },
-      module = { "nvim-treesitter" },
-      requires = {
-        "nvim-treesitter/nvim-treesitter-refactor",
-      },
-      config = function()
-        require("aiko.plugins.configs.treesitter").setup()
-      end,
-      run = ":TSUpdate",
+    "nvim-treesitter/nvim-treesitter",
+    event = { "BufRead", "BufNewFile" },
+    module = { "nvim-treesitter" },
+    requires = {
+      "nvim-treesitter/nvim-treesitter-textobjects",
+      "nvim-treesitter/nvim-treesitter-refactor",
     },
-    "nvim-treesitter/nvim-treesitter-refactor",
-    after = "nvim-treesitter",
+    run = ":TSUpdate",
+    config = function()
+      require("aiko.plugins.configs.treesitter").setup()
+    end,
   })
 
   -- Refactoring support for select languages.

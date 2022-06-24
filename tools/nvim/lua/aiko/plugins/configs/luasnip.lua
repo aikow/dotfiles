@@ -29,7 +29,7 @@ M.setup = function()
   -- -----------------------
   -- |   Trigger Keymaps   |
   -- -----------------------
-  map({ "i" }, "<C-n>", function()
+  map({ "i" }, "<M-Tab>", function()
     if ls.jumpable(1) then
       ls.jump(1)
     elseif ls.expandable() then

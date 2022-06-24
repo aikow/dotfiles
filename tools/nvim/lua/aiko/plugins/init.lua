@@ -31,8 +31,8 @@ M.setup = function()
     return
   end
 
-  local ok_plugins, plugins = pcall(require, "aiko.plugins.plugins")
-  if not ok_plugins then
+  local ok_sources, sources = pcall(require, "aiko.plugins.sources")
+  if not ok_sources then
     return
   end
 
@@ -45,7 +45,7 @@ M.setup = function()
     },
   })
 
-  packer.startup(plugins.use)
+  packer.startup(sources.use)
 end
 
 M.lazy_load = function(plugin)
