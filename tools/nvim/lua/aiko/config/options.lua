@@ -4,7 +4,7 @@ local g = vim.g
 -- Opt into lua filetype recognition.
 g.do_filetype_lua = 1
 
-opt.shell = "/bin/bash -i"
+opt.shell = "/bin/bash"
 
 -- make scrolling and painting fast
 opt.lazyredraw = true

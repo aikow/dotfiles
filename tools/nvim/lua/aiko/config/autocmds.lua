@@ -62,5 +62,5 @@ autocmd("terminal_ftplugin", {
       [[a<C-k><CR><C-\><C-n>G]],
       { noremap = true, silent = true }
     )
-  end
+  end,
 })

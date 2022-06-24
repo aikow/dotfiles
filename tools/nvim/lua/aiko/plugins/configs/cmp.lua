@@ -84,7 +84,6 @@ M.setup = function()
       { name = "crates" },
       { name = "omni" },
       { name = "luasnip" },
-    }, {
       { name = "path" },
     }, {
       { name = "buffer", keyword_length = 6 },
@@ -114,7 +113,6 @@ M.setup = function()
     mapping = mappings,
     sources = cmp.config.sources({
       { name = "cmdline" },
-    }, {
       { name = "path" },
     }, {
       { name = "buffer", keyword_length = 6 },
