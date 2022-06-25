@@ -384,3 +384,10 @@ end, { silent = true })
 map("n", "<leader>hl", function()
   require("telescope.builtin").loclist(require("aiko.plugins.configs.telescope").dynamic())
 end, { silent = true })
+
+map(
+  "n",
+  "<leader>to",
+  [[<cmd>Neotree filesystem reveal left<CR>]],
+  { silent = true, desc = "Neotree reveal filesystem" }
+)
