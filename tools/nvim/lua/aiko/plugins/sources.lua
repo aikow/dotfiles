@@ -95,6 +95,29 @@ M.use = function(use)
     end,
   })
 
+  -- ---------------
+  -- |   NeoTree   |
+  -- ---------------
+  use({
+    {
+      "nvim-neo-tree/neo-tree.nvim",
+      branch = "v2.x",
+      cmd = { "Neotree" },
+      requires = {
+        "nvim-lua/plenary.nvim",
+        "kyazdani42/nvim-web-devicons",
+        "MunifTanjim/nui.nvim",
+      },
+      config = function()
+        require("aiko.plugins.configs.neotree").setup()
+      end,
+    },
+    {
+      "MunifTanjim/nui.nvim",
+      module = { "nui" },
+    },
+  })
+
   -- ---------------------
   -- |   Code Snippets   |
   -- ---------------------
@@ -126,47 +149,38 @@ M.use = function(use)
       "hrsh7th/nvim-cmp",
       after = "friendly-snippets",
       requires = {
-        -- Completion sources for nvim-cmp
-        "hrsh7th/cmp-nvim-lua",
-        "hrsh7th/cmp-nvim-lsp",
-        "hrsh7th/cmp-buffer",
-        "hrsh7th/cmp-path",
-        "hrsh7th/cmp-cmdline",
-        "hrsh7th/cmp-omni",
-        "saadparwaiz1/cmp_luasnip",
-        "onsails/lspkind.nvim",
+        {
+          "hrsh7th/cmp-nvim-lua",
+          after = "nvim-cmp",
+        },
+        {
+          "hrsh7th/cmp-nvim-lsp",
+          after = "nvim-cmp",
+        },
+        {
+          "hrsh7th/cmp-buffer",
+          after = "nvim-cmp",
+        },
+        {
+          "hrsh7th/cmp-path",
+          after = "nvim-cmp",
+        },
+        {
+          "hrsh7th/cmp-cmdline",
+          after = "nvim-cmp",
+        },
+        {
+          "hrsh7th/cmp-omni",
+          after = "nvim-cmp",
+        },
+        {
+          "saadparwaiz1/cmp_luasnip",
+          after = "nvim-cmp",
+        },
       },
       config = function()
         require("aiko.plugins.configs.cmp").setup()
       end,
-    },
-    {
-      "hrsh7th/cmp-nvim-lua",
-      after = "nvim-cmp",
-    },
-    {
-      "hrsh7th/cmp-nvim-lsp",
-      after = "nvim-cmp",
-    },
-    {
-      "hrsh7th/cmp-buffer",
-      after = "nvim-cmp",
-    },
-    {
-      "hrsh7th/cmp-path",
-      after = "nvim-cmp",
-    },
-    {
-      "hrsh7th/cmp-cmdline",
-      after = "nvim-cmp",
-    },
-    {
-      "hrsh7th/cmp-omni",
-      after = "nvim-cmp",
-    },
-    {
-      "saadparwaiz1/cmp_luasnip",
-      after = "nvim-cmp",
     },
     {
       "onsails/lspkind.nvim",
