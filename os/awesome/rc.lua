@@ -1,7 +1,3 @@
-local awesome, client, mouse, screen, tag = awesome, client, mouse, screen, tag
-local ipairs, string, os, table, tostring, tonumber, type =
-  ipairs, string, os, table, tostring, tonumber, type
-
 -- Standard awesome library
 local gears = require("gears") -- Utilities such as color parsing and objects
 local awful = require("awful") -- Everything related to window managment
@@ -605,7 +601,7 @@ for i = 1, 9 do
   )
 end
 
-clientbuttons = gears.table.join(
+local clientbuttons = gears.table.join(
   awful.button({}, 1, function(c)
     c:emit_signal("request::activate", "mouse_click", { raise = true })
   end),
@@ -755,7 +751,7 @@ client.connect_signal("mouse::enter", function(c)
 end)
 
 -- No border for maximized clients
-function border_adjust(c)
+local border_adjust = function(c)
   if c.maximized then -- no borders if only 1 client visible
     c.border_width = 0
   elseif #awful.screen.focused().clients > 1 then
