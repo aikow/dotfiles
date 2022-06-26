@@ -56,17 +56,59 @@ M.setup = function()
     })
   end
 
+  M.jsonls(lspconfig, capabilities)
+
+  M.sumneko_lua(lspconfig, capabilities)
+end
+
+M.jsonls = function(lspconfig, capabilities)
   lspconfig.jsonls.setup({
     capabilities = capabilities,
   })
+end
 
-  -- Lua language server
+M.sumneko_lua = function(lspconfig, capabilities)
+  -- Setup configuration for neovim.
+  local setup_neovim_libraries = function()
+    -- Add all library paths from vim's runtime path.
+    local library = {}
+    local packer_dir = vim.fn.stdpath("data") .. "/site/pack/packer/**/lua"
+
+    for path in string.gmatch(vim.fn.glob(packer_dir), "[^\n]+") do
+      if vim.fn.empty(vim.fn.glob(path)) then
+        library[path] = true
+      end
+    end
+
+    library[vim.fn.expand("$VIMRUNTIME/lua")] = true
+    library[vim.fn.expand("$VIMRUNTIME/lua/vim/lsp")] = true
+
+    return library
+  end
+
+  --- Adds a custom hook on initialization that only adds the library path's if
+  -- the current working directory is the nvim directory.
+  local on_init = function(client)
+    local workspace = client.workspace_folders[1].name
+
+    if string.match(workspace, [[.dotfiles/tools/nvim$]]) then
+      client.config.settings.Lua.workspace.library = setup_neovim_libraries()
+      client.config.settings.Lua.diagnostics.globals = { "vim" }
+    elseif string.match(workspace, [[.dotfiles/os/awesome$]]) then
+      client.config.settings.Lua.diagnostics.globals = { "awesome", "client", "screen", "root" }
+    end
+
+    client.notify("workspace/didChangeConfiguration")
+    return true
+  end
+
   lspconfig.sumneko_lua.setup({
+    on_init = on_init,
     capabilities = capabilities,
     settings = {
       Lua = {
         diagnostics = {
-          globals = { "vim", "awesome", "client", "root" },
+          globals = { "vim", "awesome", "client", "screen", "root" },
         },
         format = {
           enable = true,
@@ -77,10 +119,6 @@ M.setup = function()
           },
         },
         workspace = {
-          library = {
-            [vim.fn.expand("$VIMRUNTIME/lua")] = true,
-            [vim.fn.expand("$VIMRUNTIME/lua/vim/lsp")] = true,
-          },
           maxPreload = 100000,
           preloadFileSize = 10000,
         },
