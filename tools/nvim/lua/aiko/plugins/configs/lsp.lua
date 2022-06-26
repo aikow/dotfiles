@@ -56,18 +56,15 @@ M.setup = function()
     })
   end
 
-  M.jsonls(lspconfig, capabilities)
-
-  M.sumneko_lua(lspconfig, capabilities)
-end
-
-M.jsonls = function(lspconfig, capabilities)
   lspconfig.jsonls.setup({
     capabilities = capabilities,
   })
+
+  M.sumneko_lua(capabilities)
+  lspconfig.sumneko_lua.setup(M.sumneko_lua(capabilities))
 end
 
-M.sumneko_lua = function(lspconfig, capabilities)
+M.sumneko_lua = function(capabilities)
   -- Setup configuration for neovim.
   local setup_neovim_libraries = function()
     -- Add all library paths from vim's runtime path.
@@ -102,7 +99,7 @@ M.sumneko_lua = function(lspconfig, capabilities)
     return true
   end
 
-  lspconfig.sumneko_lua.setup({
+  return {
     on_init = on_init,
     capabilities = capabilities,
     settings = {
@@ -124,7 +121,7 @@ M.sumneko_lua = function(lspconfig, capabilities)
         },
       },
     },
-  })
+  }
 end
 
 return M
