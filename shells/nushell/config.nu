@@ -204,9 +204,9 @@ let-env config = {
   color_config: $default_theme
   use_grid_icons: true
   footer_mode: "25" # always, never, number_of_rows, auto
-  quick_completions: true  # set this to false to prevent auto-selecting completions when only one remains
+  quick_completions: false  # set this to false to prevent auto-selecting completions when only one remains
   partial_completions: true  # set this to false to prevent partial filling of the prompt
-  completion_algorithm: "prefix"  # prefix, fuzzy
+  completion_algorithm: "fuzzy"  # prefix, fuzzy
   animate_prompt: false # redraw the prompt every second
   float_precision: 2
   # buffer_editor: "emacs" # command that will be used to edit the current line buffer with ctrl+o, if unset fallback to $env.EDITOR and $env.VISUAL
@@ -359,7 +359,7 @@ let-env config = {
       name: completion_menu
       modifier: none
       keycode: tab
-      mode: emacs # Options: emacs vi_normal vi_insert
+      mode: [emacs, vi_insert] # Options: emacs vi_normal vi_insert
       event: {
         until: [
           { send: menu name: completion_menu }
@@ -378,14 +378,14 @@ let-env config = {
       name: history_menu
       modifier: control
       keycode: char_r
-      mode: emacs
+      mode: [emacs, vi_insert]
       event: { send: menu name: history_menu }
     }
     {
       name: next_page
       modifier: control
       keycode: char_x
-      mode: emacs
+      mode: [emacs, vi_insert]
       event: { send: menupagenext }
     }
     {
@@ -424,3 +424,5 @@ let-env config = {
     }
   ]
 }
+
+source ~/.cache/starship/init.nu
