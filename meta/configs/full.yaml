@@ -45,9 +45,13 @@
       create: true
     
     ~/.config/nushell:
-      if: 'command -v nu &>/dev/null'
+      if: 'command -v nu &>/dev/null && [[ $(uname) = Linux ]]'
       path: shells/nushell
-    
+
+    ~/Library/Application Support/nushell:
+      if: 'command -v nu &>/dev/null && [[ $(uname) = Darwin ]]'
+      path: shells/nushell
+
     # Starship prompt
     ~/.config/starship.toml:
       path: shells/starship/starship.toml
