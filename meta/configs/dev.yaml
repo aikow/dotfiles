@@ -43,6 +43,10 @@
     ~/.config/fish:
       if: 'command -v fish &>/dev/null'
       path: shells/fish
+
+    ~/.config/nushell:
+      if: 'command -v nu &>/dev/null'
+      path: shells/nushell
     
     # Starship prompt
     ~/.config/starship.toml:

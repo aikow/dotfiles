@@ -44,6 +44,10 @@
       path: shells/fish
       create: true
     
+    ~/.config/nushell:
+      if: 'command -v nu &>/dev/null'
+      path: shells/nushell
+    
     # Starship prompt
     ~/.config/starship.toml:
       path: shells/starship/starship.toml
