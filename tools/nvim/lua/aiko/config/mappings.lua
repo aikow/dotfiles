@@ -203,7 +203,9 @@ map("n", "<C-w>>", "5<C-w>>")
 map("n", "<C-w>-", "5<C-w>-")
 map("n", "<C-w>+", "5<C-w>+")
 
--- Telescope
+-- -----------------
+-- |   Telescope   |
+-- -----------------
 map("n", "<leader>i", function()
   require("telescope.builtin").resume()
 end, { silent = true, desc = "telescope reopen last telescope window" })
@@ -240,14 +242,6 @@ map("n", "<leader>jt", function()
   )
 end, { silent = true, desc = "telescope lsp list type definitions" })
 
-map("n", "<leader>ja", function()
-  require("telescope.builtin").lsp_code_actions(require("telescope.themes").get_cursor())
-end, { silent = true, desc = "telescope lsp list code actions" })
-
-map("n", "<leader>jA", function()
-  require("telescope.builtin").lsp_range_code_actions(require("telescope.themes").get_cursor())
-end, { silent = true, desc = "telescope lsp list range code actions" })
-
 map("n", "<leader>jw", function()
   require("telescope.builtin").lsp_workspace_symbols(
     require("aiko.plugins.configs.telescope").dynamic()
@@ -279,6 +273,7 @@ map("n", "<leader>p", function()
   require("telescope.builtin").buffers(require("aiko.plugins.configs.telescope").dynamic())
 end, { silent = true })
 
+-- Find shortcuts
 map("n", "<leader>ff", function()
   require("telescope.builtin").live_grep(require("aiko.plugins.configs.telescope").dynamic())
 end, { silent = true })
@@ -385,9 +380,26 @@ map("n", "<leader>hl", function()
   require("telescope.builtin").loclist(require("aiko.plugins.configs.telescope").dynamic())
 end, { silent = true })
 
+-- ---------------
+-- |   Neotree   |
+-- ---------------
 map(
   "n",
   "<leader>to",
   [[<cmd>Neotree filesystem reveal left<CR>]],
+  { silent = true, desc = "Neotree reveal filesystem" }
+)
+
+map(
+  "n",
+  "<leader>tg",
+  [[<cmd>Neotree git_status reveal left<CR>]],
+  { silent = true, desc = "Neotree reveal filesystem" }
+)
+
+map(
+  "n",
+  "<leader>tb",
+  [[<cmd>Neotree buffers reveal left<CR>]],
   { silent = true, desc = "Neotree reveal filesystem" }
 )

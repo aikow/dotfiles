@@ -41,7 +41,7 @@ M.use = function(use)
       fn = { "vim.ui.select", "vim.ui.input" },
       requires = {
         "nvim-lua/plenary.nvim",
-        "telescope-fzf-native.nvim",
+        "nvim-telescope/telescope-fzf-native.nvim",
         "benfowler/telescope-luasnip.nvim",
       },
       config = function()
@@ -131,7 +131,7 @@ M.use = function(use)
       "L3MON4D3/luasnip",
       after = "nvim-cmp",
       requires = {
-        "friendly-snippets",
+        "rafamadriz/friendly-snippets",
       },
       config = function()
         require("aiko.plugins.configs.luasnip").setup()
@@ -415,6 +415,7 @@ M.use = function(use)
       end,
     },
     "sainnhe/gruvbox-material",
+   "kyazdani42/nvim-web-devicons",
   })
 end
 
