@@ -1,0 +1,55 @@
+#!/usr/bin/env bash
+
+set -o errexit
+set -o pipefail
+set -o nounset
+
+IFS=$' \n\t'
+
+# Store positional args in an array.
+declare -a _POSITIONAL_ARGS=()
+
+while [[ ${#@} -gt 0 ]]; do
+  case "${1}" in
+    -f|--force)
+      _FORCE="yes"
+      shift  # Past argument
+      ;;
+    -t|--tag)
+      _TAG="${2}"
+      shift  # Past argument
+      shift  # Past value
+      ;;
+    -*|--*)
+      echo "Unknown option ${1}"
+      exit 1
+      ;;
+    *)
+      _POSITIONAL_ARGS+=("${1}")  # Save positional argument
+      shift  # Past argument.
+      ;;
+  esac
+done
+
+# Restore positional arguments and delete the temporary array.
+set -- "${_POSITIONAL_ARGS[@]+"${_POSITIONAL_ARGS[@]}"}"
+unset _POSITIONAL_ARGS
+
+readonly FORCE="${_FORCE:-no}"
+readonly TAG="${_TAG?Missing --tag}"
+
+readonly NU_DIR=~/.data/nvim
+readonly INSTALL_DIR="${NU_DIR}/${TAG}"
+readonly GITHUB_URL="https://github.com/nushell/nushell/releases/download/${TAG}/nu-${TAG}-x86_64-unknown-linux-gnu.tar.gz"
+readonly INSTALL_FILE="${INSTALL_DIR}/nu.tar.gz"
+
+mkdir -p "${INSTALL_DIR}"
+
+cd "${INSTALL_DIR}"
+
+if [[ "${FORCE}" = "yes" ]] || ! [[ -f "${INSTALL_FILE}" ]]; then
+  curl -L --output="${INSTALL_FILE}" "${GITHUB_URL}"
+  tar -xzvf "${INSTALL_FILE}"
+else$
+  echo "nu version ${TAG} already downloaded"
+fi
