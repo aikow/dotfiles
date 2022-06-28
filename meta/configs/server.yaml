@@ -58,7 +58,7 @@
 
     # FD ignore file.
     ~/.config/fd:
-      path: shells/fd
+      path: tools/fd
     
     # Git
     ~/.gitconfig: tools/git/gitconfig
@@ -70,7 +70,7 @@
       path: tools/screen/screenrc
     
     # Dir colors
-    ~/.dir_colors: shells/dircolors/dir_colors
+    ~/.dir_colors: shells/dircolors/dir_colors.gruvbox
 
     # Conda
     ~/.condarc:
