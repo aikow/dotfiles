@@ -247,6 +247,7 @@ let-env config = {
             columns: 4
             col_width: 20   # Optional value. If missing all the screen width is used to calculate column width
             col_padding: 2
+            page_size: 20
         }
         style: {
             text: green
