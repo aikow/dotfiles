@@ -413,7 +413,7 @@ let-env config = {
     {
       name: history_hint_word_complete
       modifier: control
-      keycode: char_l
+      keycode: char_h
       mode: [vi_insert, vi_normal]
       event: { send: HistoryHintWordComplete }
     }
@@ -442,14 +442,14 @@ let-env config = {
     {
       name: commands_menu
       modifier: control
-      keycode: char_w
+      keycode: char_e
       mode: [vi_normal, vi_insert]
       event: { send: menu name: commands_menu }
     }
     {
       name: commands_with_description
       modifier: control
-      keycode: char_e
+      keycode: char_x
       mode: [vi_normal, vi_insert]
       event: { send: menu name: commands_with_description }
     }
@@ -459,6 +459,40 @@ let-env config = {
       keycode: char_y
       mode: [vi_normal, vi_insert]
       event: { send: menu name: vars_menu }
+    }
+
+    # ---------------
+    # |   Editing   |
+    # ---------------
+    {
+      name: end_of_bigword
+      modifier: shift
+      keycode: char_e
+      mode: [vi_normal]
+      event: [
+        { edit: MoveRight }
+        { edit: MoveRightBefore value: ' ' }
+      ]
+    }
+    {
+      name: beginning_of_bigword
+      modifier: shift
+      keycode: char_b
+      mode: [vi_normal]
+      event: [
+        { edit: MoveLeft }
+        { edit: MoveLeftBefore value: ' ' }
+      ]
+    }
+    {
+      name: next_bigword
+      modifier: shift
+      keycode: char_w
+      mode: [vi_normal]
+      event: [
+        { edit: MoveRightUntil value: ' ' }
+        { edit: MoveRight }
+      ]
     }
   ]
 }
