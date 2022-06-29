@@ -1,7 +1,6 @@
 [submodule "meta/dotbot"]
 	path = meta/dotbot
-	url = https://github.com/anishathalye/dotbot.git
-	ignore = dirty
+	url = https://github.com/aikow/dotbot.git
 
 [submodule "shells/zsh/zinit"]
 	path = shells/zsh/zinit
