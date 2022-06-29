@@ -24,16 +24,19 @@ end
 
 -- Create a buffer local keymap to reformat, using the buffer local
 -- command.
-vim.keymap.set(
-  "n",
-  "<localleader>f",
-  require("python-nvim").format,
-  { silent = true, buffer = 0, desc = "reformat python with black and isort" }
-)
+local ok_python_nvim, python_nvim = pcall(require, "python-nvim")
+if ok_python_nvim then
+  vim.keymap.set(
+    "n",
+    "<localleader>f",
+    python_nvim.format,
+    { silent = true, buffer = 0, desc = "reformat python with black and isort" }
+  )
 
-vim.keymap.set(
-  "n",
-  "<localleader>i",
-  require("python-nvim").flake8,
-  { buffer = 0, desc = "run flake8 linting" }
-)
+  vim.keymap.set(
+    "n",
+    "<localleader>i",
+    python_nvim.flake8,
+    { buffer = 0, desc = "run flake8 linting" }
+  )
+end
