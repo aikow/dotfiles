@@ -9,12 +9,12 @@ vim.opt_local.textwidth = 80
 
 -- Set the indent after opening parenthesis
 vim.g.pyindent_open_paren = vim.bo.shiftwidth
-vim.g.pyindent_nested_paren = vim.bo.shiftwidth
-vim.g.pyindent_continue = vim.bo.shiftwidth
+-- vim.g.pyindent_nested_paren = vim.bo.shiftwidth
+-- vim.g.pyindent_continue = vim.bo.shiftwidth
 
-if vim.fn.executable("black") == 1 then
-  vim.opt_local.formatprg = [[black --quiet - 2>/dev/null]]
-end
+-- if vim.fn.executable("black") == 1 then
+--   vim.opt_local.formatprg = [[black --quiet - 2>/dev/null]]
+-- end
 
 vim.cmd([[compiler flake8]])
 
