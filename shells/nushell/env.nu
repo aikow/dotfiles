@@ -1,7 +1,13 @@
 # Nushell Environment Config File
 
 def create_left_prompt [] {
-    let path_segment = ($env.PWD)
+    let path_segment = (
+      $env.PWD
+      | str replace -s $env.HOME '~'
+      | path split
+      | last 3
+      | path join
+    )
 
     $path_segment
 }

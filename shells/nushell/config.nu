@@ -356,15 +356,18 @@ let-env config = {
       }
   ]
   keybindings: [
+    # ------------------
+    # |   Completion   |
+    # ------------------
     {
       name: completion_menu
       modifier: none
       keycode: tab
-      mode: [emacs, vi_insert] # Options: emacs vi_normal vi_insert
+      mode: [vi_insert] # Options: emacs vi_normal vi_insert
       event: {
         until: [
           { send: menu name: completion_menu }
-          { send: menunext }
+          { send: MenuNext }
         ]
       }
     }
@@ -372,56 +375,100 @@ let-env config = {
       name: completion_previous
       modifier: shift
       keycode: backtab
-      mode: [emacs, vi_normal, vi_insert] # Note: You can add the same keybinding to all modes by using a list
-      event: { send: menuprevious }
+      mode: [vi_normal, vi_insert] # Note: You can add the same keybinding to all modes by using a list
+      event: { send: MenuPrevious }
     }
+
+    # ---------------
+    # |   History   |
+    # ---------------
     {
       name: history_menu
       modifier: control
       keycode: char_r
-      mode: [emacs, vi_insert]
+      mode: [vi_insert, vi_normal]
       event: { send: menu name: history_menu }
     }
     {
-      name: next_page
+      name: next_history
       modifier: control
-      keycode: char_x
-      mode: [emacs, vi_insert]
-      event: { send: menupagenext }
+      keycode: char_j
+      mode: [vi_insert, vi_normal]
+      event: { send: NextHistory }
     }
     {
-      name: undo_or_previous_page
+      name: previous_history
       modifier: control
-      keycode: char_z
-      mode: emacs
-      event: {
-        until: [
-          { send: menupageprevious }
-          { edit: undo }
-        ]
-       }
+      keycode: char_k
+      mode: [vi_insert, vi_normal]
+      event: { send: PreviousHistory }
     }
-    # Keybindings used to trigger the user defined menus
+    {
+      name: history_hint_complete
+      modifier: control
+      keycode: char_f
+      mode: [vi_insert, vi_normal]
+      event: { send: HistoryHintComplete }
+    }
+    {
+      name: history_hint_word_complete
+      modifier: control
+      keycode: char_l
+      mode: [vi_insert, vi_normal]
+      event: { send: HistoryHintWordComplete }
+    }
+
+    # -------------
+    # |   Menus   |
+    # -------------
+    {
+      name: next_page
+      modifier: control
+      keycode: char_n
+      mode: [vi_insert, vi_normal]
+      event: { send: MenuPageNext }
+    }
+    {
+      name: previous_page
+      modifier: control
+      keycode: char_p
+      mode: [vi_insert, vi_normal]
+      event: { send: MenuPagePrevious }
+    }
+
+    # ---------------------
+    # |   Helpful Menus   |
+    # ---------------------
     {
       name: commands_menu
       modifier: control
-      keycode: char_t
-      mode: [emacs, vi_normal, vi_insert]
+      keycode: char_w
+      mode: [vi_normal, vi_insert]
       event: { send: menu name: commands_menu }
+    }
+    {
+      name: commands_with_description
+      modifier: control
+      keycode: char_e
+      mode: [vi_normal, vi_insert]
+      event: { send: menu name: commands_with_description }
     }
     {
       name: vars_menu
       modifier: control
       keycode: char_y
-      mode: [emacs, vi_normal, vi_insert]
+      mode: [vi_normal, vi_insert]
       event: { send: menu name: vars_menu }
-    }
-    {
-      name: commands_with_description
-      modifier: control
-      keycode: char_u
-      mode: [emacs, vi_normal, vi_insert]
-      event: { send: menu name: commands_with_description }
     }
   ]
 }
+
+# =================
+# |===============|
+# ||             ||
+# ||   Aliases   ||
+# ||             ||
+# |===============|
+# =================
+alias ll = ls -l
+alias lll = ls -la
