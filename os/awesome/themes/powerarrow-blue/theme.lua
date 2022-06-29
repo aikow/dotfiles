@@ -10,7 +10,6 @@ local lain = require("lain")
 local awful = require("awful")
 local wibox = require("wibox")
 
-local math, string, os = math, string, os
 local my_table = awful.util.table or gears.table -- 4.{0,1} compatibility
 
 local theme = {}
@@ -246,7 +245,7 @@ Copy/paste the city code in the URL to this file in city_id
 --]]
 local weathericon = wibox.widget.imagebox(theme.widget_weather)
 theme.weather = lain.widget.weather({
-  city_id = 2803138, -- placeholder (Belgium)
+  city_id = 2892794, -- placeholder (Belgium)
   notification_preset = { font = "Mononoki Nerd Font 11", fg = theme.fg_normal },
   weather_na_markup = markup.fontfg(theme.font, "#ffffff", "N/A "),
   settings = function()

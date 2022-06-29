@@ -246,7 +246,7 @@ Copy/paste the city code in the URL to this file in city_id
 --]]
 local weathericon = wibox.widget.imagebox(theme.widget_weather)
 theme.weather = lain.widget.weather({
-  city_id = 2803138, -- placeholder (Belgium)
+  city_id = 2892794, -- placeholder (Belgium)
   notification_preset = { font = "Noto Sans Mono Medium 10", fg = theme.fg_normal },
   weather_na_markup = markup.fontfg(theme.font, "#ffffff", "N/A "),
   settings = function()
