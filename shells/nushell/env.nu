@@ -9,7 +9,15 @@ def create_left_prompt [] {
       | path join
     )
 
-    $path_segment
+    let user_segment = (
+      $env.USER
+    )
+
+    let hostname_segment = (
+      hostname | str trim
+    )
+
+    $"($user_segment)@($hostname_segment) ($path_segment)"
 }
 
 def create_right_prompt [] {
