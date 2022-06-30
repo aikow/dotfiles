@@ -415,7 +415,7 @@ M.use = function(use)
       end,
     },
     "sainnhe/gruvbox-material",
-   "kyazdani42/nvim-web-devicons",
+    "kyazdani42/nvim-web-devicons",
   })
 end
 
