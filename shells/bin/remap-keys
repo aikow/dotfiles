@@ -6,51 +6,21 @@
 target=${1?"Missing target"}
 
 case "${target}" in
-  "magic")
-    hidutil property --set '
-{
-  "UserKeyMapping": [
-    {
-      "HIDKeyboardModifierMappingSrc": 0x700000064,
-      "HIDKeyboardModifierMappingDst": 0x700000035
-    },
-    {
-      "HIDKeyboardModifierMappingSrc": 0x700000035,
-      "HIDKeyboardModifierMappingDst": 0x700000064
-    },
-    {
-      "HIDKeyboardModifierMappingSrc": 0x700000039,
-      "HIDKeyboardModifierMappingDst": 0x700000029
-    }
-  ]
-}'
-
+  magic)
+    hidutil property \
+      --set '{ "UserKeyMapping": [ { "HIDKeyboardModifierMappingSrc": 0x700000064, "HIDKeyboardModifierMappingDst": 0x700000035 }, { "HIDKeyboardModifierMappingSrc": 0x700000035, "HIDKeyboardModifierMappingDst": 0x700000064 }, { "HIDKeyboardModifierMappingSrc": 0x700000039, "HIDKeyboardModifierMappingDst": 0x700000029 } ] }' \
+      &>/dev/null
     ;;
-
-  "macbook")
-    hidutil property --set '
-{
-  "UserKeyMapping": [
-    {
-      "HIDKeyboardModifierMappingSrc": 0x700000039,
-      "HIDKeyboardModifierMappingDst": 0x700000029
-    }
-  ]
-}'
-
+  macbook*|k70*)
+    hidutil property \
+      --set '{ "UserKeyMapping": [ { "HIDKeyboardModifierMappingSrc": 0x700000039, "HIDKeyboardModifierMappingDst": 0x700000029 } ] }' \
+      &>/dev/null
     ;;
-
-  "reset")
-    hidutil property --set '
-{
-  "UserKeyMapping": []
-}'
-
+  reset)
+    hidutil property --set '{ "UserKeyMapping": [] }' &>/dev/null
     ;;
-
   *)
     echo "Invalid target name '${target}'. Allowed targets are [magic|macbook|reset]."
     exit 1
     ;;
 esac
-    
