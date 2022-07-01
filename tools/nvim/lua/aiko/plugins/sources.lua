@@ -125,7 +125,6 @@ M.use = function(use)
     {
       "rafamadriz/friendly-snippets",
       event = { "InsertEnter", "CmdlineEnter" },
-      module = "cmp_nvim_lsp",
     },
     {
       "L3MON4D3/luasnip",
