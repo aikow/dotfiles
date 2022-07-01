@@ -465,34 +465,11 @@ let-env config = {
     # |   Editing   |
     # ---------------
     {
-      name: end_of_bigword
-      modifier: shift
-      keycode: char_e
+      name: open_editor
+      modifier: none
+      keycode: char_v
       mode: [vi_normal]
-      event: [
-        { edit: MoveRight }
-        { edit: MoveRightBefore value: ' ' }
-      ]
-    }
-    {
-      name: beginning_of_bigword
-      modifier: shift
-      keycode: char_b
-      mode: [vi_normal]
-      event: [
-        { edit: MoveLeft }
-        { edit: MoveLeftBefore value: ' ' }
-      ]
-    }
-    {
-      name: next_bigword
-      modifier: shift
-      keycode: char_w
-      mode: [vi_normal]
-      event: [
-        { edit: MoveRightUntil value: ' ' }
-        { edit: MoveRight }
-      ]
+      event: { send: OpenEditor }
     }
   ]
 }
