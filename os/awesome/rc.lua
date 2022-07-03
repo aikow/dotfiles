@@ -96,17 +96,16 @@ local virtualmachine = "virtualbox"
 
 -- awesome variables
 awful.util.terminal = terminal
--- awful.util.tagnames = {  " ", " ", " ", " ", " ", " ", " ", " ", " ", " "  }
 awful.util.tagnames = {
   " DEV ",
   " WWW ",
   " SYS ",
+  " REM ",
   " DOC ",
-  " VBOX ",
   " CHAT ",
   " MUS ",
-  " VID ",
-  " GFX ",
+  " VFX ",
+  " PWD ",
 }
 awful.layout.suit.tile.left.mirror = true
 awful.layout.layouts = {
