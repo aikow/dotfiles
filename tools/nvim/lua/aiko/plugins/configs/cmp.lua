@@ -82,7 +82,6 @@ M.setup = function()
       { name = "nvim_lua" },
       { name = "nvim_lsp" },
       { name = "crates" },
-      { name = "omni" },
       { name = "luasnip" },
       { name = "path" },
     }, {
@@ -96,6 +95,22 @@ M.setup = function()
         return vim_item
       end,
     },
+    window = {
+      completion = cmp.config.window.bordered(),
+      documentation = cmp.config.window.bordered(),
+    },
+  })
+
+  -- Setup LaTeX completion sources
+  cmp.setup.filetype("tex", {
+    sources = cmp.config.sources({
+      { name = "nvim_lua" },
+      { name = "luasnip" },
+      { name = "omnifunc" },
+      { name = "path" },
+    }, {
+      { name = "buffer", keyword_length = 4 },
+    }),
   })
 
   -- Use buffer source for `/` (if you enabled `native_menu`, this won't work anymore).
