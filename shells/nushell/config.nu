@@ -14,6 +14,34 @@ module completions {
     ^git remote | lines | each { |line| $line | str trim }
   }
 
+  def "nu-complete git files" [] {
+    ^git status --porcelain | lines | parse -r '(?P<status>\w+)\s+(?P<file>.*)$' | get file
+  }
+
+  # Add changes to the staging area
+  export extern "git add" [
+    ...files: string@"nu-complete git files"
+    --dry-run (-n) # Don't actually add the file(s)
+    --verbose (-b) # Be verbose
+    --force (-f) # Allow adding otherwise ignored files
+    --sparse # Allow updating index entries outside of the sparse-checkout cone
+    --interactive (-i) # Add modified contents in the working tree interactively to the index
+    --patch (-p) # Interactively choose hunk of patch between the index and the work tree and add them to the index
+    --edit (-e) # Open the diff vs. the index in an editor and let the user edit it
+    --update (-u) # Update the index just where it already has an entry matching <pathspec>
+    --all (-A) # Update the index not only where the working tree has a file matching <pathspec> but also where the index already has an entry
+    --no-all # Ignore files that have been removed from the working tree
+    --intent-to-add (-N) # Record only the fact the path will be added later
+    --refresh # Refresh the files stat() information.
+    --ignore-errors # If some files could not be added, continue adding others
+    --ignore-missing # Can be used together with --dry-run.
+    --no-warn-embedded-repo # Suppress warning for adding an embedded repository
+    --renormalize # apply the clean process freshly to all tracked files
+    --chmod: string # override the executable bit of the added file.
+    --pathspec-from-file: path # Pathspec is passed in file instead of command line arguments.
+    --pathspec-file-nul: # Pathspec from file separated by NUL characters.
+  ]
+
   # Download objects and refs from another repository
   export extern "git fetch" [
     repository?: string@"nu-complete git remotes" # name of the branch to fetch
