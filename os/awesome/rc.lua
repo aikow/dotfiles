@@ -468,12 +468,27 @@ local globalkeys = my_table.join(
       exe_callback = awful.util.eval,
       history_path = awful.util.get_cache_dir() .. "/history_eval",
     })
-  end, { description = "lua execute prompt", group = "awesome" })
+  end, { description = "lua execute prompt", group = "awesome" }),
 
   -- Menubar
   -- awful.key({ modkey }, "p", function()
   -- 	menubar.show()
   -- end, { description = "show the menubar", group = "launcher" })
+
+  -- ----------------------
+  -- |   Volume Control   |
+  -- ----------------------
+  awful.key({}, "XF86AudioRaiseVolume", function()
+    awful.util.spawn("amixer set Master 2%+", false)
+  end),
+
+  awful.key({}, "XF86AudioLowerVolume", function()
+    awful.util.spawn("amixer set Master 2%-", false)
+  end),
+
+  awful.key({}, "XF86AudioMute", function()
+    awful.util.spawn("amixer set Master toggle", false)
+  end)
 )
 
 -- =============================
