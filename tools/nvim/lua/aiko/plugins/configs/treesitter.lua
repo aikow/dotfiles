@@ -90,7 +90,7 @@ M.setup = function()
     },
     refactor = {
       highlight_definitions = {
-        enable = true,
+        disable = { "nu" },
         clear_on_cursor_move = true,
       },
       smart_rename = {

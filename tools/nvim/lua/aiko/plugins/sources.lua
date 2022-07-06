@@ -364,6 +364,11 @@ M.use = function(use)
     ft = { "fish" },
   })
 
+  use({
+    "LhKipp/nvim-nu",
+    ft = { "nu" },
+  })
+
   -- CSV helper plugin.
   use({
     "chrisbra/csv.vim",
