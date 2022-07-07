@@ -398,6 +398,10 @@ M.use = function(use)
     end,
   })
   use({
+    "SmiteshP/nvim-navic",
+    requires = { "neovim/nvim-lspconfig" },
+  })
+  use({
     "stevearc/dressing.nvim",
     requires = { "nvim-telescope/telescope.nvim" },
     config = function()
