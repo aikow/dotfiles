@@ -31,6 +31,7 @@ M.setup = function()
   -- Python language server.
   if vim.fn.executable("pyright") == 1 then
     lspconfig.pyright.setup({
+      on_attach = M.on_attach,
       capabilities = capabilities,
     })
   end
@@ -38,6 +39,7 @@ M.setup = function()
   -- CPP and C server
   if vim.fn.executable("clangd") == 1 then
     lspconfig.clangd.setup({
+      on_attach = M.on_attach,
       capabilities = capabilities,
     })
   end
@@ -45,6 +47,7 @@ M.setup = function()
   -- Bash language server
   if vim.fn.executable("bash-language-server") == 1 then
     lspconfig.bashls.setup({
+      on_attach = M.on_attach,
       capabilities = capabilities,
     })
   end
@@ -52,16 +55,25 @@ M.setup = function()
   -- YAML language server
   if vim.fn.executable("yaml-language-server") == 1 then
     lspconfig.yamlls.setup({
+      on_attach = M.on_attach,
       capabilities = capabilities,
     })
   end
 
   lspconfig.jsonls.setup({
+    on_attach = M.on_attach,
     capabilities = capabilities,
   })
 
   M.sumneko_lua(capabilities)
   lspconfig.sumneko_lua.setup(M.sumneko_lua(capabilities))
+end
+
+M.on_attach = function(client, bufnr)
+  local ok_nvim_navic, nvim_navic = pcall(require, "nvim-navic")
+  if ok_nvim_navic then
+    nvim_navic.attach(client, bufnr)
+  end
 end
 
 M.sumneko_lua = function(capabilities)
@@ -100,6 +112,7 @@ M.sumneko_lua = function(capabilities)
   end
 
   return {
+    on_attach = M.on_attach,
     on_init = on_init,
     capabilities = capabilities,
     settings = {

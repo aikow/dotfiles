@@ -6,6 +6,19 @@ M.setup = function()
     return
   end
 
+  local loc = function()
+    local ok_nvim_navic, nvim_navic = pcall(require, "nvim-navic")
+    if not ok_nvim_navic then
+      return ""
+    end
+
+    if nvim_navic.is_available() then
+      return nvim_navic.get_location() or ""
+    end
+
+    return ""
+  end
+
   lualine.setup({
     options = {
       icons_enabled = true,
@@ -14,15 +27,15 @@ M.setup = function()
       section_separators = { left = "", right = "" },
       disabled_filetypes = {},
       always_divide_middle = true,
-      globalstatus = false,
+      globalstatus = true,
     },
     sections = {
       lualine_a = { "mode" },
       lualine_b = { "branch", "diff", "diagnostics" },
       lualine_c = { "filename" },
-      lualine_x = { "fileformat", "filetype", "encoding" },
-      lualine_y = { "progress" },
-      lualine_z = { "location" },
+      lualine_x = { loc },
+      lualine_y = { "fileformat", "filetype", "encoding" },
+      lualine_z = { "%p%%", "%l/%L:%c" },
     },
     inactive_sections = {
       lualine_a = {},
