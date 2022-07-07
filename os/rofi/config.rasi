@@ -320,3 +320,4 @@ textbox-prompt-colon {
     str:        ":";
     text-color: inherit;
 }
+@theme "/usr/share/rofi/themes/gruvbox-dark.rasi"
