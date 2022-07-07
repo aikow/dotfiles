@@ -458,8 +458,8 @@ local globalkeys = my_table.join(
   -- |   Prompts   |
   -- ---------------
   awful.key({ modkey }, "r", function()
-    awful.util.spawn([[dmenu_run]])
-  end, { description = "run dmenu", group = "launcher" }),
+    awful.spawn([[rofi -show drun 2>&1 | while read ERROR; do notify-send "${ERROR}"; done]])
+  end, { description = "run rofi", group = "launcher" }),
 
   awful.key({ modkey }, "x", function()
     awful.prompt.run({
