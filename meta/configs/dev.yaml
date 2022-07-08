@@ -92,7 +92,7 @@
       path: environments/conda/condarc
 
     # Alacritty
-    ~/.config/alacritty/config:
+    ~/.config/alacritty/alacritty.yml:
       if: 'command -v alacritty &>/dev/null'
       path: emulators/alacritty/alacritty.yml
       create: true
