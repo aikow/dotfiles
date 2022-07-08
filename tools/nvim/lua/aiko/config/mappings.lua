@@ -74,9 +74,19 @@ map("c", "<C-n>", "<Down>")
 -- Toggles between most recent buffers
 map("n", "<leader><leader>", "<c-^>", { desc = "switch to most recent buffer" })
 
--- More ergonomic normal mode from integrated terminal
+-- More ergonomic normal mode from integrated terminal.
 map("t", "jk", [[<c-\><C-n>]])
 map("t", "kj", [[<c-\><C-n>]])
+
+-- Unimpaired mappings for faster navigation.
+map("n", "]q", [[<cmd>cnext<CR>]])
+map("n", "[q", [[<cmd>cprev<CR>]])
+map("n", "]l", [[<cmd>lnext<CR>]])
+map("n", "[l", [[<cmd>lprev<CR>]])
+map("n", "]b", [[<cmd>bnext<CR>]])
+map("n", "[b", [[<cmd>bprev<CR>]])
+map("n", "]f", [[<cmd>next<CR>]])
+map("n", "[f", [[<cmd>prev<CR>]])
 
 -- Replacing up to next _ or -
 map("n", "<leader>c", "ct_", { desc = "change text up to next underscore '_'" })

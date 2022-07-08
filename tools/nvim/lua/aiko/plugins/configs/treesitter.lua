@@ -52,10 +52,13 @@ M.setup = function()
         lookahead = true, -- Automatically jump forward to textobj, similar to targets.vim
         keymaps = {
           -- You can use the capture groups defined in textobjects.scm
+          ["am"] = "@comment.outer",
           ["af"] = "@function.outer",
           ["if"] = "@function.inner",
           ["ac"] = "@class.outer",
           ["ic"] = "@class.inner",
+          ["aa"] = "@parameter.outer",
+          ["ia"] = "@parameter.inner",
         },
       },
       move = {
@@ -81,10 +84,10 @@ M.setup = function()
       swap = {
         enable = true,
         swap_next = {
-          ["<leader>a"] = "@parameter.inner",
+          ["]a"] = "@parameter.inner",
         },
         swap_previous = {
-          ["<leader>A"] = "@parameter.inner",
+          ["[a"] = "@parameter.inner",
         },
       },
     },
