@@ -34,7 +34,7 @@ M.setup = function()
       lualine_b = { "branch", "diff", "diagnostics" },
       lualine_c = { "filename" },
       lualine_x = { loc },
-      lualine_y = { "fileformat", "filetype", "encoding" },
+      lualine_y = { "encoding", "fileformat", "filetype" },
       lualine_z = { "%p%%", "%l/%L:%c" },
     },
     inactive_sections = {
@@ -57,9 +57,14 @@ M.setup = function()
       lualine_c = {},
       lualine_x = {},
       lualine_y = {},
-      lualine_z = {},
+      lualine_z = {
+        {
+          "windows",
+          max_length = vim.o.columns / 3,
+        },
+      },
     },
-    extensions = {},
+    extensions = { "quickfix", "fugitive", "man", "neo-tree", "toggleterm", "nvim-dap-ui" },
   })
 end
 
