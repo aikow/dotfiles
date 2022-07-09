@@ -94,7 +94,12 @@
     # Alacritty
     ~/.config/alacritty/alacritty.yml:
       if: 'command -v alacritty &>/dev/null'
-      path: emulators/alacritty/alacritty.yml
+
+      path: emulators/alacritty/alacritty-arch.yaml
+
+      # Path for MacOS
+      # path: emulators/alacritty/alacritty-mac.yaml
+
       create: true
 
     # Jetbrains vim emulator
