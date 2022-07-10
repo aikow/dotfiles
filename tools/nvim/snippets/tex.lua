@@ -1,19 +1,14 @@
 local ls = require("luasnip")
 local s = ls.snippet
 local sn = ls.snippet_node
-local isn = ls.indent_snippet_node
 local t = ls.text_node
 local i = ls.insert_node
 local f = ls.function_node
 local c = ls.choice_node
 local d = ls.dynamic_node
-local r = ls.restore_node
 local events = require("luasnip.util.events")
 local ai = require("luasnip.nodes.absolute_indexer")
-local fmt = require("luasnip.extras.fmt").fmt
 local fmta = require("luasnip.extras.fmt").fmta
-local m = require("luasnip.extras").m
-local lambda = require("luasnip.extras").l
 
 -- ----------------------
 -- |   Vimtex Regions   |
@@ -170,23 +165,6 @@ local toggle_text = function(index, text, reverse)
   end
 end
 
--- Recursive list using snippet node.
-local recursive_list
-recursive_list = function(text)
-  return sn(nil, {
-    c(1, {
-      -- Important: text node has to be first, otherwise there will be infinite
-      -- recursion.
-      t({ "" }),
-      sn(nil, {
-        t({ "", "\t\\" .. text .. " " }),
-        i(1),
-        d(2, recursive_list, {}),
-      }),
-    }),
-  })
-end
-
 -- Dynamically create a bunch of snippet nodes parsed from a latex table string.
 local table_node = function(args)
   local tabs = {}
@@ -219,6 +197,84 @@ rec_table = function()
   })
 end
 
+-- --------------------------------
+-- |   Snippet Helper Functions   |
+-- --------------------------------
+
+local snips = {}
+local autosnips = {}
+
+--- Creates a simple math snippet.
+--
+-- @param mode string: string of Ultisnips options
+--  i: inside word
+--  w: word boundary
+--  b: beginning of line
+--  m: math mode
+-- @param trig string: the trigger of the snippet
+-- @param desc string: description
+-- @param nodes string or table: the expansion or a table of nodes.
+-- @param opts table:
+--  prio int:
+local node = function(mode, trig, desc, nodes, opts)
+  if not mode:gmatch("[wibBmMA]+") then
+    error("unknown mode: " .. mode, 2)
+  end
+
+  local wordTrig = true
+  local condition_table = {}
+  local autoexpand = false
+
+  for m in mode:gmatch(".") do
+    if m == "i" then
+      wordTrig = false
+    elseif m == "w" then
+      wordTrig = true
+    elseif m == "A" then
+      autoexpand = true
+    else
+      table.insert(condition_table, x[m])
+    end
+  end
+
+  local condition = x.join(condition_table)
+
+  desc = desc or ""
+
+  if type(nodes) == "string" then
+    nodes = { t(nodes) }
+  end
+
+  opts = opts or {}
+  prio = opts.prio or 1000
+
+  local node = s(
+    {
+      trig = trig,
+      wordTrig = wordTrig,
+      dscr = desc,
+      priority = prio,
+    },
+    nodes,
+    {
+      condition = condition,
+      show_condition = condition,
+    }
+  )
+
+  if autoexpand then
+    table.insert(autosnips, node)
+  else
+    table.insert(snips, node)
+  end
+end
+
+local extend = function(a, b)
+  for _, v in pairs(b) do
+    table.insert(a, v)
+  end
+end
+
 -- =========================
 -- |=======================|
 -- ||                     ||
@@ -226,7 +282,7 @@ end
 -- ||                     ||
 -- |=======================|
 -- =========================
-return {
+extend(snips, {
   s(
     { trig = "table" },
     fmta(
@@ -397,261 +453,450 @@ return {
     { t([[\textem{]]), i(1), t("}") },
     { condition = x.M, show_condition = x.M, callbacks = autoinsert_space }
   ),
-},
-  {
-    -- ======================
-    -- |====================|
-    -- ||                  ||
-    -- ||   Autosnippets   ||
-    -- ||                  ||
-    -- |====================|
-    -- ======================
-    --
-    -- All these snippets will expand automatically without requiring an expand
-    -- trigger.
-    --
-    -- -----------------------------
-    -- |   Chapters and Sections   |
-    -- -----------------------------
-    s(
-      { trig = "chap" },
-      fmta(
-        [[
+})
+
+-- ======================
+-- |====================|
+-- ||                  ||
+-- ||   Autosnippets   ||
+-- ||                  ||
+-- |====================|
+-- ======================
+--
+-- All these snippets will expand automatically without requiring an expand
+-- trigger.
+extend(autosnips, {
+  -- -----------------------------
+  -- |   Chapters and Sections   |
+  -- -----------------------------
+  s(
+    { trig = "chap" },
+    fmta(
+      [[
           \chapter{<name>}
           \label{chap:<label>}
         ]],
-        {
-          name = i(1),
-          label = to_snake(ai[1]),
-        }
-      ),
-      { condition = x.join({ x.M, x.b("chap") }), show_condition = x.M }
+      {
+        name = i(1),
+        label = to_snake(ai[1]),
+      }
     ),
+    { condition = x.join({ x.M, x.b("chap") }), show_condition = x.M }
+  ),
 
-    s(
-      { trig = "sec" },
-      fmta(
-        [[
+  s(
+    { trig = "sec" },
+    fmta(
+      [[
           \section{<name>}
           \label{sec:<label>}
         ]],
-        {
-          name = i(1),
-          label = to_snake(ai[1]),
-        }
-      ),
-      { condition = x.join({ x.M, x.b("sec") }), show_condition = x.M }
+      {
+        name = i(1),
+        label = to_snake(ai[1]),
+      }
     ),
+    { condition = x.join({ x.M, x.b("sec") }), show_condition = x.M }
+  ),
 
-    s(
-      { trig = "ssec" },
-      fmta(
-        [[
+  s(
+    { trig = "ssec" },
+    fmta(
+      [[
           \subsection{<name>}
           \label{ssec:<label>}
         ]],
-        {
-          name = i(1),
-          label = to_snake(ai[1]),
-        }
-      ),
-      { condition = x.join({ x.M, x.b("ssec") }), show_condition = x.M }
+      {
+        name = i(1),
+        label = to_snake(ai[1]),
+      }
     ),
+    { condition = x.join({ x.M, x.b("ssec") }), show_condition = x.M }
+  ),
 
-    s(
-      { trig = "sssec" },
-      fmta(
-        [[
+  s(
+    { trig = "sssec" },
+    fmta(
+      [[
           \subsubsection{<name>}
           \label{sssec:<label>}
         ]],
-        {
-          name = i(1),
-          label = to_snake(ai[1]),
-        }
-      ),
-      { condition = x.join({ x.M, x.b("sssec") }), show_condition = x.M }
+      {
+        name = i(1),
+        label = to_snake(ai[1]),
+      }
     ),
+    { condition = x.join({ x.M, x.b("sssec") }), show_condition = x.M }
+  ),
 
-    s(
-      { trig = "par" },
-      fmta(
-        [[
+  s(
+    { trig = "par" },
+    fmta(
+      [[
           \paragraph{<name>}
           \label{par:<label>}
         ]],
-        {
-          name = i(1),
-          label = to_snake(ai[1]),
-        }
-      ),
-      { condition = x.join({ x.M, x.b("par") }), show_condition = x.M }
+      {
+        name = i(1),
+        label = to_snake(ai[1]),
+      }
     ),
+    { condition = x.join({ x.M, x.b("par") }), show_condition = x.M }
+  ),
 
-    -- --------------------
-    -- |   Environments   |
-    -- --------------------
-    s(
-      { trig = "beg" },
-      fmta(
-        [[
+  -- --------------------
+  -- |   Environments   |
+  -- --------------------
+  s(
+    { trig = "beg" },
+    fmta(
+      [[
           \begin{<name>}<leftpar><options><rightpar>
             <stop>
           \end{<name2>}
         ]],
-        {
-          name = i(1),
-          name2 = same(1),
-          options = i(2),
-          leftpar = show_not_empty(2, "{"),
-          rightpar = show_not_empty(2, "}"),
-          stop = i(0),
-        }
-      ),
       {
-        condition = x.join({ x.M, x.b("beg") }),
-        show_condition = x.M,
+        name = i(1),
+        name2 = same(1),
+        options = i(2),
+        leftpar = show_not_empty(2, "{"),
+        rightpar = show_not_empty(2, "}"),
+        stop = i(0),
       }
     ),
+    {
+      condition = x.join({ x.M, x.b("beg") }),
+      show_condition = x.M,
+    }
+  ),
 
-    -- -----------------------
-    -- |   Enter Math mode   |
-    -- -----------------------
-    -- Inline math
-    s({ trig = "mk", priority = 100 }, { t("$"), i(1), t("$") }, {
+  -- -----------------------
+  -- |   Enter Math mode   |
+  -- -----------------------
+  -- Inline math
+  s({ trig = "mk", priority = 100 }, { t("$"), i(1), t("$") }, {
+    condition = x.M,
+    show_condition = x.M,
+    callbacks = autoinsert_space,
+  }),
+
+  -- Surround letter with inline math
+  s(
+    { trig = "([%w])mk", regTrig = true, priority = 200 },
+    f(function(_, snip)
+      return "$" .. snip.captures[1] .. "$"
+    end),
+    {
       condition = x.M,
       show_condition = x.M,
       callbacks = autoinsert_space,
-    }),
+    }
+  ),
 
-    -- Surround letter with inline math
-    s(
-      { trig = "([%w])mk", regTrig = true, priority = 200 },
-      f(function(_, snip)
-        return "$" .. snip.captures[1] .. "$"
-      end),
-      {
-        condition = x.M,
-        show_condition = x.M,
-        callbacks = autoinsert_space,
-      }
-    ),
-
-    -- Display math
-    s(
-      { trig = "dm" },
-      fmta(
-        [[
+  -- Display math
+  s(
+    { trig = "dm" },
+    fmta(
+      [[
           \[
             <1>
           <2>\]
         ]],
-        { i(1), toggle_text(2, ".", true) }
-      ),
-      { condition = x.M, show_condition = x.M }
+      { i(1), toggle_text(2, ".", true) }
     ),
+    { condition = x.M, show_condition = x.M }
+  ),
 
-    -- -----------------
-    -- |   Fractions   |
-    -- -----------------
-    s(
-      { trig = "//", wordTrig = false },
-      fmta([[\frac{<1>}{<2>}]], { i(1), i(2) }),
-      { condition = x.m, show_condition = x.m }
-    ),
+  -- -----------------
+  -- |   Fractions   |
+  -- -----------------
+  s(
+    { trig = "//", wordTrig = false },
+    fmta([[\frac{<1>}{<2>}]], { i(1), i(2) }),
+    { condition = x.m, show_condition = x.m }
+  ),
 
-    s(
-      { trig = [=[([a-zA-Z0-9_^\{}]+)/]=], wordTrig = false, regTrig = true },
-      fmta([[\frac{<1>}{<2>}]], {
-        f(function(_, snip)
-          return snip.captures[1]
-        end),
-        i(1),
-      }),
-      { condition = x.m, show_condition = x.m }
-    ),
-
-    s({ trig = [=[^(.*[%)%}])/]=], regTrig = true }, {
+  s(
+    { trig = [=[([a-zA-Z0-9_^\{}]+)/]=], wordTrig = false, regTrig = true },
+    fmta([[\frac{<1>}{<2>}]], {
       f(function(_, snip)
-        local str = snip.captures[1]
-        local idx = #str
-        print(idx)
-        local depth = 0
+        return snip.captures[1]
+      end),
+      i(1),
+    }),
+    { condition = x.m, show_condition = x.m }
+  ),
 
-        while idx > 0 do
-          local char = str:sub(idx, idx)
-          print(char)
-          if char == ")" or char == "}" then
-            depth = depth - 1
-          end
-          if char == "(" or char == "(" then
-            depth = depth + 1
-          end
+  s({ trig = [=[^(.*[%)%}])/]=], regTrig = true }, {
+    f(function(_, snip)
+      local str = snip.captures[1]
+      local idx = #str
+      print(idx)
+      local depth = 0
 
-          if depth == 0 then
-            break
-          end
-          idx = idx - 1
+      while idx > 0 do
+        local char = str:sub(idx, idx)
+        print(char)
+        if char == ")" or char == "}" then
+          depth = depth - 1
+        end
+        if char == "(" or char == "(" then
+          depth = depth + 1
         end
 
-        return str:sub(0, idx - 1) .. [[\frac{]] .. str:sub(idx)
-      end),
-      t([[}{]]),
-      i(1),
-      t([[}]]),
-    }, { condition = x.m, show_condition = x.m }),
+        if depth == 0 then
+          break
+        end
+        idx = idx - 1
+      end
 
-    -- ---------------------------------------------
-    -- |   Super and Subscripts and Text in Math   |
-    -- ---------------------------------------------
-    s(
-      { trig = "_", wordTrig = false },
-      { t("_{"), i(1), t("}"), i(0) },
-      { condition = x.m, show_condition = x.m }
-    ),
+      return str:sub(0, idx - 1) .. [[\frac{]] .. str:sub(idx)
+    end),
+    t([[}{]]),
+    i(1),
+    t([[}]]),
+  }, { condition = x.m, show_condition = x.m }),
 
-    s(
-      { trig = "sts", wordTrig = false },
-      { t([[_{\text{]]), i(1), t("}}"), i(0) },
-      { condition = x.m, show_condition = x.m }
-    ),
+  -- ---------------------------------------------
+  -- |   Super and Subscripts and Text in Math   |
+  -- ---------------------------------------------
+  s(
+    { trig = "_", wordTrig = false },
+    { t("_{"), i(1), t("}"), i(0) },
+    { condition = x.m, show_condition = x.m }
+  ),
 
-    s(
-      { trig = "td", wordTrig = false },
-      { t("^{"), i(1), t("}"), i(0) },
-      { condition = x.m, show_condition = x.m }
-    ),
+  s(
+    { trig = "sts", wordTrig = false },
+    { t([[_{\text{]]), i(1), t("}}"), i(0) },
+    { condition = x.m, show_condition = x.m }
+  ),
 
-    s(
-      { trig = "tt", wordTrig = false },
-      { t([[\text{]]), i(1), t("}"), i(0) },
-      { condition = x.m, show_condition = x.m }
-    ),
+  s(
+    { trig = "td", wordTrig = false },
+    { t("^{"), i(1), t("}"), i(0) },
+    { condition = x.m, show_condition = x.m }
+  ),
 
-    -- ------------
-    -- |   Dots   |
-    -- ------------
-    s(
-      { trig = "...", wordTrig = false },
-      t([[\ldots ]]),
-      { condition = x.m, show_condition = x.m }
-    ),
+  s(
+    { trig = "tt", wordTrig = false },
+    { t([[\text{]]), i(1), t("}"), i(0) },
+    { condition = x.m, show_condition = x.m }
+  ),
 
-    s(
-      { trig = "c..", wordTrig = false },
-      t([[\cdots ]]),
-      { condition = x.m, show_condition = x.m }
-    ),
+  -- ------------
+  -- |   Dots   |
+  -- ------------
+  s({ trig = "...", wordTrig = false }, t([[\ldots ]]), { condition = x.m, show_condition = x.m }),
 
-    s(
-      { trig = "d..", wordTrig = false },
-      t([[\ddots ]]),
-      { condition = x.m, show_condition = x.m }
-    ),
+  s({ trig = "c..", wordTrig = false }, t([[\cdots ]]), { condition = x.m, show_condition = x.m }),
 
-    s(
-      { trig = "v..", wordTrig = false },
-      t([[\vdots ]]),
-      { condition = x.m, show_condition = x.m }
-    ),
-  }
+  s({ trig = "d..", wordTrig = false }, t([[\ddots ]]), { condition = x.m, show_condition = x.m }),
+
+  s({ trig = "v..", wordTrig = false }, t([[\vdots ]]), { condition = x.m, show_condition = x.m }),
+
+  -- ---------------
+  -- |   General   |
+  -- ---------------
+  s({ trig = "=>", wordTrig = false }, t([[\implies]]), { condition = x.m, show_condition = x.m }),
+
+  s(
+    { trig = "=<", dscr = "implied by", wordTrig = false },
+    t([[\impliedby]]),
+    { condition = x.m, show_condition = x.m }
+  ),
+
+  s(
+    { trig = "iff", dscr = "if and only if", wordTrig = false },
+    t([[\iff]]),
+    { condition = x.m, show_condition = x.m }
+  ),
+
+  s(
+    { trig = ":=", wordTrig = false },
+    t([[\vcentcolon=]]),
+    { condition = x.m, show_condition = x.m }
+  ),
+
+  s(
+    { trig = "=:", wordTrig = false },
+    t([[=\vcentcolon]]),
+    { condition = x.m, show_condition = x.m }
+  ),
+
+  s(
+    { trig = "==", wordTrig = false },
+    { t([[&= ]]), i(1), t([[ \\\\]]) },
+    { condition = x.m, show_condition = x.m }
+  ),
+
+  s({ trig = "!=", wordTrig = false }, t([[\neq]]), { condition = x.m, show_condition = x.m }),
+
+  -- ----------------
+  -- |   Matrices   |
+  -- ----------------
+  s({ trig = "pmat", wordTrig = false }, { t([[\begin{pmatrix} ]]), i(1), t([[ \end{pmatrix}]]) }),
+
+  s({ trig = "bmat", wordTrig = false }, { t([[\begin{bmatrix} ]]), i(1), t([[ \end{bmatrix}]]) }),
+
+  -- -------------------
+  -- |   Parenthesis   |
+  -- -------------------
+  s(
+    { trig = "ceil", wordTrig = false },
+    { t([[\left\lceil ]]), i(1), t([[ \right\rceil]]) },
+    { condition = x.m, show_condition = x.m }
+  ),
+
+  s(
+    { trig = "floor", wordTrig = false },
+    { t([[\left\lfloor ]]), i(1), t([[ \right\rfloor]]) },
+    { condition = x.m, show_condition = x.m }
+  ),
+
+  s(
+    { trig = "()", wordTrig = false },
+    { t([[\left(]]), i(1), t([[\right)]]) },
+    { condition = x.m, show_condition = x.m }
+  ),
+
+  s(
+    { trig = "lr", wordTrig = false },
+    { t([[\left(]]), i(1), t([[\right)]]) },
+    { condition = x.m, show_condition = x.m }
+  ),
+
+  s(
+    { trig = "lr(", wordTrig = false },
+    { t([[\left(]]), i(1), t([[\right)]]) },
+    { condition = x.m, show_condition = x.m }
+  ),
+
+  s(
+    { trig = "lr|", wordTrig = false },
+    { t([[\left|]]), i(1), t([[\right|]]) },
+    { condition = x.m, show_condition = x.m }
+  ),
+
+  s(
+    { trig = "lrb", wordTrig = false },
+    { t([[\left{]]), i(1), t([[\right}]]) },
+    { condition = x.m, show_condition = x.m }
+  ),
+
+  s(
+    { trig = "lr[", wordTrig = false },
+    { t([[\left[]]), i(1), t([=[\right]]=]) },
+    { condition = x.m, show_condition = x.m }
+  ),
+
+  s(
+    { trig = "lra", wordTrig = false },
+    { t([[\left\lange]]), i(1), t([[\right\rangle]]) },
+    { condition = x.m, show_condition = x.m }
+  ),
+
+  -- -----------------
+  -- |   Operators   |
+  -- -----------------
+  s(
+    { trig = "conj", wordTrig = false },
+    { t([[\overline{]]), i(1), t([[}]]) },
+    { condition = x.m, show_condition = x.m }
+  ),
+
+  s(
+    { trig = "sum", wordTrig = true },
+    { t([[\sum_{]]), i(1, [[n=1]]), t([[}^{]]), i(2, [[\infty]]), t([[} ]]), i(3, [[a_n]]) },
+    { condition = x.m, show_condition = x.m }
+  ),
+
+  s({ trig = "taylor", wordTrig = true }, {
+    t([[\sum_{]]),
+    i(1, [[k]]),
+    t([[=]]),
+    i(2, [[1]]),
+    t([[}^{]]),
+    i(3, [[\infty]]),
+    t([[} ]]),
+    i(4, [[c_]]),
+    same(1),
+    t([[(x-a)^]]),
+    same(1),
+  }, { condition = x.m, show_condition = x.m }),
+})
+
+node("wm", "lim", "limit", fmta([[\lim_{<1> \to <2>}]], { i(1, "n"), i(2, "\\infty") }))
+node(
+  "wm",
+  "limsup",
+  "limit superior",
+  fmta([[\limsup_{<1> \to <2>}]], { i(1, "n"), i(2, "\\infty") })
+)
+node(
+  "wm",
+  "prod",
+  "product",
+  fmta([[\prod_{<1>}^{<2>} <3>]], {
+    sn(1, { i(1, "n"), t("="), i(2, "1") }),
+    i(2, "\\infty"),
+    i(3),
+  })
+)
+node(
+  "wm",
+  "part",
+  "partial derivative",
+  fmta([[\frac{\partial <1>}{\partial <2>}}]], { i(1, "V"), i(2, "x") })
+)
+
+-- -----------------
+-- |   Operators   |
+-- -----------------
+node("miA", "sq", "square root", { t([[\sqrt{]]), i(1), t([[}]]) })
+node("miA", "norm", "norm", { t([[\norm{]]), i(1), t("}") })
+node("miA", "abs", "absolute value", { t([[\abs{]]), i(1), t("}") })
+node("miA", "ip", "inner product", { t([[\ip{]]), i(1), t("}{"), i(2), t("}") })
+node("miA", "nnn", "big cap", { t([[\bigcap_{]]), i(1), t([[}]]) })
+node("miA", "uuu", "big cup", { t([[\bigcup_{]]), i(1), t([[}]]) })
+
+-- ---------------
+-- |   Symbols   |
+-- ---------------
+node("miA", "ooo", "infinity", [[\infty]])
+node("miA", "<=", "less than or equal to", [[\le]])
+node("miA", ">=", "greater than or equal to", [[\ge]])
+node("miA", "eE", "exists", [[\exists]])
+node("miA", "aA", "for all", [[\forall]])
+node("miA", "lll", "ell", [[\ell]])
+node("miA", "nabl", "nabla", [[\nabla]])
+node("miA", "xx", "cross times", [[\times]])
+node("miA", "ox", "o cross times", [[\otimes]])
+node("miA", "op", "o plus", [[\oplus]])
+node("miA", "**", "center dot", [[\cdot]])
+node("miA", "->", "to", [[\to]], { prio = 100 })
+node("miA", "<->", "left right arrow", [[\leftrightarrow]], { prio = 200 })
+node("miA", "~>", "right squigly arrow", [[\rightsquigarrow]])
+node("miA", "!>", "maps to", [[\mapsto]])
+node("miA", "invs", "inverse", [[^{-1}]])
+node("miA", "compl", "complement", [[^{c}]])
+node("miA", [[\\\]], "set minus", [[\setminus]])
+node("miA", ">>", "greater than", [[\gg]])
+node("miA", "<<", "less than", [[\ll]])
+node("miA", "~~", "similar", [[\sim]])
+node("miA", "||", "mid", [[\mid]])
+node("miA", "cc", "subset", [[\subset]])
+node("miA", "c=", "subset equal", [[\subseteq]])
+node("miA", "notin", "set not in", [[\not\in]])
+node("miA", "inn", "set in", [[\in]])
+node("miA", "nN", "cap", [[\cap]])
+node("miA", "uU", "cup", [[\cup]])
+node("miA", "<!", "normal", [[\triangleleft]])
+node("miA", "<>", "jokje", [[\diamond]])
+
+-- -------------------
+-- |   Number Sets   |
+-- -------------------
+node("miA", "NN", "natural numbers", [[\mathbb{N}]])
+
+return snips, autosnips
