@@ -1,6 +1,6 @@
 local M = {}
 
-M.setup = function ()
+M.setup = function()
   local ok_todo, todo = pcall(require, "todo-comments")
   if not ok_todo then
     return
