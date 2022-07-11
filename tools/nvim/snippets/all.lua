@@ -15,9 +15,10 @@ local m = require("luasnip.extras").m
 local lambda = require("luasnip.extras").l
 
 local replace = function(index, char)
-  return f(function(arg)
-    return string.rep(char, string.len(arg[1][1]))
-  end, { index })
+  return f(
+    function(arg) return string.rep(char, string.len(arg[1][1])) end,
+    { index }
+  )
 end
 
 local parse_comments = function()
@@ -40,7 +41,11 @@ local parse_comments = function()
 
     if #flags == 0 then
       -- Parse the single line comment string.
-      table.insert(comments.other, 1, { start = text, mid = text, stop = text, indent = "" })
+      table.insert(
+        comments.other,
+        1,
+        { start = text, mid = text, stop = text, indent = "" }
+      )
     elseif flags:match("s") and not flags:match("O") then
       -- Parse 3 part comment string, but ignore those with the O flag
       local ctriple = {}
@@ -53,19 +58,29 @@ local parse_comments = function()
 
       cs = iter()
       flags, text = split(cs)
-      assert(vim.startswith(flags, "m"), "Expected middle comment format of triple")
+      assert(
+        vim.startswith(flags, "m"),
+        "Expected middle comment format of triple"
+      )
       ctriple.mid = text
 
       cs = iter()
       flags, text = split(cs)
-      assert(vim.startswith(flags, "e"), "Expected end comment format of triple")
+      assert(
+        vim.startswith(flags, "e"),
+        "Expected end comment format of triple"
+      )
       ctriple.stop = text
       ctriple.indent = indent
 
       table.insert(comments.triple, 1, ctriple)
     elseif flags:match("b") then
       if #text == 1 then
-        table.insert(comments.single, 1, { start = text, mid = text, stop = text, indent = "" })
+        table.insert(
+          comments.single,
+          1,
+          { start = text, mid = text, stop = text, indent = "" }
+        )
       end
     end
   end
@@ -113,7 +128,13 @@ return {
         {4} │ {1} │
         {5} └─{2}─┘
       ]],
-      { i(1), replace(1, "─"), comment("start"), comment("mid"), comment("stop") }
+      {
+        i(1),
+        replace(1, "─"),
+        comment("start"),
+        comment("mid"),
+        comment("stop"),
+      }
     )
   ),
 
@@ -148,7 +169,13 @@ return {
         {4} |   {1}   |
         {5} ----{2}----
       ]],
-      { i(1), replace(1, "-"), comment("start"), comment("mid"), comment("stop") }
+      {
+        i(1),
+        replace(1, "-"),
+        comment("start"),
+        comment("mid"),
+        comment("stop"),
+      }
     )
   ),
 
@@ -164,7 +191,14 @@ return {
         {5} |===={2}====|
         {6} ====={2}=====
       ]],
-      { i(1), replace(1, "="), replace(1, " "), comment("start"), comment("mid"), comment("stop") }
+      {
+        i(1),
+        replace(1, "="),
+        replace(1, " "),
+        comment("start"),
+        comment("mid"),
+        comment("stop"),
+      }
     )
   ),
 }

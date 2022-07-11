@@ -5,7 +5,8 @@ M.bootstrap = function()
   local fn = vim.fn
 
   -- For bootstrapping packer local fn = vim.fn
-  local install_path = fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
+  local install_path = fn.stdpath("data")
+    .. "/site/pack/packer/start/packer.nvim"
   if fn.empty(fn.glob(install_path)) > 0 then
     vim.notify("Bootstrapping packer")
     local out = fn.system({
@@ -49,9 +50,7 @@ M.setup = function()
 end
 
 M.lazy_load = function(plugin)
-  vim.defer_fn(function()
-    require("packer").loader(plugin)
-  end, 0)
+  vim.defer_fn(function() require("packer").loader(plugin) end, 0)
 end
 
 return M

@@ -49,7 +49,8 @@ opt.showmatch = true
 -- Wild menu options
 opt.wildmode = "longest:full"
 opt.wildoptions = "pum" -- Fancy menu
-opt.wildignore = [[*.o,*~,*.pyc,.hg,.svn,*.png,*.jpg,*.gif,*.settings,*.min.js,*.swp,publish/*]]
+opt.wildignore =
+  [[*.o,*~,*.pyc,.hg,.svn,*.png,*.jpg,*.gif,*.settings,*.min.js,*.swp,publish/*]]
 
 -- Searching
 opt.ignorecase = true
@@ -121,9 +122,7 @@ local set_cursorline = function(event, value, pattern)
   vim.api.nvim_create_autocmd(event, {
     group = group,
     pattern = pattern,
-    callback = function()
-      vim.opt_local.cursorline = value
-    end,
+    callback = function() vim.opt_local.cursorline = value end,
   })
 end
 set_cursorline("WinLeave", false)

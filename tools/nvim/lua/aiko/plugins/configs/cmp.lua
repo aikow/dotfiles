@@ -73,9 +73,7 @@ M.setup = function()
   -- Setup the insert mode completion.
   cmp.setup({
     snippet = {
-      expand = function(args)
-        require("luasnip").lsp_expand(args.body)
-      end,
+      expand = function(args) require("luasnip").lsp_expand(args.body) end,
     },
     mapping = mappings,
     sources = cmp.config.sources({
@@ -90,7 +88,8 @@ M.setup = function()
     formatting = {
       format = function(_, vim_item)
         local icons = require("aiko.plugins.configs.lspkind").icons
-        vim_item.kind = string.format("%s %s", icons[vim_item.kind], vim_item.kind)
+        vim_item.kind =
+          string.format("%s %s", icons[vim_item.kind], vim_item.kind)
 
         return vim_item
       end,

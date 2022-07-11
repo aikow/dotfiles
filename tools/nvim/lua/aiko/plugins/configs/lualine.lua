@@ -64,7 +64,14 @@ M.setup = function()
         },
       },
     },
-    extensions = { "quickfix", "fugitive", "man", "neo-tree", "toggleterm", "nvim-dap-ui" },
+    extensions = {
+      "quickfix",
+      "fugitive",
+      "man",
+      "neo-tree",
+      "toggleterm",
+      "nvim-dap-ui",
+    },
   })
 end
 

@@ -30,12 +30,14 @@ M.setup = function()
   -- |   Trigger Keymaps   |
   -- -----------------------
   map({ "i" }, "<M-Tab>", function()
-    if ls.jumpable(1) then
-      ls.jump(1)
-    elseif ls.expandable() then
-      ls.expand()
+    if ls.expand_or_jumpable() then
+      ls.expand_or_jump()
     else
-      vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Tab>", true, true, true), "n", false)
+      vim.api.nvim_feedkeys(
+        vim.api.nvim_replace_termcodes("<Tab>", true, true, true),
+        "n",
+        false
+      )
     end
   end, {
     silent = true,
@@ -43,10 +45,15 @@ M.setup = function()
   })
 
   map({ "i" }, "<Tab>", function()
+    -- if ls.expand_or_locally_jumpable() then
     if ls.expand_or_jumpable() then
       ls.expand_or_jump()
     else
-      vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Tab>", true, true, true), "n", false)
+      vim.api.nvim_feedkeys(
+        vim.api.nvim_replace_termcodes("<Tab>", true, true, true),
+        "n",
+        false
+      )
     end
   end, {
     silent = true,
@@ -92,13 +99,18 @@ M.setup = function()
     "<cmd>source ~/.dotfiles/tools/nvim/lua/aiko/snippets/init.lua<CR>",
     { silent = true, desc = "reload snippet configuration" }
   )
-  map("n", "<leader>se", function()
-    require("luasnip.loaders").edit_snippet_files()
-  end, { silent = true, desc = "telescope edit snippets" })
+  map(
+    "n",
+    "<leader>se",
+    function() require("luasnip.loaders").edit_snippet_files() end,
+    { silent = true, desc = "telescope edit snippets" }
+  )
 
-  vim.api.nvim_create_user_command("LuaSnipEdit", function()
-    require("luasnip.loaders").edit_snippet_files()
-  end, { desc = "telescope edit snippets", force = true })
+  vim.api.nvim_create_user_command(
+    "LuaSnipEdit",
+    function() require("luasnip.loaders").edit_snippet_files() end,
+    { desc = "telescope edit snippets", force = true }
+  )
 
   -- --------------------------
   -- |   Lazy Load Snippets   |

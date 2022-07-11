@@ -104,7 +104,8 @@ M.sumneko_lua = function(capabilities)
       client.config.settings.Lua.workspace.library = setup_neovim_libraries()
       client.config.settings.Lua.diagnostics.globals = { "vim" }
     elseif string.match(workspace, [[.dotfiles/os/awesome$]]) then
-      client.config.settings.Lua.diagnostics.globals = { "awesome", "client", "screen", "root" }
+      client.config.settings.Lua.diagnostics.globals =
+        { "awesome", "client", "screen", "root" }
     end
 
     client.notify("workspace/didChangeConfiguration")

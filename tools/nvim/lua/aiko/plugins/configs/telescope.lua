@@ -69,7 +69,8 @@ M.setup = function()
           -- Toggle selection without moving up or down.
           ["<C-space>"] = actions.toggle_selection,
           ["<Tab>"] = actions.toggle_selection + actions.move_selection_worse,
-          ["<S-Tab>"] = actions.toggle_selection + actions.move_selection_better,
+          ["<S-Tab>"] = actions.toggle_selection
+            + actions.move_selection_better,
 
           ["<C-l>"] = actions.complete_tag,
           ["<C-w>"] = { "<c-s-w>", type = "command" },
@@ -107,7 +108,8 @@ M.setup = function()
           -- Toggle selection without moving up or down.
           ["<C-space>"] = actions.toggle_selection,
           ["<Tab>"] = actions.toggle_selection + actions.move_selection_worse,
-          ["<S-Tab>"] = actions.toggle_selection + actions.move_selection_better,
+          ["<S-Tab>"] = actions.toggle_selection
+            + actions.move_selection_better,
 
           ["<C-b>"] = actions.preview_scrolling_up,
           ["<C-f>"] = actions.preview_scrolling_down,
