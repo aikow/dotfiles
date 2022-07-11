@@ -13,9 +13,7 @@ M.use = function(use)
     {
       "neovim/nvim-lspconfig",
       requires = { "williamboman/nvim-lsp-installer" },
-      config = function()
-        require("aiko.plugins.configs.lsp").setup()
-      end,
+      config = function() require("aiko.plugins.configs.lsp").setup() end,
     },
     {
       "williamboman/nvim-lsp-installer",
@@ -24,9 +22,7 @@ M.use = function(use)
       "mfussenegger/nvim-dap",
       module = { "dap" },
       keys = { "<F5>" },
-      config = function()
-        require("aiko.plugins.configs.dap").setup()
-      end,
+      config = function() require("aiko.plugins.configs.dap").setup() end,
     },
   })
 
@@ -44,9 +40,7 @@ M.use = function(use)
         "nvim-telescope/telescope-fzf-native.nvim",
         "benfowler/telescope-luasnip.nvim",
       },
-      config = function()
-        require("aiko.plugins.configs.telescope").setup()
-      end,
+      config = function() require("aiko.plugins.configs.telescope").setup() end,
     },
     {
       "nvim-telescope/telescope-fzf-native.nvim",
@@ -66,22 +60,28 @@ M.use = function(use)
       "nvim-treesitter/nvim-treesitter-refactor",
     },
     run = ":TSUpdate",
-    config = function()
-      require("aiko.plugins.configs.treesitter").setup()
-    end,
+    config = function() require("aiko.plugins.configs.treesitter").setup() end,
   })
 
   -- Refactoring support for select languages.
   use({
     "ThePrimeagen/refactoring.nvim",
-    ft = { "typescript", "javascript", "lua", "c", "cpp", "go", "python", "java", "php" },
+    ft = {
+      "typescript",
+      "javascript",
+      "lua",
+      "c",
+      "cpp",
+      "go",
+      "python",
+      "java",
+      "php",
+    },
     requires = {
       { "nvim-lua/plenary.nvim" },
       { "nvim-treesitter/nvim-treesitter" },
     },
-    config = function()
-      require("aiko.plugins.configs.refactoring").setup()
-    end,
+    config = function() require("aiko.plugins.configs.refactoring").setup() end,
   })
 
   -- Enable correct spelling syntax highlighting with Tree-sitter.
@@ -108,9 +108,7 @@ M.use = function(use)
         "kyazdani42/nvim-web-devicons",
         "MunifTanjim/nui.nvim",
       },
-      config = function()
-        require("aiko.plugins.configs.neotree").setup()
-      end,
+      config = function() require("aiko.plugins.configs.neotree").setup() end,
     },
     {
       "MunifTanjim/nui.nvim",
@@ -132,9 +130,7 @@ M.use = function(use)
       requires = {
         "rafamadriz/friendly-snippets",
       },
-      config = function()
-        require("aiko.plugins.configs.luasnip").setup()
-      end,
+      config = function() require("aiko.plugins.configs.luasnip").setup() end,
     },
   })
 
@@ -177,9 +173,7 @@ M.use = function(use)
           after = "nvim-cmp",
         },
       },
-      config = function()
-        require("aiko.plugins.configs.cmp").setup()
-      end,
+      config = function() require("aiko.plugins.configs.cmp").setup() end,
     },
     {
       "onsails/lspkind.nvim",
@@ -194,16 +188,12 @@ M.use = function(use)
     "numToStr/Comment.nvim",
     module = "Comment",
     keys = { "gc", "gb" },
-    config = function()
-      require("aiko.plugins.configs.comment").setup()
-    end,
+    config = function() require("aiko.plugins.configs.comment").setup() end,
   })
   use({
     "folke/todo-comments.nvim",
     requires = "nvim-lua/plenary.nvim",
-    config = function()
-      require("aiko.plugins.configs.todo").setup()
-    end,
+    config = function() require("aiko.plugins.configs.todo").setup() end,
   })
 
   -- -----------------------
@@ -241,16 +231,12 @@ M.use = function(use)
     },
     {
       "airblade/vim-rooter",
-      config = function()
-        vim.g.rooter_silent_chdir = 1
-      end,
+      config = function() vim.g.rooter_silent_chdir = 1 end,
     },
     {
       "lukas-reineke/indent-blankline.nvim",
       event = "BufRead",
-      config = function()
-        require("aiko.plugins.configs.indent_blankline").setup()
-      end,
+      config = function() require("aiko.plugins.configs.indent_blankline").setup() end,
     },
     {
       "dstein64/vim-startuptime",
@@ -271,9 +257,7 @@ M.use = function(use)
     {
       "lewis6991/gitsigns.nvim",
       requires = { "nvim-lua/plenary.nvim" },
-      config = function()
-        require("aiko.plugins.configs.gitsigns").setup()
-      end,
+      config = function() require("aiko.plugins.configs.gitsigns").setup() end,
     },
   })
 
@@ -289,18 +273,14 @@ M.use = function(use)
       "simrat39/rust-tools.nvim",
       ft = { "rust" },
       requires = "neovim/nvim-lspconfig",
-      config = function()
-        require("aiko.plugins.configs.rusttools").setup()
-      end,
+      config = function() require("aiko.plugins.configs.rusttools").setup() end,
     },
     {
       "saecki/crates.nvim",
       ft = { "toml" },
       tag = "v0.1.0",
       requires = { "nvim-lua/plenary.nvim" },
-      config = function()
-        require("aiko.plugins.configs.crates").setup()
-      end,
+      config = function() require("aiko.plugins.configs.crates").setup() end,
     },
   })
 
@@ -329,7 +309,8 @@ M.use = function(use)
       }
 
       vim.api.nvim_create_user_command("LatexSurround", function()
-        vim.b["surround" .. vim.fn.char2nr("e")] = [[\\begin{\1environment: \1}\n\t\r\n\\end{\1\1}]]
+        vim.b["surround" .. vim.fn.char2nr("e")] =
+          [[\\begin{\1environment: \1}\n\t\r\n\\end{\1\1}]]
         vim.b["surround" .. vim.fn.char2nr("c")] = [[\\\1command: \1{\r}]]
       end, { nargs = 0 })
     end,
@@ -339,9 +320,7 @@ M.use = function(use)
   -- Markdown
   use({
     "iamcco/markdown-preview.nvim",
-    run = function()
-      vim.fn["mkdp#util#install"]()
-    end,
+    run = function() vim.fn["mkdp#util#install"]() end,
     ft = { "markdown" },
     config = function()
       vim.keymap.set(
@@ -386,9 +365,7 @@ M.use = function(use)
   use({
     "nvim-neorg/neorg",
     ft = { "norg" },
-    config = function()
-      require("aiko.plugins.configs.neorg").setup()
-    end,
+    config = function() require("aiko.plugins.configs.neorg").setup() end,
     requires = "nvim-lua/plenary.nvim",
     tag = "*",
   })
@@ -400,9 +377,7 @@ M.use = function(use)
   use({
     "nvim-lualine/lualine.nvim",
     requires = { "kyazdani42/nvim-web-devicons", opt = true },
-    config = function()
-      require("aiko.plugins.configs.lualine").setup()
-    end,
+    config = function() require("aiko.plugins.configs.lualine").setup() end,
   })
   use({
     "SmiteshP/nvim-navic",
@@ -411,9 +386,7 @@ M.use = function(use)
   use({
     "stevearc/dressing.nvim",
     requires = { "nvim-telescope/telescope.nvim" },
-    config = function()
-      require("aiko.plugins.configs.dressing").setup()
-    end,
+    config = function() require("aiko.plugins.configs.dressing").setup() end,
   })
 
   -- ---------------------
