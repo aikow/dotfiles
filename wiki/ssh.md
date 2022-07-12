@@ -18,6 +18,12 @@ Host server
   ProxyJump proxy
 ```
 
+Copying the keys to the server can then be done with
+
+```bash
+ssh-copy-id -i ~/.ssh/id_rsa -o ProxyJump <proxy> <user>@<host>
+```
+
 ## Git Repositories via SSH
 
 If you're cloning git repositories via SSH, you can add the following to you
