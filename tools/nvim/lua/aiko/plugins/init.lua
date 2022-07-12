@@ -42,7 +42,8 @@ M.setup = function()
     compile_on_sync = true,
     git = { clone_timeout = 10 },
     display = {
-      open_cmd = "80vnew \\[packer\\]",
+      open_fn = require("packer.util").float,
+      -- open_cmd = "80vnew \\[packer\\]",
     },
   })
 
