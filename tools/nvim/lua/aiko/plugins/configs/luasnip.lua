@@ -29,15 +29,19 @@ M.setup = function()
   -- -----------------------
   -- |   Trigger Keymaps   |
   -- -----------------------
+  local feedkeys = function(keys)
+    vim.api.nvim_feedkeys(
+      vim.api.nvim_replace_termcodes(keys, true, true, true),
+      "n",
+      false
+    )
+  end
+
   map({ "i" }, "<M-Tab>", function()
-    if ls.expand_or_jumpable() then
-      ls.expand_or_jump()
+    if ls.jumpable() then
+      ls.jump(1)
     else
-      vim.api.nvim_feedkeys(
-        vim.api.nvim_replace_termcodes("<Tab>", true, true, true),
-        "n",
-        false
-      )
+      feedkeys("<tab>")
     end
   end, {
     silent = true,
@@ -45,15 +49,16 @@ M.setup = function()
   })
 
   map({ "i" }, "<Tab>", function()
-    -- if ls.expand_or_locally_jumpable() then
-    if ls.expand_or_jumpable() then
+    if ls.expand_or_locally_jumpable() then
+      if ls.expandable() then
+        -- Set an undo breakpoint
+        print("expandable")
+        feedkeys("<c-g>u")
+      end
+
       ls.expand_or_jump()
     else
-      vim.api.nvim_feedkeys(
-        vim.api.nvim_replace_termcodes("<Tab>", true, true, true),
-        "n",
-        false
-      )
+      feedkeys("<tab>")
     end
   end, {
     silent = true,
@@ -78,12 +83,6 @@ M.setup = function()
     end
   end, { silent = true, desc = "luasnip next choice" })
 
-  map({ "i", "s" }, "<C-h>", function()
-    if ls.choice_active() then
-      ls.change_choice(-1)
-    end
-  end, { silent = true, desc = "luasnip prev choice" })
-
   map({ "i", "s" }, "<C-u>", function()
     if ls.choice_active() then
       require("luasnip.extras.select_choice")()
@@ -102,13 +101,13 @@ M.setup = function()
   map(
     "n",
     "<leader>se",
-    function() require("luasnip.loaders").edit_snippet_files() end,
+    function() require("luasnip.loaders").edit_snippet_files({}) end,
     { silent = true, desc = "telescope edit snippets" }
   )
 
   vim.api.nvim_create_user_command(
     "LuaSnipEdit",
-    function() require("luasnip.loaders").edit_snippet_files() end,
+    function() require("luasnip.loaders").edit_snippet_files({}) end,
     { desc = "telescope edit snippets", force = true }
   )
 
