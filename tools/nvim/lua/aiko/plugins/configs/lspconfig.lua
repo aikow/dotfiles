@@ -57,7 +57,6 @@ M.setup = function()
     capabilities = capabilities,
   })
 
-  M.sumneko_lua(capabilities)
   lspconfig.sumneko_lua.setup(M.sumneko_lua(capabilities))
 end
 

@@ -116,3 +116,5 @@ fi
 # Load local aliases and configurations
 [[ -f "${HOME}/.aliases.local" ]] && source "${HOME}/.aliases.local"
 [[ -f "${HOME}/.bashrc.local" ]] && source "${HOME}/.bashrc.local"
+
+source /home/aikow/.config/broot/launcher/bash/br

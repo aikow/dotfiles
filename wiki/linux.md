@@ -1,4 +1,4 @@
-# i3 Window Manager
+# Linux
 
 ## Problems
 

@@ -6,25 +6,37 @@ Used to find older versions of packages
 
 https://wiki.archlinux.org/title/Arch_Linux_Archive
 
+## CLI Tools
 
+- `fd-find` - faster simpler `find`
+- `ripgrep` - faster better grep
+- `fzf` - fuzzy finder over lists
+- `exa` - prettier ls
+- `bat` - prettier cat
+- `tokei` - code statistics for git repository
+- `delta` - prettier diffs
+- `difftastic` - prettier diffs with syntax
+- `hyperfine` - for benchmarking two commands
+- `dust` - prettier `du`
+- `nushell` - modern future shell
+- `sd` - simpler `sed`
+- `watchexec` - execute on file change
+- `just` - simpler make alternative
+- `hexyl` - hexdump
+- `broot` - concise `tree`
 
-## The Silver Searcher
+### Theming
 
-Is a replacement for `grep` and `ack` which is orders of magnitude faster.
-The Silver Searcher can be installed with a package manager, usually with the 
-name `the_silver_searcher`.
+- `pastel`
+- `starship`  
 
-## Ripgrep
+### Media
 
-Very similar to `the_silver_searcher`
+- `spotify-tui`
+- `sioyek`
+- `zathura`
 
-## FZF
+### Random
 
-A fuzzy file finder.
-
-
-## Cool random programs
-
-- Cbonsai
-- Spotify-tui
-- pscircle
+- `cbonsai` - draws pretty bonsai trees
+- `pscircle` - draws a pretty image of all current processes
