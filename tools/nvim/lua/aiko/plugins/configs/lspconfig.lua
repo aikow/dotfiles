@@ -29,36 +29,28 @@ M.setup = function()
   )
 
   -- Python language server.
-  if vim.fn.executable("pyright") == 1 then
-    lspconfig.pyright.setup({
-      on_attach = M.on_attach,
-      capabilities = capabilities,
-    })
-  end
+  lspconfig.pyright.setup({
+    on_attach = M.on_attach,
+    capabilities = capabilities,
+  })
 
   -- CPP and C server
-  if vim.fn.executable("clangd") == 1 then
-    lspconfig.clangd.setup({
-      on_attach = M.on_attach,
-      capabilities = capabilities,
-    })
-  end
+  lspconfig.clangd.setup({
+    on_attach = M.on_attach,
+    capabilities = capabilities,
+  })
 
   -- Bash language server
-  if vim.fn.executable("bash-language-server") == 1 then
-    lspconfig.bashls.setup({
-      on_attach = M.on_attach,
-      capabilities = capabilities,
-    })
-  end
+  lspconfig.bashls.setup({
+    on_attach = M.on_attach,
+    capabilities = capabilities,
+  })
 
   -- YAML language server
-  if vim.fn.executable("yaml-language-server") == 1 then
-    lspconfig.yamlls.setup({
-      on_attach = M.on_attach,
-      capabilities = capabilities,
-    })
-  end
+  lspconfig.yamlls.setup({
+    on_attach = M.on_attach,
+    capabilities = capabilities,
+  })
 
   lspconfig.jsonls.setup({
     on_attach = M.on_attach,

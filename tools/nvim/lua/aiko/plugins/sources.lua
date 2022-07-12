@@ -13,7 +13,7 @@ M.use = function(use)
     {
       "neovim/nvim-lspconfig",
       requires = { "williamboman/nvim-lsp-installer" },
-      config = function() require("aiko.plugins.configs.lsp").setup() end,
+      config = function() require("aiko.plugins.configs.lspconfig").setup() end,
     },
     {
       "williamboman/nvim-lsp-installer",
@@ -404,6 +404,7 @@ M.use = function(use)
     },
     "sainnhe/gruvbox-material",
     "arcticicestudio/nord-vim",
+    "folke/tokyonight.nvim",
     "kyazdani42/nvim-web-devicons",
   })
 end
