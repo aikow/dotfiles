@@ -403,6 +403,7 @@ M.use = function(use)
       end,
     },
     "sainnhe/gruvbox-material",
+    "arcticicestudio/nord-vim",
     "kyazdani42/nvim-web-devicons",
   })
 end

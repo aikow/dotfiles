@@ -246,7 +246,6 @@ local snip = function(mode, trig, desc, nodes, opts)
   -- table.
   for idx, node in pairs(nodes) do
     if type(node) == "string" then
-      print(node)
       nodes[idx] = t(node)
     end
   end
@@ -296,6 +295,14 @@ local snip = function(mode, trig, desc, nodes, opts)
   end
 end
 
+-- =====================================
+-- |===================================|
+-- ||                                 ||
+-- ||     LaTeX Snippet Definitions   ||
+-- ||                                 ||
+-- |===================================|
+-- =====================================
+
 -- --------------------
 -- |   Environments   |
 -- --------------------
@@ -319,7 +326,6 @@ snip(
     }
   )
 )
-
 snip(
   "bM",
   "table",
@@ -345,7 +351,6 @@ snip(
     }
   )
 )
-
 snip(
   "bM",
   "fig",
@@ -374,7 +379,6 @@ snip(
     }
   )
 )
-
 snip(
   "bM",
   "enum",
@@ -388,7 +392,6 @@ snip(
     { item = i(0) }
   )
 )
-
 snip(
   "bMA",
   "-",
@@ -410,7 +413,6 @@ snip(
   )
 )
 snip("bMA", "-", "new item inside enumeration", [[\item ]], { env = "itemize" })
-
 snip(
   "bM",
   "desc",
@@ -424,7 +426,6 @@ snip(
     { desc = i(1), item = i(0) }
   )
 )
-
 snip(
   "bM",
   "ali",
@@ -438,7 +439,6 @@ snip(
     { star = toggle_text(1, "*"), input = i(2) }
   )
 )
-
 snip(
   "bM",
   "mlt",
@@ -470,7 +470,6 @@ snip(
     { id = i(1, "id"), name = i(2, "name"), desc = i(3, "description") }
   )
 )
-
 snip(
   "bM",
   "acronym",
@@ -493,7 +492,7 @@ snip("wMS", "em", "emphasis", { t([[\textem{]]), i(1), t("}") })
 -- -----------------------
 snip("wMA", "mk", "inline math", { t("$"), i(1), t("$") }, { prio = 100 })
 snip(
-  "rMA",
+  "rMAS",
   "([%w])mk",
   "inline math surround letter",
   { "$", cap(1), "$" },
@@ -556,21 +555,18 @@ snip(
   "chapter",
   { [[\chapter{]], i(1), t({ "}", [[\label{chap:]] }), to_snake(ai[1]), "}" }
 )
-
 snip(
   "bMA",
   "sec",
   "section",
   { [[\section{]], i(1), t({ "}", [[\label{sec:]] }), to_snake(ai[1]), "}" }
 )
-
 snip(
   "bMA",
   "ssec",
   "subsection",
   { [[\subsection{]], i(1), t({ "}", [[\label{ssec:]] }), to_snake(ai[1]), "}" }
 )
-
 snip("bMA", "sssec", "subsubsection", {
   [[\subsubsection{]],
   i(1),
@@ -578,7 +574,6 @@ snip("bMA", "sssec", "subsubsection", {
   to_snake(ai[1]),
   "}",
 })
-
 snip(
   "bMA",
   "par",
@@ -963,25 +958,114 @@ snip("imA", "qd", "quad", [[\quad]])
 snip("imA", "Qd", "qquad", [[\qquad]])
 
 -- Word functions
--- 100 snippet '(?<!\\)(sin|cos|cot|csc|ln|log|exp|star|perp|max|min|sup|inf|gets)' "ln" rwA
--- 200 snippet '(?<!\\)(arcsin|arccos|arctan|arccot|arccsc|arcsec|pi|zeta|int)' "ln" rwA
--- 300 snippet '(?<!\\)a(sin|cos|tan|cot|csc|sec)' "ln" rwA
+snip("wmA", "sin", "sin", [[\sin]], { prio = 100 })
+snip("rmA", "ar?c?sin", "arcsin", [[\arcsin]], { prio = 200 })
+
+snip("wmA", "cos", "cosin", [[\cos]], { prio = 100 })
+snip("rmA", "ar?c?cos", "arccos", [[\arccos]], { prio = 200 })
+
+snip("wmA", "tan", "tangent", [[\tan]], { prio = 100 })
+snip("rmA", "ar?c?tan", "arctangent", [[\arctan]], { prio = 200 })
+
+snip("wmA", "sec", "secant", [[\sec]], { prio = 100 })
+snip("rmA", "ar?c?sec", "arcsecant", [[\arcsec]], { prio = 200 })
+
+snip("wmA", "csc", "cosecant", [[\csc]], { prio = 100 })
+snip("rmA", "ar?c?csc", "arccosecant", [[\arccsc]], { prio = 200 })
+
+snip("wmA", "cot", "cotangent", [[\cot]], { prio = 100 })
+snip("rmA", "ar?c?cot", "arccotangent", [[\arccot]], { prio = 200 })
+
+snip("wmA", "ln", "natural logarithm", [[\ln]], { prio = 100 })
+snip("wmA", "log", "logarithm", [[\log]], { prio = 100 })
+snip("wmA", "exp", "exponential", [[\exp]], { prio = 100 })
+snip("wmA", "star", "star", [[\star]], { prio = 100 })
+snip("wmA", "perp", "perpendicular", [[\perp]], { prio = 100 })
+snip("wmA", "max", "maximum", [[\max]], { prio = 100 })
+snip("wmA", "min", "minimum", [[\min]], { prio = 100 })
+snip("wmA", "sup", "supremum", [[\sup]], { prio = 100 })
+snip("wmA", "inf", "infimum", [[\inf]], { prio = 100 })
+snip("wmA", "get", "get", [[\get]], { prio = 100 })
+snip("wmA", "int", "integral", [[\int]], { prio = 100 })
 
 -- -------------------
 -- |   Number Sets   |
 -- -------------------
--- TODO: Figure out how to match repeated uppercase letters with patterns.
 snip("imA", "NN", "natural numbers", [[\mathbb{N}]])
-snip("imA", "CC", "complex numbers", [[\mathbb{N}]])
-snip("imA", "RR", "real numbers", [[\mathbb{N}]])
-snip("imA", "QQ", "rational numbers", [[\mathbb{N}]])
+snip("imA", "CC", "complex numbers", [[\mathbb{C}]])
+snip("imA", "RR", "real numbers", [[\mathbb{R}]])
+snip("imA", "QQ", "rational numbers", [[\mathbb{Q}]])
 snip("imA", "R0+", "rational numbers greater than zero", [[\mathbb{N}]])
-snip("imA", "ZZ", "integers numbers", [[\mathbb{N}]])
-snip("imA", "PP", "double stroke P", [[\mathbb{N}]])
-snip("imA", "EE", "double stroke E", [[\mathbb{N}]])
-snip("imA", "VV", "double stroke V", [[\mathbb{N}]])
-snip("imA", "HH", "double stroke H", [[\mathbb{N}]])
-snip("imA", "DD", "double stroke D", [[\mathbb{N}]])
-snip("imA", "KK", "double stroke K", [[\mathbb{N}]])
+snip("imA", "ZZ", "integers numbers", [[\mathbb{R}_0^+]])
+snip("imA", "PP", "double stroke P", [[\mathbb{P}]])
+snip("imA", "EE", "double stroke E", [[\mathbb{E}]])
+snip("imA", "VV", "double stroke V", [[\mathbb{V}]])
+snip("imA", "HH", "double stroke H", [[\mathbb{H}]])
+snip("imA", "DD", "double stroke D", [[\mathbb{D}]])
+snip("imA", "KK", "double stroke K", [[\mathbb{K}]])
+
+-- ---------------------
+-- |   Greek Letters   |
+-- ---------------------
+snip("wmA", "pi", "pi", [[\pi]], { prio = 100 })
+snip("wmA", "zeta", "zeta", [[\zeta]], { prio = 100 })
+
+local greek = function(symbol, name, latex)
+  snip("imAS", "@" .. symbol, name, latex)
+  snip("iMAS", "@" .. symbol, name, "$" .. latex .. "$")
+end
+
+greek("a", "alpha", [[\alpha]])
+greek("A", "Alpha", [[\Alpha]])
+greek("b", "beta", [[\beta]])
+greek("B", "Beta", [[B]])
+greek("g", "gamma", [[\gamma]])
+greek("G", "Gamma", [[\Gamma]])
+greek("d", "delta", [[\delta]])
+greek("D", "Delta", [[\Delta]])
+greek("e", "epsilon", [[\epsilon]])
+greek("ve", "varepsilon", [[\varepsilon]])
+greek("E", "Epsilon", [[\Epsilon]])
+greek("z", "zeta", [[\zeta]])
+greek("Z", "Zeta", [[\Zeta]])
+greek("e", "eta", [[\eta]])
+greek("E", "Eta", [[\Eta]])
+greek("h", "theta", [[\theta]])
+greek("vh", "vartheta", [[\vartheta]])
+greek("H", "Theta", [[\Theta]])
+greek("i", "iota", [[\iota]])
+greek("I", "Iota", [[\Iota]])
+greek("k", "kappa", [[\kappa]])
+greek("K", "Kappa", [[\Kappa]])
+greek("l", "lambda", [[\lambda]])
+greek("L", "Lambda", [[\Lambda]])
+greek("m", "mu", [[\mu]])
+greek("M", "Mu", [[M]])
+greek("n", "nu", [[\nu]])
+greek("N", "Nu", [[N]])
+greek("x", "xi", [[\xi]])
+greek("X", "Xi", [[\Xi]])
+greek("o", "o", [[o]])
+greek("O", "O", [[O]])
+greek("p", "pi", [[\pi]])
+greek("P", "Pi", [[\Pi]])
+greek("r", "rho", [[\rho]])
+greek("vr", "varrho", [[\varrho]])
+greek("R", "Rho", [[\Rho]])
+greek("s", "sigma", [[\sigma]])
+greek("S", "Sigma", [[\Sigma]])
+greek("t", "pi", [[\tau]])
+greek("T", "Pi", [[\Tau]])
+greek("u", "upsilon", [[\upsilon]])
+greek("U", "Upsilon", [[\Upsilon]])
+greek("f", "phi", [[\phi]])
+greek("vf", "varphi", [[\varphi]])
+greek("f", "Phi", [[\Phi]])
+greek("c", "chi", [[\chi]])
+greek("C", "Chi", [[\Chi]])
+greek("y", "psi", [[\psi]])
+greek("Y", "Psi", [[\Psi]])
+greek("w", "omega", [[\omega]])
+greek("W", "Omega", [[\Omega]])
 
 return snips, autosnips
