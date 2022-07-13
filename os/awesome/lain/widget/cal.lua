@@ -56,27 +56,19 @@ local function factory(args)
       ),
     }
     for x = 0, 6 do
-      notifytable[#notifytable + 1] = os.date(
-        "%a ",
-        os.time({ year = 2006, month = 1, day = x + cal.week_start })
-      )
+      notifytable[#notifytable + 1] =
+        os.date("%a ", os.time({ year = 2006, month = 1, day = x + cal.week_start }))
     end
-    notifytable[#notifytable] = string.format(
-      "%s\n%s",
-      notifytable[#notifytable]:sub(1, -2),
-      string.rep(" ", st_day * 4)
-    )
+    notifytable[#notifytable] =
+      string.format("%s\n%s", notifytable[#notifytable]:sub(1, -2), string.rep(" ", st_day * 4))
     for x = 1, mth_days do
       local strx = x ~= today and x
         or markup.bold(
           markup.color(cal.notification_preset.bg, cal.notification_preset.fg, x) .. " "
         )
       strx = string.format("%s%s", string.rep(" ", 3 - tostring(x):len()), strx)
-      notifytable[#notifytable + 1] = string.format(
-        "%-4s%s",
-        strx,
-        (x + st_day) % 7 == 0 and x ~= mth_days and "\n" or ""
-      )
+      notifytable[#notifytable + 1] =
+        string.format("%-4s%s", strx, (x + st_day) % 7 == 0 and x ~= mth_days and "\n" or "")
     end
     if string.len(cal.icons or "") > 0 and today then
       cal.icon = cal.icons .. today .. ".png"
@@ -139,20 +131,14 @@ local function factory(args)
     })
   end
 
-  function cal.hover_on()
-    cal.show(0)
-  end
+  function cal.hover_on() cal.show(0) end
   function cal.move(offset)
     local offset = offset or 0
     cal.month, cal.year = cal.getdate(cal.month, cal.year, offset)
     cal.show(0, cal.month, cal.year)
   end
-  function cal.prev()
-    cal.move(-1)
-  end
-  function cal.next()
-    cal.move(1)
-  end
+  function cal.prev() cal.move(-1) end
+  function cal.next() cal.move(1) end
 
   function cal.attach(widget)
     widget:connect_signal("mouse::enter", cal.hover_on)

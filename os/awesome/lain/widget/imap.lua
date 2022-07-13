@@ -46,9 +46,7 @@ local function factory(args)
 
   if not is_plain then
     if type(password) == "string" or type(password) == "table" then
-      helpers.async(password, function(f)
-        password = f:gsub("\n", "")
-      end)
+      helpers.async(password, function(f) password = f:gsub("\n", "") end)
     elseif type(password) == "function" then
       imap.pwdtimer = helpers.newtimer(mail .. "-password", pwdtimeout, function()
         local retrieved_password, try_again = password()

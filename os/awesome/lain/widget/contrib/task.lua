@@ -56,13 +56,19 @@ function task.prompt()
     prompt = task.prompt_text,
     textbox = awful.screen.focused().mypromptbox.widget,
     exe_callback = function(t)
-      helpers.async(t, function(f)
-        naughty.notify({
-          preset = task.notification_preset,
-          title = t,
-          text = markup.font(task.notification_preset.font, awful.util.escape(f:gsub("\n*$", ""))),
-        })
-      end)
+      helpers.async(
+        t,
+        function(f)
+          naughty.notify({
+            preset = task.notification_preset,
+            title = t,
+            text = markup.font(
+              task.notification_preset.font,
+              awful.util.escape(f:gsub("\n*$", ""))
+            ),
+          })
+        end
+      )
     end,
     history_path = awful.util.getdir("cache") .. "/history_task",
   })
@@ -84,12 +90,8 @@ function task.attach(widget, args)
   end
 
   if widget then
-    widget:connect_signal("mouse::enter", function()
-      task.show()
-    end)
-    widget:connect_signal("mouse::leave", function()
-      task.hide()
-    end)
+    widget:connect_signal("mouse::enter", function() task.show() end)
+    widget:connect_signal("mouse::leave", function() task.hide() end)
   end
 end
 

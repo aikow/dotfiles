@@ -27,16 +27,19 @@ local function factory(args)
 
   -- Compatibility with old API where iface was a string corresponding to 1 interface
   net.iface = (
-      args.iface and (type(args.iface) == "string" and { args.iface })
-      or (type(args.iface) == "table" and args.iface)
-    ) or {}
+    args.iface and (type(args.iface) == "string" and { args.iface })
+    or (type(args.iface) == "table" and args.iface)
+  ) or {}
 
   function net.get_device()
-    helpers.line_callback("ip link", function(line)
-      net.iface[#net.iface + 1] = not string.match(line, "LOOPBACK")
-          and string.match(line, "(%w+): <")
-        or nil
-    end)
+    helpers.line_callback(
+      "ip link",
+      function(line)
+        net.iface[#net.iface + 1] = not string.match(line, "LOOPBACK")
+            and string.match(line, "(%w+): <")
+          or nil
+      end
+    )
   end
 
   if #net.iface == 0 then

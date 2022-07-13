@@ -151,9 +151,7 @@ local function factory(args)
       if not alsabar.notification then
         alsabar.notification = naughty.notify({
           preset = preset,
-          destroy = function()
-            alsabar.notification = nil
-          end,
+          destroy = function() alsabar.notification = nil end,
         })
       else
         naughty.replace_text(alsabar.notification, preset.title, preset.text)

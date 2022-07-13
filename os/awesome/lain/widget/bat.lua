@@ -155,7 +155,7 @@ local function factory(args)
         bat_now.time = "00:00"
         bat_now.watt = 0
 
-        -- update {perc,time,watt} iff battery not full and rate > 0
+      -- update {perc,time,watt} iff battery not full and rate > 0
       elseif bat_now.status ~= "Full" then
         local rate_time = 0
         -- Calculate time and watt if rates are greater then 0
