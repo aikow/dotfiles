@@ -189,13 +189,9 @@ local function mouse_resize_handler(c, corner, x, y, orientation)
   end, cursor)
 end
 
-function centerwork.arrange(p)
-  return arrange(p, centerwork)
-end
+function centerwork.arrange(p) return arrange(p, centerwork) end
 
-function centerwork.horizontal.arrange(p)
-  return arrange(p, centerwork.horizontal)
-end
+function centerwork.horizontal.arrange(p) return arrange(p, centerwork.horizontal) end
 
 function centerwork.mouse_resize_handler(c, corner, x, y)
   return mouse_resize_handler(c, corner, x, y, "vertical")

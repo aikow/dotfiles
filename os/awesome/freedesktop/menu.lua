@@ -93,18 +93,14 @@ function menu.build(args)
         table.remove(result, i)
       else
         --Sort entries alphabetically (by name)
-        table.sort(v[2], function(a, b)
-          return string.byte(a[1]) < string.byte(b[1])
-        end)
+        table.sort(v[2], function(a, b) return string.byte(a[1]) < string.byte(b[1]) end)
         -- Replace category name with nice name
         v[1] = menu_gen.all_categories[v[1]].name
       end
     end
 
     -- Sort categories alphabetically also
-    table.sort(result, function(a, b)
-      return string.byte(a[1]) < string.byte(b[1])
-    end)
+    table.sort(result, function(a, b) return string.byte(a[1]) < string.byte(b[1]) end)
 
     -- Add menu item to hold the generated menu
     if sub_menu then

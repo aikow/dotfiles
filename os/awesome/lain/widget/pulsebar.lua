@@ -128,12 +128,8 @@ local function factory(args)
     pulsebar.update(function()
       local preset = pulsebar.notification_preset
 
-      preset.title = string.format(
-        "%s %s - %s%%",
-        pulsebar.devicetype,
-        pulsebar.device,
-        pulsebar._current_level
-      )
+      preset.title =
+        string.format("%s %s - %s%%", pulsebar.devicetype, pulsebar.device, pulsebar._current_level)
 
       if pulsebar._mute == "yes" then
         preset.title = preset.title .. " muted"
@@ -163,9 +159,7 @@ local function factory(args)
       if not pulsebar.notification then
         pulsebar.notification = naughty.notify({
           preset = preset,
-          destroy = function()
-            pulsebar.notification = nil
-          end,
+          destroy = function() pulsebar.notification = nil end,
         })
       else
         naughty.replace_text(pulsebar.notification, preset.title, preset.text)

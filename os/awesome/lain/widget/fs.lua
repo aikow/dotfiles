@@ -143,10 +143,8 @@ local function factory(args)
     if pathlen > 10 then -- formatting aesthetics
       for i = 1, #notifytable do
         local pathspaces = notifytable[i]:match("/%w*[/%w*]*%s*") or notifytable[i]:match("path%s*")
-        notifytable[i] = notifytable[i]:gsub(
-          pathspaces,
-          pathspaces .. string.rep(" ", pathlen - 10) .. "\t"
-        )
+        notifytable[i] =
+          notifytable[i]:gsub(pathspaces, pathspaces .. string.rep(" ", pathlen - 10) .. "\t")
       end
     end
 
@@ -154,12 +152,8 @@ local function factory(args)
   end
 
   if showpopup == "on" then
-    fs.widget:connect_signal("mouse::enter", function()
-      fs.show(0)
-    end)
-    fs.widget:connect_signal("mouse::leave", function()
-      fs.hide()
-    end)
+    fs.widget:connect_signal("mouse::enter", function() fs.show(0) end)
+    fs.widget:connect_signal("mouse::leave", function() fs.hide() end)
   end
 
   helpers.newtimer(partition or "fs", timeout, fs.update)

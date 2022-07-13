@@ -186,7 +186,5 @@ function quake:toggle()
 end
 
 return setmetatable(quake, {
-  __call = function(_, ...)
-    return quake:new(...)
-  end,
+  __call = function(_, ...) return quake:new(...) end,
 })

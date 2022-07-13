@@ -149,9 +149,12 @@ end
 -- @param args settings from desktop.add_icons
 function desktop.add_base_icons(args)
   for _, base in ipairs(args.baseicons) do
-    desktop.add_single_icon(args, base.label, utils.lookup_icon(base.icon), function()
-      awful.spawn(string.format("%s '%s'", args.open_with, base.onclick))
-    end)
+    desktop.add_single_icon(
+      args,
+      base.label,
+      utils.lookup_icon(base.icon),
+      function() awful.spawn(string.format("%s '%s'", args.open_with, base.onclick)) end
+    )
   end
 end
 
@@ -236,9 +239,8 @@ function desktop.add_dirs_and_files_icons(args)
   for _, file in ipairs(desktop.parse_dirs_and_files(args.dir)) do
     if file.show then
       local label = args.showlabels and file.filename or nil
-      local onclick = function()
-        awful.spawn(string.format("%s '%s'", args.open_with, file.path))
-      end
+      local onclick =
+        function() awful.spawn(string.format("%s '%s'", args.open_with, file.path)) end
       desktop.add_single_icon(args, label, file.icon, onclick)
     end
   end

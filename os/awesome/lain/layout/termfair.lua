@@ -256,12 +256,8 @@ local function do_fair(p, orientation)
   end
 end
 
-function termfair.center.arrange(p)
-  return do_fair(p, "center")
-end
+function termfair.center.arrange(p) return do_fair(p, "center") end
 
-function termfair.arrange(p)
-  return do_fair(p, "west")
-end
+function termfair.arrange(p) return do_fair(p, "west") end
 
 return termfair
