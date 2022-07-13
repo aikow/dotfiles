@@ -75,8 +75,7 @@ map("c", "<C-n>", "<Down>")
 map("n", "<leader><leader>", "<c-^>", { desc = "switch to most recent buffer" })
 
 -- More ergonomic normal mode from integrated terminal.
-map("t", "jk", [[<c-\><C-n>]])
-map("t", "kj", [[<c-\><C-n>]])
+map("t", "<M-e>", [[<c-\><C-n>]])
 
 -- Navigate quickfix list
 map("n", "]q", [[<cmd>cnext<CR>]])
@@ -118,7 +117,7 @@ vim.cmd([[imap <C-s> <C-g>u<Esc>[s1z=`]a<C-g>u]])
 -- Clear the search buffer to remove highlighting from the last search
 map(
   "n",
-  "<Esc>",
+  "<C-/>",
   [[:let @/ = ""<CR>]],
   { silent = true, desc = "clear search buffer register" }
 )
