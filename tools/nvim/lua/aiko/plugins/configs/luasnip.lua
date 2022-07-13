@@ -52,7 +52,6 @@ M.setup = function()
     if ls.expand_or_locally_jumpable() then
       if ls.expandable() then
         -- Set an undo breakpoint
-        print("expandable")
         feedkeys("<c-g>u")
       end
 

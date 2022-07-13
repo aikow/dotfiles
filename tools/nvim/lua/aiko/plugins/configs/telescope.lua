@@ -86,6 +86,8 @@ M.setup = function()
           ["<C-h>"] = actions.which_key,
         },
         n = {
+          ["q"] = actions.close(),
+
           -- TODO: This would be weird if we switch the ordering.
           ["<C-j>"] = actions.move_selection_next,
           ["<C-k>"] = actions.move_selection_previous,
