@@ -24,3 +24,6 @@ param
 iterable
 JSON
 kubernetes
+refactorings
+neovim
+LSP

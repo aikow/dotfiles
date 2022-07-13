@@ -1,8 +1,4 @@
 local opt = vim.opt
-local g = vim.g
-
--- Opt into lua filetype recognition.
-g.do_filetype_lua = 1
 
 opt.shell = "/bin/bash"
 
@@ -38,6 +34,7 @@ opt.clipboard = "unnamedplus"
 -- ===========================
 --
 -- Tab key enters 2 spaces
+
 opt.expandtab = true
 opt.tabstop = 2
 opt.shiftwidth = 2
@@ -45,12 +42,6 @@ opt.softtabstop = 2
 
 -- highlight matching parens, braces, brackets, etc
 opt.showmatch = true
-
--- Wild menu options
-opt.wildmode = "longest:full"
-opt.wildoptions = "pum" -- Fancy menu
-opt.wildignore =
-  [[*.o,*~,*.pyc,.hg,.svn,*.png,*.jpg,*.gif,*.settings,*.min.js,*.swp,publish/*]]
 
 -- Searching
 opt.ignorecase = true
@@ -84,10 +75,6 @@ opt.diffopt = opt.diffopt
   + "iwhite" -- No whitespace in vimdiff
   + "algorithm:patience"
   + "indent-heuristic"
-
--- Set spell location to English and German
-opt.spell = true
-opt.spelllang = "en,de"
 
 -- ==============================
 -- |============================|
