@@ -16,11 +16,18 @@ M.setup = function()
   ls.config.set_config({
     enable_autosnippets = true,
     history = true,
-    updateevents = "TextChanged,TextChangedI",
+    update_events = "TextChanged,TextChangedI",
+    region_check_events = "CursorHold",
+    delete_check_events = "TextChanged,InsertLeave",
     ext_opts = {
       [types.choiceNode] = {
         active = {
           virt_text = { { " <- Current Choice", "NonTest" } },
+        },
+      },
+      [types.insertNode] = {
+        active = {
+          virt_text = { { "●", "GruvboxBlue" } },
         },
       },
     },
