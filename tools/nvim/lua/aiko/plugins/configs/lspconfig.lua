@@ -1,20 +1,131 @@
 local M = {}
 
-M.setup = function()
-  local ok_lsp_installer, lsp_installer = pcall(require, "nvim-lsp-installer")
-  if not ok_lsp_installer then
-    return
+M.on_attach = function(client, bufnr)
+  -- Setup navic component for status line.
+  local ok_nvim_navic, nvim_navic = pcall(require, "nvim-navic")
+  if ok_nvim_navic then
+    nvim_navic.attach(client, bufnr)
   end
 
-  -- Setup nvim-cmp with lspconfig.
-  lsp_installer.setup({})
+  M.mappings()
+end
 
-  local ok_lspconfig, lspconfig = pcall(require, "lspconfig")
-  if not ok_lspconfig then
-    return
+M.mappings = function()
+  local map = vim.keymap.set
+
+  map(
+    "n",
+    "<leader>e",
+    vim.diagnostic.open_float,
+    { silent = true, desc = "open diagnostic window" }
+  )
+  map(
+    { "n", "v", "o" },
+    "[e",
+    vim.diagnostic.goto_prev,
+    { silent = true, desc = "go to previous diagnostic" }
+  )
+  map(
+    { "n", "v", "o" },
+    "]e",
+    vim.diagnostic.goto_next,
+    { silent = true, desc = "go to next diagnostic" }
+  )
+  map(
+    "n",
+    "<leader>dl",
+    vim.diagnostic.setloclist,
+    { silent = true, desc = "set location list to diagnostics" }
+  )
+
+  -- LSP functions
+  -- See `:help vim.lsp.*` for documentation on any of the below functions
+  vim.keymap.set("n", "K", function()
+    local ft = vim.bo.filetype
+    if ft == "vim" or ft == "help" then
+      vim.api.nvim_command("help " .. vim.fn.expand("<cword>"))
+    elseif ft == "man" then
+      vim.api.nvim_command("Man " .. vim.fn.expand("<cword>"))
+    elseif vim.fn.expand("%:t") == "Cargo.toml" then
+      require("crates").show_popup()
+    else
+      vim.lsp.buf.hover()
+    end
+  end, { desc = "show documentation" })
+  vim.keymap.set(
+    "n",
+    "<leader>k",
+    vim.lsp.buf.signature_help,
+    { desc = "signature help" }
+  )
+
+  -- Refactoring with <leader>r...
+  map(
+    "n",
+    "<leader>rr",
+    vim.lsp.buf.rename,
+    { silent = true, desc = "LSP rename" }
+  )
+  map(
+    "n",
+    "<leader>rq",
+    vim.lsp.buf.code_action,
+    { silent = true, desc = "LSP code actions" }
+  )
+  map(
+    "n",
+    "<leader>rf",
+    vim.lsp.buf.formatting,
+    { silent = true, desc = "LSP format file" }
+  )
+end
+
+M.ui = function()
+  local function lspSymbol(name, icon)
+    local hl = "DiagnosticSign" .. name
+    vim.fn.sign_define(hl, { text = icon, numhl = hl, texthl = hl })
   end
 
-  -- Borders for LspInfo window
+  lspSymbol("Error", "")
+  lspSymbol("Info", "")
+  lspSymbol("Hint", "")
+  lspSymbol("Warn", "")
+
+  vim.diagnostic.config({
+    virtual_text = {
+      prefix = "",
+    },
+    signs = true,
+    underline = true,
+    update_in_insert = false,
+  })
+
+  -- Pretty borders for signature help and hover.
+  vim.lsp.handlers["textDocument/hover"] =
+    vim.lsp.with(vim.lsp.handlers.hover, {
+      border = "single",
+    })
+
+  vim.lsp.handlers["textDocument/signatureHelp"] =
+    vim.lsp.with(vim.lsp.handlers.signature_help, {
+      border = "single",
+      focusable = false,
+      relative = "cursor",
+    })
+
+  -- Suppress error messages from lang servers.
+  vim.notify = function(msg, log_level)
+    if msg:match("exit code") then
+      return
+    end
+    if log_level == vim.log.levels.ERROR then
+      vim.api.nvim_err_writeln(msg)
+    else
+      vim.api.nvim_echo({ { msg } }, true, {})
+    end
+  end
+
+  -- Borders for LspInfo winodw
   local win = require("lspconfig.ui.windows")
   local _default_opts = win.default_opts
 
@@ -23,51 +134,68 @@ M.setup = function()
     opts.border = "single"
     return opts
   end
-
-  local capabilities = require("cmp_nvim_lsp").update_capabilities(
-    vim.lsp.protocol.make_client_capabilities()
-  )
-
-  -- Python language server.
-  lspconfig.pyright.setup({
-    on_attach = M.on_attach,
-    capabilities = capabilities,
-  })
-
-  -- CPP and C server
-  lspconfig.clangd.setup({
-    on_attach = M.on_attach,
-    capabilities = capabilities,
-  })
-
-  -- Bash language server
-  lspconfig.bashls.setup({
-    on_attach = M.on_attach,
-    capabilities = capabilities,
-  })
-
-  -- YAML language server
-  lspconfig.yamlls.setup({
-    on_attach = M.on_attach,
-    capabilities = capabilities,
-  })
-
-  lspconfig.jsonls.setup({
-    on_attach = M.on_attach,
-    capabilities = capabilities,
-  })
-
-  lspconfig.sumneko_lua.setup(M.sumneko_lua(capabilities))
 end
 
-M.on_attach = function(client, bufnr)
-  local ok_nvim_navic, nvim_navic = pcall(require, "nvim-navic")
-  if ok_nvim_navic then
-    nvim_navic.attach(client, bufnr)
+M.capabilities = function()
+  local capabilities = vim.lsp.protocol.make_client_capabilities()
+
+  -- Setup nvim-cmp with lspconfig.
+  local ok_cmp_nvim_lsp, cmp_nvim_lsp = pcall(require, "cmp_nvim_lsp")
+  if ok_cmp_nvim_lsp then
+    capabilities = cmp_nvim_lsp.update_capabilities(capabilities)
   end
+
+  capabilities.textDocument.completion.completionItem = {
+    documentationFormat = { "markdown", "plaintext" },
+    snippetSupport = true,
+    preselectSupport = true,
+    insertReplaceSupport = true,
+    labelDetailsSupport = true,
+    deprecatedSupport = true,
+    commitCharactersSupport = true,
+    tagSupport = { valueSet = { 1 } },
+    resolveSupport = {
+      properties = {
+        "documentation",
+        "detail",
+        "additionalTextEdits",
+      },
+    },
+  }
+
+  return capabilities
 end
 
-M.sumneko_lua = function(capabilities)
+M.setup = function()
+  local ok_lsp_installer, lsp_installer = pcall(require, "nvim-lsp-installer")
+  if not ok_lsp_installer then
+    return
+  end
+
+  lsp_installer.setup({})
+
+  local ok_lspconfig, lspconfig = pcall(require, "lspconfig")
+  if not ok_lspconfig then
+    return
+  end
+
+  M.ui()
+
+  local capabilities = M.capabilities()
+
+  -- Basic language servers
+  for _, ls in pairs({ "pyright", "clangd", "bashls", "yamlls", "jsonls" }) do
+    lspconfig[ls].setup({
+      on_attach = M.on_attach,
+      capabilities = capabilities,
+    })
+  end
+
+  -- Customize lua language server.
+  lspconfig.sumneko_lua.setup(M.sumneko_lua())
+end
+
+M.sumneko_lua = function()
   -- Setup configuration for neovim.
   local setup_neovim_libraries = function()
     -- Add all library paths from vim's runtime path.
@@ -106,7 +234,7 @@ M.sumneko_lua = function(capabilities)
   return {
     on_attach = M.on_attach,
     on_init = on_init,
-    capabilities = capabilities,
+    capabilities = M.capabilities(),
     settings = {
       Lua = {
         diagnostics = {

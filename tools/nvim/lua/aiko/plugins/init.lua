@@ -1,15 +1,16 @@
 local M = {}
 
 M.bootstrap = function()
-  -- Convenience definitions.
   local fn = vim.fn
-
-  -- For bootstrapping packer local fn = vim.fn
   local install_path = fn.stdpath("data")
     .. "/site/pack/packer/start/packer.nvim"
+
+  -- Set a dark background color, in case the default is bright.
+  vim.api.nvim_set_hl(0, "NormalFloat", { bg = "#1e222a" })
+
   if fn.empty(fn.glob(install_path)) > 0 then
-    vim.notify("Bootstrapping packer")
-    local out = fn.system({
+    print("Cloning packer ..")
+    fn.system({
       "git",
       "clone",
       "--depth",
@@ -18,10 +19,9 @@ M.bootstrap = function()
       install_path,
     })
 
-    vim.notify(out)
+    -- install plugins + compile their configs
     vim.cmd("packadd packer.nvim")
-
-    M.setup()
+    require("plugins")
     vim.cmd("PackerSync")
   end
 end
@@ -43,15 +43,15 @@ M.setup = function()
     git = { clone_timeout = 10 },
     display = {
       open_fn = require("packer.util").float,
-      -- open_cmd = "80vnew \\[packer\\]",
     },
   })
 
-  packer.startup(sources.use)
-end
-
-M.lazy_load = function(plugin)
-  vim.defer_fn(function() require("packer").loader(plugin) end, 0)
+  packer.startup(function(use)
+    for n, p in pairs(sources) do
+      p[1] = n
+      use(p)
+    end
+  end)
 end
 
 return M

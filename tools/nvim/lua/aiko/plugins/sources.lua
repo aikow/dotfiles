@@ -1,412 +1,316 @@
-local M = {}
+return {
+  -- Have packer manage itself.
+  ["wbthomason/packer.nvim"] = {},
 
-M.use = function(use)
-  -- Have packer manage itself
-  use("wbthomason/packer.nvim")
-  use("lewis6991/impatient.nvim")
-  use("nvim-lua/plenary.nvim")
+  -- Plenary provides helper functions.
+  ["nvim-lua/plenary.nvim"] = { module = "plenary" },
+
+  -- Improve startup time.
+  ["lewis6991/impatient.nvim"] = {},
 
   -- ------------------
   -- |   LSP Config   |
   -- ------------------
-  use({
-    {
-      "neovim/nvim-lspconfig",
-      requires = { "williamboman/nvim-lsp-installer" },
-      config = function() require("aiko.plugins.configs.lspconfig").setup() end,
-    },
-    {
-      "williamboman/nvim-lsp-installer",
-    },
-    {
-      "mfussenegger/nvim-dap",
-      module = { "dap" },
-      keys = { "<F5>" },
-      config = function() require("aiko.plugins.configs.dap").setup() end,
-    },
-  })
+  ["williamboman/nvim-lsp-installer"] = {
+    opt = true,
+    cmd = require("aiko.plugins.lazy").lsp_cmds,
+    setup = function() require("aiko.plugins.lazy").on_file_open("nvim-lsp-installer") end,
+  },
+  ["neovim/nvim-lspconfig"] = {
+    after = "nvim-lsp-installer",
+    module = "lspconfig",
+    config = function() require("aiko.plugins.configs.lspconfig").setup() end,
+  },
+  ["mfussenegger/nvim-dap"] = {
+    module = { "dap" },
+    keys = { "<F5>" },
+    config = function() require("aiko.plugins.configs.dap").setup() end,
+  },
+  ["onsails/lspkind.nvim"] = {
+    module = "lspkind",
+  },
 
   -- -----------------
   -- |   Telescope   |
   -- -----------------
-  use({
-    {
-      "nvim-telescope/telescope.nvim",
-      cmd = "Telescope",
-      module = "telescope",
-      fn = { "vim.ui.select", "vim.ui.input" },
-      requires = {
-        "nvim-lua/plenary.nvim",
-        "nvim-telescope/telescope-fzf-native.nvim",
-        "benfowler/telescope-luasnip.nvim",
-      },
-      config = function() require("aiko.plugins.configs.telescope").setup() end,
-    },
-    {
-      "nvim-telescope/telescope-fzf-native.nvim",
-      run = "make",
-    },
-  })
+  ["nvim-telescope/telescope.nvim"] = {
+    cmd = "Telescope",
+    module = "telescope",
+    fn = { "vim.ui.select", "vim.ui.input" },
+    config = function() require("aiko.plugins.configs.telescope").setup() end,
+  },
+  ["nvim-telescope/telescope-fzf-native.nvim"] = {
+    run = "make",
+    module = "telescope._extensions.fzf",
+  },
+  ["benfowler/telescope-luasnip.nvim"] = {
+    module = "telescope._extensions.luasnip",
+  },
 
   -- -------------------
   -- |   Tree-Sitter   |
   -- -------------------
-  use({
-    "nvim-treesitter/nvim-treesitter",
+  ["nvim-treesitter/nvim-treesitter"] = {
     event = { "BufRead", "BufNewFile" },
     module = { "nvim-treesitter" },
-    requires = {
-      "nvim-treesitter/nvim-treesitter-textobjects",
-      "nvim-treesitter/nvim-treesitter-refactor",
-    },
     run = ":TSUpdate",
     config = function() require("aiko.plugins.configs.treesitter").setup() end,
-  })
+  },
+
+  -- Tree-sitter text objects like classes and functions.
+  ["nvim-treesitter/nvim-treesitter-textobjects"] = {
+    after = "nvim-treesitter",
+  },
+
+  -- Tree-sitter buffer-local refactorings.
+  ["nvim-treesitter/nvim-treesitter-refactor"] = {
+    after = "nvim-treesitter",
+  },
 
   -- Refactoring support for select languages.
-  use({
-    "ThePrimeagen/refactoring.nvim",
-    ft = {
-      "typescript",
-      "javascript",
-      "lua",
-      "c",
-      "cpp",
-      "go",
-      "python",
-      "java",
-      "php",
-    },
-    requires = {
-      { "nvim-lua/plenary.nvim" },
-      { "nvim-treesitter/nvim-treesitter" },
-    },
+  ["ThePrimeagen/refactoring.nvim"] = {
+    ft = require("aiko.plugins.lazy").refactoring_filetyps,
+    module = "refactoring",
     config = function() require("aiko.plugins.configs.refactoring").setup() end,
-  })
+  },
 
   -- Enable correct spelling syntax highlighting with Tree-sitter.
-  use({
-    "lewis6991/spellsitter.nvim",
+  ["lewis6991/spellsitter.nvim"] = {
     after = "nvim-treesitter",
     config = function()
       require("spellsitter").setup({
         enable = true,
       })
     end,
-  })
+  },
 
-  -- ---------------
-  -- |   NeoTree   |
-  -- ---------------
-  use({
-    {
-      "nvim-neo-tree/neo-tree.nvim",
-      branch = "v2.x",
-      cmd = { "Neotree" },
-      requires = {
-        "nvim-lua/plenary.nvim",
-        "kyazdani42/nvim-web-devicons",
-        "MunifTanjim/nui.nvim",
-      },
-      config = function() require("aiko.plugins.configs.neotree").setup() end,
-    },
-    {
-      "MunifTanjim/nui.nvim",
-      module = { "nui" },
-    },
-  })
+  -- ----------------
+  -- |   NvimTree   |
+  -- ----------------
+  ["kyazdani42/nvim-tree.lua"] = {
+    cmd = { "NvimTreeToggle", "NvimTreeFocus" },
+    config = function() require("aiko.plugins.configs.nvimtree").setup() end,
+  },
 
   -- ---------------------
   -- |   Code Snippets   |
   -- ---------------------
-  use({
-    {
-      "rafamadriz/friendly-snippets",
-      event = { "InsertEnter", "CmdlineEnter" },
-    },
-    {
-      "L3MON4D3/luasnip",
-      after = "nvim-cmp",
-      requires = {
-        "rafamadriz/friendly-snippets",
-      },
-      config = function() require("aiko.plugins.configs.luasnip").setup() end,
-    },
-  })
+  ["rafamadriz/friendly-snippets"] = {
+    module = "cmp_nvim_lsp",
+    event = { "InsertEnter", "CmdlineEnter" },
+  },
 
   -- ------------------
   -- |   Completion   |
   -- ------------------
   --
-  -- These are all loaded after friendly snippets.
-  use({
-    {
-      "hrsh7th/nvim-cmp",
-      after = "friendly-snippets",
-      requires = {
-        {
-          "hrsh7th/cmp-nvim-lua",
-          after = "nvim-cmp",
-        },
-        {
-          "hrsh7th/cmp-nvim-lsp",
-          after = "nvim-cmp",
-        },
-        {
-          "hrsh7th/cmp-buffer",
-          after = "nvim-cmp",
-        },
-        {
-          "hrsh7th/cmp-path",
-          after = "nvim-cmp",
-        },
-        {
-          "hrsh7th/cmp-cmdline",
-          after = "nvim-cmp",
-        },
-        {
-          "hrsh7th/cmp-omni",
-          after = "nvim-cmp",
-        },
-        {
-          "saadparwaiz1/cmp_luasnip",
-          after = "nvim-cmp",
-        },
-      },
-      config = function() require("aiko.plugins.configs.cmp").setup() end,
-    },
-    {
-      "onsails/lspkind.nvim",
-      after = "nvim-cmp",
-    },
-  })
+  -- These are all loaded after nvim-cmp.
+  ["hrsh7th/nvim-cmp"] = {
+    after = "friendly-snippets",
+    config = function() require("aiko.plugins.configs.cmp").setup() end,
+  },
+  ["hrsh7th/cmp-nvim-lua"] = {
+    after = "nvim-cmp",
+  },
+  ["hrsh7th/cmp-nvim-lsp"] = {
+    after = "nvim-cmp",
+  },
+  ["hrsh7th/cmp-buffer"] = {
+    after = "nvim-cmp",
+  },
+  ["hrsh7th/cmp-path"] = {
+    after = "nvim-cmp",
+  },
+  ["hrsh7th/cmp-cmdline"] = {
+    after = "nvim-cmp",
+  },
+  ["hrsh7th/cmp-omni"] = {
+    after = "nvim-cmp",
+  },
+  ["saadparwaiz1/cmp_luasnip"] = {
+    after = "nvim-cmp",
+  },
+
+  ["L3MON4D3/luasnip"] = {
+    wants = "friendly-snippets",
+    after = "nvim-cmp",
+    config = function() require("aiko.plugins.configs.luasnip").setup() end,
+  },
 
   -- ---------------
   -- |   Comment   |
   -- ---------------
-  use({
-    "numToStr/Comment.nvim",
+
+  -- Comment out lines and blocks.
+  ["numToStr/Comment.nvim"] = {
     module = "Comment",
     keys = { "gc", "gb" },
     config = function() require("aiko.plugins.configs.comment").setup() end,
-  })
-  use({
-    "folke/todo-comments.nvim",
-    requires = "nvim-lua/plenary.nvim",
+  },
+
+  -- Prettify to-do comments.
+  ["folke/todo-comments.nvim"] = {
+    opt = true,
+    setup = function() require("aiko.plugins.lazy").on_file_open("todo-comments.nvim") end,
     config = function() require("aiko.plugins.configs.todo").setup() end,
-  })
+  },
 
   -- -----------------------
   -- |   General Plugins   |
   -- -----------------------
   --
   -- Nice helper plugins
-  use({
-    -- Use '.' to repeat plugin code actions.
-    "tpope/vim-repeat",
+  -- Use '.' to repeat plugin code actions.
+  ["tpope/vim-repeat"] = {},
 
-    -- Work with parenthesis, quotes, and other text surroundings.
-    "tpope/vim-surround",
+  -- Work with parenthesis, quotes, and other text surroundings.
+  ["tpope/vim-surround"] = {},
 
-    -- Improve netrw built-in plugin.
-    "tpope/vim-vinegar",
+  -- Effortlessly switch between vim and tmux windows.
+  ["christoomey/vim-tmux-navigator"] = {
+    config = function()
+      vim.g.tmux_navigator_no_mappings = 1
+      vim.g.tmux_navigator_disable_when_zoomed = 1
+    end,
+  },
 
-    -- Effortlessly switch between vim and tmux windows.
-    {
-      "christoomey/vim-tmux-navigator",
-      config = function()
-        vim.g.tmux_navigator_no_mappings = 1
-        vim.g.tmux_navigator_disable_when_zoomed = 1
-      end,
-    },
-    {
-      "godlygeek/tabular",
-      cmd = { "Tabular", "Tabularize" },
-      config = function()
-        -- Add tabular pattern to parse latex table with multicolumns
-        vim.cmd([[
-          AddTabularPattern latex_table /\v(\&)|(\\multicolumn(\{[^}]*\}){3})@=/
+  -- Align tabular data.
+  ["godlygeek/tabular"] = {
+    cmd = { "Tabular", "Tabularize" },
+    config = function()
+      -- Add tabular pattern to parse latex table with multicolumns
+      vim.cmd([[
+        AddTabularPattern latex_table /\v(\&)|(\\multicolumn(\{[^}]*\}){3})@=/
         ]])
-      end,
-    },
-    {
-      "airblade/vim-rooter",
-      config = function() vim.g.rooter_silent_chdir = 1 end,
-    },
-    {
-      "lukas-reineke/indent-blankline.nvim",
-      event = "BufRead",
-      config = function() require("aiko.plugins.configs.indent_blankline").setup() end,
-    },
-    {
-      "dstein64/vim-startuptime",
-      cmd = "StartupTime",
-    },
-  })
+    end,
+  },
+
+  -- Automatically cd to project root.
+  ["airblade/vim-rooter"] = {
+    config = function() vim.g.rooter_silent_chdir = 1 end,
+  },
+
+  -- Measure startup time.
+  ["dstein64/vim-startuptime"] = {
+    cmd = "StartupTime",
+  },
+
+  -- -----------
+  -- |   Git   |
+  -- -----------
+  ["tpope/vim-fugitive"] = {
+    cmd = require("aiko.plugins.lazy").fugitive_cmds,
+  },
+
+  -- Git status signs in buffer.
+  ["lewis6991/gitsigns.nvim"] = {
+    config = function() require("aiko.plugins.configs.gitsigns").setup() end,
+  },
 
   -- ------------------------
   -- |   Language Add-Ons   |
   -- ------------------------
-  --
-  -- Git
-  use({
-    {
-      "tpope/vim-fugitive",
-      cmd = { "G", "Git", "Gdiffsplit", "Gvdiffsplit", "Ghdiffsplit", "G*" },
-    },
-    {
-      "lewis6991/gitsigns.nvim",
-      requires = { "nvim-lua/plenary.nvim" },
-      config = function() require("aiko.plugins.configs.gitsigns").setup() end,
-    },
-  })
 
   -- Python
-  use({
-    "aikow/python.nvim",
+  ["aikow/python.nvim"] = {
     ft = { "python" },
-  })
+  },
 
   -- Rust
-  use({
-    {
-      "simrat39/rust-tools.nvim",
-      ft = { "rust" },
-      requires = "neovim/nvim-lspconfig",
-      config = function() require("aiko.plugins.configs.rusttools").setup() end,
-    },
-    {
-      "saecki/crates.nvim",
-      ft = { "toml" },
-      tag = "v0.1.0",
-      requires = { "nvim-lua/plenary.nvim" },
-      config = function() require("aiko.plugins.configs.crates").setup() end,
-    },
-  })
+  ["simrat39/rust-tools.nvim"] = {
+    ft = { "rust" },
+    config = function() require("aiko.plugins.configs.rusttools").setup() end,
+  },
+  ["saecki/crates.nvim"] = {
+    module = { "crates" },
+    tag = "v0.1.0",
+    config = function() require("aiko.plugins.configs.crates").setup() end,
+  },
 
   -- Latex
-  use({
-    "lervag/vimtex",
-    config = function()
-      vim.g.tex_flavor = "latex"
-
-      vim.g.vimtex_view_method = "zathura"
-
-      vim.g.vimtex_quickfix_mode = 0
-      vim.g.vimtex_compiler_method = "latexmk"
-      vim.g.vimtex_compiler_latexmk = {
-        build_dir = "build",
-        callback = 1,
-        continuous = 1,
-        executable = "latexmk",
-        hooks = {},
-        options = {
-          "-verbose",
-          "-file-line-error",
-          "-synctex=1",
-          "-interaction=nonstopmode",
-        },
-      }
-
-      vim.api.nvim_create_user_command("LatexSurround", function()
-        vim.b["surround" .. vim.fn.char2nr("e")] =
-          [[\\begin{\1environment: \1}\n\t\r\n\\end{\1\1}]]
-        vim.b["surround" .. vim.fn.char2nr("c")] = [[\\\1command: \1{\r}]]
-      end, { nargs = 0 })
-    end,
+  ["lervag/vimtex"] = {
+    config = function() require("aiko.plugins.configs.vimtex").setup() end,
     ft = { "tex" },
-  })
+  },
 
   -- Markdown
-  use({
-    "iamcco/markdown-preview.nvim",
+  ["iamcco/markdown-preview.nvim"] = {
     run = function() vim.fn["mkdp#util#install"]() end,
     ft = { "markdown" },
-    config = function()
-      vim.keymap.set(
-        "n",
-        "<localleader>r",
-        "<cmd>MarkdownPreview<CR>",
-        { buffer = true, silent = true }
-      )
-      vim.keymap.set(
-        "n",
-        "<localleader>s",
-        "<cmd>MarkdownPreviewStop<CR>",
-        { buffer = true, silent = true }
-      )
-      vim.keymap.set(
-        "n",
-        "<localleader>t",
-        "<cmd>MarkdownPreviewToggle<CR>",
-        { buffer = true, silent = true }
-      )
-    end,
-  })
+  },
 
   -- Fish shell syntax support
-  use({
-    "aikow/vim-fish",
+  ["aikow/vim-fish"] = {
     ft = { "fish" },
-  })
+  },
 
-  use({
-    "LhKipp/nvim-nu",
+  ["LhKipp/nvim-nu"] = {
     ft = { "nu" },
-  })
+  },
 
   -- CSV helper plugin.
-  use({
-    "chrisbra/csv.vim",
+  ["chrisbra/csv.vim"] = {
     ft = { "csv", "tsv" },
-  })
+  },
 
   -- Nvim Org mode plugin.
-  use({
-    "nvim-neorg/neorg",
+  ["nvim-neorg/neorg"] = {
+    tag = "*",
     ft = { "norg" },
     config = function() require("aiko.plugins.configs.neorg").setup() end,
-    requires = "nvim-lua/plenary.nvim",
-    tag = "*",
-  })
+  },
 
-  -- --------------------------------
-  -- |   Themes and customization   |
-  -- --------------------------------
-  -- Vim status line
-  use({
-    "nvim-lualine/lualine.nvim",
-    requires = { "kyazdani42/nvim-web-devicons", opt = true },
-    config = function() require("aiko.plugins.configs.lualine").setup() end,
-  })
-  use({
-    "SmiteshP/nvim-navic",
-    requires = { "neovim/nvim-lspconfig" },
-  })
-  use({
-    "stevearc/dressing.nvim",
-    requires = { "nvim-telescope/telescope.nvim" },
+  -- ---------------------
+  -- |   Customization   |
+  -- ---------------------
+
+  -- New UI components.
+  ["MunifTanjim/nui.nvim"] = {
+    module = { "nui" },
+  },
+
+  -- Override neovim default UI components
+  ["stevearc/dressing.nvim"] = {
+    fn = { vim.fn.input, vim.fn.select },
     config = function() require("aiko.plugins.configs.dressing").setup() end,
-  })
+  },
+
+  -- Status-line plugin.
+  ["nvim-lualine/lualine.nvim"] = {
+    config = function() require("aiko.plugins.configs.lualine").setup() end,
+  },
+
+  -- LSP based location for status-line.
+  ["SmiteshP/nvim-navic"] = {
+    module = "nvim-navic",
+  },
+
+  -- Dev icons for file types.
+  ["kyazdani42/nvim-web-devicons"] = {
+    module = "nvim-web-devicons",
+  },
+
+  -- Show indentation.
+  ["lukas-reineke/indent-blankline.nvim"] = {
+    opt = true,
+    setup = function()
+      require("aiko.plugins.lazy").on_file_open("indent-blankline.nvim")
+    end,
+    config = function() require("aiko.plugins.configs.indent_blankline").setup() end,
+  },
 
   -- ---------------------
   -- |   Color Schemes   |
   -- ---------------------
-  use({
-    {
-      "navarasu/onedark.nvim",
-      config = function()
-        require("onedark").setup({
-          style = "warm",
-        })
-        vim.cmd([[colorscheme onedark]])
-      end,
-    },
-    "sainnhe/gruvbox-material",
-    "arcticicestudio/nord-vim",
-    "folke/tokyonight.nvim",
-    "kyazdani42/nvim-web-devicons",
-  })
-end
-
-return M
+  ["navarasu/onedark.nvim"] = {
+    config = function()
+      require("onedark").setup({
+        style = "warm",
+      })
+      vim.cmd([[colorscheme onedark]])
+    end,
+  },
+  ["sainnhe/gruvbox-material"] = {},
+  ["arcticicestudio/nord-vim"] = {},
+  ["folke/tokyonight.nvim"] = {},
+}

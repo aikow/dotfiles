@@ -48,6 +48,17 @@ autocmd("buf_read_post", {
   end,
 })
 
+-- Enable spelling after reading a buffer
+autocmd("enable_spell", {
+  event = "BufReadPost",
+  callback = function()
+    vim.schedule(function()
+      vim.opt.spell = true
+      vim.opt.spelllang = "en,de"
+    end)
+  end,
+})
+
 autocmd("terminal_ftplugin", {
   event = "TermOpen",
   callback = function()

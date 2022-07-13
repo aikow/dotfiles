@@ -60,7 +60,7 @@ map("x", ">", ">gv")
 map("n", "?", [[?\v]])
 map("n", "/", [[/\v]])
 map("n", "<C-s>", [[:%s/\v]])
-map("v", "<C-s>", [[:s/\v]])
+map("x", "<C-s>", [[:s/\v]])
 map("c", "<C-s>", [[%s/\v]])
 
 -- Enter a lua command.
@@ -78,15 +78,29 @@ map("n", "<leader><leader>", "<c-^>", { desc = "switch to most recent buffer" })
 map("t", "jk", [[<c-\><C-n>]])
 map("t", "kj", [[<c-\><C-n>]])
 
--- Unimpaired mappings for faster navigation.
+-- Navigate quickfix list
 map("n", "]q", [[<cmd>cnext<CR>]])
 map("n", "[q", [[<cmd>cprev<CR>]])
+map("n", "]Q", [[<cmd>clast<CR>]])
+map("n", "[Q", [[<cmd>cfirst<CR>]])
+
+-- Navigate location list
 map("n", "]l", [[<cmd>lnext<CR>]])
 map("n", "[l", [[<cmd>lprev<CR>]])
+map("n", "]L", [[<cmd>llast<CR>]])
+map("n", "[L", [[<cmd>lfirst<CR>]])
+
+-- navigate buffers
 map("n", "]b", [[<cmd>bnext<CR>]])
 map("n", "[b", [[<cmd>bprev<CR>]])
+map("n", "]B", [[<cmd>blast<CR>]])
+map("n", "[B", [[<cmd>bfirst<CR>]])
+
+-- navigate files
 map("n", "]f", [[<cmd>next<CR>]])
 map("n", "[f", [[<cmd>prev<CR>]])
+map("n", "]F", [[<cmd>last<CR>]])
+map("n", "[F", [[<cmd>first<CR>]])
 
 -- Replacing up to next _ or -
 map("n", "<leader>c", "ct_", { desc = "change text up to next underscore '_'" })
@@ -104,7 +118,7 @@ vim.cmd([[imap <C-s> <C-g>u<Esc>[s1z=`]a<C-g>u]])
 -- Clear the search buffer to remove highlighting from the last search
 map(
   "n",
-  "<C-_>",
+  "<Esc>",
   [[:let @/ = ""<CR>]],
   { silent = true, desc = "clear search buffer register" }
 )
@@ -116,6 +130,9 @@ map(
   [['`[' . strpart(getregtype(), 0,  1) . '`]']],
   { expr = true, desc = "select the last pasted region" }
 )
+-- Automatically jump to the end of pasted text
+map("x", "y", "y`]")
+map({ "x", "n" }, "p", "p`]")
 
 -- Sort the selected lines
 map("v", "<leader>rs", ":!sort<CR>", {
@@ -136,120 +153,11 @@ map("i", ".", ".<C-g>u")
 map("i", "!", "!<C-g>u")
 map("i", "?", "?<C-g>u")
 
--- Automatically jump to the end of pasted text
-map("x", "y", "y`]")
-map({ "x", "n" }, "p", "p`]")
-
 -- Shortcuts for inserting filename, directory name, and full path into command
 -- mode.
 map("c", "%H", [[<C-R>=expand('%:h:p') . '/'<CR>]])
 map("c", "%T", [[<C-R>=expand('%:t')<CR>]])
 map("c", "%P", [[<C-R>=expand('%:p')<CR>]])
-
--- ----------------------------------------------------
--- | Telescope, LSP, Diagnostics, and Git keybindings |
--- ----------------------------------------------------
---
--- Diagnostics
--- See `:help vim.diagnostic.*` for documentation on any of the below
--- functions
-map(
-  "n",
-  "<leader>e",
-  vim.diagnostic.open_float,
-  { silent = true, desc = "open diagnostic window" }
-)
-map(
-  { "n", "v", "o" },
-  "[e",
-  vim.diagnostic.goto_prev,
-  { silent = true, desc = "go to previous diagnostic" }
-)
-map(
-  { "n", "v", "o" },
-  "]e",
-  vim.diagnostic.goto_next,
-  { silent = true, desc = "go to next diagnostic" }
-)
-map(
-  "n",
-  "<leader>dl",
-  vim.diagnostic.setloclist,
-  { silent = true, desc = "set location list to diagnostics" }
-)
-
--- LSP functions
--- See `:help vim.lsp.*` for documentation on any of the below functions
-vim.keymap.set("n", "K", function()
-  local ft = vim.bo.filetype
-  if ft == "vim" or ft == "help" then
-    vim.api.nvim_command("help " .. vim.fn.expand("<cword>"))
-  elseif ft == "man" then
-    vim.api.nvim_command("Man " .. vim.fn.expand("<cword>"))
-  elseif vim.fn.expand("%:t") == "Cargo.toml" then
-    require("crates").show_popup()
-  else
-    vim.lsp.buf.hover()
-  end
-end, { desc = "show documentation" })
-vim.keymap.set(
-  "n",
-  "<leader>k",
-  vim.lsp.buf.signature_help,
-  { desc = "signature help" }
-)
-
--- Goto references with <leader>j...
-map(
-  "n",
-  "<leader>lc",
-  vim.lsp.buf.declaration,
-  { silent = true, desc = "lsp go to declaration" }
-)
-map(
-  "n",
-  "<leader>lD",
-  vim.lsp.buf.definition,
-  { silent = true, desc = "lsp go to definition" }
-)
-map(
-  "n",
-  "<leader>lR",
-  vim.lsp.buf.references,
-  { silent = true, desc = "lsp go to references" }
-)
-map(
-  "n",
-  "<leader>lI",
-  vim.lsp.buf.implementation,
-  { silent = true, desc = "lsp go to implementation" }
-)
-map(
-  "n",
-  "<leader>lT",
-  vim.lsp.buf.type_definition,
-  { silent = true, desc = "lsp go to type definition" }
-)
-
--- Refactoring with <leader>r...
-map(
-  "n",
-  "<leader>rr",
-  vim.lsp.buf.rename,
-  { silent = true, desc = "LSP rename" }
-)
-map(
-  "n",
-  "<leader>rq",
-  vim.lsp.buf.code_action,
-  { silent = true, desc = "LSP code actions" }
-)
-map(
-  "n",
-  "<leader>rf",
-  vim.lsp.buf.formatting,
-  { silent = true, desc = "LSP format file" }
-)
 
 -- Faster write/save current buffer
 map("n", "<leader>w", "<cmd>write<CR>")
@@ -699,20 +607,13 @@ map(
 map(
   "n",
   "<leader>to",
-  [[<cmd>Neotree filesystem reveal left<CR>]],
+  [[<cmd>NvimTreeFocus<CR>]],
   { silent = true, desc = "Neotree reveal filesystem" }
 )
 
 map(
   "n",
-  "<leader>tg",
-  [[<cmd>Neotree git_status reveal left<CR>]],
-  { silent = true, desc = "Neotree reveal filesystem" }
-)
-
-map(
-  "n",
-  "<leader>tb",
-  [[<cmd>Neotree buffers reveal left<CR>]],
+  "<leader>tt",
+  [[<cmd>NvimTreeToggle<CR>]],
   { silent = true, desc = "Neotree reveal filesystem" }
 )

@@ -112,16 +112,6 @@ M.setup = function()
     }),
   })
 
-  -- Use buffer source for `/` (if you enabled `native_menu`, this won't work anymore).
-  cmp.setup.cmdline("@", {
-    mapping = mappings,
-    sources = cmp.config.sources({
-      { name = "nvim_lsp" },
-    }, {
-      { name = "buffer", keyword_length = 6 },
-    }),
-  })
-
   -- Use cmdline & path source for ":"
   cmp.setup.cmdline(":", {
     mapping = mappings,
