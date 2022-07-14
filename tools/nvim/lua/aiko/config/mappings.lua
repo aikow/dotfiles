@@ -117,7 +117,7 @@ vim.cmd([[imap <C-s> <C-g>u<Esc>[s1z=`]a<C-g>u]])
 -- Clear the search buffer to remove highlighting from the last search
 map(
   "n",
-  "<C-/>",
+  "<C-_>",
   [[:let @/ = ""<CR>]],
   { silent = true, desc = "clear search buffer register" }
 )
