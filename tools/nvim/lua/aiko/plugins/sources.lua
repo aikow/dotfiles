@@ -303,15 +303,30 @@ return {
   -- |   Color Schemes   |
   -- ---------------------
   ["navarasu/onedark.nvim"] = {
+    event = "ColorSchemePre",
     config = function()
       require("onedark").setup({
         style = "warm",
       })
-
-      vim.cmd([[colorscheme onedark]])
     end,
   },
-  ["sainnhe/gruvbox-material"] = {},
-  ["arcticicestudio/nord-vim"] = {},
-  ["folke/tokyonight.nvim"] = {},
+  ["catppuccin/nvim"] = {
+    as = "catppuccin",
+    -- Options: latte, macchiato, frappe, mocha
+    config = function()
+      vim.g.catppuccin_flavour = "frappe"
+      vim.cmd([[colorscheme catppuccin]])
+    end,
+  },
+  ["marko-cerovac/material.nvim"] = {
+    event = "ColorSchemePre",
+    -- Options: oceanic, deep ocean, palenight, lighter, darker
+    config = function() vim.g.material_style = "darker" end,
+  },
+  ["sainnhe/gruvbox-material"] = {
+    event = "ColorSchemePre",
+  },
+  ["folke/tokyonight.nvim"] = {
+    event = "ColorSchemePre",
+  },
 }
