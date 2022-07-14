@@ -15,6 +15,7 @@ local l = extras.lambda
 local m = extras.match
 local dl = extras.dynamic_lambda
 local ne = extras.nonempty
+local autoinsert_space = require("aiko.luasnip.callbacks").autoinsert_space
 
 -- ----------------------
 -- |   Vimtex Regions   |
@@ -84,25 +85,6 @@ local x = {
 -- ------------------------
 -- |   Helper Functions   |
 -- ------------------------
-
--- Register an auto-command to insert a space after a snippet if the following
--- character is a letter.
-local autoinsert_space = {
-  -- index `-1` means the callback is on the snippet as a whole
-  [-1] = {
-    [events.leave] = function()
-      vim.api.nvim_create_autocmd("InsertCharPre", {
-        buffer = 0,
-        once = true,
-        callback = function()
-          if string.find(vim.v.char, "%a") then
-            vim.v.char = " " .. vim.v.char
-          end
-        end,
-      })
-    end,
-  },
-}
 
 -- return the capture group at index.
 local cap = function(index)

@@ -57,6 +57,7 @@ autocmd("enable_spell", {
       vim.opt.spelllang = "en,de"
     end)
   end,
+  once = true,
 })
 
 autocmd("terminal_ftplugin", {

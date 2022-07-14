@@ -7,29 +7,45 @@ M.setup = function()
   end
 
   nvim_tree.setup({
-    filters = {
-      dotfiles = false,
-      exclude = { vim.fn.stdpath("config") .. "/lua/custom" },
-    },
-    disable_netrw = true,
-    hijack_netrw = true,
+    disable_netrw = false,
+    hijack_netrw = false,
+
     open_on_setup = false,
-    ignore_ft_on_setup = { "alpha" },
+
     hijack_cursor = true,
+    hijack_directories = {
+      enable = true,
+    },
     hijack_unnamed_buffer_when_opening = false,
+
     update_cwd = true,
     update_focused_file = {
       enable = true,
       update_cwd = false,
     },
     view = {
-      adaptive_size = true,
+      adaptive_size = false,
       side = "left",
       width = 25,
       hide_root_folder = true,
+      mappings = {
+        list = {
+          { key = "<M-CR>", action = "edit_in_place" },
+        },
+      },
+    },
+    diagnostics = {
+      enable = true,
+      show_on_dirs = true,
+      icons = {
+        hint = "",
+        info = "",
+        warning = "",
+        error = "",
+      },
     },
     git = {
-      enable = false,
+      enable = true,
       ignore = true,
     },
     filesystem_watchers = {
@@ -37,15 +53,15 @@ M.setup = function()
     },
     actions = {
       open_file = {
-        resize_window = true,
+        resize_window = false,
       },
     },
     renderer = {
-      highlight_git = false,
+      highlight_git = true,
       highlight_opened_files = "none",
 
       indent_markers = {
-        enable = false,
+        enable = true,
       },
 
       icons = {
@@ -53,17 +69,17 @@ M.setup = function()
           file = true,
           folder = true,
           folder_arrow = true,
-          git = false,
+          git = true,
         },
 
         glyphs = {
           default = "",
           symlink = "",
           folder = {
-            -- default = "",
-            -- empty = "",
-            -- empty_open = "",
-            -- open = "",
+            default = "",
+            empty = "",
+            empty_open = "",
+            open = "",
             symlink = "",
             symlink_open = "",
             arrow_open = "",
