@@ -612,6 +612,13 @@ map(
 
 map(
   "n",
+  "-",
+  [[<cmd>NvimTreeFocus<CR>]],
+  { silent = true, desc = "Neotree reveal filesystem" }
+)
+
+map(
+  "n",
   "<leader>tt",
   [[<cmd>NvimTreeToggle<CR>]],
   { silent = true, desc = "Neotree reveal filesystem" }

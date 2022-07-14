@@ -130,7 +130,7 @@ M.setup = function()
   })
 
   require("luasnip.loaders.from_lua").lazy_load({
-    paths = "~/.dotfiles/tools/nvim/snippets",
+    paths = "~/.dotfiles/tools/nvim/lua/aiko/luasnip/snips",
     default_priority = 1000,
   })
 end
