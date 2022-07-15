@@ -11,21 +11,35 @@ return {
   -- ------------------
   -- |   LSP Config   |
   -- ------------------
+  --
+  -- Easily install any language server from inside neovim.
   ["williamboman/nvim-lsp-installer"] = {
     opt = true,
     cmd = require("aiko.plugins.lazy").lsp_cmds,
-    setup = function() require("aiko.plugins.lazy").on_file_open("nvim-lsp-installer") end,
+    setup = function()
+      require("aiko.plugins.lazy").on_file_open("nvim-lsp-installer")
+    end,
   },
+
+  -- Provide adapter and helper functions for setting up language servers.
   ["neovim/nvim-lspconfig"] = {
     after = "nvim-lsp-installer",
     module = "lspconfig",
-    config = function() require("aiko.plugins.configs.lspconfig").setup() end,
+    config = function()
+      require("aiko.plugins.configs.lspconfig").setup()
+    end,
   },
+
+  -- Debug adapter protocol.
   ["mfussenegger/nvim-dap"] = {
     module = "dap",
     keys = "<F5>",
-    config = function() require("aiko.plugins.configs.dap").setup() end,
+    config = function()
+      require("aiko.plugins.configs.dap").setup()
+    end,
   },
+
+  -- Add icons to native LSP based on the completion type.
   ["onsails/lspkind.nvim"] = {
     module = "lspkind",
   },
@@ -33,16 +47,24 @@ return {
   -- -----------------
   -- |   Telescope   |
   -- -----------------
+  --
+  -- Find, filter, and search pretty much anything.
   ["nvim-telescope/telescope.nvim"] = {
     cmd = "Telescope",
     module = "telescope",
     fn = { "vim.ui.select", "vim.ui.input" },
-    config = function() require("aiko.plugins.configs.telescope").setup() end,
+    config = function()
+      require("aiko.plugins.configs.telescope").setup()
+    end,
   },
+
+  -- Native C FZF implementation for searching.
   ["nvim-telescope/telescope-fzf-native.nvim"] = {
     run = "make",
     module = "telescope._extensions.fzf",
   },
+
+  -- Search luasnip snippets with telescope.
   ["benfowler/telescope-luasnip.nvim"] = {
     module = "telescope._extensions.luasnip",
   },
@@ -50,11 +72,16 @@ return {
   -- -------------------
   -- |   Tree-Sitter   |
   -- -------------------
+  --
+  -- Neovim treesitter helper, which enables a lot of cool functionality based
+  -- on treesitter.
   ["nvim-treesitter/nvim-treesitter"] = {
     event = { "BufRead", "BufNewFile" },
     module = "nvim-treesitter",
     run = ":TSUpdate",
-    config = function() require("aiko.plugins.configs.treesitter").setup() end,
+    config = function()
+      require("aiko.plugins.configs.treesitter").setup()
+    end,
   },
 
   -- Tree-sitter text objects like classes and functions.
@@ -71,7 +98,9 @@ return {
   ["ThePrimeagen/refactoring.nvim"] = {
     ft = require("aiko.plugins.lazy").refactoring_filetyps,
     module = "refactoring",
-    config = function() require("aiko.plugins.configs.refactoring").setup() end,
+    config = function()
+      require("aiko.plugins.configs.refactoring").setup()
+    end,
   },
 
   -- Enable correct spelling syntax highlighting with Tree-sitter.
@@ -87,18 +116,34 @@ return {
   -- ----------------
   -- |   NvimTree   |
   -- ----------------
+  --
+  -- File tree in a sidebar.
   ["kyazdani42/nvim-tree.lua"] = {
     cmd = { "NvimTreeToggle", "NvimTreeFocus" },
     module = "nvim-tree",
-    config = function() require("aiko.plugins.configs.nvimtree").setup() end,
+    config = function()
+      require("aiko.plugins.configs.nvimtree").setup()
+    end,
   },
 
   -- ---------------------
   -- |   Code Snippets   |
   -- ---------------------
+  --
+  -- VS Code style snippets that can be loaded by luasnip.
   ["rafamadriz/friendly-snippets"] = {
     module = "cmp_nvim_lsp",
     event = { "InsertEnter", "CmdlineEnter" },
+  },
+
+  -- Lua snippet engine.
+  ["L3MON4D3/luasnip"] = {
+    wants = "friendly-snippets",
+    module = "luasnip",
+    after = "nvim-cmp",
+    config = function()
+      require("aiko.plugins.configs.luasnip").setup()
+    end,
   },
 
   -- ------------------
@@ -108,7 +153,9 @@ return {
   -- These are all loaded after nvim-cmp.
   ["hrsh7th/nvim-cmp"] = {
     after = "friendly-snippets",
-    config = function() require("aiko.plugins.configs.cmp").setup() end,
+    config = function()
+      require("aiko.plugins.configs.cmp").setup()
+    end,
   },
   ["hrsh7th/cmp-nvim-lua"] = {
     after = "nvim-cmp",
@@ -132,41 +179,53 @@ return {
     after = "nvim-cmp",
   },
 
-  ["L3MON4D3/luasnip"] = {
-    wants = "friendly-snippets",
-    after = "nvim-cmp",
-    config = function() require("aiko.plugins.configs.luasnip").setup() end,
-  },
-
   -- ---------------
   -- |   Comment   |
   -- ---------------
-
+  --
   -- Comment out lines and blocks.
   ["numToStr/Comment.nvim"] = {
     module = "Comment",
     keys = { "gc", "gb" },
-    config = function() require("aiko.plugins.configs.comment").setup() end,
+    config = function()
+      require("aiko.plugins.configs.comment").setup()
+    end,
   },
 
   -- Prettify to-do comments.
   ["folke/todo-comments.nvim"] = {
     opt = true,
-    setup = function() require("aiko.plugins.lazy").on_file_open("todo-comments.nvim") end,
-    config = function() require("aiko.plugins.configs.todo").setup() end,
+    setup = function()
+      require("aiko.plugins.lazy").on_file_open("todo-comments.nvim")
+    end,
+    config = function()
+      require("aiko.plugins.configs.todo").setup()
+    end,
   },
 
   -- -----------------------
   -- |   General Plugins   |
   -- -----------------------
   --
-  -- Nice helper plugins
   -- Use '.' to repeat plugin code actions.
   ["tpope/vim-repeat"] = {},
 
   -- Work with parenthesis, quotes, and other text surroundings.
   ["kylechui/nvim-surround"] = {
-    config = function() require("aiko.plugins.configs.surround").setup() end,
+    config = function()
+      require("aiko.plugins.configs.surround").setup()
+    end,
+  },
+
+  -- Show indentation.
+  ["lukas-reineke/indent-blankline.nvim"] = {
+    opt = true,
+    setup = function()
+      require("aiko.plugins.lazy").on_file_open("indent-blankline.nvim")
+    end,
+    config = function()
+      require("aiko.plugins.configs.indent_blankline").setup()
+    end,
   },
 
   -- Effortlessly switch between vim and tmux windows.
@@ -190,7 +249,9 @@ return {
 
   -- Automatically cd to project root.
   ["airblade/vim-rooter"] = {
-    config = function() vim.g.rooter_silent_chdir = 1 end,
+    config = function()
+      vim.g.rooter_silent_chdir = 1
+    end,
   },
 
   -- Measure startup time.
@@ -207,7 +268,9 @@ return {
 
   -- Git status signs in buffer.
   ["lewis6991/gitsigns.nvim"] = {
-    config = function() require("aiko.plugins.configs.gitsigns").setup() end,
+    config = function()
+      require("aiko.plugins.configs.gitsigns").setup()
+    end,
   },
 
   -- ------------------------
@@ -222,23 +285,31 @@ return {
   -- Rust
   ["simrat39/rust-tools.nvim"] = {
     ft = "rust",
-    config = function() require("aiko.plugins.configs.rusttools").setup() end,
+    config = function()
+      require("aiko.plugins.configs.rusttools").setup()
+    end,
   },
   ["saecki/crates.nvim"] = {
     module = "crates",
     tag = "v0.1.0",
-    config = function() require("aiko.plugins.configs.crates").setup() end,
+    config = function()
+      require("aiko.plugins.configs.crates").setup()
+    end,
   },
 
   -- Latex
   ["lervag/vimtex"] = {
-    config = function() require("aiko.plugins.configs.vimtex").setup() end,
+    config = function()
+      require("aiko.plugins.configs.vimtex").setup()
+    end,
     ft = "tex",
   },
 
   -- Markdown
   ["iamcco/markdown-preview.nvim"] = {
-    run = function() vim.fn["mkdp#util#install"]() end,
+    run = function()
+      vim.fn["mkdp#util#install"]()
+    end,
     ft = "markdown",
   },
 
@@ -260,13 +331,14 @@ return {
   ["nvim-neorg/neorg"] = {
     tag = "*",
     ft = "norg",
-    config = function() require("aiko.plugins.configs.neorg").setup() end,
+    config = function()
+      require("aiko.plugins.configs.neorg").setup()
+    end,
   },
 
-  -- ---------------------
-  -- |   Customization   |
-  -- ---------------------
-
+  -- ------------------------------
+  -- |   GUI, Themes, and Icons   |
+  -- ------------------------------
   -- New UI components.
   ["MunifTanjim/nui.nvim"] = {
     module = "nui",
@@ -274,12 +346,16 @@ return {
 
   -- Override neovim default UI components
   ["stevearc/dressing.nvim"] = {
-    config = function() require("aiko.plugins.configs.dressing").setup() end,
+    config = function()
+      require("aiko.plugins.configs.dressing").setup()
+    end,
   },
 
   -- Status-line plugin.
   ["nvim-lualine/lualine.nvim"] = {
-    config = function() require("aiko.plugins.configs.lualine").setup() end,
+    config = function()
+      require("aiko.plugins.configs.lualine").setup()
+    end,
   },
 
   -- LSP based location for status-line.
@@ -290,15 +366,6 @@ return {
   -- Dev icons for file types.
   ["kyazdani42/nvim-web-devicons"] = {
     module = "nvim-web-devicons",
-  },
-
-  -- Show indentation.
-  ["lukas-reineke/indent-blankline.nvim"] = {
-    opt = true,
-    setup = function()
-      require("aiko.plugins.lazy").on_file_open("indent-blankline.nvim")
-    end,
-    config = function() require("aiko.plugins.configs.indent_blankline").setup() end,
   },
 
   -- ---------------------
@@ -322,8 +389,10 @@ return {
   },
   ["marko-cerovac/material.nvim"] = {
     event = "ColorSchemePre",
-    -- Options: oceanic, deep ocean, palenight, lighter, darker
-    config = function() vim.g.material_style = "darker" end,
+    config = function()
+      -- Options: oceanic, deep ocean, palenight, lighter, darker
+      vim.g.material_style = "darker"
+    end,
   },
   ["sainnhe/gruvbox-material"] = {
     event = "ColorSchemePre",

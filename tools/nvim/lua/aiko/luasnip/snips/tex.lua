@@ -24,18 +24,26 @@ local autoinsert_space = require("aiko.luasnip.callbacks").autoinsert_space
 local x = {
   --- Returns true if the cursor is currently in a math zone.
   -- @return boolean
-  m = function() return vim.fn["vimtex#syntax#in_mathzone"]() == 1 end,
+  m = function()
+    return vim.fn["vimtex#syntax#in_mathzone"]() == 1
+  end,
 
   --- Returns true if the cursor is not currently in a math zone.
   -- @return boolean
-  M = function() return vim.fn["vimtex#syntax#in_mathzone"]() ~= 1 end,
+  M = function()
+    return vim.fn["vimtex#syntax#in_mathzone"]() ~= 1
+  end,
 
   --- Returns true if the cursor is currently in a latex comment.
   -- @return boolean
-  c = function() return vim.fn["vimtex#syntax_in_comment"]() == 1 end,
+  c = function()
+    return vim.fn["vimtex#syntax_in_comment"]() == 1
+  end,
 
   --- Returns a true if the cursor is currently not in a latex comment.
-  C = function() return vim.fn["vimtex#syntax_in_comment"]() ~= 1 end,
+  C = function()
+    return vim.fn["vimtex#syntax_in_comment"]() ~= 1
+  end,
 
   --- Returns a function that returns true if the cursor is currently inside an
   -- environment specified by name.
@@ -88,7 +96,9 @@ local x = {
 
 -- return the capture group at index.
 local cap = function(index)
-  return f(function(_, snip) return snip.captures[index] end)
+  return f(function(_, snip)
+    return snip.captures[index]
+  end)
 end
 
 -- Convert content of node at index to snake case.
@@ -188,12 +198,24 @@ local snip = function(mode, trig, desc, nodes, opts)
   local callbacks = nil
 
   local modeopts = {
-    r = function() regTrig = true end,
-    i = function() wordTrig = false end,
-    w = function() wordTrig = false end,
-    A = function() autoexpand = true end,
-    S = function() callbacks = autoinsert_space end,
-    b = function() table.insert(condition_table, x.b(trig)) end,
+    r = function()
+      regTrig = true
+    end,
+    i = function()
+      wordTrig = false
+    end,
+    w = function()
+      wordTrig = false
+    end,
+    A = function()
+      autoexpand = true
+    end,
+    S = function()
+      callbacks = autoinsert_space
+    end,
+    b = function()
+      table.insert(condition_table, x.b(trig))
+    end,
     m = function()
       table.insert(condition_table, x.m)
       table.insert(show_condition_table, x.m)
