@@ -56,6 +56,12 @@ end
 -- Format options
 opt.formatoptions = "tcroqnblj"
 
+-- Completion menu options
+vim.opt.completeopt = { "menu", "menuone", "noselect" }
+
+-- Avoid showing extra messages when using completion
+vim.opt.shortmess = vim.opt.shortmess + "c"
+
 -- Use treesitter for folding
 opt.foldmethod = "expr"
 opt.foldexpr = "nvim_treesitter#foldexpr()"

@@ -1,19 +1,12 @@
 local M = {}
 
 M.setup = function()
-  -- menuone: popup even when there's only one match
-  -- noinsert: Do not insert text until a selection is made
-  -- noselect: Do not select, force user to select one from the menu
-  vim.opt.completeopt = { "menu", "menuone", "noselect" }
-
-  -- Avoid showing extra messages when using completion
-  vim.opt.shortmess = vim.opt.shortmess + "c"
-
   -- Setup completion framework nvim-cmp.
   local ok_cmp, cmp = pcall(require, "cmp")
   if not ok_cmp then
     return
   end
+  local compare = require("cmp.config.compare")
 
   local ok_lspkind, lspkind = pcall(require, "lspkind")
   if not ok_lspkind then
@@ -34,11 +27,11 @@ M.setup = function()
     },
 
     -- Scroll documentation
-    ["<C-f>"] = {
+    ["<C-b>"] = {
       i = cmp.mapping.scroll_docs(-4),
       c = cmp.mapping.scroll_docs(-4),
     },
-    ["<C-b>"] = {
+    ["<C-f>"] = {
       i = cmp.mapping.scroll_docs(4),
       c = cmp.mapping.scroll_docs(4),
     },
@@ -79,7 +72,6 @@ M.setup = function()
     },
     mapping = mappings,
     sources = cmp.config.sources({
-      { name = "nvim_lua" },
       { name = "nvim_lsp" },
       { name = "crates" },
       { name = "luasnip" },
@@ -87,6 +79,21 @@ M.setup = function()
     }, {
       { name = "buffer", keyword_length = 6 },
     }),
+    sorting = {
+      priority_weight = 1.0,
+      comparators = {
+        compare.locality,
+        compare.recently_used,
+        compare.score,
+        compare.offset,
+        compare.length,
+        compare.order,
+        -- compare.scopes,
+        -- compare.sort_text,
+        -- compare.exact,
+        -- compare.kind,
+      },
+    },
     formatting = {
       format = function(_, vim_item)
         local icons = require("aiko.plugins.configs.lspkind").icons
@@ -102,26 +109,34 @@ M.setup = function()
     },
   })
 
-  -- Setup LaTeX completion sources
-  cmp.setup.filetype("tex", {
-    sources = cmp.config.sources({
-      { name = "nvim_lua" },
-      { name = "luasnip" },
-      { name = "omnifunc" },
-      { name = "path" },
-    }, {
-      { name = "buffer", keyword_length = 4 },
-    }),
-  })
-
-  -- Use cmdline & path source for ":"
+  -- ---------------------------
+  -- |   Setup Command Lines   |
+  -- ---------------------------
+  --
+  -- Command mode completions.
   cmp.setup.cmdline(":", {
     mapping = mappings,
     sources = cmp.config.sources({
+      { name = "nvim_lua" },
       { name = "cmdline" },
       { name = "path" },
     }, {
       { name = "buffer", keyword_length = 6 },
+    }),
+  })
+
+  -- -----------------------------------
+  -- |   Setup File Type Completions   |
+  -- -----------------------------------
+  --
+  -- Setup LaTeX completion sources to use onmi completion.
+  cmp.setup.filetype("tex", {
+    sources = cmp.config.sources({
+      { name = "luasnip" },
+      { name = "omni" },
+      { name = "path" },
+    }, {
+      { name = "buffer", keyword_length = 4 },
     }),
   })
 end
