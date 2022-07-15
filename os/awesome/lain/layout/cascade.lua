@@ -179,8 +179,12 @@ local function do_cascade(p, tiling)
   end
 end
 
-function cascade.tile.arrange(p) return do_cascade(p, true) end
+function cascade.tile.arrange(p)
+  return do_cascade(p, true)
+end
 
-function cascade.arrange(p) return do_cascade(p, false) end
+function cascade.arrange(p)
+  return do_cascade(p, false)
+end
 
 return cascade

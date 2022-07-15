@@ -81,8 +81,12 @@ local function factory(args)
   end
 
   function weather.attach(obj)
-    obj:connect_signal("mouse::enter", function() weather.show(0) end)
-    obj:connect_signal("mouse::leave", function() weather.hide() end)
+    obj:connect_signal("mouse::enter", function()
+      weather.show(0)
+    end)
+    obj:connect_signal("mouse::leave", function()
+      weather.hide()
+    end)
   end
 
   function weather.forecast_update()

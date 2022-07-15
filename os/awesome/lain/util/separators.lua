@@ -21,7 +21,9 @@ function separators.arrow_right(col1, col2)
   widget.col1 = col1
   widget.col2 = col2
 
-  widget.fit = function(m, w, h) return separators.width, separators.height end
+  widget.fit = function(m, w, h)
+    return separators.width, separators.height
+  end
 
   widget.update = function(col1, col2)
     widget.col1 = col1
@@ -67,7 +69,9 @@ function separators.arrow_left(col1, col2)
   widget.col1 = col1
   widget.col2 = col2
 
-  widget.fit = function(m, w, h) return separators.width, separators.height end
+  widget.fit = function(m, w, h)
+    return separators.width, separators.height
+  end
 
   widget.update = function(col1, col2)
     widget.col1 = col1

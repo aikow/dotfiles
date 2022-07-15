@@ -32,14 +32,11 @@ local function factory(args)
   ) or {}
 
   function net.get_device()
-    helpers.line_callback(
-      "ip link",
-      function(line)
-        net.iface[#net.iface + 1] = not string.match(line, "LOOPBACK")
-            and string.match(line, "(%w+): <")
-          or nil
-      end
-    )
+    helpers.line_callback("ip link", function(line)
+      net.iface[#net.iface + 1] = not string.match(line, "LOOPBACK")
+          and string.match(line, "(%w+): <")
+        or nil
+    end)
   end
 
   if #net.iface == 0 then

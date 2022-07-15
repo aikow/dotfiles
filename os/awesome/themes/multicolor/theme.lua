@@ -176,13 +176,17 @@ theme.mail = lain.widget.imap({
 -- CPU
 local cpuicon = wibox.widget.imagebox(theme.widget_cpu)
 local cpu = lain.widget.cpu({
-  settings = function() widget:set_markup(markup.fontfg(theme.font, "#e33a6e", cpu_now.usage .. "% ")) end,
+  settings = function()
+    widget:set_markup(markup.fontfg(theme.font, "#e33a6e", cpu_now.usage .. "% "))
+  end,
 })
 
 -- Coretemp
 local tempicon = wibox.widget.imagebox(theme.widget_temp)
 local temp = lain.widget.temp({
-  settings = function() widget:set_markup(markup.fontfg(theme.font, "#f1af5f", coretemp_now .. "°C ")) end,
+  settings = function()
+    widget:set_markup(markup.fontfg(theme.font, "#f1af5f", coretemp_now .. "°C "))
+  end,
 })
 
 -- Battery
@@ -229,14 +233,18 @@ local netupinfo = lain.widget.net({
 -- MEM
 local memicon = wibox.widget.imagebox(theme.widget_mem)
 local memory = lain.widget.mem({
-  settings = function() widget:set_markup(markup.fontfg(theme.font, "#e0da37", mem_now.used .. "M ")) end,
+  settings = function()
+    widget:set_markup(markup.fontfg(theme.font, "#e0da37", mem_now.used .. "M "))
+  end,
 })
 
 -- MPD
 local musicplr = "urxvt -title Music -g 130x34-320+16 -e ncmpcpp"
 local mpdicon = wibox.widget.imagebox(theme.widget_music)
 mpdicon:buttons(my_table.join(
-  awful.button({ modkey }, 1, function() awful.spawn.with_shell(musicplr) end),
+  awful.button({ modkey }, 1, function()
+    awful.spawn.with_shell(musicplr)
+  end),
   --[[awful.button({ }, 1, function ()
         awful.spawn.with_shell("mpc prev")
         theme.mpd.update()
@@ -246,7 +254,9 @@ mpdicon:buttons(my_table.join(
     awful.spawn.with_shell("mpc toggle")
     theme.mpd.update()
   end),
-  awful.button({ modkey }, 3, function() awful.spawn.with_shell("pkill ncmpcpp") end),
+  awful.button({ modkey }, 3, function()
+    awful.spawn.with_shell("pkill ncmpcpp")
+  end),
   awful.button({}, 3, function()
     awful.spawn.with_shell("mpc stop")
     theme.mpd.update()
@@ -289,14 +299,20 @@ function theme.at_screen_connect(s)
   -- Create an imagebox widget which will contains an icon indicating which layout we're using.
   -- We need one layoutbox per screen.
   s.mylayoutbox = awful.widget.layoutbox(s)
-  s.mylayoutbox:buttons(
-    my_table.join(
-      awful.button({}, 1, function() awful.layout.inc(1) end),
-      awful.button({}, 3, function() awful.layout.inc(-1) end),
-      awful.button({}, 4, function() awful.layout.inc(1) end),
-      awful.button({}, 5, function() awful.layout.inc(-1) end)
-    )
-  )
+  s.mylayoutbox:buttons(my_table.join(
+    awful.button({}, 1, function()
+      awful.layout.inc(1)
+    end),
+    awful.button({}, 3, function()
+      awful.layout.inc(-1)
+    end),
+    awful.button({}, 4, function()
+      awful.layout.inc(1)
+    end),
+    awful.button({}, 5, function()
+      awful.layout.inc(-1)
+    end)
+  ))
   -- Create a taglist widget
   s.mytaglist = awful.widget.taglist(s, awful.widget.taglist.filter.all, awful.util.taglist_buttons)
 

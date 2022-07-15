@@ -49,7 +49,9 @@ function redshift:attach(widget, fun)
     redshift:start()
   end
   if widget then
-    widget:buttons(awful.util.table.join(awful.button({}, 1, function() redshift:toggle() end)))
+    widget:buttons(awful.util.table.join(awful.button({}, 1, function()
+      redshift:toggle()
+    end)))
   end
 end
 

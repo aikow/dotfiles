@@ -28,11 +28,17 @@ local function factory(apipath)
     )
   end
 
-  function tp_smapi.installed(batid) return tp_smapi.get(batid, "installed") == "1" end
+  function tp_smapi.installed(batid)
+    return tp_smapi.get(batid, "installed") == "1"
+  end
 
-  function tp_smapi.status(batid) return tp_smapi.get(batid, "state") end
+  function tp_smapi.status(batid)
+    return tp_smapi.get(batid, "state")
+  end
 
-  function tp_smapi.percentage(batid) return tp_smapi.get(batid, "remaining_percent") end
+  function tp_smapi.percentage(batid)
+    return tp_smapi.get(batid, "remaining_percent")
+  end
 
   -- either running or charging time
   function tp_smapi.time(batid)

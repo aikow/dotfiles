@@ -159,7 +159,9 @@ local function factory(args)
       if not pulsebar.notification then
         pulsebar.notification = naughty.notify({
           preset = preset,
-          destroy = function() pulsebar.notification = nil end,
+          destroy = function()
+            pulsebar.notification = nil
+          end,
         })
       else
         naughty.replace_text(pulsebar.notification, preset.title, preset.text)
