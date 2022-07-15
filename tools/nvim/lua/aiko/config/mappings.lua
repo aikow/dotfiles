@@ -171,434 +171,241 @@ map("n", "<C-w>+", "5<C-w>+")
 -- -----------------
 -- |   Telescope   |
 -- -----------------
-map(
-  "n",
-  "<leader>i",
-  function() require("telescope.builtin").resume() end,
-  { silent = true, desc = "telescope reopen last telescope window" }
-)
+map("n", "<leader>i", function()
+  require("telescope.builtin").resume()
+end, { silent = true, desc = "telescope reopen last telescope window" })
 
-map(
-  "n",
-  "<leader>do",
-  function()
-    require("telescope.builtin").diagnostics(
-      require("aiko.plugins.configs.telescope").dynamic()
-    )
-  end,
-  { silent = true, desc = "telescope open diagnostics" }
-)
+map("n", "<leader>do", function()
+  require("telescope.builtin").diagnostics(
+    require("aiko.plugins.configs.telescope").dynamic()
+  )
+end, { silent = true, desc = "telescope open diagnostics" })
 
-map(
-  "n",
-  "<leader>ds",
-  function()
-    require("telescope.builtin").spell_suggest(
-      require("telescope.themes").get_cursor()
-    )
-  end,
-  { silent = true, desc = "telescope spell suggest" }
-)
+map("n", "<leader>ds", function()
+  require("telescope.builtin").spell_suggest(
+    require("telescope.themes").get_cursor()
+  )
+end, { silent = true, desc = "telescope spell suggest" })
 
-map(
-  "n",
-  "<leader>jf",
-  function()
-    require("telescope.builtin").treesitter(
-      require("aiko.plugins.configs.telescope").dynamic()
-    )
-  end,
-  { silent = true, desc = "telescope treesitter" }
-)
+map("n", "<leader>jf", function()
+  require("telescope.builtin").treesitter(
+    require("aiko.plugins.configs.telescope").dynamic()
+  )
+end, { silent = true, desc = "telescope treesitter" })
 
-map(
-  "n",
-  "<leader>jd",
-  function()
-    require("telescope.builtin").lsp_definitions(
-      require("aiko.plugins.configs.telescope").dynamic()
-    )
-  end,
-  { silent = true, desc = "telescope lsp list definitions" }
-)
+map("n", "<leader>jd", function()
+  require("telescope.builtin").lsp_definitions(
+    require("aiko.plugins.configs.telescope").dynamic()
+  )
+end, { silent = true, desc = "telescope lsp list definitions" })
 
-map(
-  "n",
-  "<leader>jr",
-  function()
-    require("telescope.builtin").lsp_references(
-      require("aiko.plugins.configs.telescope").dynamic()
-    )
-  end,
-  { silent = true, desc = "telescope lsp list references" }
-)
+map("n", "<leader>jr", function()
+  require("telescope.builtin").lsp_references(
+    require("aiko.plugins.configs.telescope").dynamic()
+  )
+end, { silent = true, desc = "telescope lsp list references" })
 
-map(
-  "n",
-  "<leader>ji",
-  function()
-    require("telescope.builtin").lsp_implementations(
-      require("aiko.plugins.configs.telescope").dynamic()
-    )
-  end,
-  { silent = true, desc = "telescope lsp list implementations" }
-)
+map("n", "<leader>ji", function()
+  require("telescope.builtin").lsp_implementations(
+    require("aiko.plugins.configs.telescope").dynamic()
+  )
+end, { silent = true, desc = "telescope lsp list implementations" })
 
-map(
-  "n",
-  "<leader>jt",
-  function()
-    require("telescope.builtin").lsp_type_definitions(
-      require("aiko.plugins.configs.telescope").dynamic()
-    )
-  end,
-  { silent = true, desc = "telescope lsp list type definitions" }
-)
+map("n", "<leader>jt", function()
+  require("telescope.builtin").lsp_type_definitions(
+    require("aiko.plugins.configs.telescope").dynamic()
+  )
+end, { silent = true, desc = "telescope lsp list type definitions" })
 
-map(
-  "n",
-  "<leader>jw",
-  function()
-    require("telescope.builtin").lsp_workspace_symbols(
-      require("aiko.plugins.configs.telescope").dynamic()
-    )
-  end,
-  { silent = true, desc = "telescope lsp list workspace symbols" }
-)
+map("n", "<leader>jw", function()
+  require("telescope.builtin").lsp_workspace_symbols(
+    require("aiko.plugins.configs.telescope").dynamic()
+  )
+end, { silent = true, desc = "telescope lsp list workspace symbols" })
 
-map(
-  "n",
-  "<leader>jW",
-  function()
-    require("telescope.builtin").lsp_dynamic_workspace_symbols(
-      require("aiko.plugins.configs.telescope").dynamic()
-    )
-  end,
-  { silent = true, desc = "telescope lsp list dynamic workspace symbols" }
-)
+map("n", "<leader>jW", function()
+  require("telescope.builtin").lsp_dynamic_workspace_symbols(
+    require("aiko.plugins.configs.telescope").dynamic()
+  )
+end, { silent = true, desc = "telescope lsp list dynamic workspace symbols" })
 
-map(
-  "n",
-  "<leader>js",
-  function()
-    require("telescope.builtin").lsp_document_symbols(
-      require("aiko.plugins.configs.telescope").dynamic()
-    )
-  end,
-  { silent = true, desc = "telescope lsp list document symbols" }
-)
+map("n", "<leader>js", function()
+  require("telescope.builtin").lsp_document_symbols(
+    require("aiko.plugins.configs.telescope").dynamic()
+  )
+end, { silent = true, desc = "telescope lsp list document symbols" })
 
 -- Finding searching and navigating
-map(
-  "n",
-  "<leader>;",
-  function()
-    require("telescope.builtin").commands(
-      require("aiko.plugins.configs.telescope").dynamic()
-    )
-  end,
-  { silent = true }
-)
+map("n", "<leader>;", function()
+  require("telescope.builtin").commands(
+    require("aiko.plugins.configs.telescope").dynamic()
+  )
+end, { silent = true })
 
-map(
-  "n",
-  "<leader>o",
-  function()
-    require("telescope.builtin").find_files(
-      require("aiko.plugins.configs.telescope").dynamic()
-    )
-  end,
-  { silent = true }
-)
+map("n", "<leader>o", function()
+  require("telescope.builtin").find_files(
+    require("aiko.plugins.configs.telescope").dynamic()
+  )
+end, { silent = true })
 
-map(
-  "n",
-  "<leader>p",
-  function()
-    require("telescope.builtin").buffers(
-      require("aiko.plugins.configs.telescope").dynamic()
-    )
-  end,
-  { silent = true }
-)
+map("n", "<leader>p", function()
+  require("telescope.builtin").buffers(
+    require("aiko.plugins.configs.telescope").dynamic()
+  )
+end, { silent = true })
 
 -- Find shortcuts
-map(
-  "n",
-  "<leader>ff",
-  function()
-    require("telescope.builtin").live_grep(
-      require("aiko.plugins.configs.telescope").dynamic()
-    )
-  end,
-  { silent = true }
-)
+map("n", "<leader>ff", function()
+  require("telescope.builtin").live_grep(
+    require("aiko.plugins.configs.telescope").dynamic()
+  )
+end, { silent = true })
 
-map(
-  "n",
-  "<leader>fs",
-  function()
-    require("telescope.builtin").spell_suggest(
-      require("telescope.themes").get_cursor()
-    )
-  end,
-  { silent = true }
-)
+map("n", "<leader>fs", function()
+  require("telescope.builtin").spell_suggest(
+    require("telescope.themes").get_cursor()
+  )
+end, { silent = true })
 
-map(
-  "n",
-  "<leader>fb",
-  function()
-    require("telescope.builtin").current_buffer_fuzzy_find(
-      require("aiko.plugins.configs.telescope").dynamic()
-    )
-  end,
-  { silent = true }
-)
+map("n", "<leader>fb", function()
+  require("telescope.builtin").current_buffer_fuzzy_find(
+    require("aiko.plugins.configs.telescope").dynamic()
+  )
+end, { silent = true })
 
-map(
-  "n",
-  "<leader>ft",
-  function()
-    require("telescope.builtin").tags(
-      require("aiko.plugins.configs.telescope").dynamic()
-    )
-  end,
-  { silent = true }
-)
+map("n", "<leader>ft", function()
+  require("telescope.builtin").tags(
+    require("aiko.plugins.configs.telescope").dynamic()
+  )
+end, { silent = true })
 
-map(
-  "n",
-  "<leader>f/",
-  function()
-    require("telescope.builtin").search_history(
-      require("telescope.themes").get_dropdown()
-    )
-  end,
-  { silent = true }
-)
+map("n", "<leader>f/", function()
+  require("telescope.builtin").search_history(
+    require("telescope.themes").get_dropdown()
+  )
+end, { silent = true })
 
-map(
-  "n",
-  "<leader>f;",
-  function()
-    require("telescope.builtin").command_history(
-      require("telescope.themes").get_dropdown()
-    )
-  end,
-  { silent = true }
-)
+map("n", "<leader>f;", function()
+  require("telescope.builtin").command_history(
+    require("telescope.themes").get_dropdown()
+  )
+end, { silent = true })
 
 -- Git shortcuts
-map(
-  "n",
-  "<leader>go",
-  function()
-    require("telescope.builtin").git_files(
-      require("aiko.plugins.configs.telescope").dynamic()
-    )
-  end,
-  { silent = true }
-)
+map("n", "<leader>go", function()
+  require("telescope.builtin").git_files(
+    require("aiko.plugins.configs.telescope").dynamic()
+  )
+end, { silent = true })
 
-map(
-  "n",
-  "<leader>gC",
-  function()
-    require("telescope.builtin").git_commits(
-      require("aiko.plugins.configs.telescope").dynamic()
-    )
-  end,
-  { silent = true }
-)
+map("n", "<leader>gC", function()
+  require("telescope.builtin").git_commits(
+    require("aiko.plugins.configs.telescope").dynamic()
+  )
+end, { silent = true })
 
-map(
-  "n",
-  "<leader>gc",
-  function()
-    require("telescope.builtin").git_bcommits(
-      require("aiko.plugins.configs.telescope").dynamic()
-    )
-  end,
-  { silent = true }
-)
+map("n", "<leader>gc", function()
+  require("telescope.builtin").git_bcommits(
+    require("aiko.plugins.configs.telescope").dynamic()
+  )
+end, { silent = true })
 
-map(
-  "n",
-  "<leader>gb",
-  function()
-    require("telescope.builtin").git_branches(
-      require("aiko.plugins.configs.telescope").dynamic()
-    )
-  end,
-  { silent = true }
-)
+map("n", "<leader>gb", function()
+  require("telescope.builtin").git_branches(
+    require("aiko.plugins.configs.telescope").dynamic()
+  )
+end, { silent = true })
 
-map(
-  "n",
-  "<leader>gt",
-  function()
-    require("telescope.builtin").git_status(
-      require("aiko.plugins.configs.telescope").dynamic()
-    )
-  end,
-  { silent = true }
-)
+map("n", "<leader>gt", function()
+  require("telescope.builtin").git_status(
+    require("aiko.plugins.configs.telescope").dynamic()
+  )
+end, { silent = true })
 
-map(
-  "n",
-  "<leader>gh",
-  function()
-    require("telescope.builtin").git_stash(
-      require("aiko.plugins.configs.telescope").dynamic()
-    )
-  end,
-  { silent = true }
-)
+map("n", "<leader>gh", function()
+  require("telescope.builtin").git_stash(
+    require("aiko.plugins.configs.telescope").dynamic()
+  )
+end, { silent = true })
 
 -- Setting shortcuts
-map(
-  "n",
-  "<leader>ho",
-  function()
-    require("telescope.builtin").vim_options(
-      require("telescope.themes").get_dropdown()
-    )
-  end,
-  { silent = true }
-)
+map("n", "<leader>ho", function()
+  require("telescope.builtin").vim_options(
+    require("telescope.themes").get_dropdown()
+  )
+end, { silent = true })
 
-map(
-  "n",
-  "<leader>hc",
-  function()
-    require("telescope.builtin").colorscheme(
-      require("telescope.themes").get_dropdown()
-    )
-  end,
-  { silent = true }
-)
+map("n", "<leader>hc", function()
+  require("telescope.builtin").colorscheme(
+    require("telescope.themes").get_dropdown()
+  )
+end, { silent = true })
 
-map(
-  "n",
-  "<leader>hh",
-  function()
-    require("telescope.builtin").help_tags(
-      require("aiko.plugins.configs.telescope").dynamic()
-    )
-  end,
-  { silent = true }
-)
+map("n", "<leader>hh", function()
+  require("telescope.builtin").help_tags(
+    require("aiko.plugins.configs.telescope").dynamic()
+  )
+end, { silent = true })
 
-map(
-  "n",
-  "<leader>hm",
-  function()
-    require("telescope.builtin").man_pages(
-      require("aiko.plugins.configs.telescope").dynamic()
-    )
-  end,
-  { silent = true }
-)
+map("n", "<leader>hm", function()
+  require("telescope.builtin").man_pages(
+    require("aiko.plugins.configs.telescope").dynamic()
+  )
+end, { silent = true })
 
-map(
-  "n",
-  [[<leader>h']],
-  function()
-    require("telescope.builtin").marks(
-      require("aiko.plugins.configs.telescope").dynamic()
-    )
-  end,
-  { silent = true }
-)
+map("n", [[<leader>h']], function()
+  require("telescope.builtin").marks(
+    require("aiko.plugins.configs.telescope").dynamic()
+  )
+end, { silent = true })
 
-map(
-  "n",
-  "<leader>hk",
-  function()
-    require("telescope.builtin").keymaps(
-      require("aiko.plugins.configs.telescope").dynamic()
-    )
-  end,
-  { silent = true }
-)
+map("n", "<leader>hk", function()
+  require("telescope.builtin").keymaps(
+    require("aiko.plugins.configs.telescope").dynamic()
+  )
+end, { silent = true })
 
-map(
-  "n",
-  "<leader>hf",
-  function()
-    require("telescope.builtin").filetypes(
-      require("telescope.themes").get_dropdown()
-    )
-  end,
-  { silent = true }
-)
+map("n", "<leader>hf", function()
+  require("telescope.builtin").filetypes(
+    require("telescope.themes").get_dropdown()
+  )
+end, { silent = true })
 
-map(
-  "n",
-  "<leader>hr",
-  function()
-    require("telescope.builtin").registers(
-      require("aiko.plugins.configs.telescope").dynamic()
-    )
-  end,
-  { silent = true }
-)
+map("n", "<leader>hr", function()
+  require("telescope.builtin").registers(
+    require("aiko.plugins.configs.telescope").dynamic()
+  )
+end, { silent = true })
 
-map(
-  "n",
-  "<leader>hs",
-  function()
-    require("telescope").extensions.luasnip.luasnip(
-      require("aiko.plugins.configs.telescope").dynamic()
-    )
-  end,
-  { silent = true }
-)
+map("n", "<leader>hs", function()
+  require("telescope").extensions.luasnip.luasnip(
+    require("aiko.plugins.configs.telescope").dynamic()
+  )
+end, { silent = true })
 
-map(
-  "n",
-  "<leader>ha",
-  function()
-    require("telescope.builtin").autocommands(
-      require("aiko.plugins.configs.telescope").dynamic()
-    )
-  end,
-  { silent = true }
-)
+map("n", "<leader>ha", function()
+  require("telescope.builtin").autocommands(
+    require("aiko.plugins.configs.telescope").dynamic()
+  )
+end, { silent = true })
 
-map(
-  "n",
-  "<leader>ht",
-  function()
-    require("telescope.builtin").builtin(
-      require("aiko.plugins.configs.telescope").dynamic()
-    )
-  end,
-  { silent = true }
-)
+map("n", "<leader>ht", function()
+  require("telescope.builtin").builtin(
+    require("aiko.plugins.configs.telescope").dynamic()
+  )
+end, { silent = true })
 
-map(
-  "n",
-  "<leader>hq",
-  function()
-    require("telescope.builtin").quickfix(
-      require("aiko.plugins.configs.telescope").dynamic()
-    )
-  end,
-  { silent = true }
-)
+map("n", "<leader>hq", function()
+  require("telescope.builtin").quickfix(
+    require("aiko.plugins.configs.telescope").dynamic()
+  )
+end, { silent = true })
 
-map(
-  "n",
-  "<leader>hl",
-  function()
-    require("telescope.builtin").loclist(
-      require("aiko.plugins.configs.telescope").dynamic()
-    )
-  end,
-  { silent = true }
-)
+map("n", "<leader>hl", function()
+  require("telescope.builtin").loclist(
+    require("aiko.plugins.configs.telescope").dynamic()
+  )
+end, { silent = true })
 
 -- ---------------
 -- |   Neotree   |

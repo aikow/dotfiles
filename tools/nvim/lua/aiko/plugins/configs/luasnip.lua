@@ -104,18 +104,13 @@ M.setup = function()
     "<cmd>source ~/.dotfiles/tools/nvim/lua/aiko/snippets/init.lua<CR>",
     { silent = true, desc = "reload snippet configuration" }
   )
-  map(
-    "n",
-    "<leader>se",
-    function() require("luasnip.loaders").edit_snippet_files({}) end,
-    { silent = true, desc = "telescope edit snippets" }
-  )
+  map("n", "<leader>se", function()
+    require("luasnip.loaders").edit_snippet_files({})
+  end, { silent = true, desc = "telescope edit snippets" })
 
-  vim.api.nvim_create_user_command(
-    "LuaSnipEdit",
-    function() require("luasnip.loaders").edit_snippet_files({}) end,
-    { desc = "telescope edit snippets", force = true }
-  )
+  vim.api.nvim_create_user_command("LuaSnipEdit", function()
+    require("luasnip.loaders").edit_snippet_files({})
+  end, { desc = "telescope edit snippets", force = true })
 
   -- --------------------------
   -- |   Lazy Load Snippets   |

@@ -15,10 +15,9 @@ local m = require("luasnip.extras").m
 local lambda = require("luasnip.extras").l
 
 local replace = function(index, char)
-  return f(
-    function(arg) return string.rep(char, string.len(arg[1][1])) end,
-    { index }
-  )
+  return f(function(arg)
+    return string.rep(char, string.len(arg[1][1]))
+  end, { index })
 end
 
 local parse_comments = function()
