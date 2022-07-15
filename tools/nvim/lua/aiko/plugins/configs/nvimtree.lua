@@ -26,7 +26,7 @@ M.setup = function()
     view = {
       adaptive_size = false,
       side = "left",
-      width = 25,
+      width = 40,
       hide_root_folder = true,
       mappings = {
         list = {
@@ -52,6 +52,10 @@ M.setup = function()
       enable = true,
     },
     actions = {
+      change_dir = {
+        enable = true,
+        restrict_above_cwd = true,
+      },
       open_file = {
         resize_window = false,
       },
