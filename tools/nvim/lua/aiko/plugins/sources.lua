@@ -52,7 +52,6 @@ return {
   ["nvim-telescope/telescope.nvim"] = {
     cmd = "Telescope",
     module = "telescope",
-    fn = { "vim.ui.select", "vim.ui.input" },
     config = function()
       require("aiko.plugins.configs.telescope").setup()
     end,
