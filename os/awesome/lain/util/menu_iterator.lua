@@ -119,14 +119,18 @@ local function menu(args)
       -- selected choices
       for _, ch in pairs(c) do
         if atable.hasitem(choices, ch) then
-          cbs[#cbs + 1] = selected_cb and function() selected_cb(ch) end or nil
+          cbs[#cbs + 1] = selected_cb and function()
+            selected_cb(ch)
+          end or nil
         end
       end
 
       -- rejected choices
       for _, ch in pairs(choices) do
         if not atable.hasitem(c, ch) and atable.hasitem(choices, ch) then
-          cbs[#cbs + 1] = rejected_cb and function() rejected_cb(ch) end or nil
+          cbs[#cbs + 1] = rejected_cb and function()
+            rejected_cb(ch)
+          end or nil
         end
       end
 

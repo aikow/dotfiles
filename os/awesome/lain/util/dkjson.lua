@@ -76,7 +76,9 @@ pcall(function()
 end)
 
 json.null = setmetatable({}, {
-  __tojson = function() return "null" end,
+  __tojson = function()
+    return "null"
+  end,
 })
 
 local function isarray(tbl)
@@ -191,7 +193,9 @@ end
 
 updatedecpoint()
 
-local function num2str(num) return replace(fsub(tostring(num), numfilter, ""), decpoint, ".") end
+local function num2str(num)
+  return replace(fsub(tostring(num), numfilter, ""), decpoint, ".")
+end
 
 local function str2num(str)
   local num = tonumber(replace(str, ".", decpoint))
@@ -679,7 +683,9 @@ function json.use_lpeg()
     return false
   end
 
-  local function Err(msg) return g.Cmt(g.Cc(msg) * g.Carg(2), ErrorCall) end
+  local function Err(msg)
+    return g.Cmt(g.Cc(msg) * g.Carg(2), ErrorCall)
+  end
 
   local SingleLineComment = P("//") * (1 - S("\n\r")) ^ 0
   local MultiLineComment = P("/*") * (1 - P("*/")) ^ 0 * P("*/")
@@ -697,7 +703,9 @@ function json.use_lpeg()
       return false
     end
   end
-  local function UTF16BMP(hex) return unichar(tonumber(hex, 16)) end
+  local function UTF16BMP(hex)
+    return unichar(tonumber(hex, 16))
+  end
   local U16Sequence = (P("\\u") * g.C(HexDigit * HexDigit * HexDigit * HexDigit))
   local UnicodeEscape = g.Cmt(U16Sequence * U16Sequence, UTF16Surrogate) + U16Sequence / UTF16BMP
   local Char = UnicodeEscape + EscapeSequence + PlainChar
@@ -770,7 +778,9 @@ function json.use_lpeg()
   end
 
   -- use this function only once:
-  json.use_lpeg = function() return json end
+  json.use_lpeg = function()
+    return json
+  end
 
   json.using_lpeg = true
 

@@ -131,14 +131,20 @@ local function factory(args)
     })
   end
 
-  function cal.hover_on() cal.show(0) end
+  function cal.hover_on()
+    cal.show(0)
+  end
   function cal.move(offset)
     local offset = offset or 0
     cal.month, cal.year = cal.getdate(cal.month, cal.year, offset)
     cal.show(0, cal.month, cal.year)
   end
-  function cal.prev() cal.move(-1) end
-  function cal.next() cal.move(1) end
+  function cal.prev()
+    cal.move(-1)
+  end
+  function cal.next()
+    cal.move(1)
+  end
 
   function cal.attach(widget)
     widget:connect_signal("mouse::enter", cal.hover_on)
