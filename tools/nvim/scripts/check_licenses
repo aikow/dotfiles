@@ -5,48 +5,22 @@ or return
 
 set -l token $_flag_token
 
-set -l plugin_source lua/aiko/plugins/sources.lua
+cd lua
+
+set -l plugin_source aiko/plugins/sources.lua
 set -l require_source (string replace -a / . (string split -r -m1 . $plugin_source)[1])
 
 set -l plugins (lua -e "
-local plugins = {}
-
-local get_name
-get_name = function(plugin)
-  if type(plugin) == 'string' then
-    plugins[plugin] = true
-
-  elseif type(plugin) == 'table' then
-    if type(plugin[1]) == 'string' and plugin[2] == nil then
-      plugins[plugin[1]] = true
-
-      local requires = plugin.requires
-      if type(requires) == 'string' then
-        plugins[requires] = true
-      elseif type(requires) == 'table' then
-        for _, plug in ipairs(requires) do
-          get_name(plug)
-        end
-      end
-
-    else
-      for _, plug in pairs(plugin) do
-        get_name(plug)
-      end
-    end
-  end
-end
-
-sources = require('$require_source')
-
-sources.use(get_name)
+-- Create empty vim namespace
+vim = { api = {} }
+local plugins = require('$require_source')
 
 for k, _ in pairs(plugins) do
   print(k)
 end
 ")
 
-for plugin in $plugins do
+for plugin in $plugins
   set -l parts (string split / $plugin)
   set -l owner $parts[1]
   set -l repo $parts[2]
@@ -60,3 +34,4 @@ for plugin in $plugins do
   )
   echo "$plugin: $response"
 end | column -t
+

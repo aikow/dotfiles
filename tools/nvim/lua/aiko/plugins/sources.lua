@@ -85,16 +85,6 @@ return {
   },
 
   -- ----------------
-  -- |   Terminal   |
-  -- ----------------
-  ["akinsho/toggleterm.nvim"] = {
-    module = "toggleterm",
-    cmd = { "ToggleTerm", "ToggleTermToggleAll" },
-    keys = { "<M-v>", "<M-x>", "<M-f>", "<M-t>" },
-    config = function() require("aiko.plugins.configs.toggleterm").setup() end,
-  },
-
-  -- ----------------
   -- |   NvimTree   |
   -- ----------------
   ["kyazdani42/nvim-tree.lua"] = {

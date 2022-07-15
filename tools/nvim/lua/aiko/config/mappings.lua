@@ -603,23 +603,10 @@ map(
 -- ---------------
 -- |   Neotree   |
 -- ---------------
--- map(
---   "n",
---   "<leader>to",
---   [[<cmd>NvimTreeFocus<CR>]],
---   { silent = true, desc = "Neotree reveal filesystem" }
--- )
 
 map(
   "n",
   "-",
-  [[<cmd>NvimTreeFocus<CR>]],
+  [[<cmd>NvimTreeFindFile<CR>]],
   { silent = true, desc = "Neotree reveal filesystem" }
 )
-
--- map(
---   "n",
---   "<leader>tt",
---   [[<cmd>NvimTreeToggle<CR>]],
---   { silent = true, desc = "Neotree reveal filesystem" }
--- )
