@@ -170,4 +170,3 @@ zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
 # Load local settings and aliases
 [[ -f "${HOME}/.aliases.local" ]] && source "${HOME}/.aliases.local"
 [[ -f "${HOME}/.zshrc.local" ]] && source "${HOME}/.zshrc.local"
-
