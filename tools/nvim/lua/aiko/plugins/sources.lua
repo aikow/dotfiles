@@ -317,6 +317,7 @@ return {
     ft = "fish",
   },
 
+  -- Syntax support for nushell.
   ["LhKipp/nvim-nu"] = {
     ft = "nu",
   },
@@ -326,10 +327,20 @@ return {
     ft = { "csv", "tsv" },
   },
 
+  -- ------------------
+  -- |   Neorg Mode   |
+  -- ------------------
+
+  -- Neorg integrations with telescope.nvim
+  ["nvim-neorg/neorg-telescope"] = {
+    ft = "norg",
+  },
+
   -- Nvim Org mode plugin.
   ["nvim-neorg/neorg"] = {
     tag = "*",
     ft = "norg",
+    after = "neorg-telescope",
     config = function()
       require("aiko.plugins.configs.neorg").setup()
     end,
@@ -380,6 +391,7 @@ return {
   },
   ["catppuccin/nvim"] = {
     as = "catppuccin",
+    commit = "edd620668b4f547d89c68cda9b1911c17fa51780",
     -- Options: latte, macchiato, frappe, mocha
     config = function()
       vim.g.catppuccin_flavour = "frappe"
