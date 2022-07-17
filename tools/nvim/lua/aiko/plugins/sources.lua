@@ -392,11 +392,9 @@ return {
   },
   ["catppuccin/nvim"] = {
     as = "catppuccin",
-    commit = "edd620668b4f547d89c68cda9b1911c17fa51780",
-    -- Options: latte, macchiato, frappe, mocha
+    run = ":CatppuccinCompile",
     config = function()
-      vim.g.catppuccin_flavour = "frappe"
-      vim.cmd([[colorscheme catppuccin]])
+      require("aiko.plugins.configs.catppuccin").setup()
     end,
   },
   ["marko-cerovac/material.nvim"] = {

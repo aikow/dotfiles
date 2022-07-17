@@ -39,6 +39,7 @@ M.setup = function()
 
   packer.init({
     auto_clean = true,
+    auto_reload_compiled = true,
     compile_on_sync = true,
     git = { clone_timeout = 10 },
     display = {
