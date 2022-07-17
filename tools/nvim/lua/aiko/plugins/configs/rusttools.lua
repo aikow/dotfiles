@@ -1,5 +1,46 @@
 local M = {}
 
+M.mappings = function()
+  local map = vim.keymap.set
+
+  map(
+    "n",
+    "<localleader>d",
+    "<cmd>RustOpenExternalDocs<CR>",
+    { silent = true, desc = "rust open external docs" }
+  )
+  map(
+    "n",
+    "<localleader>t",
+    "<cmd>RustDebuggables<CR>",
+    { silent = true, desc = "rust debuggables" }
+  )
+  map(
+    "n",
+    "<localleader>r",
+    "<cmd>RustRunnables<CR>",
+    { silent = true, desc = "rust runnables" }
+  )
+  map(
+    "n",
+    "<localleader>c",
+    "<cmd>RustOpenCargo<CR>",
+    { silent = true, desc = "rust open cargo" }
+  )
+  map(
+    "n",
+    "<localleader>m",
+    "<cmd>RustExpandMacro<CR>",
+    { silent = true, desc = "rust expand macro" }
+  )
+  map(
+    "n",
+    "<localleader>a",
+    "<cmd>RustHoverActions<CR>",
+    { silent = true, desc = "rust hover actions" }
+  )
+end
+
 M.setup = function()
   local ok_rust_tools, rust_tools = pcall(require, "rust-tools")
   if not ok_rust_tools then
@@ -27,6 +68,10 @@ M.setup = function()
     -- These override the defaults set by rust-tools.nvim.
     -- see https://github.com/neovim/nvim-lspconfig/blob/master/CONFIG.md#rust_analyzer
     server = {
+      on_attach = function()
+        require("aiko.plugins.configs.lspconfig").mappings()
+        M.mappings()
+      end,
       capabilities = capabilities,
       settings = {
         -- to enable rust-analyzer settings visit:
