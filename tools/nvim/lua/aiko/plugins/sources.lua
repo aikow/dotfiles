@@ -290,6 +290,7 @@ return {
   },
   ["saecki/crates.nvim"] = {
     module = "crates",
+    ft = "toml",
     tag = "v0.1.0",
     config = function()
       require("aiko.plugins.configs.crates").setup()
