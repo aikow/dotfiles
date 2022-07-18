@@ -112,18 +112,31 @@ return {
     end,
   },
 
-  -- ----------------
-  -- |   NvimTree   |
-  -- ----------------
+  -- -------------------------
+  -- |   Neovim Tree Views   |
+  -- -------------------------
   --
+  -- Currently too fancy.
   -- File tree in a sidebar.
-  ["kyazdani42/nvim-tree.lua"] = {
-    cmd = { "NvimTreeToggle", "NvimTreeFocus" },
-    module = "nvim-tree",
+  -- ["kyazdani42/nvim-tree.lua"] = {
+  --   cmd = { "NvimTreeToggle", "NvimTreeFocus" },
+  --   module = "nvim-tree",
+  --   config = function()
+  --     require("aiko.plugins.configs.nvimtree").setup()
+  --   end,
+  -- },
+
+  -- View tree structures like file system, git files, buffers, etc.
+  ["nvim-neo-tree/neo-tree.nvim"] = {
+    branch = "v2.x",
+    cmd = "Neotree",
     config = function()
-      require("aiko.plugins.configs.nvimtree").setup()
+      require("aiko.plugins.configs.neotree").setup()
     end,
   },
+
+  -- Enhance vim's builtin netrw plugin.
+  ["tpope/vim-vinegar"] = {},
 
   -- ---------------------
   -- |   Code Snippets   |
