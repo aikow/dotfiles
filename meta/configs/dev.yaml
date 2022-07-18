@@ -102,6 +102,12 @@
 
       create: true
 
+    # WezTerm
+    ~/.config/wezterm:
+      if: 'command -v wezterm &>/dev/null'
+      path: emulators/wezterm
+      create: true
+
     # Jetbrains vim emulator
     ~/.ideavimrc: ides/jetbrains/ideavimrc
 
