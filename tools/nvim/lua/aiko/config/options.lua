@@ -54,13 +54,25 @@ if vim.fn.executable("rg") == 1 then
 end
 
 -- Format options
-opt.formatoptions = "tcroqnblj"
+opt.formatoptions = opt.formatoptions
+  + "t" -- Auto-wrap using 'textwidth'
+  + "c" -- Auto-wrap comments using 'textwidth'
+  + "r" -- Automatically insert current comment leader in insert mode (<CR>)
+  + "o" -- Automatically insert current comment leader in normal mode (o or O)
+  + "q" -- Allow formatting with 'gq'
+  + "n" -- Recognize numbered lists
+  + "b" -- Only auto-wrap if line was entered at or before the wrap margin
+  + "l" -- Long lines when entering insert mode are not wrapped automatically
+  + "j" -- Remove comment leader when joining lines
 
 -- Completion menu options
-vim.opt.completeopt = { "menu", "menuone", "noselect" }
+vim.opt.completeopt = vim.opt.completeopt
+  + "menu" -- Use a popup menu to show possible completions
+  + "menuone" -- Show menu even with one result
+  + "noselect" -- Don't automatically select a match
 
 -- Avoid showing extra messages when using completion
-vim.opt.shortmess = vim.opt.shortmess + "c"
+vim.opt.shortmess = vim.opt.shortmess + "c" -- Don't give ins-complete-menu messages
 
 -- Use treesitter for folding
 opt.foldmethod = "expr"
@@ -127,3 +139,5 @@ set_cursorline("FileType", false, "TelescopePrompt")
 opt.conceallevel = 2
 opt.showbreak = " -> "
 opt.fillchars = { eob = " " }
+
+vim.cmd([[colorscheme gruvbox-material]])
