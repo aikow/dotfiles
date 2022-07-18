@@ -406,6 +406,7 @@ return {
   ["catppuccin/nvim"] = {
     as = "catppuccin",
     run = ":CatppuccinCompile",
+    event = "ColorSchemePre",
     config = function()
       require("aiko.plugins.configs.catppuccin").setup()
     end,
@@ -417,9 +418,7 @@ return {
       vim.g.material_style = "darker"
     end,
   },
-  ["sainnhe/gruvbox-material"] = {
-    event = "ColorSchemePre",
-  },
+  ["sainnhe/gruvbox-material"] = {},
   ["folke/tokyonight.nvim"] = {
     event = "ColorSchemePre",
   },

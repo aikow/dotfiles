@@ -23,7 +23,6 @@ return {
 
   enable_tab_bar = false,
 
-  -- font = wezterm.font("Hack Nerd Font"),
   font = wezterm.font_with_fallback({
     "Hack Nerd Font",
     "JetBrains Mono",
