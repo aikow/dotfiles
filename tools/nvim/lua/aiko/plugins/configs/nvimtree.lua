@@ -104,4 +104,15 @@ M.setup = function()
   })
 end
 
+M.mappings = function()
+  local map = vim.keymap.set
+
+  map(
+    "n",
+    "-",
+    [[<cmd>NvimTreeFindFile<CR>]],
+    { silent = true, desc = "Neotree reveal filesystem" }
+  )
+end
+
 return M

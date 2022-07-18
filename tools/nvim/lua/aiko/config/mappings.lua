@@ -443,13 +443,4 @@ map("n", "<leader>hp", function()
   )
 end, { silent = true, desc = "telescope highlights" })
 
--- ---------------
--- |   Neotree   |
--- ---------------
-
-map(
-  "n",
-  "-",
-  [[<cmd>NvimTreeFindFile<CR>]],
-  { silent = true, desc = "Neotree reveal filesystem" }
-)
+require("aiko.plugins.configs.neotree").mappings()

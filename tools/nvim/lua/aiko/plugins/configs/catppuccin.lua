@@ -56,12 +56,12 @@ M.setup = function()
       gitsigns = true,
       telescope = true,
       nvimtree = {
-        enabled = true,
+        enabled = false,
         show_root = true,
         transparent_panel = false,
       },
       neotree = {
-        enabled = false,
+        enabled = true,
         show_root = true,
         transparent_panel = false,
       },
@@ -100,7 +100,7 @@ M.setup = function()
   })
 
   -- Options: latte, macchiato, frappe, mocha
-  vim.g.catppuccin_flavour = "frappe"
+  vim.g.catppuccin_flavour = "macchiato"
 
   vim.cmd([[colorscheme catppuccin]])
 end
