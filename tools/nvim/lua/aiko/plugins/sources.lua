@@ -274,6 +274,8 @@ return {
   -- -----------
   -- |   Git   |
   -- -----------
+  --
+  -- Using git from inside vim.
   ["tpope/vim-fugitive"] = {
     cmd = require("aiko.plugins.lazy").fugitive_cmds,
   },
@@ -288,7 +290,7 @@ return {
   -- ------------------------
   -- |   Language Add-Ons   |
   -- ------------------------
-
+  --
   -- Python
   ["aikow/python.nvim"] = {
     ft = "python",
@@ -344,7 +346,7 @@ return {
   -- ------------------
   -- |   Neorg Mode   |
   -- ------------------
-
+  --
   -- Neorg integrations with telescope.nvim
   ["nvim-neorg/neorg-telescope"] = {
     ft = "norg",
@@ -363,6 +365,7 @@ return {
   -- ------------------------------
   -- |   GUI, Themes, and Icons   |
   -- ------------------------------
+  --
   -- New UI components.
   ["MunifTanjim/nui.nvim"] = {
     module = "nui",
@@ -395,6 +398,10 @@ return {
   -- ---------------------
   -- |   Color Schemes   |
   -- ---------------------
+  --
+  -- Color and colorscheme helper.
+  ["rktjmp/lush.nvim"] = {},
+
   ["navarasu/onedark.nvim"] = {
     event = "ColorSchemePre",
     config = function()
@@ -408,17 +415,20 @@ return {
     run = ":CatppuccinCompile",
     event = "ColorSchemePre",
     config = function()
-      require("aiko.plugins.configs.catppuccin").setup()
+      require("aiko.plugins.configs.colorschemes").catppuccin()
     end,
   },
   ["marko-cerovac/material.nvim"] = {
     event = "ColorSchemePre",
     config = function()
-      -- Options: oceanic, deep ocean, palenight, lighter, darker
-      vim.g.material_style = "darker"
+      require("aiko.plugins.configs.colorschemes").material()
     end,
   },
-  ["sainnhe/gruvbox-material"] = {},
+  ["sainnhe/gruvbox-material"] = {
+    config = function()
+      require("aiko.plugins.configs.colorschemes").gruvbox_material()
+    end,
+  },
   ["folke/tokyonight.nvim"] = {
     event = "ColorSchemePre",
   },
