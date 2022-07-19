@@ -400,7 +400,17 @@ return {
   -- ---------------------
   --
   -- Color and colorscheme helper.
-  ["rktjmp/lush.nvim"] = {},
+  ["rktjmp/lush.nvim"] = {
+    module = "lush",
+  },
+
+  -- Current default
+  ["sainnhe/gruvbox-material"] = {
+    -- event = "ColorSchemePre",
+    config = function()
+      require("aiko.plugins.configs.colorschemes").gruvbox_material()
+    end,
+  },
 
   ["navarasu/onedark.nvim"] = {
     event = "ColorSchemePre",
@@ -410,6 +420,7 @@ return {
       })
     end,
   },
+
   ["catppuccin/nvim"] = {
     as = "catppuccin",
     run = ":CatppuccinCompile",
@@ -418,17 +429,14 @@ return {
       require("aiko.plugins.configs.colorschemes").catppuccin()
     end,
   },
+
   ["marko-cerovac/material.nvim"] = {
     event = "ColorSchemePre",
     config = function()
       require("aiko.plugins.configs.colorschemes").material()
     end,
   },
-  ["sainnhe/gruvbox-material"] = {
-    config = function()
-      require("aiko.plugins.configs.colorschemes").gruvbox_material()
-    end,
-  },
+
   ["folke/tokyonight.nvim"] = {
     event = "ColorSchemePre",
   },

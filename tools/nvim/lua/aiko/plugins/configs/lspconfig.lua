@@ -38,27 +38,6 @@ M.mappings = function()
     { silent = true, desc = "set location list to diagnostics" }
   )
 
-  -- LSP functions
-  -- See `:help vim.lsp.*` for documentation on any of the below functions
-  vim.keymap.set("n", "K", function()
-    local ft = vim.bo.filetype
-    if ft == "vim" or ft == "help" then
-      vim.api.nvim_command("help " .. vim.fn.expand("<cword>"))
-    elseif ft == "man" then
-      vim.api.nvim_command("Man " .. vim.fn.expand("<cword>"))
-    elseif vim.fn.expand("%:t") == "Cargo.toml" then
-      require("crates").show_popup()
-    else
-      vim.lsp.buf.hover()
-    end
-  end, { desc = "show documentation" })
-  vim.keymap.set(
-    "n",
-    "<leader>k",
-    vim.lsp.buf.signature_help,
-    { desc = "signature help" }
-  )
-
   -- Refactoring with <leader>r...
   map(
     "n",
@@ -183,19 +162,44 @@ M.setup = function()
 
   local capabilities = M.capabilities()
 
+  local servers = {
+    "pyright",
+    "clangd",
+    "bashls",
+    "yamlls",
+    "jsonls",
+    "taplo",
+    "vimls",
+    "gopls",
+  }
+
   -- Basic language servers
-  for _, ls in pairs({ "pyright", "clangd", "bashls", "yamlls", "jsonls" }) do
+  for _, ls in pairs(servers) do
     lspconfig[ls].setup({
       on_attach = M.on_attach,
       capabilities = capabilities,
     })
   end
 
-  -- Customize lua language server.
-  lspconfig.sumneko_lua.setup(M.sumneko_lua())
+  M.grammarly(lspconfig)
+  M.sumneko_lua(lspconfig)
 end
 
-M.sumneko_lua = function()
+M.grammarly = function(lspconfig)
+  lspconfig.grammarly.setup({
+    on_attach = M.on_attach,
+    capabilities = M.capabilities(),
+    filetypes = { "markdown", "tex" },
+    settings = {
+      suggestions = {
+        PassiveVoice = true,
+        OxfordComma = true,
+      },
+    },
+  })
+end
+
+M.sumneko_lua = function(lspconfig)
   -- Setup configuration for neovim.
   local setup_neovim_libraries = function()
     -- Add all library paths from vim's runtime path.
@@ -231,7 +235,7 @@ M.sumneko_lua = function()
     return true
   end
 
-  return {
+  lspconfig.sumneko_lua.setup({
     on_attach = M.on_attach,
     on_init = on_init,
     capabilities = M.capabilities(),
@@ -254,7 +258,7 @@ M.sumneko_lua = function()
         },
       },
     },
-  }
+  })
 end
 
 return M
