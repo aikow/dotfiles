@@ -103,4 +103,48 @@ M.setup = function()
   vim.g.catppuccin_flavour = "macchiato"
 end
 
+M.gruvbox_material = function()
+  vim.g.gruvbox_material_background = "medium"
+  vim.g.grubbox_material_better_performance = 1
+  vim.g.gruvbox_material_enable_bold = 1
+  vim.g.gruvbox_material_enable_italic = 1
+
+  local normal = vim.api.nvim_get_hl_by_name("Normal", true)
+  local cp = {
+    crust = "#1b1818",
+    mantle = "#110f0f",
+    text = "#808080",
+  }
+
+  vim.api.nvim_set_hl(0, "TelescopePromptPrefix", { bg = cp.crust })
+  vim.api.nvim_set_hl(0, "TelescopePromptNormal", { bg = cp.crust })
+  vim.api.nvim_set_hl(0, "TelescopeResultsNormal", { bg = cp.mantle })
+  vim.api.nvim_set_hl(0, "TelescopePreviewNormal", { bg = cp.crust })
+
+  vim.api.nvim_set_hl(
+    0,
+    "TelescopePromptBorder",
+    { bg = cp.crust, fg = cp.crust }
+  )
+  vim.api.nvim_set_hl(
+    0,
+    "TelescopeResultsBorder",
+    { bg = cp.mantle, fg = cp.mantle }
+  )
+  vim.api.nvim_set_hl(
+    0,
+    "TelescopePreviewBorder",
+    { bg = cp.crust, fg = cp.crust }
+  )
+
+  vim.api.nvim_set_hl(0, "TelescopePromptTitle", { fg = cp.text })
+  vim.api.nvim_set_hl(0, "TelescopeResultsTitle", { fg = cp.text })
+  vim.api.nvim_set_hl(0, "TelescopePreviewTitle", { fg = cp.text })
+end
+
+M.material = function()
+  -- Options: oceanic, deep ocean, palenight, lighter, darker
+  vim.g.material_style = "darker"
+end
+
 return M
