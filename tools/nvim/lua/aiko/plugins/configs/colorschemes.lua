@@ -110,36 +110,22 @@ M.gruvbox_material = function()
   vim.g.gruvbox_material_enable_italic = 1
 
   local normal = vim.api.nvim_get_hl_by_name("Normal", true)
-  local cp = {
-    crust = "#1b1818",
-    mantle = "#110f0f",
-    text = "#808080",
-  }
+  local dark1 = "#232323"
+  local dark2 = "#1e1e1e"
+  local text = normal.foreground
 
-  vim.api.nvim_set_hl(0, "TelescopePromptPrefix", { bg = cp.crust })
-  vim.api.nvim_set_hl(0, "TelescopePromptNormal", { bg = cp.crust })
-  vim.api.nvim_set_hl(0, "TelescopeResultsNormal", { bg = cp.mantle })
-  vim.api.nvim_set_hl(0, "TelescopePreviewNormal", { bg = cp.crust })
+  vim.api.nvim_set_hl(0, "TelescopePromptPrefix", { bg = dark1 })
+  vim.api.nvim_set_hl(0, "TelescopePromptNormal", { bg = dark1 })
+  vim.api.nvim_set_hl(0, "TelescopePromptBorder", { bg = dark1, fg = dark1 })
+  vim.api.nvim_set_hl(0, "TelescopePromptTitle", { fg = text })
 
-  vim.api.nvim_set_hl(
-    0,
-    "TelescopePromptBorder",
-    { bg = cp.crust, fg = cp.crust }
-  )
-  vim.api.nvim_set_hl(
-    0,
-    "TelescopeResultsBorder",
-    { bg = cp.mantle, fg = cp.mantle }
-  )
-  vim.api.nvim_set_hl(
-    0,
-    "TelescopePreviewBorder",
-    { bg = cp.crust, fg = cp.crust }
-  )
+  vim.api.nvim_set_hl(0, "TelescopeResultsNormal", { bg = dark2 })
+  vim.api.nvim_set_hl(0, "TelescopeResultsBorder", { bg = dark2, fg = dark2 })
+  vim.api.nvim_set_hl(0, "TelescopeResultsTitle", { fg = dark2 })
 
-  vim.api.nvim_set_hl(0, "TelescopePromptTitle", { fg = cp.text })
-  vim.api.nvim_set_hl(0, "TelescopeResultsTitle", { fg = cp.text })
-  vim.api.nvim_set_hl(0, "TelescopePreviewTitle", { fg = cp.text })
+  vim.api.nvim_set_hl(0, "TelescopePreviewNormal", { bg = dark1 })
+  vim.api.nvim_set_hl(0, "TelescopePreviewBorder", { bg = dark1, fg = dark1 })
+  vim.api.nvim_set_hl(0, "TelescopePreviewTitle", { fg = text })
 end
 
 M.material = function()

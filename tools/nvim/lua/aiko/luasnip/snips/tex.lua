@@ -118,21 +118,6 @@ local to_snake = function(index)
   end, { index })
 end
 
--- Create a choice node which simply toggles text
-local toggle_text = function(index, text, reverse)
-  if reverse then
-    return c(index, {
-      t(text),
-      t(""),
-    })
-  else
-    return c(index, {
-      t(""),
-      t(text),
-    })
-  end
-end
-
 -- Dynamically create a bunch of snippet nodes parsed from a latex table string.
 local table_node = function(args)
   local tabs = {}
@@ -324,8 +309,8 @@ snip(
       name = i(1),
       name2 = rep(1),
       options = i(2),
-      leftpar = ne(2, "", "{"),
-      rightpar = ne(2, "", "}"),
+      leftpar = ne(2, "{", ""),
+      rightpar = ne(2, "}", ""),
       stop = i(0),
     }
   )
@@ -436,11 +421,11 @@ snip(
   "align",
   fmta(
     [[
-      \begin{align<star>}
-        <input>
-      \end{align<star>}
+      \begin{align<>}
+        <>
+      \end{align<>}
     ]],
-    { star = toggle_text(1, "*"), input = i(2) }
+    { c(1, { t("*"), t("") }), i(2), rep(1) }
   )
 )
 snip(
@@ -449,11 +434,11 @@ snip(
   "multiline",
   fmta(
     [[
-      \begin{multline<star>}
-        <input>
-      \end{multline<star>}
+      \begin{multline<>}
+        <>
+      \end{multline<>}
     ]],
-    { star = toggle_text(1, "*"), input = i(2) }
+    { c(1, { t("*"), t("") }), i(2), rep(1) }
   )
 )
 
@@ -506,7 +491,7 @@ snip(
   "wMA",
   "dm",
   "display math",
-  { t({ "\\[", "\t" }), i(1), t({ "", "" }), toggle_text(2, ".", true), "\\]" }
+  { t({ "\\[", "\t" }), i(1), t({ "", "" }), c(2, { t("."), t("") }), "\\]" }
 )
 
 -- -----------------
@@ -923,96 +908,96 @@ snip("imA", "eE", "exists", [[\exists]])
 snip("imA", "aA", "for all", [[\forall]])
 
 -- Operations
-snip("imA", "ooo", "infinity", [[\infty]])
-snip("imA", "<=", "less than or equal to", [[\le]])
-snip("imA", ">=", "greater than or equal to", [[\ge]])
-snip("imA", "xx", "cross times", [[\times]])
-snip("imA", "ox", "o cross times", [[\otimes]])
-snip("imA", "op", "o plus", [[\oplus]])
-snip("imA", "**", "center dot", [[\cdot]])
-snip("imA", "->", "to", [[\to]], { prio = 100 })
-snip("imA", "<->", "left right arrow", [[\leftrightarrow]], { prio = 200 })
-snip("imA", "~>", "right squigly arrow", [[\rightsquigarrow]])
-snip("imA", "!>", "maps to", [[\mapsto]])
-snip("imA", "invs", "inverse", [[^{-1}]])
-snip("imA", "compl", "complement", [[^{c}]])
-snip("imA", ">>", "greater than", [[\gg]])
-snip("imA", "<<", "less than", [[\ll]])
-snip("imA", "~~", "similar", [[\sim]])
-snip("imA", "||", "mid", [[\mid]])
+snip("imAS", "ooo", "infinity", [[\infty]])
+snip("imAS", "<=", "less than or equal to", [[\le]])
+snip("imAS", ">=", "greater than or equal to", [[\ge]])
+snip("imAS", "xx", "cross times", [[\times]])
+snip("imAS", "ox", "o cross times", [[\otimes]])
+snip("imAS", "op", "o plus", [[\oplus]])
+snip("imAS", "**", "center dot", [[\cdot]])
+snip("imAS", "->", "to", [[\to]], { prio = 100 })
+snip("imAS", "<->", "left right arrow", [[\leftrightarrow]], { prio = 200 })
+snip("imAS", "~>", "right squigly arrow", [[\rightsquigarrow]])
+snip("imAS", "!>", "maps to", [[\mapsto]])
+snip("imAS", "invs", "inverse", [[^{-1}]])
+snip("imAS", "compl", "complement", [[^{c}]])
+snip("imAS", ">>", "greater than", [[\gg]])
+snip("imAS", "<<", "less than", [[\ll]])
+snip("imAS", "~~", "similar", [[\sim]])
+snip("imAS", "||", "mid", [[\mid]])
 
 -- Sets
-snip("imA", "OO", "empty set", [[\varnothing]])
-snip("imA", [[\\\]], "set minus", [[\setminus]])
-snip("imA", "cc", "subset", [[\subset]])
-snip("imA", "c=", "subset equal", [[\subseteq]])
-snip("imA", "notin", "set not in", [[\not\in]])
-snip("imA", "inn", "set in", [[\in]])
-snip("imA", "nN", "cap", [[\cap]])
-snip("imA", "uU", "cup", [[\cup]])
+snip("imAS", "OO", "empty set", [[\varnothing]])
+snip("imAS", [[\\\]], "set minus", [[\setminus]])
+snip("imAS", "cc", "subset", [[\subset]])
+snip("imAS", "c=", "subset equal", [[\subseteq]])
+snip("imAS", "notin", "set not in", [[\not\in]])
+snip("imAS", "inn", "set in", [[\in]])
+snip("imAS", "nN", "cap", [[\cap]])
+snip("imAS", "uU", "cup", [[\cup]])
 
 -- Symbols
-snip("imA", "lll", "ell", [[\ell]])
-snip("imA", "nabl", "nabla", [[\nabla]])
-snip("imA", "<!", "normal", [[\triangleleft]])
-snip("imA", "<>", "jokje", [[\diamond]])
+snip("imAS", "lll", "ell", [[\ell]])
+snip("imAS", "nabl", "nabla", [[\nabla]])
+snip("imAS", "<!", "normal", [[\triangleleft]])
+snip("imAS", "<>", "jokje", [[\diamond]])
 
 -- Spacing
-snip("imA", "qd", "quad", [[\quad]])
-snip("imA", "Qd", "qquad", [[\qquad]])
+snip("imAS", "qd", "quad", [[\quad]])
+snip("imAS", "Qd", "qquad", [[\qquad]])
 
 -- Word functions
-snip("wmA", "sin", "sin", [[\sin]], { prio = 100 })
-snip("rmA", "ar?c?sin", "arcsin", [[\arcsin]], { prio = 200 })
+snip("wmAS", "sin", "sin", [[\sin]], { prio = 100 })
+snip("rmAS", "ar?c?sin", "arcsin", [[\arcsin]], { prio = 200 })
 
-snip("wmA", "cos", "cosin", [[\cos]], { prio = 100 })
-snip("rmA", "ar?c?cos", "arccos", [[\arccos]], { prio = 200 })
+snip("wmAS", "cos", "cosin", [[\cos]], { prio = 100 })
+snip("rmAS", "ar?c?cos", "arccos", [[\arccos]], { prio = 200 })
 
-snip("wmA", "tan", "tangent", [[\tan]], { prio = 100 })
-snip("rmA", "ar?c?tan", "arctangent", [[\arctan]], { prio = 200 })
+snip("wmAS", "tan", "tangent", [[\tan]], { prio = 100 })
+snip("rmAS", "ar?c?tan", "arctangent", [[\arctan]], { prio = 200 })
 
-snip("wmA", "sec", "secant", [[\sec]], { prio = 100 })
-snip("rmA", "ar?c?sec", "arcsecant", [[\arcsec]], { prio = 200 })
+snip("wmAS", "sec", "secant", [[\sec]], { prio = 100 })
+snip("rmAS", "ar?c?sec", "arcsecant", [[\arcsec]], { prio = 200 })
 
-snip("wmA", "csc", "cosecant", [[\csc]], { prio = 100 })
-snip("rmA", "ar?c?csc", "arccosecant", [[\arccsc]], { prio = 200 })
+snip("wmAS", "csc", "cosecant", [[\csc]], { prio = 100 })
+snip("rmAS", "ar?c?csc", "arccosecant", [[\arccsc]], { prio = 200 })
 
-snip("wmA", "cot", "cotangent", [[\cot]], { prio = 100 })
-snip("rmA", "ar?c?cot", "arccotangent", [[\arccot]], { prio = 200 })
+snip("wmAS", "cot", "cotangent", [[\cot]], { prio = 100 })
+snip("rmAS", "ar?c?cot", "arccotangent", [[\arccot]], { prio = 200 })
 
-snip("wmA", "ln", "natural logarithm", [[\ln]], { prio = 100 })
-snip("wmA", "log", "logarithm", [[\log]], { prio = 100 })
-snip("wmA", "exp", "exponential", [[\exp]], { prio = 100 })
-snip("wmA", "star", "star", [[\star]], { prio = 100 })
-snip("wmA", "perp", "perpendicular", [[\perp]], { prio = 100 })
-snip("wmA", "max", "maximum", [[\max]], { prio = 100 })
-snip("wmA", "min", "minimum", [[\min]], { prio = 100 })
-snip("wmA", "sup", "supremum", [[\sup]], { prio = 100 })
-snip("wmA", "inf", "infimum", [[\inf]], { prio = 100 })
-snip("wmA", "get", "get", [[\get]], { prio = 100 })
-snip("wmA", "int", "integral", [[\int]], { prio = 100 })
+snip("wmAS", "ln", "natural logarithm", [[\ln]], { prio = 100 })
+snip("wmAS", "log", "logarithm", [[\log]], { prio = 100 })
+snip("wmAS", "exp", "exponential", [[\exp]], { prio = 100 })
+snip("wmAS", "star", "star", [[\star]], { prio = 100 })
+snip("wmAS", "perp", "perpendicular", [[\perp]], { prio = 100 })
+snip("wmAS", "max", "maximum", [[\max]], { prio = 100 })
+snip("wmAS", "min", "minimum", [[\min]], { prio = 100 })
+snip("wmAS", "sup", "supremum", [[\sup]], { prio = 100 })
+snip("wmAS", "inf", "infimum", [[\inf]], { prio = 100 })
+snip("wmAS", "get", "get", [[\get]], { prio = 100 })
+snip("wmAS", "int", "integral", [[\int]], { prio = 100 })
 
 -- -------------------
 -- |   Number Sets   |
 -- -------------------
-snip("imA", "NN", "natural numbers", [[\mathbb{N}]])
-snip("imA", "CC", "complex numbers", [[\mathbb{C}]])
-snip("imA", "RR", "real numbers", [[\mathbb{R}]])
-snip("imA", "QQ", "rational numbers", [[\mathbb{Q}]])
-snip("imA", "R0+", "rational numbers greater than zero", [[\mathbb{N}]])
-snip("imA", "ZZ", "integers numbers", [[\mathbb{R}_0^+]])
-snip("imA", "PP", "double stroke P", [[\mathbb{P}]])
-snip("imA", "EE", "double stroke E", [[\mathbb{E}]])
-snip("imA", "VV", "double stroke V", [[\mathbb{V}]])
-snip("imA", "HH", "double stroke H", [[\mathbb{H}]])
-snip("imA", "DD", "double stroke D", [[\mathbb{D}]])
-snip("imA", "KK", "double stroke K", [[\mathbb{K}]])
+snip("imAS", "NN", "natural numbers", [[\mathbb{N}]])
+snip("imAS", "CC", "complex numbers", [[\mathbb{C}]])
+snip("imAS", "RR", "real numbers", [[\mathbb{R}]])
+snip("imAS", "QQ", "rational numbers", [[\mathbb{Q}]])
+snip("imAS", "R0+", "rational numbers greater than zero", [[\mathbb{N}]])
+snip("imAS", "ZZ", "integers numbers", [[\mathbb{R}_0^+]])
+snip("imAS", "PP", "double stroke P", [[\mathbb{P}]])
+snip("imAS", "EE", "double stroke E", [[\mathbb{E}]])
+snip("imAS", "VV", "double stroke V", [[\mathbb{V}]])
+snip("imAS", "HH", "double stroke H", [[\mathbb{H}]])
+snip("imAS", "DD", "double stroke D", [[\mathbb{D}]])
+snip("imAS", "KK", "double stroke K", [[\mathbb{K}]])
 
 -- ---------------------
 -- |   Greek Letters   |
 -- ---------------------
-snip("wmA", "pi", "pi", [[\pi]], { prio = 100 })
-snip("wmA", "zeta", "zeta", [[\zeta]], { prio = 100 })
+snip("wmAS", "pi", "pi", [[\pi]], { prio = 100 })
+snip("wmAS", "zeta", "zeta", [[\zeta]], { prio = 100 })
 
 local greek = function(symbol, name, latex)
   snip("imAS", "@" .. symbol, name, latex)

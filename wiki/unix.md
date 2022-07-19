@@ -32,9 +32,9 @@ https://wiki.archlinux.org/title/Arch_Linux_Archive
 
 ### Media
 
-- `spotify-tui`
-- `sioyek`
-- `zathura`
+- `spotify-tui` - Spotify terminal user interface
+- `sioyek` - Super cool PDF viewer for research papers and books
+- `zathura` - PDF viewer with vim-like keybindings
 
 ### Random
 

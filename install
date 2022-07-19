@@ -27,8 +27,8 @@ if [[ ! -f "${INSTALL_CONFIG_FILE}" ]]; then
   # Read all config files found in the ${CONFIG_DIR}
   unset options i
   while IFS= read -r -d $'\0' f; do
-    f1="${f#${CONFIG_DIR}/}"
-    f2="${f1%.${CONFIG_SUFFIX}}"
+    f1="${f#"${CONFIG_DIR}/"}"
+    f2="${f1%".${CONFIG_SUFFIX}"}"
     options[i++]="${f2}"
   done < <(find "${CONFIG_DIR}" -maxdepth 1 -type f -name "*.${CONFIG_SUFFIX}" -print0)
 
