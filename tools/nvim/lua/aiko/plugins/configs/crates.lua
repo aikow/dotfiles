@@ -17,9 +17,12 @@ M.setup = function()
 
   crates.setup()
 
+  -- Show menus
   map("n", "<localleader>t", crates.toggle, opts("crates toggle menu"))
   map("n", "<localleader>r", crates.reload, opts("crates reload source"))
 
+  -- Show popups
+  map("n", "K", crates.show_popup, opts("crates show popup"))
   map(
     "n",
     "<localleader>v",

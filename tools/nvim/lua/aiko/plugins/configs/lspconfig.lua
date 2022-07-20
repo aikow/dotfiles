@@ -10,55 +10,43 @@ M.on_attach = function(client, bufnr)
   M.mappings()
 end
 
+-- ------------------------------------------------------------------------
+-- | Mappings
+-- ------------------------------------------------------------------------
 M.mappings = function()
   local map = vim.keymap.set
+  local opts = function(desc)
+    return {
+      silent = true,
+      buffer = true,
+      desc = desc or "",
+    }
+  end
 
-  map(
-    "n",
-    "<leader>e",
-    vim.diagnostic.open_float,
-    { silent = true, desc = "open diagnostic window" }
-  )
-  map(
-    { "n", "v", "o" },
-    "[e",
-    vim.diagnostic.goto_prev,
-    { silent = true, desc = "go to previous diagnostic" }
-  )
-  map(
-    { "n", "v", "o" },
-    "]e",
-    vim.diagnostic.goto_next,
-    { silent = true, desc = "go to next diagnostic" }
-  )
-  map(
-    "n",
-    "<leader>dl",
-    vim.diagnostic.setloclist,
-    { silent = true, desc = "set location list to diagnostics" }
-  )
+  local lsp = vim.lsp.buf
+  local d = vim.diagnostic
+
+  -- Hover actions
+  map("n", "K", lsp.hover, opts("show documentation"))
+  map("n", "<leader>k", lsp.signature_help, opts("signature help"))
+
+  -- Diagnostics
+  map("n", "<leader>e", d.open_float, opts("open diagnostic float"))
+  map({ "n", "v", "o" }, "[e", d.goto_prev, opts("go to previous diagnostic"))
+  map({ "n", "v", "o" }, "]e", d.goto_next, opts("go to next diagnostic"))
+  map("n", "<leader>dl", d.setloclist, opts("diagnostics set location list"))
+
+  -- Code actions
+  map("n", "<leader>a", lsp.code_action, opts("LSP code actions"))
 
   -- Refactoring with <leader>r...
-  map(
-    "n",
-    "<leader>rr",
-    vim.lsp.buf.rename,
-    { silent = true, desc = "LSP rename" }
-  )
-  map(
-    "n",
-    "<leader>rq",
-    vim.lsp.buf.code_action,
-    { silent = true, desc = "LSP code actions" }
-  )
-  map(
-    "n",
-    "<leader>rf",
-    vim.lsp.buf.formatting,
-    { silent = true, desc = "LSP format file" }
-  )
+  map("n", "<leader>rr", lsp.rename, opts("LSP rename"))
+  map("n", "<leader>rf", lsp.format, opts("LSP format file"))
 end
 
+-- ------------------------------------------------------------------------
+-- | UI Tweaks
+-- ------------------------------------------------------------------------
 M.ui = function()
   local function lspSymbol(name, icon)
     local hl = "DiagnosticSign" .. name
@@ -104,17 +92,20 @@ M.ui = function()
     end
   end
 
-  -- Borders for LspInfo winodw
-  local win = require("lspconfig.ui.windows")
-  local _default_opts = win.default_opts
-
-  win.default_opts = function(options)
-    local opts = _default_opts(options)
-    opts.border = "single"
-    return opts
-  end
+  -- Borders for LspInfo window
+  -- local win = require("lspconfig.ui.windows")
+  -- local _default_opts = win.default_opts
+  --
+  -- win.default_opts = function(options)
+  --   local opts = _default_opts(options)
+  --   opts.border = "single"
+  --   return opts
+  -- end
 end
 
+-- ------------------------------------------------------------------------
+-- | Capabilities
+-- ------------------------------------------------------------------------
 M.capabilities = function()
   local capabilities = vim.lsp.protocol.make_client_capabilities()
 
@@ -145,7 +136,11 @@ M.capabilities = function()
   return capabilities
 end
 
+-- ------------------------------------------------------------------------
+-- | Setup LSP Servers
+-- ------------------------------------------------------------------------
 M.setup = function()
+  -- Setup LSP installer before configuring the LSP servers.
   local ok_lsp_installer, lsp_installer = pcall(require, "nvim-lsp-installer")
   if not ok_lsp_installer then
     return
@@ -153,6 +148,7 @@ M.setup = function()
 
   lsp_installer.setup({})
 
+  -- Require LSP config module.
   local ok_lspconfig, lspconfig = pcall(require, "lspconfig")
   if not ok_lspconfig then
     return
@@ -160,6 +156,7 @@ M.setup = function()
 
   M.ui()
 
+  -- Get the server capabilities.
   local capabilities = M.capabilities()
 
   local servers = {
@@ -185,10 +182,16 @@ M.setup = function()
   M.sumneko_lua(lspconfig)
 end
 
+-- ------------------------------------------------------------------------
+-- | Grammarly LSP Config
+-- ------------------------------------------------------------------------
 M.grammarly = function(lspconfig)
   lspconfig.grammarly.setup({
     on_attach = M.on_attach,
     capabilities = M.capabilities(),
+    init_options = {
+      clientId = "client_XXXX",
+    },
     filetypes = { "markdown", "tex" },
     settings = {
       suggestions = {
@@ -199,15 +202,18 @@ M.grammarly = function(lspconfig)
   })
 end
 
+-- ------------------------------------------------------------------------
+-- | Lua LSP Config
+-- ------------------------------------------------------------------------
 M.sumneko_lua = function(lspconfig)
   -- Setup configuration for neovim.
   local setup_neovim_libraries = function()
     -- Add all library paths from vim's runtime path.
     local library = {}
-    local packer_dir = vim.fn.stdpath("data") .. "/site/pack/packer/**/lua"
+    local packer_dir = vim.fn.stdpath("data") .. "/site/pack/packer/*/*/lua"
 
     for path in string.gmatch(vim.fn.glob(packer_dir), "[^\n]+") do
-      if vim.fn.empty(vim.fn.glob(path)) then
+      if vim.fn.empty(vim.fn.glob(path)) == 0 then
         library[path] = true
       end
     end
@@ -223,15 +229,23 @@ M.sumneko_lua = function(lspconfig)
   local on_init = function(client)
     local workspace = client.workspace_folders[1].name
 
+    local config = client.config.settings.Lua
+
     if string.match(workspace, [[.dotfiles/tools/nvim$]]) then
-      client.config.settings.Lua.workspace.library = setup_neovim_libraries()
-      client.config.settings.Lua.diagnostics.globals = { "vim" }
+      -- Neovim configs
+      -- setup libraries
+      config.workspace.library = setup_neovim_libraries()
+
+      -- Setup global variables
+      local diagnostics = config.diagnostics or {}
+      diagnostics.globals = { "vim" }
+      config.diagnostics = diagnostics
     elseif string.match(workspace, [[.dotfiles/os/awesome$]]) then
-      client.config.settings.Lua.diagnostics.globals =
-        { "awesome", "client", "screen", "root" }
+      -- Awesome WM Configs
+      -- Setup global variables
+      config.diagnostics.globals = { "awesome", "client", "screen", "root" }
     end
 
-    client.notify("workspace/didChangeConfiguration")
     return true
   end
 
@@ -241,9 +255,6 @@ M.sumneko_lua = function(lspconfig)
     capabilities = M.capabilities(),
     settings = {
       Lua = {
-        diagnostics = {
-          globals = { "vim", "awesome", "client", "screen", "root" },
-        },
         format = {
           enable = true,
           -- All values must be of type string.

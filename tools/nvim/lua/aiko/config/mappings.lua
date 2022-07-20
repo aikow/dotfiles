@@ -168,25 +168,5 @@ map("n", "<C-w>>", "5<C-w>>")
 map("n", "<C-w>-", "5<C-w>-")
 map("n", "<C-w>+", "5<C-w>+")
 
--- See `:help vim.lsp.*` for documentation on any of the below functions
-vim.keymap.set("n", "K", function()
-  local ft = vim.bo.filetype
-  if ft == "vim" or ft == "help" then
-    vim.api.nvim_command("help " .. vim.fn.expand("<cword>"))
-  elseif ft == "man" then
-    vim.api.nvim_command("Man " .. vim.fn.expand("<cword>"))
-  elseif vim.fn.expand("%:t") == "Cargo.toml" then
-    require("crates").show_popup()
-  else
-    vim.lsp.buf.hover()
-  end
-end, { desc = "show documentation" })
-vim.keymap.set(
-  "n",
-  "<leader>k",
-  vim.lsp.buf.signature_help,
-  { desc = "signature help" }
-)
-
 require("aiko.plugins.configs.telescope").mappings()
 require("aiko.plugins.configs.neotree").mappings()
