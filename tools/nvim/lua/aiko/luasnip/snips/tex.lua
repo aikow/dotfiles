@@ -292,6 +292,56 @@ end
 -- |===================================|
 -- =====================================
 
+-- -----------------
+-- |   Templates   |
+-- -----------------
+snip(
+  "bM",
+  "template-math",
+  "create template for math documents",
+  fmta(
+    [[
+      \documentclass[a4paper]{article}
+
+      % Not needed if using LuaLaTeX
+      \usepackage[utf8]{inputenc}
+      \usepackage[T1]{fontenc}
+      \usepackage{textcomp}
+      \usepackage[english]{babel}
+      \usepackage{amsmath, amsthm, amssymb, amsfonts}
+      \usepackage{mathtools}
+
+      % Figure support
+      \usepackage{import}
+      \usepackage{xifthen}
+      \pdfminorversion=7
+      \usepackage{pdfpages}
+      \usepackage{transparent}
+      \newcommand{\incfig}[1]{%
+        \def\svgwidth{\columnwidth}
+        \import{./figures/}{#1.pdf_tex}
+      }
+
+      % Commands
+      \renewcommand{\vec}[1]{\textbf{#1}}
+      \newcommand{\defeq}{\vcentcolon=}
+
+      \DeclarePairedDelimiter{\norm}{\lVert}{\rVert}
+      \DeclarePairedDelimiter{\abs}{\lvert}{\rvert}
+      \DeclarePairedDelimiter{\ip}[2]{\rangle}{\langle}{#1,#2}
+
+      \pdfsuppresswarningpagegroup=1
+
+      \begin{document}
+
+        $0
+
+      \end{document}
+    ]],
+    {}
+  )
+)
+
 -- --------------------
 -- |   Environments   |
 -- --------------------
@@ -596,6 +646,10 @@ snip("imA", "td", "superscript", { t("^{"), i(1), t("}"), i(0) })
 snip("imA", "rd", "superscript", { t("^{("), i(1), t(")}"), i(0) })
 snip("imA", "tt", "text", { t([[\text{]]), i(1), t("}"), i(0) })
 
+-- Quick powers.
+snip("imA", "sr", "superscript", "^2")
+snip("imA", "cb", "superscript", "^3")
+
 -- Quick variable indices.
 snip("imA", "xnn", "x subscript n", "x_{n}")
 snip("imA", "ynn", "y subscript n", "y_{n}")
@@ -890,6 +944,15 @@ snip(
 -- |   Symbols   |
 -- ---------------
 --
+-- Umlauts
+snip("iA", "aee", "ä", "ä")
+snip("iA", "Aee", "Ä", "Ä")
+snip("iA", "oee", "ö", "ö")
+snip("iA", "Oee", "Ö", "Ö")
+snip("iA", "uee", "ü", "ü")
+snip("iA", "uee", "Ü", "Ü")
+snip("iA", "bss", "ß", "ß")
+
 -- Dots
 snip("imA", "...", "dots", t([[\ldots ]]))
 snip("imA", "c..", "centered dots", t([[\cdots ]]))

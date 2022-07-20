@@ -16,6 +16,7 @@ M.setup = function()
       "TelescopePrompt",
       "TelescopeResults",
       "lsp-installer",
+      "norg",
       "",
     },
     buftype_exclude = { "terminal" },
