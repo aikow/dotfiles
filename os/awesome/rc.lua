@@ -1,6 +1,6 @@
 -- Standard awesome library
 local gears = require("gears") -- Utilities such as color parsing and objects
-local awful = require("awful") -- Everything related to window managment
+local awful = require("awful") -- Everything related to window management
 require("awful.autofocus")
 -- Widget and layout library
 local wibox = require("wibox")
