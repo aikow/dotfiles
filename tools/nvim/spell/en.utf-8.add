@@ -1,6 +1,7 @@
 approximator
 approximators
 Args
+autoencoder
 BPE
 config
 configs
@@ -33,9 +34,9 @@ subwords
 TODO
 treesitter
 uncapitalized
+unicode
 unpunctuated
 untokenized
 vimscript
 whitespace
 WIP
-unicode

@@ -396,25 +396,30 @@ snip(
   "figure",
   fmta(
     [[
-        \begin{figure}[<position>]
+        \begin{figure}[<1>]
           \centering
-          <include>
-          \caption{<caption>}
-          \label{fig:<label>}
+          <2>
+          \caption{<3>}
+          \label{fig:<4>}
         \end{figure}
       ]],
     {
-      position = i(1, "htbp"),
-      include = c(2, {
+      i(1, "htbp"),
+      c(2, {
         sn(nil, {
           t([[\includegraphics[width=0.8\textwidth]{]]),
           i(1),
           t([[}]]),
         }),
+        sn(nil, {
+          t([[\includesvg[width=0.8\textwidth]{]]),
+          i(1),
+          t([[}]]),
+        }),
         t(""),
       }),
-      caption = i(2, "caption"),
-      label = i(3, "label"),
+      i(3, "caption"),
+      i(4, "label"),
     }
   )
 )
