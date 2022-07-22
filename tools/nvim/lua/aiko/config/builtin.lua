@@ -36,4 +36,18 @@ M.disable_plugins = function()
   end
 end
 
+-- Disable all builtin providers
+local default_providers = {
+  "node",
+  "perl",
+  "python3",
+  "ruby",
+}
+
+M.disable_providers = function()
+  for _, provider in ipairs(default_providers) do
+    vim.g["loaded_" .. provider .. "_provider"] = 0
+  end
+end
+
 return M
