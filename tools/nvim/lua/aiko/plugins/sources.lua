@@ -356,6 +356,7 @@ return {
   ["nvim-neorg/neorg"] = {
     tag = "*",
     ft = "norg",
+    cmd = "Neorg",
     after = "neorg-telescope",
     config = function()
       require("aiko.plugins.configs.neorg").setup()
