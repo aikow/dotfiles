@@ -13,18 +13,18 @@ return {
   -- ------------------
   --
   -- Easily install any language server from inside neovim.
-  ["williamboman/nvim-lsp-installer"] = {
-    opt = true,
-    cmd = require("aiko.plugins.lazy").lsp_cmds,
-    setup = function()
-      require("aiko.plugins.lazy").on_file_open("nvim-lsp-installer")
-    end,
+  ["williamboman/mason.nvim"] = {
+    -- opt = true,
+    -- cmd = require("aiko.plugins.lazy").lsp_cmds,
+    -- setup = function()
+    --   require("aiko.plugins.lazy").on_file_open("mason.nvim")
+    -- end,
   },
 
   -- Provide adapter and helper functions for setting up language servers.
   ["neovim/nvim-lspconfig"] = {
-    after = "nvim-lsp-installer",
-    module = "lspconfig",
+    -- after = "mason.nvim",
+    -- module = "lspconfig",
     config = function()
       require("aiko.plugins.configs.lspconfig").setup()
     end,
