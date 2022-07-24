@@ -10,6 +10,7 @@ M.setup = function()
     indentLine_enabled = 1,
     filetype_exclude = {
       "help",
+      "alpha",
       "terminal",
       "packer",
       "lspinfo",
@@ -17,6 +18,7 @@ M.setup = function()
       "TelescopeResults",
       "lsp-installer",
       "norg",
+      "NvimTree",
       "",
     },
     buftype_exclude = { "terminal" },

@@ -43,7 +43,7 @@ autocmd("buf_read_post", {
       and vim.fn.line([['"]]) > 1
       and vim.fn.line([['"]]) <= vim.fn.line("$")
     then
-      vim.cmd([[exe "normal! g'\""]])
+      vim.cmd.normal([['"]])
     end
   end,
 })

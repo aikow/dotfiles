@@ -13,10 +13,10 @@ M.lazy_load = function(tb)
         -- This deferring only happens only when we do "nvim filename"
         if tb.plugins ~= "nvim-treesitter" then
           vim.defer_fn(function()
-            vim.cmd("PackerLoad " .. tb.plugins)
+            vim.cmd.PackerLoad(tb.plugins)
           end, 0)
         else
-          vim.cmd("PackerLoad " .. tb.plugins)
+          vim.cmd.PackerLoad(tb.plugins)
         end
       end
     end,

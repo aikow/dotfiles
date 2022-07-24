@@ -16,7 +16,7 @@ vim.g.pyindent_open_paren = vim.bo.shiftwidth
 --   vim.opt_local.formatprg = [[black --quiet - 2>/dev/null]]
 -- end
 
-vim.cmd([[compiler flake8]])
+vim.cmd.compiler("flake8")
 
 if vim.fn.executable("python3") == 1 then
   vim.keymap.set("n", "<localleader>r", [[:!python3 %<CR>]])

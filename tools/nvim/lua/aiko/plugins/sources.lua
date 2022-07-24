@@ -116,15 +116,14 @@ return {
   -- |   Neovim Tree Views   |
   -- -------------------------
   --
-  -- Currently too fancy.
   -- File tree in a sidebar.
-  -- ["kyazdani42/nvim-tree.lua"] = {
-  --   cmd = { "NvimTreeToggle", "NvimTreeFocus" },
-  --   module = "nvim-tree",
-  --   config = function()
-  --     require("aiko.plugins.configs.nvimtree").setup()
-  --   end,
-  -- },
+  ["kyazdani42/nvim-tree.lua"] = {
+    cmd = { "NvimTreeToggle", "NvimTreeFocus" },
+    module = "nvim-tree",
+    config = function()
+      require("aiko.plugins.configs.nvimtree").setup()
+    end,
+  },
 
   -- View tree structures like file system, git files, buffers, etc.
   ["nvim-neo-tree/neo-tree.nvim"] = {
@@ -253,9 +252,9 @@ return {
     cmd = { "Tabular", "Tabularize" },
     config = function()
       -- Add tabular pattern to parse latex table with multicolumns
-      vim.cmd([[
-        AddTabularPattern latex_table /\v(\&)|(\\multicolumn(\{[^}]*\}){3})@=/
-        ]])
+      vim.cmd.AddTabularPattern(
+        [[latex_table /\v(\&)|(\\multicolumn(\{[^}]*\}){3})@=/]]
+      )
     end,
   },
 
