@@ -14,17 +14,13 @@ return {
   --
   -- Easily install any language server from inside neovim.
   ["williamboman/mason.nvim"] = {
-    -- opt = true,
-    -- cmd = require("aiko.plugins.lazy").lsp_cmds,
-    -- setup = function()
-    --   require("aiko.plugins.lazy").on_file_open("mason.nvim")
-    -- end,
+    config = function()
+      require("mason").setup({})
+    end,
   },
 
   -- Provide adapter and helper functions for setting up language servers.
   ["neovim/nvim-lspconfig"] = {
-    -- after = "mason.nvim",
-    -- module = "lspconfig",
     config = function()
       require("aiko.plugins.configs.lspconfig").setup()
     end,
@@ -142,10 +138,7 @@ return {
   -- ---------------------
   --
   -- VS Code style snippets that can be loaded by luasnip.
-  ["rafamadriz/friendly-snippets"] = {
-    module = "cmp_nvim_lsp",
-    event = { "InsertEnter", "CmdlineEnter" },
-  },
+  ["rafamadriz/friendly-snippets"] = {},
 
   -- Lua snippet engine.
   ["L3MON4D3/luasnip"] = {
@@ -168,24 +161,31 @@ return {
       require("aiko.plugins.configs.cmp").setup()
     end,
   },
+
   ["hrsh7th/cmp-nvim-lua"] = {
     after = "nvim-cmp",
   },
+
   ["hrsh7th/cmp-nvim-lsp"] = {
     after = "nvim-cmp",
   },
+
   ["hrsh7th/cmp-buffer"] = {
     after = "nvim-cmp",
   },
+
   ["hrsh7th/cmp-path"] = {
     after = "nvim-cmp",
   },
+
   ["hrsh7th/cmp-cmdline"] = {
     after = "nvim-cmp",
   },
+
   ["hrsh7th/cmp-omni"] = {
     after = "nvim-cmp",
   },
+
   ["saadparwaiz1/cmp_luasnip"] = {
     after = "nvim-cmp",
   },

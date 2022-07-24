@@ -145,12 +145,12 @@ end
 -- ------------------------------------------------------------------------
 M.setup = function()
   -- Setup LSP installer before configuring the LSP servers.
-  local ok_mason, mason = pcall(require, "mason")
-  if not ok_mason then
-    return
-  end
-
-  mason.setup({})
+  -- local ok_mason, mason = pcall(require, "mason")
+  -- if not ok_mason then
+  --   return
+  -- end
+  --
+  -- mason.setup({})
 
   -- Require LSP config module.
   local ok_lspconfig, lspconfig = pcall(require, "lspconfig")
