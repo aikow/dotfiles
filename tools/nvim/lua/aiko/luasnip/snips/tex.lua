@@ -6,15 +6,10 @@ local i = ls.insert_node
 local f = ls.function_node
 local c = ls.choice_node
 local d = ls.dynamic_node
-local events = require("luasnip.util.events")
 local ai = require("luasnip.nodes.absolute_indexer")
 local fmta = require("luasnip.extras.fmt").fmta
 local extras = require("luasnip.extras")
 local rep = extras.rep
-local l = extras.lambda
-local m = extras.match
-local dl = extras.dynamic_lambda
-local ne = extras.nonempty
 local autoinsert_space = require("aiko.luasnip.callbacks").autoinsert_space
 
 -- ----------------------
@@ -351,18 +346,11 @@ snip(
   "create environment",
   fmta(
     [[
-      \begin{<name>}<leftpar><options><rightpar>
-        <stop>
-      \end{<name2>}
+      \begin{<>}<>
+        <>
+      \end{<>}
     ]],
-    {
-      name = i(1),
-      name2 = rep(1),
-      options = i(2),
-      leftpar = ne(2, "{", ""),
-      rightpar = ne(2, "}", ""),
-      stop = i(0),
-    }
+    { i(1), i(2), i(0), rep(1) }
   )
 )
 snip(

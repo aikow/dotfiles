@@ -53,10 +53,12 @@ M.ui = function()
     vim.fn.sign_define(hl, { text = icon, numhl = hl, texthl = hl })
   end
 
-  lspSymbol("Error", "")
-  lspSymbol("Info", "")
-  lspSymbol("Hint", "")
-  lspSymbol("Warn", "")
+  local icons = require("aiko.ui.icons")
+
+  lspSymbol("Error", icons.diagnostics.error)
+  lspSymbol("Info", icons.diagnostics.info)
+  lspSymbol("Hint", icons.diagnostics.hint)
+  lspSymbol("Warn", icons.diagnostics.warn)
 
   vim.diagnostic.config({
     virtual_text = {
@@ -123,7 +125,9 @@ M.capabilities = function()
     labelDetailsSupport = true,
     deprecatedSupport = true,
     commitCharactersSupport = true,
-    tagSupport = { valueSet = { 1 } },
+    tagSupport = {
+      valueSet = { 1 },
+    },
     resolveSupport = {
       properties = {
         "documentation",
@@ -178,7 +182,8 @@ M.setup = function()
     })
   end
 
-  M.grammarly(lspconfig)
+  -- M.grammarly(lspconfig)
+
   M.sumneko_lua(lspconfig)
 end
 

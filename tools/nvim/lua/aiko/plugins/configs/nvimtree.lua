@@ -6,6 +6,8 @@ M.setup = function()
     return
   end
 
+  local icons = require("aiko.ui.icons")
+
   nvim_tree.setup({
     disable_netrw = false,
     hijack_netrw = false,
@@ -23,34 +25,34 @@ M.setup = function()
       enable = true,
       update_cwd = false,
     },
+
     view = {
       adaptive_size = false,
       side = "left",
       width = 40,
       hide_root_folder = true,
-      mappings = {
-        list = {
-          { key = "<M-CR>", action = "edit_in_place" },
-        },
-      },
     },
+
     diagnostics = {
       enable = true,
       show_on_dirs = true,
       icons = {
-        hint = "",
-        info = "",
-        warning = "",
-        error = "",
+        hint = icons.diagnostics.hint,
+        info = icons.diagnostics.info,
+        warning = icons.diagnostics.warn,
+        error = icons.diagnostics.error,
       },
     },
+
     git = {
       enable = true,
       ignore = true,
     },
+
     filesystem_watchers = {
       enable = true,
     },
+
     actions = {
       change_dir = {
         enable = true,
@@ -60,12 +62,13 @@ M.setup = function()
         resize_window = false,
       },
     },
+
     renderer = {
       highlight_git = true,
       highlight_opened_files = "none",
 
       indent_markers = {
-        enable = true,
+        enable = false,
       },
 
       icons = {
@@ -109,7 +112,7 @@ M.mappings = function()
 
   map(
     "n",
-    "-",
+    "_",
     [[<cmd>NvimTreeFindFile<CR>]],
     { silent = true, desc = "Neotree reveal filesystem" }
   )

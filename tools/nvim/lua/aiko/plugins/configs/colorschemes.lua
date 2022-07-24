@@ -1,6 +1,6 @@
 local M = {}
 
-M.setup = function()
+M.catppuccin = function()
   local ok_catppuccin, catppuccin = pcall(require, "catppuccin")
   if not ok_catppuccin then
     return

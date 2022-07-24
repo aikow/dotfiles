@@ -30,23 +30,127 @@ local map = vim.keymap.set
 
 -- Vim tmux navigator keybindings to seamlessly switch between vim and tmux
 -- panes.
-map("n", "<M-h>", [[<cmd>TmuxNavigateLeft<CR>]], { silent = true })
-map("n", "<M-j>", [[<cmd>TmuxNavigateDown<CR>]], { silent = true })
-map("n", "<M-k>", [[<cmd>TmuxNavigateUp<CR>]], { silent = true })
-map("n", "<M-l>", [[<cmd>TmuxNavigateRight<CR>]], { silent = true })
-map("n", "<M-o>", [[<cmd>TmuxNavigatePrevious<CR>]], { silent = true })
 
-map("i", "<M-h>", [[<esc>:TmuxNavigateLeft<CR>]], { silent = true })
-map("i", "<M-j>", [[<esc>:TmuxNavigateDown<CR>]], { silent = true })
-map("i", "<M-k>", [[<esc>:TmuxNavigateUp<CR>]], { silent = true })
-map("i", "<M-l>", [[<esc>:TmuxNavigateRight<CR>]], { silent = true })
-map("i", "<M-o>", [[<esc>:TmuxNavigatePrevious<CR>]], { silent = true })
+-- local n = {
+--   ["<M-h>"] = {
+--     cmd = vim.cmd.TmuxNavigateLeft,
+--     silent = true,
+--     desc = "tmux navigate left",
+--   },
+--   ["<M-j>"] = {
+--     cmd = vim.cmd.TmuxNavigateDown,
+--     silent = true,
+--     desc = "tmux navigate down",
+--   },
+--   ["<M-k>"] = {
+--     cmd = vim.cmd.TmuxNavigateUp,
+--     silent = true,
+--     desc = "tmux navigate up",
+--   },
+--   ["<M-l>"] = {
+--     cmd = vim.cmd.TmuxNavigateRight,
+--     silent = true,
+--     desc = "tmux navigate right",
+--   },
+--   ["<M-o>"] = {
+--     cmd = vim.cmd.TmuxNavigatePrevious,
+--     silent = true,
+--     desc = "tmux navigate previous",
+--   },
+-- }
 
-map("t", "<M-h>", [[<C-\><C-n>:TmuxNavigateLeft<CR>]], { silent = true })
-map("t", "<M-j>", [[<C-\><C-n>:TmuxNavigateDown<CR>]], { silent = true })
-map("t", "<M-k>", [[<C-\><C-n>:TmuxNavigateUp<CR>]], { silent = true })
-map("t", "<M-l>", [[<C-\><C-n>:TmuxNavigateRight<CR>]], { silent = true })
-map("t", "<M-o>", [[<C-\><C-n>:TmuxNavigatePrevious<CR>]], { silent = true })
+map(
+  "n",
+  "<M-h>",
+  vim.cmd.TmuxNavigateLeft,
+  { silent = true, desc = "tmux navigate left" }
+)
+map(
+  "n",
+  "<M-j>",
+  vim.cmd.TmuxNavigateDown,
+  { silent = true, desc = "tmux navigate down" }
+)
+map(
+  "n",
+  "<M-k>",
+  vim.cmd.TmuxNavigateUp,
+  { silent = true, desc = "tmux navigate up" }
+)
+map(
+  "n",
+  "<M-l>",
+  vim.cmd.TmuxNavigateRight,
+  { silent = true, desc = "tmux navigate right" }
+)
+map(
+  "n",
+  "<M-o>",
+  vim.cmd.TmuxNavigatePrevious,
+  { silent = true, desc = "tmux navigate previous" }
+)
+
+map(
+  "i",
+  "<M-h>",
+  [[<esc>:TmuxNavigateLeft<CR>]],
+  { silent = true, desc = "tmux navigate left" }
+)
+map(
+  "i",
+  "<M-j>",
+  [[<esc>:TmuxNavigateDown<CR>]],
+  { silent = true, desc = "tmux navigate down" }
+)
+map(
+  "i",
+  "<M-k>",
+  [[<esc>:TmuxNavigateUp<CR>]],
+  { silent = true, desc = "tmux navigate up" }
+)
+map(
+  "i",
+  "<M-l>",
+  [[<esc>:TmuxNavigateRight<CR>]],
+  { silent = true, desc = "tmux navigate right" }
+)
+map(
+  "i",
+  "<M-o>",
+  [[<esc>:TmuxNavigatePrevious<CR>]],
+  { silent = true, desc = "tmux navigate previous" }
+)
+
+map(
+  "t",
+  "<M-h>",
+  [[<C-\><C-n>:TmuxNavigateLeft<CR>]],
+  { silent = true, desc = "tmux navigate left" }
+)
+map(
+  "t",
+  "<M-j>",
+  [[<C-\><C-n>:TmuxNavigateDown<CR>]],
+  { silent = true, desc = "tmux navigate down" }
+)
+map(
+  "t",
+  "<M-k>",
+  [[<C-\><C-n>:TmuxNavigateUp<CR>]],
+  { silent = true, desc = "tmux navigate up" }
+)
+map(
+  "t",
+  "<M-l>",
+  [[<C-\><C-n>:TmuxNavigateRight<CR>]],
+  { silent = true, desc = "tmux navigate right" }
+)
+map(
+  "t",
+  "<M-o>",
+  [[<C-\><C-n>:TmuxNavigatePrevious<CR>]],
+  { silent = true, desc = "tmux navigate previous" }
+)
 
 -- Treat long lines as break lines.
 map("n", "j", "gj")
@@ -78,28 +182,28 @@ map("n", "<leader><leader>", "<c-^>", { desc = "switch to most recent buffer" })
 map("t", "<M-e>", [[<c-\><C-n>]])
 
 -- Navigate quickfix list
-map("n", "]q", [[<cmd>cnext<CR>]])
-map("n", "[q", [[<cmd>cprev<CR>]])
-map("n", "]Q", [[<cmd>clast<CR>]])
-map("n", "[Q", [[<cmd>cfirst<CR>]])
+map("n", "]q", vim.cmd.cnext, { desc = "cnext" })
+map("n", "[q", vim.cmd.cprev, { desc = "cprev" })
+map("n", "]Q", vim.cmd.clast, { desc = "clast" })
+map("n", "[Q", vim.cmd.cfirst, { desc = "cfirst" })
 
 -- Navigate location list
-map("n", "]l", [[<cmd>lnext<CR>]])
-map("n", "[l", [[<cmd>lprev<CR>]])
-map("n", "]L", [[<cmd>llast<CR>]])
-map("n", "[L", [[<cmd>lfirst<CR>]])
+map("n", "]l", vim.cmd.lnext, { desc = "lnext" })
+map("n", "[l", vim.cmd.lprev, { desc = "lprev" })
+map("n", "]L", vim.cmd.llast, { desc = "llast" })
+map("n", "[L", vim.cmd.lfirst, { desc = "lfirst" })
 
 -- navigate buffers
-map("n", "]b", [[<cmd>bnext<CR>]])
-map("n", "[b", [[<cmd>bprev<CR>]])
-map("n", "]B", [[<cmd>blast<CR>]])
-map("n", "[B", [[<cmd>bfirst<CR>]])
+map("n", "]b", vim.cmd.bnext, { desc = "bnext" })
+map("n", "[b", vim.cmd.bprev, { desc = "bprev" })
+map("n", "]B", vim.cmd.blast, { desc = "blast" })
+map("n", "[B", vim.cmd.bfirst, { desc = "bfirst" })
 
 -- navigate files
-map("n", "]f", [[<cmd>next<CR>]])
-map("n", "[f", [[<cmd>prev<CR>]])
-map("n", "]F", [[<cmd>last<CR>]])
-map("n", "[F", [[<cmd>first<CR>]])
+map("n", "]f", vim.cmd.next, { desc = "next" })
+map("n", "[f", vim.cmd.prev, { desc = "prev" })
+map("n", "]F", vim.cmd.last, { desc = "last" })
+map("n", "[F", vim.cmd.first, { desc = "first" })
 
 -- Replacing up to next _ or -
 map("n", "<leader>c", "ct_", { desc = "change text up to next underscore '_'" })
@@ -159,8 +263,8 @@ map("c", "%T", [[<C-R>=expand('%:t')<CR>]])
 map("c", "%P", [[<C-R>=expand('%:p')<CR>]])
 
 -- Faster write/save current buffer
-map("n", "<leader>w", "<cmd>write<CR>")
-map("n", "<leader>W", "<cmd>wall<CR>")
+map("n", "<leader>w", vim.cmd.write, { desc = "write" })
+map("n", "<leader>W", vim.cmd.wall, { desc = "write all" })
 
 -- Faster pane resizing
 map("n", "<C-w><", "5<C-w><")
@@ -168,5 +272,9 @@ map("n", "<C-w>>", "5<C-w>>")
 map("n", "<C-w>-", "5<C-w>-")
 map("n", "<C-w>+", "5<C-w>+")
 
+-- -----------------------
+-- |   Plugin Mappings   |
+-- -----------------------
 require("aiko.plugins.configs.telescope").mappings()
+require("aiko.plugins.configs.nvimtree").mappings()
 require("aiko.plugins.configs.neotree").mappings()
