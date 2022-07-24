@@ -145,12 +145,12 @@ end
 -- ------------------------------------------------------------------------
 M.setup = function()
   -- Setup LSP installer before configuring the LSP servers.
-  local ok_lsp_installer, lsp_installer = pcall(require, "nvim-lsp-installer")
-  if not ok_lsp_installer then
+  local ok_mason, mason = pcall(require, "mason")
+  if not ok_mason then
     return
   end
 
-  lsp_installer.setup({})
+  mason.setup({})
 
   -- Require LSP config module.
   local ok_lspconfig, lspconfig = pcall(require, "lspconfig")

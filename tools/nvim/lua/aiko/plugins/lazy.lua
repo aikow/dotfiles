@@ -42,17 +42,15 @@ end
 -- lspinstaller & lspconfig cmds for lazyloading
 M.lsp_cmds = {
   "LspInfo",
-  "LspStart",
-  "LspRestart",
-  "LspStop",
-  "LspInstall",
-  "LspUnInstall",
-  "LspUnInstallAll",
-  "LspInstall",
-  "LspInstallInfo",
-  "LspInstallLog",
   "LspLog",
-  "LspPrintInstalled",
+  "LspRestart",
+  "LspStart",
+  "LspStop",
+  "Mason",
+  "MasonInstall",
+  "MasonLog",
+  "MasonUnInstall",
+  "MasonUnInstallAll",
 }
 
 M.treesitter_cmds = {
