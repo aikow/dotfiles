@@ -13,6 +13,7 @@ set -gx LC_ALL en_US.UTF-8
 set -gx EDITOR nvim
 set -gx VISUAL nvim
 set -gx MY_SHELL fish
+set -gx MANPAGER 'nvim +Man!'
 
 if command -v bat &>/dev/null
   set -gx BAT_THEME gruvbox-dark
