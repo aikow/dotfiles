@@ -21,6 +21,7 @@ return {
 
   -- Provide adapter and helper functions for setting up language servers.
   ["neovim/nvim-lspconfig"] = {
+    after = "mason.nvim",
     config = function()
       require("aiko.plugins.configs.lspconfig").setup()
     end,
@@ -142,7 +143,6 @@ return {
 
   -- Lua snippet engine.
   ["L3MON4D3/luasnip"] = {
-    wants = "friendly-snippets",
     module = "luasnip",
     after = "nvim-cmp",
     config = function()
