@@ -16,7 +16,7 @@ M.setup = function()
       "lspinfo",
       "TelescopePrompt",
       "TelescopeResults",
-      "lsp-installer",
+      "mason.nvim",
       "norg",
       "NvimTree",
       "",
