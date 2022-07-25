@@ -12,18 +12,33 @@ return {
   -- |   LSP Config   |
   -- ------------------
   --
-  -- Easily install any language server from inside neovim.
-  ["williamboman/mason.nvim"] = {
+  -- Easily install any LSP, DAP, linter, or formatter from inside neovim.
+  ["williamboman/mason.nvim"] = {},
+
+  -- Manage LSP servers with mason.nvim.
+  ["williamboman/mason-lspconfig.nvim"] = {
+    after = "mason.nvim",
     config = function()
-      require("mason").setup({})
+      require("aiko.plugins.configs.mason").setup()
     end,
   },
 
   -- Provide adapter and helper functions for setting up language servers.
   ["neovim/nvim-lspconfig"] = {
-    after = "mason.nvim",
+    after = "mason-lspconfig.nvim",
     config = function()
       require("aiko.plugins.configs.lspconfig").setup()
+    end,
+  },
+
+  -- Hook into the builtin LSP features.
+  ["jose-elias-alvarez/null-ls.nvim"] = {
+    opt = true,
+    setup = function()
+      require("aiko.plugins.lazy").on_file_open("null-ls.nvim")
+    end,
+    config = function()
+      require("aiko.plugins.configs.null-ls").setup()
     end,
   },
 
@@ -124,6 +139,7 @@ return {
 
   -- View tree structures like file system, git files, buffers, etc.
   ["nvim-neo-tree/neo-tree.nvim"] = {
+    enable = false,
     branch = "v2.x",
     cmd = "Neotree",
     config = function()
@@ -302,6 +318,8 @@ return {
       require("aiko.plugins.configs.rusttools").setup()
     end,
   },
+
+  -- Cargo.toml files and interacting with crates.io
   ["saecki/crates.nvim"] = {
     module = "crates",
     ft = "toml",
@@ -368,6 +386,7 @@ return {
   --
   -- New UI components.
   ["MunifTanjim/nui.nvim"] = {
+    enable = false,
     module = "nui",
   },
 
@@ -435,9 +454,5 @@ return {
     config = function()
       require("aiko.plugins.configs.colorschemes").material()
     end,
-  },
-
-  ["folke/tokyonight.nvim"] = {
-    event = "ColorSchemePre",
   },
 }
