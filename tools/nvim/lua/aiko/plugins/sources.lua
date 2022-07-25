@@ -251,7 +251,7 @@ return {
       require("aiko.plugins.lazy").on_file_open("indent-blankline.nvim")
     end,
     config = function()
-      require("aiko.plugins.configs.indent_blankline").setup()
+      require("aiko.plugins.configs.indent-blankline").setup()
     end,
   },
 
