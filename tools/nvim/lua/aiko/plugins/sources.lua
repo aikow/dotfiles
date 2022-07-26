@@ -8,9 +8,9 @@ return {
   -- Improve startup time.
   ["lewis6991/impatient.nvim"] = {},
 
-  -- ------------------
-  -- |   LSP Config   |
-  -- ------------------
+  -- -----------------------------
+  -- |   Mason Package Manager   |
+  -- -----------------------------
   --
   -- Easily install any LSP, DAP, linter, or formatter from inside neovim.
   ["williamboman/mason.nvim"] = {},
@@ -23,6 +23,10 @@ return {
     end,
   },
 
+  -- ------------------
+  -- |   LSP Config   |
+  -- ------------------
+  --
   -- Provide adapter and helper functions for setting up language servers.
   ["neovim/nvim-lspconfig"] = {
     after = "mason-lspconfig.nvim",
@@ -42,6 +46,15 @@ return {
     end,
   },
 
+  -- Add icons to native LSP based on the completion type.
+  ["onsails/lspkind.nvim"] = {
+    module = "lspkind",
+  },
+
+  -- -----------------
+  -- |   Debugging   |
+  -- -----------------
+  --
   -- Debug adapter protocol.
   ["mfussenegger/nvim-dap"] = {
     module = "dap",
@@ -51,9 +64,30 @@ return {
     end,
   },
 
-  -- Add icons to native LSP based on the completion type.
-  ["onsails/lspkind.nvim"] = {
-    module = "lspkind",
+  -- UI elements for nvim-dap.
+  ["rcarriga/nvim-dap-ui"] = {
+    after = "nvim-dap",
+    config = function()
+      require("dapui").setup()
+    end,
+  },
+
+  -- Insert virtual text during debugging for variable values.
+  ["theHamsta/nvim-dap-virtual-text"] = {
+    after = "nvim-dap",
+    config = function()
+      require("nvim-dap-virtual-text").setup()
+    end,
+  },
+
+  -- DAP configuration for python.
+  ["mfussenegger/nvim-dap-python"] = {
+    after = "nvim-dap",
+    config = function()
+      require("dap-python").setup(
+        "~/.local/share/nvim/mason/packages/debugpy/venv/bin/python"
+      )
+    end,
   },
 
   -- -----------------
@@ -178,30 +212,37 @@ return {
     end,
   },
 
+  -- Completions for Neovim's lua API.
   ["hrsh7th/cmp-nvim-lua"] = {
     after = "nvim-cmp",
   },
 
+  -- Completions from the builtin LSP.
   ["hrsh7th/cmp-nvim-lsp"] = {
     after = "nvim-cmp",
   },
 
+  -- Completions from words in the current buffer.
   ["hrsh7th/cmp-buffer"] = {
     after = "nvim-cmp",
   },
 
+  -- Completions for file-system paths.
   ["hrsh7th/cmp-path"] = {
     after = "nvim-cmp",
   },
 
+  -- Completions for the command line.
   ["hrsh7th/cmp-cmdline"] = {
     after = "nvim-cmp",
   },
 
+  -- Completions from the builtin omni completion.
   ["hrsh7th/cmp-omni"] = {
     after = "nvim-cmp",
   },
 
+  -- Completion source for luasnip snippets.
   ["saadparwaiz1/cmp_luasnip"] = {
     after = "nvim-cmp",
   },
@@ -319,7 +360,7 @@ return {
     end,
   },
 
-  -- Cargo.toml files and interacting with crates.io
+  -- Cargo.toml files and interacting with `crates.io`.
   ["saecki/crates.nvim"] = {
     module = "crates",
     ft = "toml",
@@ -345,7 +386,7 @@ return {
     ft = "markdown",
   },
 
-  -- Fish shell syntax support
+  -- Fish shell syntax support.
   ["aikow/vim-fish"] = {
     ft = "fish",
   },
@@ -364,7 +405,7 @@ return {
   -- |   Neorg Mode   |
   -- ------------------
   --
-  -- Neorg integrations with telescope.nvim
+  -- Neorg integrations with `telescope.nvim`.
   ["nvim-neorg/neorg-telescope"] = {
     ft = "norg",
   },
@@ -390,7 +431,7 @@ return {
     module = "nui",
   },
 
-  -- Override neovim default UI components
+  -- Override neovim default UI components for user input.
   ["stevearc/dressing.nvim"] = {
     config = function()
       require("aiko.plugins.configs.dressing").setup()
