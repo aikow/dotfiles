@@ -114,6 +114,7 @@ M.gruvbox_material = function()
   local dark2 = "#1e1e1e"
   local text = normal.foreground
 
+  -- Telescope
   vim.api.nvim_set_hl(0, "TelescopePromptPrefix", { bg = dark1 })
   vim.api.nvim_set_hl(0, "TelescopePromptNormal", { bg = dark1 })
   vim.api.nvim_set_hl(0, "TelescopePromptBorder", { bg = dark1, fg = dark1 })
@@ -126,6 +127,9 @@ M.gruvbox_material = function()
   vim.api.nvim_set_hl(0, "TelescopePreviewNormal", { bg = dark1 })
   vim.api.nvim_set_hl(0, "TelescopePreviewBorder", { bg = dark1, fg = dark1 })
   vim.api.nvim_set_hl(0, "TelescopePreviewTitle", { fg = text })
+
+  -- Nvim Tree
+  vim.api.nvim_set_hl(0, "NvimTreeNormal", { bg = dark1 })
 end
 
 M.material = function()
