@@ -225,6 +225,12 @@ map(
   [[:let @/ = ""<CR>]],
   { silent = true, desc = "clear search buffer register" }
 )
+map(
+  "n",
+  "<C-/>",
+  [[:let @/ = ""<CR>]],
+  { silent = true, desc = "clear search buffer register" }
+)
 
 -- Select the text that was last pasted
 map(
