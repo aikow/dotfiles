@@ -130,6 +130,7 @@ M.gruvbox_material = function()
 
   -- Nvim Tree
   vim.api.nvim_set_hl(0, "NvimTreeNormal", { bg = dark1 })
+  vim.api.nvim_set_hl(0, "NvimTreeEndOfBuffer", { bg = dark1 })
 end
 
 M.material = function()
