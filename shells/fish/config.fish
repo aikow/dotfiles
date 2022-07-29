@@ -14,6 +14,7 @@ set -gx EDITOR nvim
 set -gx VISUAL nvim
 set -gx MY_SHELL fish
 set -gx MANPAGER 'nvim +Man!'
+set -gx NEOVIDE_MULTIGRID 1
 
 if command -v bat &>/dev/null
   set -gx BAT_THEME gruvbox-dark
