@@ -306,7 +306,7 @@ return {
 
   -- Align tabular data.
   ["godlygeek/tabular"] = {
-    cmd = { "Tabular", "Tabularize" },
+    cmd = { "Tabularize" },
     config = function()
       -- Add tabular pattern to parse latex table with multicolumns
       vim.cmd.AddTabularPattern(
