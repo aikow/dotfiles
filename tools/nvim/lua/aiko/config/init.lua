@@ -8,6 +8,10 @@ M.setup = function()
   require("aiko.config.mappings")
   require("aiko.config.options")
   require("aiko.config.autocmds")
+
+  if vim.fn.exists("neovide") == 1 then
+    require("aiko.config.neovide")
+  end
 end
 
 return M

@@ -517,7 +517,7 @@ snip(
 -- --------------------
 snip("wMS", "it", "italics", { t([[\textit{]]), i(1), t("}") })
 snip("wMS", "bf", "boldface", { t([[\textbf{]]), i(1), t("}") })
-snip("wMS", "em", "emphasis", { t([[\textem{]]), i(1), t("}") })
+snip("wMS", "em", "emphasis", { t([[\emph{]]), i(1), t("}") })
 
 -- -----------------------
 -- |   Enter Math mode   |
@@ -937,15 +937,6 @@ snip(
 -- |   Symbols   |
 -- ---------------
 --
--- Umlauts
-snip("iA", "aee", "ä", "ä")
-snip("iA", "Aee", "Ä", "Ä")
-snip("iA", "oee", "ö", "ö")
-snip("iA", "Oee", "Ö", "Ö")
-snip("iA", "uee", "ü", "ü")
-snip("iA", "uee", "Ü", "Ü")
-snip("iA", "bss", "ß", "ß")
-
 -- Dots
 snip("imA", "...", "dots", t([[\ldots ]]))
 snip("imA", "c..", "centered dots", t([[\cdots ]]))

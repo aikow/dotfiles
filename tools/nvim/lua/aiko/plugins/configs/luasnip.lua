@@ -115,6 +115,11 @@ M.setup = function()
   -- --------------------------
   -- |   Lazy Load Snippets   |
   -- --------------------------
+  ls.filetype_extend("text", { "alltext" })
+  ls.filetype_extend("markdown", { "alltext" })
+  ls.filetype_extend("tex", { "alltext" })
+  ls.filetype_extend("norg", { "alltext" })
+
   require("luasnip.loaders.from_vscode").lazy_load({
     exclude = { "tex" },
     default_priority = 100,
