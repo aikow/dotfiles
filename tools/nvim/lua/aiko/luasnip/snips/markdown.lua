@@ -19,38 +19,38 @@ local ne = extras.nonempty
 local autoinsert_space = require("aiko.luasnip.callbacks").autoinsert_space
 
 return {}, {
+  -- Math
   s(
     { trig = "mk", wordTrig = true },
     { t("$"), i(1), t("$") },
     { callbacks = autoinsert_space }
   ),
 
+  -- Code
   s(
     { trig = "nk", wordTrig = true },
     { t("`"), i(1), t("`") },
     { callbacks = autoinsert_space }
   ),
+  s(
+    { trig = "dn", wordTrig = true },
+    { t("```"), i(1, "text"), t({ "", "" }), i(0), t({ "", "```" }) }
+  ),
 
+  -- Text formatting
   s(
     { trig = "ii", wordTrig = true },
     { t("*"), i(1), t("*") },
     { callbacks = autoinsert_space }
   ),
-
   s(
     { trig = "bf", wordTrig = true },
     { t("**"), i(1), t("**") },
     { callbacks = autoinsert_space }
   ),
-
   s(
     { trig = "BB", wordTrig = true },
     { t("***"), i(1), t("***") },
     { callbacks = autoinsert_space }
-  ),
-
-  s(
-    { trig = "dn", wordTrig = true },
-    { t("```"), i(1, "text"), t({ "", "" }), i(0), t({ "", "```" }) }
   ),
 }
