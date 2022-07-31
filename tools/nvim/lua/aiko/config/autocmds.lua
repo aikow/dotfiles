@@ -1,11 +1,10 @@
 -- ---------------------
 -- |   Auto Commands   |
 -- ---------------------
-local autocmd = require("aiko.util").autocmd
 
 -- Reload files changed outside of Vim not currently modified in Vim
-autocmd("general_autoread", {
-  event = { "FocusGained", "BufEnter", "WinEnter" },
+vim.api.nvim_create_autocmd({ "FocusGained", "BufEnter", "WinEnter" }, {
+  group = vim.api.nvim_create_augroup("General autoread", {}),
   callback = function()
     if vim.api.nvim_buf_get_option(0, "buftype") ~= "" then
       return
@@ -14,8 +13,8 @@ autocmd("general_autoread", {
   end,
   desc = "perform a read when entering a new buffer",
 })
-autocmd("general_autowrite", {
-  event = { "FocusLost", "WinLeave" },
+vim.api.nvim_create_autocmd({ "FocusLost", "WinLeave" }, {
+  group = vim.api.nvim_create_augroup("general_autowrite", {}),
   callback = function()
     if vim.api.nvim_buf_get_option(0, "buftype") ~= "" then
       return
@@ -26,42 +25,51 @@ autocmd("general_autowrite", {
 })
 
 -- Prevent accidental writes to buffers that shouldn't be edited
-autocmd("unmodifiable", {
-  { event = "FileType", pattern = "help", command = "setlocal readonly" },
-  { event = "BufRead", pattern = "*.orig", command = "setlocal readonly" },
-  { event = "BufRead", pattern = "*.pacnew", command = "setlocal readonly" },
+local unmodifiable_group = vim.api.nvim_create_augroup("Unmodifiable files", {})
+vim.api.nvim_create_autocmd("FileType", {
+  group = unmodifiable_group,
+  pattern = "help",
+  command = "setlocal readonly",
+})
+vim.api.nvim_create_autocmd("BufRead", {
+  group = unmodifiable_group,
+  pattern = { "*.orig", "*.pacnew" },
+  command = "setlocal readonly",
 })
 
 -- Jump to last edit position on opening file
--- https://stackoverflow.com/questions/31449496/vim-ignore-specifc-file-in-autocommand
-autocmd("buf_read_post", {
-  event = "BufReadPost",
-  callback = function()
-    local regex = vim.regex([[/\.git/]])
-    if
-      not regex:match_str(vim.fn.expand("%:p"))
-      and vim.fn.line([['"]]) > 1
-      and vim.fn.line([['"]]) <= vim.fn.line("$")
-    then
-      vim.cmd.normal([['"]])
+vim.api.nvim_create_autocmd("BufWinEnter", {
+  group = vim.api.nvim_create_augroup("Last edit position", {}),
+  callback = function(args)
+    -- Exclude files like commit messages.
+    for _, pat in pairs({ "/.git/" }) do
+      if string.find(args.file, pat) then
+        return
+      end
+    end
+
+    local line = vim.fn.line
+    if line([['"]]) > 0 and line([['"]]) <= line("$") then
+      -- Set the cursor position to the position of the last save.
+      vim.fn.setpos(".", vim.fn.getpos("'\""))
     end
   end,
 })
 
 -- Enable spelling after reading a buffer
-autocmd("enable_spell", {
-  event = "BufReadPost",
+vim.api.nvim_create_autocmd("BufReadPost", {
+  group = vim.api.nvim_create_augroup("Enable spelling", {}),
   callback = function()
     vim.schedule(function()
-      vim.opt.spell = true
       vim.opt.spelllang = "en,de"
+      vim.opt.spell = true
     end)
   end,
   once = true,
 })
 
-autocmd("terminal_ftplugin", {
-  event = "TermOpen",
+vim.api.nvim_create_autocmd("TermOpen", {
+  group = vim.api.nvim_create_augroup("Terminal Settings", {}),
   callback = function()
     vim.opt_local.spell = false
     vim.opt_local.number = false

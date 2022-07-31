@@ -76,7 +76,7 @@ return {
   ["theHamsta/nvim-dap-virtual-text"] = {
     after = "nvim-dap",
     config = function()
-      require("nvim-dap-virtual-text").setup()
+      require("nvim-dap-virtual-text").setup({})
     end,
   },
 
@@ -306,7 +306,7 @@ return {
 
   -- Align tabular data.
   ["godlygeek/tabular"] = {
-    cmd = { "Tabularize" },
+    cmd = "Tabularize",
     config = function()
       -- Add tabular pattern to parse latex table with multicolumns
       vim.cmd.AddTabularPattern(
@@ -440,6 +440,7 @@ return {
 
   -- Status-line plugin.
   ["nvim-lualine/lualine.nvim"] = {
+    commit = "8d956c18258bb128ecf42f95411bb26efd3a5d23",
     config = function()
       require("aiko.plugins.configs.lualine").setup()
     end,

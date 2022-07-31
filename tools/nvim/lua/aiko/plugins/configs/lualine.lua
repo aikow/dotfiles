@@ -26,6 +26,7 @@ M.setup = function()
       component_separators = { left = "", right = "" },
       section_separators = { left = "", right = "" },
       disabled_filetypes = {},
+      ignore_focus = {},
       always_divide_middle = true,
       globalstatus = true,
     },
@@ -64,6 +65,8 @@ M.setup = function()
         },
       },
     },
+    winbar = {},
+    inactive_winbar = {},
     extensions = {
       "quickfix",
       "fugitive",
