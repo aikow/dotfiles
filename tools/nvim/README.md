@@ -2,6 +2,10 @@
 
 My lua config files for Neovim.
 
+## To Do
+
+- [ ] Update `lualine` once issue is fixed
+
 ## Setup
 
 The config is split across multiple files with the basic idea for the Lua code

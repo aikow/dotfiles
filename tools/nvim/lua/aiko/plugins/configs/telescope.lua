@@ -125,12 +125,12 @@ M.setup = function()
           ["<C-h>"] = actions.which_key,
 
           -- Smart add or send to quick fix list.
-          ["<C-q><C-q>"] = actions.smart_send_to_qflist + actions.open_qflist,
-          ["<C-q>q"] = actions.smart_add_to_qflist + actions.open_qflist,
+          ["<M-q>"] = actions.smart_send_to_qflist + actions.open_qflist,
+          ["<M-Q>"] = actions.smart_add_to_qflist,
 
           -- Smart add or send to location list.
-          ["<C-l><C-l>"] = actions.smart_send_to_loclist + actions.open_loclist,
-          ["<C-l>l"] = actions.smart_add_to_loclist + actions.open_loclist,
+          ["<M-c>"] = actions.smart_send_to_loclist + actions.open_loclist,
+          ["<M-C>"] = actions.smart_add_to_loclist,
         },
       },
       vimgrep_arguments = {
