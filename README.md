@@ -15,9 +15,6 @@ file in the base directory. If the `install.conf` file doesn't exist, running
 ## To Do
 
 - Bootstrap tmux
-- Organize vim settings
-  - Add leader shortcuts to vimrc
-- Update README.md
 - Update zshrc history search and aliases
 - Organize vscode settings
 
