@@ -62,31 +62,31 @@ local map = vim.keymap.set
 map(
   "n",
   "<M-h>",
-  vim.cmd.TmuxNavigateLeft,
+  "<cmd>TmuxNavigateLeft<CR>",
   { silent = true, desc = "tmux navigate left" }
 )
 map(
   "n",
   "<M-j>",
-  vim.cmd.TmuxNavigateDown,
+  "<cmd>TmuxNavigateDown<CR>",
   { silent = true, desc = "tmux navigate down" }
 )
 map(
   "n",
   "<M-k>",
-  vim.cmd.TmuxNavigateUp,
+  "<cmd>TmuxNavigateUp<CR>",
   { silent = true, desc = "tmux navigate up" }
 )
 map(
   "n",
   "<M-l>",
-  vim.cmd.TmuxNavigateRight,
+  "<cmd>TmuxNavigateRight<CR>",
   { silent = true, desc = "tmux navigate right" }
 )
 map(
   "n",
   "<M-o>",
-  vim.cmd.TmuxNavigatePrevious,
+  "<cmd>TmuxNavigatePrevious<CR>",
   { silent = true, desc = "tmux navigate previous" }
 )
 
@@ -168,6 +168,12 @@ map("x", "<C-s>", [[:s/\v]])
 map("c", "<C-s>", [[%s/\v]])
 
 -- Enter a lua command.
+map(
+  "n",
+  "<leader>x",
+  "<cmd>source %<CR>",
+  { silent = true, desc = "source lua or vimscript file" }
+)
 map("n", "<C-l>", [[:lua ]], { desc = "enter lua command" })
 map("n", "<C-l><C-l>", [[:lua =]], { desc = "display lua expression" })
 
@@ -182,28 +188,28 @@ map("n", "<leader><leader>", "<c-^>", { desc = "switch to most recent buffer" })
 map("t", "<M-e>", [[<c-\><C-n>]])
 
 -- Navigate quickfix list
-map("n", "]q", vim.cmd.cnext, { desc = "cnext" })
-map("n", "[q", vim.cmd.cprev, { desc = "cprev" })
-map("n", "]Q", vim.cmd.clast, { desc = "clast" })
-map("n", "[Q", vim.cmd.cfirst, { desc = "cfirst" })
+map("n", "]q", "<cmd>cnext<CR>", { desc = "cnext" })
+map("n", "[q", "<cmd>cprev<CR>", { desc = "cprev" })
+map("n", "]Q", "<cmd>clast<CR>", { desc = "clast" })
+map("n", "[Q", "<cmd>cfirst<CR>", { desc = "cfirst" })
 
 -- Navigate location list
-map("n", "]l", vim.cmd.lnext, { desc = "lnext" })
-map("n", "[l", vim.cmd.lprev, { desc = "lprev" })
-map("n", "]L", vim.cmd.llast, { desc = "llast" })
-map("n", "[L", vim.cmd.lfirst, { desc = "lfirst" })
+map("n", "]l", "<cmd>lnext<CR>", { desc = "lnext" })
+map("n", "[l", "<cmd>lprev<CR>", { desc = "lprev" })
+map("n", "]L", "<cmd>llast<CR>", { desc = "llast" })
+map("n", "[L", "<cmd>lfirst<CR>", { desc = "lfirst" })
 
 -- navigate buffers
-map("n", "]b", vim.cmd.bnext, { desc = "bnext" })
-map("n", "[b", vim.cmd.bprev, { desc = "bprev" })
-map("n", "]B", vim.cmd.blast, { desc = "blast" })
-map("n", "[B", vim.cmd.bfirst, { desc = "bfirst" })
+map("n", "]b", "<cmd>bnext<CR>", { desc = "bnext" })
+map("n", "[b", "<cmd>bprev<CR>", { desc = "bprev" })
+map("n", "]B", "<cmd>blast<CR>", { desc = "blast" })
+map("n", "[B", "<cmd>bfirst<CR>", { desc = "bfirst" })
 
 -- navigate files
-map("n", "]f", vim.cmd.next, { desc = "next" })
-map("n", "[f", vim.cmd.prev, { desc = "prev" })
-map("n", "]F", vim.cmd.last, { desc = "last" })
-map("n", "[F", vim.cmd.first, { desc = "first" })
+map("n", "]f", "<cmd>next<CR>", { desc = "next" })
+map("n", "[f", "<cmd>prev<CR>", { desc = "prev" })
+map("n", "]F", "<cmd>last<CR>", { desc = "last" })
+map("n", "[F", "<cmd>first<CR>", { desc = "first" })
 
 -- Replacing up to next _ or -
 map("n", "<leader>c", "ct_", { desc = "change text up to next underscore '_'" })
@@ -243,12 +249,6 @@ map(
 map("x", "y", "y`]")
 map({ "x", "n" }, "p", "p`]")
 
--- Sort the selected lines
-map("v", "<leader>rs", ":!sort<CR>", {
-  silent = true,
-  desc = "sort the selected region with the sort command via the shell",
-})
-
 -- Make Y behave like other capital numbers
 map("n", "Y", "y$")
 
@@ -269,8 +269,8 @@ map("c", "%T", [[<C-R>=expand('%:t')<CR>]])
 map("c", "%P", [[<C-R>=expand('%:p')<CR>]])
 
 -- Faster write/save current buffer
-map("n", "<leader>w", vim.cmd.write, { desc = "write" })
-map("n", "<leader>W", vim.cmd.wall, { desc = "write all" })
+map("n", "<leader>w", "<cmd>write<CR>", { desc = "write" })
+map("n", "<leader>W", "<cmd>wall<CR>", { desc = "write all" })
 
 -- Faster pane resizing
 map("n", "<C-w><", "5<C-w><")

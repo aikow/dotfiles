@@ -465,7 +465,7 @@ M.mappings = function()
     require("telescope.builtin").reloader(
       require("aiko.plugins.configs.telescope").dynamic()
     )
-  end, { silent = true, desc = "telescope highlights" })
+  end, { silent = true, desc = "telescope reload lua module" })
 end
 
 return M
