@@ -236,7 +236,12 @@ M.sumneko_lua = function(lspconfig)
 
     local config = client.config.settings.Lua
 
-    if string.match(workspace, [[.dotfiles/tools/nvim$]]) then
+    if string.match(workspace, [[.dotfiles/os/awesome$]]) then
+      -- Awesome WM Configs
+      -- Setup global variables
+      config.diagnostics.globals = { "awesome", "client", "screen", "root" }
+    -- if string.match(workspace, [[.dotfiles/tools/nvim$]]) then
+    else
       -- Neovim configs
       -- setup libraries
       config.workspace.library = setup_neovim_libraries()
@@ -245,10 +250,6 @@ M.sumneko_lua = function(lspconfig)
       local diagnostics = config.diagnostics or {}
       diagnostics.globals = { "vim" }
       config.diagnostics = diagnostics
-    elseif string.match(workspace, [[.dotfiles/os/awesome$]]) then
-      -- Awesome WM Configs
-      -- Setup global variables
-      config.diagnostics.globals = { "awesome", "client", "screen", "root" }
     end
 
     return true
