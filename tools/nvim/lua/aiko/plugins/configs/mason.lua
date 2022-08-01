@@ -6,7 +6,15 @@ M.setup = function()
     return
   end
 
-  mason.setup({})
+  mason.setup({
+    ui = {
+      icons = {
+        package_pending = " ",
+        package_installed = " ",
+        package_uninstalled = " ﮊ",
+      },
+    },
+  })
 
   local ok_mason_lspconfig, mason_lspconfig = pcall(require, "mason-lspconfig")
   if not ok_mason_lspconfig then

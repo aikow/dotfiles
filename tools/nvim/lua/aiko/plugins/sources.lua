@@ -13,7 +13,13 @@ return {
   -- -----------------------------
   --
   -- Easily install any LSP, DAP, linter, or formatter from inside neovim.
-  ["williamboman/mason.nvim"] = {},
+  ["williamboman/mason.nvim"] = {
+    opt = true,
+    cmd = require("aiko.plugins.lazy").mason_cmds,
+    setup = function()
+      require("aiko.plugins.lazy").on_file_open("mason.nvim")
+    end,
+  },
 
   -- Manage LSP servers with mason.nvim.
   ["williamboman/mason-lspconfig.nvim"] = {
@@ -440,7 +446,7 @@ return {
 
   -- Status-line plugin.
   ["nvim-lualine/lualine.nvim"] = {
-    commit = "8d956c18258bb128ecf42f95411bb26efd3a5d23",
+    -- commit = "8d956c18258bb128ecf42f95411bb26efd3a5d23",
     config = function()
       require("aiko.plugins.configs.lualine").setup()
     end,

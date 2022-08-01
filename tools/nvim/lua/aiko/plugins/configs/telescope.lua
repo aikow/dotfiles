@@ -40,7 +40,8 @@ M.setup = function()
 
       winblend = 0,
       border = {},
-      borderchars = { "─", "│", "─", "│", "╭", "╮", "╯", "╰" },
+      -- borderchars = { "─", "│", "─", "│", "╭", "╮", "╯", "╰" },
+      borderchars = { " ", " ", " ", " ", " ", " ", " ", " " },
 
       color_devicons = true,
 
