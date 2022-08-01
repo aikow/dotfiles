@@ -46,6 +46,9 @@ M.lsp_cmds = {
   "LspRestart",
   "LspStart",
   "LspStop",
+}
+
+M.mason_cmds = {
   "Mason",
   "MasonInstall",
   "MasonLog",

@@ -37,13 +37,24 @@ M.setup = function()
     return
   end
 
+  local icons = require("aiko.ui.icons").packer
+
   packer.init({
     auto_clean = true,
     auto_reload_compiled = true,
     compile_on_sync = true,
     git = { clone_timeout = 10 },
     display = {
-      open_fn = require("packer.util").float,
+      working_sym = icons.working_sym,
+      error_sym = icons.error_sym,
+      done_sym = icons.done_sym,
+      removed_sym = icons.removed_sym,
+      moved_sym = icons.moved_sym,
+      open_fn = function()
+        return require("packer.util").float({
+          border = require("aiko.ui.config").border,
+        })
+      end,
     },
   })
 
