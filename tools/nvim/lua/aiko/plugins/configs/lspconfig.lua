@@ -210,7 +210,7 @@ M.ltex = function(lspconfig)
     capabilities = M.capabilities(),
     filetypes = {
       "bib",
-      "gitcommit",
+      -- "gitcommit",
       "markdown",
       "norg",
       "org",
