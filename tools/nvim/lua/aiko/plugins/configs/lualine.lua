@@ -35,6 +35,15 @@ M.setup = function()
       )
     end
 
+    local clients = vim.lsp.buf_get_clients()
+    if clients then
+      local names = {}
+      for _, client in pairs(clients) do
+        table.insert(names, client.name)
+      end
+      return table.concat(names, ", ")
+    end
+
     return ""
   end
 
