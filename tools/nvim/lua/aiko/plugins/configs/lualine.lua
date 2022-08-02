@@ -19,6 +19,25 @@ M.setup = function()
     return ""
   end
 
+  local lsp_progress = function()
+    local lsp = vim.lsp.util.get_progress_messages()[1]
+    if lsp then
+      local name = lsp.name or ""
+      local msg = lsp.message or ""
+      local percentage = lsp.percentage or 0
+      local title = lsp.title or ""
+      return string.format(
+        " %%<%s: %s %s (%s%%%%) ",
+        name,
+        title,
+        msg,
+        percentage
+      )
+    end
+
+    return ""
+  end
+
   lualine.setup({
     options = {
       icons_enabled = true,
@@ -29,12 +48,17 @@ M.setup = function()
       ignore_focus = {},
       always_divide_middle = true,
       globalstatus = true,
+      refresh = {
+        statusline = 1000,
+        tabline = 1000,
+        winbar = 1000,
+      },
     },
     sections = {
       lualine_a = { "mode" },
       lualine_b = { "branch", "diff", "diagnostics" },
       lualine_c = { "filename" },
-      lualine_x = { loc },
+      lualine_x = { lsp_progress, loc },
       lualine_y = { "encoding", "fileformat", "filetype" },
       lualine_z = { "%p%%", "%l/%L:%c" },
     },
