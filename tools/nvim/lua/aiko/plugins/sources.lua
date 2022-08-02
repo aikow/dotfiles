@@ -179,7 +179,7 @@ return {
 
   -- View tree structures like file system, git files, buffers, etc.
   ["nvim-neo-tree/neo-tree.nvim"] = {
-    enable = false,
+    disable = false,
     branch = "v2.x",
     cmd = "Neotree",
     config = function()
@@ -433,7 +433,7 @@ return {
   --
   -- New UI components.
   ["MunifTanjim/nui.nvim"] = {
-    enable = false,
+    disable = false,
     module = "nui",
   },
 
