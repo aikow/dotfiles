@@ -164,14 +164,14 @@ M.setup = function()
   local capabilities = M.capabilities()
 
   local servers = {
-    "pyright",
-    "clangd",
     "bashls",
-    "yamlls",
+    "clangd",
+    "gopls",
     "jsonls",
+    "pyright",
     "taplo",
     "vimls",
-    "gopls",
+    "yamlls",
   }
 
   -- Basic language servers
@@ -183,25 +183,46 @@ M.setup = function()
   end
 
   -- M.grammarly(lspconfig)
+  M.ltex(lspconfig)
 
   M.sumneko_lua(lspconfig)
 end
 
 -- ------------------------------------------------------------------------
--- | Grammarly LSP Config
+-- | LTeX LSP Config
 -- ------------------------------------------------------------------------
-M.grammarly = function(lspconfig)
-  lspconfig.grammarly.setup({
+M.ltex = function(lspconfig)
+  local on_init = function(client)
+    local spellfile =
+      io.open(vim.fn.expand("~/.dotfiles/tools/nvim/spell/en.utf-8.add"), "r")
+    if not spellfile then
+      return
+    end
+
+    client.config.settings.ltex.dictionary = {
+      ["en-US"] = vim.split(spellfile:read("*a"), "\n", { trimempty = true }),
+    }
+  end
+
+  lspconfig.ltex.setup({
     on_attach = M.on_attach,
+    on_init = on_init,
     capabilities = M.capabilities(),
-    init_options = {
-      clientId = "client_XXXX",
+    filetypes = {
+      "bib",
+      "gitcommit",
+      "markdown",
+      "norg",
+      "org",
+      "plaintex",
+      "rnoweb",
+      "rst",
+      "tex",
     },
-    filetypes = { "markdown", "tex" },
     settings = {
-      suggestions = {
-        PassiveVoice = true,
-        OxfordComma = true,
+      ltex = {
+        completionEnabled = true,
+        language = "en-US",
       },
     },
   })
@@ -240,7 +261,7 @@ M.sumneko_lua = function(lspconfig)
       -- Awesome WM Configs
       -- Setup global variables
       config.diagnostics.globals = { "awesome", "client", "screen", "root" }
-    -- if string.match(workspace, [[.dotfiles/tools/nvim$]]) then
+      -- if string.match(workspace, [[.dotfiles/tools/nvim$]]) then
     else
       -- Neovim configs
       -- setup libraries
