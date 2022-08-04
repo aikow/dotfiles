@@ -1,12 +1,26 @@
-function fzf_git_branch
+function fzf_git_branch --description "Search through all available branches"
   git_is_repo || return
 
-  git branch -a --color=always \
-    | grep -v '/HEAD\s' \
-    | fzf --ansi --multi --tac --preview-window right:70% \
-      --preview 'git log --color=always --oneline --graph --date=short --pretty="format:%C(auto)%cd %h%d %s %C(magenta)[%an]%Creset" (echo {} | sed s/^..// | cut -d" " -f1) ' \
-    | sed 's/^..//' \
-    | cut -d' ' -f1 \
-    | sed 's#^remotes/##' \
-    | fish_commandline_append
+  set selected_branches (
+    git branch -avv --color=always |
+    fzf --ansi --multi --tac --preview-window right:70% \
+      --query=(commandline --current-token) \
+      --preview 'fzf_preview_branch {}' 
+  )
+  if test $status -eq 0
+    set cleaned_branches
+
+    for branch in $selected_branches
+      set --append cleaned_branches (
+        clean_string $branch |
+        string sub --start 3 |
+        string split --no-empty --fields 1 ' ' |
+        string replace -r '^remotes/' ''
+      )
+    end
+
+    fish_commandline_append (string join ' ' $cleaned_branches)
+  end
+
+  commandline --function repaint
 end
