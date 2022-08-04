@@ -2,7 +2,7 @@
 #
 # Compare version strings
 
-function vercomp
+function vercomp --description "Compares two version strings and returns and integer."
   # Check that we have 3 arguments exactly.
   if test ! (count $argv) -eq 3
     echo "vercomp requires 3 arguments"

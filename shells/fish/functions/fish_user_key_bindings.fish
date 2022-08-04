@@ -1,6 +1,6 @@
-#################
-#  Keybindings  #
-#################
+# ------------------------
+# |   Helper functions   |
+# ------------------------
 function add_pipe
     fish_commandline_append " | "
     commandline -f end-of-buffer
@@ -19,7 +19,7 @@ function add_less
     if command -v bat &>/dev/null
         set cmd " | bat"
     else
-        set cm " | less"
+        set cmd " | less"
     end
 
     fish_commandline_append cmd
@@ -27,11 +27,6 @@ end
 
 function add_fzf
     fish_commandline_append " | fzf"
-end
-
-function reload_config
-    commandline -r "source $HOME/.config/fish/config.fish"
-    commandline -f execute
 end
 
 function fish_user_key_bindings
@@ -53,15 +48,10 @@ function fish_user_key_bindings
   bind -M insert \cf accept-autosuggestion
   bind -M insert \ef forward-single-char
 
-  bind -M insert \ce edit-command-buffer
+  bind -M insert \ce edit_command_buffer
 
   bind -M insert \cx\cp add_pipe
   bind -M insert \cx\cf add_fzf
   bind -M insert \cx\cl add_less
   bind -M insert \co add_argument
-
-  fzf_git_key_bindings
-  fzf_k8s_key_bindings
-
-  fzf_key_bindings
 end
