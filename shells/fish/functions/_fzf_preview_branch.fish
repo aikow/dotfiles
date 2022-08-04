@@ -1,5 +1,5 @@
 # Help parse the output from git branch -avv
-function fzf_preview_branch --description "Print a preview for the given branch."
+function _fzf_preview_branch --description "Print a preview for the given branch."
   # Truncate first two characters
   set branch (
     clean_string $argv |

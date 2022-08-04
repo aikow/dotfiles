@@ -1,9 +1,9 @@
-function fzf_git_stash
+function _fzf_git_stash
   git_is_repo || return
 
   set selected_paths (
     git stash list |
-    fzf -d: --preview 'git show --color=always {1}'
+    _fzf_wrapper -d: --preview 'git show --color=always {1}'
   )
   if test $status -eq 0
     set cleaned_paths

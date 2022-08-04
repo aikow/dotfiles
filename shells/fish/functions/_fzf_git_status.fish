@@ -1,14 +1,14 @@
-function fzf_git_status --description "Search the output of git status. Replace the current token with the selected file paths."
+function _fzf_git_status --description "Search the output of git status. Replace the current token with the selected file paths."
   git_is_repo || return
 
   set selected_paths (
     # Pass configuration color.status=always to force status to use colors
     # even though output is sent to a pipe
     git -c color.status=always status --short |
-    fzf_wrapper --ansi \
+    _fzf_wrapper --ansi \
       --multi \
       --query=(commandline --current-token) \
-      --preview='fzf_preview_changed_file {}'
+      --preview='_fzf_preview_changed_file {}'
   )
   if test $status -eq 0
     # git status --short automatically escapes the paths of most files for us

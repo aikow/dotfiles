@@ -1,9 +1,9 @@
-function fzf_docker_container
+function _fzf_docker_volumes
   docker_is_valid || return
 
   set selected_volumes (
     docker volume ls |
-    fzf \
+    _fzf_wrapper \
       --header-lines=1 \
       --multi \
       --preview='docker volume inspect {1}' \

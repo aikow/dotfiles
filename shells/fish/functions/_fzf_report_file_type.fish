@@ -1,5 +1,5 @@
 # helper function for fzf_preview_file
-function fzf_report_file_type --argument-names file_path file_type --description "Explain the file type for a file."
+function _fzf_report_file_type --argument-names file_path file_type --description "Explain the file type for a file."
   set_color red
   echo "Cannot preview '$file_path': it is a $file_type."
   set_color normal

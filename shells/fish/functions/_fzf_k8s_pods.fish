@@ -1,9 +1,9 @@
-function fzf_k8s_pods
+function _fzf_k8s_pods
   k8s_is_valid || return
 
   set selected_pods (
     kubectl get pods -o wide |
-    fzf --multi --header-lines=1
+    _fzf_wrapper --multi --header-lines=1
   )
   if test $status -eq 0
     set cleaned_pods
