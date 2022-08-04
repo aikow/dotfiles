@@ -1,4 +1,4 @@
-function fzf_fish_history --description "Search command history. Replace the command line with the selected command."
+function _fzf_fish_history --description "Search command history. Replace the command line with the selected command."
   # history merge incorporates history changes from other fish sessions
   # it errors out if called in private mode
   if test -z "$fish_private_mode"
@@ -8,13 +8,12 @@ function fzf_fish_history --description "Search command history. Replace the com
   set command_with_ts (
     # Reference https://devhints.io/strftime to understand strftime format symbols
     builtin history --null --show-time="%m-%d %H:%M:%S │ " |
-    fzf_wrapper --read0 \
+    _fzf_wrapper --read0 \
       --tiebreak=index \
       --query=(commandline) \
       # preview current command using fish_ident in a window at the bottom 3 lines tall
       --preview="echo -- {4..} | fish_indent --ansi" \
-      --preview-window="bottom:3:wrap" \
-      $fzf_history_opts |
+      --preview-window="bottom:3:wrap" | \
     string collect
   )
 

@@ -1,9 +1,9 @@
-function fzf_docker_container
+function _fzf_docker_containers
   docker_is_valid || return
 
   set selected_containers (
     docker container ls --all |
-    fzf \
+    _fzf_wrapper \
       --header-lines=1 \
       --multi \
       --height 80% --min-height 30 \

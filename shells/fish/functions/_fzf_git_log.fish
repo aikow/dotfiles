@@ -1,4 +1,4 @@
-function fzf_git_log --description "Search the output of git log and preview commits. Replace the current token with the selected commit hash."
+function _fzf_git_log --description "Search the output of git log and preview commits. Replace the current token with the selected commit hash."
   git_is_repo || return
 
   # see documentation for git format placeholders at
@@ -8,12 +8,11 @@ function fzf_git_log --description "Search the output of git log and preview com
   set log_fmt_str '%C(bold blue)%h%C(reset) - %C(cyan)%ad%C(reset) %C(yellow)%d%C(reset) %C(normal)%s%C(reset)  %C(dim normal)[%an]%C(reset)'
   set selected_log_lines (
     git log --color=always --format=format:$log_fmt_str --date=short | \
-    fzf_wrapper --ansi \
+    _fzf_wrapper --ansi \
       --multi \
       --tiebreak=index \
       --preview='git show --color=always --stat --patch {1}' \
-      --query=(commandline --current-token) \
-      $fzf_git_log_opts
+      --query=(commandline --current-token)
   )
   if test $status -eq 0
     for line in $selected_log_lines

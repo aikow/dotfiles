@@ -1,9 +1,9 @@
-# helper for fzf_search_git_status
+# helper for _fzf_git_status
 # arg should be a line from git status --short, e.g.
-# MM functions/fzf_preview_changed_file.fish
+# MM functions/_fzf_preview_changed_file.fish
 #  D README.md
 # R  LICENSE.md -> LICENSE
-function fzf_preview_changed_file --description "Show the untracked, staged, and/or unstaged changes in the given file."
+function _fzf_preview_changed_file --description "Show the untracked, staged, and/or unstaged changes in the given file."
   set -l path (string split ' ' $argv)[-1]
   # first letter of short format shows index, second letter shows working tree
   # https://git-scm.com/docs/git-status/2.35.0#_output
@@ -11,16 +11,16 @@ function fzf_preview_changed_file --description "Show the untracked, staged, and
   set -l working_tree_status (string sub --start 2 --length 1 $argv)
 
   if test $index_status = '?'
-    fzf_report_diff_type Untracked
-    fzf_preview_file $path
+    _fzf_report_diff_type Untracked
+    _fzf_preview_file $path
   else
     if test $index_status != ' '
-      fzf_report_diff_type Staged
+      _fzf_report_diff_type Staged
       git diff --staged --color=always -- $path
     end
 
     if test $working_tree_status != ' '
-      fzf_report_diff_type Unstaged
+      _fzf_report_diff_type Unstaged
       git diff --color=always -- $path
     end
   end

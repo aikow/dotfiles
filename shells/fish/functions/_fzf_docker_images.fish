@@ -1,9 +1,9 @@
-function fzf_docker_container
+function _fzf_docker_images
   docker_is_valid || return
 
   set selected_images (
     docker image ls |
-    fzf \
+    _fzf_wrapper \
       --header-lines=1 \
       --multi \
       --preview='docker image inspect {3}' \

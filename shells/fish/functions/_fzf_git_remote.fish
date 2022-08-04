@@ -1,4 +1,4 @@
-function fzf_git_remote
+function _fzf_git_remote
   git_is_repo || return
 
   set log_format (string escape 'format:%C(auto)%cd %h%d %s')
@@ -6,7 +6,7 @@ function fzf_git_remote
     git remote -v |
     awk '{print $1 "\t" $2}' |
     uniq |
-    fzf --tac \
+    _fzf_wrapper --tac \
       --preview 'git log --color=always --oneline --graph --date=short --pretty='$log_format'{1}' \
   )
   if test $status -eq 0
