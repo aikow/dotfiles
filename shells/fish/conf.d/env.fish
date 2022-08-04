@@ -25,4 +25,4 @@ if command -v fd &>/dev/null
 else if command -v rg &>/dev/null
   set -gx FZF_DEFAULT_COMMAND 'rg --files --no-ignore --hidden --follow --glob "!.git/*"'
 end
-set -gx FZF_DEFAULT_OPTS '--ansi --bind ctrl-f:preview-half-page-down,ctrl-b:preview-half-page-up,ctrl-d:half-page-down,ctrl-u:half-page-up,ctrl-/:toggle-preview --reverse --border rounded --height 50% --min-height 20 --preview-window right,40%,follow'
+set -gx FZF_DEFAULT_OPTS '--ansi --bind ctrl-f:preview-half-page-down,ctrl-b:preview-half-page-up,ctrl-d:half-page-down,ctrl-u:half-page-up,ctrl-/:toggle-preview,ctrl-t:toggle-preview-wrap --cycle --reverse --border rounded --height 50% --min-height 20 --preview-window right,40%'
