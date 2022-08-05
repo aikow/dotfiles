@@ -28,6 +28,7 @@ nvim
 overfitting
 param
 perceptron
+pipelined
 prosodic
 protobuf
 reentrant
@@ -35,6 +36,7 @@ refactorings
 reusability
 Segmenter
 subproblem
+subproblems
 Subword
 subwords
 TODO
