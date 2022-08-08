@@ -479,6 +479,14 @@ return {
     end,
   },
 
+  ["sainnhe/everforest"] = {
+    event = "ColorSchemePre",
+    config = function()
+      vim.g.everforest_background = "medium"
+      vim.g.everforest_better_performance = 1
+    end,
+  },
+
   ["luisiacc/gruvbox-baby"] = {
     event = "ColorSchemePre",
     config = function()
