@@ -16,7 +16,7 @@ M.setup = function()
       "go",
       "json",
       "lua",
-      -- "markdown", -- Problems with markdown parser currently
+      "markdown",
       "python",
       "rust",
       "toml",
@@ -43,6 +43,11 @@ M.setup = function()
       -- Disable tree-sitter syntax highlighting for tex files, since
       -- vimtex depends on its own syntax highlighting for some features.
       disable = { "latex" },
+    },
+
+    -- Indentation is currently still an experimental feature.
+    indent = {
+      enable = true,
     },
 
     -- Text objects
