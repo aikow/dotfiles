@@ -106,7 +106,7 @@ opt.diffopt = opt.diffopt
 opt.termguicolors = true -- 24-bit RGB color support
 
 -- Always show the status line and tabline
-opt.showtabline = 2 -- Always show the tab line
+opt.showtabline = 1 -- Always show the tab line
 opt.laststatus = 3 -- Use the global status line
 opt.showmode = false -- Don't show the mode in the prompt, handled by theme.
 opt.ruler = false -- Don't show column and row position, handled by theme.
