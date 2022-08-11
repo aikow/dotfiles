@@ -147,7 +147,7 @@ return {
 
   -- Refactoring support for select languages.
   ["ThePrimeagen/refactoring.nvim"] = {
-    ft = require("aiko.plugins.lazy").refactoring_filetyps,
+    ft = require("aiko.plugins.lazy").refactoring_filetypes,
     module = "refactoring",
     config = function()
       require("aiko.plugins.configs.refactoring").setup()
@@ -495,6 +495,10 @@ return {
       vim.g.gruvbox_baby_telescope_theme = 1
       vim.g.gruvbox_baby_transparent_mode = 1
     end,
+  },
+
+  ["B4mbus/oxocarbon-lua.nvim"] = {
+    event = "ColorSchemePre",
   },
 
   ["navarasu/onedark.nvim"] = {
