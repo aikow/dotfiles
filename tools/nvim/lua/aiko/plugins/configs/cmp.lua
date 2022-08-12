@@ -72,15 +72,18 @@ M.setup = function()
     },
     mapping = mappings,
     sources = cmp.config.sources({
-      { name = "nvim_lsp" },
-      { name = "crates" },
-      { name = "luasnip" },
-      { name = "path" },
+      { name = "nvim_lsp", priority = 1 },
+      { name = "crates", priority = 2 },
+      { name = "luasnip", priority = 2 },
+      { name = "path", priority = 2 },
     }, {
-      { name = "buffer", keyword_length = 6 },
+      { name = "buffer", keyword_length = 6, max_item_count = 10 },
     }),
+    completion = {
+      -- keyword_length = 1,
+    },
     sorting = {
-      priority_weight = 1.0,
+      priority_weight = 1.2,
       comparators = {
         compare.locality,
         compare.recently_used,
@@ -120,23 +123,6 @@ M.setup = function()
       { name = "nvim_lua" },
       { name = "cmdline" },
       { name = "path" },
-    }, {
-      { name = "buffer", keyword_length = 6 },
-    }),
-  })
-
-  -- -----------------------------------
-  -- |   Setup File Type Completions   |
-  -- -----------------------------------
-  --
-  -- Setup LaTeX completion sources to use onmi completion.
-  cmp.setup.filetype("tex", {
-    sources = cmp.config.sources({
-      { name = "luasnip" },
-      { name = "omni" },
-      { name = "path" },
-    }, {
-      { name = "buffer", keyword_length = 4 },
     }),
   })
 end

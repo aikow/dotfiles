@@ -127,8 +127,8 @@ return {
   -- Neovim treesitter helper, which enables a lot of cool functionality based
   -- on treesitter.
   ["nvim-treesitter/nvim-treesitter"] = {
-    event = { "BufRead", "BufNewFile" },
-    module = "nvim-treesitter",
+    -- event = { "BufRead", "BufNewFile" },
+    -- module = "nvim-treesitter",
     run = ":TSUpdate",
     config = function()
       require("aiko.plugins.configs.treesitter").setup()
@@ -142,6 +142,10 @@ return {
 
   -- Tree-sitter buffer-local refactorings.
   ["nvim-treesitter/nvim-treesitter-refactor"] = {
+    after = "nvim-treesitter",
+  },
+
+  ["nvim-treesitter/playground"] = {
     after = "nvim-treesitter",
   },
 
@@ -293,10 +297,10 @@ return {
 
   -- Show indentation.
   ["lukas-reineke/indent-blankline.nvim"] = {
-    opt = true,
-    setup = function()
-      require("aiko.plugins.lazy").on_file_open("indent-blankline.nvim")
-    end,
+    -- opt = true,
+    -- setup = function()
+    --   require("aiko.plugins.lazy").on_file_open("indent-blankline.nvim")
+    -- end,
     config = function()
       require("aiko.plugins.configs.indent-blankline").setup()
     end,
