@@ -26,17 +26,16 @@ end
 -- command.
 local ok_python_nvim, python_nvim = pcall(require, "python-nvim")
 if ok_python_nvim then
-  vim.keymap.set(
-    "n",
-    "<localleader>f",
-    python_nvim.format,
-    { silent = true, buffer = 0, desc = "reformat python with black and isort" }
-  )
+  vim.keymap.set("n", "<localleader>f", python_nvim.format, {
+    silent = true,
+    buffer = true,
+    desc = "reformat python with black and isort",
+  })
 
   vim.keymap.set(
     "n",
     "<localleader>i",
     python_nvim.flake8,
-    { buffer = 0, desc = "run flake8 linting" }
+    { silent = true, buffer = true, desc = "run flake8 linting" }
   )
 end
