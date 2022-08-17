@@ -1,4 +1,9 @@
-local colors = {
+local colorscheme = {
+  name = "blossom",
+  background = "light",
+}
+
+colorscheme.colors = {
   white = "#695d57",
   darker_black = "#dfd8d5",
   black = "#e6dfdc", --  nvim bg
@@ -31,7 +36,7 @@ local colors = {
   folder_bg = "#746d6a",
 }
 
-local theme = {
+colorscheme.theme = {
   base00 = "#e6dfdc",
   base01 = "#ded7d4",
   base02 = "#d7d0cd",
@@ -50,19 +55,17 @@ local theme = {
   base0F = "#976153",
 }
 
-local polish = {
-  WhichKeyDesc = { fg = colors.white },
-  WhichKey = { fg = colors.white },
+colorscheme.polish = {
+  WhichKeyDesc = { fg = colorscheme.colors.white },
+  WhichKey = { fg = colorscheme.colors.white },
 
   TbLineThemeToggleBtn = {
-    fg = colors.black,
-    bg = colors.white,
+    fg = colorscheme.colors.black,
+    bg = colorscheme.colors.white,
   },
 
-  IndentBlanklineContextStart = { bg = colors.black2 },
-  St_pos_text = { fg = colors.white },
+  IndentBlanklineContextStart = { bg = colorscheme.colors.black2 },
+  St_pos_text = { fg = colorscheme.colors.white },
 }
 
-vim.opt.background = "light"
-
-require("aiko.colors").paint(theme, colors, polish)
+require("aiko.colors").paint(colorscheme)
