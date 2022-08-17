@@ -358,7 +358,7 @@ M.mappings = function()
     )
   end, { silent = true, desc = "telescope git branches" })
 
-  map("n", "<leader>gt", function()
+  map("n", "<leader>gf", function()
     require("telescope.builtin").git_status(
       require("aiko.plugins.configs.telescope").dynamic()
     )

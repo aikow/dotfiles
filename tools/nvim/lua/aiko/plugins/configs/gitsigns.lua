@@ -23,18 +23,13 @@ M.mappings = function()
   local map = vim.keymap.set
 
   -- Navigation
-  map(
-    { "n", "v", "o" },
-    "]h",
-    "&diff ? ']c' : '<cmd>Gitsigns next_hunk<CR>'",
-    { expr = true, silent = true, desc = "go to next git hunk" }
-  )
-  map(
-    { "n", "v", "o" },
-    "[h",
-    "&diff ? '[c' : '<cmd>Gitsigns prev_hunk<CR>'",
-    { expr = true, silent = true, desc = "go to previous git hunk" }
-  )
+  map({ "n", "v", "o" }, "]h", function()
+    return vim.wo.diff and "]c" or "<cmd>Gitsigns next_hunk<CR>"
+  end, { expr = true, silent = true, desc = "go to next git hunk" })
+
+  map({ "n", "v", "o" }, "[h", function()
+    return vim.wo.diff and "[c" or "<cmd>Gitsigns prev_hunk<CR>"
+  end, { expr = true, silent = true, desc = "go to previous git hunk" })
 
   -- Git actions related actions with <leader>g...
   map(
@@ -75,7 +70,7 @@ M.mappings = function()
   )
   map(
     "n",
-    "<leader>gL",
+    "<leader>gl",
     "<cmd>Gitsigns toggle_current_line_blame<CR>",
     { silent = true, desc = "git toggle inline blame" }
   )

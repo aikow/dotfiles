@@ -48,6 +48,7 @@ M.setup = function()
     -- Indentation is currently still an experimental feature.
     indent = {
       enable = true,
+      disable = { "python" },
     },
 
     -- Text objects
