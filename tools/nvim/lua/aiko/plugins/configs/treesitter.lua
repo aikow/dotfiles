@@ -16,7 +16,7 @@ M.setup = function()
       "go",
       "json",
       "lua",
-      "markdown",
+      -- "markdown",
       "python",
       "rust",
       "toml",
