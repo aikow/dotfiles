@@ -3,6 +3,7 @@ vim.filetype.add({
     wiki = "markdown",
     tmux = "tmux",
     nu = "nu",
+    rsync = "rsync",
   },
   filename = {
     ["MANIFEST.in"] = "manifest",
