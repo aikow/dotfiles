@@ -1,4 +1,9 @@
-local theme = {
+local colorscheme = {
+  name = "aquarium",
+  background = "dark",
+}
+
+colorscheme.theme = {
   base00 = "#20202A",
   base01 = "#2c2e3e",
   base02 = "#3D4059",
@@ -17,7 +22,7 @@ local theme = {
   base0F = "#eAc1c1",
 }
 
-local colors = {
+colorscheme.colors = {
   white = "#ced4df",
   darker_black = "#1c1c26",
   black = "#20202A", --  nvim bg
@@ -50,6 +55,4 @@ local colors = {
   folder_bg = "#b8dceb",
 }
 
-vim.opt.bg = "dark"
-
-require("aiko.colors").paint(theme, colors)
+require("aiko.colors").paint(colorscheme)
