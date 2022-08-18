@@ -46,3 +46,5 @@ export FZF_DEFAULT_OPTS="${FZF_DEFAULT_OPTS} --bind ctrl-d:preview-half-page-dow
 ### Cargo and Rust ###
 [[ -f "${HOME}/.cargo/env" ]] && source "${HOME}/.cargo/env"
 
+### Local Enviornment Config ###
+[[ -f "${LOCAL_CONFIG}/zshenv" ]] && source "${LOCAL_CONFIG}/zshenv"
