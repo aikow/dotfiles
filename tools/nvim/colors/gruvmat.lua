@@ -1,4 +1,9 @@
-local theme = {
+local colorscheme = {
+  name = "gruvmat",
+  background = "dark",
+}
+
+colorscheme.theme = {
   bg0 = "#282828",
   bg1 = "#32302f",
   bg2 = "#32302f",
@@ -17,3 +22,5 @@ local theme = {
   bg_visual_yellow = "#4f422e",
   bg_current_word = "#3c3836",
 }
+
+require("aiko.colors").paint(colorscheme)

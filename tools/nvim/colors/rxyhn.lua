@@ -3,7 +3,7 @@ local colorscheme = { name = "rxyhn", background = "dark" }
 colorscheme.colors = {
   white = "#D9D7D6",
   darker_black = "#000a0e",
-  black = "#061115", --  nvim bg
+  black = "#061115",
   black2 = "#0d181c",
   one_bg = "#131e22",
   one_bg2 = "#1c272b",
@@ -15,7 +15,7 @@ colorscheme.colors = {
   red = "#DF5B61",
   baby_pink = "#EE6A70",
   pink = "#F16269",
-  line = "#222d31", -- for lines like vertsplit
+  line = "#222d31",
   green = "#78B892",
   vibrant_green = "#8CD7AA",
   nord_blue = "#5A84BC",
