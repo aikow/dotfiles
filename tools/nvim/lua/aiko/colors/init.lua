@@ -35,6 +35,7 @@ M.paint = function(colorscheme)
     vim.cmd([[syntax reset]])
   end
   vim.g.colors_name = colorscheme.name
+  vim.g.color_name = colorscheme.name
   vim.opt.background = colorscheme.background or "dark"
 
   -- Load all integrations

@@ -470,24 +470,11 @@ return {
   -- |   Color Schemes   |
   -- ---------------------
   --
-  -- Color and colorscheme helper.
-  ["rktjmp/lush.nvim"] = {
-    module = "lush",
-  },
-
   -- Current default
   ["sainnhe/gruvbox-material"] = {
     -- event = "ColorSchemePre",
     config = function()
       require("aiko.plugins.configs.colorschemes").gruvbox_material()
-    end,
-  },
-
-  ["sainnhe/everforest"] = {
-    event = "ColorSchemePre",
-    config = function()
-      vim.g.everforest_background = "medium"
-      vim.g.everforest_better_performance = 1
     end,
   },
 
@@ -503,30 +490,5 @@ return {
 
   ["B4mbus/oxocarbon-lua.nvim"] = {
     event = "ColorSchemePre",
-  },
-
-  ["navarasu/onedark.nvim"] = {
-    event = "ColorSchemePre",
-    config = function()
-      require("onedark").setup({
-        style = "warm",
-      })
-    end,
-  },
-
-  ["catppuccin/nvim"] = {
-    as = "catppuccin",
-    run = ":CatppuccinCompile",
-    event = "ColorSchemePre",
-    config = function()
-      require("aiko.plugins.configs.colorschemes").catppuccin()
-    end,
-  },
-
-  ["marko-cerovac/material.nvim"] = {
-    event = "ColorSchemePre",
-    config = function()
-      require("aiko.plugins.configs.colorschemes").material()
-    end,
   },
 }
