@@ -9,7 +9,10 @@
 - create:
   - ~/.bin
   - ~/.config
+  - ~/.local/share
   - ~/workspace
+  - ~/workspace/repos
+  - ~/workspace/lib
 
 - shell:
   - [git submodule update --init --recursive, Installing submodules]
@@ -78,7 +81,6 @@
 
     # Git
     ~/.gitconfig: tools/git/gitconfig
-    ~/.gitignore_global: tools/git/gitignore_global
 
     # Screen
     ~/.screenrc:

@@ -5,6 +5,7 @@
 #######################################################################
 # Set the dotfiles config
 export DOTFILES="${HOME}/.dotfiles"
+export LOCAL_CONFIG="${HOME}/.local/config"
 export PATH="${HOME}/.bin:${DOTFILES}/shells/bin:${HOME}/.local/bin:/usr/local/bin:/opt/vc/bin:${PATH}"
 
 export MY_SHELL="bash"
@@ -114,5 +115,5 @@ fi
 [[ -f "${DOTFILES}/shells/bash/git.aliases" ]] && source "${DOTFILES}/shells/bash/git.aliases"
 
 # Load local aliases and configurations
-[[ -f "${HOME}/.aliases.local" ]] && source "${HOME}/.aliases.local"
-[[ -f "${HOME}/.bashrc.local" ]] && source "${HOME}/.bashrc.local"
+[[ -f "${LOCAL_CONFIG}/aliases" ]] && source "${LOCAL_CONFIG}/aliases"
+[[ -f "${LOCAL_CONFIG}/bashrc" ]] && source "${LOCAL_CONFIG}/bashrc"
