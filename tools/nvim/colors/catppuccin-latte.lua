@@ -57,7 +57,10 @@ colorscheme.colors = {
 
 colorscheme.polish = {
   TelescopePromptPrefix = { fg = colorscheme.colors.white },
-  TelescopeSelection = { bg = colorscheme.colors.one_bg, fg = M.base_30.white },
+  TelescopeSelection = {
+    bg = colorscheme.colors.one_bg,
+    fg = colorscheme.theme.white,
+  },
   FloatBorder = { fg = colorscheme.theme.base05 },
   DiffAdd = { fg = colorscheme.theme.base05 },
   TbLineThemeToggleBtn = { bg = colorscheme.colors.one_bg3 },

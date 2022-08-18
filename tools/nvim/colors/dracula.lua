@@ -1,4 +1,9 @@
-local colors = {
+local colorscheme = {
+  name = "dracula",
+  background = "dark",
+}
+
+colorscheme.colors = {
   white = "#F8F8F2",
   darker_black = "#222430",
   black = "#282A36", --  nvim bg
@@ -31,7 +36,7 @@ local colors = {
   folder_bg = "#BD93F9",
 }
 
-local theme = {
+colorscheme.theme = {
   base00 = "#282936",
   base01 = "#3a3c4e",
   base02 = "#4d4f68",
@@ -50,11 +55,9 @@ local theme = {
   base0F = "#F8F8F2",
 }
 
-local polish = {
+colorscheme.polish = {
   TSFuncBuiltin = { fg = M.base_30.cyan },
   TSNumber = { fg = M.base_30.purple },
 }
 
-vim.opt.bg = "dark"
-
-require("aiko.colors").paint(theme, colors, polish)
+require("aiko.colors").paint(colorscheme)
