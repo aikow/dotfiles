@@ -3,7 +3,7 @@ local colorscheme = { name = "kanagawa", background = "dark" }
 colorscheme.colors = {
   white = "#DCD7BA",
   darker_black = "#191922",
-  black = "#1F1F28", --  nvim bg
+  black = "#1F1F28",
   black2 = "#25252e",
   one_bg = "#272730",
   one_bg2 = "#2f2f38",
@@ -15,7 +15,7 @@ colorscheme.colors = {
   red = "#d8616b",
   baby_pink = "#D27E99",
   pink = "#c8748f",
-  line = "#31313a", -- for lines like vertsplit
+  line = "#31313a",
   green = "#98BB6C",
   vibrant_green = "#a3c677",
   nord_blue = "#7E9CD8",

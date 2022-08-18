@@ -4,9 +4,9 @@ local colorscheme = {
 }
 
 colorscheme.colors = {
-  white = "#ffffff", -- custom
+  white = "#ffffff",
   darker_black = "#232738",
-  black = "#292D3E", --  nvim bg
+  black = "#292D3E",
   black2 = "#2f3344",
   one_bg = "#333748",
   one_bg2 = "#3c4051",
@@ -17,22 +17,22 @@ colorscheme.colors = {
   light_grey = "#6d7182",
   red = "#f07178",
   baby_pink = "#606475",
-  pink = "#ff5370", -- base16
-  line = "#3f4354", -- for lines like vertsplit
-  green = "#c3e88d", --base16
-  vibrant_green = "#96e88d", -- custom
+  pink = "#ff5370",
+  line = "#3f4354",
+  green = "#c3e88d",
+  vibrant_green = "#96e88d",
   nord_blue = "#8fb7ff",
-  blue = "#82aaff", -- base16
-  yellow = "#ffcb6b", -- base16
+  blue = "#82aaff",
+  yellow = "#ffcb6b",
   sun = "#ffd373",
-  purple = "#c792ea", -- base16
-  dark_purple = "#b383d2", --custom
-  teal = "#89ffe6", -- custom
-  orange = "#ffa282", -- base16
-  cyan = "#89ddff", -- base16
+  purple = "#c792ea",
+  dark_purple = "#b383d2",
+  teal = "#89ffe6",
+  orange = "#ffa282",
+  cyan = "#89ddff",
   statusline_bg = "#2d3142",
   lightbg = "#3c4051",
-  pmenu_bg = "#82aaff", -- custom
+  pmenu_bg = "#82aaff",
   folder_bg = "#82aaff",
 }
 

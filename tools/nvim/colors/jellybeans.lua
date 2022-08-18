@@ -3,7 +3,7 @@ local colorscheme = { name = "jellybeans", background = "dark" }
 colorscheme.colors = {
   white = "#e8e8d3",
   darker_black = "#101010",
-  black = "#151515", --  nvim bg
+  black = "#151515",
   black2 = "#1c1c1c",
   one_bg = "#252525",
   one_bg2 = "#2e2e2e",
@@ -15,7 +15,7 @@ colorscheme.colors = {
   red = "#cf6a4c",
   baby_pink = "#da7557",
   pink = "#f0a0c0",
-  line = "#2d2d2d", -- for lines like vertsplit
+  line = "#2d2d2d",
   green = "#99ad6a",
   vibrant_green = "#c2cea6",
   nord_blue = "#768cb4",

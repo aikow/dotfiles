@@ -3,7 +3,7 @@ local colorscheme = { name = "mountain", background = "dark" }
 colorscheme.colors = {
   white = "#F0f0f0",
   darker_black = "#090909",
-  black = "#0f0f0f", --  nvim bg
+  black = "#0f0f0f",
   black2 = "#181818",
   one_bg = "#191919",
   one_bg2 = "#222222",
@@ -15,7 +15,7 @@ colorscheme.colors = {
   red = "#ac8a8c",
   baby_pink = "#bb999b",
   pink = "#AC8AAC",
-  line = "#242424", -- for lines like vertsplit
+  line = "#242424",
   green = "#8aac8b",
   vibrant_green = "#99bb9a",
   blue = "#9691b3",

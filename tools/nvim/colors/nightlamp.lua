@@ -3,7 +3,7 @@ local colorscheme = { name = "nightlamp", background = "dark" }
 colorscheme.colors = {
   white = "#e0d6bd",
   darker_black = "#13141a",
-  black = "#18191f", --nvim bg
+  black = "#18191f",
   black2 = "#202127",
   one_bg = "#27282e",
   one_bg2 = "#2d2e34",
@@ -15,7 +15,7 @@ colorscheme.colors = {
   red = "#a67476",
   baby_pink = "#d6b3bd",
   pink = "#c99aa7",
-  line = "#313238", --for lines like vertsplit
+  line = "#313238",
   green = "#8aa387",
   vibrant_green = "#94ad91",
   nord_blue = "#8d9bb3",

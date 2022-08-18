@@ -6,7 +6,7 @@ local colorscheme = {
 colorscheme.colors = {
   white = "#dee1e6",
   darker_black = "#1a1a1a",
-  black = "#1E1E1E", --  nvim bg
+  black = "#1E1E1E",
   black2 = "#252525",
   one_bg = "#282828",
   one_bg2 = "#313131",
@@ -18,7 +18,7 @@ colorscheme.colors = {
   red = "#D16969",
   baby_pink = "#ea696f",
   pink = "#bb7cb6",
-  line = "#2e2e2e", -- for lines like vertsplit
+  line = "#2e2e2e",
   green = "#B5CEA8",
   green1 = "#4EC994",
   vibrant_green = "#bfd8b2",
@@ -38,7 +38,7 @@ colorscheme.colors = {
 }
 
 colorscheme.theme = {
-  --author of this template Tomas Iser, @tomasiser on github,
+
   base00 = "#1E1E1E",
   base01 = "#262626",
   base02 = "#303030",
