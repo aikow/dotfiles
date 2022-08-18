@@ -1,4 +1,9 @@
-local theme = {
+local colorscheme = {
+  name = "decay",
+  background = "dark",
+}
+
+colorscheme.theme = {
   base00 = "#171B20",
   base01 = "#21262e",
   base02 = "#242931",
@@ -17,7 +22,7 @@ local theme = {
   base0F = "#e05f65",
 }
 
-local colors = {
+colorscheme.colors = {
   white = "#dee1e6",
   darker_black = "#111519",
   black = "#171B20", --  nvim bg
@@ -50,6 +55,4 @@ local colors = {
   folder_bg = "#78DBA9",
 }
 
-vim.opt.bg = "dark"
-
-require("aiko.colors").paint(theme, colors)
+require("aiko.colors").paint(colorscheme)

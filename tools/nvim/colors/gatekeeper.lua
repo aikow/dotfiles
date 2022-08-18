@@ -1,4 +1,7 @@
-local colorscheme = { name = "gatekeeper", background = "dark" }
+local colorscheme = {
+  name = "gatekeeper",
+  background = "dark",
+}
 
 colorscheme.colors = {
   white = "#cccdd1",

@@ -1,5 +1,5 @@
 local colorscheme = {
-  name = "doomchad",
+  name = "doom",
   background = "dark",
 }
 colorscheme.colors = {

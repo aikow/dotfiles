@@ -1,4 +1,9 @@
-local colors = {
+local colorscheme = {
+  name = "chocolate",
+  background = "dark",
+}
+
+colorscheme.colors = {
   white = "#cdc0ad",
   darker_black = "#201d1c",
   black = "#252221", --  nvim bg
@@ -32,7 +37,7 @@ local colors = {
   beige = "#ab9382",
 }
 
-local theme = {
+colorscheme.theme = {
   base00 = "#252221",
   base01 = "#2f2c2b",
   base02 = "#393635",
@@ -51,18 +56,16 @@ local theme = {
   base0F = "#ab9382",
 }
 
-local polish = {
-  TSField = { fg = M.base_30.purple },
-  TSVariable = { fg = M.base_16.base06 },
-  TSModule = { fg = M.base_30.beige },
-  Operator = { fg = M.base_30.blue },
-  TSAttribute = { fg = M.base_30.cyan },
-  TSPunctBracket = { fg = M.base_16.base06 },
+colorscheme.polish = {
+  TSField = { fg = colorscheme.colors.purple },
+  TSVariable = { fg = colorscheme.theme.base06 },
+  TSModule = { fg = colorscheme.colors.beige },
+  Operator = { fg = colorscheme.colors.blue },
+  TSAttribute = { fg = colorscheme.colors.cyan },
+  TSPunctBracket = { fg = colorscheme.theme.base06 },
   TSParenthesis = { link = "TSPunctBracket" },
-  TSParameter = { fg = M.base_30.green },
-  TSFuncBuiltin = { fg = M.base_30.yellow },
+  TSParameter = { fg = colorscheme.colors.green },
+  TSFuncBuiltin = { fg = colorscheme.colors.yellow },
 }
 
-vim.opt.bg = "dark"
-
-require("aiko.colors").paint(theme, colors, polish)
+require("aiko.colors").paint(colorscheme)
