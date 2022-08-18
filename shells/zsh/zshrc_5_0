@@ -168,5 +168,5 @@ zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
 [[ -f "${DOTFILES}/shells/zsh/aliases" ]]  && source "${DOTFILES}/shells/zsh/aliases"
 
 # Load local settings and aliases
-[[ -f "${HOME}/.aliases.local" ]] && source "${HOME}/.aliases.local"
-[[ -f "${HOME}/.zshrc.local" ]] && source "${HOME}/.zshrc.local"
+[[ -f "${LOCAL_CONFIG}/aliases" ]] && source "${LOCAL_CONFIG}/aliases"
+[[ -f "${LOCAL_CONFIG}/zshrc" ]] && source "${LOCAL_CONFIG}/zshrc"

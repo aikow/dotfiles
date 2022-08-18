@@ -1,6 +1,7 @@
 source ~/.dotfiles/tools/vim/components/general.vim " Load general settings after plugins
 
 " Load local config options
-if filereadable(expand('~/.vimrc.local'))
-  source ~/.vimrc.local
+let g:local_config = expand('$LOCAL_CONFIG/vimrc')
+if filereadable(g:local_config)
+  source g:local_config
 endif

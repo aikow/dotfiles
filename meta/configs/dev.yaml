@@ -9,6 +9,7 @@
 - create:
   - ~/.bin
   - ~/.config
+  - ~/.local/config
   - ~/workspace
 
 - shell:
@@ -76,7 +77,6 @@
 
     # Git
     ~/.gitconfig: tools/git/gitconfig
-    ~/.gitignore_global: tools/git/gitignore_global
 
     # Screen
     ~/.screenrc:

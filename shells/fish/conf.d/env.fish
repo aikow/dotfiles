@@ -3,6 +3,7 @@ set -gx LC_ALL en_US.UTF-8
 
 # My environment variables
 set -gx DOTFILES $HOME/.dotfiles
+set -gx LOCAL_CONFIG $HOME/.local/config
 set -gx MY_SHELL fish
 
 # Editor

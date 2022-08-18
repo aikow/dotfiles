@@ -1,13 +1,16 @@
 vim.filetype.add({
   extension = {
-    wiki = "markdown",
-    tmux = "tmux",
     nu = "nu",
     rsync = "rsync",
+    tmux = "tmux",
+    wiki = "markdown",
   },
   filename = {
-    ["MANIFEST.in"] = "manifest",
     [".gitignore"] = "gitignore",
+    ["aliases"] = "sh",
+    ["bashrc"] = "bash",
+    ["gitconfig"] = "gitconfig",
+    ["MANIFEST.in"] = "manifest",
   },
   pattern = {
     ["Dockerfile.*"] = "dockerfile",

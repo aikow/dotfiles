@@ -215,8 +215,9 @@ let-env config = {
   rm_always_trash: false
   color_config: $default_theme
   use_grid_icons: true
-  footer_mode: "25" # always, never, number_of_rows, auto
-  quick_completions: true  # set this to false to prevent auto-selecting completions when only one remains
+  show_banner: false
+  footer_mode: "auto" # always, never, number_of_rows, auto
+  quick_completions: false  # set this to false to prevent auto-selecting completions when only one remains
   partial_completions: true  # set this to false to prevent partial filling of the prompt
   completion_algorithm: "fuzzy"  # prefix, fuzzy
   float_precision: 2

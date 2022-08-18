@@ -28,6 +28,6 @@ end
 # ----------------------------------
 # |   Source local configuration   |
 # ----------------------------------
-if test -f ~/.local.fish
-  source ~/.local.fish
+if test -f $LOCAL_CONFIG/fish/config.fish
+  source $LOCAL_CONFIG/config.fish
 end
