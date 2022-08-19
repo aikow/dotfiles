@@ -448,14 +448,6 @@ return {
     end,
   },
 
-  -- Status-line plugin.
-  ["nvim-lualine/lualine.nvim"] = {
-    -- commit = "8d956c18258bb128ecf42f95411bb26efd3a5d23",
-    config = function()
-      require("aiko.plugins.configs.lualine").setup()
-    end,
-  },
-
   -- LSP based location for status-line.
   ["SmiteshP/nvim-navic"] = {
     module = "nvim-navic",
@@ -471,24 +463,6 @@ return {
   -- ---------------------
   --
   -- Current default
-  ["sainnhe/gruvbox-material"] = {
-    -- event = "ColorSchemePre",
-    config = function()
-      require("aiko.plugins.configs.colorschemes").gruvbox_material()
-    end,
-  },
-
-  ["luisiacc/gruvbox-baby"] = {
-    event = "ColorSchemePre",
-    config = function()
-      vim.g.gruvbox_baby_function_style = "NONE"
-      vim.g.gruvbox_baby_keyword_style = "italic"
-      vim.g.gruvbox_baby_telescope_theme = 1
-      vim.g.gruvbox_baby_transparent_mode = 1
-    end,
-  },
-
-  ["B4mbus/oxocarbon-lua.nvim"] = {
-    event = "ColorSchemePre",
-  },
+  ["sainnhe/gruvbox-material"] = {},
+  ["B4mbus/oxocarbon-lua.nvim"] = {},
 }
