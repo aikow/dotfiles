@@ -42,7 +42,7 @@ M.mode = function()
   return current_mode .. mode_sep1 .. "%#StatusLineEmptySpace#" .. sep_r
 end
 
-M.fileInfo = function()
+M.file_info = function()
   local icon = "  "
   local filename = (fn.expand("%") == "" and "Empty ") or fn.expand("%:t")
 
@@ -99,7 +99,7 @@ M.location = function()
 end
 
 -- LSP STUFF
-M.LSP_progress = function()
+M.lsp_progress = function()
   if not rawget(vim, "lsp") then
     return ""
   end
@@ -127,7 +127,7 @@ M.LSP_progress = function()
   return ("%#StatusLineLspProgress#" .. content) or ""
 end
 
-M.LSP_Diagnostics = function()
+M.lsp_diagnostics = function()
   if not rawget(vim, "lsp") then
     return ""
   end
@@ -161,29 +161,65 @@ M.LSP_Diagnostics = function()
   return errors .. warnings .. hints .. info
 end
 
-M.LSP_status = function()
+M.lsp_status = function()
   if rawget(vim, "lsp") then
     for _, client in ipairs(vim.lsp.get_active_clients()) do
       if client.attached_buffers[vim.api.nvim_get_current_buf()] then
-        return (
-          vim.o.columns > 100
-          and "%#StatusLineLspStatus#" .. "   LSP ~ " .. client.name .. " "
-        ) or "   LSP "
+        if vim.o.columns > 100 then
+          return "%#StatusLineLspStatus#"
+            .. "   LSP ~ "
+            .. client.name
+            .. " "
+        else
+          return "   LSP "
+        end
       end
     end
   end
+
+  return ""
 end
 
 M.cwd = function()
-  local dir_icon = "%#StatusLineCwdIcon#" .. " "
-  local dir_name = "%#StatusLineCwdText#"
-    .. " "
-    .. fn.fnamemodify(fn.getcwd(), ":t")
-    .. " "
-  return (
-    vim.o.columns > 85
-    and ("%#StatusLineCwdSep#" .. sep_l .. dir_icon .. dir_name)
-  ) or ""
+  if vim.o.columns < 85 then
+    return
+  end
+
+  local filename = " " .. fn.fnamemodify(fn.getcwd(), ":t") .. " "
+
+  return table.concat({
+    "%#StatusLineCwdSep#",
+    sep_l,
+    "%#StatusLineCwdIcon#",
+    " ",
+    "%#StatusLineCwdText#",
+    filename,
+  })
+end
+
+M.filetype = function()
+  if vim.o.columns < 80 then
+    return ""
+  end
+
+  local icon
+  local filetype
+  local ok_devicons, devicons = pcall(require, "nvim-web-devicons")
+  if ok_devicons then
+    icon = devicons.get_icon(vim.bo.filetype) or " "
+    icon = icon .. " "
+  else
+    icon = "  "
+  end
+
+  filetype = " " .. vim.bo.filetype .. " "
+
+  return "%#StatusLineFileTypeSep#"
+    .. sep_l
+    .. "%#StatusLineFileTypeIcon#"
+    .. icon
+    .. "%#StatusLineFileTypeText#"
+    .. filetype
 end
 
 M.cursor_position = function()
@@ -194,17 +230,21 @@ M.cursor_position = function()
 
   local current_line = fn.line(".")
   local total_line = fn.line("$")
-  local text = math.modf((current_line / total_line) * 100) .. tostring("%%")
 
-  text = (current_line == 1 and "Top") or text
-  text = (current_line == total_line and "Bot") or text
+  local text
+  if current_line == 1 then
+    text = "Top"
+  elseif current_line == total_line then
+    text = "Bot"
+  else
+    text = math.modf((current_line / total_line) * 100) .. "%%"
+  end
 
-  -- return left_sep .. "%p%% %l/%L:%c"
   return left_sep
     .. "%#StatusLinePosText#"
     .. " "
     .. text
-    .. " "
+    .. " of "
     .. total_line
     .. " "
 end
@@ -227,6 +267,8 @@ M.tablist = function()
 
     result = table.concat({ result, "%", i, "T", tab_hl, name, i, "%X " })
   end
+
+  return result
 end
 
 return M

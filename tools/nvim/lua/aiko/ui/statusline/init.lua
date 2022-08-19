@@ -5,16 +5,15 @@ local M = {}
 M.statusline = function()
   return table.concat({
     modules.mode(),
-    modules.fileInfo(),
+    modules.file_info(),
     modules.git(),
-
     "%=",
-    modules.LSP_progress(),
+    modules.lsp_progress(),
     "%=",
-
-    modules.LSP_Diagnostics(),
-    modules.LSP_status() or "",
+    modules.lsp_diagnostics(),
+    modules.lsp_status(),
     modules.cwd(),
+    modules.filetype(),
     modules.cursor_position(),
   })
 end
@@ -22,6 +21,7 @@ end
 M.tabline = function()
   return table.concat({
     modules.tablist(),
+    "%=",
   })
 end
 
