@@ -23,11 +23,11 @@ M.mappings = function()
   local map = vim.keymap.set
 
   -- Navigation
-  map({ "n", "v", "o" }, "]h", function()
+  map({ "n", "v", "o" }, "]c", function()
     return vim.wo.diff and "]c" or "<cmd>Gitsigns next_hunk<CR>"
   end, { expr = true, silent = true, desc = "go to next git hunk" })
 
-  map({ "n", "v", "o" }, "[h", function()
+  map({ "n", "v", "o" }, "[c", function()
     return vim.wo.diff and "[c" or "<cmd>Gitsigns prev_hunk<CR>"
   end, { expr = true, silent = true, desc = "go to previous git hunk" })
 
@@ -90,7 +90,7 @@ M.mappings = function()
   -- Text object
   map(
     { "o", "x" },
-    "ih",
+    "ic",
     ":<C-u>Gitsigns select_hunk<CR>",
     { silent = true, desc = "git hunk text object" }
   )

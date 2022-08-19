@@ -9,6 +9,7 @@ M.integrations = {
   "lsp",
   "mason",
   "nvimtree",
+  "statusline",
   "syntax",
   "telescope",
   "treesitter",

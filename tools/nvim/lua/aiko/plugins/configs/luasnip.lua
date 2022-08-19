@@ -27,7 +27,7 @@ M.setup = function()
       },
       [types.insertNode] = {
         active = {
-          virt_text = { { "●", "GruvboxBlue" } },
+          virt_text = { { "●", "Comment" } },
         },
       },
     },
@@ -108,7 +108,7 @@ M.setup = function()
     require("luasnip.loaders").edit_snippet_files({})
   end, { silent = true, desc = "telescope edit snippets" })
 
-  vim.api.nvim_create_user_command("LuaSnipEdit", function()
+  vim.api.nvim_create_user_command("LuasnipEdit", function()
     require("luasnip.loaders").edit_snippet_files({})
   end, { desc = "telescope edit snippets", force = true })
 

@@ -2,7 +2,6 @@ local M = {}
 
 M.palette = function(theme, colors)
   return {
-
     TelescopeNormal = { bg = colors.darker_black },
     TelescopeBorder = { fg = colors.darker_black, bg = colors.darker_black },
     TelescopeSelection = { bg = colors.black2, fg = colors.white },
