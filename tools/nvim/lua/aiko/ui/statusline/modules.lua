@@ -64,6 +64,81 @@ M.file_info = function()
     .. sep_r
 end
 
+M.cwd = function()
+  if vim.o.columns < 85 then
+    return
+  end
+
+  local filename = " " .. fn.fnamemodify(fn.getcwd(), ":t") .. " "
+
+  return table.concat({
+    "%#StatusLineCwdSep#",
+    sep_l,
+    "%#StatusLineCwdIcon#",
+    " ",
+    "%#StatusLineCwdText#",
+    filename,
+  })
+end
+
+M.filetype = function()
+  if vim.o.columns < 80 then
+    return ""
+  end
+
+  local filetype = vim.bo.filetype
+  if filetype == "" then
+    filetype = "none"
+  end
+
+  local icon
+  local ok_devicons, devicons = pcall(require, "nvim-web-devicons")
+  if ok_devicons then
+    icon = devicons.get_icon(filetype) or "X"
+    icon = icon .. " "
+  else
+    icon = "X "
+  end
+
+  local padded = " " .. filetype .. " "
+
+  return table.concat({
+    "%#StatusLineFileTypeSep#",
+    sep_l,
+    "%#StatusLineFileTypeIcon#",
+    icon,
+    "%#StatusLineFileTypeText#",
+    padded,
+  })
+end
+
+M.cursor_position = function()
+  local left_sep = "%#StatusLinePosSep#"
+    .. sep_l
+    .. "%#StatusLinePosIcon#"
+    .. " "
+
+  local current_line = fn.line(".")
+  local total_line = fn.line("$")
+
+  local text
+  if current_line == 1 then
+    text = "Top"
+  elseif current_line == total_line then
+    text = "Bot"
+  else
+    text = math.modf((current_line / total_line) * 100) .. "%%"
+  end
+
+  return left_sep
+    .. "%#StatusLinePosText#"
+    .. " "
+    .. text
+    .. " of "
+    .. total_line
+    .. " "
+end
+
 M.git = function()
   if not vim.b.gitsigns_head or vim.b.gitsigns_git_status then
     return ""
@@ -85,20 +160,34 @@ M.git = function()
   return "%#StatusLineGitIcons#" .. branch_name .. added .. changed .. removed
 end
 
-M.location = function()
-  local ok_nvim_navic, nvim_navic = pcall(require, "nvim-navic")
-  if not ok_nvim_navic then
-    return ""
+-- ------------------------------------------------------------------------
+-- | Tab Line
+-- ------------------------------------------------------------------------
+M.tablist = function()
+  local result = ""
+  local number_of_tabs = fn.tabpagenr("$")
+
+  for i = 1, number_of_tabs, 1 do
+    local tab_hl
+    if i == fn.tabpagenr() then
+      tab_hl = "%#StatusLineActiveTab# "
+    else
+      tab_hl = "%#StatusLineInactiveTab# "
+    end
+
+    local buflist = fn.tabpagebuflist(i)
+    local bufname = vim.api.nvim_buf_get_name(buflist[1])
+    local name = string.match(bufname, "[^/]*$")
+
+    result = table.concat({ result, "%", i, "T", tab_hl, name, i, "%X " })
   end
 
-  if nvim_navic.is_available() then
-    return nvim_navic.get_location() or ""
-  end
-
-  return ""
+  return result
 end
 
--- LSP STUFF
+-- ------------------------------------------------------------------------
+-- | LSP Modules
+-- ------------------------------------------------------------------------
 M.lsp_progress = function()
   if not rawget(vim, "lsp") then
     return ""
@@ -180,95 +269,17 @@ M.lsp_status = function()
   return ""
 end
 
-M.cwd = function()
-  if vim.o.columns < 85 then
-    return
-  end
-
-  local filename = " " .. fn.fnamemodify(fn.getcwd(), ":t") .. " "
-
-  return table.concat({
-    "%#StatusLineCwdSep#",
-    sep_l,
-    "%#StatusLineCwdIcon#",
-    " ",
-    "%#StatusLineCwdText#",
-    filename,
-  })
-end
-
-M.filetype = function()
-  if vim.o.columns < 80 then
+M.lsp_location = function()
+  local ok_nvim_navic, nvim_navic = pcall(require, "nvim-navic")
+  if not ok_nvim_navic then
     return ""
   end
 
-  local icon
-  local filetype
-  local ok_devicons, devicons = pcall(require, "nvim-web-devicons")
-  if ok_devicons then
-    icon = devicons.get_icon(vim.bo.filetype) or " "
-    icon = icon .. " "
-  else
-    icon = "  "
+  if nvim_navic.is_available() then
+    return nvim_navic.get_location() or ""
   end
 
-  filetype = " " .. vim.bo.filetype .. " "
-
-  return "%#StatusLineFileTypeSep#"
-    .. sep_l
-    .. "%#StatusLineFileTypeIcon#"
-    .. icon
-    .. "%#StatusLineFileTypeText#"
-    .. filetype
-end
-
-M.cursor_position = function()
-  local left_sep = "%#StatusLinePosSep#"
-    .. sep_l
-    .. "%#StatusLinePosIcon#"
-    .. " "
-
-  local current_line = fn.line(".")
-  local total_line = fn.line("$")
-
-  local text
-  if current_line == 1 then
-    text = "Top"
-  elseif current_line == total_line then
-    text = "Bot"
-  else
-    text = math.modf((current_line / total_line) * 100) .. "%%"
-  end
-
-  return left_sep
-    .. "%#StatusLinePosText#"
-    .. " "
-    .. text
-    .. " of "
-    .. total_line
-    .. " "
-end
-
-M.tablist = function()
-  local result = ""
-  local number_of_tabs = fn.tabpagenr("$")
-
-  for i = 1, number_of_tabs, 1 do
-    local tab_hl
-    if i == fn.tabpagenr() then
-      tab_hl = "%#StatusLineActiveTab# "
-    else
-      tab_hl = "%#StatusLineInactiveTab# "
-    end
-
-    local buflist = fn.tabpagebuflist(i)
-    local bufname = vim.api.nvim_buf_get_name(buflist[1])
-    local name = string.match(bufname, "[^/]*$")
-
-    result = table.concat({ result, "%", i, "T", tab_hl, name, i, "%X " })
-  end
-
-  return result
+  return ""
 end
 
 return M

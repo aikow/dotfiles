@@ -6,6 +6,7 @@ M.statusline = function()
   return table.concat({
     modules.mode(),
     modules.file_info(),
+    modules.lsp_location(),
     modules.git(),
     "%=",
     modules.lsp_progress(),

@@ -181,16 +181,6 @@ return {
     end,
   },
 
-  -- View tree structures like file system, git files, buffers, etc.
-  ["nvim-neo-tree/neo-tree.nvim"] = {
-    disable = false,
-    branch = "v2.x",
-    cmd = "Neotree",
-    config = function()
-      require("aiko.plugins.configs.neotree").setup()
-    end,
-  },
-
   -- Enhance vim's builtin netrw plugin.
   ["tpope/vim-vinegar"] = {},
 
@@ -435,12 +425,6 @@ return {
   -- |   GUI, Themes, and Icons   |
   -- ------------------------------
   --
-  -- New UI components.
-  ["MunifTanjim/nui.nvim"] = {
-    disable = false,
-    module = "nui",
-  },
-
   -- Override neovim default UI components for user input.
   ["stevearc/dressing.nvim"] = {
     config = function()
