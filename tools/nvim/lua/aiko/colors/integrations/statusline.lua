@@ -92,13 +92,13 @@ M.palette = function(theme, colors)
     StatusLineCwdText = { fg = colors.white, bg = colors.lightbg },
     StatusLineCwdSep = { fg = colors.red, bg = colors.statusline_bg },
 
-    StatusLineFileTypeIcon = { fg = colors.one_bg, bg = colors.orange },
+    StatusLineFileTypeIcon = { fg = colors.black, bg = colors.orange },
     StatusLineFileTypeText = { fg = colors.white, bg = colors.lightbg },
-    StatusLineFileTypeSep = { fg = colors.orange, bg = colors.statusline_bg },
+    StatusLineFileTypeSep = { fg = colors.orange, bg = colors.lightbg },
 
-    StatusLinePosSep = { fg = colors.green, bg = colors.lightbg },
     StatusLinePosIcon = { fg = colors.black, bg = colors.green },
     StatusLinePosText = { fg = colors.green, bg = colors.lightbg },
+    StatusLinePosSep = { fg = colors.green, bg = colors.lightbg },
 
     StatusLineActiveTab = { fg = colors.white, bg = colors.red },
     StatusLineInactiveTab = { fg = colors.grey, bg = colors.black },
