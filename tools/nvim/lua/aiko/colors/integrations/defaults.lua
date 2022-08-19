@@ -63,7 +63,7 @@ M.palette = function(theme, colors)
     SignColumn = { fg = theme.base03, sp = "NONE" },
     ColorColumn = { bg = theme.base01, sp = "none" },
     CursorColumn = { bg = theme.base01, sp = "none" },
-    CursorLine = { bg = "none", sp = "none" },
+    CursorLine = { bg = theme.base01, sp = "none" },
     QuickFixLine = { bg = theme.base01, sp = "none" },
 
     SpellBad = { undercurl = true, sp = theme.base08 },
