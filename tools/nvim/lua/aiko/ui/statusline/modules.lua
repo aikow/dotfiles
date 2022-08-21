@@ -36,7 +36,8 @@ local M = {}
 
 M.mode = function()
   local m = vim.api.nvim_get_mode().mode
-  local current_mode = "%#" .. modes[m][2] .. "#" .. "  " .. modes[m][1]
+  -- local current_mode = "%#" .. modes[m][2] .. "#  " .. modes[m][1]
+  local current_mode = "%#" .. modes[m][2] .. "# " .. modes[m][1]
   local mode_sep1 = "%#" .. modes[m][2] .. "Sep" .. "#" .. sep_r
 
   return current_mode .. mode_sep1 .. "%#StatusLineEmptySpace#" .. sep_r
@@ -88,7 +89,7 @@ M.filetype = function()
 
   local filetype = vim.bo.filetype
   if filetype == "" then
-    filetype = "none"
+    return ""
   end
 
   local icon
