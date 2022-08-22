@@ -50,10 +50,19 @@ M.mode = function()
   return current_mode .. mode_sep1 .. "%#StatusLineEmptySpace#" .. sep_r
 end
 
-M.file_info = function()
+M.filename = function()
   local icon = "  "
 
+  local readonly = vim.bo.readonly and "R" or ""
+  local modifiable = vim.bo.modifiable and "" or "M"
+  local flags = readonly .. modifiable
+  if flags ~= "" then
+    flags = " [" .. flags .. "]"
+  end
+
   local filename = vim.api.nvim_buf_get_name(0)
+  local modified = vim.bo.modified and "[+]" or ""
+
   if filename == "" then
     filename = "Empty"
   else
@@ -72,27 +81,12 @@ M.file_info = function()
   end
 
   return "%#StatusLineFileInfo#"
+    .. flags
     .. icon
     .. filename
+    .. modified
     .. "%#StatusLineFileSep#"
     .. sep_r
-end
-
-M.cwd = function()
-  if vim.o.columns < 85 then
-    return
-  end
-
-  local filename = " " .. fn.fnamemodify(fn.getcwd(), ":t") .. " "
-
-  return table.concat({
-    "%#StatusLineCwdSep#",
-    sep_l,
-    "%#StatusLineCwdIcon#",
-    " ",
-    "%#StatusLineCwdText#",
-    filename,
-  })
 end
 
 M.filetype = function()
@@ -139,6 +133,23 @@ M.cursor_position = function()
   local text =
     string.format(" %s/%s:%s ", current_line, total_line, current_col)
   return left_sep .. "%#StatusLinePosText#" .. text
+end
+
+M.cwd = function()
+  if vim.o.columns < 85 then
+    return
+  end
+
+  local filename = " " .. fn.fnamemodify(fn.getcwd(), ":t") .. " "
+
+  return table.concat({
+    "%#StatusLineCwdSep#",
+    sep_l,
+    "%#StatusLineCwdIcon#",
+    " ",
+    "%#StatusLineCwdText#",
+    filename,
+  })
 end
 
 M.git = function()

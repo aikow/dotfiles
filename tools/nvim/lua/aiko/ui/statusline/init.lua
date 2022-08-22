@@ -5,7 +5,7 @@ local M = {}
 M.statusline = function()
   return table.concat({
     modules.mode(),
-    modules.file_info(),
+    modules.filename(),
     modules.git(),
     "%=",
     modules.lsp_progress(),
@@ -19,7 +19,7 @@ end
 
 M.winbar = function()
   return table.concat({
-    modules.file_info(),
+    modules.filename(),
     modules.lsp_location(),
     "%=",
     modules.filetype(),
