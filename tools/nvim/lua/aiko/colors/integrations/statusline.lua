@@ -3,11 +3,6 @@ local M = {}
 M.palette = function(theme, colors)
   return {
     StatusLine = { bg = colors.statusline_bg },
-    StatusLineGitIcons = {
-      fg = colors.light_grey,
-      bg = colors.statusline_bg,
-      bold = true,
-    },
 
     -- LSP
     StatusLineLspError = { fg = colors.red, bg = colors.statusline_bg },
@@ -99,6 +94,17 @@ M.palette = function(theme, colors)
     StatusLinePosIcon = { fg = colors.black, bg = colors.green },
     StatusLinePosText = { fg = colors.green, bg = colors.lightbg },
     StatusLinePosSep = { fg = colors.green, bg = colors.lightbg },
+
+    StatusLineLspLocation = {
+      fg = colors.light_grey,
+      bg = colors.statusline_bg,
+    },
+
+    StatusLineGitIcons = {
+      fg = colors.light_grey,
+      bg = colors.statusline_bg,
+      bold = true,
+    },
 
     StatusLineActiveTab = { fg = colors.white, bg = colors.red },
     StatusLineInactiveTab = { fg = colors.grey, bg = colors.black },

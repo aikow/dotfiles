@@ -435,6 +435,9 @@ return {
   -- LSP based location for status-line.
   ["SmiteshP/nvim-navic"] = {
     module = "nvim-navic",
+    config = function()
+      vim.g.navic_silence = true
+    end,
   },
 
   -- Dev icons for file types.

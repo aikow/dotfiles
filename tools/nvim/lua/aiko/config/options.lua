@@ -116,7 +116,7 @@ opt.textwidth = 80
 opt.colorcolumn = { 80 }
 
 -- Enable relative numbers, but display the line number in the current line.
-opt.relativenumber = true
+opt.relativenumber = false
 opt.number = true
 opt.numberwidth = 2
 
