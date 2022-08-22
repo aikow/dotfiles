@@ -34,6 +34,13 @@ local modes = {
 
 local M = {}
 
+M.filetype_excludes_winbar = {
+  "help",
+  "alpha",
+  "packer",
+  "NvimTree",
+}
+
 M.mode = function()
   local m = vim.api.nvim_get_mode().mode
   -- local current_mode = "%#" .. modes[m][2] .. "#  " .. modes[m][1]
@@ -45,14 +52,20 @@ end
 
 M.file_info = function()
   local icon = "  "
-  local filename = (fn.expand("%") == "" and "Empty ") or fn.expand("%:t")
 
-  if filename ~= "Empty " then
+  local filename = vim.api.nvim_buf_get_name(0)
+  if filename == "" then
+    filename = "Empty"
+  else
     local devicons_present, devicons = pcall(require, "nvim-web-devicons")
+
+    filename = fn.fnamemodify(filename, ":t")
 
     if devicons_present then
       local ft_icon = devicons.get_icon(filename)
-      icon = (ft_icon ~= nil and " " .. ft_icon) or ""
+      if ft_icon then
+        icon = " " .. ft_icon
+      end
     end
 
     filename = " " .. filename .. " "
@@ -95,7 +108,7 @@ M.filetype = function()
   local icon
   local ok_devicons, devicons = pcall(require, "nvim-web-devicons")
   if ok_devicons then
-    icon = devicons.get_icon(filetype) or "X"
+    icon = devicons.get_icon_by_filetype(filetype) or "X"
     icon = icon .. " "
   else
     icon = "X "
@@ -121,23 +134,11 @@ M.cursor_position = function()
 
   local current_line = fn.line(".")
   local total_line = fn.line("$")
+  local current_col = fn.col(".")
 
-  local text
-  if current_line == 1 then
-    text = "Top"
-  elseif current_line == total_line then
-    text = "Bot"
-  else
-    text = math.modf((current_line / total_line) * 100) .. "%%"
-  end
-
-  return left_sep
-    .. "%#StatusLinePosText#"
-    .. " "
-    .. text
-    .. " of "
-    .. total_line
-    .. " "
+  local text =
+    string.format(" %s/%s:%s ", current_line, total_line, current_col)
+  return left_sep .. "%#StatusLinePosText#" .. text
 end
 
 M.git = function()
@@ -252,32 +253,31 @@ M.lsp_diagnostics = function()
 end
 
 M.lsp_status = function()
-  if rawget(vim, "lsp") then
-    for _, client in ipairs(vim.lsp.get_active_clients()) do
-      if client.attached_buffers[vim.api.nvim_get_current_buf()] then
-        if vim.o.columns > 100 then
-          return "%#StatusLineLspStatus#"
-            .. "   LSP ~ "
-            .. client.name
-            .. " "
-        else
-          return "   LSP "
-        end
-      end
+  -- Check whether an LSP client is attached.
+  if #vim.lsp.buf_get_clients() == 0 then
+    return ""
+  end
+
+  local status = "%#StatusLineLspStatus#   LSP "
+
+  if vim.o.columns > 100 then
+    for _, client in ipairs(vim.lsp.buf_get_clients()) do
+      status = status .. "~ " .. client.name .. " "
     end
   end
 
-  return ""
+  return status
 end
 
 M.lsp_location = function()
   local ok_nvim_navic, nvim_navic = pcall(require, "nvim-navic")
-  if not ok_nvim_navic then
-    return ""
-  end
-
-  if nvim_navic.is_available() then
-    return nvim_navic.get_location() or ""
+  if ok_nvim_navic then
+    if nvim_navic.is_available() then
+      local loc = nvim_navic.get_location()
+      if loc ~= "" then
+        return "%#StatusLineLspLocation# " .. loc .. " "
+      end
+    end
   end
 
   return ""

@@ -6,7 +6,6 @@ M.statusline = function()
   return table.concat({
     modules.mode(),
     modules.file_info(),
-    modules.lsp_location(),
     modules.git(),
     "%=",
     modules.lsp_progress(),
@@ -14,8 +13,16 @@ M.statusline = function()
     modules.lsp_diagnostics(),
     modules.lsp_status(),
     modules.cwd(),
-    modules.filetype(),
     modules.cursor_position(),
+  })
+end
+
+M.winbar = function()
+  return table.concat({
+    modules.file_info(),
+    modules.lsp_location(),
+    "%=",
+    modules.filetype(),
   })
 end
 
