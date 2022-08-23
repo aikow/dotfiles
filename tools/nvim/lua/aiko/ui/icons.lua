@@ -15,25 +15,69 @@ M.packer = {
   moved_sym = "",
 }
 
-M.statusline_separators = {
-  default = {
-    left = "",
-    right = " ",
+M.mason = {
+  pending = " ",
+  installed = " ",
+  uninstalled = "ﮊ ",
+}
+
+-- ------------------------------------------------------------------------
+-- | Status Line Separators
+-- ------------------------------------------------------------------------
+M.separators = {
+  top_slant = {
+    fill = {
+      left = " ",
+      right = " ",
+    },
+    outline = {
+      left = " ",
+      right = " ",
+    },
+  },
+
+  bottom_slant = {
+    fill = {
+      left = " ",
+      right = " ",
+    },
+    outline = {
+      left = " ",
+      right = " ",
+    },
   },
 
   round = {
-    left = "",
-    right = "",
+    fill = {
+      left = "",
+      right = "",
+    },
+    outline = {
+      left = "",
+      right = "",
+    },
   },
 
   block = {
-    left = "█",
-    right = "█",
+    fill = {
+      left = "█",
+      right = "█",
+    },
+    outline = {
+      left = "|",
+      right = "|",
+    },
   },
 
   arrow = {
-    left = "",
-    right = "",
+    fill = {
+      left = "",
+      right = "",
+    },
+    outline = {
+      left = "",
+      right = "",
+    },
   },
 }
 

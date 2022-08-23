@@ -1,7 +1,9 @@
 local fn = vim.fn
-local separators = require("aiko.ui.icons").statusline_separators.default
-local sep_l = separators["left"]
-local sep_r = separators["right"]
+local separators = require("aiko.ui.icons").separators
+local sep_l = separators.round.fill.left
+local sep_r = separators.top_slant.fill.right
+local win_sep_l = separators.top_slant.fill.left
+local win_sep_r = separators.top_slant.fill.right
 
 local modes = {
   ["n"] = { "NORMAL", "StatusLineNormalMode" },
@@ -34,16 +36,8 @@ local modes = {
 
 local M = {}
 
-M.filetype_excludes_winbar = {
-  "help",
-  "alpha",
-  "packer",
-  "NvimTree",
-}
-
 M.mode = function()
   local m = vim.api.nvim_get_mode().mode
-  -- local current_mode = "%#" .. modes[m][2] .. "#  " .. modes[m][1]
   local current_mode = "%#" .. modes[m][2] .. "# " .. modes[m][1]
   local mode_sep1 = "%#" .. modes[m][2] .. "Sep" .. "#" .. sep_r
 
@@ -90,32 +84,30 @@ M.filename = function()
 end
 
 M.filetype = function()
-  if vim.o.columns < 80 then
-    return ""
-  end
-
   local filetype = vim.bo.filetype
   if filetype == "" then
     return ""
   end
 
-  local icon
+  local icon = ""
   local ok_devicons, devicons = pcall(require, "nvim-web-devicons")
   if ok_devicons then
-    icon = devicons.get_icon_by_filetype(filetype) or "X"
-    icon = icon .. " "
-  else
-    icon = "X "
+    icon = devicons.get_icon_by_filetype(filetype) or ""
+    icon = icon and " " .. icon or ""
   end
 
   local padded = " " .. filetype .. " "
 
   return table.concat({
+    "%#StatusLineLspLocation#",
+    vim.bo.fileencoding,
+    " | ",
+    vim.bo.fileformat,
+    " ",
     "%#StatusLineFileTypeSep#",
-    sep_l,
-    "%#StatusLineFileTypeIcon#",
-    icon,
+    win_sep_l,
     "%#StatusLineFileTypeText#",
+    icon,
     padded,
   })
 end
@@ -137,7 +129,7 @@ end
 
 M.cwd = function()
   if vim.o.columns < 85 then
-    return
+    return ""
   end
 
   local filename = " " .. fn.fnamemodify(fn.getcwd(), ":t") .. " "
@@ -181,21 +173,34 @@ M.tablist = function()
   local number_of_tabs = fn.tabpagenr("$")
 
   for i = 1, number_of_tabs, 1 do
-    local tab_hl
-    if i == fn.tabpagenr() then
-      tab_hl = "%#StatusLineActiveTab# "
-    else
-      tab_hl = "%#StatusLineInactiveTab# "
-    end
-
     local buflist = fn.tabpagebuflist(i)
     local bufname = vim.api.nvim_buf_get_name(buflist[1])
-    local name = string.match(bufname, "[^/]*$")
+    local name = vim.fn.fnamemodify(bufname, ":t") or "Empty"
+    if name == "" then
+      name = "Empty"
+    end
 
-    result = table.concat({ result, "%", i, "T", tab_hl, name, i, "%X " })
+    local tabname
+    if i == fn.tabpagenr() then
+      tabname = string.format(
+        "%%#TabLineActiveSep# %s%%#TabLineActiveTab# %s %%#TabLineActiveSep#%s ",
+        separators.round.fill.left,
+        name,
+        separators.round.fill.right
+      )
+    else
+      tabname = string.format(
+        "%%#TabLineInactiveSep# %s%%#TabLineInactiveTab# %s %%#TabLineInactiveSep#%s ",
+        separators.round.fill.left,
+        name,
+        separators.round.fill.right
+      )
+    end
+
+    result = table.concat({ result, "%", i, "T", tabname, "%X" })
   end
 
-  return result
+  return result .. "%#TabLineFill#"
 end
 
 -- ------------------------------------------------------------------------

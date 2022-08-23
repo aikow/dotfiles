@@ -80,16 +80,15 @@ M.palette = function(theme, colors)
     StatusLineEmptySpace = { fg = colors.grey, bg = colors.lightbg },
     StatusLineEmptySpace2 = { fg = colors.grey, bg = colors.statusline_bg },
 
-    StatusLineFileInfo = { bg = colors.lightbg, fg = colors.white },
-    StatusLineFileSep = { bg = colors.statusline_bg, fg = colors.lightbg },
+    StatusLineFileInfo = { fg = colors.white, bg = colors.lightbg },
+    StatusLineFileSep = { fg = colors.lightbg, bg = colors.statusline_bg },
 
     StatusLineCwdIcon = { fg = colors.one_bg, bg = colors.red },
     StatusLineCwdText = { fg = colors.white, bg = colors.lightbg },
     StatusLineCwdSep = { fg = colors.red, bg = colors.statusline_bg },
 
-    StatusLineFileTypeIcon = { fg = colors.black, bg = colors.orange },
     StatusLineFileTypeText = { fg = colors.white, bg = colors.lightbg },
-    StatusLineFileTypeSep = { fg = colors.orange, bg = colors.lightbg },
+    StatusLineFileTypeSep = { fg = colors.lightbg, bg = colors.statusline_bg },
 
     StatusLinePosIcon = { fg = colors.black, bg = colors.green },
     StatusLinePosText = { fg = colors.green, bg = colors.lightbg },
@@ -106,15 +105,17 @@ M.palette = function(theme, colors)
       bold = true,
     },
 
-    StatusLineActiveTab = { fg = colors.white, bg = colors.red },
-    StatusLineInactiveTab = { fg = colors.grey, bg = colors.black },
-
     -- ------------------------------------------------------------------------
     -- | Tab Line
     -- ------------------------------------------------------------------------
     TabLine = { bg = colors.black2 },
     TabLineFill = { bg = colors.black2 },
     TabLineSel = { fg = colors.lightbg, bg = colors.green },
+
+    TabLineActiveSep = { fg = colors.blue, bg = colors.black2 },
+    TabLineActiveTab = { fg = colors.white, bg = colors.blue },
+    TabLineInactiveTab = { fg = colors.grey, bg = colors.black },
+    TabLineInactiveSep = { fg = colors.black, bg = colors.black2 },
   }
 end
 

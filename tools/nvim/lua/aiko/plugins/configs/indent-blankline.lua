@@ -7,14 +7,13 @@ M.setup = function()
   end
 
   blankline.setup({
-    indentLine_enabled = 1,
     filetype_exclude = {
       "",
       "alpha",
       "help",
       "lspinfo",
       "man",
-      "mason.nvim",
+      "mason",
       "norg",
       "NvimTree",
       "packer",
@@ -23,6 +22,7 @@ M.setup = function()
       "terminal",
     },
     buftype_exclude = { "terminal" },
+    use_treesitter = false,
     show_trailing_blankline_indent = false,
     show_first_indent_level = false,
     show_current_context = true,
