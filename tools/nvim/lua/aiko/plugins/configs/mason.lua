@@ -6,12 +6,14 @@ M.setup = function()
     return
   end
 
+  local icons = require("aiko.ui.icons").mason
+
   mason.setup({
     ui = {
       icons = {
-        package_pending = " ",
-        package_installed = " ",
-        package_uninstalled = " ﮊ",
+        package_pending = icons.pending,
+        package_installed = icons.installed,
+        package_uninstalled = icons.uninstalled,
       },
     },
   })

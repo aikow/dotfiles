@@ -1,9 +1,31 @@
 local M = {}
 
+M.filetype_excludes_winbar = {
+  "help",
+  "alpha",
+  "packer",
+  "NvimTree",
+  "TelescopePrompt",
+  "TelescopeResults",
+  "TelescopePreview",
+}
+
 M.setup = function()
-  vim.o.statusline = [[%!v:lua.require'aiko.ui.statusline'.statusline()]]
-  vim.o.tabline = [[%!v:lua.require'aiko.ui.statusline'.tabline()]]
-  vim.o.winbar = [[%{%v:lua.require'aiko.ui.statusline'.winbar()%}]]
+  vim.opt.statusline = "%!v:lua.require'aiko.ui.statusline'.statusline()"
+  vim.opt.tabline = "%!v:lua.require'aiko.ui.statusline'.tabline()"
+
+  -- Create an auto-command to set the 'winbar'. This allows us to disable it
+  -- for certain file types.
+  vim.api.nvim_create_autocmd("BufRead", {
+    group = vim.api.nvim_create_augroup("set winbar", { clear = true }),
+    callback = function()
+      if vim.tbl_contains(M.filetype_excludes_winbar, vim.bo.filetype) then
+        vim.opt_local.winbar = nil
+      else
+        vim.opt_local.winbar = "%{%v:lua.require'aiko.ui.statusline'.winbar()%}"
+      end
+    end,
+  })
 end
 
 return M

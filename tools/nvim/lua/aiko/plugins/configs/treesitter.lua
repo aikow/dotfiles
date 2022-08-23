@@ -47,7 +47,7 @@ M.setup = function()
 
     -- Indentation is currently still an experimental feature.
     indent = {
-      enable = true,
+      enable = false,
       disable = { "python" },
     },
 

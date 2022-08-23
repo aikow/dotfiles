@@ -34,6 +34,7 @@ colorscheme.colors = {
   lightbg = "#41434f",
   pmenu_bg = "#b389ef",
   folder_bg = "#BD93F9",
+  M,
 }
 
 colorscheme.theme = {
@@ -56,8 +57,8 @@ colorscheme.theme = {
 }
 
 colorscheme.polish = {
-  TSFuncBuiltin = { fg = M.base_30.cyan },
-  TSNumber = { fg = M.base_30.purple },
+  TSFuncBuiltin = { fg = colorscheme.colors.cyan },
+  TSNumber = { fg = colorscheme.colors.purple },
 }
 
 require("aiko.colors").paint(colorscheme)
