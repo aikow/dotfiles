@@ -4,6 +4,7 @@ M.filetype_excludes_winbar = {
   "help",
   "alpha",
   "packer",
+  "mason",
   "NvimTree",
   "TelescopePrompt",
   "TelescopeResults",
@@ -16,7 +17,8 @@ M.setup = function()
 
   -- Create an auto-command to set the 'winbar'. This allows us to disable it
   -- for certain file types.
-  vim.api.nvim_create_autocmd("BufRead", {
+  -- FIXME: bug where new buffer does not have statusline.
+  vim.api.nvim_create_autocmd({ "BufRead" }, {
     group = vim.api.nvim_create_augroup("set winbar", { clear = true }),
     callback = function()
       if vim.tbl_contains(M.filetype_excludes_winbar, vim.bo.filetype) then

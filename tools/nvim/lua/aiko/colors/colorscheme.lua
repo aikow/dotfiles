@@ -1,6 +1,89 @@
+local M = {}
+
+---@class Theme
+---@field base00 string
+---@field base01 string
+---@field base02 string
+---@field base03 string
+---@field base04 string
+---@field base05 string
+---@field base06 string
+---@field base07 string
+---@field base08 string
+---@field base09 string
+---@field base0A string
+---@field base0B string
+---@field base0C string
+---@field base0D string
+---@field base0E string
+---@field base0F string
+M.Theme = {}
+function M.Theme:new(o)
+  o = o or {}
+  return setmetatable(o, {
+    __index = self,
+    __newindex = function()
+      error("attempt to update missing fields", 2)
+    end,
+  })
+end
+
+---@class Colors
+---@field black string
+---@field darker_black string
+---@field black2 string
+---@field one_bg string
+---@field one_bg2 string
+---@field one_bg3 string
+---@field grey string
+---@field grey_fg string
+---@field grey_fg2 string
+---@field light_grey string
+---@field statusline_bg string
+---@field lightbg string
+---@field pmenu_bg string
+---@field folder_bg string
+---@field line string
+---@field red string
+---@field pink string
+---@field baby_pink string
+---@field white string
+---@field green string
+---@field vibrant_green string
+---@field nord_blue string
+---@field blue string
+---@field yellow string
+---@field sun string
+---@field purple string
+---@field dark_purple string
+---@field teal string
+---@field orange string
+---@field cyan string
+M.Colors = {}
+
 -- A colorscheme object defines some basic properties that are then used to
--- create all the other highlight groups.
-local _ = {
+---create all the other highlight groups.
+---@class Colorscheme
+---@field name string The name of the colorscheme which should match the file name.
+---@field background string The background color, either 'light' or 'dark'
+---@field theme Theme The base16 theme.
+---@field colors Colors The extended colors.
+---@field polish table<string, string> Overrides for the default generated highlight groups.
+M.Colorscheme = {}
+
+function M.Colorscheme:new(o)
+  o = o or {}
+
+  return setmetatable({
+    name = o.name or "",
+    background = o.background or "",
+    theme = o.theme,
+    colors = o.colors,
+    polish = o.polish or {},
+  }, { __index = self })
+end
+
+M.example = {
   name = "everforest", -- The name of the color scheme.
   background = "dark", -- Whether it is 'dark' or 'light'
 
@@ -76,3 +159,5 @@ local _ = {
     ...,
   },
 }
+
+return M
