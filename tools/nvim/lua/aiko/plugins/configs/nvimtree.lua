@@ -34,7 +34,7 @@ M.setup = function()
     },
 
     diagnostics = {
-      enable = true,
+      enable = false,
       show_on_dirs = true,
       icons = {
         hint = icons.diagnostics.hint,
@@ -55,8 +55,8 @@ M.setup = function()
 
     actions = {
       change_dir = {
-        enable = true,
-        restrict_above_cwd = true,
+        enable = false,
+        restrict_above_cwd = false,
       },
       open_file = {
         resize_window = false,

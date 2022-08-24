@@ -187,6 +187,13 @@ map("n", "<leader><leader>", "<c-^>", { desc = "switch to most recent buffer" })
 -- More ergonomic normal mode from integrated terminal.
 map("t", "<M-e>", [[<c-\><C-n>]])
 
+map("n", "<M-s>", [[<cmd>split term://fish<CR>]], { silent = true })
+map("n", "<M-v>", [[<cmd>vsplit term://fish<CR>]], { silent = true })
+map("n", "<M-t>", [[<cmd>terminal fish<CR>]], { silent = true })
+map("n", "<M-f>", function()
+  -- TODO: Add floating terminal window.
+end, { silent = true })
+
 -- Navigate quickfix list
 map("n", "]q", "<cmd>cnext<CR>", { desc = "cnext" })
 map("n", "[q", "<cmd>cprev<CR>", { desc = "cprev" })

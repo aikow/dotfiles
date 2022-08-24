@@ -1,8 +1,10 @@
 local M = {}
 
 M.integrations = {
+  "alpha",
   "blankline",
   "cmp",
+  "colors",
   "defaults",
   "devicons",
   "git",
@@ -15,6 +17,10 @@ M.integrations = {
   "treesitter",
 }
 
+---Load all the highlights from the integration for the colorscheme.
+---@param group string
+---@param colorscheme Colorscheme
+---@return nil|table<string, string>
 M.load_hl = function(group, colorscheme)
   local modpath = "aiko.colors.integrations." .. group
   local ok, mod = pcall(require, modpath)
@@ -26,6 +32,8 @@ M.load_hl = function(group, colorscheme)
   return mod.palette(colorscheme.theme, colorscheme.colors)
 end
 
+---Set the neovim color scheme based on the Colorscheme object.
+---@param colorscheme Colorscheme
 M.paint = function(colorscheme)
   colorscheme.polish = colorscheme.polish or {}
   local all = {}
@@ -36,7 +44,6 @@ M.paint = function(colorscheme)
     vim.cmd([[syntax reset]])
   end
   vim.g.colors_name = colorscheme.name
-  vim.g.color_name = colorscheme.name
   vim.opt.background = colorscheme.background or "dark"
 
   -- Load all integrations
@@ -45,6 +52,7 @@ M.paint = function(colorscheme)
     all = vim.tbl_extend("force", all, palette)
   end
 
+  -- Apply the polish if the color scheme has any
   all = vim.tbl_extend("force", all, colorscheme.polish)
 
   -- Override with the polish.
