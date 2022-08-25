@@ -401,6 +401,10 @@ return {
     ft = { "csv", "tsv" },
   },
 
+  ["tpope/vim-dadbod"] = {
+    ft = { "sql", "msql", "mysql", "plsql" },
+  },
+
   -- ------------------
   -- |   Neorg Mode   |
   -- ------------------
