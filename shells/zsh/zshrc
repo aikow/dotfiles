@@ -168,7 +168,11 @@ zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
 [[ -f "${DOTFILES}/shells/zsh/os/${OSTYPE}.zsh" ]] && source "${DOTFILES}/shells/zsh/os/${OSTYPE}.zsh" 
 
 # Source fzf if installed
-[[ -f ~/.fzf.zsh ]] && source ~/.fzf.zsh
+if [[ -f ~/.fzf.zsh ]]; then
+  source ~/.fzf.zsh
+elif [[ -f /usr/share/fzf/key-bindings.zsh ]]; then
+  source /usr/share/fzf/key-bindings.zsh
+fi
 
 # Load user aliases
 [[ -f "${DOTFILES}/shells/zsh/aliases" ]]  && source "${DOTFILES}/shells/zsh/aliases"

@@ -107,7 +107,12 @@ fi
 #######################################################################
 
 # Source fzf and cargo
-[[ -f "${HOME}/.fzf.bash" ]] && source "${HOME}/.fzf.bash"
+if [[ -f "${HOME}/.fzf.bash" ]]; then
+  source "${HOME}/.fzf.bash"
+elif [[ -f /usr/share/fzf/key-bindings.bash ]]; then
+  source /usr/share/fzf/key-bindings.bash
+fi
+
 [[ -f "${HOME}/.cargo/env" ]] && source "${HOME}/.cargo/env"
 
 # Load user aliases
