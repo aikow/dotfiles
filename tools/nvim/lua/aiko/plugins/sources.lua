@@ -403,6 +403,7 @@ return {
 
   ["tpope/vim-dadbod"] = {
     ft = { "sql", "msql", "mysql", "plsql" },
+    cmd = "DB",
   },
 
   -- ------------------
