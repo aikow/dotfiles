@@ -169,6 +169,7 @@ M.setup = function()
     "gopls",
     "jsonls",
     "pyright",
+    "sqls",
     "taplo",
     "vimls",
     "yamlls",

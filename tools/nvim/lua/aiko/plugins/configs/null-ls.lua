@@ -10,8 +10,9 @@ M.setup = function()
 
   null_ls.setup({
     sources = {
-      builtins.formatting.stylua,
       builtins.formatting.black,
+      builtins.formatting.sql_formatter,
+      builtins.formatting.stylua,
     },
   })
 end
