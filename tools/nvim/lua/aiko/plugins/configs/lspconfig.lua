@@ -1,3 +1,5 @@
+local tbl = require("aiko.util.table")
+
 local M = {}
 
 M.on_attach = function(client, bufnr)
@@ -8,6 +10,30 @@ M.on_attach = function(client, bufnr)
   end
 
   M.mappings()
+end
+
+-- ------------------------------------------------------------------------
+-- | On Init
+-- ------------------------------------------------------------------------
+M.on_init = function(client)
+  local wks = require("aiko.workspace")
+  local workspace_path = client.workspace_folders[1].name
+
+  local config =
+    wks.get_config(workspace_path, string.format("lsp/%s.json", client.name))
+
+  if config.settings then
+    local settings = client.config.settings
+    client.config.settings = tbl.deep_type_extend(config.settings, settings)
+
+    client.notify(
+      "workspace/didChangeConfiguration",
+      { settings = client.config.settings }
+    )
+    vim.notify("Loading workspace settings")
+  end
+
+  return true
 end
 
 -- ------------------------------------------------------------------------
@@ -93,16 +119,6 @@ M.ui = function()
       vim.api.nvim_echo({ { msg } }, true, {})
     end
   end
-
-  -- Borders for LspInfo window
-  -- local win = require("lspconfig.ui.windows")
-  -- local _default_opts = win.default_opts
-  --
-  -- win.default_opts = function(options)
-  --   local opts = _default_opts(options)
-  --   opts.border = "single"
-  --   return opts
-  -- end
 end
 
 -- ------------------------------------------------------------------------
@@ -179,6 +195,7 @@ M.setup = function()
   for _, ls in pairs(servers) do
     lspconfig[ls].setup({
       on_attach = M.on_attach,
+      on_init = M.on_init,
       capabilities = capabilities,
     })
   end
@@ -299,15 +316,9 @@ M.sumneko_lua = function(lspconfig)
   -- the current working directory is the nvim directory.
   local on_init = function(client)
     local workspace = client.workspace_folders[1].name
-
     local config = client.config.settings.Lua
 
-    if string.match(workspace, [[.dotfiles/os/awesome$]]) then
-      -- Awesome WM Configs
-      -- Setup global variables
-      config.diagnostics.globals = { "awesome", "client", "screen", "root" }
-      -- if string.match(workspace, [[.dotfiles/tools/nvim$]]) then
-    else
+    if string.match(workspace, [[.dotfiles/tools/nvim$]]) then
       -- Neovim configs
       -- setup libraries
       config.workspace.library = setup_neovim_libraries()
@@ -317,6 +328,8 @@ M.sumneko_lua = function(lspconfig)
       diagnostics.globals = { "vim" }
       config.diagnostics = diagnostics
     end
+
+    M.on_init(client)
 
     return true
   end
