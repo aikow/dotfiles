@@ -1,0 +1,19 @@
+{
+  "settings": {
+    "Lua": {
+      "diagnostics": {
+        "globals": [
+          "awesome",
+          "client",
+          "screen",
+          "root"
+        ]
+      },
+      "format": {
+        "defaultConfig": {
+          "indent_size": "3"
+        }
+      }
+    }
+  }
+}

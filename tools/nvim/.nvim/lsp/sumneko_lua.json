@@ -1,0 +1,16 @@
+{
+  "settings": {
+    "Lua": {
+      "diagnostics": {
+        "globals": [
+          "vim"
+        ]
+      },
+      "format": {
+        "defaultConfig": {
+          "indent_size": "3"
+        }
+      }
+    }
+  }
+}
