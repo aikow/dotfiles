@@ -26,30 +26,13 @@ else
   shell = { "/usr/bin/fish", "-l" }
 end
 
-local catppuccin = require("colors/catppuccin").setup({
-  -- whether or not to sync with the system's theme
-  sync = true,
-  -- the flavours to switch between when syncing
-  -- available flavours: "latte" | "frappe" | "macchiato" | "mocha"
-  sync_flavours = {
-    light = "latte",
-    dark = "macchiato",
-  },
-  -- the default/fallback flavour, when syncing is disabled
-  flavour = "macchiato",
-})
-
 return {
   default_prog = shell,
-
-  colors = catppuccin,
-
+  color_scheme = "Gruvbox Dark",
   enable_tab_bar = false,
-
   font = wezterm.font_with_fallback({
     "Hack Nerd Font",
     "JetBrains Mono",
   }),
-
   font_size = 11,
 }
