@@ -378,6 +378,11 @@ return {
     ft = "tex",
   },
 
+  ["nanotee/sqls.nvim"] = {
+    module = "sqls",
+    ft = "sql",
+  },
+
   -- Markdown
   ["iamcco/markdown-preview.nvim"] = {
     run = function()
