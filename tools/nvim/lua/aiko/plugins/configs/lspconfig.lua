@@ -44,7 +44,7 @@ M.mappings = function()
   local opts = function(desc)
     return {
       silent = true,
-      buffer = true,
+      buffer = false,
       desc = desc or "",
     }
   end
@@ -53,7 +53,18 @@ M.mappings = function()
   local d = vim.diagnostic
 
   -- Hover actions
-  map("n", "K", lsp.hover, opts("show documentation"))
+  map("n", "K", function()
+    local filetype = vim.bo.filetype
+    if vim.tbl_contains({"help", "vim"}, filetype) then
+      vim.cmd.help(vim.fn.expand("<cword>"))
+    elseif vim.tbl_contains({"man"}, filetype) then
+      vim.cmd.Man(vim.fn.expand("<cword>"))
+    elseif vim.fn.expand("%:t") == "Cargo.toml" then
+      require("crates").show_popup()
+    else
+      vim.lsp.buf.hover()
+    end
+  end, opts("show documentation"))
   map("n", "<leader>k", lsp.signature_help, opts("signature help"))
 
   -- Diagnostics
@@ -185,7 +196,6 @@ M.setup = function()
     "gopls",
     "jsonls",
     "pyright",
-    "sqls",
     "taplo",
     "vimls",
     "yamlls",
@@ -200,10 +210,22 @@ M.setup = function()
     })
   end
 
-  -- M.grammarly(lspconfig)
+  M.sqls(lspconfig)
+
   M.ltex(lspconfig)
 
   M.sumneko_lua(lspconfig)
+end
+
+M.sqls = function(lspconfig)
+  local capabilities = M.capabilities()
+  capabilities.documentFormatingProvider = false
+
+  lspconfig.sqls.setup({
+    on_attach = M.on_attach,
+    on_init = M.on_init,
+    capabilities = capabilities
+  })
 end
 
 -- ------------------------------------------------------------------------
