@@ -214,7 +214,7 @@ M.setup = function()
 
   M.ltex(lspconfig)
 
-  M.sumneko_lua(lspconfig)
+  require("aiko.plugins.configs.lspconfig.servers.sumneko_lua").setup(lspconfig)
 end
 
 M.sqls = function(lspconfig)
@@ -306,76 +306,6 @@ M.ltex = function(lspconfig)
           environments = {
             ["tabular"] = "ignore",
           },
-        },
-      },
-    },
-  })
-end
-
--- ------------------------------------------------------------------------
--- | Lua LSP Config
--- ------------------------------------------------------------------------
-M.sumneko_lua = function(lspconfig)
-  -- Setup configuration for neovim.
-  local setup_neovim_libraries = function()
-    -- Add all library paths from vim's runtime path.
-    local library = {}
-    local packer_dir = vim.fn.stdpath("data") .. "/site/pack/packer/*/*/lua"
-
-    for path in string.gmatch(vim.fn.glob(packer_dir), "[^\n]+") do
-      if vim.fn.empty(vim.fn.glob(path)) == 0 then
-        library[path] = true
-      end
-    end
-
-    library[vim.fn.expand("$VIMRUNTIME/lua")] = true
-    library[vim.fn.expand("$VIMRUNTIME/lua/vim/lsp")] = true
-
-    return library
-  end
-
-  --- Adds a custom hook on initialization that only adds the library path's if
-  -- the current working directory is the nvim directory.
-  local on_init = function(client)
-    local workspace = client.workspace_folders[1].name
-    local config = client.config.settings.Lua
-
-    if string.match(workspace, [[.dotfiles/tools/nvim$]]) then
-      -- Neovim configs
-      -- setup libraries
-      config.workspace.library = setup_neovim_libraries()
-
-      -- Setup global variables
-      local diagnostics = config.diagnostics or {}
-      diagnostics.globals = { "vim" }
-      config.diagnostics = diagnostics
-    end
-
-    M.on_init(client)
-
-    return true
-  end
-
-  local capabilities = M.capabilities()
-  capabilities.documentFormatingProvider = false
-
-  lspconfig.sumneko_lua.setup({
-    on_attach = M.on_attach,
-    on_init = on_init,
-    capabilities = capabilities,
-    settings = {
-      Lua = {
-        format = {
-          enable = true,
-          -- All values must be of type string.
-          defaultConfig = {
-            indent_style = "space",
-            indent_size = "2",
-          },
-        },
-        workspace = {
-          maxPreload = 100000,
-          preloadFileSize = 10000,
         },
       },
     },
