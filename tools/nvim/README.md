@@ -2,11 +2,18 @@
 
 My lua config files for Neovim.
 
+## Getting Started
+
+After linking, run `PackerSync` and restart neovim.
+
+Additional LuaSnip can support additional regex transformations, which can be
+enabled by installing `jsregexp`.
+
 ## To Do
 
-- [ ] Update `lualine` once issue is fixed
+- [ ] Cleanup LSP config.
 
-## Setup
+## Structure
 
 The config is split across multiple files with the basic idea for the Lua code
 being as follows:
