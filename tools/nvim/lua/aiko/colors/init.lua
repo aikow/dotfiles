@@ -19,26 +19,20 @@ M.integrations = {
   "treesitter",
 }
 
-local add_cterm_colors_to_colorscheme = function(colorscheme)
-  local add_cterm_colors = function(color)
-    if color.ctermfg == nil and color.fg ~= nil then
-      color.ctermfg = hexterm.convert_hex_to_xterm(color.fg)
-    end
-
-    if color.ctermbg == nil and color.bg ~= nil then
-      color.ctermbg = hexterm.convert_hex_to_xterm(color.bg)
-    end
+local add_cterm_colors = function(color)
+  if color.ctermfg == nil and color.fg ~= nil and color.fg ~= "NONE" then
+    color.ctermfg = hexterm.convert_hex_to_xterm(color.fg)
   end
 
-  local add_cterm_colors_to_table = function(t)
-    for _, color in pairs(t) do
-      add_cterm_colors(color)
-    end
+  if color.ctermbg == nil and color.bg ~= nil and color.bg ~= "NONE" then
+    color.ctermbg = hexterm.convert_hex_to_xterm(color.bg)
   end
+end
 
-  add_cterm_colors_to_table(colorscheme.base)
-  add_cterm_colors_to_table(colorscheme.colors)
-  add_cterm_colors_to_table(colorscheme.polish)
+local add_cterm_colors_to_table = function(t)
+  for _, color in pairs(t) do
+    add_cterm_colors(color)
+  end
 end
 
 ---Load all the highlights from the integration for the colorscheme.
@@ -60,10 +54,6 @@ end
 ---@param colorscheme Colorscheme
 M.paint = function(colorscheme)
   colorscheme.polish = colorscheme.polish or {}
-  if vim.g.ctermcolors then
-    add_cterm_colors_to_colorscheme(colorscheme)
-  end
-
   local all = {}
 
   -- Clear existing highlight groups
@@ -82,6 +72,10 @@ M.paint = function(colorscheme)
 
   -- Apply the polish if the color scheme has any
   all = vim.tbl_extend("force", all, colorscheme.polish)
+
+  if vim.g.ctermcolors then
+    add_cterm_colors_to_table(all)
+  end
 
   -- Override with the polish.
   for group, c in pairs(all) do

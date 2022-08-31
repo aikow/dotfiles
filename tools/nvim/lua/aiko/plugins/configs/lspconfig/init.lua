@@ -55,9 +55,9 @@ M.mappings = function()
   -- Hover actions
   map("n", "K", function()
     local filetype = vim.bo.filetype
-    if vim.tbl_contains({"help", "vim"}, filetype) then
+    if vim.tbl_contains({ "help", "vim" }, filetype) then
       vim.cmd.help(vim.fn.expand("<cword>"))
-    elseif vim.tbl_contains({"man"}, filetype) then
+    elseif vim.tbl_contains({ "man" }, filetype) then
       vim.cmd.Man(vim.fn.expand("<cword>"))
     elseif vim.fn.expand("%:t") == "Cargo.toml" then
       require("crates").show_popup()
@@ -224,7 +224,7 @@ M.sqls = function(lspconfig)
   lspconfig.sqls.setup({
     on_attach = M.on_attach,
     on_init = M.on_init,
-    capabilities = capabilities
+    capabilities = capabilities,
   })
 end
 
