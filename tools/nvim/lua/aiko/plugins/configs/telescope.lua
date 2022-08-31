@@ -153,7 +153,7 @@ M.setup = function()
           "--strip-cwd-prefix",
         },
       },
-      highlights = themes.get_dropdown({previewer=false}),
+      highlights = themes.get_dropdown({ previewer = false }),
       jumplist = themes.get_dropdown(),
       reloader = themes.get_dropdown(),
       search_history = themes.get_dropdown(),

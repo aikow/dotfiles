@@ -318,6 +318,20 @@ return {
   -- Automatically cd to project root.
   ["airblade/vim-rooter"] = {
     config = function()
+      vim.g.rooter_patterns = {
+        ".bzr",
+        ".git",
+        ".hg",
+        ".nvim",
+        ".stylua.tom",
+        ".svn",
+        "_darcs",
+        "Cargo.toml",
+        "Makefile",
+        "package.json",
+        "pyproject.toml",
+        "setup.cfg",
+      }
       vim.g.rooter_silent_chdir = 1
     end,
   },

@@ -11,6 +11,13 @@ vim.g.mapleader = " "
 vim.keymap.set("n", [[\]], "<NOP>")
 vim.g.maplocalleader = [[\]]
 
+-- Source the local before-config file that will get to run in order to set
+-- variables for the rest of the config.
+local local_config_before = vim.fn.expand([[$LOCAL_CONFIG/nvim-before.lua]])
+if vim.fn.filereadable(local_config_before) == 1 then
+  vim.cmd.source(local_config_before)
+end
+
 -- Setup config.
 require("aiko").setup()
 
