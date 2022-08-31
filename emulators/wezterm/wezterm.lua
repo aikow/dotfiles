@@ -20,10 +20,13 @@ local hostname = capture("uname")
 
 -- Spawn a fish shell in login mode
 local shell
+local font_size
 if hostname == "Darwin" then
   shell = { "/usr/local/bin/fish", "-l" }
+  font_size = 13
 else
   shell = { "/usr/bin/fish", "-l" }
+  font_size = 11
 end
 
 return {
@@ -34,5 +37,5 @@ return {
     "Hack Nerd Font",
     "JetBrains Mono",
   }),
-  font_size = 11,
+  font_size = font_size,
 }

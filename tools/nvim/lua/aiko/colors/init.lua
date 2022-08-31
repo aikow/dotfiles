@@ -1,3 +1,5 @@
+local hexterm = require("aiko.util.hex-xterm")
+
 local M = {}
 
 M.integrations = {
@@ -16,6 +18,28 @@ M.integrations = {
   "telescope",
   "treesitter",
 }
+
+local add_cterm_colors_to_colorscheme = function(colorscheme)
+  local add_cterm_colors = function(color)
+    if color.ctermfg == nil and color.fg ~= nil then
+      color.ctermfg = hexterm.convert_hex_to_xterm(color.fg)
+    end
+
+    if color.ctermbg == nil and color.bg ~= nil then
+      color.ctermbg = hexterm.convert_hex_to_xterm(color.bg)
+    end
+  end
+
+  local add_cterm_colors_to_table = function(t)
+    for _, color in pairs(t) do
+      add_cterm_colors(color)
+    end
+  end
+
+  add_cterm_colors_to_table(colorscheme.base)
+  add_cterm_colors_to_table(colorscheme.colors)
+  add_cterm_colors_to_table(colorscheme.polish)
+end
 
 ---Load all the highlights from the integration for the colorscheme.
 ---@param group string
@@ -36,6 +60,10 @@ end
 ---@param colorscheme Colorscheme
 M.paint = function(colorscheme)
   colorscheme.polish = colorscheme.polish or {}
+  if vim.g.ctermcolors then
+    add_cterm_colors_to_colorscheme(colorscheme)
+  end
+
   local all = {}
 
   -- Clear existing highlight groups
