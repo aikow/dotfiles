@@ -261,7 +261,7 @@ return {
   },
 
   -- Prettify to-do comments.
-  ["B4mbus/todo-comments.nvim"] = {
+  ["folke/todo-comments.nvim"] = {
     opt = true,
     setup = function()
       require("aiko.plugins.lazy").on_file_open("todo-comments.nvim")
