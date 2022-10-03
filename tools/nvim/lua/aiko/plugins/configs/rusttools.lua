@@ -58,7 +58,7 @@ M.setup = function()
   rust_tools.setup({
     tools = { -- rust-tools options
       autoSetHints = true, -- Automatically set inlay hints
-      hover_with_actions = true, -- Show action inside the hover menu
+      -- hover_with_actions = true, -- Show action inside the hover menu
       inlay_hints = {
         show_parameter_hints = true, -- Show parameter hints
         parameter_hints_prefix = "<- ",
