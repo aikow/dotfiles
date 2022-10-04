@@ -11,7 +11,7 @@ M.default_plugins = {
   -- "netrwPlugin",
   -- "netrwSettings",
   -- "netrwFileHandlers",
-  "matchit",
+  -- "matchit",
   "tar",
   "tarPlugin",
   "rrhelper",
