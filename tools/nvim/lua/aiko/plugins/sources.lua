@@ -158,24 +158,13 @@ return {
     end,
   },
 
-  -- Enable correct spelling syntax highlighting with Tree-sitter.
-  ["lewis6991/spellsitter.nvim"] = {
-    after = "nvim-treesitter",
-    config = function()
-      require("spellsitter").setup({
-        enable = true,
-      })
-    end,
-  },
-
   -- -------------------------
   -- |   Neovim Tree Views   |
   -- -------------------------
   --
   -- File tree in a sidebar.
   ["kyazdani42/nvim-tree.lua"] = {
-    cmd = { "NvimTreeToggle", "NvimTreeFocus" },
-    module = "nvim-tree",
+    cmd = { "NvimTreeToggle", "NvimTreeFindFile", "NvimTreeFocus" },
     config = function()
       require("aiko.plugins.configs.nvimtree").setup()
     end,
