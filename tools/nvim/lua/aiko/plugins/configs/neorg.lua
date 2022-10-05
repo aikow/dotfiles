@@ -168,7 +168,10 @@ M.setup = function()
           },
         },
       },
-      ["core.norg.concealer"] = {},
+
+      -- Disable the concealer for now
+      -- ["core.norg.concealer"] = {},
+
       ["core.norg.completion"] = {
         config = {
           engine = "nvim-cmp",
@@ -178,14 +181,15 @@ M.setup = function()
       -- --------------------
       -- |   Core modules   |
       -- --------------------
-      ["core.presenter"] = {},
-      ["core.norg.journal"] = {
-        config = {
-          workspace = "personal",
-          journal_folder = "journal",
-          strategy = "nested",
-        },
-      },
+      -- ["core.presenter"] = {},
+
+      -- ["core.norg.journal"] = {
+      --   config = {
+      --     workspace = "personal",
+      --     journal_folder = "journal",
+      --     strategy = "nested",
+      --   },
+      -- },
 
       -- ---------------------------
       -- |   Getting Things Done   |
