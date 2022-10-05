@@ -29,4 +29,4 @@ colorscheme.colors = {
   milk = "#E7D7AD",
 }
 
-require("aiko.colors").paint(colorscheme)
+require("aiko.ui.colorscheme").paint(colorscheme)

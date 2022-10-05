@@ -39,4 +39,4 @@ colorscheme.colors = {
   bg_current_word = { "#f2e5bc", "228" },
 }
 
-require("aiko.colors").paint(colorscheme)
+require("aiko.ui.colorscheme").paint(colorscheme)

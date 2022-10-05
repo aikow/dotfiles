@@ -1,3 +1,5 @@
+-- Setup impatient.nvim first, so that all modules can be loaded via a compiled
+-- byte cache.
 local ok_impatient, impatient = pcall(require, "impatient")
 if ok_impatient then
   impatient.enable_profile()

@@ -57,4 +57,4 @@ colorscheme.polish = {
   TSParenthesis = { link = "TSPunctBracket" },
 }
 
-require("aiko.colors").paint(colorscheme)
+require("aiko.ui.colorscheme").paint(colorscheme)

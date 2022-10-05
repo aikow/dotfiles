@@ -62,4 +62,4 @@ colorscheme.polish = {
   TSConditional = { link = "TSInclude" },
 }
 
-require("aiko.colors").paint(colorscheme)
+require("aiko.ui.colorscheme").paint(colorscheme)

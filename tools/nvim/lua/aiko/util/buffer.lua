@@ -22,27 +22,4 @@ M.close_buffer = function(force)
   vim.cmd(close_cmd)
 end
 
-M.autocmd = function(name, autocmds, clear)
-  clear = clear ~= nil and clear or true
-
-  if autocmds.event ~= nil then
-    autocmds = { autocmds }
-  end
-
-  local group = vim.api.nvim_create_augroup(name, { clear = clear })
-
-  for _, autocmd in ipairs(autocmds) do
-    vim.api.nvim_create_autocmd(autocmd.event, {
-      group = group,
-      pattern = autocmd.pattern,
-      buffer = autocmd.buffer,
-      desc = autocmd.desc,
-      callback = autocmd.callback,
-      command = autocmd.command,
-      once = autocmd.once,
-      nested = autocmd.nested,
-    })
-  end
-end
-
 return M

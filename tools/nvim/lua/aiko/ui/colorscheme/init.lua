@@ -1,4 +1,4 @@
-local hexterm = require("aiko.util.hex-xterm")
+local hexterm = require("aiko.util.colors")
 
 local M = {}
 
@@ -40,7 +40,7 @@ end
 ---@param colorscheme Colorscheme
 ---@return nil|table<string, string>
 M.load_hl = function(group, colorscheme)
-  local modpath = "aiko.colors.integrations." .. group
+  local modpath = "aiko.ui.colorscheme.integrations." .. group
   local ok, mod = pcall(require, modpath)
   if not ok then
     vim.notify("Unable to load group " .. group)

@@ -66,4 +66,4 @@ colorscheme.polish = {
   TSKeywordFunction = { fg = colorscheme.colors.teal },
 }
 
-require("aiko.colors").paint(colorscheme)
+require("aiko.ui.colorscheme").paint(colorscheme)

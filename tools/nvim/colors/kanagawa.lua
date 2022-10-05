@@ -58,4 +58,4 @@ colorscheme.polish = {
   TSTagDelimiter = { fg = colorscheme.colors.red },
 }
 
-require("aiko.colors").paint(colorscheme)
+require("aiko.ui.colorscheme").paint(colorscheme)
