@@ -55,4 +55,4 @@ colorscheme.colors = {
   folder_bg = "#98a3af",
 }
 
-require("aiko.colors").paint(colorscheme)
+require("aiko.ui.colorscheme").paint(colorscheme)

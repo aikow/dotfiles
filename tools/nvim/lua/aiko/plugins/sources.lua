@@ -350,11 +350,6 @@ return {
   -- |   Language Add-Ons   |
   -- ------------------------
   --
-  -- Python
-  ["aikow/python.nvim"] = {
-    ft = "python",
-  },
-
   -- Rust
   ["simrat39/rust-tools.nvim"] = {
     ft = "rust",

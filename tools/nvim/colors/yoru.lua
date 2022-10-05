@@ -55,4 +55,4 @@ colorscheme.theme = {
   base0F = "#e8646a",
 }
 
-require("aiko.colors").paint(colorscheme)
+require("aiko.ui.colorscheme").paint(colorscheme)

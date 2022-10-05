@@ -61,4 +61,4 @@ colorscheme.polish = {
   TSNumber = { fg = colorscheme.colors.purple },
 }
 
-require("aiko.colors").paint(colorscheme)
+require("aiko.ui.colorscheme").paint(colorscheme)

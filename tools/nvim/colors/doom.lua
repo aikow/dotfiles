@@ -58,4 +58,4 @@ colorscheme.polish = {
   TSFieldKey = { fg = colorscheme.colors.blue },
 }
 
-require("aiko.colors").paint(colorscheme)
+require("aiko.ui.colorscheme").paint(colorscheme)

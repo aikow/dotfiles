@@ -3,7 +3,6 @@ local separators = require("aiko.ui.icons").separators
 local sep_l = separators.round.fill.left
 local sep_r = separators.top_slant.fill.right
 local win_sep_l = separators.top_slant.fill.left
-local win_sep_r = separators.top_slant.fill.right
 
 local modes = {
   ["n"] = { "NORMAL", "StatusLineNormalMode" },
@@ -62,7 +61,7 @@ M.filename = function()
   else
     local devicons_present, devicons = pcall(require, "nvim-web-devicons")
 
-    filename = fn.fnamemodify(filename, ":t")
+    filename = vim.fs.basename(filename)
 
     if devicons_present then
       local ft_icon = devicons.get_icon(filename)
@@ -132,7 +131,7 @@ M.cwd = function()
     return ""
   end
 
-  local filename = " " .. fn.fnamemodify(fn.getcwd(), ":t") .. " "
+  local filename = " " .. vim.fs.basename(fn.getcwd()) .. " "
 
   return table.concat({
     "%#StatusLineCwdSep#",
@@ -175,7 +174,7 @@ M.tablist = function()
   for i = 1, number_of_tabs, 1 do
     local buflist = fn.tabpagebuflist(i)
     local bufname = vim.api.nvim_buf_get_name(buflist[1])
-    local name = vim.fn.fnamemodify(bufname, ":t") or "Empty"
+    local name = vim.fs.basename(bufname) or "Empty"
     if name == "" then
       name = "Empty"
     end
