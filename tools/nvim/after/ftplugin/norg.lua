@@ -2,9 +2,20 @@
 vim.opt_local.commentstring = ""
 vim.opt_local.comments = ""
 
--- -----------------------------------
--- |   Setup File Type Completions   |
--- -----------------------------------
+-- ---------------------
+-- |   Local Keymaps   |
+-- ---------------------
+--
+vim.keymap.set(
+  { "v", "n" },
+  "<localleader>a",
+  "<cmd>Neorg<CR>",
+  { buffer = true, desc = "neorg open menu" }
+)
+
+-- -----------------------------
+-- |   File Type Completions   |
+-- -----------------------------
 --
 -- Setup Neorg completion sources to use neorg completion
 local ok_cmp, cmp = pcall(require, "cmp")

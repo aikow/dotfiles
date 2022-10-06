@@ -195,6 +195,7 @@ M.setup = function()
     "clangd",
     "gopls",
     "jsonls",
+    "marksman",
     "pyright",
     "taplo",
     "vimls",

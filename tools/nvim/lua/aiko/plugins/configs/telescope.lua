@@ -27,7 +27,6 @@ M.setup = function()
           flip_lines = 36,
         },
         prompt_position = "top",
-        mirror = false,
         width = 0.87,
         height = 0.80,
       },

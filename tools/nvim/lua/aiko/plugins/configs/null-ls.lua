@@ -12,6 +12,7 @@ M.setup = function()
     sources = {
       builtins.formatting.black,
       builtins.formatting.stylua,
+      builtins.formatting.markdownlint,
       builtins.formatting.sql_formatter.with({
         extra_args = function()
           return { "-l", vim.b.sqllanguage or "sqlite" }
