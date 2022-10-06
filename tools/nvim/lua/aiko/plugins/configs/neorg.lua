@@ -20,7 +20,6 @@ M.setup = function()
             -- Map all the below keybinds only when the "norg" mode is active
             keybinds.map_event_to_mode("norg", {
               n = { -- Bind keys in normal mode
-
                 -- Keys for managing TODO items and setting their states
                 {
                   leader .. "tu",
@@ -52,23 +51,21 @@ M.setup = function()
                   "core.norg.qol.todo_items.todo.task_cycle",
                 },
 
-                -- Keys for managing GTD
-                -- { leader .. "gc", "core.gtd.base.capture" },
-                -- { leader .. "gv", "core.gtd.base.views" },
-                -- { leader .. "ge", "core.gtd.base.edit" },
-
                 -- Keys for managing notes
                 { leader .. "e", "core.norg.dirman.new.note" },
 
+                -- Links
                 { "<CR>", "core.norg.esupports.hop.hop-link" },
                 { "<M-CR>", "core.norg.esupports.hop.hop-link", "vsplit" },
 
+                -- Maneuvering
                 { "<C-k>", "core.norg.manoeuvre.item_up" },
                 { "<C-j>", "core.norg.manoeuvre.item_down" },
 
                 -- mnemonic: markup toggle
                 { leader .. "hm", "core.norg.concealer.toggle-markup" },
 
+                -- Telescope
                 { "<C-h>", "core.integrations.telescope.find_linkable" },
               },
               o = {
@@ -177,6 +174,8 @@ M.setup = function()
           engine = "nvim-cmp",
         },
       },
+
+      ["core.norg.qol.toc"] = {},
 
       -- --------------------
       -- |   Core modules   |
