@@ -167,7 +167,7 @@ M.setup = function()
       },
 
       -- Disable the concealer for now
-      -- ["core.norg.concealer"] = {},
+      ["core.norg.concealer"] = {},
 
       ["core.norg.completion"] = {
         config = {
@@ -180,15 +180,19 @@ M.setup = function()
       -- --------------------
       -- |   Core modules   |
       -- --------------------
-      -- ["core.presenter"] = {},
+      ["core.presenter"] = {
+        config = {
+          zen_mode = "zen-mode",
+        },
+      },
 
-      -- ["core.norg.journal"] = {
-      --   config = {
-      --     workspace = "personal",
-      --     journal_folder = "journal",
-      --     strategy = "nested",
-      --   },
-      -- },
+      ["core.norg.journal"] = {
+        config = {
+          workspace = "personal",
+          journal_folder = "journal",
+          strategy = "nested",
+        },
+      },
 
       -- ---------------------------
       -- |   Getting Things Done   |

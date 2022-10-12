@@ -121,7 +121,7 @@ M.setup = function()
   ls.filetype_extend("norg", { "alltext" })
 
   require("luasnip.loaders.from_vscode").lazy_load({
-    exclude = { "tex" },
+    exclude = { "tex", "norg" },
     default_priority = 100,
   })
   require("luasnip.loaders.from_vscode").lazy_load({

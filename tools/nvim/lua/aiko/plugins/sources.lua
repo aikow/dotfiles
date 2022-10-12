@@ -57,44 +57,44 @@ return {
     module = "lspkind",
   },
 
-  -- -----------------
-  -- |   Debugging   |
-  -- -----------------
+  -- -- -----------------
+  -- -- |   Debugging   |
+  -- -- -----------------
+  -- --
+  -- -- Debug adapter protocol.
+  -- ["mfussenegger/nvim-dap"] = {
+  --   module = "dap",
+  --   keys = "<F5>",
+  --   config = function()
+  --     require("aiko.plugins.configs.dap").setup()
+  --   end,
+  -- },
   --
-  -- Debug adapter protocol.
-  ["mfussenegger/nvim-dap"] = {
-    module = "dap",
-    keys = "<F5>",
-    config = function()
-      require("aiko.plugins.configs.dap").setup()
-    end,
-  },
-
-  -- UI elements for nvim-dap.
-  ["rcarriga/nvim-dap-ui"] = {
-    after = "nvim-dap",
-    config = function()
-      require("dapui").setup()
-    end,
-  },
-
-  -- Insert virtual text during debugging for variable values.
-  ["theHamsta/nvim-dap-virtual-text"] = {
-    after = "nvim-dap",
-    config = function()
-      require("nvim-dap-virtual-text").setup({})
-    end,
-  },
-
-  -- DAP configuration for python.
-  ["mfussenegger/nvim-dap-python"] = {
-    after = "nvim-dap",
-    config = function()
-      require("dap-python").setup(
-        "~/.local/share/nvim/mason/packages/debugpy/venv/bin/python"
-      )
-    end,
-  },
+  -- -- UI elements for nvim-dap.
+  -- ["rcarriga/nvim-dap-ui"] = {
+  --   after = "nvim-dap",
+  --   config = function()
+  --     require("dapui").setup()
+  --   end,
+  -- },
+  --
+  -- -- Insert virtual text during debugging for variable values.
+  -- ["theHamsta/nvim-dap-virtual-text"] = {
+  --   after = "nvim-dap",
+  --   config = function()
+  --     require("nvim-dap-virtual-text").setup({})
+  --   end,
+  -- },
+  --
+  -- -- DAP configuration for python.
+  -- ["mfussenegger/nvim-dap-python"] = {
+  --   after = "nvim-dap",
+  --   config = function()
+  --     require("dap-python").setup(
+  --       "~/.local/share/nvim/mason/packages/debugpy/venv/bin/python"
+  --     )
+  --   end,
+  -- },
 
   -- -----------------
   -- |   Telescope   |
@@ -149,14 +149,14 @@ return {
     after = "nvim-treesitter",
   },
 
-  -- Refactoring support for select languages.
-  ["ThePrimeagen/refactoring.nvim"] = {
-    ft = require("aiko.plugins.lazy").refactoring_filetypes,
-    module = "refactoring",
-    config = function()
-      require("aiko.plugins.configs.refactoring").setup()
-    end,
-  },
+  -- -- Refactoring support for select languages.
+  -- ["ThePrimeagen/refactoring.nvim"] = {
+  --   ft = require("aiko.plugins.lazy").refactoring_filetypes,
+  --   module = "refactoring",
+  --   config = function()
+  --     require("aiko.plugins.configs.refactoring").setup()
+  --   end,
+  -- },
 
   -- -------------------------
   -- |   Neovim Tree Views   |
@@ -276,10 +276,6 @@ return {
 
   -- Show indentation.
   ["lukas-reineke/indent-blankline.nvim"] = {
-    -- opt = true,
-    -- setup = function()
-    --   require("aiko.plugins.lazy").on_file_open("indent-blankline.nvim")
-    -- end,
     config = function()
       require("aiko.plugins.configs.indent-blankline").setup()
     end,
@@ -404,6 +400,7 @@ return {
     ft = { "csv", "tsv" },
   },
 
+  -- Connect to databases inside Neovim
   ["tpope/vim-dadbod"] = {
     ft = { "sql", "msql", "mysql", "plsql" },
     cmd = "DB",
@@ -451,6 +448,14 @@ return {
   -- Dev icons for file types.
   ["kyazdani42/nvim-web-devicons"] = {
     module = "nvim-web-devicons",
+  },
+
+  ["folke/zen-mode.nvim"] = {
+    cmd = "ZenMode",
+    module = "zen-mode",
+    config = function()
+      require("zen-mode").setup({})
+    end,
   },
 
   -- ---------------------
