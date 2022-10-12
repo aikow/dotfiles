@@ -394,13 +394,27 @@ let-env config = {
     # ---------------
     # |   History   |
     # ---------------
+    #
+    # Use FZF for fuzzy history search
     {
-      name: history_menu
+      name: fuzzy_history
       modifier: control
       keycode: char_r
       mode: [vi_insert, vi_normal]
-      event: { send: menu name: history_menu }
+      event: {
+        send: executehostcommand
+        cmd: "commandline (history | each { |it| $it.command } | uniq | reverse | str collect (char nl) | fzf --layout=reverse --height=40% -q (commandline) | decode utf-8 | str trim)"
+      }
     }
+    # Default history search provided by Nu
+    # {
+    #   name: history_menu
+    #   modifier: control
+    #   keycode: char_r
+    #   mode: [vi_insert, vi_normal]
+    #   event: { send: menu name: history_menu }
+    # }
+    # Key bindings for working with history.
     {
       name: next_history
       modifier: control
