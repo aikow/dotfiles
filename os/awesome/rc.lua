@@ -777,10 +777,13 @@ awful.spawn.with_shell("picom")
 awful.spawn.with_shell("volumeicon")
 
 -- Autostart yakuake and enpass
-awful.spawn.with_shell(
-  [[! pgrep yakuake &>/dev/null && command -v yakuake &>/dev/null && yakuake &]]
-)
+awful.spawn.with_shell([[!
+  pgrep yakuake &>/dev/null && command -v yakuake &>/dev/null && yakuake &
+  ]])
 awful.spawn.with_shell([[command -v enpass &>/dev/null && enpass -minimize]])
+awful.spawn.with_shell([[
+  ! pgrep insync &>/dev/null && command -v insync &>/dev/null && insync start
+  ]])
 
 -- Remap Caps Lock to Escape
 awful.spawn.with_shell([[xmodmap -e 'clear lock']])
