@@ -14,5 +14,14 @@ vim.filetype.add({
   },
   pattern = {
     ["Dockerfile.*"] = "dockerfile",
+    [".*"] = {
+      priority = -math.huge,
+      function(_, bufnr)
+        local line = vim.filetype.getlines(bufnr, 1)
+        if vim.filetype.matchregex(line, [[\v^#!.*/bin/(env\s+)?nu>]]) then
+          return "nu"
+        end
+      end,
+    },
   },
 })
