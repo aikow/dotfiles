@@ -35,11 +35,11 @@ M.setup = function()
   map("n", "<leader>dl", d.setloclist, opts("diagnostics set location list"))
 
   -- Code actions
-  map("n", "<leader>a", lsp.code_action, opts("LSP code actions"))
+  map({ "n", "x" }, "<leader>a", lsp.code_action, opts("LSP code actions"))
 
   -- Refactoring with <leader>r...
   map("n", "<leader>rr", lsp.rename, opts("LSP rename"))
-  map("n", "<leader>rf", lsp.format, opts("LSP format file"))
+  map({ "n", "x" }, "<leader>rf", lsp.format, opts("LSP format file"))
 end
 
 return M
