@@ -1,0 +1,21 @@
+# Compiled files
+*.exe
+*.o
+*.so
+target/
+build/
+
+# Java
+*.class
+
+# Python
+__pycache__/
+
+# Logs
+log/
+*.log
+
+# Custom
+.nvim/
+
+# vim: ft=gitignore
