@@ -32,7 +32,10 @@ end
 return {
   default_prog = shell,
   color_scheme = "Gruvbox Dark",
+  default_cursor_style = "SteadyBar",
   enable_tab_bar = false,
+  send_composed_key_when_alt_is_pressed = false,
+  use_ime = false,
   font = wezterm.font_with_fallback({
     "Hack Nerd Font",
     "JetBrains Mono",
