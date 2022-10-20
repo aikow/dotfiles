@@ -1,6 +1,6 @@
 local M = {}
 
-M.palette = function(theme, colors)
+M.palette = function(_, colors)
   return {
     -- LSP References
     LspReferenceText = { fg = colors.darker_black, bg = colors.white },

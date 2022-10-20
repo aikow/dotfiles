@@ -1,4 +1,3 @@
-local tbl = require("aiko.util.table")
 local ui = require("aiko.plugins.configs.lspconfig.ui")
 local mappings = require("aiko.plugins.configs.lspconfig.mappings")
 local Server = require("aiko.plugins.configs.lspconfig.server")
@@ -37,7 +36,7 @@ M.setup = function()
   -- mason.setup({})
 
   -- Require LSP config module.
-  local ok_lspconfig, lspconfig = pcall(require, "lspconfig")
+  local ok_lspconfig, _ = pcall(require, "lspconfig")
   if not ok_lspconfig then
     return
   end

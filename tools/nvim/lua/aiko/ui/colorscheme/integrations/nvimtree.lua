@@ -1,6 +1,6 @@
 local M = {}
 
-M.palette = function(theme, colors)
+M.palette = function(_, colors)
   return {
     NvimTreeNormal = { bg = colors.darker_black },
     NvimTreeEndOfBuffer = { fg = colors.darker_black },

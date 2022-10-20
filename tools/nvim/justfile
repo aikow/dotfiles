@@ -1,2 +1,5 @@
 format:
-  fd -elua -E./plugin/packer_compiled.lua -x stylua {}
+  fd -elua -E./plugin/packer_compiled.lua -X stylua
+
+lint:
+	fd -elua -E./plugin/packer_compiled.lua -X luacheck

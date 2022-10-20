@@ -1,6 +1,6 @@
 local M = {}
 
-M.palette = function(theme, colors)
+M.palette = function(_, colors)
   return {
     StatusLine = { bg = colors.statusline_bg },
 

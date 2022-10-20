@@ -15,14 +15,14 @@ if ok_cmp then
   })
 end
 
-local omnifunc_module = "nvim_treesitter_playground_query_omnifunc"
-local ok_omnifunc, mod = pcall(require, omnifunc_module)
-if ok_omnifunc then
-  local omnifunc = mod.omnifunc
-  vim.cmd([[
-    function! QueryOmnifunc(findstart, base)
-      return v:lua.require'nvim_treesitter_playground_query_omnifunc'.omnifunc(a:findstart, a:base)
-    endfunction
-  ]])
-  vim.bo.omnifunc = "QueryOmnifunc"
-end
+-- local omnifunc_module = "nvim_treesitter_playground_query_omnifunc"
+-- local ok_omnifunc, mod = pcall(require, omnifunc_module)
+-- if ok_omnifunc then
+--   local omnifunc = mod.omnifunc
+--   vim.cmd([[
+--     function! QueryOmnifunc(findstart, base)
+--       return v:lua.require'nvim_treesitter_playground_query_omnifunc'.omnifunc(a:findstart, a:base)
+--     endfunction
+--   ]])
+--   vim.bo.omnifunc = "QueryOmnifunc"
+-- end

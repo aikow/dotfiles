@@ -1,6 +1,6 @@
 local M = {}
 
-M.palette = function(theme, colors)
+M.palette = function(_, colors)
   return {
     DevIconDefault = { fg = colors.red },
     DevIconc = { fg = colors.blue },

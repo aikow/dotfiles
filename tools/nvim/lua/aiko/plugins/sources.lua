@@ -209,6 +209,7 @@ return {
   -- Completions from the builtin LSP.
   ["hrsh7th/cmp-nvim-lsp"] = {
     after = "nvim-cmp",
+    module = "cmp_nvim_lsp",
   },
 
   -- Completions from words in the current buffer.

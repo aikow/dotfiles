@@ -1,6 +1,6 @@
 local M = {}
 
-M.palette = function(theme, colors)
+M.palette = function(_, colors)
   return {
     Black = { fg = colors.white, bg = colors.black },
     DarkerBlack = { fg = colors.white, bg = colors.darkerblack },

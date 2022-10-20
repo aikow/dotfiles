@@ -6,6 +6,7 @@ M.setup = function()
     return
   end
 
+  local ruff = require("aiko.plugins.configs.null-ls.ruff")
   local builtins = null_ls.builtins
 
   null_ls.setup({
@@ -18,6 +19,7 @@ M.setup = function()
           return { "-l", vim.b.sqllanguage or "sqlite" }
         end,
       }),
+      ruff,
     },
   })
 end

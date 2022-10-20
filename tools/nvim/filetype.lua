@@ -10,7 +10,9 @@ vim.filetype.add({
     ["aliases"] = "sh",
     ["bashrc"] = "bash",
     ["gitconfig"] = "gitconfig",
-    ["justfile"] = "just",
+    -- FIXME: Once I can install the just tree-sitter parser on mac, switch it
+    -- back to "just"
+    ["justfile"] = "make",
     ["MANIFEST.in"] = "manifest",
   },
   pattern = {

@@ -1,6 +1,6 @@
 local M = {}
 
-M.palette = function(theme, colors)
+M.palette = function(_, colors)
   return {
     MasonHeader = { bg = colors.red, fg = colors.black },
     MasonHighlight = { fg = colors.blue },
