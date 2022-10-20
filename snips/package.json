@@ -23,6 +23,12 @@
           "norg"
         ],
         "path": "./snippets/norg.json"
+      },
+      {
+        "language": [
+          "python"
+        ],
+        "path": "./snippets/python.json"
       }
     ]
   }
