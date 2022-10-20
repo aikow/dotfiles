@@ -3,7 +3,7 @@ cache = true
 std = luajit
 codes = true
 
-self = false
+self = true
 
 globals = {
   "vim",

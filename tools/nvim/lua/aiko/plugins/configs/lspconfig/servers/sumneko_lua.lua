@@ -33,12 +33,12 @@ S.on_init = function(client)
 end
 
 ---comment configure the default capabilities.
----@param capabilities Capabilities
 S.configure_capabilities = function(capabilities)
-  capabilities.documentFormatingProvider = false
+  capabilities.documentFormattingProvider = false
+  capabilities.documentRangeFormattingProvider = false
 end
 
-S.settings({
+S.settings = {
   Lua = {
     diagnostics = {
       globals = {
@@ -58,6 +58,6 @@ S.settings({
       preloadFileSize = 10000,
     },
   },
-})
+}
 
 return S

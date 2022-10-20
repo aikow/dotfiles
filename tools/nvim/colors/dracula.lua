@@ -34,7 +34,6 @@ colorscheme.colors = {
   lightbg = "#41434f",
   pmenu_bg = "#b389ef",
   folder_bg = "#BD93F9",
-  M,
 }
 
 colorscheme.theme = {

@@ -52,13 +52,13 @@ M.setup = function()
     ["<CR>"] = {
       i = cmp.mapping.confirm({
         behavior = cmp.ConfirmBehavior.Insert,
-        select = false,
+        select = true,
       }),
     },
     ["<M-CR>"] = {
       i = cmp.mapping.confirm({
-        behavior = cmp.ConfirmBehavior.Replace,
-        select = true,
+        behavior = cmp.ConfirmBehavior.Insert,
+        select = false,
       }),
     },
   }

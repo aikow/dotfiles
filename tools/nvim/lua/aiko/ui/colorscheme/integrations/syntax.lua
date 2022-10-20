@@ -1,6 +1,6 @@
 local M = {}
 
-M.palette = function(theme, colors)
+M.palette = function(theme, _)
   -- Standard syntax highlighting
 
   return {
