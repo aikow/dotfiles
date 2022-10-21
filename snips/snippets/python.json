@@ -1,4 +1,3 @@
-
 {
   "get logger": {
     "description": "get default logger from builtin logging module",
@@ -6,5 +5,5 @@
     "body": [
       "logger = logging.getLogger(__name__)"
     ]
-  },
+  }
 }

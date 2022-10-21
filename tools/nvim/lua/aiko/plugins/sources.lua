@@ -52,6 +52,15 @@ return {
     end,
   },
 
+  -- A tree like view for symbols using LSP.
+  ["simrat39/symbols-outline.nvim"] = {
+    module = "symbols-outline",
+    cmd = {"SymbolsOutline", "SymbolsOutlineOpen", "SymbolsOutlineClose" },
+    config = function ()
+      require("aiko.plugins.configs.symbols-outline").setup()
+    end
+  },
+
   -- Add icons to native LSP based on the completion type.
   ["onsails/lspkind.nvim"] = {
     module = "lspkind",
