@@ -35,73 +35,81 @@ vim.api.nvim_buf_create_user_command(0, "StringWrap", function()
     -- the lines are f-strings. Insert all the whitespace-separated words into a
     -- table.
     local is_fstring = false
+    local is_rstring = false
     local words = {}
-    for line in
-      vim.gsplit(vim.treesitter.get_node_text(node, bufnr), "\n", true)
-    do
-      local f, trimmed = string.match(vim.trim(line), [[^(f?)"(.*)"$]])
-      if f ~= "" then
+    for line in vim.gsplit(vim.treesitter.get_node_text(node, bufnr), "\n", true) do
+      local modifier, trimmed =
+      string.match(vim.trim(line), [[^([frFR]?)"(.*)"$]])
+      if modifier == "f" or modifier == "F" then
         is_fstring = true
+      elseif modifier == "r" or modifier == "R" then
+        is_rstring = true
       end
       -- Remove spaces and then quotes.
-      for word in string.gmatch(trimmed, "%S+") do
-        table.insert(words, word)
-      end
-    end
-
-    -- Start row, start col, end row, end col
-    local range = { node:range() }
-    local indentation = string.rep(" ", range[2])
-    local width = vim.bo.textwidth - range[2] - 2 - (is_fstring and 1 or 0)
-
-    -- Create table of lines without quotation and without leading space.
-    local raw_lines = {}
-    local cur_line = ""
-    for _, word in pairs(words) do
-      if #word >= width then
-        if #cur_line > 0 then
-          table.insert(raw_lines, cur_line)
-          cur_line = ""
+      if trimmed ~= nil then
+        for word in string.gmatch(trimmed, "%S+") do
+          table.insert(words, word)
         end
-        table.insert(raw_lines, word)
-      elseif #cur_line + #word + 1 >= width then
+      end
+    end
+
+    -- Only modify it if the string is not a raw string, we do not want to mess
+    -- with those.
+    if not is_rstring then
+      -- Start row, start col, end row, end col
+      local range = { node:range() }
+      local indentation = string.rep(" ", range[2])
+      local width = vim.bo.textwidth - range[2] - 2 - (is_fstring and 1 or 0)
+
+      -- Create table of lines without quotation and without leading space.
+      local raw_lines = {}
+      local cur_line = ""
+      for _, word in pairs(words) do
+        if #word >= width then
+          if #cur_line > 0 then
+            table.insert(raw_lines, cur_line)
+            cur_line = ""
+          end
+          table.insert(raw_lines, word)
+        elseif #cur_line + #word + 1 >= width then
+          table.insert(raw_lines, cur_line)
+          cur_line = word
+        elseif #cur_line == 0 then
+          cur_line = cur_line .. word
+        else
+          cur_line = cur_line .. " " .. word
+        end
+      end
+      -- Insert the last line if it is non-empty.
+      if #cur_line > 0 then
         table.insert(raw_lines, cur_line)
-        cur_line = word
-      elseif #cur_line == 0 then
-        cur_line = cur_line .. word
-      else
-        cur_line = cur_line .. " " .. word
       end
-    end
-    -- Insert the last line if it is non-empty.
-    if #cur_line > 0 then
-      table.insert(raw_lines, cur_line)
-    end
 
-    -- Create the final table of lines with leading space and quotation marks.
-    local wrapped = {}
-    local first_word = true
-    local prefix
-    if is_fstring then
-      prefix = indentation .. 'f"'
-    else
-      prefix = indentation .. '"'
-    end
-    for _, line in pairs(raw_lines) do
-      if first_word then
-        first_word = false
-        table.insert(wrapped, prefix .. line .. '"')
+      -- Create the final table of lines with leading space and quotation marks.
+      local wrapped = {}
+      local first_word = true
+      local prefix
+      if is_fstring then
+        prefix = indentation .. 'f"'
       else
-        table.insert(wrapped, prefix .. " " .. line .. '"')
+        prefix = indentation .. '"'
       end
-    end
+      for _, line in pairs(raw_lines) do
+        if first_word then
+          first_word = false
+          table.insert(wrapped, prefix .. line .. '"')
+        else
+          table.insert(wrapped, prefix .. " " .. line .. '"')
+        end
+      end
 
-    -- Keep track of the changes, but insert them in the reverse order.
-    table.insert(changes, 1, {
-      start = range[1],
-      final = range[3] + 1,
-      wrapped = wrapped,
-    })
+      -- Keep track of the changes, but insert them in the reverse order.
+      table.insert(changes, 1, {
+        start = range[1],
+        final = range[3] + 1,
+        wrapped = wrapped,
+      })
+    end
   end
 
   -- Go through all the changes and apply them.
