@@ -57,7 +57,7 @@ M.setup = function()
       enable = true,
       -- Disable tree-sitter syntax highlighting for tex files, since
       -- vimtex depends on its own syntax highlighting for some features.
-      disable = { "latex" },
+      disable = { "latex", "help" },
     },
 
     -- Indentation is currently still an experimental feature.
