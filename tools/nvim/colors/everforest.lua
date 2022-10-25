@@ -62,4 +62,4 @@ colorscheme.polish = {
   TSConstructor = { fg = "#7fbbb3" },
 }
 
-require("aiko.ui.colorscheme").paint(colorscheme)
+require("aiko.theme").paint(colorscheme)

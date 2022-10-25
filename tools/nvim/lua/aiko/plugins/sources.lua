@@ -55,10 +55,10 @@ return {
   -- A tree like view for symbols using LSP.
   ["simrat39/symbols-outline.nvim"] = {
     module = "symbols-outline",
-    cmd = {"SymbolsOutline", "SymbolsOutlineOpen", "SymbolsOutlineClose" },
-    config = function ()
+    cmd = { "SymbolsOutline", "SymbolsOutlineOpen", "SymbolsOutlineClose" },
+    config = function()
       require("aiko.plugins.configs.symbols-outline").setup()
-    end
+    end,
   },
 
   -- Add icons to native LSP based on the completion type.
@@ -66,44 +66,48 @@ return {
     module = "lspkind",
   },
 
-  -- -- -----------------
-  -- -- |   Debugging   |
-  -- -- -----------------
-  -- --
-  -- -- Debug adapter protocol.
-  -- ["mfussenegger/nvim-dap"] = {
-  --   module = "dap",
-  --   keys = "<F5>",
-  --   config = function()
-  --     require("aiko.plugins.configs.dap").setup()
-  --   end,
-  -- },
+  -- -----------------
+  -- |   Debugging   |
+  -- -----------------
   --
-  -- -- UI elements for nvim-dap.
-  -- ["rcarriga/nvim-dap-ui"] = {
-  --   after = "nvim-dap",
-  --   config = function()
-  --     require("dapui").setup()
-  --   end,
-  -- },
-  --
-  -- -- Insert virtual text during debugging for variable values.
-  -- ["theHamsta/nvim-dap-virtual-text"] = {
-  --   after = "nvim-dap",
-  --   config = function()
-  --     require("nvim-dap-virtual-text").setup({})
-  --   end,
-  -- },
-  --
-  -- -- DAP configuration for python.
-  -- ["mfussenegger/nvim-dap-python"] = {
-  --   after = "nvim-dap",
-  --   config = function()
-  --     require("dap-python").setup(
-  --       "~/.local/share/nvim/mason/packages/debugpy/venv/bin/python"
-  --     )
-  --   end,
-  -- },
+  -- Debug adapter protocol.
+  ["mfussenegger/nvim-dap"] = {
+    disable = true,
+    module = "dap",
+    keys = "<F5>",
+    config = function()
+      require("aiko.plugins.configs.dap").setup()
+    end,
+  },
+
+  -- UI elements for nvim-dap.
+  ["rcarriga/nvim-dap-ui"] = {
+    disable = true,
+    after = "nvim-dap",
+    config = function()
+      require("dapui").setup()
+    end,
+  },
+
+  -- Insert virtual text during debugging for variable values.
+  ["theHamsta/nvim-dap-virtual-text"] = {
+    disable = true,
+    after = "nvim-dap",
+    config = function()
+      require("nvim-dap-virtual-text").setup({})
+    end,
+  },
+
+  -- DAP configuration for python.
+  ["mfussenegger/nvim-dap-python"] = {
+    disable = true,
+    after = "nvim-dap",
+    config = function()
+      require("dap-python").setup(
+        "~/.local/share/nvim/mason/packages/debugpy/venv/bin/python"
+      )
+    end,
+  },
 
   -- -----------------
   -- |   Telescope   |
@@ -440,6 +444,14 @@ return {
   -- |   GUI, Themes, and Icons   |
   -- ------------------------------
   --
+  -- Statusline, winbar.
+  ["nvim-lualine/lualine.nvim"] = {
+    disable = true,
+    config = function()
+      require("aiko.plugins.configs.lualine").setup()
+    end,
+  },
+
   -- Override neovim default UI components for user input.
   ["stevearc/dressing.nvim"] = {
     config = function()

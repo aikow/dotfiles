@@ -62,4 +62,4 @@ colorscheme.polish = {
   },
 }
 
-require("aiko.ui.colorscheme").paint(colorscheme)
+require("aiko.theme").paint(colorscheme)

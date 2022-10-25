@@ -45,14 +45,14 @@ M.setup = function()
     compile_on_sync = true,
     git = { clone_timeout = 10 },
     display = {
-      working_sym = icons.working_sym,
-      error_sym = icons.error_sym,
-      done_sym = icons.done_sym,
-      removed_sym = icons.removed_sym,
-      moved_sym = icons.moved_sym,
+      working_sym = icons.working,
+      error_sym = icons.error,
+      done_sym = icons.done,
+      removed_sym = icons.removed,
+      moved_sym = icons.moved,
       open_fn = function()
         return require("packer.util").float({
-          border = require("aiko.ui.config").border,
+          border = "none",
         })
       end,
     },

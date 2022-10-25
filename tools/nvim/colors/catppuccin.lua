@@ -62,4 +62,4 @@ colorscheme.polish = {
   TSVariableBuiltin = { fg = colorscheme.colors.red },
 }
 
-require("aiko.ui.colorscheme").paint(colorscheme)
+require("aiko.theme").paint(colorscheme)

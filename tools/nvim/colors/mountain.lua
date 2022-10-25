@@ -56,4 +56,4 @@ colorscheme.polish = {
   TSVariable = { fg = colorscheme.theme.base05 },
 }
 
-require("aiko.ui.colorscheme").paint(colorscheme)
+require("aiko.theme").paint(colorscheme)

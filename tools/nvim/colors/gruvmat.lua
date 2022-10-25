@@ -92,4 +92,4 @@ local colors = {
   bg_current_word = { "#3c3836", "237" },
 }
 
-require("aiko.ui.colorscheme").paint(colorscheme)
+require("aiko.theme").paint(colorscheme)

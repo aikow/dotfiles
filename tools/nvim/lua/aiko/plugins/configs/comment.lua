@@ -9,7 +9,6 @@ M.setup = function()
   comment.setup({
     padding = true,
     sticky = true,
-    ignore = nil,
     toggler = {
       line = "gcc",
       block = "gbb",

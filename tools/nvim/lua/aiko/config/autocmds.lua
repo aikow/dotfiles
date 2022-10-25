@@ -1,7 +1,3 @@
--- ---------------------
--- |   Auto Commands   |
--- ---------------------
-
 -- Reload files changed outside of Vim not currently modified in Vim
 vim.api.nvim_create_autocmd({ "FocusGained", "BufEnter", "WinEnter" }, {
   group = vim.api.nvim_create_augroup("General autoread", {}),
@@ -13,6 +9,8 @@ vim.api.nvim_create_autocmd({ "FocusGained", "BufEnter", "WinEnter" }, {
   end,
   desc = "perform a read when entering a new buffer",
 })
+
+-- Write changes automatically when leaving a window or losing focus.
 vim.api.nvim_create_autocmd({ "FocusLost", "WinLeave" }, {
   group = vim.api.nvim_create_augroup("general_autowrite", {}),
   callback = function()
@@ -68,6 +66,7 @@ vim.api.nvim_create_autocmd("BufReadPost", {
   once = true,
 })
 
+-- Set settings for built-in terminal
 vim.api.nvim_create_autocmd("TermOpen", {
   group = vim.api.nvim_create_augroup("Terminal Settings", {}),
   callback = function()

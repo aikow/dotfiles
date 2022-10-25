@@ -46,14 +46,6 @@ M.setup = function()
           ["<C-j>"] = actions.move_selection_next,
           ["<C-k>"] = actions.move_selection_previous,
 
-          ["<C-c>"] = actions.close,
-
-          -- Open selected.
-          ["<CR>"] = actions.select_default,
-          ["<C-x>"] = actions.select_horizontal,
-          ["<C-v>"] = actions.select_vertical,
-          ["<C-t>"] = actions.select_tab,
-
           -- Scroll through buffer and results.
           ["<C-b>"] = actions.preview_scrolling_up,
           ["<C-f>"] = actions.preview_scrolling_down,
@@ -83,21 +75,6 @@ M.setup = function()
         n = {
           ["<C-j>"] = actions.move_selection_next,
           ["<C-k>"] = actions.move_selection_previous,
-          ["j"] = actions.move_selection_next,
-          ["k"] = actions.move_selection_previous,
-
-          ["H"] = actions.move_to_top,
-          ["M"] = actions.move_to_middle,
-          ["L"] = actions.move_to_bottom,
-          ["gg"] = actions.move_to_top,
-          ["G"] = actions.move_to_bottom,
-
-          ["<esc>"] = actions.close,
-
-          ["<CR>"] = actions.select_default,
-          ["<C-x>"] = actions.select_horizontal,
-          ["<C-v>"] = actions.select_vertical,
-          ["<C-t>"] = actions.select_tab,
 
           -- Toggle selection without moving up or down.
           ["<C-space>"] = actions.toggle_selection,
@@ -176,58 +153,50 @@ end
 M.mappings = function()
   local map = vim.keymap.set
 
-  map("n", "<leader>i", function()
+  map("n", "<leader>r", function()
     require("telescope.builtin").resume()
   end, { silent = true, desc = "telescope reopen last telescope window" })
 
-  map("n", "<leader>do", function()
+  map("n", "<leader>d", function()
     require("telescope.builtin").diagnostics()
   end, { silent = true, desc = "telescope open diagnostics" })
 
-  map("n", "<leader>ds", function()
+  map("n", "<leader>ls", function()
     require("telescope.builtin").spell_suggest()
   end, { silent = true, desc = "telescope spell suggest" })
 
-  map("n", "<leader>jf", function()
+  map("n", "<leader>lf", function()
     require("telescope.builtin").treesitter()
   end, { silent = true, desc = "telescope treesitter" })
 
-  map("n", "<leader>jd", function()
+  map("n", "<leader>ld", function()
     require("telescope.builtin").lsp_definitions()
   end, { silent = true, desc = "telescope lsp list definitions" })
 
-  map("n", "<leader>jr", function()
+  map("n", "<leader>lr", function()
     require("telescope.builtin").lsp_references()
   end, { silent = true, desc = "telescope lsp list references" })
 
-  map("n", "<leader>ji", function()
+  map("n", "<leader>li", function()
     require("telescope.builtin").lsp_implementations()
   end, { silent = true, desc = "telescope lsp list implementations" })
 
-  map("n", "<leader>jt", function()
+  map("n", "<leader>lt", function()
     require("telescope.builtin").lsp_type_definitions()
   end, { silent = true, desc = "telescope lsp list type definitions" })
 
-  map("n", "<leader>ji", function()
-    require("telescope.builtin").lsp_incoming_calls()
-  end, { silent = true, desc = "telescope lsp list incoming calls" })
-
-  map("n", "<leader>jo", function()
-    require("telescope.builtin").lsp_outgoing_calls()
-  end, { silent = true, desc = "telescope lsp list outgoing calls" })
-
-  map("n", "<leader>jw", function()
+  map("n", "<leader>lw", function()
     require("telescope.builtin").lsp_workspace_symbols()
   end, { silent = true, desc = "telescope lsp list workspace symbols" })
 
-  map("n", "<leader>jW", function()
+  map("n", "<leader>lW", function()
     require("telescope.builtin").lsp_dynamic_workspace_symbols()
   end, {
     silent = true,
     desc = "telescope lsp list dynamic workspace symbols",
   })
 
-  map("n", "<leader>js", function()
+  map("n", "<leader>ls", function()
     require("telescope.builtin").lsp_document_symbols()
   end, { silent = true, desc = "telescope lsp list document symbols" })
 
@@ -307,10 +276,6 @@ M.mappings = function()
     require("telescope.builtin").man_pages()
   end, { silent = true, desc = "telescope man pages" })
 
-  map("n", [[<leader>h']], function()
-    require("telescope.builtin").marks()
-  end, { silent = true, desc = "telescope marks" })
-
   map("n", "<leader>hk", function()
     require("telescope.builtin").keymaps()
   end, { silent = true, desc = "telescope keymaps" })
@@ -318,14 +283,6 @@ M.mappings = function()
   map("n", "<leader>hf", function()
     require("telescope.builtin").filetypes()
   end, { silent = true, desc = "telescope filetypes" })
-
-  map("n", "<leader>hj", function()
-    require("telescope.builtin").jumplist()
-  end, { silent = true, desc = "telescope jumplist" })
-
-  map("n", "<leader>hr", function()
-    require("telescope.builtin").registers()
-  end, { silent = true, desc = "telescope registers" })
 
   map("n", "<leader>hs", function()
     require("telescope").extensions.luasnip.luasnip()
@@ -346,10 +303,6 @@ M.mappings = function()
   map("n", "<leader>hl", function()
     require("telescope.builtin").loclist()
   end, { silent = true, desc = "telescope location list" })
-
-  map("n", "<leader>hg", function()
-    require("telescope.builtin").highlights()
-  end, { silent = true, desc = "telescope highlights" })
 
   map("n", "<leader>hp", function()
     require("telescope.builtin").reloader()

@@ -1,9 +1,9 @@
 local M = {}
 
-M.setup = function ()
+M.setup = function()
   require("symbols-outline").setup({
     keymaps = {
-      close = {"<Esc>", "q" },
+      close = { "<Esc>", "q" },
       code_actions = "a",
       focus_location = "o",
       fold = "h",

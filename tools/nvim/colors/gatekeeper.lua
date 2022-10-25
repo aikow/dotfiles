@@ -60,4 +60,4 @@ colorscheme.polish = {
   TSParameter = { fg = colorscheme.colors.white },
 }
 
-require("aiko.ui.colorscheme").paint(colorscheme)
+require("aiko.theme").paint(colorscheme)

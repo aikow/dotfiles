@@ -68,4 +68,4 @@ colorscheme.polish = {
   TSFuncBuiltin = { fg = colorscheme.colors.yellow },
 }
 
-require("aiko.ui.colorscheme").paint(colorscheme)
+require("aiko.theme").paint(colorscheme)

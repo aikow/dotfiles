@@ -6,6 +6,22 @@ M.setup = function()
     return
   end
 
+  crates.setup()
+
+  vim.api.nvim_create_autocmd("BufEnter", {
+    pattern = "Cargo.toml",
+    callback = function()
+      M.mappings()
+    end,
+  })
+end
+
+M.mappings = function()
+  local ok_crates, crates = pcall(require, "crates")
+  if not ok_crates then
+    return
+  end
+
   local map = vim.keymap.set
   local opts = function(desc)
     return {
@@ -14,9 +30,6 @@ M.setup = function()
       desc = desc or "",
     }
   end
-
-  crates.setup()
-
   -- Show menus
   map("n", "<localleader>t", crates.toggle, opts("crates toggle menu"))
   map("n", "<localleader>r", crates.reload, opts("crates reload source"))

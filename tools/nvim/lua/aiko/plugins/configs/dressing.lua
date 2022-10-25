@@ -7,8 +7,11 @@ M.setup = function()
   end
 
   dressing.setup({
-    insert_only = false,
-    winhighlight = "NormalFloat:DiagnosticError",
+    input = {
+      insert_only = false,
+      start_in_insert = false,
+      winhighlight = "NormalFloat:DiagnosticError",
+    },
     select = {
       backend = { "telescope" },
     },

@@ -3,6 +3,10 @@ local generate_capabilities =
   require("aiko.plugins.configs.lspconfig.capabilities").generate_capabilities
 local mappings = require("aiko.plugins.configs.lspconfig.mappings")
 
+--- A Server encapsulates some options foro LSP servers while also allowing each
+--- LSP server to choose whether to keep, modify, or override a set of default
+--- values.
+---
 ---@class Server
 ---@field name string name of the LSP server
 ---@field on_attach function
@@ -20,6 +24,7 @@ function Server:_on_init(client)
     end
   end
 
+  -- Read the LSP settings from the local workspace configuration.
   local wks = require("aiko.workspace")
   local workspace_path = client.workspace_folders[1].name
   local config =
@@ -47,40 +52,43 @@ function Server:_on_attach(client, bufnr)
     nvim_navic.attach(client, bufnr)
   end
 
+  -- Set up the LSP mappings
   mappings.setup()
 
+  -- Run the servers additional functionality.
   if self.on_attach then
     self.on_attach(client, bufnr)
   end
 end
 
 function Server:setup()
-  local opts = {}
+  local config = {}
 
   -- Get the capabilities
-  opts.capabilities = generate_capabilities()
+  config.capabilities = generate_capabilities()
   if self.configure_capabilities then
-    self.configure_capabilities(opts.capabilities)
+    self.configure_capabilities(config.capabilities)
   end
 
   -- Copy table values
-  opts.settings = self.settings
-  opts.filetypes = self.filetypes
+  config.settings = self.settings
+  config.filetypes = self.filetypes
 
   -- Setup callbacks
-  opts.on_attach = function(client, bufnr)
+  config.on_attach = function(client, bufnr)
     self:_on_attach(client, bufnr)
   end
-  opts.on_init = function(client)
+  config.on_init = function(client)
     self:_on_init(client)
   end
 
   -- Setup the LSP server using lspconfig.
   local lspconfig = require("lspconfig")
-  lspconfig[self.name].setup(opts)
+  lspconfig[self.name].setup(config)
 end
 
----Constructor for server objects
+--- Constructor for server objects.
+---
 ---@param name string the LSP servers name
 ---@param options table default server
 ---@return Server
