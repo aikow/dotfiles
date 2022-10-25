@@ -1,0 +1,16 @@
+
+{
+  "module": {
+    "description": "basic module with a single function",
+    "prefix": "module",
+    "body": [
+      "local M = {}",
+      "",
+      "M.${1:setup} = function($2)",
+      "\t$0",
+      "end",
+      "",
+      "return M"
+    ]
+  }
+}
