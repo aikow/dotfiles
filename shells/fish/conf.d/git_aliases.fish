@@ -66,15 +66,15 @@ abbr g 'git'
 # -----------
 abbr ga 'git add'
 abbr gaa 'git add --all'
-abbr gapa 'git add --patch'
+abbr gap 'git add --patch'
 abbr gau 'git add --update'
 abbr gav 'git add --verbose'
 
 # -------------
 # |   Apply   |
 # -------------
-abbr gap 'git apply'
-abbr gapt 'git apply --3way'
+abbr gy 'git apply'
+abbr gyt 'git apply --3way'
 
 # --------------
 # |   Branch   |
@@ -90,7 +90,9 @@ end
 abbr gbD 'git branch -D'
 abbr gbn 'git branch --no-merged'
 abbr gbr 'git branch --remote'
-abbr ggsup 'git branch --set-upstream-to=origin/(git_current_branch)'
+abbr gbv 'git branch -v'
+abbr gbV 'git branch -vv'
+abbr gbup 'git branch --set-upstream-to=origin/(git_current_branch)'
 
 # -------------
 # |   Blame   |
@@ -285,13 +287,13 @@ end
 # --------------
 # |   Remote   |
 # --------------
-abbr grm 'git remote'
-abbr grma 'git remote add'
-abbr grmr 'git remote rename'
-abbr grmd 'git remote remove'
-abbr grms 'git remote set-url'
-abbr grmu 'git remote update'
-abbr grmv 'git remote -v'
+abbr ge 'git remote'
+abbr gea 'git remote add'
+abbr ger 'git remote rename'
+abbr ged 'git remote remove'
+abbr ges 'git remote set-url'
+abbr geu 'git remote update'
+abbr gev 'git remote -v'
 
 # --------------
 # |   Rebase   |
@@ -385,6 +387,11 @@ abbr gswd 'git switch (git_develop_branch)'
 abbr gts 'git tag -s'
 abbr gtv 'git tag | sort -V'
 abbr gtl 'git tag --sort=-v:refname -n -l $argv'
+
+abbr gw 'git worktree'
+abbr gwa 'git worktree add'
+abbr gwl 'git worktree list'
+abbr gwr 'git worktree remove'
 
 # ---------------------
 # |   Miscellaneous   |
