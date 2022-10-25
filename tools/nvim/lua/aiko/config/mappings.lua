@@ -290,5 +290,5 @@ map("n", "<C-w>+", "5<C-w>+")
 -- -----------------------
 require("aiko.plugins.configs.telescope").mappings()
 require("aiko.plugins.configs.nvimtree").mappings()
-require("aiko.plugins.configs.neotree").mappings()
-require("aiko.plugins.configs.lspconfig").mappings()
+-- require("aiko.plugins.configs.neotree").mappings()
+-- require("aiko.plugins.configs.lspconfig").mappings()

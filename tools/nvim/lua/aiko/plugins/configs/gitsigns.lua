@@ -22,6 +22,9 @@ M.setup = function()
         numhl = "GitSignsChangeNr",
       },
     },
+    preview_config = {
+      border = "rounded",
+    },
   })
 
   M.mappings()

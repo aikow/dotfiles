@@ -8,11 +8,11 @@ M.diagnostics = {
 }
 
 M.packer = {
-  working_sym = "ﲊ",
-  error_sym = "✗ ",
-  done_sym = " ",
-  removed_sym = " ",
-  moved_sym = "",
+  working = "ﲊ",
+  error = "✗ ",
+  done = " ",
+  removed = " ",
+  moved = "",
 }
 
 M.mason = {

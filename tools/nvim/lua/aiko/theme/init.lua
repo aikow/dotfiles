@@ -11,6 +11,7 @@ M.integrations = {
   "devicons",
   "git",
   "lsp",
+  -- "lualine",
   "mason",
   "nvimtree",
   "statusline",
@@ -40,7 +41,7 @@ end
 ---@param colorscheme Colorscheme
 ---@return nil|table<string, string>
 M.load_hl = function(group, colorscheme)
-  local modpath = "aiko.ui.colorscheme.integrations." .. group
+  local modpath = "aiko.theme.integrations." .. group
   local ok, mod = pcall(require, modpath)
   if not ok then
     vim.notify("Unable to load group " .. group)

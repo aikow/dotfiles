@@ -3,6 +3,8 @@ local colorscheme = {
   background = "dark",
 }
 
+colorscheme.theme = {}
+
 colorscheme.colors = {
   dark0 = "#0d0e0f",
   dark = "#202020",
@@ -29,4 +31,4 @@ colorscheme.colors = {
   milk = "#E7D7AD",
 }
 
-require("aiko.ui.colorscheme").paint(colorscheme)
+require("aiko.theme").paint(colorscheme)

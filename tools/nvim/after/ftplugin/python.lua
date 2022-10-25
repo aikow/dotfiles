@@ -37,9 +37,11 @@ vim.api.nvim_buf_create_user_command(0, "StringWrap", function()
     local is_fstring = false
     local is_rstring = false
     local words = {}
-    for line in vim.gsplit(vim.treesitter.get_node_text(node, bufnr), "\n", true) do
+    for line in
+      vim.gsplit(vim.treesitter.get_node_text(node, bufnr), "\n", true)
+    do
       local modifier, trimmed =
-      string.match(vim.trim(line), [[^([frFR]?)"(.*)"$]])
+        string.match(vim.trim(line), [[^([frFR]?)"(.*)"$]])
       if modifier == "f" or modifier == "F" then
         is_fstring = true
       elseif modifier == "r" or modifier == "R" then

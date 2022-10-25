@@ -59,4 +59,4 @@ colorscheme.polish = {
   PmenuSel = { fg = colorscheme.colors.black, bg = colorscheme.colors.red },
 }
 
-require("aiko.ui.colorscheme").paint(colorscheme)
+require("aiko.theme").paint(colorscheme)
