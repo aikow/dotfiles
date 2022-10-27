@@ -20,6 +20,12 @@
       },
       {
         "language": [
+          "fish"
+        ],
+        "path": "./snippets/fish.json"
+      },
+      {
+        "language": [
           "lua"
         ],
         "path": "./snippets/lua.json"
