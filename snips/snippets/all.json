@@ -1,5 +1,5 @@
 {
-  "ASCII line separator": {
+  "ascii line separator": {
     "prefix": "lsep",
     "body": [
       "$LINE_COMMENT ------------------------------------------------------------------------",
@@ -8,7 +8,7 @@
     ],
     "description": "Small heading to separate sections."
   },
-  "Unicode line separator": {
+  "unicode line separator": {
     "prefix": "ulsep",
     "body": [
       "$LINE_COMMENT ┌───────────────────────────────────────────────────────────────────────",

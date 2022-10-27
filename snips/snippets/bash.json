@@ -1,5 +1,5 @@
 {
-  "Safe bash options": {
+  "safe bash options": {
     "prefix": "sbash",
     "body": [
       "#!/usr/bin/env bash",
@@ -14,14 +14,14 @@
     ],
     "description": "Header for a safe bash script."
   },
-  "Script directory": {
+  "script directory": {
     "prefix": "dirname",
     "body": [
       "readonly __DIRNAME=\"$(cd -- \"$(dirname -- \"\\${BASH_SOURCE[0]}\")\" &>/dev/null && pwd -P)\""
     ],
     "description": "A readonly variable with the path to the directory of the current file."
   },
-  "Command line argument parser": {
+  "command line argument parser": {
     "prefix": "clap",
     "body": [
       "# Store positional args in an array.",
@@ -47,7 +47,7 @@
     ],
     "description": "Small heading to separate sections."
   },
-  "Flag command line argument": {
+  "flag command line argument": {
     "prefix": "fclap",
     "body": [
       "-$1|--$2)",
@@ -57,7 +57,7 @@
     ],
     "description": "Parse a flag from the CLI arguments."
   },
-  "Argument command line argument": {
+  "argument command line argument": {
     "prefix": "aclap",
     "body": [
       "-$1|--$2)",
@@ -68,7 +68,7 @@
     ],
     "description": "Parse an optional argument from the CLI arguments."
   },
-  "Command on PATH": {
+  "command exists": {
     "prefix": "ifcmd",
     "body": ["command -v ${1:COMMAND} &>/dev/null"],
     "description": "Check if a command is on PATH and return with exit status 0"
