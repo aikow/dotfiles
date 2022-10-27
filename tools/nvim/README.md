@@ -6,8 +6,20 @@ My lua config files for Neovim.
 
 After linking, run `PackerSync` and restart neovim.
 
-Additional LuaSnip can support additional regex transformations, which can be
-enabled by installing `jsregexp`.
+LuaSnip can support additional regex transformations, which can be enabled by
+installing `jsregexp` package from luarocks.
+
+To install it globally, use 
+
+```bash
+sudo luarocks install jsregexp
+```
+
+Or to install it locally for the current user, use
+
+```bash
+luarocks install --local jsregexp
+```
 
 ## To Do
 
