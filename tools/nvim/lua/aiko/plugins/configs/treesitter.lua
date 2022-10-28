@@ -34,6 +34,7 @@ M.setup = function()
       "markdown",
       "python",
       "rust",
+      "sql",
       "toml",
       "vim",
       "yaml",

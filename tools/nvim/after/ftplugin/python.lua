@@ -18,7 +18,7 @@ vim.api.nvim_buf_create_user_command(0, "StringWrap", function()
   -- Treesitter query.
   local concatenated_string = vim.treesitter.parse_query(
     "python",
-    [[
+    [[;;query
       (concatenated_string) @concat
     ]]
   )
@@ -37,11 +37,9 @@ vim.api.nvim_buf_create_user_command(0, "StringWrap", function()
     local is_fstring = false
     local is_rstring = false
     local words = {}
-    for line in
-      vim.gsplit(vim.treesitter.get_node_text(node, bufnr), "\n", true)
-    do
+    for line in vim.gsplit(vim.treesitter.get_node_text(node, bufnr), "\n", true) do
       local modifier, trimmed =
-        string.match(vim.trim(line), [[^([frFR]?)"(.*)"$]])
+      string.match(vim.trim(line), [[^([frFR]?)"(.*)"$]])
       if modifier == "f" or modifier == "F" then
         is_fstring = true
       elseif modifier == "r" or modifier == "R" then
@@ -135,3 +133,90 @@ vim.keymap.set(
   [[<cmd>StringWrap<CR>]],
   { buffer = 0, silent = true, desc = "wrap concatenated strings" }
 )
+
+local format_sql = function(text, lang)
+  lang = lang or "sqlite"
+  -- Perform replacements of the identifiers to make the text valid SQL.
+  if lang == "sqlite" then
+    text = string.gsub(text, "%?", "__id__")
+  else
+    text = string.gsub(text, "${(%d)}", "__id_%1__")
+  end
+
+  text = vim.fn.system("sql-formatter -l " .. lang, text)
+
+  -- Revert the previous substitutions.
+  if lang == "sqlite" then
+    text = string.gsub(text, "__id__", "%?")
+  else
+    text = string.gsub(text, "__id_(%d)__", "${%1}")
+  end
+
+  -- Split the text on newlines.
+  return vim.split(text, "\n")
+end
+
+vim.api.nvim_buf_create_user_command(0, "SqlFormat", function(opts)
+  if vim.fn.executable("sql-formatter") ~= 1 then
+    vim.notify("Missing sql-formatter")
+    return
+  end
+
+  local lang = opts.lang or "sqlite"
+
+  local query = vim.treesitter.parse_query(
+    "python",
+    [[;; query
+      (assignment
+        left: (identifier) @_id (#contains? @_id "query")
+        right: (string) @sql (#offset! @sql 1 0 -1 0))
+    ]]
+  )
+
+  local bufnr = vim.api.nvim_get_current_buf()
+  local parser = vim.treesitter.get_parser(bufnr, "python", {})
+  local tree = parser:parse()[1]
+  local root = tree:root()
+
+  local changes = {}
+  for id, node in query:iter_captures(root, bufnr, 0, -1) do
+    local name = query.captures[id]
+    if name == "sql" then
+      local range = { node:range() }
+      local indentation = string.rep(" ", range[2])
+
+      -- Clean the input text.
+      local text = vim.treesitter.get_node_text(node, bufnr)
+      text = string.gsub(string.sub(text, 4, -4), "\n", "")
+
+      -- Format using external command
+      local formatted = format_sql(text, lang)
+
+      -- Add indentation
+      for idx, line in ipairs(formatted) do
+        formatted[idx] = indentation .. line
+      end
+
+      -- Create table of changes in reverse order.
+      table.insert(changes, 1, {
+        start = range[1] + 1,
+        final = range[3],
+        formatted = formatted,
+      })
+    end
+  end
+
+  -- Apply all the changes in reverse order.
+  for _, change in ipairs(changes) do
+    vim.api.nvim_buf_set_lines(
+      bufnr,
+      change.start,
+      change.final,
+      false,
+      change.formatted
+    )
+  end
+end, {
+  desc = "Automatically format SQL statements in python files",
+  nargs = "*",
+})

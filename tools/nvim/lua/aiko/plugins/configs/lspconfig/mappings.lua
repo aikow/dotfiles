@@ -26,7 +26,7 @@ M.setup = function()
   map("n", "gD", vim.lsp.buf.declaration, opts("LSP go to declaration"))
   map("n", "gd", vim.lsp.buf.definition, opts("LSP go to definition"))
   map("n", "gi", vim.lsp.buf.implementation, opts("LSP go to implementation"))
-  map("n", "gt", vim.lsp.buf.type_definition, opts("LSP go to type definition"))
+  map("n", "gy", vim.lsp.buf.type_definition, opts("LSP go to type definition"))
 
   -- Diagnostics
   map("n", "<leader>e", d.open_float, opts("diagnostic open float"))
