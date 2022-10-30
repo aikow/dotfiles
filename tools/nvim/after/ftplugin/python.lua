@@ -1,3 +1,5 @@
+local iter_query = require("aiko.util.treesitter").iter_query
+
 vim.opt_local.expandtab = true
 vim.opt_local.autoindent = true
 vim.opt_local.smarttab = true
@@ -37,9 +39,11 @@ vim.api.nvim_buf_create_user_command(0, "StringWrap", function()
     local is_fstring = false
     local is_rstring = false
     local words = {}
-    for line in vim.gsplit(vim.treesitter.get_node_text(node, bufnr), "\n", true) do
+    for line in
+      vim.gsplit(vim.treesitter.get_node_text(node, bufnr), "\n", true)
+    do
       local modifier, trimmed =
-      string.match(vim.trim(line), [[^([frFR]?)"(.*)"$]])
+        string.match(vim.trim(line), [[^([frFR]?)"(.*)"$]])
       if modifier == "f" or modifier == "F" then
         is_fstring = true
       elseif modifier == "r" or modifier == "R" then
@@ -134,28 +138,6 @@ vim.keymap.set(
   { buffer = 0, silent = true, desc = "wrap concatenated strings" }
 )
 
-local format_sql = function(text, lang)
-  lang = lang or "sqlite"
-  -- Perform replacements of the identifiers to make the text valid SQL.
-  if lang == "sqlite" then
-    text = string.gsub(text, "%?", "__id__")
-  else
-    text = string.gsub(text, "${(%d)}", "__id_%1__")
-  end
-
-  text = vim.fn.system("sql-formatter -l " .. lang, text)
-
-  -- Revert the previous substitutions.
-  if lang == "sqlite" then
-    text = string.gsub(text, "__id__", "%?")
-  else
-    text = string.gsub(text, "__id_(%d)__", "${%1}")
-  end
-
-  -- Split the text on newlines.
-  return vim.split(text, "\n")
-end
-
 vim.api.nvim_buf_create_user_command(0, "SqlFormat", function(opts)
   if vim.fn.executable("sql-formatter") ~= 1 then
     vim.notify("Missing sql-formatter")
@@ -164,58 +146,46 @@ vim.api.nvim_buf_create_user_command(0, "SqlFormat", function(opts)
 
   local lang = opts.lang or "sqlite"
 
-  local query = vim.treesitter.parse_query(
-    "python",
+  iter_query(
+    0,
     [[;; query
       (assignment
         left: (identifier) @_id (#contains? @_id "query")
         right: (string) @sql (#offset! @sql 1 0 -1 0))
-    ]]
-  )
-
-  local bufnr = vim.api.nvim_get_current_buf()
-  local parser = vim.treesitter.get_parser(bufnr, "python", {})
-  local tree = parser:parse()[1]
-  local root = tree:root()
-
-  local changes = {}
-  for id, node in query:iter_captures(root, bufnr, 0, -1) do
-    local name = query.captures[id]
-    if name == "sql" then
-      local range = { node:range() }
-      local indentation = string.rep(" ", range[2])
-
+    ]],
+    function(text)
+      -- FIXME: Indentation is at the first of the triple quote ("""). Ideally
+      -- it should just be at the continuation indentation level.
+      --
       -- Clean the input text.
-      local text = vim.treesitter.get_node_text(node, bufnr)
       text = string.gsub(string.sub(text, 4, -4), "\n", "")
 
-      -- Format using external command
-      local formatted = format_sql(text, lang)
-
-      -- Add indentation
-      for idx, line in ipairs(formatted) do
-        formatted[idx] = indentation .. line
+      -- Perform replacements of the identifiers to make the text valid SQL.
+      if lang == "sqlite" then
+        text = string.gsub(text, "%?", "__id__")
+      else
+        text = string.gsub(text, "${(%d)}", "__id_%1__")
       end
 
-      -- Create table of changes in reverse order.
-      table.insert(changes, 1, {
-        start = range[1] + 1,
-        final = range[3],
-        formatted = formatted,
-      })
-    end
-  end
+      text = vim.fn.system("sql-formatter -l " .. lang, text)
 
-  -- Apply all the changes in reverse order.
-  for _, change in ipairs(changes) do
-    vim.api.nvim_buf_set_lines(
-      bufnr,
-      change.start,
-      change.final,
-      false,
-      change.formatted
-    )
-  end
+      -- Revert the previous substitutions.
+      if lang == "sqlite" then
+        text = string.gsub(text, "__id__", "%?")
+      else
+        text = string.gsub(text, "__id_(%d)__", "${%1}")
+      end
+
+      -- Split the text on newlines.
+      local lines = vim.split(text, "\n")
+
+      -- Remove the last line since its empty.
+      table.remove(lines, #lines)
+
+      return lines
+    end,
+    { filetype = "python", capture = "sql" }
+  )
 end, {
   desc = "Automatically format SQL statements in python files",
   nargs = "*",
