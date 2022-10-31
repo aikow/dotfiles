@@ -386,9 +386,15 @@ return {
     ft = "tex",
   },
 
+  -- SQL language server helper.
   ["nanotee/sqls.nvim"] = {
     module = "sqls",
     ft = "sql",
+  },
+
+  -- Lua
+  ["rafcamlet/nvim-luapad"] = {
+    cmd = { "Luapad", "LuaRun" },
   },
 
   -- Markdown
