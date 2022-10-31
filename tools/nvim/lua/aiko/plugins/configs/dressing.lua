@@ -9,7 +9,7 @@ M.setup = function()
   dressing.setup({
     input = {
       insert_only = false,
-      start_in_insert = false,
+      start_in_insert = true,
       winhighlight = "NormalFloat:DiagnosticError",
     },
     select = {
