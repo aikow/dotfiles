@@ -18,7 +18,7 @@ M.iter_query = function(bufnr, query, callback, opts)
   -- Get options if set, or their default values.
   opts = opts or {}
   local filetype = opts.filetype
-      or vim.api.nvim_buf_get_option(bufnr, "filetype")
+    or vim.api.nvim_buf_get_option(bufnr, "filetype")
   local capture = opts.capture
   local line_offset = opts.line_offset or { 1, 0 }
 
@@ -39,7 +39,7 @@ M.iter_query = function(bufnr, query, callback, opts)
       -- Clean the input text.
       local text = vim.treesitter.get_node_text(node, bufnr)
       local formatted =
-      callback(text, { range = range, indentation = indentation })
+        callback(text, { range = range, indentation = indentation })
 
       -- Add indentation
       for idx, line in ipairs(formatted) do
