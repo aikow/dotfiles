@@ -10,8 +10,6 @@ vim.filetype.add({
     ["aliases"] = "sh",
     ["bashrc"] = "bash",
     ["gitconfig"] = "gitconfig",
-    ["justfile"] = "just",
-    [".justfile"] = "just",
     ["MANIFEST.in"] = "manifest",
   },
   pattern = {

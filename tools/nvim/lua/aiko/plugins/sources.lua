@@ -392,6 +392,9 @@ return {
     ft = "sql",
   },
 
+  -- Justfile support with tree-sitter.
+  ["IndianBoy42/tree-sitter-just"] = {},
+
   -- Lua
   ["rafcamlet/nvim-luapad"] = {
     cmd = { "Luapad", "LuaRun" },

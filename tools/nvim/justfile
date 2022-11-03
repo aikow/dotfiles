@@ -1,5 +1,5 @@
 format:
   fd -elua -E./plugin/packer_compiled.lua -X stylua
 
-lint:
+lint: format
 	fd -elua -E./plugin/packer_compiled.lua -X luacheck
