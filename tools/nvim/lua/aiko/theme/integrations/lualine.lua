@@ -1,6 +1,6 @@
 local M = {}
 
-M.palette = function(theme, colors)
+M.palette = function(_, colors)
   return {
     normal = {
       a = { bg = colors.green, fg = colors.bg0, gui = "bold" },
