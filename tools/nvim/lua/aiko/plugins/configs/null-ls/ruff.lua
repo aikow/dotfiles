@@ -38,7 +38,7 @@ local ruff = {
           code = obj.code,
           message = obj.message,
           severity = sev[string.sub(obj.code, 1, 1)]
-              or severities["information"],
+            or severities["information"],
         })
       end
       return diags
