@@ -37,6 +37,7 @@ vim.api.nvim_buf_create_user_command(0, "StringWrap", function()
       for line in vim.gsplit(text, "\n", true) do
         local modifier, trimmed =
           string.match(vim.trim(line), [[^([frFR]*)"(.*)"$]])
+        modifier = modifier or ""
 
         if string.match(modifier, "[fF]") then
           is_fstring = true
@@ -101,8 +102,6 @@ vim.api.nvim_buf_create_user_command(0, "StringWrap", function()
           table.insert(wrapped, prefix .. " " .. line .. '"')
         end
       end
-
-      print(vim.inspect(wrapped))
 
       return wrapped
     end,

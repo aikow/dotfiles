@@ -153,7 +153,7 @@ end
 M.mappings = function()
   local map = vim.keymap.set
 
-  map("n", "<leader>r", function()
+  map("n", "<leader>i", function()
     require("telescope.builtin").resume()
   end, { silent = true, desc = "telescope reopen last telescope window" })
 
