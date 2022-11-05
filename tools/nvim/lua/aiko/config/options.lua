@@ -93,6 +93,7 @@ opt.diffopt = opt.diffopt
   + "iwhite" -- No whitespace in vimdiff
   + "algorithm:patience"
   + "indent-heuristic"
+  + "linematch:60"
 
 -- ==============================
 -- |============================|
