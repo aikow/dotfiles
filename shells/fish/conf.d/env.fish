@@ -14,7 +14,7 @@ set -gx VISUAL nvim
 set -gx MANPAGER 'nvim +Man!'
 
 # Neovide
-set -gx NEOVIDE_MULTIGRID 1
+set -gx NEOVIDE_MULTIGRID true
 
 # Bat
 set -gx BAT_THEME gruvbox-dark
