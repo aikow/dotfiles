@@ -1,3 +1,6 @@
+; extends
+
+;; SQL Queries
 (call_expression
   function: (field_expression
     value: (identifier) @_obj (#any-of? @_obj "conn" "connection" "trans" "transaction")
