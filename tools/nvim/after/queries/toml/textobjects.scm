@@ -1,10 +1,12 @@
-;; comment
+; extends
+
+; comment
 (comment) @comment.outer
 
-;; class
+; class
 (table) @class.outer
 
-;; function
+; function
 [
   (table)
   (inline_table)
