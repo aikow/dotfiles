@@ -17,3 +17,18 @@ vim.g.neovide_input_macos_alt_is_meta = true
 
 vim.g.neovide_cursor_animation_length = 0.05
 vim.g.neovide_cursor_trail_length = 0.5
+
+-- Reorder PATH environment variable so that venv directory is first.
+local path = vim.split(vim.env.PATH, ":", { trimempty = true, plain = true })
+
+local newpath = {}
+for _, dir in pairs(path) do
+  -- If the directory contains a virtual env path, add it to the front.
+  if string.find(dir, "/venv/bin") then
+    table.insert(newpath, 1, dir)
+  else
+    table.insert(newpath, dir)
+  end
+end
+
+vim.env.PATH = table.concat(newpath, ":")
