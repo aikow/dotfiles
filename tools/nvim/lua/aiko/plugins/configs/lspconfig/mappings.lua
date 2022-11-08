@@ -28,6 +28,9 @@ M.setup = function()
   map("n", "gi", vim.lsp.buf.implementation, opts("LSP go to implementation"))
   map("n", "gy", vim.lsp.buf.type_definition, opts("LSP go to type definition"))
 
+  -- Symbols outline
+  map("n", "gO", "<cmd>SymbolsOutline<CR>", opts("LSP symbols outline"))
+
   -- Diagnostics
   map("n", "<leader>e", d.open_float, opts("diagnostic open float"))
   map({ "n", "v", "o" }, "[e", d.goto_prev, opts("go to previous diagnostic"))
