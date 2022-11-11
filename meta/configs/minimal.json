@@ -1,6 +1,7 @@
 [
   {
-    "defaults": {
+    "type": "defaults",
+    "data": {
       "link": {
         "create": true,
         "relink": true
@@ -8,13 +9,15 @@
     }
   },
   {
-    "clean": [
+    "type": "clean",
+    "data": [
       "~",
       "~/.config"
     ]
   },
   {
-    "create": [
+    "type": "create",
+    "data": [
       "~/.bin",
       "~/.config",
       "~/.local/config",
@@ -22,22 +25,24 @@
     ]
   },
   {
-    "shell": [
-      [
-        "git submodule update --init --recursive",
-        "Installing submodules"
-      ],
-      [
-        "./config/conda/bootstrap-conda.sh"
-      ],
-      [
-        "./config/fzf/bootstrap-fzf.sh"
-      ]
+    "type": "shell",
+    "data": [
+      {
+        "command": "git submodule update --init --recursive",
+        "description": "Installing submodules"
+      },
+      {
+        "command": "./config/fzf/bootstrap-fzf.sh",
+        "description": "Bootstrapping fzf"
+      }
     ]
   },
   {
-    "link": {
-      "~/.bashrc": "config/bash/bashrc",
+    "type": "link",
+    "data": {
+      "~/.bashrc": {
+        "path": "config/bash/bashrc"
+      },
       "~/.zshenv": {
         "path": "config/zsh/zshenv",
         "if": "command -v zsh &>/dev/null",
@@ -47,16 +52,28 @@
         "force": true,
         "path": "config/zsh/zshrc"
       },
-      "~/.vimrc": "config/vim/light.vim",
-      "~/.inputrc": "config/readline/inputrc",
-      "~/.tmux.conf": "config/tmux/tmux_minimal.conf",
+      "~/.vimrc": {
+        "path": "config/vim/light.vim"
+      },
+      "~/.inputrc": {
+        "path": "config/readline/inputrc"
+      },
+      "~/.tmux.conf": {
+        "path": "config/tmux/tmux_minimal.conf"
+      },
       "~/.dotfiles": {
         "if": "[[ ! -d ~/.dotfiles ]]",
         "path": ""
       },
-      "~/.dir_colors": "dircolors/dir_colors",
-      "~/.gitconfig": "config/git/gitconfig",
-      "~/.screenrc": "config/screen/screenrc"
+      "~/.dir_colors": {
+        "path": "dircolors/dir_colors"
+      },
+      "~/.gitconfig": {
+        "path": "config/git/gitconfig"
+      },
+      "~/.screenrc": {
+        "path": "config/screen/screenrc"
+      }
     }
   }
 ]

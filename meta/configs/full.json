@@ -1,6 +1,7 @@
 [
   {
-    "defaults": {
+    "type": "defaults",
+    "data": {
       "links": {
         "relink": true,
         "create": true
@@ -8,13 +9,15 @@
     }
   },
   {
-    "clean": [
+    "type": "clean",
+    "data": [
       "~",
       "~/.config"
     ]
   },
   {
-    "create": [
+    "type": "create",
+    "data": [
       "~/.bin",
       "~/.config",
       "~/.local/config",
@@ -24,24 +27,29 @@
     ]
   },
   {
-    "shell": [
-      [
-        "git submodule update --init --recursive",
-        "Installing submodules"
-      ],
-      [
-        "./config/conda/bootstrap-conda.sh"
-      ],
-      [
-        "./config/rust/bootstrap-rust.sh"
-      ],
-      [
-        "./config/fzf/bootstrap-fzf.sh"
-      ]
+    "type": "shell",
+    "data": [
+      {
+        "command": "git submodule update --init --recursive",
+        "description": "Installing submodules"
+      },
+      {
+        "command": "./config/conda/bootstrap-conda.sh",
+        "description": "Bootstrapping conda"
+      },
+      {
+        "command": "./config/rust/bootstrap-rust.sh",
+        "description": "Bootstrapping rust"
+      },
+      {
+        "command": "./config/fzf/bootstrap-fzf.sh",
+        "description": "Bootstrapping fzf"
+      }
     ]
   },
   {
-    "link": {
+    "type": "link",
+    "data": {
       "~/.config/awesome": {
         "if": "command -v awesome &>/dev/null",
         "path": "config/awesomewm"
@@ -58,7 +66,9 @@
         "force": true,
         "glob": true
       },
-      "~/.gitconfig": "config/git/gitconfig",
+      "~/.gitconfig": {
+        "path": "config/git/gitconfig"
+      },
       "~/.dotfiles": {
         "if": "[[ ! -d ~/.dotfiles ]]",
         "path": ""
@@ -72,7 +82,9 @@
         "path": "config/starship/starship.toml",
         "force": true
       },
-      "~/.dir_colors": "config/dircolors/dir_colors.gruvbox",
+      "~/.dir_colors": {
+        "path": "config/dircolors/dir_colors.gruvbox"
+      },
       "~/.config/fd": {
         "path": "config/fd"
       },
@@ -99,7 +111,9 @@
         "path": "config/nushell",
         "if": "command -v nu &>/dev/null && [[ $(uname) = Linux ]]"
       },
-      "~/.inputrc": "config/readline/inputrc",
+      "~/.inputrc": {
+        "path": "config/readline/inputrc"
+      },
       "~/.tmux.conf": {
         "path": "config/tmux/tmux_full.conf",
         "if": "command -v tmux &>/dev/null"
@@ -114,7 +128,9 @@
         "create": true,
         "if": "command -v nvim &>/dev/null"
       },
-      "~/.ideavimrc": "config/jetbrains/ideavimrc",
+      "~/.ideavimrc": {
+        "path": "config/jetbrains/ideavimrc"
+      },
       "~/.config/i3/config": {
         "if": "command -v i3 &>/dev/null",
         "create": true,
@@ -140,7 +156,9 @@
       "~/.vimrc": {
         "path": "config/vim/light.vim"
       },
-      "~/.bashrc": "config/bash/bashrc",
+      "~/.bashrc": {
+        "path": "config/bash/bashrc"
+      },
       "~/.screenrc": {
         "if": "command -v screen &>/dev/null",
         "path": "config/screen/screenrc"

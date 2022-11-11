@@ -1,6 +1,7 @@
 [
   {
-    "defaults": {
+    "type": "defaults",
+    "data": {
       "links": {
         "create": true,
         "relink": true
@@ -8,37 +9,44 @@
     }
   },
   {
-    "clean": [
+    "type": "clean",
+    "data": [
       "~",
       "~/.config"
     ]
   },
   {
-    "create": [
+    "type": "create",
+    "data": [
       "~/.bin",
       "~/.config",
       "~/.local/config"
     ]
   },
   {
-    "shell": [
-      [
-        "git submodule update --init --recursive",
-        "Installing submodules"
-      ],
-      [
-        "./config/conda/bootstrap-conda.sh"
-      ],
-      [
-        "./config/rust/bootstrap-rust.sh"
-      ],
-      [
-        "./config/fzf/bootstrap-fzf.sh"
-      ]
+    "type": "shell",
+    "data": [
+      {
+        "command": "git submodule update --init --recursive",
+        "description": "Installing submodules"
+      },
+      {
+        "command": "./config/conda/bootstrap-conda.sh",
+        "description": "Bootstrapping conda"
+      },
+      {
+        "command": "./config/rust/bootstrap-rust.sh",
+        "description": "Bootstrapping rust"
+      },
+      {
+        "command": "./config/fzf/bootstrap-fzf.sh",
+        "description": "Bootstrapping fzf"
+      }
     ]
   },
   {
-    "link": {
+    "type": "link",
+    "data": {
       "~/.condarc": {
         "if": "command -v conda &>/dev/null",
         "path": "config/conda/condarc"
@@ -64,7 +72,9 @@
         "path": "config/screen/screenrc",
         "if": "command -v screen &>/dev/null"
       },
-      "~/.vimrc": "config/vim/light.vim",
+      "~/.vimrc": {
+        "path": "config/vim/light.vim"
+      },
       "~/.bashrc": {
         "path": "config/bash/bashrc",
         "force": true
@@ -78,8 +88,12 @@
         "if": "[[ ! -d ~/.dotfiles ]]",
         "path": ""
       },
-      "~/.gitconfig": "config/git/gitconfig",
-      "~/.dir_colors": "config/dircolors/dir_colors.gruvbox",
+      "~/.gitconfig": {
+        "path": "config/git/gitconfig"
+      },
+      "~/.dir_colors": {
+        "path": "config/dircolors/dir_colors.gruvbox"
+      },
       "~/.inputrc": {
         "path": "config/readline/inputrc",
         "force": true
