@@ -1,0 +1,168 @@
+[
+  {
+    "defaults": {
+      "links": {
+        "relink": true,
+        "create": true
+      }
+    }
+  },
+  {
+    "clean": [
+      "~",
+      "~/.config"
+    ]
+  },
+  {
+    "create": [
+      "~/.bin",
+      "~/.config",
+      "~/.local/config",
+      "~/workspace",
+      "~/workspace/repos",
+      "~/workspace/lib"
+    ]
+  },
+  {
+    "shell": [
+      [
+        "git submodule update --init --recursive",
+        "Installing submodules"
+      ],
+      [
+        "./config/conda/bootstrap-conda.sh"
+      ],
+      [
+        "./config/rust/bootstrap-rust.sh"
+      ],
+      [
+        "./config/fzf/bootstrap-fzf.sh"
+      ]
+    ]
+  },
+  {
+    "link": {
+      "~/.config/awesome": {
+        "if": "command -v awesome &>/dev/null",
+        "path": "config/awesomewm"
+      },
+      "~/.config/rofi/config.rasi": {
+        "path": "config/rofi/config.rasi",
+        "if": "command -v rofi &>/dev/null",
+        "create": true
+      },
+      "~/Library/Application Support/Code/User": {
+        "if": "[[ $(uname) = Darwin ]]",
+        "create": true,
+        "path": "config/vscode/macos/*.json",
+        "force": true,
+        "glob": true
+      },
+      "~/.gitconfig": "config/git/gitconfig",
+      "~/.dotfiles": {
+        "if": "[[ ! -d ~/.dotfiles ]]",
+        "path": ""
+      },
+      "~/.zshrc": {
+        "path": "config/zsh/zshrc",
+        "force": true,
+        "if": "command -v zsh &>/dev/null"
+      },
+      "~/.config/starship.toml": {
+        "path": "config/starship/starship.toml",
+        "force": true
+      },
+      "~/.dir_colors": "config/dircolors/dir_colors.gruvbox",
+      "~/.config/fd": {
+        "path": "config/fd"
+      },
+      "~/Library/Application Support/nushell": {
+        "path": "config/nushell",
+        "if": "command -v nu &>/dev/null && [[ $(uname) = Darwin ]]"
+      },
+      "~/.xmonad": {
+        "path": "config/xmonad",
+        "create": true,
+        "if": "command -v xmonad &>/dev/null"
+      },
+      "~/.zshenv": {
+        "path": "config/zsh/zshenv",
+        "if": "command -v zsh &>/dev/null",
+        "force": true
+      },
+      "~/.config/picom/picom.conf": {
+        "if": "command -v picom &>/dev/null",
+        "path": "config/picom/picom.conf",
+        "create": true
+      },
+      "~/.config/nushell": {
+        "path": "config/nushell",
+        "if": "command -v nu &>/dev/null && [[ $(uname) = Linux ]]"
+      },
+      "~/.inputrc": "config/readline/inputrc",
+      "~/.tmux.conf": {
+        "path": "config/tmux/tmux_full.conf",
+        "if": "command -v tmux &>/dev/null"
+      },
+      "~/.config/terminator/config": {
+        "create": true,
+        "if": "command -v terminator &>/dev/null",
+        "path": "config/terminator/config"
+      },
+      "~/.config/nvim": {
+        "path": "config/nvim",
+        "create": true,
+        "if": "command -v nvim &>/dev/null"
+      },
+      "~/.ideavimrc": "config/jetbrains/ideavimrc",
+      "~/.config/i3/config": {
+        "if": "command -v i3 &>/dev/null",
+        "create": true,
+        "path": "config/i3wm/config"
+      },
+      "~/.config/Code/User": {
+        "force": true,
+        "path": "config/vscode/linux/*.json",
+        "create": true,
+        "if": "[[ $(uname) = Linux ]]",
+        "glob": true
+      },
+      "~/.config/alacritty/alacritty.yml": {
+        "if": "command -v alacritty &>/dev/null",
+        "create": true,
+        "path": "config/alacritty/alacritty-arch.yaml"
+      },
+      "~/.config/fish": {
+        "if": "command -v fish &>/dev/null",
+        "create": true,
+        "path": "config/fish"
+      },
+      "~/.vimrc": {
+        "path": "config/vim/light.vim"
+      },
+      "~/.bashrc": "config/bash/bashrc",
+      "~/.screenrc": {
+        "if": "command -v screen &>/dev/null",
+        "path": "config/screen/screenrc"
+      },
+      "~/.condarc": {
+        "path": "config/conda/condarc",
+        "if": "command -v conda &>/dev/null"
+      },
+      "~/.Xresources": {
+        "path": "config/xorg/xresources",
+        "create": true
+      },
+      "~/.config/xmobar": {
+        "if": "command -v xmobar &>/dev/null",
+        "create": true,
+        "path": "config/xmobar"
+      },
+      "~/.config/wezterm": {
+        "path": "config/wezterm",
+        "create": true,
+        "if": "command -v wezterm &>/dev/null"
+      }
+    }
+  }
+]

@@ -1,0 +1,62 @@
+[
+  {
+    "defaults": {
+      "link": {
+        "create": true,
+        "relink": true
+      }
+    }
+  },
+  {
+    "clean": [
+      "~",
+      "~/.config"
+    ]
+  },
+  {
+    "create": [
+      "~/.bin",
+      "~/.config",
+      "~/.local/config",
+      "~/workspace"
+    ]
+  },
+  {
+    "shell": [
+      [
+        "git submodule update --init --recursive",
+        "Installing submodules"
+      ],
+      [
+        "./config/conda/bootstrap-conda.sh"
+      ],
+      [
+        "./config/fzf/bootstrap-fzf.sh"
+      ]
+    ]
+  },
+  {
+    "link": {
+      "~/.bashrc": "config/bash/bashrc",
+      "~/.zshenv": {
+        "path": "config/zsh/zshenv",
+        "if": "command -v zsh &>/dev/null",
+        "force": true
+      },
+      "~/.zshrc": {
+        "force": true,
+        "path": "config/zsh/zshrc"
+      },
+      "~/.vimrc": "config/vim/light.vim",
+      "~/.inputrc": "config/readline/inputrc",
+      "~/.tmux.conf": "config/tmux/tmux_minimal.conf",
+      "~/.dotfiles": {
+        "if": "[[ ! -d ~/.dotfiles ]]",
+        "path": ""
+      },
+      "~/.dir_colors": "dircolors/dir_colors",
+      "~/.gitconfig": "config/git/gitconfig",
+      "~/.screenrc": "config/screen/screenrc"
+    }
+  }
+]
