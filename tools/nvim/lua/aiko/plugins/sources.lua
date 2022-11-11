@@ -179,7 +179,7 @@ return {
   ["kyazdani42/nvim-tree.lua"] = {
     cmd = { "NvimTreeToggle", "NvimTreeFindFile", "NvimTreeFocus" },
     config = function()
-      require("aiko.plugins.configs.nvimtree").setup()
+      require("aiko.plugins.configs.nvim-tree").setup()
     end,
   },
 
@@ -270,7 +270,7 @@ return {
       require("aiko.plugins.lazy").on_file_open("todo-comments.nvim")
     end,
     config = function()
-      require("aiko.plugins.configs.todo").setup()
+      require("aiko.plugins.configs.todo-comments").setup()
     end,
   },
 
@@ -364,7 +364,7 @@ return {
   ["simrat39/rust-tools.nvim"] = {
     ft = "rust",
     config = function()
-      require("aiko.plugins.configs.rusttools").setup()
+      require("aiko.plugins.configs.rust-tools").setup()
     end,
   },
 

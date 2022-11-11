@@ -1,21 +1,6 @@
 local M = {}
 
 M.setup = function()
-  local ok_parsers, parsers = pcall(require, "nvim-treesitter.parsers")
-  if not ok_parsers then
-    return
-  end
-
-  -- Manually add parser for `justfile`s.
-  parsers.get_parser_configs().just = {
-    install_info = {
-      url = "https://github.com/IndianBoy42/tree-sitter-just",
-      files = { "src/parser.c", "src/scanner.cc" },
-      branch = "main",
-    },
-    maintainers = { "@IndianBoy42" },
-  }
-
   local ok_configs, configs = pcall(require, "nvim-treesitter.configs")
   if not ok_configs then
     return
@@ -74,6 +59,7 @@ M.setup = function()
     textobjects = {
       select = {
         enable = true,
+        disable = { "rust" },
         lookahead = true, -- Automatically jump forward to textobj, similar to targets.vim
         keymaps = {
           -- You can use the capture groups defined in textobjects.scm
@@ -92,6 +78,7 @@ M.setup = function()
       },
       move = {
         enable = true,
+        disable = { "rust" },
         set_jumps = true, -- whether to set jumps in the jumplist
         goto_next_start = {
           ["]m"] = "@function.outer",
@@ -112,6 +99,7 @@ M.setup = function()
       },
       swap = {
         enable = true,
+        disable = { "rust" },
         swap_next = {
           ["]a"] = "@parameter.inner",
         },
