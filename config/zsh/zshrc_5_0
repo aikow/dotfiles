@@ -18,7 +18,7 @@ export AWS_SHARED_CREDENTIALS_FILE=/root/.aws/credentials
 #######################################################################
 #
 # Source the zinit script
-source "${DOTFILES}/shells/zsh/zinit/zinit.zsh"
+source "${DOTFILES_ZSH}/zinit/zinit.zsh"
 
 # Plugins
 zinit snippet OMZL::git.zsh
@@ -120,8 +120,8 @@ bindkey '^j' history-beginning-search-forward
 bindkey "^l" clear-screen
 
 # Git bindings
-source "${DOTFILES}/shells/functions/fzf-git.sh"
-source "${DOTFILES}/shells/functions/fzf-k8s.sh"
+source "${DOTFILES_SH}/functions/fzf-git.sh"
+source "${DOTFILES_SH}/functions/fzf-k8s.sh"
 
 function join_lines() {
   local item
@@ -159,13 +159,13 @@ zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
 #######################################################################
 #
 # Load OS specific settings
-[[ -f "${DOTFILES}/shells/zsh/os/${OSTYPE}.zsh" ]] && source "${DOTFILES}/shells/zsh/os/${OSTYPE}.zsh" 
+[[ -f "${DOTFILES_ZSH}/os/${OSTYPE}.zsh" ]] && source "${DOTFILES_ZSH}/os/${OSTYPE}.zsh" 
 
 # Source fzf if installed
 [[ -f ~/.fzf.zsh ]] && source ~/.fzf.zsh
 
 # Load user aliases
-[[ -f "${DOTFILES}/shells/zsh/aliases" ]]  && source "${DOTFILES}/shells/zsh/aliases"
+[[ -f "${DOTFILES_ZSH}/aliases" ]]  && source "${DOTFILES_ZSH}/aliases"
 
 # Load local settings and aliases
 [[ -f "${LOCAL_CONFIG}/aliases" ]] && source "${LOCAL_CONFIG}/aliases"
