@@ -1,0 +1,89 @@
+[
+  {
+    "defaults": {
+      "links": {
+        "create": true,
+        "relink": true
+      }
+    }
+  },
+  {
+    "clean": [
+      "~",
+      "~/.config"
+    ]
+  },
+  {
+    "create": [
+      "~/.bin",
+      "~/.config",
+      "~/.local/config"
+    ]
+  },
+  {
+    "shell": [
+      [
+        "git submodule update --init --recursive",
+        "Installing submodules"
+      ],
+      [
+        "./config/conda/bootstrap-conda.sh"
+      ],
+      [
+        "./config/rust/bootstrap-rust.sh"
+      ],
+      [
+        "./config/fzf/bootstrap-fzf.sh"
+      ]
+    ]
+  },
+  {
+    "link": {
+      "~/.condarc": {
+        "if": "command -v conda &>/dev/null",
+        "path": "config/conda/condarc"
+      },
+      "~/.tmux.conf": {
+        "if": "command -v tmux &>/dev/null",
+        "path": "config/tmux/tmux_full.conf"
+      },
+      "~/.config/nvim/init.vim": {
+        "force": true,
+        "if": "command -v nvim &>/dev/null",
+        "path": "config/vim/full.vim"
+      },
+      "~/.zshenv": {
+        "if": "command -v zsh &>/dev/null",
+        "path": "config/zsh/zshenv",
+        "force": true
+      },
+      "~/.config/fd": {
+        "path": "config/fd"
+      },
+      "~/.screenrc": {
+        "path": "config/screen/screenrc",
+        "if": "command -v screen &>/dev/null"
+      },
+      "~/.vimrc": "config/vim/light.vim",
+      "~/.bashrc": {
+        "path": "config/bash/bashrc",
+        "force": true
+      },
+      "~/.zshrc": {
+        "path": "config/zsh/zshrc",
+        "force": true,
+        "if": "command -v zsh &>/dev/null"
+      },
+      "~/.dotfiles": {
+        "if": "[[ ! -d ~/.dotfiles ]]",
+        "path": ""
+      },
+      "~/.gitconfig": "config/git/gitconfig",
+      "~/.dir_colors": "config/dircolors/dir_colors.gruvbox",
+      "~/.inputrc": {
+        "path": "config/readline/inputrc",
+        "force": true
+      }
+    }
+  }
+]

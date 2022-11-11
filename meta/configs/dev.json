@@ -1,0 +1,125 @@
+[
+  {
+    "defaults": {
+      "links": {
+        "create": true,
+        "relink": true
+      }
+    }
+  },
+  {
+    "clean": [
+      "~",
+      "~/.config"
+    ]
+  },
+  {
+    "create": [
+      "~/.bin",
+      "~/.config",
+      "~/.local/config",
+      "~/workspace"
+    ]
+  },
+  {
+    "shell": [
+      [
+        "git submodule update --init --recursive",
+        "Installing submodules"
+      ],
+      [
+        "./config/conda/bootstrap-conda.sh"
+      ],
+      [
+        "./config/rust/bootstrap-rust.sh"
+      ],
+      [
+        "./config/fzf/bootstrap-fzf.sh"
+      ]
+    ]
+  },
+  {
+    "link": {
+      "~/.condarc": {
+        "path": "config/conda/condarc",
+        "if": "command -v conda &>/dev/null"
+      },
+      "~/.config/alacritty/alacritty.yml": {
+        "if": "command -v alacritty &>/dev/null",
+        "create": true,
+        "path": "config/alacritty/alacritty-arch.yaml"
+      },
+      "~/.ideavimrc": "config/jetbrains/ideavimrc",
+      "~/.config/nvim": {
+        "if": "command -v nvim &>/dev/null",
+        "path": "config/nvim"
+      },
+      "~/Library/Application Support/Code/User": {
+        "path": "config/vscode/macos/*.json",
+        "glob": true,
+        "if": "[[ $(uname) = Darwin ]]",
+        "force": true,
+        "create": true
+      },
+      "~/.tmux.conf": {
+        "if": "command -v tmux &>/dev/null",
+        "path": "config/tmux/tmux_full.conf"
+      },
+      "~/.gitconfig": "config/git/gitconfig",
+      "~/.dir_colors": "config/dircolors/dir_colors.gruvbox",
+      "~/.config/nushell": {
+        "path": "config/nushell",
+        "if": "command -v nu &>/dev/null && [[ $(uname) = Linux ]]"
+      },
+      "~/.inputrc": "config/readline/inputrc",
+      "~/.bashrc": "config/bash/bashrc",
+      "~/.dotfiles": {
+        "if": "[[ ! -d ~/.dotfiles ]]",
+        "path": ""
+      },
+      "~/.config/fish": {
+        "if": "command -v fish &>/dev/null",
+        "path": "config/fish"
+      },
+      "~/.config/fd": {
+        "path": "config/fd"
+      },
+      "~/.config/wezterm": {
+        "if": "command -v wezterm &>/dev/null",
+        "create": true,
+        "path": "config/wezterm"
+      },
+      "~/Library/Application Support/nushell": {
+        "path": "config/nushell",
+        "if": "command -v nu &>/dev/null && [[ $(uname) = Darwin ]]"
+      },
+      "~/.config/Code/User": {
+        "path": "config/vscode/linux/*.json",
+        "glob": true,
+        "if": "[[ $(uname) = Linux ]]",
+        "create": true,
+        "force": true
+      },
+      "~/.config/starship.toml": {
+        "path": "config/starship/starship.toml"
+      },
+      "~/.zshrc": {
+        "path": "config/zsh/zshrc",
+        "if": "command -v zsh &>/dev/null",
+        "force": true
+      },
+      "~/.vimrc": {
+        "path": "config/vim/light.vim"
+      },
+      "~/.zshenv": {
+        "if": "command -v zsh &>/dev/null",
+        "path": "config/zsh/zshenv",
+        "force": true
+      },
+      "~/.screenrc": {
+        "path": "config/screen/screenrc",
+        "if": "command -v screen &>/dev/null"
+      }
+    }
+  }
+]

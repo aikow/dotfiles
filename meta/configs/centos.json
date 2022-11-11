@@ -1,0 +1,73 @@
+[
+  {
+    "defaults": {
+      "links": {
+        "create": true,
+        "relink": true
+      }
+    }
+  },
+  {
+    "clean": [
+      "~",
+      "~/.config"
+    ]
+  },
+  {
+    "create": [
+      "~/.bin",
+      "~/.config",
+      "~/.local/config"
+    ]
+  },
+  {
+    "shell": [
+      [
+        "git submodule update --init --recursive",
+        "Installing submodules"
+      ],
+      [
+        "./config/conda/bootstrap-conda.sh"
+      ],
+      [
+        "./config/rust/bootstrap-rust.sh"
+      ],
+      [
+        "./config/fzf/bootstrap-fzf.sh"
+      ]
+    ]
+  },
+  {
+    "link": {
+      "~/.config/nvim/init.vim": {
+        "create": true,
+        "path": "config/vim/full.vim"
+      },
+      "~/.inputrc": "config/readline/inputrc",
+      "~/.condarc": "config/conda/condarc",
+      "~/.bashrc": "config/bash/bashrc",
+      "~/.dir_colors": "config/dircolors/dir_colors.gruvbox",
+      "~/.vimrc": "config/vim/light.vim",
+      "~/.gitconfig": "config/git/gitconfig",
+      "~/.tmux.conf": {
+        "path": "config/tmux/tmux_1_9.conf"
+      },
+      "~/.zshenv": "config/zsh/zshenv",
+      "~/.zshrc": "config/zsh/zshrc_5_0",
+      "~/.screenrc": {
+        "path": "config/screen/screenrc"
+      },
+      "~/.bin": {
+        "path": "config/bin/*",
+        "exclude": [
+          "bin/README.md"
+        ],
+        "glob": true
+      },
+      "~/.dotfiles": {
+        "path": "",
+        "if": "[[ ! -d ~/.dotfiles ]]"
+      }
+    }
+  }
+]

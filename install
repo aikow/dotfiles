@@ -6,7 +6,7 @@ set -o nounset
 
 # Config file settings
 readonly CONFIG_DIR="meta/configs"
-readonly CONFIG_SUFFIX="yaml"
+readonly CONFIG_SUFFIX="json"
 readonly INSTALL_CONFIG_FILE=".install.conf"
 
 # Dotbot path
