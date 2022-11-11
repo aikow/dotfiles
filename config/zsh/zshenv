@@ -7,6 +7,8 @@ export LC_ALL=en_US.UTF-8
 
 # Set the dotfiles directory
 export DOTFILES="${HOME}/.dotfiles"
+export DOTFILES_ZSH="${DOTFILES}/config/zsh"
+export DOTFILES_SH="${DOTFILES}/config/sh"
 export LOCAL_CONFIG="${HOME}/.local/config"
 
 # Modify the path
