@@ -3,7 +3,7 @@
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "
 " Set runtimepath to the source files in the dotfiles directory
-set rtp+=~/.dotfiles/tools/vim
+set rtp+=~/.dotfiles/config/vim
 
 " Set the shell to bash.
 set shell=bash
@@ -53,7 +53,7 @@ if has('nvim')
   if !filereadable(s:pynvim_path)
     " Bootstrap the python3 conda env with pynvim
     echom "Bootstrapping the conda python3 env..."
-    execute "!" . expand('conda env create -f $HOME/.dotfiles/tools/vim/envs/pynvim3.yml')
+    execute "!" . expand('conda env create -f $HOME/.dotfiles/config/vim/envs/pynvim3.yml')
   endif
 
   let g:python3_host_prog = s:pynvim_path

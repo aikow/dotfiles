@@ -1,7 +1,7 @@
 local S = {}
 
 S.on_init = function(client)
-  local spellpath = vim.fn.expand("~/.dotfiles/tools/nvim/spell/en.utf-8.add")
+  local spellpath = vim.fn.expand("~/.dotfiles/config/nvim/spell/en.utf-8.add")
   local spellfile = io.open(spellpath, "r")
   if not spellfile then
     return

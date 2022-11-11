@@ -1,26 +1,25 @@
----
 - defaults:
     links:
       create: true
       relink: true
 
-- clean: 
+- clean:
     - '~'
     - '~/.config'
 
 - create:
-  - ~/.bin
-  - ~/.config
-  - ~/.local/config
-  - ~/workspace
-  - ~/workspace/repos
-  - ~/workspace/lib
+    - ~/.bin
+    - ~/.config
+    - ~/.local/config
+    - ~/workspace
+    - ~/workspace/repos
+    - ~/workspace/lib
 
 - shell:
-  - [git submodule update --init --recursive, Installing submodules]
-  - [./config/conda/bootstrap-conda.sh]
-  - [./config/rust/bootstrap-rust.sh]
-  - [./config/fzf/bootstrap-fzf.sh]
+    - [git submodule update --init --recursive, Installing submodules]
+    - [./config/conda/bootstrap-conda.sh]
+    - [./config/rust/bootstrap-rust.sh]
+    - [./config/fzf/bootstrap-fzf.sh]
 
 - link:
     ~/.dotfiles:
@@ -42,17 +41,15 @@
       if: 'command -v zsh &>/dev/null'
       path: config/zsh/zshenv
       force: true
-      
+
     # Fish
     ~/.config/fish:
       if: 'command -v fish &>/dev/null'
       path: config/fish
       create: true
-    
     ~/.config/nushell:
       if: 'command -v nu &>/dev/null && [[ $(uname) = Linux ]]'
       path: config/nushell
-
     ~/Library/Application Support/nushell:
       if: 'command -v nu &>/dev/null && [[ $(uname) = Darwin ]]'
       path: config/nushell
@@ -61,11 +58,11 @@
     ~/.config/starship.toml:
       path: config/starship/starship.toml
       force: true
-    
+
     # FD ignore file.
     ~/.config/fd:
       path: config/fd
-    
+
     # Tmux
     ~/.tmux.conf:
       if: 'command -v tmux &>/dev/null'
@@ -88,7 +85,7 @@
     ~/.screenrc:
       if: 'command -v screen &>/dev/null'
       path: config/screen/screenrc
-    
+
     # Dir colors
     ~/.dir_colors: config/dircolors/dir_colors.gruvbox
 
@@ -125,7 +122,7 @@
       path: config/vscode/linux/*.json
       force: true
       create: true
-    
+
     # VSCode MacOS
     ~/Library/Application Support/Code/User:
       if: '[[ $(uname) = Darwin ]]'
@@ -141,30 +138,36 @@
       path: config/Xorg/xresources
       create: true
 
+    # I3wm
     ~/.config/i3/config:
       if: 'command -v i3 &>/dev/null'
       path: config/i3/config
       create: true
 
+    # Awesome WM
     ~/.config/awesome:
       if: 'command -v awesome &>/dev/null'
       path: config/awesome
 
+    # Xmonad
     ~/.xmonad:
       if: 'command -v xmonad &>/dev/null'
       path: config/xmonad
       create: true
 
+    # Xmobar
     ~/.config/xmobar:
       if: 'command -v xmobar &>/dev/null'
       path: config/xmobar
       create: true
 
+    # Picom
     ~/.config/picom/picom.conf:
       if: 'command -v picom &>/dev/null'
       path: config/picom/picom.conf
       create: true
 
+    # Rasi
     ~/.config/rofi/config.rasi:
       if: 'command -v rofi &>/dev/null'
       path: config/rofi/config.rasi

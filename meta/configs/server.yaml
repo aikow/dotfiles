@@ -1,23 +1,22 @@
----
 - defaults:
     links:
       create: true
       relink: true
 
-- clean: 
-  - '~'
-  - '~/.config'
+- clean:
+    - '~'
+    - '~/.config'
 
 - create:
-  - ~/.bin
-  - ~/.config
-  - ~/.local/config
+    - ~/.bin
+    - ~/.config
+    - ~/.local/config
 
 - shell:
-  - ['git submodule update --init --recursive', 'Installing submodules']
-  - [./config/conda/bootstrap-conda.sh]
-  - [./config/rust/bootstrap-rust.sh]
-  - [./config/fzf/bootstrap-fzf.sh]
+    - ['git submodule update --init --recursive', 'Installing submodules']
+    - [./config/conda/bootstrap-conda.sh]
+    - [./config/rust/bootstrap-rust.sh]
+    - [./config/fzf/bootstrap-fzf.sh]
 
 - link:
     ~/.dotfiles:
@@ -39,7 +38,6 @@
       if: 'command -v zsh &>/dev/null'
       path: config/zsh/zshrc
       force: true
-
     ~/.zshenv:
       if: 'command -v zsh &>/dev/null'
       path: config/zsh/zshenv
@@ -62,7 +60,7 @@
     # FD ignore file.
     ~/.config/fd:
       path: config/fd
-    
+
     # Git
     ~/.gitconfig: config/git/gitconfig
 
@@ -70,7 +68,7 @@
     ~/.screenrc:
       if: 'command -v screen &>/dev/null'
       path: config/screen/screenrc
-    
+
     # Dir colors
     ~/.dir_colors: config/dircolors/dir_colors.gruvbox
 
@@ -78,4 +76,3 @@
     ~/.condarc:
       if: 'command -v conda &>/dev/null'
       path: config/conda/condarc
-

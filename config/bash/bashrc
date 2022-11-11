@@ -6,7 +6,7 @@
 # Set the dotfiles config
 export DOTFILES="${HOME}/.dotfiles"
 export LOCAL_CONFIG="${HOME}/.local/config"
-export PATH="${HOME}/.bin:${DOTFILES}/shells/bin:${HOME}/.local/bin:/usr/local/bin:/opt/vc/bin:${PATH}"
+export PATH="${HOME}/.bin:${DOTFILES}/bin:${HOME}/.local/bin:/usr/local/bin:/opt/vc/bin:${PATH}"
 
 export MY_SHELL="bash"
 export LC_ALL=en_US.UTF-8
@@ -64,7 +64,7 @@ set -o vi
 export PS0="\e[5 q"
 
 # Load the custom prompt
-source "${DOTFILES}/shells/bash/ps1rc"
+source "${DOTFILES}/config/bash/ps1rc"
 PS1="$(__mkps1)"
 
 # Enable programmable completion features
@@ -90,7 +90,7 @@ bind -m vi-insert '"\C-x\C-l": "\e-A | less\r"'
 bind -m vi-command '"o": "0Eli "'
 bind -m vi-insert '"\C-o": "\e-0Eli "'
 
-source "${DOTFILES}/shells/functions/fzf-git.sh"
+source "${DOTFILES}/config/sh/functions/fzf-git.sh"
 if [[ $- =~ i ]]; then
   bind '"\er": redraw-current-line'
   bind '"\C-g\C-f": "$(_gf)\e\C-e\er"'
@@ -116,8 +116,8 @@ fi
 [[ -f "${HOME}/.cargo/env" ]] && source "${HOME}/.cargo/env"
 
 # Load user aliases
-[[ -f "${DOTFILES}/shells/bash/aliases" ]] && source "${DOTFILES}/shells/bash/aliases"
-[[ -f "${DOTFILES}/shells/bash/git.aliases" ]] && source "${DOTFILES}/shells/bash/git.aliases"
+[[ -f "${DOTFILES}/config/bash/aliases" ]] && source "${DOTFILES}/config/bash/aliases"
+[[ -f "${DOTFILES}/config/bash/git.aliases" ]] && source "${DOTFILES}/config/bash/git.aliases"
 
 # Load local aliases and configurations
 [[ -f "${LOCAL_CONFIG}/aliases" ]] && source "${LOCAL_CONFIG}/aliases"
