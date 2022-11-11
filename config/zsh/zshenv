@@ -10,7 +10,7 @@ export DOTFILES="${HOME}/.dotfiles"
 export LOCAL_CONFIG="${HOME}/.local/config"
 
 # Modify the path
-export PATH="${HOME}/.bin:${DOTFILES}/shells/bin:${HOME}/.local/bin:/usr/local/bin:/opt/vc/bin:${PATH}"
+export PATH="${HOME}/.bin:${DOTFILES}/bin:${HOME}/.local/bin:/usr/local/bin:/opt/vc/bin:${PATH}"
 
 ### Ruby ###
 if command -v gem &>/dev/null; then

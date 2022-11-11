@@ -101,7 +101,7 @@ M.setup = function()
   map(
     "n",
     "<leader>ss",
-    "<cmd>source ~/.dotfiles/tools/nvim/lua/aiko/snippets/init.lua<CR>",
+    "<cmd>source ~/.dotfiles/config/nvim/lua/aiko/snippets/init.lua<CR>",
     { silent = true, desc = "reload snippet configuration" }
   )
   map("n", "<leader>se", function()
@@ -125,7 +125,7 @@ M.setup = function()
   })
 
   require("luasnip.loaders.from_lua").lazy_load({
-    paths = "~/.dotfiles/tools/nvim/lua/aiko/luasnip/snips",
+    paths = "~/.dotfiles/config/nvim/lua/aiko/luasnip/snips",
     default_priority = 1000,
   })
 end

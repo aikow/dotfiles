@@ -24,7 +24,7 @@ S.on_init = function(client)
   local workspace = client.workspace_folders[1].name
   local config = client.config.settings.Lua
 
-  if string.match(workspace, [[.dotfiles/tools/nvim$]]) then
+  if string.match(workspace, [[.dotfiles/config/nvim$]]) then
     -- Setup all the libraries here, since it can be relatively time intensive.
     config.workspace.library = setup_neovim_libraries()
   end

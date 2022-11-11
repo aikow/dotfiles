@@ -160,12 +160,12 @@ bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcu
 set $mode_power power
 bindsym $mod+Mod1+Control+l mode "$mode_power"
 mode "$mode_power" {
-    bindsym l mode "default", exec --no-startup-id $HOME/.dotfiles/os/i3/i3exit lock
-    bindsym e mode "default", exec --no-startup-id $HOME/.dotfiles/os/i3/i3exit logout
-    bindsym s mode "default", exec --no-startup-id $HOME/.dotfiles/os/i3/i3exit suspend
-    bindsym h mode "default", exec --no-startup-id $HOME/.dotfiles/os/i3/i3exit hibernate
-    bindsym r mode "default", exec --no-startup-id $HOME/.dotfiles/os/i3/i3exit reboot
-    bindsym p mode "default", exec --no-startup-id $HOME/.dotfiles/os/i3/i3exit shutdown
+    bindsym l mode "default", exec --no-startup-id $HOME/.dotfiles/config/i3wm/i3exit lock
+    bindsym e mode "default", exec --no-startup-id $HOME/.dotfiles/config/i3wm/i3exit logout
+    bindsym s mode "default", exec --no-startup-id $HOME/.dotfiles/config/i3wm/i3exit suspend
+    bindsym h mode "default", exec --no-startup-id $HOME/.dotfiles/config/i3wm/i3exit hibernate
+    bindsym r mode "default", exec --no-startup-id $HOME/.dotfiles/config/i3wm/i3exit reboot
+    bindsym p mode "default", exec --no-startup-id $HOME/.dotfiles/config/i3wm/i3exit shutdown
 
     bindsym Return mode "default"
     bindsym Escape mode "default"
@@ -386,5 +386,5 @@ bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOU
 exec --no-startup-id picom -b --config ~/.config/picom/picom.conf
 
 # Start polybar
-exec --no-startup-id $HOME/.dotfiles/os/polybar/launch.sh
+exec --no-startup-id $HOME/.dotfiles/config/polybar/launch.sh
 

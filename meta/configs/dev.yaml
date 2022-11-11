@@ -1,24 +1,23 @@
----
 - defaults:
     links:
       create: true
       relink: true
 
-- clean: 
-  - '~'
-  - '~/.config'
+- clean:
+    - '~'
+    - '~/.config'
 
 - create:
-  - ~/.bin
-  - ~/.config
-  - ~/.local/config
-  - ~/workspace
+    - ~/.bin
+    - ~/.config
+    - ~/.local/config
+    - ~/workspace
 
 - shell:
-  - [git submodule update --init --recursive, Installing submodules]
-  - [./config/conda/bootstrap-conda.sh]
-  - [./config/rust/bootstrap-rust.sh]
-  - [./config/fzf/bootstrap-fzf.sh]
+    - [git submodule update --init --recursive, Installing submodules]
+    - [./config/conda/bootstrap-conda.sh]
+    - [./config/rust/bootstrap-rust.sh]
+    - [./config/fzf/bootstrap-fzf.sh]
 
 - link:
     ~/.dotfiles:
@@ -36,25 +35,24 @@
       if: 'command -v zsh &>/dev/null'
       path: config/zsh/zshrc
       force: true
-
     ~/.zshenv:
       if: 'command -v zsh &>/dev/null'
       path: config/zsh/zshenv
       force: true
-      
+
     # Fish
     ~/.config/fish:
       if: 'command -v fish &>/dev/null'
       path: config/fish
 
+    # Nushell
     ~/.config/nushell:
       if: 'command -v nu &>/dev/null && [[ $(uname) = Linux ]]'
       path: config/nushell
-
     ~/Library/Application Support/nushell:
       if: 'command -v nu &>/dev/null && [[ $(uname) = Darwin ]]'
       path: config/nushell
-    
+
     # Starship prompt
     ~/.config/starship.toml:
       path: config/starship/starship.toml
@@ -62,10 +60,10 @@
     # FD ignore file.
     ~/.config/fd:
       path: config/fd
-    
+
     # Tmux
     ~/.tmux.conf:
-      if: 'command -v tmux /dev/null'
+      if: 'command -v tmux &>/dev/null'
       path: config/tmux/tmux_full.conf
 
     # Vim
@@ -74,7 +72,7 @@
 
     # Neovim
     ~/.config/nvim:
-      if: 'command -v nvim &/dev/null'
+      if: 'command -v nvim &>/dev/null'
       path: config/nvim
 
     # Git
@@ -84,7 +82,7 @@
     ~/.screenrc:
       if: 'command -v screen &>/dev/null'
       path: config/screen/screenrc
-    
+
     # Dir colors
     ~/.dir_colors: config/dircolors/dir_colors.gruvbox
 
@@ -96,12 +94,9 @@
     # Alacritty
     ~/.config/alacritty/alacritty.yml:
       if: 'command -v alacritty &>/dev/null'
-
       path: config/alacritty/alacritty-arch.yaml
-
       # Path for MacOS
       # path: config/alacritty/alacritty-mac.yaml
-
       create: true
 
     # WezTerm
@@ -120,7 +115,7 @@
       path: config/vscode/linux/*.json
       force: true
       create: true
-    
+
     # VSCode MacOS
     ~/Library/Application Support/Code/User:
       if: '[[ $(uname) = Darwin ]]'
@@ -128,4 +123,3 @@
       path: config/vscode/macos/*.json
       force: true
       create: true
-
