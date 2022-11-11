@@ -292,3 +292,7 @@ require("aiko.plugins.configs.telescope").mappings()
 require("aiko.plugins.configs.nvim-tree").mappings()
 -- require("aiko.plugins.configs.neotree").mappings()
 -- require("aiko.plugins.configs.lspconfig").mappings()
+
+-- Create a <nop> mapping for <leader>r so that I do not keep accidentally
+-- replacing characters if the LSP server is not attached yet.
+map("n", "<leader>r", "<nop>")
