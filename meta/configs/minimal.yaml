@@ -5,7 +5,9 @@
       create: true
       relink: true
 
-- clean: ['~']
+- clean: 
+  - '~'
+  - '~/.config'
 
 - create:
   - ~/.bin
@@ -15,8 +17,8 @@
 
 - shell:
   - [git submodule update --init --recursive, Installing submodules]
-  - [./environments/conda/bootstrap-conda.sh]
-  - [./tools/fzf/bootstrap-fzf.sh]
+  - [./config/conda/bootstrap-conda.sh]
+  - [./config/fzf/bootstrap-fzf.sh]
 
 - link:
     ~/.dotfiles:
@@ -24,31 +26,31 @@
       path: ""
 
     # Bash
-    ~/.bashrc: shells/bash/bashrc
+    ~/.bashrc: config/bash/bashrc
 
     # Readline
-    ~/.inputrc: shells/readline/inputrc
+    ~/.inputrc: config/readline/inputrc
 
     # ZSH
     ~/.zshrc:
-      path: shells/zsh/zshrc
+      path: config/zsh/zshrc
       force: true
     ~/.zshenv:
       if: 'command -v zsh &>/dev/null'
-      path: shells/zsh/zshenv
+      path: config/zsh/zshenv
       force: true
 
     # Tmux
-    ~/.tmux.conf: tmux/tmux_minimal.conf
+    ~/.tmux.conf: config/tmux/tmux_minimal.conf
 
     # Vim
-    ~/.vimrc: tools/vim/light.vim
+    ~/.vimrc: config/vim/light.vim
 
     # Git
-    ~/.gitconfig: tools/git/gitconfig
+    ~/.gitconfig: config/git/gitconfig
 
     # Screen
-    ~/.screenrc: tools/screen/screenrc
+    ~/.screenrc: config/screen/screenrc
     
     # Dir colors
     ~/.dir_colors: dircolors/dir_colors

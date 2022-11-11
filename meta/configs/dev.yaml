@@ -4,7 +4,9 @@
       create: true
       relink: true
 
-- clean: ['~', '~/.config']
+- clean: 
+  - '~'
+  - '~/.config'
 
 - create:
   - ~/.bin
@@ -14,9 +16,9 @@
 
 - shell:
   - [git submodule update --init --recursive, Installing submodules]
-  - [./environments/conda/bootstrap-conda.sh]
-  - [./environments/rust/bootstrap-rust.sh]
-  - [./tools/fzf/bootstrap-fzf.sh]
+  - [./config/conda/bootstrap-conda.sh]
+  - [./config/rust/bootstrap-rust.sh]
+  - [./config/fzf/bootstrap-fzf.sh]
 
 - link:
     ~/.dotfiles:
@@ -24,98 +26,98 @@
       path: ""
 
     # Bash
-    ~/.bashrc: shells/bash/bashrc
+    ~/.bashrc: config/bash/bashrc
 
     # Readline
-    ~/.inputrc: shells/readline/inputrc
+    ~/.inputrc: config/readline/inputrc
 
     # ZSH
     ~/.zshrc:
       if: 'command -v zsh &>/dev/null'
-      path: shells/zsh/zshrc
+      path: config/zsh/zshrc
       force: true
 
     ~/.zshenv:
       if: 'command -v zsh &>/dev/null'
-      path: shells/zsh/zshenv
+      path: config/zsh/zshenv
       force: true
       
     # Fish
     ~/.config/fish:
       if: 'command -v fish &>/dev/null'
-      path: shells/fish
+      path: config/fish
 
     ~/.config/nushell:
       if: 'command -v nu &>/dev/null && [[ $(uname) = Linux ]]'
-      path: shells/nushell
+      path: config/nushell
 
     ~/Library/Application Support/nushell:
       if: 'command -v nu &>/dev/null && [[ $(uname) = Darwin ]]'
-      path: shells/nushell
+      path: config/nushell
     
     # Starship prompt
     ~/.config/starship.toml:
-      path: shells/starship/starship.toml
+      path: config/starship/starship.toml
 
     # FD ignore file.
     ~/.config/fd:
-      path: tools/fd
+      path: config/fd
     
     # Tmux
     ~/.tmux.conf:
       if: 'command -v tmux /dev/null'
-      path: tools/tmux/tmux_full.conf
+      path: config/tmux/tmux_full.conf
 
     # Vim
     ~/.vimrc:
-      path: tools/vim/light.vim
+      path: config/vim/light.vim
 
     # Neovim
     ~/.config/nvim:
       if: 'command -v nvim &/dev/null'
-      path: tools/nvim
+      path: config/nvim
 
     # Git
-    ~/.gitconfig: tools/git/gitconfig
+    ~/.gitconfig: config/git/gitconfig
 
     # Screen
     ~/.screenrc:
       if: 'command -v screen &>/dev/null'
-      path: tools/screen/screenrc
+      path: config/screen/screenrc
     
     # Dir colors
-    ~/.dir_colors: shells/dircolors/dir_colors.gruvbox
+    ~/.dir_colors: config/dircolors/dir_colors.gruvbox
 
     # Conda
     ~/.condarc:
       if: 'command -v conda &>/dev/null'
-      path: environments/conda/condarc
+      path: config/conda/condarc
 
     # Alacritty
     ~/.config/alacritty/alacritty.yml:
       if: 'command -v alacritty &>/dev/null'
 
-      path: emulators/alacritty/alacritty-arch.yaml
+      path: config/alacritty/alacritty-arch.yaml
 
       # Path for MacOS
-      # path: emulators/alacritty/alacritty-mac.yaml
+      # path: config/alacritty/alacritty-mac.yaml
 
       create: true
 
     # WezTerm
     ~/.config/wezterm:
       if: 'command -v wezterm &>/dev/null'
-      path: emulators/wezterm
+      path: config/wezterm
       create: true
 
     # Jetbrains vim emulator
-    ~/.ideavimrc: ides/jetbrains/ideavimrc
+    ~/.ideavimrc: config/jetbrains/ideavimrc
 
     # VSCode Linux
     ~/.config/Code/User:
       if: '[[ $(uname) = Linux ]]'
       glob: true
-      path: ides/vscode/linux/*.json
+      path: config/vscode/linux/*.json
       force: true
       create: true
     
@@ -123,7 +125,7 @@
     ~/Library/Application Support/Code/User:
       if: '[[ $(uname) = Darwin ]]'
       glob: true
-      path: ides/vscode/macos/*.json
+      path: config/vscode/macos/*.json
       force: true
       create: true
 
