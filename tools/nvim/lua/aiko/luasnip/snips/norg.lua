@@ -34,11 +34,12 @@ return {
     { t("/"), i(1), t("/") },
     { callbacks = autoinsert_space }
   ),
-  s(
-    { trig = "bb", wordTrig = true, snippetType = "autosnippet" },
-    { t("*"), i(1), t("*") },
-    { callbacks = autoinsert_space }
-  ),
+  s({
+    trig = "bb",
+    hidden = false,
+    wordTrig = true,
+    snippetType = "autosnippet",
+  }, { t("*"), i(1), t("*") }, { callbacks = autoinsert_space }),
 
   -- Symbols
   s({ trig = "->", wordTrig = true, snippetType = "autosnippet" }, t("→")),
