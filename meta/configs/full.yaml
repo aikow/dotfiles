@@ -135,19 +135,19 @@
     # |   Window managment and Xorg   |
     # ---------------------------------
     ~/.Xresources:
-      path: config/Xorg/xresources
+      path: config/xorg/xresources
       create: true
 
     # I3wm
     ~/.config/i3/config:
       if: 'command -v i3 &>/dev/null'
-      path: config/i3/config
+      path: config/i3wm/config
       create: true
 
     # Awesome WM
     ~/.config/awesome:
       if: 'command -v awesome &>/dev/null'
-      path: config/awesome
+      path: config/awesomewm
 
     # Xmonad
     ~/.xmonad:
