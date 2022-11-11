@@ -2,6 +2,6 @@
 	path = meta/dotbot
 	url = https://github.com/aikow/dotbot.git
 
-[submodule "shells/zsh/zinit"]
-	path = shells/zsh/zinit
+[submodule "config/zsh/zinit"]
+	path = config/zsh/zinit
 	url = https://github.com/zdharma-continuum/zinit.git
