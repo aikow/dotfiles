@@ -1,6 +1,6 @@
 [
   {
-    "type": "defaults",
+    "action": "defaults",
     "data": {
       "links": {
         "create": true,
@@ -9,14 +9,14 @@
     }
   },
   {
-    "type": "clean",
+    "action": "clean",
     "data": [
       "~",
       "~/.config"
     ]
   },
   {
-    "type": "create",
+    "action": "create",
     "data": [
       "~/.bin",
       "~/.config",
@@ -25,7 +25,7 @@
     ]
   },
   {
-    "type": "shell",
+    "action": "shell",
     "data": [
       {
         "command": "git submodule update --init --recursive",
@@ -46,7 +46,7 @@
     ]
   },
   {
-    "type": "link",
+    "action": "link",
     "data": {
       "~/.condarc": {
         "path": "config/conda/condarc",
@@ -97,7 +97,8 @@
       },
       "~/.config/fish": {
         "if": "command -v fish &>/dev/null",
-        "path": "config/fish"
+        "path": "config/fish",
+        "force": true
       },
       "~/.config/fd": {
         "path": "config/fd"

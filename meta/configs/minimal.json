@@ -1,6 +1,6 @@
 [
   {
-    "type": "defaults",
+    "action": "defaults",
     "data": {
       "link": {
         "create": true,
@@ -9,14 +9,14 @@
     }
   },
   {
-    "type": "clean",
+    "action": "clean",
     "data": [
       "~",
       "~/.config"
     ]
   },
   {
-    "type": "create",
+    "action": "create",
     "data": [
       "~/.bin",
       "~/.config",
@@ -25,7 +25,7 @@
     ]
   },
   {
-    "type": "shell",
+    "action": "shell",
     "data": [
       {
         "command": "git submodule update --init --recursive",
@@ -38,7 +38,7 @@
     ]
   },
   {
-    "type": "link",
+    "action": "link",
     "data": {
       "~/.bashrc": {
         "path": "config/bash/bashrc"

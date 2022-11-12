@@ -1,6 +1,6 @@
 [
   {
-    "type": "defaults",
+    "action": "defaults",
     "data": {
       "links": {
         "relink": true,
@@ -9,14 +9,14 @@
     }
   },
   {
-    "type": "clean",
+    "action": "clean",
     "data": [
       "~",
       "~/.config"
     ]
   },
   {
-    "type": "create",
+    "action": "create",
     "data": [
       "~/.bin",
       "~/.config",
@@ -27,7 +27,7 @@
     ]
   },
   {
-    "type": "shell",
+    "action": "shell",
     "data": [
       {
         "command": "git submodule update --init --recursive",
@@ -48,7 +48,7 @@
     ]
   },
   {
-    "type": "link",
+    "action": "link",
     "data": {
       "~/.config/awesome": {
         "if": "command -v awesome &>/dev/null",
@@ -151,7 +151,8 @@
       "~/.config/fish": {
         "if": "command -v fish &>/dev/null",
         "create": true,
-        "path": "config/fish"
+        "path": "config/fish",
+        "force": true
       },
       "~/.vimrc": {
         "path": "config/vim/light.vim"
