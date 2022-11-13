@@ -1,7 +1,6 @@
 [
   {
-    "action": "defaults",
-    "data": {
+    "defaults": {
       "links": {
         "relink": true,
         "create": true
@@ -9,15 +8,13 @@
     }
   },
   {
-    "action": "clean",
-    "data": [
+    "clean": [
       "~",
       "~/.config"
     ]
   },
   {
-    "action": "create",
-    "data": [
+    "create": [
       "~/.bin",
       "~/.config",
       "~/.local/config",
@@ -27,8 +24,7 @@
     ]
   },
   {
-    "action": "shell",
-    "data": [
+    "shell": [
       {
         "command": "git submodule update --init --recursive",
         "description": "Installing submodules"
@@ -48,8 +44,7 @@
     ]
   },
   {
-    "action": "link",
-    "data": {
+    "link": {
       "~/.config/awesome": {
         "if": "command -v awesome &>/dev/null",
         "path": "config/awesomewm"

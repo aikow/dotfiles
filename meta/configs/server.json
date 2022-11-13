@@ -1,7 +1,6 @@
 [
   {
-    "action": "defaults",
-    "data": {
+    "defaults": {
       "links": {
         "create": true,
         "relink": true
@@ -9,23 +8,20 @@
     }
   },
   {
-    "action": "clean",
-    "data": [
+    "clean": [
       "~",
       "~/.config"
     ]
   },
   {
-    "action": "create",
-    "data": [
+    "create": [
       "~/.bin",
       "~/.config",
       "~/.local/config"
     ]
   },
   {
-    "action": "shell",
-    "data": [
+    "shell": [
       {
         "command": "git submodule update --init --recursive",
         "description": "Installing submodules"
@@ -45,8 +41,7 @@
     ]
   },
   {
-    "action": "link",
-    "data": {
+    "link": {
       "~/.condarc": {
         "if": "command -v conda &>/dev/null",
         "path": "config/conda/condarc"

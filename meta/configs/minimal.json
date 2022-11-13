@@ -1,7 +1,6 @@
 [
   {
-    "action": "defaults",
-    "data": {
+    "defaults": {
       "link": {
         "create": true,
         "relink": true
@@ -9,15 +8,13 @@
     }
   },
   {
-    "action": "clean",
-    "data": [
+    "clean": [
       "~",
       "~/.config"
     ]
   },
   {
-    "action": "create",
-    "data": [
+    "create": [
       "~/.bin",
       "~/.config",
       "~/.local/config",
@@ -25,8 +22,7 @@
     ]
   },
   {
-    "action": "shell",
-    "data": [
+    "shell": [
       {
         "command": "git submodule update --init --recursive",
         "description": "Installing submodules"
@@ -38,8 +34,7 @@
     ]
   },
   {
-    "action": "link",
-    "data": {
+    "link": {
       "~/.bashrc": {
         "path": "config/bash/bashrc"
       },
