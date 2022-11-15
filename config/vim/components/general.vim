@@ -24,6 +24,7 @@ set encoding=utf-8
 set path+=**
 
 " Permanent undo
+set undodir=~/.vim/undo
 set undofile
 
 " Backups and Swap files
@@ -160,7 +161,6 @@ set noshowmode
 " Show character column
 set colorcolumn=80
 set ruler
-set relativenumber 
 set number
 set cursorline
 
