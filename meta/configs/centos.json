@@ -42,9 +42,9 @@
   },
   {
     "link": {
-      "~/.config/nvim/init.vim": {
+      "~/.config/nvim": {
         "create": true,
-        "path": "config/vim/full.vim"
+        "path": "config/nvim"
       },
       "~/.inputrc": {
         "path": "config/readline/inputrc"
@@ -75,9 +75,6 @@
       },
       "~/.screenrc": {
         "path": "config/screen/screenrc"
-      },
-      "~/.bin": {
-        "path": "bin"
       },
       "~/.dotfiles": {
         "path": "",
