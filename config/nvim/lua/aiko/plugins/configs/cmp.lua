@@ -69,15 +69,18 @@ M.setup = function()
       },
 
       -- Open the completion menu.
-      ["<C-Space>"] = cmp.mapping(function()
-        if cmp.visible() then
-          if not cmp.confirm({ select = true }) then
-            return
+      ["<C-Space>"] = cmp.mapping({
+        i = cmp.mapping.complete(),
+        c = function()
+          if cmp.visible() then
+            if not cmp.confirm({ select = true }) then
+              return
+            end
+          else
+            cmp.complete()
           end
-        else
-          cmp.complete()
-        end
-      end, { "i", "c" }),
+        end,
+      }),
     },
     sources = cmp.config.sources({
       { name = "crates" },

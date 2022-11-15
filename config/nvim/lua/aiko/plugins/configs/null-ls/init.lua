@@ -28,7 +28,7 @@ M.setup = function()
       builtins.formatting.black,
 
       -- Python linting with ruff.
-      ruff,
+      -- ruff,
 
       -- JSON formatting with jq.
       builtins.formatting.jq,

@@ -49,6 +49,4 @@ local ruff = {
   }),
 }
 
-null_ls.register(ruff)
-
 return ruff
