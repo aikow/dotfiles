@@ -36,6 +36,7 @@ M.setup = function()
       "markdown",
       "norg",
       "python",
+      "query",
       "regex",
       "rust",
       "sql",

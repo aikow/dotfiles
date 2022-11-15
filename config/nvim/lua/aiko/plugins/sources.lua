@@ -485,11 +485,24 @@ return {
     module = "nvim-web-devicons",
   },
 
+  -- Focus a single window in zen mode.
   ["folke/zen-mode.nvim"] = {
     cmd = "ZenMode",
     module = "zen-mode",
     config = function()
       require("zen-mode").setup({})
+    end,
+  },
+
+  -- Render code into pictures with silicon.
+  ["krivahtoo/silicon.nvim"] = {
+    run = "./install.sh",
+    cmd = "Silicon",
+    config = function()
+      require("silicon").setup({
+        font = "Hack=20",
+        theme = "Monokai Extended",
+      })
     end,
   },
 

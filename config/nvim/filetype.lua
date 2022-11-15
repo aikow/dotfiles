@@ -10,10 +10,14 @@ vim.filetype.add({
     ["aliases"] = "sh",
     ["bashrc"] = "bash",
     ["gitconfig"] = "gitconfig",
-    ["MANIFEST.in"] = "manifest",
   },
   pattern = {
-    ["Dockerfile.*"] = "dockerfile",
+    ["[Dd]ockerfile.*"] = "dockerfile",
+
+    -- Case-insensitive match.
+    ["[Mm][Aa][Nn][Ii][Ff][Ee][Ss][Tt]%.in"] = "manifest",
+
+    -- Fallback matching on file contents.
     [".*"] = {
       priority = -math.huge,
       function(_, bufnr)
