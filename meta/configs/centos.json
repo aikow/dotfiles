@@ -77,11 +77,7 @@
         "path": "config/screen/screenrc"
       },
       "~/.bin": {
-        "path": "config/bin/*",
-        "exclude": [
-          "bin/README.md"
-        ],
-        "glob": true
+        "path": "bin",
       },
       "~/.dotfiles": {
         "path": "",
