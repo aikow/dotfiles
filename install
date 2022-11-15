@@ -26,6 +26,9 @@ if [[ ! -f "${INSTALL_CONFIG_FILE}" ]]; then
 
   # Read all config files found in the ${CONFIG_DIR}
   unset options i
+  declare -a options
+  options=()
+  i=0
   while IFS= read -r -d $'\0' f; do
     f1="${f#"${CONFIG_DIR}/"}"
     f2="${f1%".${CONFIG_SUFFIX}"}"
