@@ -77,7 +77,7 @@
         "path": "config/screen/screenrc"
       },
       "~/.bin": {
-        "path": "bin",
+        "path": "bin"
       },
       "~/.dotfiles": {
         "path": "",
