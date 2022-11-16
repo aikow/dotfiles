@@ -49,9 +49,6 @@
       "~/.inputrc": {
         "path": "config/readline/inputrc"
       },
-      "~/.condarc": {
-        "path": "config/conda/condarc"
-      },
       "~/.bashrc": {
         "path": "config/bash/bashrc"
       },
