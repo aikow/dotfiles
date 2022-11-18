@@ -1,6 +1,9 @@
+local autocmd = vim.api.nvim_create_autocmd
+local augroup = vim.api.nvim_create_augroup
+
 -- Reload files changed outside of Vim not currently modified in Vim
-vim.api.nvim_create_autocmd({ "FocusGained", "BufEnter", "WinEnter" }, {
-  group = vim.api.nvim_create_augroup("General autoread", {}),
+autocmd({ "FocusGained", "BufEnter", "WinEnter" }, {
+  group = augroup("General autoread", {}),
   callback = function()
     if vim.api.nvim_buf_get_option(0, "buftype") ~= "" then
       return
@@ -11,8 +14,8 @@ vim.api.nvim_create_autocmd({ "FocusGained", "BufEnter", "WinEnter" }, {
 })
 
 -- Write changes automatically when leaving a window or losing focus.
-vim.api.nvim_create_autocmd({ "FocusLost", "WinLeave" }, {
-  group = vim.api.nvim_create_augroup("general_autowrite", {}),
+autocmd({ "FocusLost", "WinLeave" }, {
+  group = augroup("general_autowrite", {}),
   callback = function()
     if vim.api.nvim_buf_get_option(0, "buftype") ~= "" then
       return
@@ -23,21 +26,21 @@ vim.api.nvim_create_autocmd({ "FocusLost", "WinLeave" }, {
 })
 
 -- Prevent accidental writes to buffers that shouldn't be edited
-local unmodifiable_group = vim.api.nvim_create_augroup("Unmodifiable files", {})
-vim.api.nvim_create_autocmd("FileType", {
+local unmodifiable_group = augroup("Unmodifiable files", {})
+autocmd("FileType", {
   group = unmodifiable_group,
   pattern = "help",
   command = "setlocal readonly",
 })
-vim.api.nvim_create_autocmd("BufRead", {
+autocmd("BufRead", {
   group = unmodifiable_group,
   pattern = { "*.orig", "*.pacnew" },
   command = "setlocal readonly",
 })
 
 -- Jump to last edit position on opening file
-vim.api.nvim_create_autocmd("BufWinEnter", {
-  group = vim.api.nvim_create_augroup("Last edit position", {}),
+autocmd("BufWinEnter", {
+  group = augroup("Last edit position", {}),
   callback = function(args)
     -- Exclude files like commit messages.
     for _, pat in pairs({ "/.git/" }) do
@@ -55,8 +58,8 @@ vim.api.nvim_create_autocmd("BufWinEnter", {
 })
 
 -- Enable spelling after reading a buffer
-vim.api.nvim_create_autocmd("BufReadPost", {
-  group = vim.api.nvim_create_augroup("Enable spelling", {}),
+autocmd("BufReadPost", {
+  group = augroup("Enable spelling", {}),
   callback = function()
     vim.schedule(function()
       vim.opt.spelllang = "en,de"
@@ -67,8 +70,8 @@ vim.api.nvim_create_autocmd("BufReadPost", {
 })
 
 -- Set settings for built-in terminal
-vim.api.nvim_create_autocmd("TermOpen", {
-  group = vim.api.nvim_create_augroup("Terminal Settings", {}),
+autocmd("TermOpen", {
+  group = augroup("Terminal Settings", {}),
   callback = function()
     vim.opt_local.spell = false
     vim.opt_local.number = false
@@ -81,5 +84,33 @@ vim.api.nvim_create_autocmd("TermOpen", {
       [[a<C-k><CR><C-\><C-n>G]],
       { noremap = true, silent = true }
     )
+  end,
+})
+
+-- Automatically read and source `exrc` file in any parent directory.
+autocmd("VimEnter", {
+  group = augroup("Source exrc", {}),
+  callback = function()
+    local exrc_patterns = {
+      ".exrc",
+      ".nvimrc",
+    }
+
+    -- Find the list of configs.
+    local configs = vim.fs.find(
+      exrc_patterns,
+      { upward = true, type = "file", limit = math.huge }
+    )
+
+    -- Iterate over the files in reverse so that the "most local" one gets
+    -- sourced last.
+    for _, f in rpairs(configs) do
+      local contents = vim.secure.read(f)
+      if contents ~= nil then
+        vim.api.nvim_exec(contents, false)
+      else
+        vim.notify(string.format("skipping %s", f), vim.log.levels.DEBUG)
+      end
+    end
   end,
 })

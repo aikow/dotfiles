@@ -5,6 +5,8 @@ M.setup = function()
   builtin.disable_plugins()
   builtin.disable_providers()
 
+  require("aiko.config.globals")
+  require("aiko.config.filetype")
   require("aiko.config.mappings")
   require("aiko.config.options")
   require("aiko.config.autocmds")
