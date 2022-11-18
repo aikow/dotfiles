@@ -318,18 +318,17 @@ return {
   ["airblade/vim-rooter"] = {
     config = function()
       vim.g.rooter_patterns = {
-        ".bzr",
-        ".git",
-        ".hg",
-        ".nvim",
-        ".stylua.tom",
-        ".svn",
-        "_darcs",
-        "Cargo.toml",
-        "Makefile",
-        "package.json",
-        "pyproject.toml",
-        "setup.cfg",
+        ".editorconfig", -- general editor settings
+        ".exrc", -- nvim config
+        ".git", -- git
+        ".hg", -- mercurial
+        ".nvimrc", -- nvim config
+        ".svn", -- subversion
+        "Cargo.toml", -- rust
+        "Makefile", -- c/c++
+        "package.json", -- javascript
+        "pyproject.toml", -- python
+        "setup.cfg", -- python
       }
       vim.g.rooter_silent_chdir = 1
     end,
@@ -498,9 +497,10 @@ return {
   ["krivahtoo/silicon.nvim"] = {
     run = "./install.sh",
     cmd = "Silicon",
+    module = "silicon",
     config = function()
       require("silicon").setup({
-        font = "Hack=20",
+        font = "Hack Nerd Font=20",
         theme = "Monokai Extended",
       })
     end,

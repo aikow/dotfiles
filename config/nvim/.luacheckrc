@@ -7,4 +7,7 @@ self = true
 
 globals = {
   "vim",
+  "rpairs",
+  "pp",
+  "ppo",
 }

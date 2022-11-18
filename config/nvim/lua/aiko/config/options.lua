@@ -25,6 +25,11 @@ opt.ttimeoutlen = 5
 -- Use system clipboard
 opt.clipboard = "unnamedplus"
 
+-- Enable local config files using a trustdb.
+if vim.secure.read or vim.secure_read then
+  opt.exrc = true
+end
+
 -- ===========================
 -- |=========================|
 -- ||                       ||
