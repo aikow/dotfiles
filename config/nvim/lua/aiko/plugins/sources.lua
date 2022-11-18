@@ -391,6 +391,7 @@ return {
 
   -- SQL language server helper.
   ["nanotee/sqls.nvim"] = {
+    disable = true,
     module = "sqls",
     ft = "sql",
   },

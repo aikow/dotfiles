@@ -16,10 +16,10 @@ M.servers = {
   "ltex",
   "marksman",
   "pyright",
-  "sqls",
+  -- "sqls",
   "sumneko_lua",
   "taplo",
-  "vimls",
+  -- "vimls",
   "yamlls",
 }
 
