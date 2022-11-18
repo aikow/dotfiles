@@ -6,7 +6,6 @@ M.setup = function()
     return
   end
 
-  local ruff = require("aiko.plugins.configs.null-ls.ruff")
   local builtins = null_ls.builtins
 
   null_ls.setup({
@@ -28,7 +27,7 @@ M.setup = function()
       builtins.formatting.black,
 
       -- Python linting with ruff.
-      -- ruff,
+      -- require("aiko.plugins.configs.null-ls.ruff")
 
       -- JSON formatting with jq.
       builtins.formatting.jq,
