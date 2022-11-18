@@ -334,6 +334,10 @@ return {
     end,
   },
 
+  ["folke/neoconf.nvim"] = {
+    disable = true,
+  },
+
   -- Measure startup time.
   ["dstein64/vim-startuptime"] = {
     cmd = "StartupTime",
@@ -401,6 +405,11 @@ return {
   -- Lua
   ["rafcamlet/nvim-luapad"] = {
     cmd = { "Luapad", "LuaRun" },
+  },
+
+  -- Neovim development with lua.
+  ["folke/neodev.nvim"] = {
+    disable = true,
   },
 
   -- Markdown

@@ -4,58 +4,64 @@ local colorscheme = {
 }
 
 colorscheme.theme = {
-  base00 = "#282828",
-  base01 = "#3c3836",
-  base02 = "#504945",
-  base03 = "#665c54",
-  base04 = "#bdae93",
-  base05 = "#d5c4a1",
-  base06 = "#ebdbb2",
-  base07 = "#fbf1c7",
-  base08 = "#fb4934",
-  base09 = "#fe8019",
-  base0A = "#fabd2f",
-  base0B = "#b8bb26",
-  base0C = "#8ec07c",
-  base0D = "#83a598",
-  base0E = "#d3869b",
-  base0F = "#d65d0e",
+  base00 = "#1e1e1e",
+  base01 = "#5a524c",
+  base02 = "#35312e",
+  base03 = "#928374",
+  base04 = "#ddc7a1",
+  base05 = "#e78a4e",
+  base06 = "#988771",
+  base07 = "#35312e",
+  base08 = "#d4be98",
+  base09 = "#d3869b",
+  base0A = "#a9b665",
+  base0B = "#a9b665",
+  base0C = "#89b482",
+  base0D = "#a9b665", -- Aqua
+  base0E = "#ea6962", -- Red
+  base0F = "#ea6962",
 }
 
 colorscheme.colors = {
-  white = "#ebdbb2",
-  darker_black = "#232323",
   black = "#282828",
-  black2 = "#2e2e2e",
-  one_bg = "#353535",
-  one_bg2 = "#3f3f3f",
-  one_bg3 = "#444444",
-  grey = "#464646",
-  grey_fg = "#4e4e4e",
-  grey_fg2 = "#505050",
-  light_grey = "#656565",
-  red = "#fb4934",
-  baby_pink = "#cc241d",
-  pink = "#ff75a0",
-  line = "#36393a",
-  green = "#b8bb26",
-  vibrant_green = "#a9b665",
-  nord_blue = "#83a598",
-  blue = "#458588",
-  yellow = "#d79921",
-  sun = "#fabd2f",
-  purple = "#b4bbc8",
-  dark_purple = "#d3869b",
-  teal = "#749689",
+  darker_black = "#191919",
+  black2 = "#373737",
+
+  one_bg = "#424242",
+  one_bg2 = "#585858",
+  one_bg3 = "#6f6f6f",
+
+  grey = "#8e8e8e",
+  grey_fg = "#a8a8a8",
+  grey_fg2 = "#c1c1c1",
+  light_grey = "#d5d5d5",
+
+  statusline_bg = "#323232",
+  lightbg = "#535353",
+
+  pmenu_bg = "#35312e",
+  folder_bg = "#7daea3",
+
+  line = "#51524c",
+
+  white = "#d3c6aa",
+  red = "#ea6962",
+  baby_pink = "#e44d26",
+  pink = "#701516",
+  green = "#a9b665",
+  vibrant_green = "#3b4439",
+  nord_blue = "",
+  blue = "#7daea3",
+  yellow = "#d8a657",
+  sun = "#d8a657", -- yellow
+  purple = "#d3869b",
+  dark_purple = "#d3869b", -- same as purple
+  teal = "#89b482", -- aqua
   orange = "#e78a4e",
-  cyan = "#82b3a8",
-  statusline_bg = "#2c2c2c",
-  lightbg = "#3d3d3d",
-  pmenu_bg = "#83a598",
-  folder_bg = "#749689",
+  cyan = "#7daea3", -- blue
 }
 
-local colors = {
+local _ = {
   grey0 = { "#7c6f64", "243" },
   grey1 = { "#928374", "245" },
   grey2 = { "#a89984", "246" },

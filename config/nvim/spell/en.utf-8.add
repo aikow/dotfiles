@@ -15,6 +15,7 @@ enum
 Europarl
 FIXME
 FZF
+Gitlab
 HSL
 HSLuv
 iterable
@@ -34,10 +35,13 @@ perceptron
 pipelined
 prosodic
 protobuf
+pydantic
 reentrant
 refactorings
 reusability
 Segmenter
+splitable
+submodules
 subproblem
 subproblems
 Subword
@@ -50,12 +54,8 @@ uncapitalized
 unicode
 unpunctuated
 untokenized
+UUID
 vimscript
 whitespace
 WIP
 YAML
-Gitlab
-gitlab
-splitable
-submodules
-pydantic
