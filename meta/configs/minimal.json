@@ -30,6 +30,10 @@
       {
         "command": "./config/fzf/bootstrap-fzf.sh",
         "description": "Bootstrapping fzf"
+      },
+      {
+        "command": "./config/zsh/bootstrap-zinit.sh",
+        "description": "Bootstrapping zinit"
       }
     ]
   },

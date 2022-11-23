@@ -1,6 +1,0 @@
-* Fish
-
- ** To Do
-
-    - Hide all fzf helper functions by prefixing a `_` to indicate that they
-      can't be called without a keybinding

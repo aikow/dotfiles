@@ -10,7 +10,7 @@ fi
 #######################################################################
 #
 # Source the zinit script
-source "${DOTFILES_ZSH}/zinit/zinit.zsh"
+source "${HOME}/.local/share/zinit/zinit.git/zinit.zsh"
 
 # Plugins
 zinit snippet OMZL::git.zsh
@@ -180,3 +180,4 @@ fi
 # Load local settings and aliases
 [[ -f "${LOCAL_CONFIG}/aliases" ]] && source "${LOCAL_CONFIG}/aliases"
 [[ -f "${LOCAL_CONFIG}/zshrc" ]] && source "${LOCAL_CONFIG}/zshrc"
+### End of Zinit's installer chunk

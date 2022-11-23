@@ -19,9 +19,10 @@ if command -v nvim &>/dev/null; then
 else
   export VISUAL="vim"
 fi
-
-### Editor ###
 export EDITOR="${VISUAL}"
+
+### Go ###
+export GOPATH="${HOME}/.local/share/go"
 
 ### FZF ###
 if command -v fd &>/dev/null; then

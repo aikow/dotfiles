@@ -21,6 +21,9 @@ set -gx NEOVIDE_MULTIGRID true
 # Bat
 set -gx BAT_THEME gruvbox-dark
 
+# Go
+set -gx GOPATH ~/.local/share/go
+
 # FZF
 if command -v fd &>/dev/null
   set -gx FZF_DEFAULT_COMMAND 'fd --type file --follow --hidden --exclude .git --color=always'

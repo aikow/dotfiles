@@ -1,15 +1,14 @@
-#######################################################################
-#                               Exports                               #
-#######################################################################
-#
-export MY_SHELL="zsh"
-export LC_ALL=en_US.UTF-8
-
+# ------------------------------------------------------------------------
+# | Exports
+# ------------------------------------------------------------------------
 # Set the dotfiles directory
 export DOTFILES="${HOME}/.dotfiles"
 export DOTFILES_ZSH="${DOTFILES}/config/zsh"
 export DOTFILES_SH="${DOTFILES}/config/sh"
 export LOCAL_CONFIG="${HOME}/.local/config"
+
+export MY_SHELL="zsh"
+export LC_ALL=en_US.UTF-8
 
 # Modify the path
 export PATH="${HOME}/.bin:${DOTFILES}/bin:${HOME}/.local/bin:/usr/local/bin:/opt/vc/bin:${PATH}"
@@ -33,6 +32,9 @@ else;
   export VISUAL="vim"
 fi
 export EDITOR="${VISUAL}"
+
+### Go ###
+export GOPATH="${HOME}/.local/share/go"
 
 ### FZF ###
 if command -v fd &>/dev/null; then
