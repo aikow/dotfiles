@@ -1,10 +1,9 @@
 #!/bin/bash
-if [ -n "$BASH_VERSION" ]; then
+if [[ -n "${BASH_VERSION}" ]]; then
   # include .bashrc if it exists
-  if [ -f "$HOME/.bashrc" ]; then
-    . "$HOME/.bashrc"
+  if [[ -f "${HOME}/.bashrc" ]]; then
+    source "${HOME}/.bashrc"
   fi
 fi
 
-[[ -f "${HOME}/.profile.local" ]] || source "${HOME}/.profile.local"
-
+[[ -f "${HOME}/.local/config/bash_profile" ]] || source "${HOME}/.local/config/bash_profile"

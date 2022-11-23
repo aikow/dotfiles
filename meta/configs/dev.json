@@ -1,7 +1,7 @@
 [
   {
     "defaults": {
-      "links": {
+      "link": {
         "create": true,
         "relink": true
       }
@@ -38,6 +38,10 @@
       {
         "command": "./config/fzf/bootstrap-fzf.sh",
         "description": "Bootstrapping fzf"
+      },
+      {
+        "command": "./config/zsh/bootstrap-zinit.sh",
+        "description": "Bootstrapping zinit"
       }
     ]
   },
@@ -49,7 +53,6 @@
       },
       "~/.config/alacritty/alacritty.yml": {
         "if": "command -v alacritty &>/dev/null",
-        "create": true,
         "path": "config/alacritty/alacritty-arch.yaml"
       },
       "~/.ideavimrc": {
@@ -63,8 +66,7 @@
         "path": "config/vscode/macos/*.json",
         "glob": true,
         "if": "[[ $(uname) = Darwin ]]",
-        "force": true,
-        "create": true
+        "force": true
       },
       "~/.tmux.conf": {
         "if": "command -v tmux &>/dev/null",
@@ -100,7 +102,6 @@
       },
       "~/.config/wezterm": {
         "if": "command -v wezterm &>/dev/null",
-        "create": true,
         "path": "config/wezterm"
       },
       "~/Library/Application Support/nushell": {
@@ -111,7 +112,6 @@
         "path": "config/vscode/linux/*.json",
         "glob": true,
         "if": "[[ $(uname) = Linux ]]",
-        "create": true,
         "force": true
       },
       "~/.config/starship.toml": {

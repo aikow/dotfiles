@@ -4,7 +4,7 @@
 "
 " Automatically try to install vim-plug if it not already installed.
 set rtp+=~/.local/vim
-let data_dir = has('nvim') ? stdpath('data') . '/site' : '~/.local/vim'
+let data_dir = has('nvim') ? stdpath('data') . '/site' : expand('~/.local/vim')
 if empty(glob(data_dir . '/autoload/plug.vim'))
   echom "Installing vim-plug, " . data_dir . '/autoload/plug.vim was empty' 
   silent execute '!curl -fLo ' . data_dir . '/autoload/plug.vim --create-dirs 

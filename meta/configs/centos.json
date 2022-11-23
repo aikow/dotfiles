@@ -1,7 +1,7 @@
 [
   {
     "defaults": {
-      "links": {
+      "link": {
         "create": true,
         "relink": true
       }
@@ -37,13 +37,16 @@
       {
         "command": "./config/fzf/bootstrap-fzf.sh",
         "description": "Bootstrapping fzf"
+      },
+      {
+        "command": "./config/zsh/bootstrap-zinit.sh",
+        "description": "Bootstrapping zinit"
       }
     ]
   },
   {
     "link": {
       "~/.config/nvim": {
-        "create": true,
         "path": "config/nvim"
       },
       "~/.inputrc": {
@@ -62,13 +65,13 @@
         "path": "config/git/gitconfig"
       },
       "~/.tmux.conf": {
-        "path": "config/tmux/tmux_1_9.conf"
+        "path": "config/tmux/versions/v1_9/tmux.conf"
       },
       "~/.zshenv": {
         "path": "config/zsh/zshenv"
       },
       "~/.zshrc": {
-        "path": "config/zsh/zshrc_5_0"
+        "path": "config/zsh/versions/v5_0/zshrc"
       },
       "~/.screenrc": {
         "path": "config/screen/screenrc"

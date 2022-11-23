@@ -24,7 +24,7 @@ set encoding=utf-8
 set path+=**
 
 " Permanent undo
-set undodir=~/.vim/undo
+set undodir=~/.local/vim/undo
 set undofile
 
 " Backups and Swap files
