@@ -42,36 +42,36 @@
       "~/.bashrc": {
         "path": "config/bash/bashrc"
       },
-      "~/.zshenv": {
-        "path": "config/zsh/zshenv",
-        "if": "command -v zsh &>/dev/null",
-        "force": true
-      },
-      "~/.zshrc": {
-        "force": true,
-        "path": "config/zsh/zshrc"
-      },
-      "~/.vimrc": {
-        "path": "config/vim/light.vim"
-      },
-      "~/.inputrc": {
-        "path": "config/readline/inputrc"
-      },
-      "~/.tmux.conf": {
-        "path": "config/tmux/tmux_minimal.conf"
+      "~/.dir_colors": {
+        "path": "dircolors/dir_colors"
       },
       "~/.dotfiles": {
         "if": "[[ ! -d ~/.dotfiles ]]",
         "path": ""
       },
-      "~/.dir_colors": {
-        "path": "dircolors/dir_colors"
-      },
       "~/.gitconfig": {
         "path": "config/git/gitconfig"
       },
+      "~/.inputrc": {
+        "path": "config/readline/inputrc"
+      },
       "~/.screenrc": {
         "path": "config/screen/screenrc"
+      },
+      "~/.tmux.conf": {
+        "path": "config/tmux/tmux_minimal.conf"
+      },
+      "~/.vimrc": {
+        "path": "config/vim/light.vim"
+      },
+      "~/.zshenv": {
+        "force": true,
+        "if": "command -v zsh &>/dev/null",
+        "path": "config/zsh/zshenv"
+      },
+      "~/.zshrc": {
+        "force": true,
+        "path": "config/zsh/zshrc"
       }
     }
   }
