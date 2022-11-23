@@ -180,4 +180,3 @@ fi
 # Load local settings and aliases
 [[ -f "${LOCAL_CONFIG}/aliases" ]] && source "${LOCAL_CONFIG}/aliases"
 [[ -f "${LOCAL_CONFIG}/zshrc" ]] && source "${LOCAL_CONFIG}/zshrc"
-### End of Zinit's installer chunk
