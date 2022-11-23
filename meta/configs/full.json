@@ -2,8 +2,8 @@
   {
     "defaults": {
       "link": {
-        "relink": true,
-        "create": true
+        "create": true,
+        "relink": true
       }
     }
   },
@@ -49,124 +49,124 @@
   },
   {
     "link": {
-      "~/.config/awesome": {
-        "path": "config/awesomewm",
-        "if": "command -v awesome &>/dev/null"
-      },
-      "~/.config/rofi/config.rasi": {
-        "path": "config/rofi/config.rasi",
-        "if": "command -v rofi &>/dev/null"
-      },
-      "~/Library/Application Support/Code/User": {
-        "path": "config/vscode/macos/*.json",
-        "if": "[[ $(uname) = Darwin ]]",
-        "force": true,
-        "glob": true
-      },
-      "~/.gitconfig": {
-        "path": "config/git/gitconfig"
-      },
-      "~/.dotfiles": {
-        "path": "",
-        "if": "[[ ! -d ~/.dotfiles ]]"
-      },
-      "~/.zshrc": {
-        "path": "config/zsh/zshrc",
-        "force": true,
-        "if": "command -v zsh &>/dev/null"
-      },
-      "~/.config/starship.toml": {
-        "path": "config/starship/starship.toml",
-        "force": true
-      },
-      "~/.dir_colors": {
-        "path": "config/dircolors/dir_colors.gruvbox"
-      },
-      "~/.config/fd": {
-        "path": "config/fd"
-      },
-      "~/Library/Application Support/nushell": {
-        "path": "config/nushell",
-        "if": "command -v nu &>/dev/null && [[ $(uname) = Darwin ]]"
-      },
-      "~/.xmonad": {
-        "path": "config/xmonad",
-        "if": "command -v xmonad &>/dev/null"
-      },
-      "~/.zshenv": {
-        "path": "config/zsh/zshenv",
-        "if": "command -v zsh &>/dev/null",
-        "force": true
-      },
-      "~/.config/picom/picom.conf": {
-        "path": "config/picom/picom.conf",
-        "if": "command -v picom &>/dev/null"
-      },
-      "~/.config/nushell": {
-        "path": "config/nushell",
-        "if": "command -v nu &>/dev/null && [[ $(uname) = Linux ]]"
-      },
-      "~/.inputrc": {
-        "path": "config/readline/inputrc"
-      },
-      "~/.tmux.conf": {
-        "path": "config/tmux/tmux_full.conf",
-        "if": "command -v tmux &>/dev/null"
-      },
-      "~/.config/terminator/config": {
-        "path": "config/terminator/config",
-        "if": "command -v terminator &>/dev/null"
-      },
-      "~/.config/nvim": {
-        "path": "config/nvim",
-        "if": "command -v nvim &>/dev/null"
-      },
-      "~/.ideavimrc": {
-        "path": "config/jetbrains/ideavimrc"
-      },
-      "~/.config/i3/config": {
-        "path": "config/i3wm/config",
-        "if": "command -v i3 &>/dev/null"
-      },
-      "~/.config/Code/User": {
-        "path": "config/vscode/linux/*.json",
-        "if": "[[ $(uname) = Linux ]]",
-        "force": true,
-        "glob": true
-      },
-      "~/.config/alacritty/alacritty.yml": {
-        "path": "config/alacritty/alacritty-arch.yaml",
-        "if": "command -v alacritty &>/dev/null"
-      },
-      "~/.config/fish": {
-        "path": "config/fish",
-        "if": "command -v fish &>/dev/null",
-        "force": true
-      },
-      "~/.vimrc": {
-        "path": "config/vim/light.vim"
+      "~/.Xresources": {
+        "path": "config/xorg/xresources"
       },
       "~/.bashrc": {
         "path": "config/bash/bashrc"
       },
-      "~/.screenrc": {
-        "path": "config/screen/screenrc",
-        "if": "command -v screen &>/dev/null"
-      },
       "~/.condarc": {
-        "path": "config/conda/condarc",
-        "if": "command -v conda &>/dev/null"
+        "if": "command -v conda &>/dev/null",
+        "path": "config/conda/condarc"
       },
-      "~/.Xresources": {
-        "path": "config/xorg/xresources"
+      "~/.config/Code/User": {
+        "force": true,
+        "glob": true,
+        "if": "[[ $(uname) = Linux ]]",
+        "path": "config/vscode/linux/*.json"
       },
-      "~/.config/xmobar": {
-        "path": "config/xmobar",
-        "if": "command -v xmobar &>/dev/null"
+      "~/.config/alacritty/alacritty.yml": {
+        "if": "command -v alacritty &>/dev/null",
+        "path": "config/alacritty/alacritty-arch.yaml"
+      },
+      "~/.config/awesome": {
+        "if": "command -v awesome &>/dev/null",
+        "path": "config/awesomewm"
+      },
+      "~/.config/fd": {
+        "path": "config/fd"
+      },
+      "~/.config/fish": {
+        "force": true,
+        "if": "command -v fish &>/dev/null",
+        "path": "config/fish"
+      },
+      "~/.config/i3/config": {
+        "if": "command -v i3 &>/dev/null",
+        "path": "config/i3wm/config"
+      },
+      "~/.config/nushell": {
+        "if": "command -v nu &>/dev/null && [[ $(uname) = Linux ]]",
+        "path": "config/nushell"
+      },
+      "~/.config/nvim": {
+        "if": "command -v nvim &>/dev/null",
+        "path": "config/nvim"
+      },
+      "~/.config/picom/picom.conf": {
+        "if": "command -v picom &>/dev/null",
+        "path": "config/picom/picom.conf"
+      },
+      "~/.config/rofi/config.rasi": {
+        "if": "command -v rofi &>/dev/null",
+        "path": "config/rofi/config.rasi"
+      },
+      "~/.config/starship.toml": {
+        "force": true,
+        "path": "config/starship/starship.toml"
+      },
+      "~/.config/terminator/config": {
+        "if": "command -v terminator &>/dev/null",
+        "path": "config/terminator/config"
       },
       "~/.config/wezterm": {
-        "path": "config/wezterm",
-        "if": "command -v wezterm &>/dev/null"
+        "if": "command -v wezterm &>/dev/null",
+        "path": "config/wezterm"
+      },
+      "~/.config/xmobar": {
+        "if": "command -v xmobar &>/dev/null",
+        "path": "config/xmobar"
+      },
+      "~/.dir_colors": {
+        "path": "config/dircolors/dir_colors.gruvbox"
+      },
+      "~/.dotfiles": {
+        "if": "[[ ! -d ~/.dotfiles ]]",
+        "path": ""
+      },
+      "~/.gitconfig": {
+        "path": "config/git/gitconfig"
+      },
+      "~/.ideavimrc": {
+        "path": "config/jetbrains/ideavimrc"
+      },
+      "~/.inputrc": {
+        "path": "config/readline/inputrc"
+      },
+      "~/.screenrc": {
+        "if": "command -v screen &>/dev/null",
+        "path": "config/screen/screenrc"
+      },
+      "~/.tmux.conf": {
+        "if": "command -v tmux &>/dev/null",
+        "path": "config/tmux/tmux_full.conf"
+      },
+      "~/.vimrc": {
+        "path": "config/vim/light.vim"
+      },
+      "~/.xmonad": {
+        "if": "command -v xmonad &>/dev/null",
+        "path": "config/xmonad"
+      },
+      "~/.zshenv": {
+        "force": true,
+        "if": "command -v zsh &>/dev/null",
+        "path": "config/zsh/zshenv"
+      },
+      "~/.zshrc": {
+        "force": true,
+        "if": "command -v zsh &>/dev/null",
+        "path": "config/zsh/zshrc"
+      },
+      "~/Library/Application Support/Code/User": {
+        "force": true,
+        "glob": true,
+        "if": "[[ $(uname) = Darwin ]]",
+        "path": "config/vscode/macos/*.json"
+      },
+      "~/Library/Application Support/nushell": {
+        "if": "command -v nu &>/dev/null && [[ $(uname) = Darwin ]]",
+        "path": "config/nushell"
       }
     }
   }
