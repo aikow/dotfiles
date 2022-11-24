@@ -38,17 +38,18 @@ unset _POSITIONAL_ARGS
 readonly FORCE="${_FORCE:-no}"
 readonly TAG="${_TAG?Missing --tag}"
 
-readonly NU_DIR=~/.data/nu
+readonly NU_DIR=~/.local/share/nu
 readonly INSTALL_DIR="${NU_DIR}/${TAG}"
-readonly GITHUB_URL="https://github.com/nushell/nushell/releases/download/${TAG}/nu-${TAG}-x86_64-unknown-linux-gnu.tar.gz"
+readonly FILENAME="nu-${TAG}-x86_64-unknown-linux-gnu"
+readonly GITHUB_URL="https://github.com/nushell/nushell/releases/download/${TAG}/${FILENAME}.tar.gz"
 readonly INSTALL_PATH="${INSTALL_DIR}/nu.tar.gz"
-readonly BINARY_PATH="${HOME}/.bin/nu" 
+readonly BINARY_PATH="${HOME}/.local/bin/nu" 
 
 mkdir -p "${INSTALL_DIR}"
 
 cd "${INSTALL_DIR}"
 
-if [[ "${FORCE}" = "yes" ]] || ! [[ -f "${INSTALL_PATH}" ]]; then
+if [[ "${FORCE}" = "yes" ]] || [[ ! -f "${INSTALL_PATH}" ]]; then
   curl -L --output "${INSTALL_PATH}" "${GITHUB_URL}"
   tar -xzvf "${INSTALL_PATH}"
 else
@@ -56,8 +57,8 @@ else
 fi
 
 
-if [[ -L "${BINARY_PATH}" ]]; then
-  ln -sf "${INSTALL_PATH}" "${BINARY_PATH}"
+if [[ -L "${BINARY_PATH}" ]] || [[ ! -f "${BINARY_PATH}" ]]; then
+  ln -sf "${INSTALL_DIR}/${FILENAME}/nu" "${BINARY_PATH}"
 elif [[ -f "{$BINARY_PATH}" ]]; then
   echo "${BINARY_PATH} exists and is a regular file."
   echo "Please remove it manually to continue"
