@@ -120,7 +120,7 @@ M.setup = function()
     default_priority = 100,
   })
   require("luasnip.loaders.from_vscode").lazy_load({
-    paths = "~/.dotfiles/snips",
+    paths = "~/.dotfiles/config/snips",
     default_priority = 100,
   })
 
