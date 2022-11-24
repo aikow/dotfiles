@@ -3,3 +3,6 @@ format:
 
 lint: format
 	fd -elua -E./plugin/packer_compiled.lua -X luacheck
+
+format-spell:
+  for file in spell/*.add; do sort -f -o "${file}" "${file}"; done
