@@ -10,9 +10,12 @@ local replace = function(index, char)
   end, { index })
 end
 
+---@alias Comments { start: string, mid: string, stop: string, indent: string }
+
+---Parse vim 'comments' option to extract line comment format.
+---See the help for the exact syntax.
+---@return {single: Comments[], triple: Comments[], other: Comments[]}
 local parse_comments = function()
-  -- Parse vim 'comments' option to extract line comment format.
-  -- See the help for the exact syntax.
   local iter = vim.gsplit(vim.o.comments, ",", true)
   local comments = { single = {}, triple = {}, other = {} }
 
@@ -77,6 +80,8 @@ local parse_comments = function()
   return comments
 end
 
+---Use the parsed comment's format and return a triple.
+---@return Comments
 local comment_format = function()
   if vim.o.commentstring:match("%%s$") then
     -- Remove last two characters
@@ -97,25 +102,168 @@ local comment_format = function()
   return comments.triple[1]
 end
 
+---Creates a function node for luasnip.
+---@param part "start"|"mid"|"stop"
+---@return function
 local comment = function(part)
   return f(function()
     local cf = comment_format()
+    local c
     if part == "mid" then
-      return cf.indent .. cf[part]
+      c = cf.indent .. cf[part]
     else
-      return cf[part]
+      c = cf[part]
+    end
+
+    if c ~= "" then
+      c = c .. " "
     end
   end, {})
 end
 
+---Insert as many characters as possible in order to fill up to textwidth.
+---@param char string
+---@param padding integer
+---@param part "start"|"mid"|"stop"
+---@return function
+local fill = function(char, padding, part)
+  return f(function()
+    local clen = string.len(comment_format()[part])
+    return string.rep(char, vim.bo.textwidth - padding - clen)
+  end)
+end
+
+---
+---@param index integer
+---@param char string
+---@param padding integer
+---@param part "start"|"mid"|"stop"
+---@param side "left"|"right"
+---@return function
+local center = function(index, char, padding, part, side)
+  return f(function(arg)
+    local cf = comment_format()
+    local clen
+    if part == "mid" then
+      clen = string.len(cf.indent .. cf[part])
+    else
+      clen = string.len(cf[part])
+    end
+    local text = string.len(arg[1][1])
+    local count = vim.bo.textwidth - padding - text - clen
+    if count % 2 == 1 and side == "left" then
+      count = (count + 1) / 2
+    else
+      count = count / 2
+    end
+    return string.rep(char, count)
+  end, { index })
+end
+
 return {
+  -- ------------------------------------------------------------------------
+  -- | Wide Boxes
+  -- ------------------------------------------------------------------------
+  s(
+    "vbox",
+    fmt(
+      [[
+        {comment_start}┌───{filler}───┐
+        {comment_mid}│   {left_center}{insert}{right_center}   │
+        {comment_stop}└───{filler}───┘
+      ]],
+      {
+        comment_start = comment("start"),
+        comment_mid = comment("mid"),
+        comment_stop = comment("stop"),
+        filler = fill("─", 9, "start"),
+        left_center = center(1, " ", 9, "mid", "left"),
+        insert = i(1),
+        right_center = center(1, " ", 9, "mid", "right"),
+      }
+    )
+  ),
+
+  s(
+    "vvbox",
+    fmt(
+      [[
+        {comment_start}┌────{box_filler}────┐
+        {comment_mid}│┌───{box_filler}───┐│
+        {comment_mid}││   {space_filler}   ││
+        {comment_mid}││   {left_center}{insert}{right_center}   ││
+        {comment_mid}││   {space_filler}   ││
+        {comment_mid}│└───{box_filler}───┘│
+        {comment_stop}└────{box_filler}────┘
+      ]],
+      {
+        comment_start = comment("start"),
+        comment_mid = comment("mid"),
+        comment_stop = comment("stop"),
+        box_filler = fill("─", 11, "start"),
+        space_filler = fill(" ", 11, "start"),
+        left_center = center(1, " ", 11, "mid", "left"),
+        insert = i(1),
+        right_center = center(1, " ", 11, "mid", "right"),
+      }
+    )
+  ),
+
+  s(
+    "wbox",
+    fmt(
+      [[
+        {comment_start}----{filler}----
+        {comment_mid}|   {left_center}{insert}{right_center}   |
+        {comment_stop}----{filler}----
+      ]],
+      {
+        comment_start = comment("start"),
+        comment_mid = comment("mid"),
+        comment_stop = comment("stop"),
+        filler = fill("-", 9, "start"),
+        left_center = center(1, " ", 9, "mid", "left"),
+        insert = i(1),
+        right_center = center(1, " ", 9, "mid", "right"),
+      }
+    )
+  ),
+
+  s(
+    "wwbox",
+    fmt(
+      [[
+        {comment_start}====={box_filler}=====
+        {comment_mid}|===={box_filler}====|
+        {comment_mid}||   {space_filler}   ||
+        {comment_mid}||   {left_center}{insert}{right_center}   ||
+        {comment_mid}||   {space_filler}   ||
+        {comment_mid}|===={box_filler}====|
+        {comment_stop}====={box_filler}=====
+      ]],
+      {
+        comment_start = comment("start"),
+        comment_mid = comment("mid"),
+        comment_stop = comment("stop"),
+        box_filler = fill("=", 11, "start"),
+        space_filler = fill(" ", 11, "start"),
+        left_center = center(1, " ", 11, "mid", "left"),
+        insert = i(1),
+        right_center = center(1, " ", 11, "mid", "right"),
+      }
+    )
+  ),
+
+  -- ------------------------------------------------------------------------
+  -- | Tight Boxes
+  -- ------------------------------------------------------------------------
   s(
     "ubox",
     fmt(
       [[
-        {3} ┌─{2}─┐
-        {4} │ {1} │
-        {5} └─{2}─┘
+        {3}┌───{2}───┐
+        {4}│   {1}   │
+        {5}└───{2}───┘
       ]],
       {
         i(1),
@@ -131,13 +279,13 @@ return {
     "uubox",
     fmt(
       [[
-        {4} ┌────{2}────┐
-        {5} │┌───{2}───┐│
-        {5} ││   {3}   ││
-        {5} ││   {1}   ││
-        {5} ││   {3}   ││
-        {5} │└───{2}───┘│
-        {6} └────{2}────┘
+        {4}┌────{2}────┐
+        {5}│┌───{2}───┐│
+        {5}││   {3}   ││
+        {5}││   {1}   ││
+        {5}││   {3}   ││
+        {5}│└───{2}───┘│
+        {6}└────{2}────┘
       ]],
       {
         i(1),
@@ -154,9 +302,9 @@ return {
     "box",
     fmt(
       [[
-        {3} ----{2}----
-        {4} |   {1}   |
-        {5} ----{2}----
+        {3}----{2}----
+        {4}|   {1}   |
+        {5}----{2}----
       ]],
       {
         i(1),
@@ -172,13 +320,13 @@ return {
     "bbox",
     fmt(
       [[
-        {4} ====={2}=====
-        {5} |===={2}====|
-        {5} ||   {3}   ||
-        {5} ||   {1}   ||
-        {5} ||   {3}   ||
-        {5} |===={2}====|
-        {6} ====={2}=====
+        {4}====={2}=====
+        {5}|===={2}====|
+        {5}||   {3}   ||
+        {5}||   {1}   ||
+        {5}||   {3}   ||
+        {5}|===={2}====|
+        {6}====={2}=====
       ]],
       {
         i(1),
