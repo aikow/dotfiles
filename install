@@ -52,4 +52,4 @@ fi
 # Read the first line from the config file
 unset config
 read -r config <"${INSTALL_CONFIG_FILE}"
-"${BASEDIR}/${DOTBOT_DIR}/${DOTBOT_BIN}" -d "${BASEDIR}" -c "${CONFIG_DIR}/${config}.${CONFIG_SUFFIX}"
+"${BASEDIR}/${DOTBOT_DIR}/${DOTBOT_BIN}" -vv -d "${BASEDIR}" -c "${CONFIG_DIR}/${config}.${CONFIG_SUFFIX}"
