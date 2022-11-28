@@ -1,0 +1,10 @@
+[
+  {
+    "link": {
+      "~/.config/starship.toml": {
+        "force": true,
+        "path": "starship.toml"
+      }
+    }
+  }
+]

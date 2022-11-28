@@ -1,0 +1,10 @@
+[
+  {
+    "shell": [
+      {
+        "command": "./bootstrap-rust.sh",
+        "description": "Bootstrapping rustup"
+      }
+    ]
+  }
+]

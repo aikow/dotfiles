@@ -1,0 +1,16 @@
+[
+  {
+    "defaults": {
+      "link": {
+        "if": "command -v tmux &>/dev/null"
+      }
+    }
+  },
+  {
+    "link": {
+      "~/.tmux.conf": {
+        "path": "tmux_full.conf"
+      }
+    }
+  }
+]

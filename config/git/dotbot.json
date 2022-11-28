@@ -1,0 +1,9 @@
+[
+  {
+    "link": {
+      "~/.gitconfig": {
+        "path": "gitconfig"
+      }
+    }
+  }
+]

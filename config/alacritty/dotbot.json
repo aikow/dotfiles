@@ -1,0 +1,16 @@
+[
+  {
+    "defaults": {
+      "link": {
+        "if": "command -v alacritty &>/dev/null"
+      }
+    }
+  },
+  {
+    "link": {
+      "~/.config/alacritty/alacritty.yml": {
+        "path": "alacritty-arch.yaml"
+      }
+    }
+  }
+]

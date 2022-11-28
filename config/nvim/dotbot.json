@@ -1,0 +1,18 @@
+[
+  {
+    "defaults": {
+      "link": {
+        "if": "command -v nvim &>/dev/null"
+      }
+    }
+  },
+  {
+    "link": {
+      "~/.config/nvim": {
+        "relink": true,
+        "force": true,
+        "path": "."
+      }
+    }
+  }
+]

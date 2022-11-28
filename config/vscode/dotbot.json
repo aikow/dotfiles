@@ -1,0 +1,18 @@
+[
+  {
+    "link": {
+      "~/.config/Code/User": {
+        "force": true,
+        "glob": true,
+        "if": "[[ $(uname) = Linux ]]",
+        "path": "linux/*.json"
+      },
+      "~/Library/Application Support/Code/User": {
+        "force": true,
+        "glob": true,
+        "if": "[[ $(uname) = Darwin ]]",
+        "path": "macos/*.json"
+      }
+    }
+  }
+]

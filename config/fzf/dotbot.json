@@ -1,0 +1,10 @@
+[
+  {
+    "shell": [
+      {
+        "command": "./bootstrap-fzf.sh",
+        "description": "Bootstrapping fzf"
+      }
+    ]
+  }
+]
