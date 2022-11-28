@@ -70,7 +70,9 @@
   },
   "command exists": {
     "prefix": "ifcmd",
-    "body": ["command -v ${1:COMMAND} &>/dev/null"],
+    "body": [
+      "command -v ${1:COMMAND} &>/dev/null"
+    ],
     "description": "Check if a command is on PATH and return with exit status 0"
   }
 }

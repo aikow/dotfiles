@@ -1,0 +1,9 @@
+[
+  {
+    "link": {
+      "~/.cargo/config.toml": {
+        "path": "config.toml"
+      }
+    }
+  }
+]

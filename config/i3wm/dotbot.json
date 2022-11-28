@@ -1,0 +1,16 @@
+[
+  {
+    "defaults": {
+      "link": {
+        "if": "command -v i3 &>/dev/null"
+      }
+    }
+  },
+  {
+    "link": {
+      "~/.config/i3/config": {
+        "path": "config"
+      }
+    }
+  }
+]

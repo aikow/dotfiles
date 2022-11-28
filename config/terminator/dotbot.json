@@ -1,0 +1,16 @@
+[
+  {
+    "defaults": {
+      "link": {
+        "if": "command -v terminator &>/dev/null"
+      }
+    }
+  },
+  {
+    "link": {
+      "~/.config/terminator/config": {
+        "path": "config"
+      }
+    }
+  }
+]

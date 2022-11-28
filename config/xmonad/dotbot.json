@@ -1,0 +1,16 @@
+[
+  {
+    "defaults": {
+      "link": {
+        "if": "command -v xmonad &>/dev/null"
+      }
+    }
+  },
+  {
+    "link": {
+      "~/.xmonad": {
+        "path": "."
+      }
+    }
+  }
+]

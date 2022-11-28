@@ -1,0 +1,17 @@
+[
+  {
+    "defaults": {
+      "link": {
+        "if": "command -v rofi &>/dev/null"
+      }
+    }
+  },
+  {
+    "link": {
+      "~/.config/rofi/config.rasi": {
+        "create": true,
+        "path": "config.rasi"
+      }
+    }
+  }
+]

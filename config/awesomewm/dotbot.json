@@ -1,0 +1,16 @@
+[
+  {
+    "defaults": {
+      "link": {
+        "if": "command -v awesome &>/dev/null"
+      }
+    }
+  },
+  {
+    "link": {
+      "~/.config/awesome": {
+        "path": "."
+      }
+    }
+  }
+]

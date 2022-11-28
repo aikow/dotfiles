@@ -1,0 +1,10 @@
+[
+  {
+    "shell": [
+      {
+        "command": "./bootstrap-perl.sh",
+        "description": "Bootstrapping perl"
+      }
+    ]
+  }
+]

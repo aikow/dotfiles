@@ -1,0 +1,18 @@
+[
+  {
+    "defaults": {
+      "link": {
+        "if": "command -v wezterm &>/dev/null"
+      }
+    }
+  },
+  {
+    "link": {
+      "~/.config/wezterm": {
+        "force": true,
+        "relink": true,
+        "path": "."
+      }
+    }
+  }
+]

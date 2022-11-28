@@ -1,0 +1,16 @@
+[
+  {
+    "defaults": {
+      "link": {
+        "if": "command -v picom &>/dev/null"
+      }
+    }
+  },
+  {
+    "link": {
+      "~/.config/picom/picom.conf": {
+        "path": "picom.conf"
+      }
+    }
+  }
+]

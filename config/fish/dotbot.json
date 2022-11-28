@@ -1,0 +1,11 @@
+[
+  {
+    "link": {
+      "~/.config/fish": {
+        "force": true,
+        "if": "command -v fish &>/dev/null",
+        "path": "."
+      }
+    }
+  }
+]

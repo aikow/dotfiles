@@ -1,0 +1,9 @@
+[
+  {
+    "link": {
+      "~/.vimrc": {
+        "path": "light.vim"
+      }
+    }
+  }
+]

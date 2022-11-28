@@ -1,0 +1,29 @@
+[
+  {
+    "defaults": {
+      "link": {
+        "if": "command -v zsh &>/dev/null"
+      }
+    }
+  },
+  {
+    "shell": [
+      {
+        "command": "./bootstrap-zinit.sh",
+        "description": "Bootstrapping zinit"
+      }
+    ]
+  },
+  {
+    "link": {
+      "~/.zshenv": {
+        "force": true,
+        "path": "zshenv"
+      },
+      "~/.zshrc": {
+        "force": true,
+        "path": "zshrc"
+      }
+    }
+  }
+]

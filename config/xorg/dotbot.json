@@ -1,0 +1,16 @@
+[
+  {
+    "defaults": {
+      "link": {
+        "if": "[[ $(uname) = Linux ]]"
+      }
+    }
+  },
+  {
+    "link": {
+      "~/.Xresources": {
+        "path": "xresources"
+      }
+    }
+  }
+]

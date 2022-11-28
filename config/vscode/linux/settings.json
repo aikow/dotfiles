@@ -43,40 +43,85 @@
   "vim.neovimPath": "/usr/bin/nvim",
   "vim.normalModeKeyBindingsNonRecursive": [
     {
-      "before": ["]", "e"],
-      "commands": ["editor.action.marker.next"]
+      "before": [
+        "]",
+        "e"
+      ],
+      "commands": [
+        "editor.action.marker.next"
+      ]
     },
     {
-      "before": ["[", "e"],
-      "commands": ["editor.action.marker.prev"]
+      "before": [
+        "[",
+        "e"
+      ],
+      "commands": [
+        "editor.action.marker.prev"
+      ]
     },
     {
-      "before": ["]", "e"],
-      "commands": ["editor.action.marker.nextInFiles"]
+      "before": [
+        "]",
+        "e"
+      ],
+      "commands": [
+        "editor.action.marker.nextInFiles"
+      ]
     },
     {
-      "before": ["[", "e"],
-      "commands": ["editor.action.marker.prevInFiles"]
+      "before": [
+        "[",
+        "e"
+      ],
+      "commands": [
+        "editor.action.marker.prevInFiles"
+      ]
     },
     {
-      "before": ["<leader>", "b"],
-      "commands": ["bookmarks.list"]
+      "before": [
+        "<leader>",
+        "b"
+      ],
+      "commands": [
+        "bookmarks.list"
+      ]
     },
     {
-      "before": ["<leader>", "m"],
-      "commands": ["bookmarks.toggle"]
+      "before": [
+        "<leader>",
+        "m"
+      ],
+      "commands": [
+        "bookmarks.toggle"
+      ]
     },
     {
-      "before": ["<leader>", "p"],
-      "commands": ["workbench.action.showCommands"]
+      "before": [
+        "<leader>",
+        "p"
+      ],
+      "commands": [
+        "workbench.action.showCommands"
+      ]
     },
     {
-      "before": ["<leader>", "o"],
-      "commands": ["workbench.action.quickOpen"]
+      "before": [
+        "<leader>",
+        "o"
+      ],
+      "commands": [
+        "workbench.action.quickOpen"
+      ]
     },
     {
-      "before": ["leader", "w"],
-      "commands": ["workbench.action.files.save"]
+      "before": [
+        "leader",
+        "w"
+      ],
+      "commands": [
+        "workbench.action.files.save"
+      ]
     }
   ],
   "vim.smartRelativeLine": true,
@@ -87,5 +132,5 @@
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "editor.tabSize": 2,
-  "latex-workshop.latex.outDir": "%DIR%/build",
+  "latex-workshop.latex.outDir": "%DIR%/build"
 }

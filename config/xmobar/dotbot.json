@@ -1,0 +1,16 @@
+[
+  {
+    "defaults": {
+      "link": {
+        "if": "command -v xmobar &>/dev/null"
+      }
+    }
+  },
+  {
+    "link": {
+      "~/.config/xmobar": {
+        "path": "."
+      }
+    }
+  }
+]
