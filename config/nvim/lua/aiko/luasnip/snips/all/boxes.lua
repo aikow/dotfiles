@@ -118,6 +118,8 @@ local comment = function(part)
     if c ~= "" then
       c = c .. " "
     end
+
+    return c
   end, {})
 end
 
