@@ -9,10 +9,12 @@
     "create": [
       "~/.bin",
       "~/.config",
+      "~/.local/bin",
       "~/.local/config",
       "~/workspace",
-      "~/workspace/repos",
-      "~/workspace/lib"
+      "~/workspace/lib",
+      "~/workspace/playground",
+      "~/workspace/repos"
     ]
   },
   {
