@@ -9,6 +9,7 @@
   {
     "link": {
       "~/.config/xmobar": {
+        "relink": true,
         "path": "."
       }
     }

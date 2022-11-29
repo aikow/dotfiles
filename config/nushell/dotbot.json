@@ -3,10 +3,12 @@
     "link": {
       "~/.config/nushell": {
         "if": "command -v nu &>/dev/null && [[ $(uname) = Linux ]]",
+        "relink": true,
         "path": "."
       },
       "~/Library/Application Support/nushell": {
         "if": "command -v nu &>/dev/null && [[ $(uname) = Darwin ]]",
+        "relink": true,
         "path": "."
       }
     }
