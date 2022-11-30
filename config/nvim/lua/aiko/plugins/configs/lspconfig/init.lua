@@ -11,6 +11,7 @@ M.Server = Server
 M.servers = {
   "bashls",
   "clangd",
+  "dockerls",
   "gopls",
   "jsonls",
   "ltex",
