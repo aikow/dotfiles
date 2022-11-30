@@ -44,7 +44,8 @@ module completions {
 
   # Download objects and refs from another repository
   export extern "git fetch" [
-    repository?: string@"nu-complete git remotes" # name of the branch to fetch
+    repository?: string@"nu-complete git remotes" # name of the repository to fetch
+    branch?: string@"nu-complete git branches" # name of the branch to fetch
     --all                                         # Fetch all remotes
     --append(-a)                                  # Append ref names and object names to .git/FETCH_HEAD
     --atomic                                      # Use an atomic transaction to update local refs.
@@ -88,7 +89,7 @@ module completions {
     --no-show-forced-updates                      # Don't check if a branch is force-updated
     -4                                            # Use IPv4 addresses, ignore IPv6 addresses
     -6                                            # Use IPv6 addresses, ignore IPv4 addresses
-    --help                                        # Display this help message 
+    --help                                        # Display the help message for this command
   ]
 
   # Check out git branches and files
@@ -115,7 +116,7 @@ module completions {
     -b: string                                      # create and checkout a new branch
     -B: string                                      # create/reset and checkout a branch
     -l                                              # create reflog for new branch
-    --help                                          # Display this help message
+    --help                                          # Display the help message for this command
   ]
 
   # Push changes
@@ -128,7 +129,7 @@ module completions {
     --dry-run(-n)                                   # dry run
     --exec: string                                  # receive pack program
     --follow-tags                                   # push missing but relevant tags
-    --force-with-lease: string                      # require old value of ref to be at this value
+    --force-with-lease                              # require old value of ref to be at this value
     --force(-f)                                     # force updates
     --ipv4(-4)                                      # use IPv4 addresses only
     --ipv6(-6)                                      # use IPv6 addresses only
@@ -147,7 +148,7 @@ module completions {
     --tags                                          # push tags (can't be used with --all or --mirror)
     --thin                                          # use thin pack
     --verbose(-v)                                   # be more verbose
-    --help                                          # Display this help message
+    --help                                          # Display the help message for this command
   ]
 }
 
@@ -156,7 +157,7 @@ use completions *
 
 # for more information on themes see
 # https://www.nushell.sh/book/coloring_and_theming.html
-let default_theme = {
+let dark_theme = {
     # color for nushell primitives
     separator: white
     leading_trailing_space_bg: { attr: n } # no fg, no bg, attr none effectively turns this off
@@ -200,39 +201,125 @@ let default_theme = {
     shape_record: cyan_bold
     shape_block: blue_bold
     shape_filepath: cyan
+    shape_directory: cyan
     shape_globpattern: cyan_bold
     shape_variable: purple
     shape_flag: blue_bold
     shape_custom: green
     shape_nothing: light_cyan
+    shape_matching_brackets: { attr: u }
 }
+
+let light_theme = {
+    # color for nushell primitives
+    separator: dark_gray
+    leading_trailing_space_bg: { attr: n } # no fg, no bg, attr none effectively turns this off
+    header: green_bold
+    empty: blue
+    bool: dark_gray
+    int: dark_gray
+    filesize: dark_gray
+    duration: dark_gray
+    date: dark_gray
+    range: dark_gray
+    float: dark_gray
+    string: dark_gray
+    nothing: dark_gray
+    binary: dark_gray
+    cellpath: dark_gray
+    row_index: green_bold
+    record: white
+    list: white
+    block: white
+    hints: dark_gray
+
+    # shapes are used to change the cli syntax highlighting
+    shape_garbage: { fg: "#FFFFFF" bg: "#FF0000" attr: b}
+    shape_binary: purple_bold
+    shape_bool: light_cyan
+    shape_int: purple_bold
+    shape_float: purple_bold
+    shape_range: yellow_bold
+    shape_internalcall: cyan_bold
+    shape_external: cyan
+    shape_externalarg: green_bold
+    shape_literal: blue
+    shape_operator: yellow
+    shape_signature: green_bold
+    shape_string: green
+    shape_string_interpolation: cyan_bold
+    shape_datetime: cyan_bold
+    shape_list: cyan_bold
+    shape_table: blue_bold
+    shape_record: cyan_bold
+    shape_block: blue_bold
+    shape_filepath: cyan
+    shape_directory: cyan
+    shape_globpattern: cyan_bold
+    shape_variable: purple
+    shape_flag: blue_bold
+    shape_custom: green
+    shape_nothing: light_cyan
+    shape_matching_brackets: { attr: u }
+}
+
+# External completer example
+# let carapace_completer = {|spans| 
+#     carapace $spans.0 nushell $spans | from json
+# }
+
 
 # The default config record. This is where much of your global configuration is setup.
 let-env config = {
-  filesize_metric: false
-  table_mode: rounded # basic, compact, compact_double, light, thin, with_love, rounded, reinforced, heavy, none, other
-  use_ls_colors: true
-  rm_always_trash: false
-  color_config: $default_theme
+  ls: {
+    use_ls_colors: true # use the LS_COLORS environment variable to colorize output
+    clickable_links: true # enable or disable clickable links. Your terminal has to support links.
+  }
+  rm: {
+    always_trash: false # always act as if -t was given. Can be overridden with -p
+  }
+  cd: {
+    abbreviations: true # allows `cd s/o/f` to expand to `cd some/other/folder`
+  }
+  table: {
+    mode: rounded # basic, compact, compact_double, light, thin, with_love, rounded, reinforced, heavy, none, other
+    index_mode: always # "always" show indexes, "never" show indexes, "auto" = show indexes when a table has "index" column
+    trim: {
+      methodology: wrapping # wrapping or truncating
+      wrapping_try_keep_words: true # A strategy used by the 'wrapping' methodology
+      truncating_suffix: "..." # A suffix used by the 'truncating' methodology
+    }
+  }
+  history: {
+    max_size: 10000 # Session has to be reloaded for this to take effect
+    sync_on_enter: true # Enable to share history between multiple sessions, else you have to close the session to write history to file
+    file_format: "plaintext" # "sqlite" or "plaintext"
+  }
+  completions: {
+    case_sensitive: false # set to true to enable case-sensitive completions
+    quick: true  # set this to false to prevent auto-selecting completions when only one remains
+    partial: true  # set this to false to prevent partial filling of the prompt
+    algorithm: "fuzzy"  # prefix or fuzzy
+    external: {
+      enable: true # set to false to prevent nushell looking into $env.PATH to find more suggestions, `false` recommended for WSL users as this look up my be very slow
+      max_results: 100 # setting it lower can improve completion performance at the cost of omitting some options
+      completer: null # check 'carapace_completer' above as an example
+    }
+  }
+  filesize: {
+    metric: true # true => KB, MB, GB (ISO standard), false => KiB, MiB, GiB (Windows standard)
+    format: "auto" # b, kb, kib, mb, mib, gb, gib, tb, tib, pb, pib, eb, eib, zb, zib, auto
+  }
+  color_config: $dark_theme   # if you want a light theme, replace `$dark_theme` to `$light_theme`
   use_grid_icons: true
-  show_banner: false
-  footer_mode: "auto" # always, never, number_of_rows, auto
-  quick_completions: false  # set this to false to prevent auto-selecting completions when only one remains
-  partial_completions: true  # set this to false to prevent partial filling of the prompt
-  completion_algorithm: "fuzzy"  # prefix, fuzzy
+  footer_mode: "25" # always, never, number_of_rows, auto
   float_precision: 2
   # buffer_editor: "emacs" # command that will be used to edit the current line buffer with ctrl+o, if unset fallback to $env.EDITOR and $env.VISUAL
   use_ansi_coloring: true
-  filesize_format: "auto" # b, kb, kib, mb, mib, gb, gib, tb, tib, pb, pib, eb, eib, zb, zib, auto
   edit_mode: vi # emacs, vi
-  max_history_size: 10000 # Session has to be reloaded for this to take effect
-  sync_history_on_enter: true # Enable to share the history between multiple sessions, else you have to close the session to persist history to file
-  history_file_format: "plaintext" # "sqlite" or "plaintext"
   shell_integration: true # enables terminal markers and a workaround to arrow keys stop working issue
-  cd_with_abbreviations: false # set to true to allow you to do things like cd s/o/f and nushell expand it to cd some/other/folder
-  case_sensitive_completions: false # set to true to enable case-sensitive completions
-  enable_external_completion: true # set to false to prevent nushell looking into $env.PATH to find more suggestions, `false` recommended for WSL users as this look up my be very slow
-
+  show_banner: true # true or false to enable or disable the banner
+  render_right_prompt_on_last_line: false # true or false to enable or disable right prompt to be rendered on last line of the prompt.
   hooks: {
     pre_prompt: [{
       $nothing  # replace with source code to run before the prompt is shown
@@ -244,6 +331,9 @@ let-env config = {
       PWD: [{|before, after|
         $nothing  # replace with source code to run if the PWD environment is different since the last repl input
       }]
+    }
+    display_output: {
+      if (term size).columns >= 100 { table -e } else { table }
     }
   }
   menus: [
@@ -367,9 +457,6 @@ let-env config = {
       }
   ]
   keybindings: [
-    # ------------------
-    # |   Completion   |
-    # ------------------
     {
       name: completion_menu
       modifier: none
@@ -378,7 +465,7 @@ let-env config = {
       event: {
         until: [
           { send: menu name: completion_menu }
-          { send: MenuNext }
+          { send: menunext }
         ]
       }
     }
@@ -387,13 +474,9 @@ let-env config = {
       modifier: shift
       keycode: backtab
       mode: [vi_normal, vi_insert] # Note: You can add the same keybinding to all modes by using a list
-      event: { send: MenuPrevious }
+      event: { send: menuprevious }
     }
 
-    # ---------------
-    # |   History   |
-    # ---------------
-    #
     # Use FZF for fuzzy history search
     {
       name: fuzzy_history
