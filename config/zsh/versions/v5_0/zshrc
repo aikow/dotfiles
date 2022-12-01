@@ -7,18 +7,11 @@ fi
 
 
 #######################################################################
-#                               Exports                               #
-#######################################################################
-
-export AWS_SHARED_CREDENTIALS_FILE=/root/.aws/credentials
-
-
-#######################################################################
 #                                 zinit                               #
 #######################################################################
 #
 # Source the zinit script
-source "${DOTFILES_ZSH}/zinit/zinit.zsh"
+source "${HOME}/.local/share/zinit/zinit.git/zinit.zsh"
 
 # Plugins
 zinit snippet OMZL::git.zsh
@@ -147,19 +140,13 @@ bind_function fzf_git_stash ^g^s
 bind_function fzf_k8s_pods ^g^p
 bind_function fzf_k8s_jobs ^g^j
 
-
-
 # Load completions
 autoload -U compinit && compinit
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
 
-
-#######################################################################
-#                               Sources                               #
-#######################################################################
-#
-# Load OS specific settings
-[[ -f "${DOTFILES_ZSH}/os/${OSTYPE}.zsh" ]] && source "${DOTFILES_ZSH}/os/${OSTYPE}.zsh" 
+# ------------------------------------------------------------------------------
+# |                                   Sources                                  |
+# ------------------------------------------------------------------------------
 
 # Source fzf if installed
 [[ -f ~/.fzf.zsh ]] && source ~/.fzf.zsh
