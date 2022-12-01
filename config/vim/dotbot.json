@@ -2,7 +2,8 @@
   {
     "link": {
       "~/.vimrc": {
-        "path": "light.vim"
+        "relink": true,
+        "path": "full.vim"
       }
     }
   }
