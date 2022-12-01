@@ -3,8 +3,8 @@
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "
 " Automatically try to install vim-plug if it not already installed.
-set rtp+=~/.local/vim
-let data_dir = has('nvim') ? stdpath('data') . '/site' : expand('~/.local/vim')
+set rtp+=~/.local/share/vim
+let data_dir = has('nvim') ? stdpath('data') . '/site' : expand('~/.local/share/vim')
 if empty(glob(data_dir . '/autoload/plug.vim'))
   echom "Installing vim-plug, " . data_dir . '/autoload/plug.vim was empty' 
   silent execute '!curl -fLo ' . data_dir . '/autoload/plug.vim --create-dirs 
@@ -84,14 +84,11 @@ Plug 'aikow/vim-fish'
 "                                Color Themes                                "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Plugins for color themes
-Plug 'dylanaraps/wal'
-Plug 'fenetikm/falcon'
 Plug 'joshdick/onedark.vim'
 Plug 'arcticicestudio/nord-vim'
 Plug 'sainnhe/everforest'
 Plug 'sainnhe/gruvbox-material'
 Plug 'shinchu/lightline-gruvbox.vim'
-Plug 'morhetz/gruvbox'
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
