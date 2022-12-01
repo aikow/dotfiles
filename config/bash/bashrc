@@ -8,9 +8,8 @@ export DOTFILES="${HOME}/.dotfiles"
 export DOTFILES_BASH="${DOTFILES}/config/bash"
 export DOTFILES_SH="${DOTFILES}/config/sh"
 export LOCAL_CONFIG="${HOME}/.local/config"
-export PATH="${HOME}/.bin:${DOTFILES}/bin:${HOME}/.local/bin:/usr/local/bin:/opt/vc/bin:${PATH}"
+export PATH="${HOME}/.local/bin:${DOTFILES}/bin:/usr/local/bin:/opt/vc/bin:${PATH}"
 
-export MY_SHELL="bash"
 export LC_ALL=en_US.UTF-8
 
 ### Editor ###

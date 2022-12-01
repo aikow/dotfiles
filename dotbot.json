@@ -7,7 +7,6 @@
   },
   {
     "create": [
-      "~/.bin",
       "~/.config",
       "~/.local/bin",
       "~/.local/config",
