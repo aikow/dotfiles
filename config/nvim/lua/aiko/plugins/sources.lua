@@ -133,6 +133,11 @@ return {
     module = "telescope._extensions.luasnip",
   },
 
+  ["ibhagwan/fzf-lua"] = {
+    cmd = "FzfLua",
+    module = "fzf-lua",
+  },
+
   -- -------------------
   -- |   Tree-Sitter   |
   -- -------------------

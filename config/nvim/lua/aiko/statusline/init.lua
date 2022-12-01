@@ -5,6 +5,7 @@ local M = {}
 M.filetype_excludes_winbar = {
   "help",
   "alpha",
+  "fzf",
   "packer",
   "mason",
   "DressingInput",
