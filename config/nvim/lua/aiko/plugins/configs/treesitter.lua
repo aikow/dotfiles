@@ -76,7 +76,6 @@ M.setup = function()
     textobjects = {
       select = {
         enable = true,
-        disable = { "rust" },
         lookahead = true, -- Automatically jump forward to textobj, similar to targets.vim
         keymaps = {
           -- You can use the capture groups defined in textobjects.scm
@@ -95,7 +94,6 @@ M.setup = function()
       },
       move = {
         enable = true,
-        disable = { "rust" },
         set_jumps = true, -- whether to set jumps in the jumplist
         goto_next_start = {
           ["]m"] = "@function.outer",
@@ -116,7 +114,6 @@ M.setup = function()
       },
       swap = {
         enable = true,
-        disable = { "rust" },
         swap_next = {
           ["]a"] = "@parameter.inner",
         },
