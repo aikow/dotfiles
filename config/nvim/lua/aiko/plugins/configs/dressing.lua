@@ -10,7 +10,9 @@ M.setup = function()
     input = {
       insert_only = false,
       start_in_insert = true,
-      winhighlight = "NormalFloat:DiagnosticError",
+      win_options = {
+        winhighlight = "NormalFloat:DiagnosticError",
+      },
     },
     select = {
       backend = { "telescope" },
