@@ -41,6 +41,12 @@
           "python"
         ],
         "path": "./snippets/python.json"
+      },
+      {
+        "language": [
+          "rust"
+        ],
+        "path": "./snippets/rust.json"
       }
     ]
   }
