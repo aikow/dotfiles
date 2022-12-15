@@ -157,7 +157,7 @@ M.mappings = function()
     require("telescope.builtin").resume()
   end, { silent = true, desc = "telescope reopen last telescope window" })
 
-  map("n", "<leader>d", function()
+  map("n", "<leader>do", function()
     require("telescope.builtin").diagnostics()
   end, { silent = true, desc = "telescope open diagnostics" })
 

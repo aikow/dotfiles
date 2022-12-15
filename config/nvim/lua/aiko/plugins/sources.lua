@@ -510,12 +510,12 @@ return {
 
   -- Render code into pictures with silicon.
   ["krivahtoo/silicon.nvim"] = {
-    run = "./install.sh",
+    run = "./install.sh build",
     cmd = "Silicon",
     module = "silicon",
     config = function()
       require("silicon").setup({
-        font = "Hack Nerd Font=20",
+        font = "FiraCode=20",
         theme = "Monokai Extended",
       })
     end,
