@@ -32,7 +32,7 @@ M.setup = function()
   map("n", "gO", "<cmd>SymbolsOutline<CR>", opts("LSP symbols outline"))
 
   -- Diagnostics
-  map("n", "<leader>e", d.open_float, opts("diagnostic open float"))
+  map("n", "<leader>df", d.open_float, opts("diagnostic open float"))
   map({ "n", "v", "o" }, "[e", d.goto_prev, opts("go to previous diagnostic"))
   map({ "n", "v", "o" }, "]e", d.goto_next, opts("go to next diagnostic"))
   map("n", "<leader>dl", d.setloclist, opts("diagnostic set location list"))
