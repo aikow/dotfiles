@@ -1,8 +1,8 @@
 # ----------------------
 # |   Configure PATH   |
 # ----------------------
-fish_add_path --path --move $HOME/.cargo/bin
-fish_add_path --path --move $HOME/go/bin
+fish_add_path --path --move $HOME/.local/share/go/bin
+fish_add_path --path --move $HOME/.local/share/cargo/bin
 fish_add_path --path --move $DOTFILES_BIN
 fish_add_path --path --move $HOME/.local/bin
 
