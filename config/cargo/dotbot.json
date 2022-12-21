@@ -1,7 +1,8 @@
 [
   {
     "link": {
-      "~/.cargo/config.toml": {
+      "~/.local/share/cargo/config.toml": {
+        "create": true,
         "path": "config.toml"
       }
     }
