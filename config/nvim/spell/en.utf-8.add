@@ -53,6 +53,7 @@ treesitter
 truecasing
 uncapitalized
 unicode
+Unigram
 unpunctuated
 untokenized
 UUID
