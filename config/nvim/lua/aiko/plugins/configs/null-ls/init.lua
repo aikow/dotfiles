@@ -23,16 +23,14 @@ M.setup = function()
         end,
       }),
 
-      -- Python formatting with black.
+      -- Python
       builtins.formatting.black,
+      builtins.diagnostics.ruff,
 
-      -- Python linting with ruff.
-      -- require("aiko.plugins.configs.null-ls.ruff")
-
-      -- JSON formatting with jq.
+      -- JSON
       builtins.formatting.jq,
 
-      -- YAML formatting with yamlfmt.
+      -- YAML
       builtins.formatting.yamlfmt.with({
         extra_args = {
           "-conf",
