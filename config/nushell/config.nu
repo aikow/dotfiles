@@ -329,11 +329,12 @@ let-env config = {
     }]
     env_change: {
       PWD: [{|before, after|
+        ls
         $nothing  # replace with source code to run if the PWD environment is different since the last repl input
       }]
     }
     display_output: {
-      if (term size).columns >= 100 { table -e } else { table }
+      if (term size).columns >= 180 { table -e } else { table }
     }
   }
   menus: [
