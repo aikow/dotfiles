@@ -333,9 +333,9 @@ let-env config = {
         $nothing  # replace with source code to run if the PWD environment is different since the last repl input
       }]
     }
-    display_output: {
-      if (term size).columns >= 180 { table -e } else { table }
-    }
+    # display_output: {
+    #   if (term size).columns >= 180 { table -e } else { table }
+    # }
   }
   menus: [
       # Configuration for default nushell menus

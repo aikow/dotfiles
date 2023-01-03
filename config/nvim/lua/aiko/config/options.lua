@@ -118,8 +118,6 @@ opt.ruler = false -- Don't show column and row position, handled by theme.
 opt.textwidth = 80
 opt.colorcolumn = { 80 }
 
--- Enable relative numbers, but display the line number in the current line.
-opt.relativenumber = false
 opt.number = true
 opt.numberwidth = 2
 

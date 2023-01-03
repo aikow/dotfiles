@@ -23,8 +23,7 @@ luarocks install --local jsregexp
 
 ## To Do
 
-- [ ] Cleanup LSP config.
-- [ ] Add workspace features.
+- [ ] Cleanup LSP config
 - [ ] Clean up the status line by generalizing modules
 
 ## Tree-Sitter Parsers
@@ -33,3 +32,11 @@ luarocks install --local jsregexp
 
 With an active conda environment, the python `gcc` package can cause issues.
 Simply deactivating the conda environment should fix them.
+
+### `c++11 extension` errors
+
+On macos, start nvim with
+```bash
+CC=gcc-12 nvim
+```
+to use the gcc-12 compiler.

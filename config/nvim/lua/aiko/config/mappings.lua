@@ -5,17 +5,16 @@
 -- ---------------
 --
 -- | leader<key> | Layered | Category                       |
--- | ----------- |         | ------------------------       |
+-- | ----------- | ------- | ------------------------------ |
 -- | c           |         | Change text up to next _       |
 -- | d           |         | Diagnostics                    |
--- | e           |         | Open diagnostic window         |
 -- | f           |         | Find                           |
 -- | g           | Yes     | Git                            |
 -- | h           |         | Vim internal settings and help |
 -- | i           |         | Telescope previous picker      |
 -- | j           |         | Telescope LSP                  |
 -- | k           |         | LSP signature help             |
--- | l           |         | Builtin LSP                    |
+-- | l           |         | LSP                            |
 -- | o           |         | Telescope find files           |
 -- | p           |         | Telescope buffers              |
 -- | r           |         | Refactoring                    |
@@ -23,41 +22,11 @@
 -- | v           |         | Tree-Sitter select region      |
 -- | w           |         | Write current file             |
 -- | W           |         | Write all files                |
+-- | z           |         | Fzf lua                        |
 -- | <leader>    |         | Switch to most recent buffer   |
 -- | ;           |         | Telescope commands             |
 
 local map = vim.keymap.set
-
--- Vim tmux navigator keybindings to seamlessly switch between vim and tmux
--- panes.
-
--- local n = {
---   ["<M-h>"] = {
---     cmd = vim.cmd.TmuxNavigateLeft,
---     silent = true,
---     desc = "tmux navigate left",
---   },
---   ["<M-j>"] = {
---     cmd = vim.cmd.TmuxNavigateDown,
---     silent = true,
---     desc = "tmux navigate down",
---   },
---   ["<M-k>"] = {
---     cmd = vim.cmd.TmuxNavigateUp,
---     silent = true,
---     desc = "tmux navigate up",
---   },
---   ["<M-l>"] = {
---     cmd = vim.cmd.TmuxNavigateRight,
---     silent = true,
---     desc = "tmux navigate right",
---   },
---   ["<M-o>"] = {
---     cmd = vim.cmd.TmuxNavigatePrevious,
---     silent = true,
---     desc = "tmux navigate previous",
---   },
--- }
 
 map(
   "n",
@@ -174,8 +143,8 @@ map(
   "<cmd>source %<CR>",
   { silent = true, desc = "source lua or vimscript file" }
 )
-map("n", "<C-l>", [[:lua ]], { desc = "enter lua command" })
-map("n", "<C-l><C-l>", [[:lua =]], { desc = "display lua expression" })
+map("n", "<M-l>", [[:lua ]], { desc = "enter lua command" })
+map("n", "<M-l><M-l>", [[:lua =]], { desc = "display lua expression" })
 
 -- Search history on command line
 map("c", "<C-p>", "<Up>")
@@ -186,13 +155,9 @@ map("n", "<leader><leader>", "<c-^>", { desc = "switch to most recent buffer" })
 
 -- More ergonomic normal mode from integrated terminal.
 map("t", "<M-e>", [[<c-\><C-n>]])
-
 map("n", "<M-s>", [[<cmd>split term://fish<CR>]], { silent = true })
 map("n", "<M-v>", [[<cmd>vsplit term://fish<CR>]], { silent = true })
 map("n", "<M-t>", [[<cmd>terminal fish<CR>]], { silent = true })
-map("n", "<M-f>", function()
-  -- TODO: Add floating terminal window.
-end, { silent = true })
 
 -- Navigate quickfix list
 map("n", "]q", "<cmd>cnext<CR>", { desc = "cnext" })
@@ -277,7 +242,6 @@ map("c", "%P", [[<C-R>=expand('%:p')<CR>]])
 
 -- Faster write/save current buffer
 map("n", "<leader>w", "<cmd>write<CR>", { desc = "write" })
-map("n", "<leader>W", "<cmd>wall<CR>", { desc = "write all" })
 
 -- Faster pane resizing
 map("n", "<C-w><", "5<C-w><")
@@ -290,8 +254,8 @@ map("n", "<C-w>+", "5<C-w>+")
 -- -----------------------
 require("aiko.plugins.configs.telescope").mappings()
 require("aiko.plugins.configs.nvim-tree").mappings()
+require("aiko.plugins.configs.fzf-lua").mappings()
 -- require("aiko.plugins.configs.neotree").mappings()
--- require("aiko.plugins.configs.lspconfig").mappings()
 
 -- Create a <nop> mapping for <leader>r so that I do not keep accidentally
 -- replacing characters if the LSP server is not attached yet.
