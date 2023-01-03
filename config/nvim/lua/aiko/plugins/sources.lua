@@ -508,19 +508,6 @@ return {
     end,
   },
 
-  -- Render code into pictures with silicon.
-  ["krivahtoo/silicon.nvim"] = {
-    run = "./install.sh build",
-    cmd = "Silicon",
-    module = "silicon",
-    config = function()
-      require("silicon").setup({
-        font = "FiraCode=20",
-        theme = "Monokai Extended",
-      })
-    end,
-  },
-
   -- ---------------------
   -- |   Color Schemes   |
   -- ---------------------
