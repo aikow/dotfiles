@@ -501,7 +501,6 @@ return {
   -- Neorg integrations with `telescope.nvim`.
   {
     "nvim-neorg/neorg-telescope",
-    dependencies = "telescope",
     ft = "norg",
   },
 
@@ -511,7 +510,7 @@ return {
     version = "*",
     ft = "norg",
     cmd = "Neorg",
-    dependencies = "neorg-telescope",
+    dependencies = "nvim-neorg/neorg-telescope",
     config = function()
       require("aiko.plugins.configs.neorg").setup()
     end,

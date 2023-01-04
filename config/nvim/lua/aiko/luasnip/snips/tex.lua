@@ -180,12 +180,14 @@ local snip = function(mode, trig, desc, nodes, opts)
   local modeopts = {
     r = function()
       regTrig = true
+      wordTrig = false
     end,
     i = function()
       wordTrig = false
     end,
     w = function()
-      wordTrig = false
+      regTrig = false
+      wordTrig = true
     end,
     A = function()
       autoexpand = true
