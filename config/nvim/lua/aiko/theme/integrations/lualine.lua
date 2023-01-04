@@ -1,43 +1,53 @@
 local M = {}
 
-M.palette = function(_, colors)
-  return {
+M.setup = function(_, colors)
+  local theme = {
     normal = {
-      a = { bg = colors.green, fg = colors.bg0, gui = "bold" },
-      b = { bg = colors.bg3, fg = colors.fg },
-      c = { bg = colors.bg1, fg = colors.fg },
+      a = { bg = colors.nord_blue, fg = colors.black, gui = "bold" },
+      b = { bg = colors.lightbg, fg = colors.grey2 },
+      c = { bg = colors.statusline_bg, fg = colors.grey1 },
     },
     insert = {
-      a = { bg = colors.fg, fg = colors.bg0, gui = "bold" },
-      b = { bg = colors.bg3, fg = colors.fg },
-      c = { bg = colors.bg1, fg = colors.fg },
+      a = { bg = colors.dark_purple, fg = colors.black, gui = "bold" },
+      b = { bg = colors.lightbg, fg = colors.grey2 },
+      c = { bg = colors.statusline_bg, fg = colors.grey1 },
     },
     visual = {
-      a = { bg = colors.red, fg = colors.bg0, gui = "bold" },
-      b = { bg = colors.bg3, fg = colors.fg },
-      c = { bg = colors.bg1, fg = colors.fg },
+      a = { bg = colors.cyan, fg = colors.black, gui = "bold" },
+      b = { bg = colors.lightbg, fg = colors.grey2 },
+      c = { bg = colors.statusline_bg, fg = colors.grey1 },
     },
     replace = {
-      a = { bg = colors.orange, fg = colors.bg0, gui = "bold" },
-      b = { bg = colors.bg3, fg = colors.fg },
-      c = { bg = colors.bg1, fg = colors.fg },
+      a = { bg = colors.orange, fg = colors.black, gui = "bold" },
+      b = { bg = colors.lightbg, fg = colors.grey2 },
+      c = { bg = colors.statusline_bg, fg = colors.grey1 },
     },
     command = {
-      a = { bg = colors.aqua, fg = colors.bg0, gui = "bold" },
-      b = { bg = colors.bg3, fg = colors.fg },
-      c = { bg = colors.bg1, fg = colors.fg },
+      a = { bg = colors.green, fg = colors.black, gui = "bold" },
+      b = { bg = colors.lightbg, fg = colors.grey2 },
+      c = { bg = colors.statusline_bg, fg = colors.grey1 },
     },
     terminal = {
-      a = { bg = colors.purple, fg = colors.bg0, gui = "bold" },
-      b = { bg = colors.bg3, fg = colors.fg },
-      c = { bg = colors.bg1, fg = colors.fg },
+      a = { bg = colors.yellow, fg = colors.black, gui = "bold" },
+      b = { bg = colors.lightbg, fg = colors.grey2 },
+      c = { bg = colors.statusline_bg, fg = colors.grey1 },
     },
     inactive = {
-      a = { bg = colors.bg1, fg = colors.grey1, gui = "bold" },
-      b = { bg = colors.bg1, fg = colors.grey1 },
-      c = { bg = colors.bg1, fg = colors.grey1 },
+      a = { bg = colors.lightbg, fg = colors.gray, gui = "bold" },
+      b = { bg = colors.lightbg, fg = colors.grey2 },
+      c = { bg = colors.statusline_bg, fg = colors.grey1 },
     },
   }
+
+  local ok_lualine, lualine = pcall(require, "lualine")
+  if not ok_lualine then
+    return
+  end
+  lualine.setup({
+    options = {
+      theme = theme,
+    },
+  })
 end
 
 return M

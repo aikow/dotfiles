@@ -473,7 +473,7 @@ return {
   --
   -- Statusline, winbar.
   ["nvim-lualine/lualine.nvim"] = {
-    disable = true,
+    -- disable = true,
     config = function()
       require("aiko.plugins.configs.lualine").setup()
     end,

@@ -143,8 +143,8 @@ map(
   "<cmd>source %<CR>",
   { silent = true, desc = "source lua or vimscript file" }
 )
-map("n", "<M-l>", [[:lua ]], { desc = "enter lua command" })
-map("n", "<M-l><M-l>", [[:lua =]], { desc = "display lua expression" })
+map("n", "<C-l>", [[:lua ]], { desc = "enter lua command" })
+map("n", "<C-l><C-l>", [[:lua =]], { desc = "display lua expression" })
 
 -- Search history on command line
 map("c", "<C-p>", "<Up>")
