@@ -6,6 +6,12 @@ M.setup = function()
     return
   end
 
+  local cwd = function()
+    local filename = vim.fs.basename(vim.fn.getcwd())
+
+    return "  " .. filename
+  end
+
   local loc = function()
     local ok_nvim_navic, nvim_navic = pcall(require, "nvim-navic")
     if not ok_nvim_navic then
@@ -50,10 +56,10 @@ M.setup = function()
   lualine.setup({
     options = {
       icons_enabled = true,
-      theme = "auto",
+      -- theme = "auto",
       -- component_separators = { left = "", right = "" },
-      -- component_separators = { left = '', right = '' },
-      component_separators = { left = "|", right = "|" },
+      component_separators = { left = "", right = "" },
+      -- component_separators = { left = "|", right = "|" },
       -- section_separators = { left = "", right = "" },
       section_separators = { left = "", right = "" },
       disabled_filetypes = {
@@ -71,68 +77,54 @@ M.setup = function()
     },
     sections = {
       lualine_a = { "mode" },
-      lualine_b = { "branch", "diff", "diagnostics" },
-      lualine_c = { "filename", loc },
+      lualine_b = { cwd, "branch" },
+      lualine_c = { "diff" },
       lualine_x = { lsp_progress },
-      lualine_y = { "encoding", "fileformat", "filetype" },
-      lualine_z = { "%p%%", "%l/%L:%c" },
+      lualine_y = { "diagnostics" },
+      lualine_z = { "%l:%c", "%L" },
     },
-    inactive_sections = {
-      lualine_a = {},
+    -- inactive_sections = {
+    --   lualine_a = {},
+    --   lualine_b = {},
+    --   lualine_c = { "filename" },
+    --   lualine_x = { "location" },
+    --   lualine_y = {},
+    --   lualine_z = {},
+    -- },
+    -- tabline = {
+    --   lualine_a = {
+    --     {
+    --       "tabs",
+    --       max_length = vim.o.columns / 3,
+    --       mode = 2,
+    --     },
+    --   },
+    --   lualine_b = {},
+    --   lualine_c = {},
+    --   lualine_x = {},
+    --   lualine_y = {},
+    --   lualine_z = {
+    --     {
+    --       "windows",
+    --       max_length = vim.o.columns / 3,
+    --     },
+    --   },
+    -- },
+    winbar = {
+      lualine_a = { "filename" },
       lualine_b = {},
-      lualine_c = { "filename" },
-      lualine_x = { "location" },
+      lualine_c = { loc },
+      lualine_x = { "encoding", "fileformat", "filetype" },
       lualine_y = {},
       lualine_z = {},
     },
-    tabline = {
-      lualine_a = {
-        {
-          "tabs",
-          max_length = vim.o.columns / 3,
-          mode = 2,
-        },
-      },
-      lualine_b = {},
-      lualine_c = {},
-      lualine_x = {},
-      lualine_y = {},
-      lualine_z = {
-        {
-          "windows",
-          max_length = vim.o.columns / 3,
-        },
-      },
-    },
-    winbar = {
-      -- lualine_a = {},
-      -- lualine_b = {},
-      -- lualine_c = {
-      --   {
-      --     "filetype",
-      --     icon_only = true
-      --   },
-      --   "filename",
-      --   loc
-      -- },
-      -- lualine_x = { "encoding", "fileformat", "filetype" },
-      -- lualine_y = {},
-      -- lualine_z = {},
-    },
     inactive_winbar = {
-      -- lualine_a = {},
-      -- lualine_b = {},
-      -- lualine_c = {
-      --   {
-      --     "filetype",
-      --     icon_only = true,
-      --   },
-      --   "filename",
-      --   loc
-      -- },
-      -- lualine_x = { "encoding", "fileformat", "filetype" },
-      -- lualine_y = {},
-      -- lualine_z = {},
+      lualine_a = { "filename" },
+      lualine_b = {},
+      lualine_c = { loc },
+      lualine_x = { "encoding", "fileformat", "filetype" },
+      lualine_y = {},
+      lualine_z = {},
     },
     extensions = {
       "fugitive",

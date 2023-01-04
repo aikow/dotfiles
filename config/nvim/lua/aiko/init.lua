@@ -7,7 +7,7 @@ M.setup = function()
 
   -- Setup options, key-maps and personal auto commands.
   require("aiko.config").setup()
-  require("aiko.statusline").setup()
+  -- require("aiko.statusline").setup()
 end
 
 return M

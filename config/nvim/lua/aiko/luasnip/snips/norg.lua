@@ -38,10 +38,11 @@ local in_math = function()
       local row1, col1, row2, col2 = node:range()
 
       -- Check whether the cursor is in the range.
-      if (line == row1 and line == row2 and col > col1 and col < col2)
-          or (line > row1 and line < row2)
-          or (line == row1 and row1 ~= row2 and col > col1)
-          or (line == row2 and row1 ~= row2 and col < col2)
+      if
+        (line == row1 and line == row2 and col > col1 and col < col2)
+        or (line > row1 and line < row2)
+        or (line == row1 and row1 ~= row2 and col > col1)
+        or (line == row2 and row1 ~= row2 and col < col2)
       then
         return true
       end
@@ -190,20 +191,20 @@ local snip = function(mode, trig, desc, nodes, opts)
 
   -- Create the snippet.
   local node = s(
-  {
-    trig = trig,
-    wordTrig = wordTrig,
-    regTrig = regTrig,
-    dscr = desc,
-    snippetType = autoexpand and "autosnippet" or "snippet",
-    priority = prio,
-  },
-      nodes,
-      {
-        condition = condition,
-        show_condition = show_condition,
-        callbacks = callbacks,
-      }
+    {
+      trig = trig,
+      wordTrig = wordTrig,
+      regTrig = regTrig,
+      dscr = desc,
+      snippetType = autoexpand and "autosnippet" or "snippet",
+      priority = prio,
+    },
+    nodes,
+    {
+      condition = condition,
+      show_condition = show_condition,
+      callbacks = callbacks,
+    }
   )
 
   table.insert(snips, node)
@@ -526,7 +527,7 @@ snip(
     \begin{cases}
       <1>
     \end{cases}
-  ]] ,
+  ]],
     { i(1) }
   )
 )
@@ -540,7 +541,7 @@ snip(
       <1>: <2> &\longrightarrow <3> \\\\
       <4> &\longmapsto <5>(<6>) = <7>
     \end{align*}
-  ]] ,
+  ]],
     { i(1), i(2), i(3), i(4), rep(1), rep(4), i(0) }
   )
 )

@@ -2,7 +2,7 @@ local hexterm = require("aiko.util.colors")
 
 local M = {}
 
-M.integrations = {
+M.palettes = {
   "alpha",
   "blankline",
   "cmp",
@@ -11,13 +11,16 @@ M.integrations = {
   "devicons",
   "git",
   "lsp",
-  -- "lualine",
   "mason",
   "nvimtree",
-  "statusline",
+  -- "statusline",
   "syntax",
   "telescope",
   "treesitter",
+}
+
+M.integrations = {
+  "lualine",
 }
 
 local add_cterm_colors = function(color)
@@ -40,8 +43,8 @@ end
 ---@param group string
 ---@param colorscheme Colorscheme
 ---@return nil|table<string, string>
-M.load_hl = function(group, colorscheme)
-  local modpath = "aiko.theme.integrations." .. group
+M.load_palette = function(group, colorscheme)
+  local modpath = "aiko.theme.palettes." .. group
   local ok, mod = pcall(require, modpath)
   if not ok then
     vim.notify("Unable to load group " .. group)
@@ -49,6 +52,21 @@ M.load_hl = function(group, colorscheme)
   end
 
   return mod.palette(colorscheme.theme, colorscheme.colors)
+end
+
+---Run the setup code for an integration that doesn't need to return a list of
+---highlight groups
+---@param group string name of the integration
+---@param colorscheme Colorscheme the table of colors in the colorscheme.
+M.load_integration = function(group, colorscheme)
+  local modpath = "aiko.theme.integrations." .. group
+  local ok, mod = pcall(require, modpath)
+  if not ok then
+    vim.notify("Unable to load integration " .. group)
+    return
+  end
+
+  mod.setup(colorscheme.theme, colorscheme.colors)
 end
 
 ---Set the neovim color scheme based on the Colorscheme object.
@@ -66,8 +84,8 @@ M.paint = function(colorscheme)
   vim.opt.background = colorscheme.background or "dark"
 
   -- Load all integrations
-  for _, group in ipairs(M.integrations) do
-    local palette = M.load_hl(group, colorscheme)
+  for _, group in ipairs(M.palettes) do
+    local palette = M.load_palette(group, colorscheme)
     all = vim.tbl_extend("force", all, palette)
   end
 
@@ -81,6 +99,11 @@ M.paint = function(colorscheme)
   -- Override with the polish.
   for group, c in pairs(all) do
     vim.api.nvim_set_hl(0, group, c)
+  end
+
+  -- Load all other integrations
+  for _, group in ipairs(M.integrations) do
+    M.load_integration(group, colorscheme)
   end
 end
 
