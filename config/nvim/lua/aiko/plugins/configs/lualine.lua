@@ -1,5 +1,7 @@
 local M = {}
 
+local separators = require("aiko.ui.icons").separators
+
 M.setup = function()
   local ok_lualine, lualine = pcall(require, "lualine")
   if not ok_lualine then
@@ -56,15 +58,11 @@ M.setup = function()
   lualine.setup({
     options = {
       icons_enabled = true,
-      -- theme = "auto",
-      -- component_separators = { left = "", right = "" },
-      component_separators = { left = "", right = "" },
-      -- component_separators = { left = "|", right = "|" },
-      -- section_separators = { left = "", right = "" },
-      section_separators = { left = "", right = "" },
+      component_separators = separators.round.outline,
+      section_separators = separators.round.fill,
       disabled_filetypes = {
         statusline = {},
-        winbar = { "", "NvimTree", "neo-tree" },
+        winbar = { "NvimTree", "neo-tree" },
       },
       ignore_focus = {},
       always_divide_middle = true,
@@ -83,44 +81,17 @@ M.setup = function()
       lualine_y = { "diagnostics" },
       lualine_z = { "%l:%c", "%L" },
     },
-    -- inactive_sections = {
-    --   lualine_a = {},
-    --   lualine_b = {},
-    --   lualine_c = { "filename" },
-    --   lualine_x = { "location" },
-    --   lualine_y = {},
-    --   lualine_z = {},
-    -- },
-    -- tabline = {
-    --   lualine_a = {
-    --     {
-    --       "tabs",
-    --       max_length = vim.o.columns / 3,
-    --       mode = 2,
-    --     },
-    --   },
-    --   lualine_b = {},
-    --   lualine_c = {},
-    --   lualine_x = {},
-    --   lualine_y = {},
-    --   lualine_z = {
-    --     {
-    --       "windows",
-    --       max_length = vim.o.columns / 3,
-    --     },
-    --   },
-    -- },
     winbar = {
-      lualine_a = { "filename" },
-      lualine_b = {},
+      lualine_a = {},
+      lualine_b = { "filename" },
       lualine_c = { loc },
       lualine_x = { "encoding", "fileformat", "filetype" },
       lualine_y = {},
       lualine_z = {},
     },
     inactive_winbar = {
-      lualine_a = { "filename" },
-      lualine_b = {},
+      lualine_a = {},
+      lualine_b = { "filename" },
       lualine_c = { loc },
       lualine_x = { "encoding", "fileformat", "filetype" },
       lualine_y = {},
