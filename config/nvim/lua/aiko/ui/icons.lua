@@ -27,56 +27,56 @@ M.mason = {
 M.separators = {
   top_slant = {
     fill = {
-      left = " ",
-      right = " ",
+      right = " ",
+      left = " ",
     },
     outline = {
-      left = " ",
-      right = " ",
+      right = " ",
+      left = " ",
     },
   },
 
   bottom_slant = {
     fill = {
-      left = " ",
-      right = " ",
+      right = " ",
+      left = " ",
     },
     outline = {
-      left = " ",
-      right = " ",
+      right = " ",
+      left = " ",
     },
   },
 
   round = {
     fill = {
-      left = "",
-      right = "",
+      right = "",
+      left = "",
     },
     outline = {
-      left = "",
-      right = "",
+      right = "",
+      left = "",
     },
   },
 
   block = {
     fill = {
-      left = "█",
       right = "█",
+      left = "█",
     },
     outline = {
-      left = "|",
       right = "|",
+      left = "|",
     },
   },
 
   arrow = {
     fill = {
-      left = "",
-      right = "",
+      right = "",
+      left = "",
     },
     outline = {
-      left = "",
-      right = "",
+      right = "",
+      left = "",
     },
   },
 }
