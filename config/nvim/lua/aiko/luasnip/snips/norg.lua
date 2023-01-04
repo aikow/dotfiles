@@ -140,7 +140,7 @@ local snip = function(mode, trig, desc, nodes, opts)
       wordTrig = false
     end,
     w = function()
-      wordTrig = false
+      wordTrig = true
     end,
     A = function()
       autoexpand = true
