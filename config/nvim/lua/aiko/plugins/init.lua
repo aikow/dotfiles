@@ -27,6 +27,6 @@ M.setup = function()
   end
 
   lazy.setup(sources)
-  end
+end
 
 return M
