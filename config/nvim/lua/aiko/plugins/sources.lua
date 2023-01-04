@@ -529,6 +529,15 @@ return {
     end,
   },
 
+  -- Greeter
+  {
+    "goolord/alpha-nvim",
+    dependencies = { "nvim-tree/nvim-web-devicons" },
+    config = function()
+      require("aiko.plugins.configs.alpha").setup()
+    end,
+  },
+
   -- Override neovim default UI components for user input.
   {
     "stevearc/dressing.nvim",
