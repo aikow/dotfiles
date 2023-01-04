@@ -55,6 +55,19 @@ M.setup = function()
     return ""
   end
 
+  -- Hide the tabline if only one tab is opened.
+  vim.api.nvim_create_autocmd({ "VimEnter", "TabNew", "TabClosed" }, {
+    group = vim.api.nvim_create_augroup("LualineTab", {}),
+    callback = function()
+      local show = #vim.api.nvim_list_tabpages() > 1
+      vim.o.showtabline = show and 1 or 0
+      lualine.hide({
+        place = { "tabline" },
+        unhide = show,
+      })
+    end,
+  })
+
   lualine.setup({
     options = {
       icons_enabled = true,
@@ -81,6 +94,26 @@ M.setup = function()
       lualine_y = { "diagnostics" },
       lualine_z = { "%l:%c", "%L" },
     },
+
+    tabline = {
+      lualine_a = {
+        {
+          "tabs",
+          max_length = vim.o.columns / 3,
+          mode = 2,
+        },
+      },
+      lualine_b = {},
+      lualine_c = {},
+      lualine_x = {},
+      lualine_y = {},
+      lualine_z = {
+        {
+          "windows",
+          max_length = vim.o.columns / 3,
+        },
+      },
+    },
     winbar = {
       lualine_a = {},
       lualine_b = { "filename" },
@@ -106,6 +139,12 @@ M.setup = function()
       "quickfix",
       "toggleterm",
     },
+  })
+
+  -- Hide the tabline by default.
+  lualine.hide({
+    place = { "tabline" },
+    unhide = false,
   })
 end
 
