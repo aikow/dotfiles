@@ -126,7 +126,6 @@ set splitbelow
 set diffopt+=iwhite " No whitespace in vimdiff
 if has('patch-8.1.0360')
   " Make diffing better: https://vimways.org/2018/the-power-of-diff/
-  set diffopt+=algorithm:patience
   set diffopt+=indent-heuristic
 endif
 
