@@ -556,7 +556,7 @@ return {
 
   -- Dev icons for file types.
   {
-    "kyazdani42/nvim-web-devicons",
+    "nvim-tree/nvim-web-devicons",
   },
 
   -- Focus a single window in zen mode.
