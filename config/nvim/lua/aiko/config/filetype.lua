@@ -17,6 +17,8 @@ vim.filetype.add({
     -- Case-insensitive match.
     ["[Mm][Aa][Nn][Ii][Ff][Ee][Ss][Tt]%.in"] = "manifest",
 
+    ["%.?[Jj][Uu][Ss][Tt][Ff][Ii][Ll][Ee]"] = "just",
+
     -- Fallback matching on file contents.
     [".*"] = {
       priority = -math.huge,

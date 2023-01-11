@@ -1,12 +1,22 @@
 [alias]
-  # Count the number of lines added, changed, and deleted.
-	count-lines = "! git log --author=\"$1\" --pretty=tformat: --numstat | awk '{ add += $1; subs += $2; loc += $1 - $2 } END { printf \"added lines: %s, removed lines: %s, total lines: %s\\n\", add, subs, loc }' #"
-
   # Pretty print branches sorted by last commit date.
-  pbranch = "! git branch --sort=-committerdate --format='%(HEAD) %(color:yellow)%(refname:short)%(color:reset) ︙ %(color:red)%(objectname:short)%(color:reset) ︙ %(contents:subject) ︙ %(authorname) (%(color:green)%(committerdate:relative)%(color:reset))'"
+  pbranch = !git branch --sort=-committerdate --format='%(HEAD) %(color:yellow)%(refname:short)%(color:reset) ︙ %(color:red)%(objectname:short)%(color:reset) ︙ %(contents:subject) ︙ %(authorname) (%(color:green)%(committerdate:relative)%(color:reset))'
 
   # Pretty print log format.
-  plog="! git log --graph --pretty='%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%ad) %C(bold blue)<%an>%Creset'"
+  plog = !git log --graph --pretty='%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%ad) %C(bold blue)<%an>%Creset'
+
+  # List files which have changed compared to the $REVIEW_BASE.
+  changed = !git diff --name-only $(git merge-base HEAD \"${REVIEW_BASE:-main}\")
+
+  # Show the changes per file computed against the current merge base
+  stat = !git diff --stat $(git merge-base HEAD \"${REVIEW_BASE:-main}\")
+
+  # Open all changed files in neovim in separate tabs with a diff view again
+  # $REVIEW_BASE.
+  review = !nvim -p $(git changed) +\"tabdo Gvdiffsplit ${REVIEW_BASE:-main}\"
+
+  # Open specific files in neovim with a diff view again $REVIEW_BASE.
+  reviewone = !nvim -p +\"tabdo G diff ${REVIEW_BASE:-main}\"
 
 [core]
   excludesfile = ~/.dotfiles/config/git/gitignore_global
@@ -53,7 +63,7 @@
   prompt = false
 
 [mergetool "nvim"]
-  # define command which will be used when "nvim" is set as a merge tool
+  # Define command which will be used when "nvim" is set as a merge tool
   cmd = nvim -c \"Gvdiffsplit!\" \"$MERGED\"
 
 [pull]

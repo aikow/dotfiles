@@ -1,5 +1,3 @@
-local hexterm = require("aiko.util.colors")
-
 local M = {}
 
 M.palettes = {
@@ -22,22 +20,6 @@ M.palettes = {
 M.integrations = {
   "lualine",
 }
-
-local add_cterm_colors = function(color)
-  if color.ctermfg == nil and color.fg ~= nil and color.fg ~= "NONE" then
-    color.ctermfg = hexterm.convert_hex_to_xterm(color.fg)
-  end
-
-  if color.ctermbg == nil and color.bg ~= nil and color.bg ~= "NONE" then
-    color.ctermbg = hexterm.convert_hex_to_xterm(color.bg)
-  end
-end
-
-local add_cterm_colors_to_table = function(t)
-  for _, color in pairs(t) do
-    add_cterm_colors(color)
-  end
-end
 
 ---Load all the highlights from the integration for the colorscheme.
 ---@param group string
@@ -91,10 +73,6 @@ M.paint = function(colorscheme)
 
   -- Apply the polish if the color scheme has any
   all = vim.tbl_extend("force", all, colorscheme.polish)
-
-  if vim.g.ctermcolors then
-    add_cterm_colors_to_table(all)
-  end
 
   -- Override with the polish.
   for group, c in pairs(all) do
