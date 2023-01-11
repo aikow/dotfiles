@@ -15,6 +15,7 @@ M.setup = function()
       "TelescopeResults",
       "alpha",
       "help",
+      "lazy",
       "lspinfo",
       "man",
       "mason",

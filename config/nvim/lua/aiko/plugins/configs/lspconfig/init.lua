@@ -20,6 +20,7 @@ M.servers = {
   -- "sqls",
   "sumneko_lua",
   "taplo",
+  "tsserver",
   -- "vimls",
   "yamlls",
 }

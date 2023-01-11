@@ -1,3 +1,6 @@
+local enable_lsp = true
+local enable_dap = false
+
 return {
   -- Have packer manage itself.
   {
@@ -7,6 +10,7 @@ return {
   -- Plenary provides helper functions.
   {
     "nvim-lua/plenary.nvim",
+    lazy = true,
   },
 
   -- -----------------------------
@@ -34,6 +38,12 @@ return {
     end,
   },
 
+  -- JSON schemastore integration for JSON LS.
+  {
+    "b0o/SchemaStore.nvim",
+    lazy = true,
+  },
+
   -- ------------------
   -- |   LSP Config   |
   -- ------------------
@@ -41,6 +51,7 @@ return {
   -- Provide adapter and helper functions for setting up language servers.
   {
     "neovim/nvim-lspconfig",
+    enabled = enable_lsp,
     dependencies = "mason-lspconfig.nvim",
     config = function()
       require("aiko.plugins.configs.lspconfig").setup()
@@ -50,6 +61,7 @@ return {
   -- Hook into the builtin LSP features.
   {
     "jose-elias-alvarez/null-ls.nvim",
+    enabled = enable_lsp,
     config = function()
       require("aiko.plugins.configs.null-ls").setup()
     end,
@@ -58,6 +70,7 @@ return {
   -- A tree like view for symbols using LSP.
   {
     "simrat39/symbols-outline.nvim",
+    enabled = enable_lsp,
     cmd = { "SymbolsOutline", "SymbolsOutlineOpen", "SymbolsOutlineClose" },
     config = function()
       require("aiko.plugins.configs.symbols-outline").setup()
@@ -67,6 +80,15 @@ return {
   -- Add icons to native LSP based on the completion type.
   {
     "onsails/lspkind.nvim",
+    enabled = enable_lsp,
+    lazy = true,
+  },
+
+  -- SQL language server helper.
+  {
+    "nanotee/sqls.nvim",
+    enabled = false,
+    ft = "sql",
   },
 
   -- -----------------
@@ -76,7 +98,7 @@ return {
   -- Debug adapter protocol.
   {
     "mfussenegger/nvim-dap",
-    enabled = false,
+    enabled = enable_dap,
     keys = "<F5>",
     config = function()
       require("aiko.plugins.configs.dap").setup()
@@ -86,7 +108,7 @@ return {
   -- UI elements for nvim-dap.
   {
     "rcarriga/nvim-dap-ui",
-    enabled = false,
+    enabled = enable_dap,
     dependencies = "nvim-dap",
     config = function()
       require("dapui").setup()
@@ -96,7 +118,7 @@ return {
   -- Insert virtual text during debugging for variable values.
   {
     "theHamsta/nvim-dap-virtual-text",
-    enabled = false,
+    enabled = enable_dap,
     dependencies = "nvim-dap",
     config = function()
       require("nvim-dap-virtual-text").setup({})
@@ -106,7 +128,7 @@ return {
   -- DAP configuration for python.
   {
     "mfussenegger/nvim-dap-python",
-    enabled = false,
+    enabled = enable_dap,
     dependencies = "nvim-dap",
     config = function()
       require("dap-python").setup(
@@ -166,23 +188,25 @@ return {
   -- Tree-sitter text objects like classes and functions.
   {
     "nvim-treesitter/nvim-treesitter-textobjects",
-    dependencies = "nvim-treesitter",
+    dependencies = "nvim-treesitter/nvim-treesitter",
   },
 
   -- Tree-sitter buffer-local refactorings.
   {
     "nvim-treesitter/nvim-treesitter-refactor",
-    dependencies = "nvim-treesitter",
+    dependencies = "nvim-treesitter/nvim-treesitter",
   },
 
   {
     "nvim-treesitter/playground",
-    dependencies = "nvim-treesitter",
+    cmd = "TSPlaygroundToggle",
+    dependencies = "nvim-treesitter/nvim-treesitter",
   },
 
   -- Refactoring support for select languages.
   {
     "ThePrimeagen/refactoring.nvim",
+    dependencies = "nvim-treesitter/nvim-treesitter",
     ft = {
       "typescript",
       "javascript",
@@ -418,7 +442,7 @@ return {
   {
     "saecki/crates.nvim",
     ft = "toml",
-    version = "v0.1.0",
+    version = "*",
     config = function()
       require("aiko.plugins.configs.crates").setup()
     end,
@@ -433,16 +457,10 @@ return {
     ft = "tex",
   },
 
-  -- SQL language server helper.
-  {
-    "nanotee/sqls.nvim",
-    enabled = false,
-    ft = "sql",
-  },
-
   -- Justfile support with tree-sitter.
   {
     "IndianBoy42/tree-sitter-just",
+    ft = "just",
     config = function()
       require("tree-sitter-just").setup({})
     end,
@@ -510,7 +528,7 @@ return {
     version = "*",
     ft = "norg",
     cmd = "Neorg",
-    dependencies = "nvim-neorg/neorg-telescope",
+    dependencies = { "nvim-neorg/neorg-telescope" },
     config = function()
       require("aiko.plugins.configs.neorg").setup()
     end,
@@ -549,6 +567,7 @@ return {
   -- LSP based location for status-line.
   {
     "SmiteshP/nvim-navic",
+    lazy = true,
     config = function()
       vim.g.navic_silence = true
     end,
@@ -568,11 +587,26 @@ return {
     end,
   },
 
+  {
+    "krivahtoo/silicon.nvim",
+    cmd = "Silicon",
+    build = "./install.sh build",
+    config = function()
+      require("silicon").setup({ font = "Hack=16" })
+    end,
+  },
+
   -- ---------------------
   -- |   Color Schemes   |
   -- ---------------------
   --
   -- Current default
-  { "sainnhe/gruvbox-material" },
-  { "B4mbus/oxocarbon-lua.nvim" },
+  {
+    "sainnhe/gruvbox-material",
+    lazy = true,
+  },
+  {
+    "B4mbus/oxocarbon-lua.nvim",
+    lazy = true,
+  },
 }
