@@ -30,6 +30,8 @@ M.setup = function()
       -- JSON
       builtins.formatting.jq,
 
+      builtins.formatting.prettier,
+
       -- YAML
       builtins.formatting.yamlfmt.with({
         extra_args = {
