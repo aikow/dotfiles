@@ -21,12 +21,7 @@ M.setup = function()
     return
   end
 
-  local ok_sources, sources = pcall(require, "aiko.plugins.sources")
-  if not ok_sources then
-    return
-  end
-
-  lazy.setup(sources)
+  lazy.setup("aiko.plugins.spec")
 end
 
 return M

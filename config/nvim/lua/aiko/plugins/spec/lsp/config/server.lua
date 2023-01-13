@@ -1,7 +1,7 @@
 local tbl = require("aiko.util.table")
 local generate_capabilities =
-  require("aiko.plugins.configs.lspconfig.capabilities").generate_capabilities
-local mappings = require("aiko.plugins.configs.lspconfig.mappings")
+  require("aiko.plugins.spec.lsp.config.capabilities").generate_capabilities
+local mappings = require("aiko.plugins.spec.lsp.config.mappings")
 
 --- A Server encapsulates some options foro LSP servers while also allowing each
 --- LSP server to choose whether to keep, modify, or override a set of default

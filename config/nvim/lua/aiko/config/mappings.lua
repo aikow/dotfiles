@@ -249,14 +249,6 @@ map("n", "<C-w>>", "5<C-w>>")
 map("n", "<C-w>-", "5<C-w>-")
 map("n", "<C-w>+", "5<C-w>+")
 
--- -----------------------
--- |   Plugin Mappings   |
--- -----------------------
-require("aiko.plugins.configs.telescope").mappings()
-require("aiko.plugins.configs.nvim-tree").mappings()
-require("aiko.plugins.configs.fzf-lua").mappings()
--- require("aiko.plugins.configs.neotree").mappings()
-
 -- Create a <nop> mapping for <leader>r so that I do not keep accidentally
 -- replacing characters if the LSP server is not attached yet.
 map("n", "<leader>r", "<nop>")
