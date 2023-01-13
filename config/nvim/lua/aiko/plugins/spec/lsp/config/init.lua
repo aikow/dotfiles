@@ -1,6 +1,6 @@
-local ui = require("aiko.plugins.configs.lspconfig.ui")
-local mappings = require("aiko.plugins.configs.lspconfig.mappings")
-local Server = require("aiko.plugins.configs.lspconfig.server")
+local ui = require("aiko.plugins.spec.lsp.config.ui")
+local mappings = require("aiko.plugins.spec.lsp.config.mappings")
+local Server = require("aiko.plugins.spec.lsp.config.server")
 
 local M = {}
 
@@ -30,14 +30,9 @@ M.servers = {
 -- ------------------------------------------------------------------------
 M.setup = function()
   -- Require lspconfig module.
-  local ok_lspconfig, _ = pcall(require, "lspconfig")
-  if not ok_lspconfig then
-    return
-  end
-
   ui.setup()
 
-  local base_module_path = "aiko.plugins.configs.lspconfig.servers."
+  local base_module_path = "aiko.plugins.spec.lsp.config.servers."
   for _, server_name in pairs(M.servers) do
     local module_path = base_module_path .. server_name
 

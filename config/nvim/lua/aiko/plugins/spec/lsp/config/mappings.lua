@@ -33,8 +33,25 @@ M.setup = function()
 
   -- Diagnostics
   map("n", "<leader>e", d.open_float, opts("diagnostic open float"))
-  map({ "n", "v", "o" }, "[e", d.goto_prev, opts("go to previous diagnostic"))
-  map({ "n", "v", "o" }, "]e", d.goto_next, opts("go to next diagnostic"))
+  map({ "n", "v", "o" }, "[d", function()
+    d.goto_prev()
+  end, opts("go to previous diagnostic"))
+  map({ "n", "v", "o" }, "]d", function()
+    d.goto_next()
+  end, opts("go to next diagnostic"))
+  map({ "n", "v", "o" }, "[w", function()
+    d.goto_prev({ severity = d.severity.WARN })
+  end, opts("go to previous warning"))
+  map({ "n", "v", "o" }, "]w", function()
+    d.goto_next({ severity = d.severity.WARN })
+  end, opts("go to next warning"))
+  map({ "n", "v", "o" }, "[e", function()
+    d.goto_prev({ severity = d.severity.ERROR })
+  end, opts("go to previous error"))
+  map({ "n", "v", "o" }, "]e", function()
+    d.goto_next({ severity = d.severity.ERROR })
+  end, opts("go to next error"))
+
   map("n", "<leader>dl", d.setloclist, opts("diagnostic set location list"))
 
   -- Refactoring with <leader>r...
