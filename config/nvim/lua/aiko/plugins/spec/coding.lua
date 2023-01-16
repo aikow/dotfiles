@@ -358,11 +358,4 @@ return {
       })
     end,
   },
-
-
-  -- Neovim development with lua.
-  {
-    "folke/neodev.nvim",
-    enabled = false,
-  },
 }

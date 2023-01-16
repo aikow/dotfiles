@@ -251,4 +251,4 @@ map("n", "<C-w>+", "5<C-w>+")
 
 -- Create a <nop> mapping for <leader>r so that I do not keep accidentally
 -- replacing characters if the LSP server is not attached yet.
-map("n", "<leader>r", "<nop>")
+map("n", "<leader>r", "<nop>", { desc = "nop" })

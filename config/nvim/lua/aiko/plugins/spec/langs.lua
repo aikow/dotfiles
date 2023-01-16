@@ -215,12 +215,6 @@ return {
     end,
   },
 
-  -- Lua
-  {
-    "rafcamlet/nvim-luapad",
-    cmd = { "Luapad", "LuaRun" },
-  },
-
   -- Markdown
   {
     "iamcco/markdown-preview.nvim",

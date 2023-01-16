@@ -107,6 +107,10 @@ end
 ---@return function
 local comment = function(part)
   return f(function()
+    if vim.o.filetype == "" then
+      return ""
+    end
+
     local cf = comment_format()
     local c
     if part == "mid" then

@@ -43,22 +43,22 @@ return {
     keys = {
       -- Navigation
       {
-        mode = { "n", "v", "o" },
         "]c",
         function()
           return vim.wo.diff and "]c" or "<cmd>Gitsigns next_hunk<CR>"
         end,
+        mode = { "n", "v", "o" },
         expr = true,
         silent = true,
         desc = "go to next git hunk",
       },
 
       {
-        mode = { "n", "v", "o" },
         "[c",
         function()
           return vim.wo.diff and "[c" or "<cmd>Gitsigns prev_hunk<CR>"
         end,
+        mode = { "n", "v", "o" },
         expr = true,
         silent = true,
         desc = "go to previous git hunk",
@@ -66,9 +66,9 @@ return {
 
       -- Git actions related actions with <leader>g...
       {
-        mode = { "n", "v" },
         "<leader>gs",
         "<cmd>Gitsigns stage_hunk<CR>",
+        mode = { "n", "v" },
         silent = true,
         desc = "git stage hunk",
       },
@@ -82,49 +82,42 @@ return {
       {
         "<leader>gS",
         "<cmd>Gitsigns stage_buffer<CR>",
-        mode = "n",
         silent = true,
         desc = "git stage buffer",
       },
       {
         "<leader>gu",
         "<cmd>Gitsigns undo_stage_hunk<CR>",
-        mode = "n",
         silent = true,
         desc = "git undo stage buffer",
       },
       {
         "<leader>gR",
         "<cmd>Gitsigns reset_buffer<CR>",
-        mode = "n",
         silent = true,
         desc = "git reset buffer",
       },
       {
         "<leader>gp",
         "<cmd>Gitsigns preview_hunk<CR>",
-        mode = "n",
         silent = true,
         desc = "git preview hunk",
       },
       {
         "<leader>gl",
         "<cmd>Gitsigns toggle_current_line_blame<CR>",
-        mode = "n",
         silent = true,
         desc = "git toggle inline blame",
       },
       {
         "<leader>gd",
         "<cmd>Gitsigns diffthis<CR>",
-        mode = "n",
         silent = true,
         desc = "git diff current file",
       },
       {
         "<leader>gD",
         "<cmd>Gitsigns toggle_deleted<CR>",
-        mode = "n",
         silent = true,
         desc = "git toggle showing deleted lines",
       },
