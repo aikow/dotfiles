@@ -267,66 +267,66 @@ return {
     cmd = "Neorg",
     dependencies = { "nvim-neorg/neorg-telescope" },
     config = function()
-local ok_neorg, neorg = pcall(require, "neorg")
-  if not ok_neorg then
-    return
-  end
+      local ok_neorg, neorg = pcall(require, "neorg")
+      if not ok_neorg then
+        return
+      end
 
-  neorg.setup({
-    load = {
-      -- Builtin modules
-      ["core.defaults"] = {},
-      ["core.keybinds"] = {
-        config = {
-          default_keybinds = false,
-          neorg_leader = "<localleader>",
-        },
-      },
-      ["core.norg.dirman"] = {
-        config = {
-          workspaces = {
-            personal = "~/GDrive/notes",
+      neorg.setup({
+        load = {
+          -- Builtin modules
+          ["core.defaults"] = {},
+          ["core.keybinds"] = {
+            config = {
+              default_keybinds = false,
+              neorg_leader = "<localleader>",
+            },
           },
+          ["core.norg.dirman"] = {
+            config = {
+              workspaces = {
+                personal = "~/GDrive/notes",
+              },
+            },
+          },
+
+          -- Disable the concealer for now
+          ["core.norg.concealer"] = {},
+
+          ["core.norg.completion"] = {
+            config = {
+              engine = "nvim-cmp",
+            },
+          },
+
+          ["core.norg.qol.toc"] = {},
+
+          -- --------------------
+          -- |   Core modules   |
+          -- --------------------
+          ["core.presenter"] = {
+            config = {
+              zen_mode = "zen-mode",
+            },
+          },
+
+          ["core.norg.journal"] = {
+            config = {
+              workspace = "personal",
+              journal_folder = "journal",
+              strategy = "nested",
+            },
+          },
+
+          -- ---------------------------
+          -- |   Getting Things Done   |
+          -- ---------------------------
+          -- ["core.gtd.base"] = {},
+
+          -- External Modules
+          ["core.integrations.telescope"] = {},
         },
-      },
-
-      -- Disable the concealer for now
-      ["core.norg.concealer"] = {},
-
-      ["core.norg.completion"] = {
-        config = {
-          engine = "nvim-cmp",
-        },
-      },
-
-      ["core.norg.qol.toc"] = {},
-
-      -- --------------------
-      -- |   Core modules   |
-      -- --------------------
-      ["core.presenter"] = {
-        config = {
-          zen_mode = "zen-mode",
-        },
-      },
-
-      ["core.norg.journal"] = {
-        config = {
-          workspace = "personal",
-          journal_folder = "journal",
-          strategy = "nested",
-        },
-      },
-
-      -- ---------------------------
-      -- |   Getting Things Done   |
-      -- ---------------------------
-      -- ["core.gtd.base"] = {},
-
-      -- External Modules
-      ["core.integrations.telescope"] = {},
-    },
-  })
+      })
     end,
   },
 }

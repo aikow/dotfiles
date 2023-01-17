@@ -1,8 +1,4 @@
 return {
-  -- -----------
-  -- |   Git   |
-  -- -----------
-  --
   -- Using git from inside vim.
   {
     "tpope/vim-fugitive",
