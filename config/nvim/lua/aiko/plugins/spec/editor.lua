@@ -1,8 +1,4 @@
 return {
-  -- -------------------------
-  -- |   Neovim Tree Views   |
-  -- -------------------------
-  --
   -- File tree in a sidebar.
   {
     "kyazdani42/nvim-tree.lua",
@@ -17,103 +13,26 @@ return {
     },
     config = function()
       local nvim_tree = require("nvim-tree")
-      local icons = require("aiko.ui.icons")
 
       nvim_tree.setup({
-        disable_netrw = false,
-        hijack_netrw = false,
-
-        open_on_setup = false,
-
         hijack_cursor = true,
-        hijack_directories = {
-          enable = true,
-        },
-        hijack_unnamed_buffer_when_opening = false,
-
         update_cwd = true,
         update_focused_file = {
           enable = true,
           update_cwd = false,
         },
-
         view = {
-          adaptive_size = false,
-          side = "left",
           width = 40,
           hide_root_folder = true,
         },
-
-        diagnostics = {
-          enable = false,
-          show_on_dirs = true,
-          icons = {
-            hint = icons.diagnostics.hint,
-            info = icons.diagnostics.info,
-            warning = icons.diagnostics.warn,
-            error = icons.diagnostics.error,
-          },
-        },
-
-        git = {
-          enable = true,
-          ignore = true,
-        },
-
-        filesystem_watchers = {
-          enable = true,
-        },
-
         actions = {
-          change_dir = {
-            enable = false,
-            restrict_above_cwd = false,
-          },
           open_file = {
             resize_window = false,
           },
         },
-
         renderer = {
           highlight_git = true,
           highlight_opened_files = "none",
-
-          indent_markers = {
-            enable = false,
-          },
-
-          icons = {
-            show = {
-              file = true,
-              folder = true,
-              folder_arrow = true,
-              git = true,
-            },
-
-            glyphs = {
-              default = "",
-              symlink = "",
-              folder = {
-                default = "",
-                empty = "",
-                empty_open = "",
-                open = "",
-                symlink = "",
-                symlink_open = "",
-                arrow_open = "",
-                arrow_closed = "",
-              },
-              git = {
-                unstaged = "✗",
-                staged = "✓",
-                unmerged = "",
-                renamed = "➜",
-                untracked = "★",
-                deleted = "",
-                ignored = "◌",
-              },
-            },
-          },
         },
       })
     end,
@@ -148,10 +67,6 @@ return {
     end,
   },
 
-  -- -----------------------
-  -- |   General Plugins   |
-  -- -----------------------
-  --
   -- Use '.' to repeat plugin code actions.
   {
     "tpope/vim-repeat",
@@ -230,34 +145,21 @@ return {
     end,
   },
 
+  -- Project local configuration via JSON.
   {
     "folke/neoconf.nvim",
     enabled = false,
   },
 
+  -- Generate documentation comments and doc-strings automatically.
   {
     "danymat/neogen",
+    -- stylua: ignore
     keys = {
-      {
-        "<leader>nm",
-        "<cmd>Neogen func<CR>",
-        desc = "Neogen generate function docstring",
-      },
-      {
-        "<leader>nt",
-        "<cmd>Neogen type<CR>",
-        desc = "Neogen generate type docstring",
-      },
-      {
-        "<leader>nf",
-        "<cmd>Neogen file<CR>",
-        desc = "Neogen generate file docstring",
-      },
-      {
-        "<leader>no",
-        "<cmd>Neogen class<CR>",
-        desc = "Neogen generate class docstring",
-      },
+      { "<leader>nm", "<cmd>Neogen func<CR>", desc = "Neogen generate function docstring" },
+      { "<leader>nt", "<cmd>Neogen type<CR>", desc = "Neogen generate type docstring" },
+      { "<leader>nf", "<cmd>Neogen file<CR>", desc = "Neogen generate file docstring" },
+      { "<leader>no", "<cmd>Neogen class<CR>", desc = "Neogen generate class docstring" },
     },
     config = function()
       require("neogen").setup({
@@ -266,31 +168,17 @@ return {
     end,
   },
 
+  -- Highlight todo, fixme, note, perf, etc. comments in buffers.
   {
     "folke/todo-comments.nvim",
     cmd = { "TodoTrouble", "TodoTelescope" },
     event = "BufReadPost",
+    -- stylua: ignore
     keys = {
-      {
-        "]t",
-        function()
-          require("todo-comments").jump_next()
-        end,
-        desc = "Next todo comment",
-      },
-      {
-        "[t",
-        function()
-          require("todo-comments").jump_prev()
-        end,
-        desc = "Previous todo comment",
-      },
+      { "]t", function() require("todo-comments").jump_next() end, desc = "Next todo comment" },
+      { "[t", function() require("todo-comments").jump_prev() end, desc = "Previous todo comment" },
       { "<leader>xt", "<cmd>TodoTrouble<cr>", desc = "Todo Trouble" },
-      {
-        "<leader>xtt",
-        "<cmd>TodoTrouble keywords=TODO,FIX,FIXME<cr>",
-        desc = "Todo Trouble",
-      },
+      { "<leader>xtt", "<cmd>TodoTrouble keywords=TODO,FIX,FIXME<cr>", desc = "Todo Trouble" },
       { "<leader>xT", "<cmd>TodoTelescope<cr>", desc = "Todo Telescope" },
     },
     config = function()
@@ -301,6 +189,7 @@ return {
     end,
   },
 
+  -- Automatically insert matching pairs.
   {
     "autopairs.nvim",
     enabled = false,

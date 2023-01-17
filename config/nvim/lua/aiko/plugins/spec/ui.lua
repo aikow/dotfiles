@@ -195,11 +195,13 @@ return {
         ),
         dashboard.button("r", "  > Recent", ":Telescope oldfiles<CR>"),
         dashboard.button(
-          "s",
-          "  > Settings",
-          ":e $MYVIMRC | :cd %:p:h | split . | wincmd k | pwd<CR>"
+          "c",
+          "  > Config",
+          ":edit $MYVIMRC | :cd %:p:h | split . | wincmd k | pwd<CR>"
         ),
-        dashboard.button("q", "  > Quit NVIM", ":qa<CR>"),
+        dashboard.button("u", "  > Update plugins", ":Lazy sync<CR>"),
+        dashboard.button("n", "  > News", ":vert help news<CR>"),
+        dashboard.button("q", "  > Quit", ":qa<CR>"),
       }
 
       local fortune = require("alpha.fortune")

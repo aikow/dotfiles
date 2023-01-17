@@ -1,8 +1,4 @@
 return {
-  -- -----------------
-  -- |   Debugging   |
-  -- -----------------
-  --
   -- Debug adapter protocol.
   {
     "mfussenegger/nvim-dap",
@@ -11,71 +7,33 @@ return {
       "theHamsta/nvim-dap-virtual-text",
       "mfussenegger/nvim-dap-python",
     },
+    -- stylua: ignore
     keys = {
-      {
-        "<F5>",
-        function()
-          require("dap").continue()
-        end,
-        silent = true,
-        desc = "dap continue",
-      },
-
-      {
-        "<F10>",
-        [[lua require("dap").step_over()]],
-        silent = true,
-        desc = "dap step over",
-      },
-
-      {
-        "<F11>",
-        [[lua require("dap").step_into()]],
-        silent = true,
-        desc = "dap step into",
-      },
-
-      {
-        "<F12>",
-        [[lua require("dap").step_out()]],
-        silent = true,
-        desc = "dap step out",
-      },
-
-      {
-        "<Leader>bb",
-        [[lua require("dap").toggle_breakpoint()]],
-        silent = true,
-        desc = "dap toggle breakpoint",
-      },
-
+      { "<F5>", function() require("dap").continue() end, desc = "dap continue", },
+      { "<F10>", function() require("dap").step_over() end, desc = "dap step over", },
+      { "<F11>", function() require("dap").step_into() end, desc = "dap step into", },
+      { "<F12>", function() require("dap").step_out() end, desc = "dap step out", },
+      { "<Leader>bb", function() require("dap").toggle_breakpoint() end, desc = "dap toggle breakpoint", },
       {
         "<Leader>bc",
-        [[lua require("dap").set_breakpoint(vim.fn.input("Breakpoint condition: "))]],
-        silent = true,
+        function()
+          require("dap").set_breakpoint(vim.fn.input("Breakpoint condition: "))
+        end,
         desc = "dap set breakpoint with condition",
       },
-
       {
         "<Leader>bB",
-        [[lua require("dap").set_breakpoint(nil, nil, vim.fn.input("Log point message: "))]],
-        silent = true,
+        function()
+          require("dap").set_breakpoint(
+            nil,
+            nil,
+            vim.fn.input("Log point message: ")
+          )
+        end,
         desc = "dap set break point with log point message",
       },
-
-      {
-        "<Leader>bo",
-        [[lua require("dap").repl.open()]],
-        silent = true,
-        desc = "dap open",
-      },
-
-      {
-        "<Leader>bl",
-        [[lua require("dap").run_last()]],
-        silent = true,
-        desc = "dap run last",
-      },
+      { "<Leader>bo", function() require("dap").repl.open() end, desc = "dap open", },
+      { "<Leader>bl", function() require("dap").run_last() end, desc = "dap run last", },
     },
     config = function()
       local dap = require("dap")
@@ -112,7 +70,7 @@ return {
     "rcarriga/nvim-dap-ui",
     lazy = true,
     config = function()
-      require("dapui").setup()
+      require("dapui").setup({})
     end,
   },
 

@@ -21,7 +21,12 @@ M.setup = function()
     return
   end
 
-  lazy.setup("aiko.plugins.spec")
+  lazy.setup("aiko.plugins.spec", {
+    change_detection = {
+      enabled = true,
+      notify = false,
+    },
+  })
 end
 
 return M
