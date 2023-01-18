@@ -1,5 +1,9 @@
 # vim: ft=gitignore
 
+## General
+cache/
+Cache/
+
 ## Git ##
 .git/
 
@@ -14,3 +18,6 @@ target/
 __pycache__/
 venv/
 .venv/
+
+## Node ##
+node_modules/

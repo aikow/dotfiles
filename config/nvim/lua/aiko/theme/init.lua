@@ -9,6 +9,7 @@ M.palettes = {
   "devicons",
   "git",
   "lsp",
+  "luasnip",
   "mason",
   "nvimtree",
   -- "statusline",

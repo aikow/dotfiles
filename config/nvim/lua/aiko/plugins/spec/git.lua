@@ -36,8 +36,8 @@ return {
   {
     "lewis6991/gitsigns.nvim",
     event = { "BufReadPre" },
+    -- stylua: ignore
     keys = {
-      -- Navigation
       {
         "]c",
         function()
@@ -45,10 +45,8 @@ return {
         end,
         mode = { "n", "v", "o" },
         expr = true,
-        silent = true,
         desc = "go to next git hunk",
       },
-
       {
         "[c",
         function()
@@ -56,76 +54,18 @@ return {
         end,
         mode = { "n", "v", "o" },
         expr = true,
-        silent = true,
         desc = "go to previous git hunk",
       },
-
-      -- Git actions related actions with <leader>g...
-      {
-        "<leader>gs",
-        "<cmd>Gitsigns stage_hunk<CR>",
-        mode = { "n", "v" },
-        silent = true,
-        desc = "git stage hunk",
-      },
-      {
-        "<leader>gr",
-        "<cmd>Gitsigns reset_hunk<CR>",
-        mode = { "n", "v" },
-        silent = true,
-        desc = "git reset hunk",
-      },
-      {
-        "<leader>gS",
-        "<cmd>Gitsigns stage_buffer<CR>",
-        silent = true,
-        desc = "git stage buffer",
-      },
-      {
-        "<leader>gu",
-        "<cmd>Gitsigns undo_stage_hunk<CR>",
-        silent = true,
-        desc = "git undo stage buffer",
-      },
-      {
-        "<leader>gR",
-        "<cmd>Gitsigns reset_buffer<CR>",
-        silent = true,
-        desc = "git reset buffer",
-      },
-      {
-        "<leader>gp",
-        "<cmd>Gitsigns preview_hunk<CR>",
-        silent = true,
-        desc = "git preview hunk",
-      },
-      {
-        "<leader>gl",
-        "<cmd>Gitsigns toggle_current_line_blame<CR>",
-        silent = true,
-        desc = "git toggle inline blame",
-      },
-      {
-        "<leader>gd",
-        "<cmd>Gitsigns diffthis<CR>",
-        silent = true,
-        desc = "git diff current file",
-      },
-      {
-        "<leader>gD",
-        "<cmd>Gitsigns toggle_deleted<CR>",
-        silent = true,
-        desc = "git toggle showing deleted lines",
-      },
-
-      -- Text object
-      {
-        "ic",
-        ":<C-u>Gitsigns select_hunk<CR>",
-        mode = { "o", "x" },
-        silent = true,
-        desc = "git hunk text object",
-      },
+      { "<leader>gs", "<cmd>Gitsigns stage_hunk<CR>", mode = { "n", "v" }, desc = "git stage hunk", },
+      { "<leader>gr", "<cmd>Gitsigns reset_hunk<CR>", mode = { "n", "v" }, desc = "git reset hunk", },
+      { "<leader>gS", "<cmd>Gitsigns stage_buffer<CR>", desc = "git stage buffer", },
+      { "<leader>gu", "<cmd>Gitsigns undo_stage_hunk<CR>", desc = "git undo stage buffer", },
+      { "<leader>gR", "<cmd>Gitsigns reset_buffer<CR>", desc = "git reset buffer", },
+      { "<leader>gp", "<cmd>Gitsigns preview_hunk<CR>", desc = "git preview hunk", },
+      { "<leader>gl", "<cmd>Gitsigns toggle_current_line_blame<CR>", desc = "git toggle inline blame", },
+      { "<leader>gd", "<cmd>Gitsigns diffthis<CR>", desc = "git diff current file", },
+      { "<leader>gD", "<cmd>Gitsigns toggle_deleted<CR>", desc = "git toggle showing deleted lines", },
+      { "ic", ":<C-u>Gitsigns select_hunk<CR>", mode = { "o", "x" }, desc = "git hunk text object", },
     },
     config = function()
       require("gitsigns").setup({

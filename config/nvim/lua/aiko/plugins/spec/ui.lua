@@ -1,8 +1,4 @@
 return {
-  -- ------------------------------
-  -- |   GUI, Themes, and Icons   |
-  -- ------------------------------
-  --
   -- Statusline, winbar.
   {
     "nvim-lualine/lualine.nvim",

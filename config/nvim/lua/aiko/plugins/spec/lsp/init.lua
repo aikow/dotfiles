@@ -1,18 +1,34 @@
 return {
-  -- ------------------
-  -- |   LSP Config   |
-  -- ------------------
-  --
   -- Provide adapter and helper functions for setting up language servers.
   {
     "neovim/nvim-lspconfig",
     dependencies = {
       "williamboman/mason.nvim",
+      "williamboman/mason-lspconfig.nvim",
       "folke/neodev.nvim",
+      "hrsh7th/cmp-nvim-lsp",
     },
     event = { "BufReadPre" },
-    config = function()
-      require("aiko.plugins.spec.lsp.config").setup()
+    opts = {
+      autoformat = true,
+      servers = {
+        "bashls",
+        "clangd",
+        "dockerls",
+        "gopls",
+        "jsonls",
+        "ltex",
+        "marksman",
+        "pyright",
+        "sqls",
+        "sumneko_lua",
+        "taplo",
+        "tsserver",
+        "yamlls",
+      },
+    },
+    config = function(_, opts)
+      require("aiko.plugins.spec.lsp.setup").setup(opts)
     end,
   },
 
@@ -49,7 +65,27 @@ return {
           -- JSON
           builtins.formatting.jq,
 
-          builtins.formatting.prettier,
+          -- typescript, javascript, html,{css
+          builtins.formatting.prettier.with({
+            filetypes = {
+              "handlebars",
+              "javascript",
+              -- "jsonc",
+              "typescriptreact",
+              "scss",
+              "graphql",
+              -- "markdown.mdx",
+              -- "markdown",
+              "html",
+              -- "json",
+              -- "yaml",
+              "css",
+              "vue",
+              "less",
+              "javascriptreact",
+              "typescript",
+            },
+          }),
 
           -- YAML
           builtins.formatting.yamlfmt.with({
@@ -63,10 +99,6 @@ return {
     end,
   },
 
-  -- -----------------------------
-  -- |   Mason Package Manager   |
-  -- -----------------------------
-  --
   -- Easily install any LSP, DAP, linter, or formatter from inside neovim.
   {
     "williamboman/mason.nvim",
@@ -111,5 +143,15 @@ return {
     enabled = false,
     lazy = true,
     ft = "sql",
+  },
+
+  -- Neovim development with lua.
+  {
+    "folke/neodev.nvim",
+    enabled = true,
+    ft = { "lua" },
+    config = function()
+      require("neodev").setup({})
+    end,
   },
 }
