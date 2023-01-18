@@ -147,8 +147,8 @@ map("n", "<C-l>", [[:lua ]], { desc = "enter lua command" })
 map("n", "<C-l><C-l>", [[:lua =]], { desc = "display lua expression" })
 
 -- Search history on command line
-map("c", "<C-p>", "<Up>")
-map("c", "<C-n>", "<Down>")
+map("c", "<C-k>", "<Up>")
+map("c", "<C-j>", "<Down>")
 
 -- Toggles between most recent buffers
 map("n", "<leader><leader>", "<c-^>", { desc = "switch to most recent buffer" })

@@ -15,6 +15,7 @@ return {
       local nvim_tree = require("nvim-tree")
 
       nvim_tree.setup({
+        hijack_netrw = false,
         hijack_cursor = true,
         update_cwd = true,
         update_focused_file = {
@@ -191,7 +192,7 @@ return {
 
   -- Automatically insert matching pairs.
   {
-    "autopairs.nvim",
+    "windwp/nvim-autopairs",
     enabled = false,
     config = function()
       local autopairs = require("nvim-autopairs")

@@ -23,7 +23,7 @@ return {
   {
     "krivahtoo/silicon.nvim",
     cmd = "Silicon",
-    build = "./install.sh build",
+    build = "./install.sh",
     config = function()
       require("silicon").setup({ font = "Hack=16" })
     end,

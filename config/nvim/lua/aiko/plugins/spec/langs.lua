@@ -1,13 +1,4 @@
 return {
-  -- Have packer manage itself.
-  {
-    "folke/lazy.nvim",
-  },
-
-  -- ------------------------
-  -- |   Language Add-Ons   |
-  -- ------------------------
-  --
   -- Rust
   {
     "simrat39/rust-tools.nvim",
@@ -59,42 +50,14 @@ return {
       })
       local map = vim.keymap.set
 
-      map(
-        "n",
-        "<localleader>d",
-        "<cmd>RustOpenExternalDocs<CR>",
-        { silent = true, desc = "rust open external docs" }
-      )
-      map(
-        "n",
-        "<localleader>t",
-        "<cmd>RustDebuggables<CR>",
-        { silent = true, desc = "rust debuggables" }
-      )
-      map(
-        "n",
-        "<localleader>r",
-        "<cmd>RustRunnables<CR>",
-        { silent = true, desc = "rust runnables" }
-      )
-      map(
-        "n",
-        "<localleader>c",
-        "<cmd>RustOpenCargo<CR>",
-        { silent = true, desc = "rust open cargo" }
-      )
-      map(
-        "n",
-        "<localleader>m",
-        "<cmd>RustExpandMacro<CR>",
-        { silent = true, desc = "rust expand macro" }
-      )
-      map(
-        "n",
-        "<localleader>a",
-        "<cmd>RustHoverActions<CR>",
-        { silent = true, desc = "rust hover actions" }
-      )
+      -- stylua: ignore start
+      map("n", "<localleader>d", "<cmd>RustOpenExternalDocs<CR>", { silent = true, desc = "rust open external docs" })
+      map("n", "<localleader>t", "<cmd>RustDebuggables<CR>", { silent = true, desc = "rust debuggables" })
+      map("n", "<localleader>r", "<cmd>RustRunnables<CR>", { silent = true, desc = "rust runnables" })
+      map("n", "<localleader>c", "<cmd>RustOpenCargo<CR>", { silent = true, desc = "rust open cargo" })
+      map("n", "<localleader>m", "<cmd>RustExpandMacro<CR>", { silent = true, desc = "rust expand macro" })
+      map("n", "<localleader>a", "<cmd>RustHoverActions<CR>", { silent = true, desc = "rust hover actions" })
+      -- stylua: ignore end
     end,
   },
 
@@ -118,55 +81,18 @@ return {
               desc = desc or "",
             }
           end
-          -- Show menus
+
+          -- stylua: ignore start
           map("n", "<localleader>t", crates.toggle, opts("crates toggle menu"))
-          map(
-            "n",
-            "<localleader>r",
-            crates.reload,
-            opts("crates reload source")
-          )
-
-          -- Show popups
+          map("n", "<localleader>r", crates.reload, opts("crates reload source"))
           map("n", "K", crates.show_popup, opts("crates show popup"))
-          map(
-            "n",
-            "<localleader>v",
-            crates.show_versions_popup,
-            opts("crates show versions popup")
-          )
-          map(
-            "n",
-            "<localleader>f",
-            crates.show_features_popup,
-            opts("crates show features popup")
-          )
-
-          -- Update crates
-          map(
-            "n",
-            "<localleader>u",
-            crates.update_crates,
-            opts("crates update")
-          )
-          map(
-            "n",
-            "<localleader>U",
-            crates.update_all_crates,
-            opts("crates update all")
-          )
-          map(
-            "n",
-            "<localleader>g",
-            crates.upgrade_crates,
-            opts("crates upgrade")
-          )
-          map(
-            "n",
-            "<localleader>G",
-            crates.upgrade_all_crates,
-            opts("crates upgrade all")
-          )
+          map("n", "<localleader>v", crates.show_versions_popup, opts("crates show versions popup"))
+          map("n", "<localleader>f", crates.show_features_popup, opts("crates show features popup"))
+          map("n", "<localleader>u", crates.update_crates, opts("crates update"))
+          map("n", "<localleader>U", crates.update_all_crates, opts("crates update all"))
+          map("n", "<localleader>g", crates.upgrade_crates, opts("crates upgrade"))
+          map("n", "<localleader>G", crates.upgrade_all_crates, opts("crates upgrade all"))
+          -- stylua: ignore end
         end,
       })
     end,
@@ -175,6 +101,7 @@ return {
   -- Latex
   {
     "lervag/vimtex",
+    ft = { "tex" },
     config = function()
       vim.g.tex_flavor = "latex"
 
@@ -203,13 +130,12 @@ return {
         vim.b["surround" .. vim.fn.char2nr("c")] = [[\\\1command: \1{\r}]]
       end, { nargs = 0 })
     end,
-    ft = "tex",
   },
 
   -- Justfile support with tree-sitter.
   {
     "IndianBoy42/tree-sitter-just",
-    ft = "just",
+    ft = { "just" },
     config = function()
       require("tree-sitter-just").setup({})
     end,
@@ -218,22 +144,22 @@ return {
   -- Markdown
   {
     "iamcco/markdown-preview.nvim",
+    ft = { "markdown" },
     build = function()
       vim.fn["mkdp#util#install"]()
     end,
-    ft = "markdown",
   },
 
   -- Fish shell syntax support.
   {
     "aikow/vim-fish",
-    ft = "fish",
+    ft = { "fish" },
   },
 
   -- Syntax support for nushell.
   {
     "LhKipp/nvim-nu",
-    ft = "nu",
+    ft = { "nu" },
   },
 
   -- CSV helper plugin.
@@ -246,25 +172,21 @@ return {
   {
     "tpope/vim-dadbod",
     ft = { "sql", "msql", "mysql", "plsql" },
-    cmd = "DB",
+    cmd = { "DB" },
   },
 
-  -- ------------------
-  -- |   Neorg Mode   |
-  -- ------------------
-  --
-  -- Neorg integrations with `telescope.nvim`.
+  -- Lua
   {
-    "nvim-neorg/neorg-telescope",
-    ft = "norg",
+    "rafcamlet/nvim-luapad",
+    cmd = { "Luapad", "LuaRun" },
   },
 
   -- Nvim Org mode plugin.
   {
     "nvim-neorg/neorg",
     version = "*",
-    ft = "norg",
-    cmd = "Neorg",
+    ft = { "norg" },
+    cmd = { "Neorg" },
     dependencies = { "nvim-neorg/neorg-telescope" },
     config = function()
       local ok_neorg, neorg = pcall(require, "neorg")

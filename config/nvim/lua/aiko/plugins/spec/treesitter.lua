@@ -1,8 +1,4 @@
 return {
-  -- -------------------
-  -- |   Tree-Sitter   |
-  -- -------------------
-  --
   -- Neovim treesitter helper, which enables a lot of cool functionality based
   -- on treesitter.
   {
@@ -27,6 +23,7 @@ return {
           "dockerfile",
           "fish",
           "go",
+          "javascript",
           "json",
           "lua",
           "markdown",
@@ -37,6 +34,7 @@ return {
           "rust",
           "sql",
           "toml",
+          "typescript",
           "vim",
           "yaml",
         },
@@ -64,7 +62,7 @@ return {
 
         -- Indentation is currently still an experimental feature.
         indent = {
-          enable = false,
+          enable = true,
           disable = { "python" },
         },
 
@@ -148,79 +146,15 @@ return {
     "ThePrimeagen/refactoring.nvim",
     dependencies = { "nvim-treesitter/nvim-treesitter" },
     config = true,
+    -- stylua: ignore
     keys = {
-
-      -- Prompt for a refactor to apply when the remap is triggered.
-      {
-        "<leader>rq",
-        function()
-          require("refactoring").select_refactor()
-        end,
-        mode = "v",
-        silent = true,
-        desc = "select refactoring",
-      },
-
-      -- Direct maps for specific refactoring operations.
-      {
-        "<leader>re",
-        function()
-          require("refactoring").refactor("Extract Function")
-        end,
-        mode = "v",
-        silent = true,
-        desc = "refactoring extract function",
-      },
-
-      {
-        "<leader>rf",
-        function()
-          require("refactoring").refactor("Extract Function To File")
-        end,
-        mode = "v",
-        silent = true,
-        desc = "refactoring extract function to file",
-      },
-
-      {
-        "<leader>rv",
-        function()
-          require("refactoring").refactor("Extract Variable")
-        end,
-        mode = "v",
-        silent = true,
-        desc = "refactoring extract variable",
-      },
-
-      {
-        "<leader>rb",
-        function()
-          require("refactoring").refactor("Extract Function")
-        end,
-        mode = "n",
-        silent = true,
-        desc = "refactoring extract block",
-      },
-
-      {
-        "<leader>rbf",
-        function()
-          require("refactoring").refactor("Extract Block To File")
-        end,
-        mode = "n",
-        silent = true,
-        desc = "refactoring extract block to file",
-      },
-
-      {
-        "<leader>ri",
-        function()
-          require("refactoring").refactor("Inline Variable")
-        end,
-        mode = { "n", "v" },
-        silent = true,
-        desc = "inline variable",
-      },
+      { "<leader>rq", function() require("refactoring").select_refactor() end, mode = "v", desc = "select refactoring" },
+      { "<leader>re", function() require("refactoring").refactor("Extract Function") end, mode = "v", desc = "refactoring extract function" },
+      { "<leader>rf", function() require("refactoring").refactor("Extract Function To File") end, mode = "v", desc = "refactoring extract function to file" },
+      { "<leader>rv", function() require("refactoring").refactor("Extract Variable") end, mode = "v", desc = "refactoring extract variable" },
+      { "<leader>rb", function() require("refactoring").refactor("Extract Function") end, mode = "n", desc = "refactoring extract block" },
+      { "<leader>rbf", function() require("refactoring").refactor("Extract Block To File") end, mode = "n", desc = "refactoring extract block to file" },
+      { "<leader>ri", function() require("refactoring").refactor("Inline Variable") end, mode = { "n", "v" }, desc = "inline variable" },
     },
   },
 }

@@ -21,12 +21,18 @@ return {
         ext_opts = {
           [types.choiceNode] = {
             active = {
-              virt_text = { { " <- Current Choice", "NonTest" } },
+              virt_text = { { " <- Current Choice", "Comment" } },
             },
           },
           [types.insertNode] = {
             active = {
               virt_text = { { "●", "Comment" } },
+              hl_group = "LuasnipActive",
+            },
+          },
+          [types.snippet] = {
+            passive = {
+              hl_group = "LuasnipPassive",
             },
           },
         },
@@ -43,7 +49,7 @@ return {
         )
       end
 
-      map({ "i" }, "<M-Tab>", function()
+      map("i", "<M-Tab>", function()
         if ls.jumpable() then
           ls.jump(1)
         else
@@ -54,7 +60,7 @@ return {
         desc = "luasnip jump forward one or expand tab",
       })
 
-      map({ "i" }, "<Tab>", function()
+      map("i", "<Tab>", function()
         if ls.expand_or_locally_jumpable() then
           if ls.expandable() then
             -- Set an undo breakpoint
@@ -94,20 +100,7 @@ return {
         end
       end, { silent = true, desc = "luasnip select choice" })
 
-      -- ----------------------------
-      -- |   Convenience Key Maps   |
-      -- ----------------------------
-      map(
-        "n",
-        "<leader>ss",
-        "<cmd>source ~/.dotfiles/config/nvim/lua/aiko/snippets/init.lua<CR>",
-        { silent = true, desc = "reload snippet configuration" }
-      )
-      map("n", "<leader>se", function()
-        require("luasnip.loaders").edit_snippet_files({})
-      end, { silent = true, desc = "telescope edit snippets" })
-
-      vim.api.nvim_create_user_command("LuasnipEdit", function()
+      vim.api.nvim_create_user_command("LuaSnipEdit", function()
         require("luasnip.loaders").edit_snippet_files({})
       end, { desc = "telescope edit snippets", force = true })
 
@@ -163,37 +156,32 @@ return {
         },
         mapping = {
           ["<tab>"] = cmp.config.disable,
-
-          -- Select mappings
-          ["<C-j>"] = {
-            i = cmp.mapping.select_next_item(),
-            c = cmp.mapping.select_next_item(),
-          },
-          ["<C-k>"] = {
-            i = cmp.mapping.select_prev_item(),
-            c = cmp.mapping.select_prev_item(),
-          },
           ["<C-n>"] = {
-            i = cmp.mapping.select_next_item(),
+            i = cmp.mapping.select_next_item({
+              behavior = cmp.SelectBehavior.Insert,
+            }),
+            c = cmp.mapping.select_next_item({
+              behavior = cmp.SelectBehavior.Insert,
+            }),
           },
           ["<C-p>"] = {
-            i = cmp.mapping.select_prev_item(),
+            i = cmp.mapping.select_prev_item({
+              behavior = cmp.SelectBehavior.Insert,
+            }),
+            c = cmp.mapping.select_prev_item({
+              behavior = cmp.SelectBehavior.Insert,
+            }),
           },
-
-          -- Scroll documentation
-          ["<C-b>"] = {
-            i = cmp.mapping.scroll_docs(-4),
-            c = cmp.mapping.scroll_docs(-4),
+          ["<C-b>"] = cmp.mapping.scroll_docs(-4),
+          ["<C-f>"] = cmp.mapping.scroll_docs(4),
+          ["<C-e>"] = {
+            i = cmp.mapping.abort(),
+            c = cmp.mapping.abort(),
           },
-          ["<C-f>"] = {
-            i = cmp.mapping.scroll_docs(4),
-            c = cmp.mapping.scroll_docs(4),
-          },
-
-          -- Close the completion menu
-          ["<C-c>"] = cmp.mapping.abort(),
-
-          -- Confirm completions
+          ["<C-y>"] = cmp.mapping.confirm({
+            behavior = cmp.ConfirmBehavior.Insert,
+            select = true,
+          }),
           ["<CR>"] = {
             i = cmp.mapping.confirm({
               behavior = cmp.ConfirmBehavior.Insert,
@@ -206,8 +194,6 @@ return {
               select = true,
             }),
           },
-
-          -- Open the completion menu.
           ["<C-Space>"] = cmp.mapping({
             i = cmp.mapping.complete(),
             c = function()
@@ -224,11 +210,8 @@ return {
         sources = cmp.config.sources({
           { name = "crates" },
           { name = "gh_issues" },
-
           { name = "nvim_lua" },
-
           { name = "nvim_lsp" },
-
           { name = "path" },
           { name = "luasnip" },
         }, {
@@ -269,13 +252,9 @@ return {
             return vim_item
           end,
         },
-        -- window = {
-        --   completion = cmp.config.window.bordered(),
-        --   documentation = cmp.config.window.bordered(),
-        -- },
-        -- experimental = {
-        --   native_menu = false,
-        -- },
+        experimental = {
+          native_menu = false,
+        },
       })
 
       -- ---------------------------
@@ -293,14 +272,18 @@ return {
     end,
   },
 
-  -- ---------------
-  -- |   Comment   |
-  -- ---------------
-  --
   -- Comment out lines and blocks.
   {
     "numToStr/Comment.nvim",
-    lazy = false,
+    keys = {
+      { "gc", mode = { "n", "x" } },
+      { "gb", mode = { "n", "x" } },
+      { "gcc" },
+      { "gbb" },
+      { "gcO" },
+      { "gco" },
+      { "gcA" },
+    },
     config = function()
       local comment = require("Comment")
 
@@ -349,8 +332,8 @@ return {
         alises = {
           ["a"] = ">",
           ["b"] = ")",
-          ["B"] = "}",
-          ["r"] = "]",
+          ["B"] = "]",
+          ["c"] = "}",
           ["q"] = { '"', "'", "`" },
           ["s"] = { "}", "]", ")", ">", '"', "'", "`" },
         },
