@@ -48,8 +48,8 @@ return {
           -- Lua
           builtins.formatting.stylua,
 
-          -- Markdown
-          builtins.formatting.markdownlint,
+          -- -- Markdown
+          -- builtins.formatting.markdownlint,
 
           -- SQL
           builtins.formatting.sql_formatter.with({
@@ -60,7 +60,7 @@ return {
 
           -- Python
           builtins.formatting.black,
-          builtins.diagnostics.ruff,
+          -- builtins.diagnostics.ruff,
 
           -- JSON
           builtins.formatting.jq,
