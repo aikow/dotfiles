@@ -30,7 +30,7 @@
       "while [[ \\${#@} -gt 0 ]]; do",
       "\tcase \"\\${1}\" in",
       "\t\t$0",
-      "\t\t-*|--*)",
+      "\t\t--* | -*)",
       "\t\t\techo \"Unknown option \\${1}\"",
       "\t\t\texit 1",
       "\t\t\t;;",
@@ -50,8 +50,8 @@
   "flag command line argument": {
     "prefix": "fclap",
     "body": [
-      "-$1|--$2)",
-      "\t$3=\"$4\"",
+      "-$1 | --$2)",
+      "\t$3=true",
       "\tshift  # Past argument",
       "\t;;"
     ],
@@ -60,7 +60,7 @@
   "argument command line argument": {
     "prefix": "aclap",
     "body": [
-      "-$1|--$2)",
+      "-$1 | --$2)",
       "\t$3=\"\\${2}\"",
       "\tshift  # Past argument",
       "\tshift  # Past value",
@@ -74,5 +74,12 @@
       "command -v ${1:COMMAND} &>/dev/null"
     ],
     "description": "Check if a command is on PATH and return with exit status 0"
+  },
+  "redirect to dev null": {
+    "prefix": "null",
+    "body": [
+      "&>/dev/null"
+    ],
+    "description": "Redirect both stdout and stderr to dev/null"
   }
 }
