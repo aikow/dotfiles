@@ -37,11 +37,26 @@ return {
     "jose-elias-alvarez/null-ls.nvim",
     dependencies = {
       "neovim/nvim-lspconfig",
+      "williamboman/mason.nvim",
     },
     event = "BufReadPre",
     config = function()
       local null_ls = require("null-ls")
       local builtins = null_ls.builtins
+
+      -- local registry = require("mason-registry")
+      -- local packages = registry.get_installed_packages()
+      -- local sources = {}
+      --
+      -- for _, package in pairs(packages) do
+      --   for cat in package.spec.categories do
+      --     if cat == "Formatter" then
+      --       table.insert(sources, builtins.formatting[package.name])
+      --     elseif cat == "Linter" then
+      --       table.insert(sources, builtins.linter[package.name])
+      --     end
+      --   end
+      -- end
 
       null_ls.setup({
         sources = {
@@ -64,6 +79,15 @@ return {
 
           -- JSON
           builtins.formatting.jq,
+
+          -- Shell scripts
+          builtins.formatting.shfmt.with({
+            extra_args = {
+              "--indent",
+              2,
+              "--case-indent",
+            },
+          }),
 
           -- typescript, javascript, html,{css
           builtins.formatting.prettier.with({
