@@ -33,11 +33,16 @@ function M.on_attach(client, buffer)
   local self = M.new(client, buffer)
 
   -- stylua: ignore start
-  self:map("gd", vim.lsp.buf.definition, { desc = "goto definition" })
-  self:map("gr", vim.lsp.buf.references, { desc = "references" })
+  -- self:map("gd", vim.lsp.buf.definition, { desc = "goto definition" })
+  -- self:map("gr", vim.lsp.buf.references, { desc = "references" })
+  -- self:map("gD", vim.lsp.buf.declaration, { desc = "goto declaration" })
+  -- self:map("gi", vim.lsp.buf.implementation, { desc = "goto implementation" })
+  -- self:map("gy", vim.lsp.buf.type_definition, { desc = "goto type definition" })
+  self:map("gd", "Telescope lsp_definitions", { desc = "goto definition" })
+  self:map("gr", "Telescope lsp_references", { desc = "references" })
   self:map("gD", vim.lsp.buf.declaration, { desc = "goto declaration" })
-  self:map("gi", vim.lsp.buf.implementation, { desc = "goto implementation" })
-  self:map("gy", vim.lsp.buf.type_definition, { desc = "goto type definition" })
+  self:map("gi", "Telescope lsp_implementations", { desc = "goto implementation" })
+  self:map("gy", "Telescope type_definition", { desc = "goto type definition" })
   self:map("K", vim.lsp.buf.hover, { desc = "hover" })
 
   -- Telescope
