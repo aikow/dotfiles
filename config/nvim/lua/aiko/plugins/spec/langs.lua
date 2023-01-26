@@ -135,7 +135,6 @@ return {
   -- Justfile support with tree-sitter.
   {
     "IndianBoy42/tree-sitter-just",
-    ft = { "just" },
     config = function()
       require("tree-sitter-just").setup({})
     end,
