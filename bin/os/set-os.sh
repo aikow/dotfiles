@@ -6,9 +6,12 @@ set -o nounset
 
 IFS=$' \n\t'
 
-readonly DIRNAME="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &>/dev/null && pwd -P)"
+readonly DIRNAME
+DIRNAME="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &>/dev/null && pwd -P)"
 
-readonly OS="$(uname -s)" 
+readonly OS
+OS="$(uname -s)"
+
 readonly BIN_DIR="${DIRNAME}/bin"
 
 case "${OS}" in

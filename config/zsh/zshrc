@@ -164,9 +164,6 @@ zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
 #                               Sources                               #
 #######################################################################
 #
-# Load OS specific settings
-[[ -f "${DOTFILES_ZSH}/os/${OSTYPE}.zsh" ]] && source "${DOTFILES_ZSH}/os/${OSTYPE}.zsh" 
-
 # Source fzf if installed
 if [[ -f ~/.fzf.zsh ]]; then
   source ~/.fzf.zsh

@@ -10,7 +10,7 @@ export LOCAL_CONFIG="${HOME}/.local/config"
 export LC_ALL=en_US.UTF-8
 
 # Modify the path
-export PATH="${HOME}/.local/bin:${DOTFILES}/bin:/usr/local/bin:/opt/vc/bin:${PATH}"
+export PATH="${HOME}/.local/bin:${DOTFILES}/bin/all:${DOTFILES}/bin/os/bin:/usr/local/bin:/opt/vc/bin:${PATH}"
 
 ### Ruby ###
 if command -v gem &>/dev/null; then
