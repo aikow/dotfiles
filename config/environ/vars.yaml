@@ -6,7 +6,8 @@
 DOTFILES: ${HOME}/.dotfiles
 
 # Bin directory for scripts.
-DOTFILES_BIN: ${HOME}/.dotfiles/bin
+DOTFILES_BIN: ${HOME}/.dotfiles/bin/all
+DOTFILES_BIN_ALL: ${HOME}/.dotfiles/bin/os/bin
 
 # Local configuration files that extend the managed configs.
 DOTFILES_LOCAL: ${HOME}/.local/config
@@ -44,11 +45,9 @@ FZF_CTRL_T_COMMAND:
     then: $FZF_DEFAULT_COMMAND
 
 FZF_DEFAULT_OPTS: >
-  --ansi --cycle --reverse --border rounded
-  --height 50% --min-height 20 --preview-window right,40%
-  --bind ctrl-f:preview-half-page-down,ctrl-b:preview-half-page-up
-  --bind ctrl-d:half-page-down,ctrl-u:half-page-up
-  --bind ctrl-/:toggle-preview,ctrl-t:toggle-preview-wrap
+  --ansi --cycle --reverse --border rounded --height 50% --min-height 20 --preview-window
+  right,40% --bind ctrl-f:preview-half-page-down,ctrl-b:preview-half-page-up --bind
+  ctrl-d:half-page-down,ctrl-u:half-page-up --bind ctrl-/:toggle-preview,ctrl-t:toggle-preview-wrap
 
 # --------------------
 # |   GNU Parallel   |

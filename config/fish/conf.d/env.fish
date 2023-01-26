@@ -4,7 +4,6 @@ set -gx LC_ALL en_US.UTF-8
 # My environment variables
 set -gx DOTFILES $HOME/.dotfiles
 set -gx DOTFILES_FISH $HOME/.dotfiles/config/fish
-set -gx DOTFILES_BIN $HOME/.dotfiles/bin
 set -gx LOCAL_CONFIG $HOME/.local/config
 
 # Editor
