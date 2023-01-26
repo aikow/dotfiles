@@ -1,5 +1,6 @@
 vim.filetype.add({
   extension = {
+    just = "just",
     nu = "nu",
     rsync = "rsync",
     tmux = "tmux",
