@@ -159,7 +159,15 @@ return {
   -- Syntax support for nushell.
   {
     "LhKipp/nvim-nu",
+    dependencies = {
+      "null-ls.nvim",
+    },
     ft = { "nu" },
+    config = function()
+      require("nu").setup({
+        use_lsp_features = true,
+      })
+    end,
   },
 
   -- CSV helper plugin.
