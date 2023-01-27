@@ -31,10 +31,9 @@ return {
         -- These override the defaults set by rust-tools.nvim.
         -- see https://github.com/neovim/nvim-lspconfig/blob/master/CONFIG.md#rust_analyzer
         server = {
-          on_attach = function()
-            require("aiko.plugins.configs.lspconfig").mappings()
-            M.mappings()
-          end,
+          -- on_attach = function()
+          --   require("aiko.plugins.configs.lspconfig").mappings()
+          -- end,
           capabilities = capabilities,
           settings = {
             -- to enable rust-analyzer settings visit:
@@ -135,6 +134,8 @@ return {
   -- Justfile support with tree-sitter.
   {
     "IndianBoy42/tree-sitter-just",
+    dependencies = { "nvim-treesitter" },
+    ft = { "just" },
     config = function()
       require("tree-sitter-just").setup({})
     end,
@@ -160,6 +161,7 @@ return {
     "LhKipp/nvim-nu",
     dependencies = {
       "null-ls.nvim",
+      "nvim-treesitter",
     },
     ft = { "nu" },
     config = function()
@@ -191,17 +193,15 @@ return {
   -- Nvim Org mode plugin.
   {
     "nvim-neorg/neorg",
+    dependencies = {
+      "nvim-treesitter",
+      "nvim-neorg/neorg-telescope",
+    },
     version = "*",
     ft = { "norg" },
     cmd = { "Neorg" },
-    dependencies = { "nvim-neorg/neorg-telescope" },
     config = function()
-      local ok_neorg, neorg = pcall(require, "neorg")
-      if not ok_neorg then
-        return
-      end
-
-      neorg.setup({
+      require("neorg").setup({
         load = {
           -- Builtin modules
           ["core.defaults"] = {},
@@ -214,7 +214,7 @@ return {
           ["core.norg.dirman"] = {
             config = {
               workspaces = {
-                personal = "~/GDrive/notes",
+                personal = "~/gdrive/notes",
               },
             },
           },
@@ -238,19 +238,6 @@ return {
               zen_mode = "zen-mode",
             },
           },
-
-          ["core.norg.journal"] = {
-            config = {
-              workspace = "personal",
-              journal_folder = "journal",
-              strategy = "nested",
-            },
-          },
-
-          -- ---------------------------
-          -- |   Getting Things Done   |
-          -- ---------------------------
-          -- ["core.gtd.base"] = {},
 
           -- External Modules
           ["core.integrations.telescope"] = {},

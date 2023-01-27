@@ -84,7 +84,7 @@ return {
 
           winblend = 0,
           color_devicons = true,
-          set_env = { ["COLORTERM"] = "truecolor" },
+          -- set_env = { ["COLORTERM"] = "truecolor" },
 
           mappings = {
             i = {

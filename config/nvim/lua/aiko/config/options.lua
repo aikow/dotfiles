@@ -7,7 +7,7 @@ opt.lazyredraw = true
 
 -- Search recursively downward from CWD; provides TAB completion for filenames
 -- e.g., `:find vim* <TAB>`
-opt.path = opt.path:append(",**")
+opt.path:append(",**")
 
 -- Permanent undo
 opt.undofile = true
@@ -91,8 +91,6 @@ opt.scrolloff = 7
 opt.splitright = true
 opt.splitbelow = true
 
--- Diff options
---
 -- Make diffing better: https://vimways.org/2018/the-power-of-diff/
 opt.diffopt = opt.diffopt
   + "iwhite" -- No whitespace in vimdiff
@@ -110,6 +108,7 @@ opt.diffopt = opt.diffopt
 --
 -- Color scheme and background
 opt.termguicolors = true -- 24-bit RGB color support
+opt.showmode = false -- Hide mode indicator
 
 -- Always show the status line and tabline
 opt.ruler = false -- Don't show column and row position, handled by theme.
