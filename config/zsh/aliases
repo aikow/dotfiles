@@ -26,4 +26,3 @@ if command -v hyperfine &>/dev/null; then
 fi
 
 alias grep='grep -i --color=auto'
-alias tmux='TERM=xterm-256color tmux'
