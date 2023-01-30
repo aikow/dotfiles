@@ -28,7 +28,7 @@ return {
       },
     },
     config = function(_, opts)
-      require("aiko.plugins.spec.lsp.setup").setup(opts)
+      require("aiko.plugins.lsp.setup").setup(opts)
     end,
   },
 

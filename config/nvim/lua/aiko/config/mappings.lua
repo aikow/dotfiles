@@ -146,6 +146,21 @@ map(
 map("n", "<C-l>", [[:lua ]], { desc = "enter lua command" })
 map("n", "<C-l><C-l>", [[:lua =]], { desc = "display lua expression" })
 
+-- Extra completion modes
+map(
+  "i",
+  "<C-x><C-m>",
+  [[<c-r>=luaeval("require('aiko.util.completion').complete_matching_line()")<CR>]],
+  { desc = "complete matching lines from current buffer" }
+)
+
+map(
+  "i",
+  "<C-x><C-d>",
+  [[<c-r>=luaeval("require('aiko.util.completion').complete_matching_line_cwd()")<CR>]],
+  { desc = "complete matching lines from the current working directory" }
+)
+
 -- Search history on command line
 map("c", "<C-k>", "<Up>")
 map("c", "<C-j>", "<Down>")

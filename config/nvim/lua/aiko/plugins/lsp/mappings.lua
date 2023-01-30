@@ -33,11 +33,6 @@ function M.on_attach(client, buffer)
   local self = M.new(client, buffer)
 
   -- stylua: ignore start
-  -- self:map("gd", vim.lsp.buf.definition, { desc = "goto definition" })
-  -- self:map("gr", vim.lsp.buf.references, { desc = "references" })
-  -- self:map("gD", vim.lsp.buf.declaration, { desc = "goto declaration" })
-  -- self:map("gi", vim.lsp.buf.implementation, { desc = "goto implementation" })
-  -- self:map("gy", vim.lsp.buf.type_definition, { desc = "goto type definition" })
   self:map("gd", "Telescope lsp_definitions", { desc = "goto definition" })
   self:map("gr", "Telescope lsp_references", { desc = "references" })
   self:map("gD", vim.lsp.buf.declaration, { desc = "goto declaration" })
@@ -74,7 +69,7 @@ function M.on_attach(client, buffer)
 
   self:map("<leader>a", vim.lsp.buf.code_action, { desc = "code action", mode = { "n", "v" }, has = "codeAction" })
 
-  local format = require("aiko.plugins.spec.lsp.format").format
+  local format = require("aiko.plugins.lsp.format").format
   self:map("<leader>rf", format, { desc = "format document", has = "documentFormatting" })
   self:map("<leader>rf", format, { desc = "format range", mode = "v", has = "documentRangeFormatting" })
   self:map("<leader>rr", vim.lsp.buf.rename, { desc = "rename", has = "rename" })

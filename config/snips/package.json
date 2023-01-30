@@ -38,6 +38,12 @@
       },
       {
         "language": [
+          "nu"
+        ],
+        "path": "./snippets/nu.json"
+      },
+      {
+        "language": [
           "python"
         ],
         "path": "./snippets/python.json"
