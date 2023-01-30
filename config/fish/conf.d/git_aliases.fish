@@ -396,7 +396,9 @@ abbr gwr 'git worktree remove'
 # ---------------------
 # |   Miscellaneous   |
 # ---------------------
-abbr grt 'cd (git rev-parse --show-toplevel || echo .)'
+function grt --description "cd to the git repository root"
+  cd (git rev-parse --show-toplevel || echo .)
+end
 
 abbr gcount 'git shortlog -sn'
 
