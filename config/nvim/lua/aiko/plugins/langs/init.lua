@@ -131,9 +131,18 @@ return {
     end,
   },
 
-  -- Justfile support with tree-sitter.
+  -- Justfile support syntax support.
+  --
+  -- Currently the vim syntax support works a lot better than the tree-sitter
+  -- based one.
+  {
+    "NoahTheDuke/vim-just",
+    ft = { "just" },
+  },
+
   {
     "IndianBoy42/tree-sitter-just",
+    enabled = false,
     dependencies = { "nvim-treesitter" },
     ft = { "just" },
     config = function()
@@ -201,48 +210,7 @@ return {
     ft = { "norg" },
     cmd = { "Neorg" },
     config = function()
-      require("neorg").setup({
-        load = {
-          -- Builtin modules
-          ["core.defaults"] = {},
-          ["core.keybinds"] = {
-            config = {
-              default_keybinds = false,
-              neorg_leader = "<localleader>",
-            },
-          },
-          ["core.norg.dirman"] = {
-            config = {
-              workspaces = {
-                personal = "~/gdrive/notes",
-              },
-            },
-          },
-
-          -- Disable the concealer for now
-          ["core.norg.concealer"] = {},
-
-          ["core.norg.completion"] = {
-            config = {
-              engine = "nvim-cmp",
-            },
-          },
-
-          ["core.norg.qol.toc"] = {},
-
-          -- --------------------
-          -- |   Core modules   |
-          -- --------------------
-          ["core.presenter"] = {
-            config = {
-              zen_mode = "zen-mode",
-            },
-          },
-
-          -- External Modules
-          ["core.integrations.telescope"] = {},
-        },
-      })
+      require("aiko.plugins.langs.neorg").setup()
     end,
   },
 }
