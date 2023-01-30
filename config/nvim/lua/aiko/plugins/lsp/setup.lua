@@ -40,12 +40,12 @@ end
 
 M.setup = function(opts)
   -- setup autoformat
-  require("aiko.plugins.spec.lsp.format").autoformat = opts.autoformat
+  require("aiko.plugins.lsp.format").autoformat = opts.autoformat
 
   -- setup formatting and keymaps
   on_attach(function(client, buffer)
-    require("aiko.plugins.spec.lsp.format").on_attach(client, buffer)
-    require("aiko.plugins.spec.lsp.mappings").on_attach(client, buffer)
+    require("aiko.plugins.lsp.format").on_attach(client, buffer)
+    require("aiko.plugins.lsp.mappings").on_attach(client, buffer)
   end)
 
   -- diagnostics
@@ -83,7 +83,7 @@ M.setup = function(opts)
   for _, server in pairs(all_servers) do
     handlers[server] = function()
       -- Check if a module to configure the server exists.
-      local server_mod_name = "aiko.plugins.spec.lsp.servers." .. server
+      local server_mod_name = "aiko.plugins.lsp.servers." .. server
       local ok, server_mod = pcall(require, server_mod_name)
       local server_opts = ok and server_mod.opts or {}
 

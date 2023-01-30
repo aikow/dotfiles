@@ -18,7 +18,7 @@ local in_math = function()
     [[;;query
     [
      (inline_math)
-     (ranged_tag name: (tag_name) @_tag (#eq? @_tag "math"))
+     (ranged_verbatim_tag name: (tag_name) @_tag (#eq? @_tag "math"))
     ] @math
    ]]
   )

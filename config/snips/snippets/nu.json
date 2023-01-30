@@ -1,0 +1,25 @@
+{
+  "cast": {
+    "prefix": "cast",
+    "body": [
+      "update ${1:col} { |it| if \\$it.${1} != \\$nothing { \\$it.${1} | into ${2:type} } }"
+    ],
+    "description": "Convert a column into a specific type"
+  },
+  "let": {
+    "prefix": "let",
+    "body": [
+      "let ${1:var} = ${2:val}"
+    ],
+    "description": "Constant definition"
+  },
+  "def": {
+    "prefix": "def",
+    "body": [
+      "def ${1:func} [${2:args}] {",
+      "\t${0}",
+      "}"
+    ],
+    "description": "Function definition"
+  }
+}
