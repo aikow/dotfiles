@@ -40,13 +40,13 @@ function fish_user_key_bindings
 
   bind -M insert \ck history-prefix-search-backward
   bind -M insert \cj history-prefix-search-forward
-  bind -M default \ck history-search-backward
-  bind -M default \cj history-search-forward
-  bind -M insert \cn history-token-search-forward
-  bind -M insert \cp history-token-search-backward
+  bind -M insert \ew history-token-search-forward
+  bind -M insert \eb history-token-search-backward
+  bind -M insert \cn complete
+  bind -M insert \cp complete-and-search
 
   bind -M insert \cf accept-autosuggestion
-  bind -M insert \ef forward-single-char
+  bind -M insert \ef forward-word
 
   bind -M insert \ce edit_command_buffer
 
