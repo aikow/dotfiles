@@ -37,7 +37,7 @@ function M.on_attach(client, buffer)
   self:map("gr", "Telescope lsp_references", { desc = "references" })
   self:map("gD", vim.lsp.buf.declaration, { desc = "goto declaration" })
   self:map("gi", "Telescope lsp_implementations", { desc = "goto implementation" })
-  self:map("gy", "Telescope type_definition", { desc = "goto type definition" })
+  self:map("gy", "Telescope lsp_type_definitions", { desc = "goto type definition" })
   self:map("K", vim.lsp.buf.hover, { desc = "hover" })
 
   -- Telescope
