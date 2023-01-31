@@ -290,6 +290,62 @@ let-env config = {
       truncating_suffix: "..." # A suffix used by the 'truncating' methodology
     }
   }
+  explore: {
+    help_banner: true
+    exit_esc: true
+
+    command_bar_text: '#C4C9C6'
+    # command_bar: {fg: '#C4C9C6' bg: '#223311' }
+
+    status_bar_background: {fg: '#1D1F21' bg: '#C4C9C6' }
+    # status_bar_text: {fg: '#C4C9C6' bg: '#223311' }
+
+    highlight: {bg: 'yellow' fg: 'black' }
+
+    status: {
+      # warn: {bg: 'yellow', fg: 'blue'}
+      # error: {bg: 'yellow', fg: 'blue'}
+      # info: {bg: 'yellow', fg: 'blue'}
+    }
+
+    try: {
+      # border_color: 'red'
+      # highlighted_color: 'blue'
+
+      # reactive: false
+    }
+
+    table: {
+      split_line: '#404040'
+
+      cursor: true
+
+      line_index: true
+      line_shift: true
+      line_head_top: true
+      line_head_bottom: true
+
+      show_head: true
+      show_index: true
+
+      # selected_cell: {fg: 'white', bg: '#777777'}
+      # selected_row: {fg: 'yellow', bg: '#C1C2A3'}
+      # selected_column: blue
+
+      # padding_column_right: 2
+      # padding_column_left: 2
+
+      # padding_index_left: 2
+      # padding_index_right: 1
+    }
+
+    config: {
+      cursor_color: {bg: 'yellow' fg: 'black' }
+
+      # border_color: white
+      # list_color: green
+    }
+  }
   history: {
     max_size: 10000 # Session has to be reloaded for this to take effect
     sync_on_enter: true # Enable to share history between multiple sessions, else you have to close the session to write history to file
@@ -310,6 +366,11 @@ let-env config = {
     metric: true # true => KB, MB, GB (ISO standard), false => KiB, MiB, GiB (Windows standard)
     format: "auto" # b, kb, kib, mb, mib, gb, gib, tb, tib, pb, pib, eb, eib, zb, zib, auto
   }
+  # cursor_shape: {
+  #   emacs: line
+  #   vi_insert: line
+  #   vi_normal: block
+  # }
   color_config: $dark_theme   # if you want a light theme, replace `$dark_theme` to `$light_theme`
   use_grid_icons: true
   footer_mode: "25" # always, never, number_of_rows, auto
@@ -329,13 +390,13 @@ let-env config = {
     }]
     env_change: {
       PWD: [{|before, after|
-        ls
+        ls;
         $nothing  # replace with source code to run if the PWD environment is different since the last repl input
       }]
     }
-    # display_output: {
-    #   if (term size).columns >= 180 { table -e } else { table }
-    # }
+    display_output: {
+      if (term size).columns >= 200 { table --expand --expand-deep 1 } else { table }
+    }
   }
   menus: [
       # Configuration for default nushell menus
@@ -409,8 +470,8 @@ let-env config = {
         }
         source: { |buffer, position|
             $nu.scope.commands
-            | where command =~ $buffer
-            | each { |it| {value: $it.command description: $it.usage} }
+            | where name =~ $buffer
+            | each { |it| {value: $it.name description: $it.usage} }
         }
       }
       {
@@ -452,8 +513,8 @@ let-env config = {
         }
         source: { |buffer, position|
             $nu.scope.commands
-            | where command =~ $buffer
-            | each { |it| {value: $it.command description: $it.usage} }
+            | where name =~ $buffer
+            | each { |it| {value: $it.name description: $it.usage} }
         }
       }
   ]
@@ -501,14 +562,14 @@ let-env config = {
     {
       name: next_history
       modifier: control
-      keycode: char_j
+      keycode: char_n
       mode: [vi_insert, vi_normal]
       event: { send: NextHistory }
     }
     {
       name: previous_history
       modifier: control
-      keycode: char_k
+      keycode: char_p
       mode: [vi_insert, vi_normal]
       event: { send: PreviousHistory }
     }
@@ -579,30 +640,6 @@ let-env config = {
       keycode: char_v
       mode: [vi_normal]
       event: { send: OpenEditor }
-    }
-
-    {
-      name: move_big_word_right_start
-      modifier: shift
-      keycode: char_w
-      mode: [vi_normal]
-      event: { edit: MoveBigWordRightStart }
-    }
-
-    {
-      name: move_big_word_right_end
-      modifier: shift
-      keycode: char_e
-      mode: [vi_normal]
-      event: { edit: MoveBigWordRightEnd }
-    }
-
-    {
-      name: move_big_word_left
-      modifier: shift
-      keycode: char_b
-      mode: [vi_normal]
-      event: { edit: MoveBigWordLeft }
     }
   ]
 }
