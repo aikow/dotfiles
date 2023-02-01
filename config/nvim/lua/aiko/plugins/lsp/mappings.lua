@@ -34,21 +34,12 @@ function M.on_attach(client, buffer)
 
   -- stylua: ignore start
   self:map("gd", "Telescope lsp_definitions", { desc = "goto definition" })
-  self:map("gr", "Telescope lsp_references", { desc = "references" })
   self:map("gD", vim.lsp.buf.declaration, { desc = "goto declaration" })
+  self:map("gr", "Telescope lsp_references", { desc = "references" })
   self:map("gi", "Telescope lsp_implementations", { desc = "goto implementation" })
   self:map("gy", "Telescope lsp_type_definitions", { desc = "goto type definition" })
-  self:map("K", vim.lsp.buf.hover, { desc = "hover" })
-
-  -- Telescope
   self:map("<leader>do", "Telescope diagnostics", { desc = "telescope open diagnostics" })
-  self:map("<leader>ld", "Telescope lsp_definitions", { desc = "telescope lsp list definitions" })
-  self:map("<leader>lr", "Telescope lsp_references", { desc = "telescope lsp list references" })
-  self:map("<leader>li", "Telescope lsp_implementations", { desc = "telescope lsp list implementations" })
-  self:map("<leader>ly", "Telescope lsp_type_definitions", { desc = "telescope lsp list type definitions" })
-  self:map("<leader>lw", "Telescope lsp_workspace_symbols", { desc = "telescope lsp list workspace symbols", })
-  self:map("<leader>lW", "Telescope lsp_dynamic_workspace_symbols", { desc = "telescope lsp list dynamic workspace symbols", })
-  self:map("<leader>ls", "Telescope lsp_document_symbols", { desc = "telescope lsp list document symbols" })
+  self:map("K", vim.lsp.buf.hover, { desc = "hover" })
 
   -- Symbols outline
   self:map("gO", "<cmd>SymbolsOutline<CR>", { desc = "lsp symbols outline" })

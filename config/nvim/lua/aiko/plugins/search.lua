@@ -17,8 +17,7 @@ return {
     -- stylua: ignore
     keys = {
       map_telescope("<leader>i", "resume", { desc = "telescope reopen last picker" }),
-      map_telescope("<leader>ls", "spell_suggest", { desc = "telescope spell suggest" }),
-      map_telescope("<leader>lf", "treesitter", { desc = "telescope treesitter" }),
+      map_telescope("<leader>ds", "spell_suggest", { desc = "telescope spell suggest" }),
       -- Finding searching and navigating
       map_telescope("<leader>o", "find_files", { desc = "telescope find files" }),
       map_telescope("<leader>p", "buffers", { desc = "telescope buffers" }),
@@ -42,7 +41,7 @@ return {
       map_telescope("<leader>hm", "man_pages", { desc = "telescope man pages" }),
       map_telescope("<leader>hk", "keymaps", { desc = "telescope keymaps" }),
       map_telescope("<leader>hf", "filetypes", { desc = "telescope filetypes" }),
-      map_telescope("<leader>hs", "extensions.luasnip.luasnip", { desc = "telescope luasnip snippets" }),
+      map_telescope("<leader>hs", function() require("telescope").extensions.luasnip.luasnip() end, { desc = "telescope luasnip snippets" }),
       map_telescope("<leader>ha", "autocommands", { desc = "telescope autocommands" }),
       map_telescope("<leader>ht", "builtin", { desc = "telescope builtin pickers" }),
       map_telescope("<leader>hq", "quickfix", { desc = "telescope quickfix list" }),
