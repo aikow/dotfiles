@@ -42,7 +42,7 @@ function M.on_attach(client, buffer)
   self:map("K", vim.lsp.buf.hover, { desc = "hover" })
 
   -- Symbols outline
-  self:map("gO", "<cmd>SymbolsOutline<CR>", { desc = "lsp symbols outline" })
+  self:map("gO", "SymbolsOutline", { desc = "lsp symbols outline" })
 
   -- Signature help
   self:map("<leader>k", vim.lsp.buf.signature_help, { desc = "signature help", has = "signatureHelp" })
