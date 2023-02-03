@@ -161,6 +161,32 @@ return {
     lazy = true,
   },
 
+  -- A tree like view for symbols using LSP.
+  {
+    "simrat39/symbols-outline.nvim",
+    cmd = { "SymbolsOutline", "SymbolsOutlineOpen", "SymbolsOutlineClose" },
+    config = function()
+      require("symbols-outline").setup({
+        symbol_blacklist = {},
+        autofold_depth = 2,
+        keymaps = {
+          close = { "<Esc>", "q" },
+          code_actions = "a",
+          focus_location = "o",
+          fold = "h",
+          fold_all = "W",
+          fold_reset = "R",
+          goto_location = "<CR>",
+          hover_symbol = { "<C-space>", "K" },
+          rename_symbol = "r",
+          toggle_preview = "p",
+          unfold = "l",
+          unfold_all = "E",
+        },
+      })
+    end,
+  },
+
   -- SQL language server helper.
   {
     "nanotee/sqls.nvim",

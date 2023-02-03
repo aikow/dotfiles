@@ -1,8 +1,8 @@
 format:
-  fd -elua -E./plugin/packer_compiled.lua -X stylua
+  fd -elua -X stylua
 
 lint: format
-	fd -elua -E./plugin/packer_compiled.lua -X luacheck
+	fd -elua -X luacheck
 
 format-spell:
   for file in spell/*.add; do sort -f -o "${file}" "${file}"; done
