@@ -469,7 +469,7 @@ let-env config = {
             description_text: yellow
         }
         source: { |buffer, position|
-            $nu.scope.commands
+            help commands
             | where name =~ $buffer
             | each { |it| {value: $it.name description: $it.usage} }
         }
@@ -538,8 +538,6 @@ let-env config = {
       mode: [vi_normal, vi_insert] # Note: You can add the same keybinding to all modes by using a list
       event: { send: menuprevious }
     }
-
-    # Use FZF for fuzzy history search
     {
       name: fuzzy_history
       modifier: control
@@ -549,22 +547,6 @@ let-env config = {
         send: executehostcommand
         cmd: "commandline (history | each { |it| $it.command } | uniq | reverse | str collect (char nl) | fzf --layout=reverse --height=40% -q (commandline) | decode utf-8 | str trim)"
       }
-    }
-    # Default history search provided by Nu
-    # {
-    #   name: history_menu
-    #   modifier: control
-    #   keycode: char_r
-    #   mode: [vi_insert, vi_normal]
-    #   event: { send: menu name: history_menu }
-    # }
-    # Key bindings for working with history.
-    {
-      name: next_history
-      modifier: control
-      keycode: char_n
-      mode: [vi_insert, vi_normal]
-      event: { send: NextHistory }
     }
     {
       name: previous_history
@@ -586,24 +568,6 @@ let-env config = {
       keycode: char_h
       mode: [vi_insert, vi_normal]
       event: { send: HistoryHintWordComplete }
-    }
-
-    # -------------
-    # |   Menus   |
-    # -------------
-    {
-      name: next_page
-      modifier: control
-      keycode: char_n
-      mode: [vi_insert, vi_normal]
-      event: { send: MenuPageNext }
-    }
-    {
-      name: previous_page
-      modifier: control
-      keycode: char_p
-      mode: [vi_insert, vi_normal]
-      event: { send: MenuPagePrevious }
     }
 
     # ---------------------
@@ -651,5 +615,9 @@ let-env config = {
 # ||             ||
 # |===============|
 # =================
+
+# List with detailed information.
 alias ll = ls -l
+
+# List everything with detailed information.
 alias lll = ls -la
