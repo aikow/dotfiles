@@ -1,0 +1,16 @@
+[
+  {
+    "defaults": {
+      "link": {
+        "if": "command -v kitty &>/dev/null"
+      }
+    }
+  },
+  {
+    "link": {
+      "~/.config/kitty/kitty.conf": {
+        "path": "kitty.conf"
+      }
+    }
+  }
+]

@@ -122,7 +122,14 @@ return {
           lualine_z = {
             {
               "windows",
-              max_length = vim.o.columns / 3,
+              max_length = function()
+                return vim.o.columns / 3
+              end,
+              filetype_names = {
+                NvimTree = "NvimTree",
+                alpha = "Alpha",
+              },
+              disabled_buftypes = { "quickfix", "prompt", "NvimTree" },
             },
           },
         },

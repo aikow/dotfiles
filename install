@@ -14,7 +14,8 @@ readonly DOTBOT_DIR="meta/dotbot"
 readonly DOTBOT_BIN="bin/dotbot"
 
 # Base directory of the git repository
-readonly BASEDIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+BASEDIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+readonly BASEDIR
 
 # Update the git repository
 cd "${BASEDIR}"
@@ -26,7 +27,7 @@ if [[ -f "${INSTALL_CONFIG_FILE}" ]]; then
   while read -r config; do
     conf_file="${CONFIG_DIR}/${config}/dotbot.${CONFIG_SUFFIX}"
     if [[ -f $conf_file ]]; then
-      "${BASEDIR}/${DOTBOT_DIR}/${DOTBOT_BIN}" -vv -f "${conf_file}"
+      "${BASEDIR}/${DOTBOT_DIR}/${DOTBOT_BIN}" -vv -f "${conf_file}" || true
     else
       echo "Skipping ${config}, check that the directory exists"
     fi
