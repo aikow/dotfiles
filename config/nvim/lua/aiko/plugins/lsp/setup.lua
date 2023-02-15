@@ -46,6 +46,7 @@ M.setup = function(opts)
   on_attach(function(client, buffer)
     require("aiko.plugins.lsp.format").on_attach(client, buffer)
     require("aiko.plugins.lsp.mappings").on_attach(client, buffer)
+    require("nvim-navic").attach(client, buffer)
   end)
 
   -- diagnostics

@@ -21,7 +21,7 @@ return {
         "marksman",
         "pyright",
         "sqls",
-        "sumneko_lua",
+        "lua_ls",
         "taplo",
         "tsserver",
         "yamlls",
@@ -149,9 +149,9 @@ return {
         },
       })
 
-      require("mason-lspconfig").setup({
-        ensure_installed = { "sumneko_lua" },
-      })
+      -- require("mason-lspconfig").setup({
+      --   ensure_installed = { "lua-language-server" },
+      -- })
     end,
   },
 
