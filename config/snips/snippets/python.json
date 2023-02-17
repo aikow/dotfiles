@@ -12,5 +12,32 @@
     "body": [
       "#!/usr/bin/env python"
     ]
+  },
+  "aclap": {
+    "description": "add an argument to an argparse parser",
+    "prefix": "aclap",
+    "body": [
+      "$1.add_argument(",
+      "    \"--$2\",",
+      "    type=$3,",
+      "    default=$4,",
+      "    help=(",
+      "        \"$5\"",
+      "    ),",
+      ")"
+    ]
+  },
+  "fclap": {
+    "description": "add a flag to an argparse parser",
+    "prefix": "fclap",
+    "body": [
+      "$1.add_argument(",
+      "    \"--$2\",",
+      "    action=\"store_true\",",
+      "    help=(",
+      "        \"$5\"",
+      "    ),",
+      ")"
+    ]
   }
 }
