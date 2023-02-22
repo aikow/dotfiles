@@ -54,7 +54,7 @@ remove_empty_header_and_footer_lines_in_function = true
 
 remove_expression_list_finish_comma = true
 # optional crlf/lf/cr/auto, if it is 'auto', in windows it is crlf other platforms are lf
-end_of_line = auto
+end_of_line = lf
 #
 detect_end_of_line = false
 
