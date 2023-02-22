@@ -87,6 +87,14 @@ autocmd("TermOpen", {
   end,
 })
 
+-- Automatically set the colorcolumn to the textwidth of the current buffer.
+autocmd("BufWinEnter", {
+  group = augroup("textwidth colorcolumn", {}),
+  callback = function()
+    vim.wo.colorcolumn = "" .. vim.bo.textwidth
+  end,
+})
+
 -- Automatically read and source `exrc` file in any parent directory.
 autocmd("VimEnter", {
   group = augroup("Source exrc", {}),

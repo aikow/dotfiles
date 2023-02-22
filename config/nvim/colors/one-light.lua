@@ -67,7 +67,6 @@ colorscheme.polish = {
   TbLineThemeToggleBtn = { bg = colorscheme.colors.one_bg3 },
   WhichKeyDesc = { fg = colorscheme.colors.white },
   Pmenu = { bg = colorscheme.colors.black2 },
-  St_pos_text = { fg = colorscheme.colors.white },
 }
 
 require("aiko.theme").paint(colorscheme)
