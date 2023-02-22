@@ -1,0 +1,18 @@
+[
+  {
+    "defaults": {
+      "link": {
+        "if": "command -v waybar &>/dev/null"
+      }
+    }
+  },
+  {
+    "link": {
+      "~/.config/waybar": {
+        "relink": true,
+        "force": true,
+        "path": "."
+      }
+    }
+  }
+]
