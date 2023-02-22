@@ -38,7 +38,8 @@ colorscheme.colors = {
 
 colorscheme.theme = {
   base00 = "#D8DEE9",
-  base01 = "#f4f4f4",
+  base01 = "#c7cdd8",
+  -- base01 = "#f4f4f4",
   base02 = "#e5e5e6",
   base03 = "#dfdfe0",
   base04 = "#d7d7d8",
@@ -66,7 +67,6 @@ colorscheme.polish = {
   TSPunctBracket = { fg = colorscheme.colors.nord_blue },
   FloatBorder = { fg = colorscheme.theme.base05 },
   DiffAdd = { fg = colorscheme.theme.base05 },
-  St_pos_text = { fg = colorscheme.colors.white },
 }
 
 require("aiko.theme").paint(colorscheme)
