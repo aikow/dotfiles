@@ -15,6 +15,12 @@ vim.g.pyindent_open_paren = vim.bo.shiftwidth
 
 -- Shortcut to run file through interpreter.
 vim.keymap.set({ "n", "v" }, "<localleader>r", [[:!python3 %<CR>]])
+vim.keymap.set(
+  "n",
+  "<localleader>i",
+  [[:write | !isort <C-R>=expand('%:p')<CR><CR>]],
+  { desc = "sort imports using isort" }
+)
 
 -- Automatically wrap multiline concatenated strings.
 vim.api.nvim_buf_create_user_command(0, "StringWrap", function()
