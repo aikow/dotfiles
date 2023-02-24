@@ -74,6 +74,7 @@ return {
           }),
 
           -- Python
+          builtins.formatting.isort.with({ extra_args = { "--profile=black" } }),
           builtins.formatting.black,
           -- builtins.diagnostics.ruff,
 
@@ -82,11 +83,7 @@ return {
 
           -- Shell scripts
           builtins.formatting.shfmt.with({
-            extra_args = {
-              "--indent",
-              2,
-              "--case-indent",
-            },
+            extra_args = { "--indent", 2, "--case-indent" },
           }),
 
           -- typescript, javascript, html,{css
