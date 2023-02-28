@@ -21,7 +21,7 @@ window#waybar.hidden {
 
 #workspaces button {
   padding: 0 5px;
-  color: #7984A4;
+  color: #7984a4;
   background-color: transparent;
   /* Use box-shadow instead of border so the text isn't offset */
   box-shadow: inset 0 -3px transparent;
