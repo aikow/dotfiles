@@ -63,19 +63,18 @@ return {
           -- Lua
           builtins.formatting.stylua,
 
-          -- -- Markdown
-          -- builtins.formatting.markdownlint,
-
-          -- SQL
+          -- Use the language in the buffer local variable `sqllanguage` to
+          -- format.
           builtins.formatting.sql_formatter.with({
             extra_args = function()
               return { "-l", vim.b.sqllanguage or "sqlite" }
             end,
           }),
 
-          -- Python
+          -- Use --profile=black to avoid conflicts with the black formatter.
           builtins.formatting.isort.with({ extra_args = { "--profile=black" } }),
-          builtins.formatting.black,
+          -- Use --preview to format multi-line strings.
+          builtins.formatting.black.with({ extra_args = { "--preview" } }),
           -- builtins.diagnostics.ruff,
 
           -- JSON
