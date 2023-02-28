@@ -12,7 +12,8 @@ M.bootstrap = function()
       lazypath,
     })
   end
-  vim.opt.rtp:prepend(lazypath)
+
+  vim.opt.runtimepath:prepend(lazypath)
 end
 
 M.plugins = function()
@@ -21,7 +22,16 @@ M.plugins = function()
     return
   end
 
-  lazy.setup("aiko.plugins", {
+  local imports = {
+    { import = "aiko.plugins" },
+  }
+
+  -- Only add local plugins if the directory exists.
+  if vim.fn.globpath(vim.o.runtimepath, "/lua/aiko/local/plugins/*") ~= "" then
+    table.insert(imports, { import = "aiko.local.plugins" })
+  end
+
+  lazy.setup(imports, {
     change_detection = {
       enabled = true,
       notify = false,
