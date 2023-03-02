@@ -1,4 +1,10 @@
 return {
+  -- Plenary provides helper functions.
+  {
+    "nvim-lua/plenary.nvim",
+    lazy = true,
+  },
+
   -- Lua snippet engine.
   {
     "L3MON4D3/luasnip",
@@ -338,6 +344,171 @@ return {
         },
         move_cursor = true,
       })
+    end,
+  },
+
+  -- Use '.' to repeat plugin code actions.
+  {
+    "tpope/vim-repeat",
+  },
+
+  -- Show indentation.
+  {
+    "lukas-reineke/indent-blankline.nvim",
+    config = function()
+      require("indent_blankline").setup({
+        filetype_exclude = {
+          "",
+          "NvimTree",
+          "Outline",
+          "TelescopePrompt",
+          "TelescopeResults",
+          "alpha",
+          "help",
+          "lazy",
+          "lspinfo",
+          "man",
+          "mason",
+          "norg",
+          "packer",
+          "terminal",
+        },
+        buftype_exclude = { "terminal" },
+        use_treesitter = false,
+        show_trailing_blankline_indent = false,
+        show_first_indent_level = false,
+        show_current_context = true,
+        show_current_context_start = false,
+      })
+    end,
+  },
+
+  -- Effortlessly switch between vim and tmux windows.
+  {
+    "christoomey/vim-tmux-navigator",
+    config = function()
+      vim.g.tmux_navigator_no_mappings = 1
+      vim.g.tmux_navigator_disable_when_zoomed = 1
+    end,
+  },
+
+  -- Align tabular data.
+  {
+    "godlygeek/tabular",
+    cmd = "Tabularize",
+    config = function()
+      -- Add tabular pattern to parse latex table with multicolumns
+      vim.cmd.AddTabularPattern(
+        [[latex_table /\v(\&)|(\\multicolumn(\{[^}]*\}){3})@=/]]
+      )
+    end,
+  },
+
+  -- Automatically cd to project root.
+  {
+    "airblade/vim-rooter",
+    config = function()
+      vim.g.rooter_patterns = {
+        ".editorconfig", -- general editor settings
+        ".exrc", -- nvim config
+        ".git", -- git
+        ".hg", -- mercurial
+        ".nvimrc", -- nvim config
+        ".svn", -- subversion
+        "Cargo.toml", -- rust
+        "Makefile", -- c/c++
+        "package.json", -- javascript
+        "pyproject.toml", -- python
+        "setup.cfg", -- python
+      }
+      vim.g.rooter_silent_chdir = 1
+    end,
+  },
+
+  -- Project local configuration via JSON.
+  {
+    "folke/neoconf.nvim",
+    enabled = false,
+  },
+
+  -- Generate documentation comments and doc-strings automatically.
+  {
+    "danymat/neogen",
+    -- stylua: ignore
+    keys = {
+      { "<leader>nm", "<cmd>Neogen func<CR>", desc = "Neogen generate function docstring" },
+      { "<leader>nt", "<cmd>Neogen type<CR>", desc = "Neogen generate type docstring" },
+      { "<leader>nf", "<cmd>Neogen file<CR>", desc = "Neogen generate file docstring" },
+      { "<leader>no", "<cmd>Neogen class<CR>", desc = "Neogen generate class docstring" },
+    },
+    config = function()
+      require("neogen").setup({
+        snippet_engine = "luasnip",
+      })
+    end,
+  },
+
+  -- Highlight todo, fixme, note, perf, etc. comments in buffers.
+  {
+    "folke/todo-comments.nvim",
+    cmd = { "TodoTrouble", "TodoTelescope" },
+    event = "BufReadPost",
+    -- stylua: ignore
+    keys = {
+      { "]t", function() require("todo-comments").jump_next() end, desc = "Next todo comment" },
+      { "[t", function() require("todo-comments").jump_prev() end, desc = "Previous todo comment" },
+      { "<leader>xt", "<cmd>TodoTrouble<cr>", desc = "Todo Trouble" },
+      { "<leader>xtt", "<cmd>TodoTrouble keywords=TODO,FIX,FIXME<cr>", desc = "Todo Trouble" },
+      { "<leader>xT", "<cmd>TodoTelescope<cr>", desc = "Todo Telescope" },
+    },
+    config = function()
+      require("todo-comments").setup({
+        signs = true,
+        sign_priority = 1,
+      })
+    end,
+  },
+
+  -- Automatically insert matching pairs.
+  {
+    "windwp/nvim-autopairs",
+    enabled = false,
+    config = function()
+      local autopairs = require("nvim-autopairs")
+      local cmp = require("cmp")
+
+      autopairs.setup({
+        fast_wrap = {},
+        disable_filetype = { "TelescopePrompt", "vim" },
+      })
+
+      local cmp_autopairs = require("nvim-autopairs.completion.cmp")
+
+      cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
+    end,
+  },
+
+  -- Measure startup time.
+  {
+    "dstein64/vim-startuptime",
+    cmd = "StartupTime",
+  },
+
+  -- Focus a single window in zen mode.
+  {
+    "folke/zen-mode.nvim",
+    cmd = "ZenMode",
+    config = function()
+      require("zen-mode").setup({})
+    end,
+  },
+
+  {
+    "krivahtoo/silicon.nvim",
+    cmd = "Silicon",
+    build = "./install.sh",
+    config = function()
+      require("silicon").setup({ font = "Hack=16" })
     end,
   },
 }
