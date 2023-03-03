@@ -196,4 +196,19 @@ return {
       { "<leader>z", "<cmd>FzfLua<CR>", silent = true },
     },
   },
+
+  -- Pretty quickfix-like list for diagnostics, loclist, etc.
+  {
+    "folke/trouble.nvim",
+    dependencies = { "nvim-tree/nvim-web-devicons" },
+    cmd = {
+      "Trouble",
+      "TroubleClose",
+      "TroubleToggle",
+      "TroubleRefresh",
+    },
+    config = function()
+      require("trouble").setup({})
+    end,
+  },
 }

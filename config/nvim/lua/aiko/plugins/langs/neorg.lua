@@ -30,9 +30,7 @@ M.setup = function()
 
       ["core.norg.qol.toc"] = {},
 
-      -- --------------------
-      -- |   Core modules   |
-      -- --------------------
+      -- Neorg presentations
       ["core.presenter"] = {
         config = {
           zen_mode = "zen-mode",
