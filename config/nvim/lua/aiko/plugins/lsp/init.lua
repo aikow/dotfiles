@@ -27,9 +27,7 @@ return {
         "yamlls",
       },
     },
-    config = function(_, opts)
-      require("aiko.plugins.lsp.setup").setup(opts)
-    end,
+    config = require("aiko.plugins.lsp.lspconfig").setup,
   },
 
   -- Hook into the builtin LSP features.
@@ -38,93 +36,16 @@ return {
     dependencies = {
       "neovim/nvim-lspconfig",
       "williamboman/mason.nvim",
+      "jay-babu/mason-null-ls.nvim",
     },
     event = "BufReadPre",
-    config = function()
-      local null_ls = require("null-ls")
-      local builtins = null_ls.builtins
-
-      -- local registry = require("mason-registry")
-      -- local packages = registry.get_installed_packages()
-      -- local sources = {}
-      --
-      -- for _, package in pairs(packages) do
-      --   for cat in package.spec.categories do
-      --     if cat == "Formatter" then
-      --       table.insert(sources, builtins.formatting[package.name])
-      --     elseif cat == "Linter" then
-      --       table.insert(sources, builtins.linter[package.name])
-      --     end
-      --   end
-      -- end
-
-      null_ls.setup({
-        sources = {
-          -- Lua
-          builtins.formatting.stylua,
-
-          -- Use the language in the buffer local variable `sqllanguage` to
-          -- format.
-          builtins.formatting.sql_formatter.with({
-            extra_args = function()
-              return { "-l", vim.b.sqllanguage or "sqlite" }
-            end,
-          }),
-
-          -- Use --profile=black to avoid conflicts with the black formatter.
-          builtins.formatting.isort.with({ extra_args = { "--profile=black" } }),
-          -- Use --preview to format multi-line strings.
-          builtins.formatting.black.with({ extra_args = { "--preview" } }),
-          -- builtins.diagnostics.ruff,
-
-          -- JSON
-          builtins.formatting.jq,
-
-          -- Shell scripts
-          builtins.formatting.shfmt.with({
-            extra_args = { "--indent", 2, "--case-indent" },
-          }),
-
-          -- typescript, javascript, html,{css
-          builtins.formatting.prettier.with({
-            filetypes = {
-              "handlebars",
-              "javascript",
-              -- "jsonc",
-              "typescriptreact",
-              "scss",
-              "graphql",
-              -- "markdown.mdx",
-              -- "markdown",
-              "html",
-              -- "json",
-              -- "yaml",
-              "css",
-              "vue",
-              "less",
-              "javascriptreact",
-              "typescript",
-            },
-          }),
-
-          -- YAML
-          builtins.formatting.yamlfmt.with({
-            extra_args = {
-              "-conf",
-              vim.fs.normalize("~/.dotfiles/config/yamlfmt/yamlfmt"),
-            },
-          }),
-        },
-      })
-    end,
+    opts = require("aiko.plugins.lsp.null-ls").opts,
+    config = require("aiko.plugins.lsp.null-ls").setup,
   },
 
   -- Easily install any LSP, DAP, linter, or formatter from inside neovim.
   {
     "williamboman/mason.nvim",
-    dependencies = {
-      "williamboman/mason-lspconfig.nvim",
-    },
     cmd = {
       "Mason",
       "MasonInstall",
@@ -144,10 +65,6 @@ return {
           },
         },
       })
-
-      -- require("mason-lspconfig").setup({
-      --   ensure_installed = { "lua-language-server" },
-      -- })
     end,
   },
 

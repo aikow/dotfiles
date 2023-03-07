@@ -42,7 +42,7 @@ return {
           )
         end
 
-        local clients = vim.lsp.buf_get_clients()
+        local clients = vim.lsp.get_active_clients()
         if clients then
           local names = {}
           for _, client in pairs(clients) do

@@ -342,7 +342,7 @@ return {
           ["r"] = "}",
           ["q"] = { '"', "'", "`" },
         },
-        move_cursor = true,
+        move_cursor = "begin",
       })
     end,
   },
@@ -370,7 +370,6 @@ return {
           "man",
           "mason",
           "norg",
-          "packer",
           "terminal",
         },
         buftype_exclude = { "terminal" },
@@ -457,9 +456,6 @@ return {
     keys = {
       { "]t", function() require("todo-comments").jump_next() end, desc = "Next todo comment" },
       { "[t", function() require("todo-comments").jump_prev() end, desc = "Previous todo comment" },
-      { "<leader>xt", "<cmd>TodoTrouble<cr>", desc = "Todo Trouble" },
-      { "<leader>xtt", "<cmd>TodoTrouble keywords=TODO,FIX,FIXME<cr>", desc = "Todo Trouble" },
-      { "<leader>xT", "<cmd>TodoTelescope<cr>", desc = "Todo Telescope" },
     },
     config = function()
       require("todo-comments").setup({
@@ -486,12 +482,6 @@ return {
 
       cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
     end,
-  },
-
-  -- Measure startup time.
-  {
-    "dstein64/vim-startuptime",
-    cmd = "StartupTime",
   },
 
   -- Focus a single window in zen mode.

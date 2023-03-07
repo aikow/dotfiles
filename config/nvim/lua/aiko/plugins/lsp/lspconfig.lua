@@ -38,7 +38,7 @@ local setup_handlers = function()
   end
 end
 
-M.setup = function(opts)
+M.setup = function(_, opts)
   -- setup autoformat
   require("aiko.plugins.lsp.format").autoformat = opts.autoformat
 

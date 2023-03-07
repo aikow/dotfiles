@@ -143,21 +143,4 @@ return {
       })
     end,
   },
-
-  -- Refactoring support for select languages.
-  {
-    "ThePrimeagen/refactoring.nvim",
-    dependencies = { "nvim-treesitter/nvim-treesitter" },
-    config = true,
-    -- stylua: ignore
-    keys = {
-      { "<leader>rq", function() require("refactoring").select_refactor() end, mode = "v", desc = "select refactoring" },
-      { "<leader>re", function() require("refactoring").refactor("Extract Function") end, mode = "v", desc = "refactoring extract function" },
-      { "<leader>rf", function() require("refactoring").refactor("Extract Function To File") end, mode = "v", desc = "refactoring extract function to file" },
-      { "<leader>rv", function() require("refactoring").refactor("Extract Variable") end, mode = "v", desc = "refactoring extract variable" },
-      { "<leader>rb", function() require("refactoring").refactor("Extract Function") end, mode = "n", desc = "refactoring extract block" },
-      { "<leader>rbf", function() require("refactoring").refactor("Extract Block To File") end, mode = "n", desc = "refactoring extract block to file" },
-      { "<leader>ri", function() require("refactoring").refactor("Inline Variable") end, mode = { "n", "v" }, desc = "inline variable" },
-    },
-  },
 }
