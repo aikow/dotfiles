@@ -2,7 +2,7 @@ local M = {}
 
 M.opts = {
   black = {
-    { extra_args = { "--preview" } },
+    with = { extra_args = { "--preview" } },
   },
   isort = {
     with = { extra_args = { "--profile=black" } },
