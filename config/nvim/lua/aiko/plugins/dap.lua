@@ -2,6 +2,7 @@ return {
   -- Debug adapter protocol.
   {
     "mfussenegger/nvim-dap",
+    enable = false,
     dependencies = {
       "rcarriga/nvim-dap-ui",
       "theHamsta/nvim-dap-virtual-text",
@@ -68,6 +69,7 @@ return {
   -- UI elements for nvim-dap.
   {
     "rcarriga/nvim-dap-ui",
+    enable = false,
     lazy = true,
     config = function()
       require("dapui").setup({})
@@ -77,6 +79,7 @@ return {
   -- Insert virtual text during debugging for variable values.
   {
     "theHamsta/nvim-dap-virtual-text",
+    enable = false,
     lazy = true,
     config = function()
       require("nvim-dap-virtual-text").setup({})
@@ -86,6 +89,7 @@ return {
   -- DAP configuration for python.
   {
     "mfussenegger/nvim-dap-python",
+    enable = false,
     lazy = true,
     config = function()
       require("dap-python").setup(
