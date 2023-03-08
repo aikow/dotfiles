@@ -1,0 +1,17 @@
+[
+  {
+    "defaults": {
+      "link": {
+        "if": "command -v zellij &>/dev/null"
+      }
+    }
+  },
+  {
+    "link": {
+      "~/.config/zellij": {
+        "create": true,
+        "path": "config.kdl"
+      }
+    }
+  }
+]
