@@ -9,16 +9,16 @@
   {
     "link": {
       "~/.config/alacritty/alacritty.yml": {
-        "path": "alacritty-mac.yaml",
-        "if": "command -v alacritty &>/dev/null && [[ \"$(uname -s)\" = \"Darwin\" ]]"
+        "if": "command -v alacritty &>/dev/null && [[ \"$(uname -s)\" = \"Darwin\" ]]",
+        "path": "alacritty-mac.yaml"
       }
     }
   },
   {
     "link": {
       "~/.config/alacritty/alacritty.yml": {
-        "path": "alacritty-arch.yaml",
-        "if": "command -v alacritty &>/dev/null && [[ \"$(uname -s)\" != \"Darwin\" ]]"
+        "if": "command -v alacritty &>/dev/null && [[ \"$(uname -s)\" != \"Darwin\" ]]",
+        "path": "alacritty-arch.yaml"
       }
     }
   }
