@@ -12,6 +12,7 @@ M.palettes = {
   "lsp",
   "luasnip",
   "mason",
+  "neo-tree",
   "nvimtree",
   "syntax",
   "telescope",

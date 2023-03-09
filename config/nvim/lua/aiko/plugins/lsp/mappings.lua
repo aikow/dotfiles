@@ -33,20 +33,31 @@ function M.on_attach(client, buffer)
   local self = M.new(client, buffer)
 
   -- stylua: ignore start
-  self:map("gd", "Telescope lsp_definitions", { desc = "goto definition" })
   self:map("gD", vim.lsp.buf.declaration, { desc = "goto declaration" })
-  self:map("gr", "Telescope lsp_references", { desc = "references" })
-  self:map("gi", "Telescope lsp_implementations", { desc = "goto implementation" })
-  self:map("gy", "Telescope lsp_type_definitions", { desc = "goto type definition" })
-  self:map("<leader>do", "Telescope diagnostics", { desc = "telescope open diagnostics" })
   self:map("K", vim.lsp.buf.hover, { desc = "hover" })
-
-  -- Symbols outline
-  self:map("gO", "SymbolsOutline", { desc = "lsp symbols outline" })
 
   -- Signature help
   self:map("<leader>k", vim.lsp.buf.signature_help, { desc = "signature help", has = "signatureHelp" })
   self:map("<c-k>", vim.lsp.buf.signature_help, { mode = "i", desc = "signature help", has = "signatureHelp" })
+
+  self:map("<leader>a", vim.lsp.buf.code_action, { desc = "code action", mode = { "n", "v" }, has = "codeAction" })
+
+  -- Telescope mappings
+  self:map("gd", "Telescope lsp_definitions", { desc = "goto definition" })
+  self:map("gr", "Telescope lsp_references", { desc = "references" })
+  self:map("gi", "Telescope lsp_implementations", { desc = "goto implementation" })
+  self:map("gy", "Telescope lsp_type_definitions", { desc = "goto type definition" })
+  self:map("<leader>do", "Telescope diagnostics", { desc = "telescope open diagnostics" })
+
+  -- Trouble mappings
+  self:map("<leader>ld", "Trouble lsp_definitions", { desc = "goto definition" })
+  self:map("<leader>lr", "Trouble lsp_references", { desc = "references" })
+  self:map("<leader>li", "Trouble lsp_implementations", { desc = "goto implementation" })
+  self:map("<leader>ly", "Trouble lsp_type_definitions", { desc = "goto type definition" })
+  self:map("<leader>lg", "Trouble workspace_diagnostics", { desc = "telescope open diagnostics" })
+
+  -- Symbols outline
+  self:map("gO", "SymbolsOutline", { desc = "lsp symbols outline" })
 
   -- Diagnostics
   self:map("<leader>e", vim.diagnostic.open_float, { desc = "diagnostics for line" })
@@ -57,8 +68,6 @@ function M.on_attach(client, buffer)
   self:map("[e", M.diagnostic_goto(false, "ERROR"), { desc = "prev error" })
   self:map("]w", M.diagnostic_goto(true, "WARNING"), { desc = "next warning" })
   self:map("[w", M.diagnostic_goto(false, "WARNING"), { desc = "prev warning" })
-
-  self:map("<leader>a", vim.lsp.buf.code_action, { desc = "code action", mode = { "n", "v" }, has = "codeAction" })
 
   local format = require("aiko.plugins.lsp.format").format
   self:map("<leader>rf", format, { desc = "format document", has = "documentFormatting" })

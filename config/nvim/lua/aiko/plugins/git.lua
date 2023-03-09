@@ -106,4 +106,20 @@ return {
       })
     end,
   },
+
+  {
+    "sindrets/diffview.nvim",
+    dependencies = { "nvim-lua/plenary.nvim" },
+    cmd = {
+      "DiffviewOpen",
+      "DiffviewClose",
+      "DiffviewTooggleFiles",
+      "DiffviewFocusFiles",
+      "DiffviewRefresh",
+    },
+    -- stylua: ignore
+    keys = {
+      { "<leader>gg", "<cmd>DiffviewOpen<CR>", desc = "open a diff against the current index." },
+    },
+  },
 }
