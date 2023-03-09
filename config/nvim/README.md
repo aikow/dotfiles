@@ -40,3 +40,27 @@ On macos, start nvim with
 CC=gcc-12 nvim
 ```
 to use the gcc-12 compiler.
+
+## Mappings
+
+| <leader>+ | group                                  |
+| --------- | -------------------------------------- |
+| a         | LSP code action                        |
+| b         | DAP ...                                |
+| c         | Change text up to next underscore '_'  |
+| d         | Diagnostics ...                        |
+| e         | Open diagnostic float                  |
+| f         | Find ...                               |
+| g         | Git ...                                |
+| h         | Help and vim builtin's ...             |
+| i         | Resume telescope                       |
+| k         | LSP signature help                     |
+| l         | LSP ...                                |
+| n         | Documentation comments ...             |
+| o         | Find files                             |
+| p         | Find buffers                           |
+| r         | Refactor ...                           |
+| v         | Incremental selection with tree-sitter |
+| w         | Save file                              |
+| x         | Source file                            |
+| z         | FZF lua ...                            |

@@ -1,10 +1,3 @@
-local function map_telescope(lhs, rhs, opts)
-  opts = opts or {}
-  vim.keymap.set(opts.mode or "n", lhs, type(rhs) == "string" and function()
-    require("telescope.builtin")[rhs](opts.opts)
-  end or rhs, { silent = true, desc = opts.desc })
-end
-
 return {
   -- Find, filter, and search pretty much anything.
   {
@@ -16,37 +9,37 @@ return {
     cmd = "Telescope",
     -- stylua: ignore
     keys = {
-      map_telescope("<leader>i", "resume", { desc = "telescope reopen last picker" }),
-      map_telescope("<leader>ds", "spell_suggest", { desc = "telescope spell suggest" }),
+      {"<leader>i", "<cmd>Telescope resume<CR>",  desc = "telescope reopen last picker" },
+      {"<leader>ds", "<cmd>Telescope spell_suggest<CR>",  desc = "telescope spell suggest" },
       -- Finding searching and navigating
-      map_telescope("<leader>o", "find_files", { desc = "telescope find files" }),
-      map_telescope("<leader>p", "buffers", { desc = "telescope buffers" }),
-      map_telescope("<leader>ff", "live_grep", { desc = "telescope live grep" }),
-      map_telescope("<leader>fw", "grep_string", { desc = "telescope grep word under cursor" }),
-      map_telescope("<leader>fb", "current_buffer_fuzzy_find", { desc = "telescope buffer fuzzy find" }),
+      {"<leader>o", "<cmd>Telescope find_files<CR>",  desc = "telescope find files" },
+      {"<leader>p", "<cmd>Telescope buffers<CR>",  desc = "telescope buffers" },
+      {"<leader>ff", "<cmd>Telescope live_grep<CR>",  desc = "telescope live grep" },
+      {"<leader>fw", "<cmd>Telescope grep_string<CR>",  desc = "telescope grep word under cursor" },
+      {"<leader>fb", "<cmd>Telescope current_buffer_fuzzy_find<CR>",  desc = "telescope buffer fuzzy find" },
       -- Git shortcuts
-      map_telescope("<leader>go", "git_files", { desc = "telescope git files" }),
-      map_telescope("<leader>gC", "git_commits", { desc = "telescope git commits" }),
-      map_telescope("<leader>gc", "git_bcommits", { desc = "telescope git buffer commits" }),
-      map_telescope("<leader>gb", "git_branches", { desc = "telescope git branches" }),
-      map_telescope("<leader>gf", "git_status", { desc = "telescope git status" }),
-      map_telescope("<leader>gh", "git_stash", { desc = "telescope git stash" }),
+      {"<leader>go", "<cmd>Telescope git_files<CR>",  desc = "telescope git files" },
+      {"<leader>gC", "<cmd>Telescope git_commits<CR>",  desc = "telescope git commits" },
+      {"<leader>gc", "<cmd>Telescope git_bcommits<CR>",  desc = "telescope git buffer commits" },
+      {"<leader>gb", "<cmd>Telescope git_branches<CR>",  desc = "telescope git branches" },
+      {"<leader>gf", "<cmd>Telescope git_status<CR>",  desc = "telescope git status" },
+      {"<leader>gh", "<cmd>Telescope git_stash<CR>",  desc = "telescope git stash" },
       -- Setting shortcuts
-      map_telescope("<leader>;", "commands", { desc = "telescope vim commands" }),
-      map_telescope("<leader>h/", "search_history", { desc = "telescope search history" }),
-      map_telescope("<leader>h;", "command_history", { desc = "telescope command history" }),
-      map_telescope("<leader>ho", "vim_options", { desc = "telescope vim options" }),
-      map_telescope("<leader>hc", "colorscheme", { desc = "telescope colorschemes" }),
-      map_telescope("<leader>hh", "help_tags", { desc = "telescope help tags" }),
-      map_telescope("<leader>hm", "man_pages", { desc = "telescope man pages" }),
-      map_telescope("<leader>hk", "keymaps", { desc = "telescope keymaps" }),
-      map_telescope("<leader>hf", "filetypes", { desc = "telescope filetypes" }),
-      map_telescope("<leader>hs", function() require("telescope").extensions.luasnip.luasnip() end, { desc = "telescope luasnip snippets" }),
-      map_telescope("<leader>ha", "autocommands", { desc = "telescope autocommands" }),
-      map_telescope("<leader>ht", "builtin", { desc = "telescope builtin pickers" }),
-      map_telescope("<leader>hq", "quickfix", { desc = "telescope quickfix list" }),
-      map_telescope("<leader>hl", "loclist", { desc = "telescope location list" }),
-      map_telescope("<leader>hp", "reloader", { desc = "telescope reload lua module" }),
+      {"<leader>;", "<cmd>Telescope commands<CR>",  desc = "telescope vim commands" },
+      {"<leader>h/", "<cmd>Telescope search_history<CR>",  desc = "telescope search history" },
+      {"<leader>h;", "<cmd>Telescope command_history<CR>",  desc = "telescope command history" },
+      {"<leader>ho", "<cmd>Telescope vim_options<CR>",  desc = "telescope vim options" },
+      {"<leader>hc", "<cmd>Telescope colorscheme<CR>",  desc = "telescope colorschemes" },
+      {"<leader>hh", "<cmd>Telescope help_tags<CR>",  desc = "telescope help tags" },
+      {"<leader>hm", "<cmd>Telescope man_pages<CR>",  desc = "telescope man pages" },
+      {"<leader>hk", "<cmd>Telescope keymaps<CR>",  desc = "telescope keymaps" },
+      {"<leader>hf", "<cmd>Telescope filetypes<CR>",  desc = "telescope filetypes" },
+      {"<leader>hs", "<cmd>Telescope luasnip<CR>",  desc = "telescope luasnip snippets" },
+      {"<leader>ha", "<cmd>Telescope autocommands<CR>",  desc = "telescope autocommands" },
+      {"<leader>ht", "<cmd>Telescope builtin<CR>",  desc = "telescope builtin pickers" },
+      {"<leader>hq", "<cmd>Telescope quickfix<CR>",  desc = "telescope quickfix list" },
+      {"<leader>hl", "<cmd>Telescope loclist<CR>",  desc = "telescope location list" },
+      {"<leader>hp", "<cmd>Telescope reloader<CR>",  desc = "telescope reload lua module" },
     },
     config = function()
       local telescope = require("telescope")
@@ -194,6 +187,10 @@ return {
     cmd = "FzfLua",
     keys = {
       { "<leader>z", "<cmd>FzfLua<CR>", silent = true },
+      { "<leader>zo", "<cmd>FzfLua files<CR>", silent = true },
+      { "<leader>zgo", "<cmd>FzfLua git_files<CR>", silent = true },
+      { "<leader>zff", "<cmd>FzfLua live_grep<CR>", silent = true },
+      { "<leader>zfg", "<cmd>FzfLua live_grep_glob<CR>", silent = true },
     },
   },
 
