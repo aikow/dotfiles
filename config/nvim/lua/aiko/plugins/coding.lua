@@ -278,75 +278,6 @@ return {
     end,
   },
 
-  -- Comment out lines and blocks.
-  {
-    "numToStr/Comment.nvim",
-    keys = {
-      { "gc", mode = { "n", "x" } },
-      { "gb", mode = { "n", "x" } },
-      { "gcc" },
-      { "gbb" },
-      { "gcO" },
-      { "gco" },
-      { "gcA" },
-    },
-    config = function()
-      local comment = require("Comment")
-
-      comment.setup({
-        padding = true,
-        sticky = true,
-        toggler = {
-          line = "gcc",
-          block = "gbb",
-        },
-        opleader = {
-          line = "gc",
-          block = "gb",
-        },
-        extra = {
-          above = "gcO",
-          below = "gco",
-          eol = "gcA",
-        },
-        mappings = {
-          basic = true,
-          extra = true,
-          extended = false,
-        },
-      })
-    end,
-  },
-
-  -- Work with parenthesis, quotes, and other text surroundings.
-  {
-    "kylechui/nvim-surround",
-    config = function()
-      require("nvim-surround").setup({
-        keymaps = {
-          insert = "<C-g>s",
-          insert_line = "<C-g>S",
-          normal = "gs",
-          normal_cur = "gss",
-          normal_line = "gS",
-          normal_cur_line = "gSS",
-          visual = "S",
-          visual_line = "gS",
-          delete = "ds",
-          change = "cs",
-        },
-        aliases = {
-          ["a"] = ">",
-          ["b"] = ")",
-          ["B"] = "]",
-          ["r"] = "}",
-          ["q"] = { '"', "'", "`" },
-        },
-        move_cursor = "begin",
-      })
-    end,
-  },
-
   -- Use '.' to repeat plugin code actions.
   {
     "tpope/vim-repeat",
@@ -462,43 +393,6 @@ return {
         signs = true,
         sign_priority = 1,
       })
-    end,
-  },
-
-  -- Automatically insert matching pairs.
-  {
-    "windwp/nvim-autopairs",
-    enabled = false,
-    config = function()
-      local autopairs = require("nvim-autopairs")
-      local cmp = require("cmp")
-
-      autopairs.setup({
-        fast_wrap = {},
-        disable_filetype = { "TelescopePrompt", "vim" },
-      })
-
-      local cmp_autopairs = require("nvim-autopairs.completion.cmp")
-
-      cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
-    end,
-  },
-
-  -- Focus a single window in zen mode.
-  {
-    "folke/zen-mode.nvim",
-    cmd = "ZenMode",
-    config = function()
-      require("zen-mode").setup({})
-    end,
-  },
-
-  {
-    "krivahtoo/silicon.nvim",
-    cmd = "Silicon",
-    build = "./install.sh",
-    config = function()
-      require("silicon").setup({ font = "Hack=16" })
     end,
   },
 }

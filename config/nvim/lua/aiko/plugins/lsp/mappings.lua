@@ -33,46 +33,48 @@ function M.on_attach(client, buffer)
   local self = M.new(client, buffer)
 
   -- stylua: ignore start
-  self:map("gD", vim.lsp.buf.declaration, { desc = "goto declaration" })
-  self:map("K", vim.lsp.buf.hover, { desc = "hover" })
+  self:map("gD", vim.lsp.buf.declaration, { desc = "LSP go to declaration" })
+  self:map("K", vim.lsp.buf.hover, { desc = "LSP hover" })
 
   -- Signature help
-  self:map("<leader>k", vim.lsp.buf.signature_help, { desc = "signature help", has = "signatureHelp" })
-  self:map("<c-k>", vim.lsp.buf.signature_help, { mode = "i", desc = "signature help", has = "signatureHelp" })
+  self:map("<leader>k", vim.lsp.buf.signature_help, { desc = "LSP signature help", has = "signatureHelp" })
+  self:map("<c-k>", vim.lsp.buf.signature_help, { mode = "i", desc = "LSP signature help", has = "signatureHelp" })
 
-  self:map("<leader>a", vim.lsp.buf.code_action, { desc = "code action", mode = { "n", "v" }, has = "codeAction" })
+  self:map("<leader>a", vim.lsp.buf.code_action, { desc = "LSP code actions", mode = { "n", "v" }, has = "codeAction" })
 
   -- Telescope mappings
-  self:map("gd", "Telescope lsp_definitions", { desc = "goto definition" })
-  self:map("gr", "Telescope lsp_references", { desc = "references" })
-  self:map("gi", "Telescope lsp_implementations", { desc = "goto implementation" })
-  self:map("gy", "Telescope lsp_type_definitions", { desc = "goto type definition" })
-  self:map("<leader>do", "Telescope diagnostics", { desc = "telescope open diagnostics" })
+  self:map("gd", "Telescope lsp_definitions", { desc = "list LSP definitions with telescope" })
+  self:map("gr", "Telescope lsp_references", { desc = "list LSP references with telescope" })
+  self:map("gi", "Telescope lsp_implementations", { desc = "list LSP implementations with telescope" })
+  self:map("gy", "Telescope lsp_type_definitions", { desc = "list LSP type definitions with telescope" })
 
   -- Trouble mappings
-  self:map("<leader>ld", "Trouble lsp_definitions", { desc = "goto definition" })
-  self:map("<leader>lr", "Trouble lsp_references", { desc = "references" })
-  self:map("<leader>li", "Trouble lsp_implementations", { desc = "goto implementation" })
-  self:map("<leader>ly", "Trouble lsp_type_definitions", { desc = "goto type definition" })
-  self:map("<leader>lg", "Trouble workspace_diagnostics", { desc = "telescope open diagnostics" })
+  self:map("<leader>ld", "Trouble lsp_definitions", { desc = "list LSP definitions with trouble" })
+  self:map("<leader>lr", "Trouble lsp_references", { desc = "list LSP references with trouble" })
+  self:map("<leader>li", "Trouble lsp_implementations", { desc = "list LSP implementations with trouble " })
+  self:map("<leader>ly", "Trouble lsp_type_definitions", { desc = "list LSP type definitions with trouble" })
 
   -- Symbols outline
-  self:map("gO", "SymbolsOutline", { desc = "lsp symbols outline" })
+  self:map("gO", "SymbolsOutline", { desc = "LSP open symbols outline" })
 
   -- Diagnostics
-  self:map("<leader>e", vim.diagnostic.open_float, { desc = "diagnostics for line" })
-  self:map("<leader>dl", vim.diagnostic.setloclist, { desc = "diagnostic set location list" })
+  self:map("<leader>e", vim.diagnostic.open_float, { desc = "open diagnostics float for line" })
+  self:map("<leader>dl", vim.diagnostic.setloclist, { desc = "set location list to diagnostics" })
+  self:map("<leader>dq", vim.diagnostic.setqflist, { desc = "set quickfix list to diagnostics" })
+  self:map("<leader>do", "Telescope diagnostics", { desc = "open diagnostics with telescope" })
+  self:map("<leader>dt", "Trouble workspace_diagnostics", { desc = "open diagnostics with trouble" })
+
   self:map("]d", M.diagnostic_goto(true), { desc = "next diagnostic" })
-  self:map("[d", M.diagnostic_goto(false), { desc = "prev diagnostic" })
+  self:map("[d", M.diagnostic_goto(false), { desc = "previous diagnostic" })
   self:map("]e", M.diagnostic_goto(true, "ERROR"), { desc = "next error" })
-  self:map("[e", M.diagnostic_goto(false, "ERROR"), { desc = "prev error" })
+  self:map("[e", M.diagnostic_goto(false, "ERROR"), { desc = "previous error" })
   self:map("]w", M.diagnostic_goto(true, "WARNING"), { desc = "next warning" })
-  self:map("[w", M.diagnostic_goto(false, "WARNING"), { desc = "prev warning" })
+  self:map("[w", M.diagnostic_goto(false, "WARNING"), { desc = "previous warning" })
 
   local format = require("aiko.plugins.lsp.format").format
   self:map("<leader>rf", format, { desc = "format document", has = "documentFormatting" })
   self:map("<leader>rf", format, { desc = "format range", mode = "v", has = "documentRangeFormatting" })
-  self:map("<leader>rr", vim.lsp.buf.rename, { desc = "rename", has = "rename" })
+  self:map("<leader>rr", vim.lsp.buf.rename, { desc = "rename using LSP", has = "rename" })
   -- stylua: ignore end
 end
 
