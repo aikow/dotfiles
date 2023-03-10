@@ -257,18 +257,4 @@ return {
   {
     "nvim-tree/nvim-web-devicons",
   },
-
-  -- ---------------------
-  -- |   Color Schemes   |
-  -- ---------------------
-  --
-  -- Current default
-  {
-    "sainnhe/gruvbox-material",
-    lazy = true,
-  },
-  {
-    "B4mbus/oxocarbon-lua.nvim",
-    lazy = true,
-  },
 }
