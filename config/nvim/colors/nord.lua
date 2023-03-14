@@ -1,7 +1,9 @@
-local colorscheme = {
+local Colorscheme = require("aiko.theme.colorscheme").Colorscheme
+
+local colorscheme = Colorscheme.new({
   name = "nord",
   background = "dark",
-}
+})
 
 colorscheme.colors = {
   white = "#abb2bf",

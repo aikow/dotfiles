@@ -1,7 +1,9 @@
-local colorscheme = {
+local Colorscheme = require("aiko.theme.colorscheme").Colorscheme
+
+local colorscheme = Colorscheme.new({
   name = "one-light",
   background = "light",
-}
+})
 
 colorscheme.colors = {
   white = "#54555b",
@@ -58,15 +60,15 @@ colorscheme.theme = {
 colorscheme.polish = {
   TelescopePromptPrefix = { fg = colorscheme.colors.white },
   TelescopeSelection = {
-    bg = colorscheme.colors.one_bg,
+    bg = colorscheme.colors.bg_2,
     fg = colorscheme.colors.white,
   },
   TSPunctBracket = { fg = colorscheme.colors.nord_blue },
   FloatBorder = { fg = colorscheme.theme.base05 },
   DiffAdd = { fg = colorscheme.theme.base05 },
-  TbLineThemeToggleBtn = { bg = colorscheme.colors.one_bg3 },
+  TbLineThemeToggleBtn = { bg = colorscheme.colors.bg_4 },
   WhichKeyDesc = { fg = colorscheme.colors.white },
-  Pmenu = { bg = colorscheme.colors.black2 },
+  Pmenu = { bg = colorscheme.colors.bg_1 },
 }
 
 require("aiko.theme").paint(colorscheme)

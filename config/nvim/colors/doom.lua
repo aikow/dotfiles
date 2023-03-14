@@ -1,7 +1,10 @@
-local colorscheme = {
+local Colorscheme = require("aiko.theme.colorscheme").Colorscheme
+
+local colorscheme = Colorscheme.new({
   name = "doom",
   background = "dark",
-}
+})
+
 colorscheme.colors = {
   white = "#bbc2cf",
   darker_black = "#22262e",

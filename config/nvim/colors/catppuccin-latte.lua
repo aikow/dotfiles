@@ -1,7 +1,9 @@
-local colorscheme = {
+local Colorscheme = require("aiko.theme.colorscheme").Colorscheme
+
+local colorscheme = Colorscheme.new({
   name = "catppuccin-latte",
   background = "light",
-}
+})
 
 colorscheme.theme = {
   base00 = "#EFF1F5",
@@ -58,14 +60,14 @@ colorscheme.colors = {
 colorscheme.polish = {
   TelescopePromptPrefix = { fg = colorscheme.colors.white },
   TelescopeSelection = {
-    bg = colorscheme.colors.one_bg,
-    fg = colorscheme.theme.white,
+    bg = colorscheme.colors.bg_2,
+    fg = colorscheme.colors.white,
   },
   FloatBorder = { fg = colorscheme.theme.base05 },
   DiffAdd = { fg = colorscheme.theme.base05 },
-  TbLineThemeToggleBtn = { bg = colorscheme.colors.one_bg3 },
+  TbLineThemeToggleBtn = { bg = colorscheme.colors.bg_4 },
   WhichKeyDesc = { fg = colorscheme.colors.white },
-  Pmenu = { bg = colorscheme.colors.black2 },
+  Pmenu = { bg = colorscheme.colors.bg_1 },
   St_pos_text = { fg = colorscheme.colors.white },
   TSVariableBuiltin = { fg = colorscheme.colors.red },
   TSProperty = { fg = colorscheme.colors.teal },

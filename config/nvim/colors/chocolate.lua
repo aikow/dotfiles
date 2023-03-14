@@ -1,7 +1,9 @@
-local colorscheme = {
+local Colorscheme = require("aiko.theme.colorscheme").Colorscheme
+
+local colorscheme = Colorscheme.new({
   name = "chocolate",
   background = "dark",
-}
+})
 
 colorscheme.colors = {
   white = "#cdc0ad",
@@ -34,7 +36,6 @@ colorscheme.colors = {
   lightbg = "#353231",
   pmenu_bg = "#859e82",
   folder_bg = "#768b9b",
-  beige = "#ab9382",
 }
 
 colorscheme.theme = {
@@ -56,10 +57,14 @@ colorscheme.theme = {
   base0F = "#ab9382",
 }
 
+local custom = {
+  beige = "#ab9382",
+}
+
 colorscheme.polish = {
   TSField = { fg = colorscheme.colors.purple },
   TSVariable = { fg = colorscheme.theme.base06 },
-  TSModule = { fg = colorscheme.colors.beige },
+  TSModule = { fg = custom.beige },
   Operator = { fg = colorscheme.colors.blue },
   TSAttribute = { fg = colorscheme.colors.cyan },
   TSPunctBracket = { fg = colorscheme.theme.base06 },

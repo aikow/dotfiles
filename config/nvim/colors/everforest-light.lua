@@ -1,7 +1,9 @@
-local colorscheme = {
+local Colorscheme = require("aiko.theme.colorscheme").Colorscheme
+
+local colorscheme = Colorscheme.new({
   name = "everforest-light",
   background = "light",
-}
+})
 
 colorscheme.colors = {
   white = "#272f35",
@@ -55,6 +57,10 @@ colorscheme.theme = {
   base0F = "#c85552",
 }
 
+local custom = {
+  dimgray = "#4e565c",
+}
+
 colorscheme.polish = {
   DiffAdd = { fg = colorscheme.colors.green },
   TSTag = { fg = colorscheme.colors.orange },
@@ -63,10 +69,10 @@ colorscheme.polish = {
   TSConstructor = { fg = colorscheme.colors.blue },
   WhichKeyDesc = { fg = colorscheme.colors.white },
   WhichKey = { fg = colorscheme.colors.white },
-  NvimTreeFolderName = { fg = "#4e565c" },
-  TbLineThemeToggleBtn = { bg = colorscheme.colors.one_bg },
-  Pmenu = { bg = colorscheme.colors.black2 },
-  IndentBlanklineContextStart = { bg = colorscheme.colors.black2 },
+  NvimTreeFolderName = { fg = custom.dimgray },
+  TbLineThemeToggleBtn = { bg = colorscheme.colors.bg_2 },
+  Pmenu = { bg = colorscheme.colors.bg_1 },
+  IndentBlanklineContextStart = { bg = colorscheme.colors.bg_1 },
   St_pos_text = { fg = colorscheme.colors.white },
 }
 

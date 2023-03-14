@@ -1,7 +1,9 @@
-local colorscheme = {
+local Colorscheme = require("aiko.theme.colorscheme").Colorscheme
+
+local colorscheme = Colorscheme.new({
   name = "catppuccin",
   background = "dark",
-}
+})
 
 colorscheme.theme = {
   base00 = "#1E1D2D",
@@ -53,11 +55,14 @@ colorscheme.colors = {
   lightbg = "#2f2e3e",
   pmenu_bg = "#ABE9B3",
   folder_bg = "#89B4FA",
+}
+
+local custom = {
   lavender = "#c7d1ff",
 }
 
 colorscheme.polish = {
-  TSVariable = { fg = colorscheme.colors.lavender },
+  TSVariable = { fg = custom.lavender },
   TSProperty = { fg = colorscheme.colors.teal },
   TSVariableBuiltin = { fg = colorscheme.colors.red },
 }
