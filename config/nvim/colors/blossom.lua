@@ -1,7 +1,9 @@
-local colorscheme = {
+local Colorscheme = require("aiko.theme.colorscheme").Colorscheme
+
+local colorscheme = Colorscheme.new({
   name = "blossom",
   background = "light",
-}
+})
 
 colorscheme.colors = {
   white = "#695d57",
@@ -60,11 +62,11 @@ colorscheme.polish = {
   WhichKey = { fg = colorscheme.colors.white },
 
   TbLineThemeToggleBtn = {
-    fg = colorscheme.colors.black,
+    fg = colorscheme.colors.bg,
     bg = colorscheme.colors.white,
   },
 
-  IndentBlanklineContextStart = { bg = colorscheme.colors.black2 },
+  IndentBlanklineContextStart = { bg = colorscheme.colors.bg_1 },
   St_pos_text = { fg = colorscheme.colors.white },
 }
 

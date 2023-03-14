@@ -1,7 +1,9 @@
-local colorscheme = {
+local Colorscheme = require("aiko.theme.colorscheme").Colorscheme
+
+local colorscheme = Colorscheme.new({
   name = "tomorrow-night",
   background = "dark",
-}
+})
 
 colorscheme.colors = {
   white = "#C5C8C2",
@@ -56,7 +58,7 @@ colorscheme.theme = {
 }
 
 colorscheme.polish = {
-  PmenuSel = { fg = colorscheme.colors.black, bg = colorscheme.colors.red },
+  PmenuSel = { fg = colorscheme.colors.bg, bg = colorscheme.colors.red },
 }
 
 require("aiko.theme").paint(colorscheme)

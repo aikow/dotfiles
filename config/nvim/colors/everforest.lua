@@ -1,7 +1,9 @@
-local colorscheme = {
+local Colorscheme = require("aiko.theme.colorscheme").Colorscheme
+
+local colorscheme = Colorscheme.new({
   name = "everforest",
   background = "dark",
-}
+})
 
 colorscheme.colors = {
   white = "#D3C6AA",
@@ -55,11 +57,15 @@ colorscheme.theme = {
   base0F = "#e67e80",
 }
 
+local custom = {
+  turquoise = "#7fbbb3",
+}
+
 colorscheme.polish = {
   TSPunctBracket = { fg = colorscheme.colors.red },
   TSTag = { fg = colorscheme.colors.orange },
   TSTagDelimiter = { fg = colorscheme.colors.green },
-  TSConstructor = { fg = "#7fbbb3" },
+  TSConstructor = { fg = custom.turquoise },
 }
 
 require("aiko.theme").paint(colorscheme)

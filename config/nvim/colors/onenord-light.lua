@@ -1,7 +1,9 @@
-local colorscheme = {
+local Colorscheme = require("aiko.theme.colorscheme").Colorscheme
+
+local colorscheme = Colorscheme.new({
   name = "onenord-light",
   background = "light",
-}
+})
 
 colorscheme.colors = {
   white = "#2a303c",
@@ -61,7 +63,7 @@ colorscheme.polish = {
   WhichKey = { fg = colorscheme.colors.white },
   TelescopePromptPrefix = { fg = colorscheme.colors.white },
   TelescopeSelection = {
-    bg = colorscheme.colors.one_bg,
+    bg = colorscheme.colors.bg_2,
     fg = colorscheme.colors.white,
   },
   TSPunctBracket = { fg = colorscheme.colors.nord_blue },

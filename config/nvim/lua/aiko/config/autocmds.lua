@@ -84,6 +84,13 @@ autocmd("TermOpen", {
       [[a<C-k><CR><C-\><C-n>G]],
       { noremap = true, silent = true }
     )
+
+    -- Create highlight namespace
+    -- TODO: Look into using BufWinEnter event.
+    --
+    -- local namespace = vim.api.nvim_create_namespace("terminal")
+    -- vim.api.nvim_win_set_hl_ns(0, namespace)
+    -- vim.api.nvim_set_hl(namespace, "Normal", { fg = "#000000", bg = "#000000" })
   end,
 })
 
