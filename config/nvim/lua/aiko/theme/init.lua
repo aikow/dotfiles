@@ -13,7 +13,6 @@ M.palettes = {
   "luasnip",
   "mason",
   "neo-tree",
-  "nvimtree",
   "syntax",
   "telescope",
   "treesitter",

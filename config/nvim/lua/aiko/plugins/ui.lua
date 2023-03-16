@@ -153,8 +153,6 @@ return {
           "fugitive",
           "man",
           "neo-tree",
-          "nvim-dap-ui",
-          "nvim-tree",
           "quickfix",
           "toggleterm",
         },
@@ -206,9 +204,6 @@ return {
         dashboard.button("n", "  > News", ":vert help news<CR>"),
         dashboard.button("q", "  > Quit", ":qa<CR>"),
       }
-
-      local fortune = require("alpha.fortune")
-      dashboard.section.footer.val = fortune()
 
       -- Send config to alpha
       alpha.setup(dashboard.opts)
