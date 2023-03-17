@@ -1,5 +1,6 @@
 local M = {}
 
+---@type table<string, table>
 M.opts = {
   black = {
     with = { extra_args = { "--preview" } },
@@ -30,7 +31,7 @@ M.opts = {
     },
   },
   ruff = {
-    methods = { "formatting" },
+    methods = { "diagnostics" },
   },
   shfmt = {
     with = {
