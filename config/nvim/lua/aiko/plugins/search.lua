@@ -186,11 +186,11 @@ return {
     "ibhagwan/fzf-lua",
     cmd = "FzfLua",
     keys = {
-      { "<leader>z", "<cmd>FzfLua<CR>", silent = true },
-      { "<leader>zo", "<cmd>FzfLua files<CR>", silent = true },
-      { "<leader>zgo", "<cmd>FzfLua git_files<CR>", silent = true },
-      { "<leader>zff", "<cmd>FzfLua live_grep<CR>", silent = true },
-      { "<leader>zfg", "<cmd>FzfLua live_grep_glob<CR>", silent = true },
+      { "<leader>z", "<cmd>FzfLua<CR>" },
+      { "<leader>zo", "<cmd>FzfLua files<CR>" },
+      { "<leader>zgo", "<cmd>FzfLua git_files<CR>" },
+      { "<leader>zff", "<cmd>FzfLua live_grep<CR>" },
+      { "<leader>zfg", "<cmd>FzfLua live_grep_glob<CR>" },
     },
   },
 
@@ -198,6 +198,13 @@ return {
   {
     "folke/trouble.nvim",
     dependencies = { "nvim-tree/nvim-web-devicons" },
+    -- stylua: ignore
+    keys = {
+      { "]r", function() require("trouble").next({ skip_groups = true, jump = true }) end, desc = "jump to next item, skipping groups", },
+      { "[r", function() require("trouble").previous({ skip_groups = true, jump = true }) end, desc = "jump to previous item, skipping groups", },
+      { "]R", function() require("trouble").first({ skip_groups = true, jump = true }) end, desc = "jump to first item, skipping groups", },
+      { "[R", function() require("trouble").last({ skip_groups = true, jump = true }) end, desc = "jump to last item, skipping groups", },
+    },
     cmd = {
       "Trouble",
       "TroubleClose",

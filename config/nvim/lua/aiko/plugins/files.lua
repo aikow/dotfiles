@@ -1,3 +1,16 @@
+---comment
+---@param keys vector<table>
+local lazy_keys = function(keys)
+  for _, key in ipairs(keys) do
+    local lhs = table.remove(key, 1)
+    local rhs = table.remove(key, 1)
+    local mode = key.mode or "n"
+    key.mode = nil
+
+    vim.keymap.set(mode, lhs, rhs, key)
+  end
+end
+
 return {
   -- View tree-like structures from different providers.
   {
@@ -7,27 +20,26 @@ return {
       "nvim-lua/plenary.nvim",
       "nvim-tree/nvim-web-devicons",
       "MunifTanjim/nui.nvim",
-      "miversen33/netman.nvim",
     },
-    cmd = { "Neotree" },
-    keys = {
-      { "_", "<cmd>Neotree reveal=true<CR>", desc = "reveal file in neo-tree" },
-    },
+    lazy = false,
     init = function()
       vim.g.neo_tree_remove_legacy_commands = 1
     end,
     opts = {
-      sources = {
-        "filesystem",
-        "netman.ui.neo-tree",
-      },
       filesystem = {
-        hijack_netrw_behavior = "disabled",
+        hijack_netrw_behavior = "open_default",
         use_libuv_file_watcher = true,
       },
     },
     config = function(_, opts)
       require("neo-tree").setup(opts)
+
+      -- stylua: ignore
+      local keys = {
+        { "_", "<cmd>Neotree source=filesystem reveal=true<CR>", desc = "reveal file in neo-tree" },
+        { "-", [[<cmd>Neotree source=filesystem reveal=true position=current dir=%:p:h:h<CR>]], desc = "reveal file in neo-tree" },
+      }
+      lazy_keys(keys)
     end,
   },
 
@@ -37,11 +49,9 @@ return {
     lazy = true,
     config = function()
       require("netman")
-    end,
-  },
 
-  -- Enhance vim's builtin netrw plugin.
-  {
-    "tpope/vim-vinegar",
+      -- Add source to neo-tree.
+      table.insert(require("neo-tree").config.sources, "netman.ui.neo-tree")
+    end,
   },
 }
