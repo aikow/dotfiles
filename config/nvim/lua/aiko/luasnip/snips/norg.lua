@@ -720,7 +720,7 @@ snip("wmAS", "zeta", "zeta", [[\zeta]], { prio = 100 })
 
 local greek = function(symbol, name, latex)
   snip("imAS", "@" .. symbol, name, latex)
-  snip("iMAS", "@" .. symbol, name, "$" .. latex .. "$")
+  -- snip("iMAS", "@" .. symbol, name, "$" .. latex .. "$")
 end
 
 greek("a", "alpha", [[\alpha]])

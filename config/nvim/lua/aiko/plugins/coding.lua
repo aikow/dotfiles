@@ -283,36 +283,6 @@ return {
     "tpope/vim-repeat",
   },
 
-  -- Show indentation.
-  {
-    "lukas-reineke/indent-blankline.nvim",
-    config = function()
-      require("indent_blankline").setup({
-        filetype_exclude = {
-          "",
-          "NvimTree",
-          "Outline",
-          "TelescopePrompt",
-          "TelescopeResults",
-          "alpha",
-          "help",
-          "lazy",
-          "lspinfo",
-          "man",
-          "mason",
-          "norg",
-          "terminal",
-        },
-        buftype_exclude = { "terminal" },
-        use_treesitter = false,
-        show_trailing_blankline_indent = false,
-        show_first_indent_level = false,
-        show_current_context = true,
-        show_current_context_start = false,
-      })
-    end,
-  },
-
   -- Effortlessly switch between vim and tmux windows.
   {
     "christoomey/vim-tmux-navigator",
@@ -332,33 +302,6 @@ return {
         [[latex_table /\v(\&)|(\\multicolumn(\{[^}]*\}){3})@=/]]
       )
     end,
-  },
-
-  -- Automatically cd to project root.
-  {
-    "airblade/vim-rooter",
-    config = function()
-      vim.g.rooter_patterns = {
-        ".editorconfig", -- general editor settings
-        ".exrc", -- nvim config
-        ".git", -- git
-        ".hg", -- mercurial
-        ".nvimrc", -- nvim config
-        ".svn", -- subversion
-        "Cargo.toml", -- rust
-        "Makefile", -- c/c++
-        "package.json", -- javascript
-        "pyproject.toml", -- python
-        "setup.cfg", -- python
-      }
-      vim.g.rooter_silent_chdir = 1
-    end,
-  },
-
-  -- Project local configuration via JSON.
-  {
-    "folke/neoconf.nvim",
-    enabled = false,
   },
 
   -- Generate documentation comments and doc-strings automatically.
