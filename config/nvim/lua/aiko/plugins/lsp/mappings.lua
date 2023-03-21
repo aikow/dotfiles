@@ -48,12 +48,6 @@ function M.on_attach(client, buffer)
   self:map("gi", "Telescope lsp_implementations", { desc = "list LSP implementations with telescope" })
   self:map("gy", "Telescope lsp_type_definitions", { desc = "list LSP type definitions with telescope" })
 
-  -- Trouble mappings
-  self:map("<leader>ld", "Trouble lsp_definitions", { desc = "list LSP definitions with trouble" })
-  self:map("<leader>lr", "Trouble lsp_references", { desc = "list LSP references with trouble" })
-  self:map("<leader>li", "Trouble lsp_implementations", { desc = "list LSP implementations with trouble " })
-  self:map("<leader>ly", "Trouble lsp_type_definitions", { desc = "list LSP type definitions with trouble" })
-
   -- Symbols outline
   self:map("gO", "SymbolsOutline", { desc = "LSP open symbols outline" })
 
@@ -62,7 +56,6 @@ function M.on_attach(client, buffer)
   self:map("<leader>dl", vim.diagnostic.setloclist, { desc = "set location list to diagnostics" })
   self:map("<leader>dq", vim.diagnostic.setqflist, { desc = "set quickfix list to diagnostics" })
   self:map("<leader>do", "Telescope diagnostics", { desc = "open diagnostics with telescope" })
-  self:map("<leader>dt", "Trouble workspace_diagnostics", { desc = "open diagnostics with trouble" })
 
   self:map("]d", M.diagnostic_goto(true), { desc = "next diagnostic" })
   self:map("[d", M.diagnostic_goto(false), { desc = "previous diagnostic" })
