@@ -187,21 +187,14 @@ return {
       }
 
       -- Set menu
+      -- stylua: ignore
       dashboard.section.buttons.val = {
-        dashboard.button("e", "  > New file", ":ene <BAR> startinsert <CR>"),
-        dashboard.button(
-          "f",
-          "  > Find file",
-          ":cd $HOME/workspace | Telescope find_files<CR>"
-        ),
+        dashboard.button("e", "  > New file", ":enew <BAR> startinsert <CR>"),
+        dashboard.button("f", "  > Find file", ":cd $HOME/workspace | Telescope find_files<CR>"),
         dashboard.button("r", "  > Recent", ":Telescope oldfiles<CR>"),
-        dashboard.button(
-          "c",
-          "  > Config",
-          ":edit $MYVIMRC | :cd %:p:h | split . | wincmd k | pwd<CR>"
-        ),
-        dashboard.button("u", "  > Update plugins", ":Lazy sync<CR>"),
         dashboard.button("n", "  > News", ":vert help news<CR>"),
+        dashboard.button("u", "  > Update plugins", ":Lazy sync<CR>"),
+        dashboard.button("c", "  > Config", ":edit $MYVIMRC | :cd %:p:h | split . | wincmd k | pwd<CR>"),
         dashboard.button("q", "  > Quit", ":qa<CR>"),
       }
 
@@ -214,6 +207,36 @@ return {
         callback = function()
           vim.opt_local.foldenable = false
         end,
+      })
+    end,
+  },
+
+  -- Show indentation.
+  {
+    "lukas-reineke/indent-blankline.nvim",
+    config = function()
+      require("indent_blankline").setup({
+        filetype_exclude = {
+          "",
+          "NvimTree",
+          "Outline",
+          "TelescopePrompt",
+          "TelescopeResults",
+          "alpha",
+          "help",
+          "lazy",
+          "lspinfo",
+          "man",
+          "mason",
+          "norg",
+          "terminal",
+        },
+        buftype_exclude = { "terminal" },
+        use_treesitter = false,
+        show_trailing_blankline_indent = false,
+        show_first_indent_level = false,
+        show_current_context = true,
+        show_current_context_start = false,
       })
     end,
   },

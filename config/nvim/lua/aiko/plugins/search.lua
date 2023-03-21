@@ -24,7 +24,7 @@ return {
       {"<leader>gb", "<cmd>Telescope git_branches<CR>",  desc = "telescope git branches" },
       {"<leader>gf", "<cmd>Telescope git_status<CR>",  desc = "telescope git status" },
       {"<leader>gh", "<cmd>Telescope git_stash<CR>",  desc = "telescope git stash" },
-      -- Setting shortcuts
+      -- Vim internals shortcuts
       {"<leader>;", "<cmd>Telescope commands<CR>",  desc = "telescope vim commands" },
       {"<leader>h/", "<cmd>Telescope search_history<CR>",  desc = "telescope search history" },
       {"<leader>h;", "<cmd>Telescope command_history<CR>",  desc = "telescope command history" },

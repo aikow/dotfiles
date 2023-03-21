@@ -9,18 +9,27 @@ M.setup = function()
         config = {
           default_keybinds = true,
           neorg_leader = "<localleader>",
+          -- stylua: ignore
+          hook = function(keybinds)
+            keybinds.map("norg", "n", "<localleader>m", "<cmd>Neorg inject-metadata<CR>")
+            keybinds.map("norg", "n", "<localleader>d", "<cmd>Neorg inject-metadata<CR>")
+
+            -- Looking glass
+            keybinds.map_event("norg", "n", "<localleader>c", "core.looking-glass.magnify-code-block")
+          end,
         },
       },
       ["core.norg.dirman"] = {
         config = {
           workspaces = {
             personal = "~/gdrive/notes",
+            notes = "~/notes",
           },
+          index = "index.norg",
         },
       },
 
-      -- Disable the concealer for now
-      ["core.norg.concealer"] = {},
+      -- ["core.norg.concealer"] = {},
 
       ["core.norg.completion"] = {
         config = {

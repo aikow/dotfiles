@@ -117,4 +117,10 @@ return {
       require("neodev").setup({})
     end,
   },
+
+  -- Project local configuration via JSON.
+  {
+    "folke/neoconf.nvim",
+    enabled = false,
+  },
 }
