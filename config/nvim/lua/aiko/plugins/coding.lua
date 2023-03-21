@@ -381,7 +381,7 @@ return {
   -- Highlight todo, fixme, note, perf, etc. comments in buffers.
   {
     "folke/todo-comments.nvim",
-    cmd = { "TodoTrouble", "TodoTelescope" },
+    cmd = { "TodoTelescope", "TodoQuickFix", "TodoLocList" },
     event = "BufReadPost",
     -- stylua: ignore
     keys = {
