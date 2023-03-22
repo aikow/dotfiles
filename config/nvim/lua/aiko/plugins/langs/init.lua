@@ -206,7 +206,7 @@ return {
       "nvim-treesitter",
       "nvim-neorg/neorg-telescope",
     },
-    version = "*",
+    -- version = "*",
     ft = { "norg" },
     cmd = { "Neorg" },
     config = function()

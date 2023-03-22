@@ -30,6 +30,12 @@ return {
         hijack_netrw_behavior = "open_default",
         use_libuv_file_watcher = true,
       },
+      window = {
+        mappings = {
+          ["<C-v>"] = "open_vsplit",
+          ["<C-x>"] = "open_split",
+        },
+      },
     },
     config = function(_, opts)
       require("neo-tree").setup(opts)

@@ -2,7 +2,8 @@
   {
     "defaults": {
       "link": {
-        "if": "command -v zellij &>/dev/null"
+        "if": "command -v zellij &>/dev/null",
+        "relink": true
       }
     }
   },
@@ -10,7 +11,7 @@
     "link": {
       "~/.config/zellij": {
         "create": true,
-        "path": "config.kdl"
+        "path": "."
       }
     }
   }
