@@ -14,15 +14,10 @@
   "[yaml]": {
     "editor.defaultFormatter": "redhat.vscode-yaml"
   },
-  "cSpell.userWords": [
-    "aiko",
-    "wessels"
-  ],
+  "cSpell.userWords": ["aiko", "wessels"],
   "editor.fontFamily": "FiraCode Nerd Font",
   "editor.fontLigatures": true,
-  "editor.rulers": [
-    80
-  ],
+  "editor.rulers": [80],
   "editor.tabSize": 2,
   "editor.wordWrap": "off",
   "files.exclude": {
@@ -50,16 +45,12 @@
   "terminal.integrated.macOptionIsMeta": true,
   "terminal.integrated.profiles.linux": {
     "bash": {
-      "args": [
-        "-l"
-      ],
+      "args": ["-l"],
       "icon": "terminal-bash",
       "path": "bash"
     },
     "fish": {
-      "args": [
-        "-l"
-      ],
+      "args": ["-l"],
       "path": "fish"
     },
     "nu": {
@@ -80,16 +71,12 @@
   },
   "terminal.integrated.profiles.osx": {
     "bash": {
-      "args": [
-        "-l"
-      ],
+      "args": ["-l"],
       "icon": "terminal-bash",
       "path": "bash"
     },
     "fish": {
-      "args": [
-        "-l"
-      ],
+      "args": ["-l"],
       "path": "fish"
     },
     "nu": {
@@ -105,9 +92,7 @@
       "path": "tmux"
     },
     "zsh": {
-      "args": [
-        "-l"
-      ],
+      "args": ["-l"],
       "path": "zsh"
     }
   },
@@ -117,90 +102,43 @@
   "vim.neovimUseConfigFile": true,
   "vim.normalModeKeyBindingsNonRecursive": [
     {
-      "before": [
-        "]",
-        "e"
-      ],
-      "commands": [
-        "editor.action.marker.next"
-      ]
+      "before": ["]", "e"],
+      "commands": ["editor.action.marker.next"]
     },
     {
-      "before": [
-        "[",
-        "e"
-      ],
-      "commands": [
-        "editor.action.marker.prev"
-      ]
+      "before": ["[", "e"],
+      "commands": ["editor.action.marker.prev"]
     },
     {
-      "before": [
-        "<leader>",
-        "b"
-      ],
-      "commands": [
-        "bookmarks.list"
-      ]
+      "before": ["<leader>", "b"],
+      "commands": ["bookmarks.list"]
     },
     {
-      "before": [
-        "<leader>",
-        "m"
-      ],
-      "commands": [
-        "bookmarks.toggle"
-      ]
+      "before": ["<leader>", "m"],
+      "commands": ["bookmarks.toggle"]
     },
     {
-      "before": [
-        "<leader>",
-        ";"
-      ],
-      "commands": [
-        "workbench.action.showCommands"
-      ]
+      "before": ["<leader>", ";"],
+      "commands": ["workbench.action.showCommands"]
     },
     {
-      "before": [
-        "<leader>",
-        "o"
-      ],
-      "commands": [
-        "workbench.action.quickOpen"
-      ]
+      "before": ["<leader>", "o"],
+      "commands": ["workbench.action.quickOpen"]
     },
     {
-      "before": [
-        "leader",
-        "w"
-      ],
-      "commands": [
-        "workbench.action.files.save"
-      ]
+      "before": ["leader", "w"],
+      "commands": ["workbench.action.files.save"]
     }
   ],
   "vim.smartRelativeLine": true,
   "vim.visualModeKeyBindingsNonRecursive": [
     {
-      "after": [
-        "<",
-        "g",
-        "v"
-      ],
-      "before": [
-        "<"
-      ]
+      "after": ["<", "g", "v"],
+      "before": ["<"]
     },
     {
-      "after": [
-        ">",
-        "g",
-        "v"
-      ],
-      "before": [
-        ">"
-      ]
+      "after": [">", "g", "v"],
+      "before": [">"]
     }
   ],
   "workbench.colorTheme": "One Dark Pro Darker",

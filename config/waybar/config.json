@@ -5,11 +5,7 @@
   "margin-bottom": 0,
   "margin-right": 10,
   "spacing": 5,
-  "modules-left": [
-    "cpu",
-    "memory",
-    "wlr/workspaces"
-  ],
+  "modules-left": ["cpu", "memory", "wlr/workspaces"],
   "modules-center": [],
   "modules-right": [
     "tray",
@@ -58,17 +54,7 @@
   "backlight": {
     "device": "DP-1",
     "format": "{icon} {percent}%",
-    "format-icons": [
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      ""
-    ],
+    "format-icons": ["", "", "", "", "", "", "", "", ""],
     "on-click": ""
   },
   "network": {
@@ -89,11 +75,7 @@
       "phone": "",
       "portable": "",
       "car": "",
-      "default": [
-        "",
-        "",
-        ""
-      ]
+      "default": ["", "", ""]
     },
     "on-click": "pavucontrol"
   },
@@ -117,13 +99,7 @@
     "format-plugged": "  {capacity}%",
     "format-alt": "{icon} {time}",
     "format-full": "  {capacity}%",
-    "format-icons": [
-      " ",
-      " ",
-      " ",
-      " ",
-      " "
-    ]
+    "format-icons": [" ", " ", " ", " ", " "]
   },
   "custom/weather": {
     "exec": "python3 ~/.config/waybar/scripts/weather.py",

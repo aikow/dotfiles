@@ -1,9 +1,7 @@
 {
   "shebang": {
     "prefix": "#!",
-    "body": [
-      "#!/usr/bin/env fish"
-    ],
+    "body": ["#!/usr/bin/env fish"],
     "description": "Shebang line for fish"
   }
 }
