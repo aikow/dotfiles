@@ -1,9 +1,6 @@
 [
   {
-    "clean": [
-      "~",
-      "~/.config"
-    ]
+    "clean": ["~", "~/.config"]
   },
   {
     "create": [

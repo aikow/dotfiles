@@ -2,16 +2,12 @@
   "get logger": {
     "description": "get default logger from builtin logging module",
     "prefix": "logger=",
-    "body": [
-      "logger = logging.getLogger(__name__)"
-    ]
+    "body": ["logger = logging.getLogger(__name__)"]
   },
   "shebang": {
     "description": "shebang line",
     "prefix": "#!",
-    "body": [
-      "#!/usr/bin/env python"
-    ]
+    "body": ["#!/usr/bin/env python"]
   },
   "aclap": {
     "description": "add an argument to an argparse parser",

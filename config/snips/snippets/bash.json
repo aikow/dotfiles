@@ -49,12 +49,7 @@
   },
   "flag command line argument": {
     "prefix": "fclap",
-    "body": [
-      "-$1 | --$2)",
-      "\t$3=true",
-      "\tshift  # Past argument",
-      "\t;;"
-    ],
+    "body": ["-$1 | --$2)", "\t$3=true", "\tshift  # Past argument", "\t;;"],
     "description": "Parse a flag from the CLI arguments."
   },
   "argument command line argument": {
@@ -70,16 +65,12 @@
   },
   "command exists": {
     "prefix": "ifcmd",
-    "body": [
-      "command -v ${1:COMMAND} &>/dev/null"
-    ],
+    "body": ["command -v ${1:COMMAND} &>/dev/null"],
     "description": "Check if a command is on PATH and return with exit status 0"
   },
   "redirect to dev null": {
     "prefix": "null",
-    "body": [
-      "&>/dev/null"
-    ],
+    "body": ["&>/dev/null"],
     "description": "Redirect both stdout and stderr to dev/null"
   }
 }

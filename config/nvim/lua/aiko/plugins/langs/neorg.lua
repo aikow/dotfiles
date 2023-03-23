@@ -11,8 +11,9 @@ M.setup = function()
           neorg_leader = "<localleader>",
           -- stylua: ignore
           hook = function(keybinds)
-            keybinds.map("norg", "n", "<localleader>m", "<cmd>Neorg inject-metadata<CR>")
-            keybinds.map("norg", "n", "<localleader>d", "<cmd>Neorg inject-metadata<CR>")
+            keybinds.map("norg", "n", "<localleader>mi", "<cmd>Neorg inject-metadata<CR>")
+            keybinds.map("norg", "n", "<localleader>mu", "<cmd>Neorg update-metadata<CR>")
+            keybinds.map("norg", "n", "<localleader>t", "<cmd>Neorg tangle current-file<CR>")
 
             -- Looking glass
             keybinds.map_event("norg", "n", "<localleader>c", "core.looking-glass.magnify-code-block")

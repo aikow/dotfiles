@@ -11,10 +11,7 @@
   "editor.suggestSelection": "first",
   "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
   "workbench.activityBar.visible": true,
-  "projectManager.git.baseFolders": [
-    "$HOME/Documents",
-    "$HOME/Developer"
-  ],
+  "projectManager.git.baseFolders": ["$HOME/Documents", "$HOME/Developer"],
   "python.languageServer": "Pylance",
   "editor.multiCursorModifier": "alt",
   "git.ignoreMissingGitWarning": true,
@@ -28,10 +25,7 @@
   ],
   "security.workspace.trust.untrustedFiles": "newWindow",
   "editor.wordWrap": "on",
-  "cSpell.userWords": [
-    "Dotfiles",
-    "segmentor"
-  ],
+  "cSpell.userWords": ["Dotfiles", "segmentor"],
   "editor.fontSize": 13,
   "terminal.integrated.fontSize": 13,
   "keyboard.dispatch": "keyCode",
@@ -43,85 +37,40 @@
   "vim.neovimPath": "/usr/bin/nvim",
   "vim.normalModeKeyBindingsNonRecursive": [
     {
-      "before": [
-        "]",
-        "e"
-      ],
-      "commands": [
-        "editor.action.marker.next"
-      ]
+      "before": ["]", "e"],
+      "commands": ["editor.action.marker.next"]
     },
     {
-      "before": [
-        "[",
-        "e"
-      ],
-      "commands": [
-        "editor.action.marker.prev"
-      ]
+      "before": ["[", "e"],
+      "commands": ["editor.action.marker.prev"]
     },
     {
-      "before": [
-        "]",
-        "e"
-      ],
-      "commands": [
-        "editor.action.marker.nextInFiles"
-      ]
+      "before": ["]", "e"],
+      "commands": ["editor.action.marker.nextInFiles"]
     },
     {
-      "before": [
-        "[",
-        "e"
-      ],
-      "commands": [
-        "editor.action.marker.prevInFiles"
-      ]
+      "before": ["[", "e"],
+      "commands": ["editor.action.marker.prevInFiles"]
     },
     {
-      "before": [
-        "<leader>",
-        "b"
-      ],
-      "commands": [
-        "bookmarks.list"
-      ]
+      "before": ["<leader>", "b"],
+      "commands": ["bookmarks.list"]
     },
     {
-      "before": [
-        "<leader>",
-        "m"
-      ],
-      "commands": [
-        "bookmarks.toggle"
-      ]
+      "before": ["<leader>", "m"],
+      "commands": ["bookmarks.toggle"]
     },
     {
-      "before": [
-        "<leader>",
-        "p"
-      ],
-      "commands": [
-        "workbench.action.showCommands"
-      ]
+      "before": ["<leader>", "p"],
+      "commands": ["workbench.action.showCommands"]
     },
     {
-      "before": [
-        "<leader>",
-        "o"
-      ],
-      "commands": [
-        "workbench.action.quickOpen"
-      ]
+      "before": ["<leader>", "o"],
+      "commands": ["workbench.action.quickOpen"]
     },
     {
-      "before": [
-        "leader",
-        "w"
-      ],
-      "commands": [
-        "workbench.action.files.save"
-      ]
+      "before": ["leader", "w"],
+      "commands": ["workbench.action.files.save"]
     }
   ],
   "vim.smartRelativeLine": true,

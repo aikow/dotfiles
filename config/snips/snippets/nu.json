@@ -8,18 +8,12 @@
   },
   "let": {
     "prefix": "let",
-    "body": [
-      "let ${1:var} = ${2:val}"
-    ],
+    "body": ["let ${1:var} = ${2:val}"],
     "description": "Constant definition"
   },
   "def": {
     "prefix": "def",
-    "body": [
-      "def ${1:func} [${2:args}] {",
-      "\t${0}",
-      "}"
-    ],
+    "body": ["def ${1:func} [${2:args}] {", "\t${0}", "}"],
     "description": "Function definition"
   }
 }
