@@ -338,4 +338,35 @@ return {
       })
     end,
   },
+
+  {
+    "hkupty/iron.nvim",
+    opts = {
+      config = {
+        repl_definition = {
+          sh = { command = "bash" },
+          zsh = { command = "zsh" },
+          fish = { command = "fish" },
+          python = { command = "python" },
+        },
+      },
+      keymaps = {
+        send_motion = "<leader>jj",
+        visual_send = "<leader>jj",
+        send_file = "<leader>jf",
+        send_line = "<leader>jl",
+        send_mark = "<leader>js",
+        mark_motion = "<leader>jm",
+        mark_visual = "<leader>jm",
+        remove_mark = "<leader>jr",
+        cr = "<leader>j<cr>",
+        interrupt = "<leader>ji",
+        exit = "<leader>je",
+        clear = "<leader>jc",
+      },
+    },
+    config = function(_, opts)
+      require("iron.core").setup(opts)
+    end,
+  },
 }
