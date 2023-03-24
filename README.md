@@ -1,9 +1,7 @@
 ﻿# Aiko's Dotfiles
 
-<!--toc:start-->
 - [Aiko's Dotfiles](#aikos-dotfiles)
   - [Installation](#installation)
-<!--toc:end-->
 
 This repository contains all the settings and configuration files for various
 editors, shells, and other programs.
