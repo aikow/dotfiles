@@ -53,6 +53,7 @@ return {
       "MasonUninstall",
       "MasonUninstallAll",
     },
+    build = ":MasonUpdate",
     config = function()
       local icons = require("aiko.ui.icons").mason
 
