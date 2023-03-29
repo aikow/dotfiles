@@ -55,6 +55,8 @@ M.setup = function()
         },
       },
 
+      ["core.export"] = {},
+
       -- External Modules
       ["core.integrations.telescope"] = {},
     },

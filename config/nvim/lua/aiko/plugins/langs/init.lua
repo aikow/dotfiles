@@ -209,6 +209,7 @@ return {
     -- version = "*",
     ft = { "norg" },
     cmd = { "Neorg" },
+    build = ":Neorg sync-parsers",
     config = function()
       require("aiko.plugins.langs.neorg").setup()
     end,
