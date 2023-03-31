@@ -38,7 +38,7 @@ M.setup = function()
         },
       },
 
-      -- ["core.norg.concealer"] = {},
+      ["core.norg.concealer"] = {},
 
       ["core.norg.completion"] = {
         config = {
