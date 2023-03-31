@@ -1,18 +1,27 @@
 local wezterm = require("wezterm")
 
-local capture = function(cmd, raw)
+---Capture command output as a single string with newlines.
+---@param cmd string The command to run
+---@param trim boolean If set to true, strip leading and trailing whitespace
+---from each line
+---@param normalize_line_endings boolean If set to true, replace windows line
+---endings with linux ones.
+---@return string
+local capture = function(cmd, opts)
+  opts = opts or {}
   local f = assert(io.popen(cmd, "r"))
   local s = assert(f:read("*a"))
   f:close()
 
-  if raw then
-    return s
+  -- Trim each line and normalize new line characters.
+  if opts.trim or true then
+    s = string.gsub(s, "^%s+", "")
+    s = string.gsub(s, "%s+$", "")
   end
 
-  -- Trim each line and normalize new line characters.
-  s = string.gsub(s, "^%s+", "")
-  s = string.gsub(s, "%s+$", "")
-  s = string.gsub(s, "[\n\r]+", "\n")
+  if opts.normalize_line_endings or true then
+    s = string.gsub(s, "[\n\r]+", "\n")
+  end
   return s
 end
 
@@ -34,7 +43,8 @@ return {
   color_scheme = "Gruvbox Dark",
   default_cursor_style = "SteadyBar",
   enable_tab_bar = false,
-  send_composed_key_when_alt_is_pressed = false,
+  send_composed_key_when_left_alt_is_pressed = false,
+  send_composed_key_when_right_alt_is_pressed = false,
   use_ime = false,
   font = wezterm.font_with_fallback({
     "Hack Nerd Font",
