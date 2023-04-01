@@ -81,7 +81,7 @@ autocmd("TermOpen", {
       0,
       "n",
       "<localleader>r",
-      [[a<C-k><CR><C-\><C-n>G]],
+      [[A<Up><CR><C-\><C-n>G]],
       { noremap = true, silent = true }
     )
 

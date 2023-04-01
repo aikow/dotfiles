@@ -184,6 +184,9 @@ return {
   {
     "chrisbra/csv.vim",
     ft = { "csv", "tsv" },
+    config = function()
+      vim.g.csv_bind_B = 1
+    end,
   },
 
   -- Connect to databases inside Neovim
