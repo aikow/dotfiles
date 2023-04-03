@@ -1,6 +1,6 @@
 {
   "lines": {
-    "description": "Create a buffered reader for the lines in a file.",
+    "description": "Create a buffered reader for the lines in a file",
     "prefix": "lines",
     "body": [
       "let file = File::open(\"{1}\")?;",

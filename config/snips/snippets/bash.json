@@ -12,14 +12,14 @@
       "",
       ""
     ],
-    "description": "Header for a safe bash script."
+    "description": "Header for a safe bash script"
   },
   "script directory": {
     "prefix": "dirname",
     "body": [
       "readonly __DIRNAME=\"$(cd -- \"$(dirname -- \"\\${BASH_SOURCE[0]}\")\" &>/dev/null && pwd -P)\""
     ],
-    "description": "A readonly variable with the path to the directory of the current file."
+    "description": "A readonly variable with the path to the directory of the current file"
   },
   "builtin getopts": {
     "prefix": "getopts",
@@ -40,13 +40,13 @@
   },
   "getopts flag": {
     "prefix": "fopt",
-    "body": ["$1 )", "\t$2=true", "\t;;"],
-    "description": "Parse a flag from the CLI arguments."
+    "body": ["$1)", "\t$2=true", "\t;;"],
+    "description": "Parse a flag from getopts"
   },
   "getopts argument": {
     "prefix": "aopt",
-    "body": ["$1 )", "\t$2=\"\\$OPTARG\"", "\t;;"],
-    "description": "Parse an optional argument from the CLI arguments."
+    "body": ["$1)", "\t$2=\"\\$OPTARG\"", "\t;;"],
+    "description": "Parse an optional argument from getopts"
   },
   "command line argument parser": {
     "prefix": "clap",
@@ -72,12 +72,12 @@
       "set -- \"\\${_POSITIONAL_ARGS[@]+\"\\${_POSITIONAL_ARGS[@]}\"}\"",
       "unset _POSITIONAL_ARGS"
     ],
-    "description": "Small heading to separate sections."
+    "description": "Small heading to separate sections"
   },
   "flag command line argument": {
     "prefix": "fclap",
     "body": ["-$1 | --$2)", "\t$3=true", "\tshift  # Past argument", "\t;;"],
-    "description": "Parse a flag from the CLI arguments."
+    "description": "Parse a flag from the CLI arguments"
   },
   "argument command line argument": {
     "prefix": "aclap",
@@ -88,7 +88,7 @@
       "\tshift  # Past value",
       "\t;;"
     ],
-    "description": "Parse an optional argument from the CLI arguments."
+    "description": "Parse an optional argument from the CLI arguments"
   },
   "command exists": {
     "prefix": "ifcmd",
