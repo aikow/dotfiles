@@ -205,6 +205,7 @@ return {
   -- Nvim Org mode plugin.
   {
     "nvim-neorg/neorg",
+    version = "*",
     dependencies = {
       "nvim-treesitter",
       "nvim-neorg/neorg-telescope",
