@@ -21,6 +21,33 @@
     ],
     "description": "A readonly variable with the path to the directory of the current file."
   },
+  "builtin getopts": {
+    "prefix": "getopts",
+    "body": [
+      "while getopts '${1:abc:}' opt; do",
+      "  case \"\\$opt\" in",
+      "\t\t$0",
+      "\t\t?)",
+      "\t\t\techo \"Usage: \\$(basename \"\\$0\") ${2:[-a]}\"",
+      "\t\t\texit 1",
+      "\t\t\t;;",
+      "\tesac",
+      "done",
+      "",
+      "shift \"\\$((OPTIND - 1))\""
+    ],
+    "description": "Basic parser loop for bash's builtin getopts"
+  },
+  "getopts flag": {
+    "prefix": "fopt",
+    "body": ["$1 )", "\t$2=true", "\t;;"],
+    "description": "Parse a flag from the CLI arguments."
+  },
+  "getopts argument": {
+    "prefix": "aopt",
+    "body": ["$1 )", "\t$2=\"\\$OPTARG\"", "\t;;"],
+    "description": "Parse an optional argument from the CLI arguments."
+  },
   "command line argument parser": {
     "prefix": "clap",
     "body": [
@@ -30,7 +57,7 @@
       "while [[ \\${#@} -gt 0 ]]; do",
       "\tcase \"\\${1}\" in",
       "\t\t$0",
-      "\t\t--* | -*)",
+      "\t\t-*)",
       "\t\t\techo \"Unknown option \\${1}\"",
       "\t\t\texit 1",
       "\t\t\t;;",
