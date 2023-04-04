@@ -25,7 +25,7 @@
     "prefix": "getopts",
     "body": [
       "while getopts '${1:abc:}' opt; do",
-      "  case \"\\$opt\" in",
+      "  case \"\\${opt}\" in",
       "\t\t$0",
       "\t\t?)",
       "\t\t\techo \"Usage: \\$(basename \"\\$0\") ${2:[-a]}\"",
@@ -45,7 +45,7 @@
   },
   "getopts argument": {
     "prefix": "aopt",
-    "body": ["$1)", "\t$2=\"\\$OPTARG\"", "\t;;"],
+    "body": ["$1)", "\t$2=\"\\${OPTARG}\"", "\t;;"],
     "description": "Parse an optional argument from getopts"
   },
   "command line argument parser": {
@@ -55,14 +55,14 @@
       "declare -a _POSITIONAL_ARGS=()",
       "",
       "while [[ \\${#@} -gt 0 ]]; do",
-      "\tcase \"\\${1}\" in",
+      "\tcase \"\\$1\" in",
       "\t\t$0",
       "\t\t-*)",
-      "\t\t\techo \"Unknown option \\${1}\"",
+      "\t\t\techo \"Unknown option \\$1\"",
       "\t\t\texit 1",
       "\t\t\t;;",
       "\t\t*)",
-      "\t\t\t_POSITIONAL_ARGS+=(\"\\${1}\")  # Save positional argument",
+      "\t\t\t_POSITIONAL_ARGS+=(\"\\$1\")  # Save positional argument",
       "\t\t\tshift  # Past argument.",
       "\t\t\t;;",
       "\tesac",
@@ -83,7 +83,7 @@
     "prefix": "aclap",
     "body": [
       "-$1 | --$2)",
-      "\t$3=\"\\${2}\"",
+      "\t$3=\"\\$2\"",
       "\tshift  # Past argument",
       "\tshift  # Past value",
       "\t;;"
