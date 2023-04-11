@@ -30,12 +30,12 @@ set keymap vi-command
 
 "\C-x\C-r": re-read-init-file
 
-"\C-k": history-search-backward
-"\C-j": history-search-forward
+"\C-p": history-search-backward
+"\C-n": history-search-forward
 "\C-f": yank-nth-arg
 "\C-b": yank-last-arg
-"\C-n": menu-complete
-"\C-p": menu-complete-backward
+"\C-j": menu-complete
+"\C-k": menu-complete-backward
 
 "\C-l": clear-screen
 
@@ -45,15 +45,15 @@ set keymap vi-command
 #######################################################################
 
 set keymap vi-insert
-"\C-e": edit-and-execute-command
+"\C-x\C-e": edit-and-execute-command
 #
 # glob patterns without executing, eg: 'rm *x'
-"\C-x\C-e": glob-expand-word
+"\C-x\C-w": glob-expand-word
 
-"\C-k": history-search-backward
-"\C-j": history-search-forward
-"\C-n": menu-complete
-"\C-p": menu-complete-backward
+"\C-p": history-search-backward
+"\C-n": history-search-forward
+"\C-k": menu-complete
+"\C-j": menu-complete-backward
 
 # Pressing tab will list all completions & select the first one. Pressing it 
 # again will cycle through available completions.
