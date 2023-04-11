@@ -20,7 +20,7 @@ return {
         "ltex",
         "marksman",
         "pyright",
-        "sqls",
+        "sqlls",
         "lua_ls",
         "taplo",
         "tsserver",
@@ -99,14 +99,6 @@ return {
         },
       })
     end,
-  },
-
-  -- SQL language server helper.
-  {
-    "nanotee/sqls.nvim",
-    enabled = false,
-    lazy = true,
-    ft = "sql",
   },
 
   -- Neovim development with lua.

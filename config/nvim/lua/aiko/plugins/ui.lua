@@ -198,6 +198,12 @@ return {
         dashboard.button("q", "  > Quit", ":qa<CR>"),
       }
 
+      local v = vim.version()
+      local version = string.format("%s.%s.%s", v.major, v.minor, v.patch)
+      dashboard.section.footer.val = {
+        version,
+      }
+
       -- Send config to alpha
       alpha.setup(dashboard.opts)
 
