@@ -36,19 +36,17 @@ function fish_user_key_bindings
   set fish_cursor_replace_one underscore
   set fish_cursor_visual block
 
-  bind -M insert \cx\cr reload_config
-
-  bind -M insert \ck history-prefix-search-backward
-  bind -M insert \cj history-prefix-search-forward
-  bind -M insert \ew history-token-search-forward
-  bind -M insert \eb history-token-search-backward
-  bind -M insert \cn complete
-  bind -M insert \cp complete-and-search
-
   bind -M insert \cf accept-autosuggestion
   bind -M insert \ef forward-word
 
-  bind -M insert \ce edit_command_buffer
+  bind -M insert \cp history-prefix-search-backward
+  bind -M insert \cn history-prefix-search-forward
+  bind -M insert \ck complete
+  bind -M insert \cj complete-and-search
+
+  bind -M insert \cx\ce edit_command_buffer
+
+  bind -M insert \cx\cr reload_config
 
   bind -M insert \cx\cp add_pipe
   bind -M insert \cx\cf add_fzf
