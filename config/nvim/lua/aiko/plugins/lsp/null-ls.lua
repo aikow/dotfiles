@@ -34,29 +34,28 @@ M.setup = function(_, opts)
   local null_ls = require("null-ls")
   local mason_null = require("mason-null-ls")
 
-  mason_null.setup({
-    ensure_installed = { "jq" },
-    automatic_installation = false,
-    automatic_setup = true,
-  })
-
   null_ls.setup({
     sources = {},
   })
 
-  mason_null.setup_handlers({
-    function(source_name, methods)
-      local source_opts = opts[source_name] or {}
-      if source_opts.enabled == false then
-        -- Skip this source
-      else
-        for _, method in pairs(source_opts.methods or methods) do
-          null_ls.register(
-            null_ls.builtins[method][source_name].with(source_opts.with or {})
-          )
+  mason_null.setup({
+    ensure_installed = { "jq" },
+    automatic_installation = false,
+    automatic_setup = true,
+    handlers = {
+      function(source_name, methods)
+        local source_opts = opts[source_name] or {}
+        if source_opts.enabled == false then
+          -- Skip this source
+        else
+          for _, method in pairs(source_opts.methods or methods) do
+            null_ls.register(
+              null_ls.builtins[method][source_name].with(source_opts.with or {})
+            )
+          end
         end
-      end
-    end,
+      end,
+    }
   })
 end
 
