@@ -198,11 +198,18 @@ return {
         dashboard.button("q", "  > Quit", ":qa<CR>"),
       }
 
-      local v = vim.version()
-      local version = string.format("%s.%s.%s", v.major, v.minor, v.patch)
-      dashboard.section.footer.val = {
-        version,
-      }
+      local v = vim.split(vim.fn.execute("version"), "\n", { trimempty = true })
+      local footer = {}
+      for _, s in ipairs({ v[1]:sub(5, -1), v[2], v[3] }) do
+        local padding = 57 - string.len(s)
+        local left = padding / 2
+        local right = padding - left
+        table.insert(
+          footer,
+          string.rep(" ", left) .. s .. string.rep(" ", right)
+        )
+      end
+      dashboard.section.footer.val = footer
 
       -- Send config to alpha
       alpha.setup(dashboard.opts)
