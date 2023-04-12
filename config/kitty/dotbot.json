@@ -9,7 +9,23 @@
   {
     "link": {
       "~/.config/kitty/kitty.conf": {
-        "path": "kitty.conf"
+        "path": "kitty.conf",
+        "if": "[[ \"$(uname -s)\" != \"Darwin\" ]]"
+      }
+    }
+  },
+  {
+    "link": {
+      "~/.config/kitty/kitty.conf": {
+        "path": "kitty-mac.conf",
+        "if": "[[ \"$(uname -s)\" = \"Darwin\" ]]"
+      }
+    }
+  },
+  {
+    "link": {
+      "~/.config/kitty/open-actions.conf": {
+        "path": "open-actions.conf"
       }
     }
   }
