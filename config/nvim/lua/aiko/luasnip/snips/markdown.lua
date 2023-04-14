@@ -31,7 +31,7 @@ return {
     { callbacks = autoinsert_space }
   ),
   s(
-    { trig = "bf", wordTrig = true, snippetType = "autosnippet" },
+    { trig = "bb", wordTrig = true, snippetType = "autosnippet" },
     { t("**"), i(1), t("**") },
     { callbacks = autoinsert_space }
   ),

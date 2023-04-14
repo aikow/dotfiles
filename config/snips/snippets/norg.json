@@ -17,7 +17,7 @@
   "task": {
     "description": "task",
     "prefix": "task",
-    "body": ["- [ ] ${1:task}"]
+    "body": ["- ( ) ${1:task}"]
   },
   "link": {
     "description": "links",
