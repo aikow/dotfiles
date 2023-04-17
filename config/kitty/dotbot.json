@@ -2,23 +2,16 @@
   {
     "defaults": {
       "link": {
-        "if": "command -v kitty &>/dev/null"
+        "if": "command -v kitty &>/dev/null",
+        "relink": true,
+        "force": true
       }
     }
   },
   {
     "link": {
       "~/.config/kitty/kitty.conf": {
-        "path": "kitty.conf",
-        "if": "[[ \"$(uname -s)\" != \"Darwin\" ]]"
-      }
-    }
-  },
-  {
-    "link": {
-      "~/.config/kitty/kitty.conf": {
-        "path": "kitty-mac.conf",
-        "if": "[[ \"$(uname -s)\" = \"Darwin\" ]]"
+        "path": "kitty.conf"
       }
     }
   },
