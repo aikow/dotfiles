@@ -9,7 +9,7 @@
   {
     "link": {
       "~/.tmux.conf": {
-        "path": "tmux_full.conf"
+        "path": "tmux.conf"
       }
     }
   }

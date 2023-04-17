@@ -20,6 +20,7 @@ M.palettes = {
 
 M.integrations = {
   "lualine",
+  "terminal",
 }
 
 ---Load all the highlights from the integration for the colorscheme.

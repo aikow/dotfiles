@@ -218,4 +218,8 @@ return {
       require("aiko.plugins.langs.neorg").setup()
     end,
   },
+
+  {
+    "fladson/vim-kitty",
+  },
 }
