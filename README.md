@@ -1,4 +1,4 @@
-﻿# Aiko's Dotfiles
+# Aiko's Dotfiles
 
 - [Aiko's Dotfiles](#aikos-dotfiles)
   - [Installation](#installation)
