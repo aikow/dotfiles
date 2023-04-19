@@ -1,5 +1,8 @@
 local M = {}
 
+---comment
+---@param colors Colors
+---@return table<string, Color>
 M.palette = function(_, colors)
   return {
     MasonHeader = { bg = colors.red, fg = colors.black },
@@ -7,8 +10,8 @@ M.palette = function(_, colors)
     MasonHighlightBlock = { fg = colors.black, bg = colors.green },
     MasonHighlightBlockBold = { link = "MasonHighlightBlock" },
     MasonHeaderSecondary = { link = "MasonHighlightBlock" },
-    MasonMuted = { fg = colors.light_grey },
-    MasonMutedBlock = { fg = colors.light_grey, bg = colors.one_bg },
+    MasonMuted = { fg = colors.light_grey_3 },
+    MasonMutedBlock = { fg = colors.light_grey_3, bg = colors.bg_2 },
   }
 end
 

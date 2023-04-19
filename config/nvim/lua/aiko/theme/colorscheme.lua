@@ -1,4 +1,26 @@
 local M = {}
+---@class Color
+---@field fg string
+---@field bg string
+---@field sp string
+---@field link string
+---@field italic boolean
+---@field underline boolean
+---@field strikethrough boolean
+M.Color = {}
+
+---comment
+---@param o Color
+---@return any
+function M.Color:new(o)
+  o = o or {}
+  return setmetatable(o, {
+    __index = self,
+    -- __newindex = function()
+    --   error("attempt to update missing fields", 2)
+    -- end,
+  })
+end
 
 ---@class Theme
 ---@field base00 string -- Default background color
@@ -18,19 +40,24 @@ local M = {}
 ---@field base0E string -- Keywords, storage, selector, markup italic, diff changed
 ---@field base0F string -- Deprecated, opening and closing embedded language tags
 M.Theme = {}
+
+---comment
+---@param o Theme
+---@return any
 function M.Theme:new(o)
   o = o or {}
   return setmetatable(o, {
     __index = self,
-    __newindex = function()
-      error("attempt to update missing fields", 2)
-    end,
+    -- __newindex = function()
+    --   error("attempt to update missing fields", 2)
+    -- end,
   })
 end
 
 ---@class Colors
----@field bg string -- Nvim theme background color
----@field black string -- 6% darker than black
+---@field white string
+---@field black string -- Nvim theme background color
+---@field dark_black string -- 6% darker than black
 ---@field bg_1 string -- 6% lighter than black
 ---@field bg_2 string -- 10% lighter than black
 ---@field bg_3 string -- 19% lighter than black
@@ -47,7 +74,6 @@ end
 ---@field red string
 ---@field pink string
 ---@field light_pink string -- 15% lighter than red (or any other baby pink color)
----@field white string
 ---@field green string
 ---@field light_green string
 ---@field nord_blue string -- 13% darker then blue
@@ -61,6 +87,19 @@ end
 ---@field cyan string
 M.Colors = {}
 
+---comment
+---@param o Colors
+---@return any
+function M.Colors:new(o)
+  o = o or {}
+  return setmetatable(o, {
+    __index = self,
+    -- __newindex = function()
+    --   error("attempt to update missing fields", 2)
+    -- end,
+  })
+end
+
 -- A colorscheme object defines some basic properties that are then used to
 ---create all the other highlight groups.
 ---@class Colorscheme
@@ -68,7 +107,7 @@ M.Colors = {}
 ---@field background string The background color, either 'light' or 'dark'
 ---@field theme Theme The base16 theme.
 ---@field colors Colors The extended colors.
----@field polish table<string, table<string, string | boolean>> Overrides for the default generated highlight groups.
+---@field polish table<string, Color> Overrides for the default generated highlight groups.
 M.Colorscheme = {}
 
 function M.Colorscheme:new(o)

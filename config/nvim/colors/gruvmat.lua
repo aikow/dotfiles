@@ -26,32 +26,32 @@ colorscheme.theme = {
 
 colorscheme.colors = {
   black = "#282828",
-  darker_black = "#191919",
-  black2 = "#373737",
+  dark_black = "#191919",
+  bg_1 = "#373737",
 
-  one_bg = "#424242",
-  one_bg2 = "#585858",
-  one_bg3 = "#6f6f6f",
+  bg_2 = "#424242",
+  bg_3 = "#585858",
+  bg_4 = "#6f6f6f",
 
   grey = "#8e8e8e",
-  grey_fg = "#a8a8a8",
-  grey_fg2 = "#c1c1c1",
-  light_grey = "#d5d5d5",
+  light_grey_1 = "#a8a8a8",
+  light_grey_2 = "#c1c1c1",
+  light_grey_3 = "#d5d5d5",
 
-  statusline_bg = "#323232",
-  lightbg = "#535353",
+  bg_statusline = "#323232",
+  bg_light = "#535353",
 
-  pmenu_bg = "#35312e",
-  folder_bg = "#7daea3",
+  bg_pmenu = "#35312e",
+  bg_folder = "#7daea3",
 
   line = "#51524c",
 
   white = "#d3c6aa",
   red = "#ea6962",
-  baby_pink = "#e44d26",
+  light_pink = "#e44d26",
   pink = "#701516",
   green = "#a9b665",
-  vibrant_green = "#3b4439",
+  light_green = "#3b4439",
   nord_blue = "",
   blue = "#7daea3",
   yellow = "#d8a657",

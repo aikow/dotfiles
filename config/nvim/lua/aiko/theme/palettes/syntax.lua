@@ -1,6 +1,9 @@
 local M = {}
 
-M.palette = function(theme, _)
+---comment
+---@param theme Theme
+---@return table<string, Color>
+M.palette = function(theme)
   -- Standard syntax highlighting
 
   return {

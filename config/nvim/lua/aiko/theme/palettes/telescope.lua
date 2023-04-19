@@ -1,31 +1,34 @@
 local M = {}
 
+---comment
+---@param colors Colors
+---@return table<string, Color>
 M.palette = function(_, colors)
   return {
-    TelescopeNormal = { bg = colors.darker_black },
-    TelescopeBorder = { fg = colors.darker_black, bg = colors.darker_black },
-    TelescopeSelection = { bg = colors.black2, fg = colors.white },
+    TelescopeNormal = { bg = colors.dark_black },
+    TelescopeBorder = { fg = colors.dark_black, bg = colors.dark_black },
+    TelescopeSelection = { bg = colors.bg_1, fg = colors.white },
 
-    TelescopePromptNormal = { fg = colors.white, bg = colors.black2 },
-    TelescopePromptBorder = { fg = colors.black2, bg = colors.black2 },
+    TelescopePromptNormal = { fg = colors.white, bg = colors.bg_1 },
+    TelescopePromptBorder = { fg = colors.bg_1, bg = colors.bg_1 },
     TelescopePromptTitle = { fg = colors.black, bg = colors.red },
-    TelescopePromptPrefix = { fg = colors.red, bg = colors.black2 },
+    TelescopePromptPrefix = { fg = colors.red, bg = colors.bg_1 },
 
-    TelescopePreviewNormal = { bg = colors.darker_black },
+    TelescopePreviewNormal = { bg = colors.dark_black },
     TelescopePreviewBorder = {
-      fg = colors.darker_black,
-      bg = colors.darker_black,
+      fg = colors.dark_black,
+      bg = colors.dark_black,
     },
-    TelescopePreviewTitle = { fg = colors.darker_black, bg = colors.green },
+    TelescopePreviewTitle = { fg = colors.dark_black, bg = colors.green },
 
-    TelescopeResultsNormal = { bg = colors.darker_black },
+    TelescopeResultsNormal = { bg = colors.dark_black },
     TelescopeResultsBorder = {
-      fg = colors.darker_black,
-      bg = colors.darker_black,
+      fg = colors.dark_black,
+      bg = colors.dark_black,
     },
     TelescopeResultsTitle = {
-      fg = colors.darker_black,
-      bg = colors.darker_black,
+      fg = colors.dark_black,
+      bg = colors.dark_black,
     },
 
     TelescopeResultsDiffAdd = { fg = colors.green },

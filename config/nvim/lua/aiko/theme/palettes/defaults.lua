@@ -1,24 +1,28 @@
 local M = {}
 
+---comment
+---@param theme Theme
+---@param colors Colors
+---@return table<string, Color>
 M.palette = function(theme, colors)
   return {
     MatchWord = { bg = colors.grey, fg = colors.white },
 
-    Pmenu = { bg = colors.one_bg },
-    PmenuSbar = { bg = colors.one_bg },
-    PmenuSel = { bg = colors.pmenu_bg, fg = colors.black },
+    Pmenu = { bg = colors.bg_2 },
+    PmenuSbar = { bg = colors.bg_2 },
+    PmenuSel = { bg = colors.bg_pmenu, fg = colors.black },
     PmenuThumb = { bg = colors.grey },
 
     MatchParen = { link = "MatchWord" },
 
-    Comment = { fg = colors.grey_fg, italic = true },
+    Comment = { fg = colors.light_grey_2, italic = true },
 
     CursorLineNr = { fg = colors.white },
     LineNr = { fg = colors.grey },
 
     -- floating windows
     FloatBorder = { fg = colors.blue },
-    NormalFloat = { bg = colors.darker_black },
+    NormalFloat = { bg = colors.dark_black },
 
     NvimInternalError = { fg = colors.red },
     WinSeparator = { fg = colors.line },

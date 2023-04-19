@@ -1,26 +1,29 @@
 local M = {}
 
+---comment
+---@param colors Colors
+---@return table<string, Color>
 M.palette = function(_, colors)
   return {
-    NvimTreeCursorLine = { bg = colors.black2 },
-    NvimTreeEmptyFolderName = { fg = colors.folder_bg },
-    NvimTreeEndOfBuffer = { fg = colors.darker_black },
-    NvimTreeFolderIcon = { fg = colors.folder_bg },
-    NvimTreeFolderName = { fg = colors.folder_bg },
+    NvimTreeCursorLine = { bg = colors.bg_1 },
+    NvimTreeEmptyFolderName = { fg = colors.bg_folder },
+    NvimTreeEndOfBuffer = { fg = colors.dark_black },
+    NvimTreeFolderIcon = { fg = colors.bg_folder },
+    NvimTreeFolderName = { fg = colors.bg_folder },
     NvimTreeGitDeleted = { fg = colors.red },
     NvimTreeGitDirty = { fg = colors.red },
-    NvimTreeGitIgnored = { fg = colors.light_grey },
+    NvimTreeGitIgnored = { fg = colors.light_grey_3 },
     NvimTreeGitNew = { fg = colors.yellow },
-    NvimTreeIndentMarker = { fg = colors.grey_fg },
-    NvimTreeNormal = { bg = colors.darker_black },
-    NvimTreeOpenedFolderName = { fg = colors.folder_bg },
+    NvimTreeIndentMarker = { fg = colors.light_grey_1 },
+    NvimTreeNormal = { bg = colors.dark_black },
+    NvimTreeOpenedFolderName = { fg = colors.bg_folder },
     NvimTreeRootFolder = { fg = colors.red, bold = true },
     NvimTreeSpecialFile = { fg = colors.yellow, bold = true },
     NvimTreeWinSeparator = {
-      fg = colors.darker_black,
-      bg = colors.darker_black,
+      fg = colors.dark_black,
+      bg = colors.dark_black,
     },
-    NvimTreeWindowPicker = { fg = colors.red, bg = colors.black2 },
+    NvimTreeWindowPicker = { fg = colors.red, bg = colors.bg_1 },
   }
 end
 
