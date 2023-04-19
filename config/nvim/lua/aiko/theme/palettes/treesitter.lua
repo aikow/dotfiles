@@ -1,9 +1,12 @@
 local M = {}
 
+---comment
+---@param theme Theme
+---@return table<string, Color>
 M.palette = function(theme)
   return {
     -- `@annotation` is not one of the default capture group, should we keep it
-    TSDefinitionUsage = { sp = theme.base04, underline = true },
+    ["TSDefinitionUsage"] = { sp = theme.base04, underline = true },
     ["@annotation"] = { fg = theme.base0F },
     ["@attribute"] = { fg = theme.base0A },
     ["@character"] = { fg = theme.base08 },

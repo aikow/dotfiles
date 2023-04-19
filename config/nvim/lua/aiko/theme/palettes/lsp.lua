@@ -1,11 +1,14 @@
 local M = {}
 
+---comment
+---@param colors Colors
+---@return table<string, Color>
 M.palette = function(_, colors)
   return {
     -- LSP References
-    LspReferenceText = { fg = colors.darker_black, bg = colors.white },
-    LspReferenceRead = { fg = colors.darker_black, bg = colors.white },
-    LspReferenceWrite = { fg = colors.darker_black, bg = colors.white },
+    LspReferenceText = { fg = colors.dark_black, bg = colors.white },
+    LspReferenceRead = { fg = colors.dark_black, bg = colors.white },
+    LspReferenceWrite = { fg = colors.dark_black, bg = colors.white },
 
     -- Lsp Diagnostics
     DiagnosticHint = { fg = colors.purple },

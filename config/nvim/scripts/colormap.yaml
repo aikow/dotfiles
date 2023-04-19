@@ -1,0 +1,34 @@
+black: black
+darker_black: dark_black
+
+black2: bg_1
+one_bg: bg_2
+one_bg2: bg_3
+one_bg3: bg_4
+
+grey: grey
+grey_fg: light_grey_1
+grey_fg2: light_grey_2
+light_grey: light_grey_3
+
+statusline_bg: bg_statusline
+lightbg: bg_light
+pmenu_bg: bg_pmenu
+folder_bg: bg_folder
+line: line
+
+red: red
+pink: pink
+baby_pink: light_pink
+white: white
+green: green
+vibrant_green: light_green
+nord_blue: nord_blue
+blue: blue
+yellow: yellow
+sun: sun
+purple: purple
+dark_purple: dark_purple
+teal: teal
+orange: orange
+cyan: cyan

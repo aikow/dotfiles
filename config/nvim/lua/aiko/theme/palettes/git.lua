@@ -1,10 +1,14 @@
 local M = {}
 
+---comment
+---@param theme Theme
+---@param colors Colors
+---@return table<string, Color>
 M.palette = function(theme, colors)
   return {
     DiffAdd = { fg = colors.blue },
     DiffAdded = { fg = colors.green },
-    DiffChange = { fg = colors.light_grey },
+    DiffChange = { fg = colors.light_grey_3 },
     DiffChangeDelete = { fg = colors.red },
     DiffModified = { fg = colors.orange },
     DiffDelete = { fg = colors.red },

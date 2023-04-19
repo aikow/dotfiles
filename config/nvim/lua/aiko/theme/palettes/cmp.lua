@@ -1,13 +1,17 @@
 local M = {}
 
+---comment
+---@param theme Theme
+---@param colors Colors
+---@return table<string, Color>
 M.palette = function(theme, colors)
   return {
     -- nvim cmp
     CmpItemAbbr = { fg = colors.white },
     CmpItemAbbrMatch = { fg = colors.blue, bold = true },
     CmpBorder = { fg = colors.grey },
-    CmpDocBorder = { fg = colors.darker_black, bg = colors.darker_black },
-    CmPmenu = { bg = colors.darker_black },
+    CmpDocBorder = { fg = colors.dark_black, bg = colors.dark_black },
+    CmPmenu = { bg = colors.dark_black },
 
     -- cmp item kinds
     CmpItemKindConstant = { fg = theme.base09 },

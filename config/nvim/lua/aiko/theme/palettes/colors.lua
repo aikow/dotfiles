@@ -1,6 +1,9 @@
 local M = {}
 local str = require("aiko.util.string")
 
+---comment
+---@param colors Colors
+---@return table<string, Color>
 M.palette = function(_, colors)
   local palette = {}
   for name, hex in pairs(colors) do
@@ -11,14 +14,14 @@ M.palette = function(_, colors)
 
   palette = vim.tbl_extend("error", palette, {
     Black = { fg = colors.white, bg = colors.black },
-    DarkerBlack = { fg = colors.white, bg = colors.darkerblack },
+    DarkerBlack = { fg = colors.white, bg = colors.dark_black },
     Grey = { fg = colors.white, bg = colors.grey },
     Red = { fg = colors.white, bg = colors.red },
     Pink = { fg = colors.white, bg = colors.pink },
-    BabyPink = { fg = colors.white, bg = colors.baby_pink },
+    BabyPink = { fg = colors.white, bg = colors.light_pink },
     White = { fg = colors.white, bg = colors.white },
     Green = { fg = colors.white, bg = colors.green },
-    VibrantGreen = { fg = colors.white, bg = colors.vibrant_green },
+    VibrantGreen = { fg = colors.white, bg = colors.light_green },
     NordBlue = { fg = colors.white, bg = colors.nord_blue },
     Blue = { fg = colors.white, bg = colors.blue },
     Yellow = { fg = colors.white, bg = colors.yellow },

@@ -1,5 +1,8 @@
 local M = {}
 
+---comment
+---@param colors Colors
+---@return table<string, Color>
 M.palette = function(_, colors)
   return {
     DevIconDefault = { fg = colors.red },
@@ -7,7 +10,7 @@ M.palette = function(_, colors)
     DevIconcss = { fg = colors.blue },
     DevIcondeb = { fg = colors.cyan },
     DevIconDockerfile = { fg = colors.cyan },
-    DevIconhtml = { fg = colors.baby_pink },
+    DevIconhtml = { fg = colors.light_pink },
     DevIconjpeg = { fg = colors.dark_purple },
     DevIconjpg = { fg = colors.dark_purple },
     DevIconjs = { fg = colors.sun },
@@ -24,7 +27,7 @@ M.palette = function(_, colors)
     DevIconttf = { fg = colors.white },
     DevIconrb = { fg = colors.pink },
     DevIconrpm = { fg = colors.orange },
-    DevIconvue = { fg = colors.vibrant_green },
+    DevIconvue = { fg = colors.light_green },
     DevIconwoff = { fg = colors.white },
     DevIconwoff2 = { fg = colors.white },
     DevIconxz = { fg = colors.sun },
