@@ -15,7 +15,7 @@ M.palette = function(theme, colors)
 
     MatchParen = { link = "MatchWord" },
 
-    Comment = { fg = colors.light_grey_2, italic = true },
+    Comment = { fg = colors.light_grey_3, italic = true },
 
     CursorLineNr = { fg = colors.white },
     LineNr = { fg = colors.grey },
