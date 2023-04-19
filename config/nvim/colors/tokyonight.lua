@@ -40,7 +40,7 @@ colorscheme.colors = {
 
 colorscheme.theme = {
   base00 = "#1A1B26",
-  base01 = "#3b4261",
+  base01 = "#292e42",
   base02 = "#3b4261",
   base03 = "#545c7e",
   base04 = "#565c64",
