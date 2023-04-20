@@ -28,7 +28,7 @@ M.setup = function()
           end,
         },
       },
-      ["core.norg.dirman"] = {
+      ["core.dirman"] = {
         config = {
           workspaces = {
             personal = "~/gdrive/notes",
@@ -38,15 +38,15 @@ M.setup = function()
         },
       },
 
-      ["core.norg.concealer"] = {},
+      ["core.concealer"] = {},
 
-      ["core.norg.completion"] = {
+      ["core.completion"] = {
         config = {
           engine = "nvim-cmp",
         },
       },
 
-      ["core.norg.qol.toc"] = {},
+      ["core.qol.toc"] = {},
 
       -- Neorg presentations
       ["core.presenter"] = {
