@@ -1,39 +1,7 @@
-local Colorscheme = require("aiko.theme.colorscheme").Colorscheme
-
-local colorscheme = Colorscheme.new({ name = "nightowl", background = "dark" })
-
-colorscheme.colors = {
-  white = "#d6deeb",
-  dark_black = "#010f20",
-  black = "#011627",
-  bg_1 = "#091e2f",
-  bg_2 = "#112637",
-  bg_3 = "#1b3041",
-  bg_4 = "#253a4b",
-  grey = "#2c4152",
-  light_grey_1 = "#34495a",
-  light_grey_2 = "#3c5162",
-  light_grey_3 = "#495e6f",
-  red = "#f78c6c",
-  light_pink = "#ff6cca",
-  pink = "#fa58b6",
-  line = "#182d3e",
-  green = "#29E68E",
-  light_green = "#22da6e",
-  blue = "#82aaff",
-  nord_blue = "#78a0f5",
-  yellow = "#ffcb8b",
-  sun = "#ffe9a9",
-  purple = "#c792ea",
-  dark_purple = "#a974cc",
-  teal = "#96CEB4",
-  orange = "#FFAD60",
-  cyan = "#aad2ff",
-  bg_statusline = "#051a2b",
-  bg_light = "#1a2f40",
-  bg_pmenu = "#82aaff",
-  bg_folder = "#82aaff",
-}
+local colorscheme = require("aiko.theme.colorscheme").Colorscheme.new({
+  name = "nightowl",
+  background = "dark",
+})
 
 colorscheme.theme = {
   base00 = "#011627",
@@ -52,6 +20,39 @@ colorscheme.theme = {
   base0D = "#82aaff",
   base0E = "#c792ea",
   base0F = "#f78c6c",
+}
+
+colorscheme.colors = {
+  bg_1 = "#091e2f",
+  bg_2 = "#112637",
+  bg_3 = "#1b3041",
+  bg_4 = "#253a4b",
+  bg_folder = "#82aaff",
+  bg_light = "#1a2f40",
+  bg_pmenu = "#82aaff",
+  bg_statusline = "#051a2b",
+  black = "#011627",
+  blue = "#82aaff",
+  cyan = "#aad2ff",
+  dark_black = "#010f20",
+  dark_purple = "#a974cc",
+  green = "#29E68E",
+  grey = "#2c4152",
+  light_green = "#22da6e",
+  light_grey_1 = "#34495a",
+  light_grey_2 = "#3c5162",
+  light_grey_3 = "#495e6f",
+  light_pink = "#ff6cca",
+  line = "#182d3e",
+  nord_blue = "#78a0f5",
+  orange = "#FFAD60",
+  pink = "#fa58b6",
+  purple = "#c792ea",
+  red = "#f78c6c",
+  sun = "#ffe9a9",
+  teal = "#96CEB4",
+  white = "#d6deeb",
+  yellow = "#ffcb8b",
 }
 
 colorscheme.polish = {

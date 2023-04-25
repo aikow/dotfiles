@@ -1,42 +1,7 @@
-local Colorscheme = require("aiko.theme.colorscheme").Colorscheme
-
-local colorscheme = Colorscheme.new({
+local colorscheme = require("aiko.theme.colorscheme").Colorscheme.new({
   name = "dark-horizon",
   background = "dark",
 })
-
-colorscheme.colors = {
-  white = "#FFFFFF",
-  dark_black = "#080808",
-  black = "#0e0e0e", --  nvim bg
-  bg_1 = "#181818",
-  bg_2 = "#1c1c1c",
-  bg_3 = "#212121",
-  bg_4 = "#292929",
-  grey = "#363636",
-  light_grey_1 = "#404040",
-  light_grey_2 = "#4a4a4a",
-  light_grey_3 = "#525252",
-  red = "#dc322f",
-  light_pink = "#a72e5b",
-  pink = "#ff75a0",
-  line = "#1d1d1d", -- for lines like vertsplit
-  green = "#AAD84C",
-  light_green = "#b9e75b",
-  nord_blue = "#18a3af",
-  blue = "#25B0BC",
-  yellow = "#fdb830",
-  sun = "#ffc038",
-  purple = "#da70d6",
-  dark_purple = "#c65cc2",
-  teal = "#749689",
-  orange = "#FFA500",
-  cyan = "#6BE4E6",
-  bg_statusline = "#181818",
-  bg_light = "#292929",
-  bg_pmenu = "#15bf84",
-  bg_folder = "#07929e",
-}
 
 colorscheme.theme = {
   base00 = "#0e0e0e",
@@ -55,6 +20,39 @@ colorscheme.theme = {
   base0D = "#FFA500", -- Functions, Methods
   base0E = "#2ca9b4", -- Confirmed: Keywords, Storage, Selector, Markup
   base0F = "#d75271", -- Deprecated, Opening/Closing embedded language tags
+}
+
+colorscheme.colors = {
+  bg_1 = "#181818",
+  bg_2 = "#1c1c1c",
+  bg_3 = "#212121",
+  bg_4 = "#292929",
+  bg_folder = "#07929e",
+  bg_light = "#292929",
+  bg_pmenu = "#15bf84",
+  bg_statusline = "#181818",
+  black = "#0e0e0e", --  nvim bg
+  blue = "#25B0BC",
+  cyan = "#6BE4E6",
+  dark_black = "#080808",
+  dark_purple = "#c65cc2",
+  green = "#AAD84C",
+  grey = "#363636",
+  light_green = "#b9e75b",
+  light_grey_1 = "#404040",
+  light_grey_2 = "#4a4a4a",
+  light_grey_3 = "#525252",
+  light_pink = "#a72e5b",
+  line = "#1d1d1d", -- for lines like vertsplit
+  nord_blue = "#18a3af",
+  orange = "#FFA500",
+  pink = "#ff75a0",
+  purple = "#da70d6",
+  red = "#dc322f",
+  sun = "#ffc038",
+  teal = "#749689",
+  white = "#FFFFFF",
+  yellow = "#fdb830",
 }
 
 colorscheme.polish = {

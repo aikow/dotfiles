@@ -1,46 +1,7 @@
--- local Colorscheme = require("aiko.theme.colorscheme").
--- Credits to https://github.com/fenetikm/falcon as its the orignal theme
--- This is a modified version of original theme
-
-local Colorscheme = require("aiko.theme.colorscheme").Colorscheme
-
-local colorscheme = Colorscheme.new({
+local colorscheme = require("aiko.theme.colorscheme").Colorscheme.new({
   name = "falcon",
   background = "dark",
 })
-
-colorscheme.colors = {
-  white = "#F8F8FF",
-  dark_black = "#000015",
-  black = "#020222", --  nvim bg
-  bg_1 = "#0b0b2b",
-  bg_2 = "#161636",
-  bg_3 = "#202040",
-  bg_4 = "#2a2a4a",
-  grey = "#393959",
-  light_grey_1 = "#434363",
-  light_grey_2 = "#4d4d6d",
-  light_grey_3 = "#5c5c7c",
-  red = "#FF761A",
-  light_pink = "#FF8E78",
-  pink = "#ffafb7",
-  line = "#202040", -- for lines like vertsplit
-  green = "#9BCCBF",
-  light_green = "#b9e75b",
-  nord_blue = "#a1bce1",
-  blue = "#6699cc",
-  yellow = "#FFC552",
-  sun = "#FFD392",
-  purple = "#99A4BC",
-  dark_purple = "#635196",
-  teal = "#34BFA4",
-  orange = "#f99157",
-  cyan = "#BFDAFF",
-  bg_statusline = "#0b0b2b",
-  bg_light = "#2a2a4a",
-  bg_pmenu = "#FFB07B",
-  bg_folder = "#598cbf",
-}
 
 colorscheme.theme = {
   base00 = "#020222",
@@ -59,6 +20,39 @@ colorscheme.theme = {
   base0D = "#FFC552",
   base0E = "#8BCCBF",
   base0F = "#DFDFE5",
+}
+
+colorscheme.colors = {
+  bg_1 = "#0b0b2b",
+  bg_2 = "#161636",
+  bg_3 = "#202040",
+  bg_4 = "#2a2a4a",
+  bg_folder = "#598cbf",
+  bg_light = "#2a2a4a",
+  bg_pmenu = "#FFB07B",
+  bg_statusline = "#0b0b2b",
+  black = "#020222", --  nvim bg
+  blue = "#6699cc",
+  cyan = "#BFDAFF",
+  dark_black = "#000015",
+  dark_purple = "#635196",
+  green = "#9BCCBF",
+  grey = "#393959",
+  light_green = "#b9e75b",
+  light_grey_1 = "#434363",
+  light_grey_2 = "#4d4d6d",
+  light_grey_3 = "#5c5c7c",
+  light_pink = "#FF8E78",
+  line = "#202040", -- for lines like vertsplit
+  nord_blue = "#a1bce1",
+  orange = "#f99157",
+  pink = "#ffafb7",
+  purple = "#99A4BC",
+  red = "#FF761A",
+  sun = "#FFD392",
+  teal = "#34BFA4",
+  white = "#F8F8FF",
+  yellow = "#FFC552",
 }
 
 local custom = {

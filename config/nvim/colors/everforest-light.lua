@@ -1,42 +1,7 @@
-local Colorscheme = require("aiko.theme.colorscheme").Colorscheme
-
-local colorscheme = Colorscheme.new({
+local colorscheme = require("aiko.theme.colorscheme").Colorscheme.new({
   name = "everforest-light",
   background = "light",
 })
-
-colorscheme.colors = {
-  white = "#272f35",
-  dark_black = "#f5efde",
-  black = "#fff9e8",
-  bg_1 = "#ebe5d4",
-  bg_2 = "#c6c2aa",
-  bg_3 = "#b6b29a",
-  bg_4 = "#a6a28a",
-  grey = "#a6b0a0",
-  light_grey_1 = "#939f91",
-  light_grey_2 = "#829181",
-  light_grey_3 = "#798878",
-  red = "#c85552",
-  light_pink = "#ce8196",
-  pink = "#ef6590",
-  line = "#e8e2d1",
-  green = "#5da111",
-  light_green = "#87a060",
-  nord_blue = "#656c5f",
-  blue = "#3a94c5",
-  yellow = "#dfa000",
-  sun = "#d1b171",
-  purple = "#b67996",
-  dark_purple = "#966986",
-  teal = "#69a59d",
-  orange = "#F7954F",
-  cyan = "#7521e9",
-  bg_statusline = "#ede7d6",
-  bg_light = "#d3cdbc",
-  bg_pmenu = "#5f9b93",
-  bg_folder = "#747b6e",
-}
 
 colorscheme.theme = {
   base00 = "#fff9e8",
@@ -55,6 +20,39 @@ colorscheme.theme = {
   base0D = "#87a060",
   base0E = "#c85552",
   base0F = "#c85552",
+}
+
+colorscheme.colors = {
+  bg_1 = "#ebe5d4",
+  bg_2 = "#c6c2aa",
+  bg_3 = "#b6b29a",
+  bg_4 = "#a6a28a",
+  bg_folder = "#747b6e",
+  bg_light = "#d3cdbc",
+  bg_pmenu = "#5f9b93",
+  bg_statusline = "#ede7d6",
+  black = "#fff9e8",
+  blue = "#3a94c5",
+  cyan = "#7521e9",
+  dark_black = "#f5efde",
+  dark_purple = "#966986",
+  green = "#5da111",
+  grey = "#a6b0a0",
+  light_green = "#87a060",
+  light_grey_1 = "#939f91",
+  light_grey_2 = "#829181",
+  light_grey_3 = "#798878",
+  light_pink = "#ce8196",
+  line = "#e8e2d1",
+  nord_blue = "#656c5f",
+  orange = "#F7954F",
+  pink = "#ef6590",
+  purple = "#b67996",
+  red = "#c85552",
+  sun = "#d1b171",
+  teal = "#69a59d",
+  white = "#272f35",
+  yellow = "#dfa000",
 }
 
 local custom = {

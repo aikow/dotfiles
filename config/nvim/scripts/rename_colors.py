@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
-import glob
 import re
+import sys
 from pprint import pprint
 
 import yaml
@@ -14,7 +14,7 @@ pprint(colormap)
 compiled = [(re.compile(rf"\b{src}\b"), tgt) for src, tgt in colormap.items()]
 
 
-for colorscheme in glob.glob("lua/aiko/theme/palettes/*.lua"):
+for colorscheme in sys.argv:
     print(colorscheme)
     with open(colorscheme, "r") as file:
         lines = file.readlines()

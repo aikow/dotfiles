@@ -1,42 +1,7 @@
-local Colorscheme = require("aiko.theme.colorscheme").Colorscheme
-
-local colorscheme = Colorscheme.new({
+local colorscheme = require("aiko.theme.colorscheme").Colorscheme.new({
   name = "yoru",
   background = "dark",
 })
-
-colorscheme.colors = {
-  white = "#edeff0",
-  dark_black = "#060809",
-  black = "#0c0e0f",
-  lighter_black = "#121415",
-  bg_2 = "#161819",
-  bg_3 = "#1f2122",
-  bg_4 = "#27292a",
-  grey = "#343637",
-  light_grey_1 = "#3e4041",
-  light_grey_2 = "#484a4b",
-  light_grey_3 = "#505253",
-  red = "#DF5B61",
-  light_pink = "#EE6A70",
-  pink = "#e8646a",
-  line = "#1b1d1e",
-  green = "#78B892",
-  light_green = "#81c19b",
-  nord_blue = "#5A84BC",
-  blue = "#6791C9",
-  yellow = "#ecd28b",
-  sun = "#f6dc95",
-  purple = "#c58cec",
-  dark_purple = "#BC83E3",
-  teal = "#70b8ca",
-  orange = "#E89982",
-  cyan = "#67AFC1",
-  bg_statusline = "#101213",
-  bg_light = "#1d1f20",
-  bg_pmenu = "#78B892",
-  bg_folder = "#6791C9",
-}
 
 colorscheme.theme = {
   base00 = "#0c0e0f",
@@ -55,6 +20,39 @@ colorscheme.theme = {
   base0D = "#709ad2",
   base0E = "#c58cec",
   base0F = "#e8646a",
+}
+
+colorscheme.colors = {
+  bg_2 = "#161819",
+  bg_3 = "#1f2122",
+  bg_4 = "#27292a",
+  bg_folder = "#6791C9",
+  bg_light = "#1d1f20",
+  bg_pmenu = "#78B892",
+  bg_statusline = "#101213",
+  black = "#0c0e0f",
+  blue = "#6791C9",
+  cyan = "#67AFC1",
+  dark_black = "#060809",
+  dark_purple = "#BC83E3",
+  green = "#78B892",
+  grey = "#343637",
+  light_green = "#81c19b",
+  light_grey_1 = "#3e4041",
+  light_grey_2 = "#484a4b",
+  light_grey_3 = "#505253",
+  light_pink = "#EE6A70",
+  lighter_black = "#121415",
+  line = "#1b1d1e",
+  nord_blue = "#5A84BC",
+  orange = "#E89982",
+  pink = "#e8646a",
+  purple = "#c58cec",
+  red = "#DF5B61",
+  sun = "#f6dc95",
+  teal = "#70b8ca",
+  white = "#edeff0",
+  yellow = "#ecd28b",
 }
 
 require("aiko.theme").paint(colorscheme)
