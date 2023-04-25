@@ -1,6 +1,6 @@
-local Colorscheme = require("aiko.theme.colorscheme").Colorscheme
+local Colorscheme = require("aiko.theme.colorscheme").Scheme
 
-local colorscheme = Colorscheme.new({
+local colorscheme = Colorscheme:new({
   name = "gruvmat",
   background = "dark",
 })
