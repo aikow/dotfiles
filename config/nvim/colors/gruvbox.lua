@@ -1,4 +1,4 @@
-local colorscheme = require("aiko.theme.colorscheme").Colorscheme.new({
+local colorscheme = require("aiko.theme.colorscheme").Scheme:new({
   name = "gruvbox",
   background = "dark",
 })

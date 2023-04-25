@@ -1,4 +1,7 @@
 local M = {}
+
+---@alias Background "light" | "dark"
+
 ---@class Color
 ---@field fg string
 ---@field bg string
@@ -100,25 +103,28 @@ function M.Colors:new(o)
   })
 end
 
--- A colorscheme object defines some basic properties that are then used to
+-- A color scheme object defines some basic properties that are then used to
 ---create all the other highlight groups.
----@class Colorscheme
----@field name string The name of the colorscheme which should match the file name.
----@field background string The background color, either 'light' or 'dark'
+---@class Scheme
+---@field name string The name of the color scheme which should match the file name.
+---@field background Background The background color, either 'light' or 'dark'
 ---@field theme Theme The base16 theme.
 ---@field colors Colors The extended colors.
 ---@field polish table<string, Color> Overrides for the default generated highlight groups.
-M.Colorscheme = {}
+M.Scheme = {}
 
-function M.Colorscheme:new(o)
+---comment
+---@param o { name: string, background: Background }
+---@return Scheme
+function M.Scheme:new(o)
   o = o or {}
 
   return setmetatable({
     name = o.name or "",
     background = o.background or "",
-    theme = o.theme,
-    colors = o.colors,
-    polish = o.polish or {},
+    -- theme = o.theme,
+    -- colors = o.colors,
+    -- polish = o.polish or {},
   }, { __index = self })
 end
 

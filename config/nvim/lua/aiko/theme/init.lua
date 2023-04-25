@@ -13,6 +13,7 @@ M.palettes = {
   "luasnip",
   "mason",
   "neo-tree",
+  "neorg",
   "syntax",
   "telescope",
   "treesitter",
@@ -25,7 +26,7 @@ M.integrations = {
 
 ---Load all the highlights from the integration for the colorscheme.
 ---@param group string
----@param colorscheme Colorscheme
+---@param colorscheme Scheme
 ---@return nil|table<string, string>
 M.load_palette = function(group, colorscheme)
   local modpath = "aiko.theme.palettes." .. group
@@ -41,7 +42,7 @@ end
 ---Run the setup code for an integration that doesn't need to return a list of
 ---highlight groups
 ---@param group string name of the integration
----@param colorscheme Colorscheme the table of colors in the colorscheme.
+---@param colorscheme Scheme the table of colors in the colorscheme.
 M.load_integration = function(group, colorscheme)
   local modpath = "aiko.theme.integrations." .. group
   local ok, mod = pcall(require, modpath)
@@ -54,7 +55,7 @@ M.load_integration = function(group, colorscheme)
 end
 
 ---Set the neovim color scheme based on the Colorscheme object.
----@param colorscheme Colorscheme
+---@param colorscheme Scheme
 M.paint = function(colorscheme)
   colorscheme.polish = colorscheme.polish or {}
   local all = {}
@@ -64,6 +65,7 @@ M.paint = function(colorscheme)
   if vim.fn.exists("syntax_on") then
     vim.cmd([[syntax reset]])
   end
+
   vim.g.colors_name = colorscheme.name
   vim.opt.background = colorscheme.background or "dark"
 
