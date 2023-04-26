@@ -16,39 +16,18 @@ M.palette = function(_, colors)
     FzfLuaCursorLineNr = { bg = colors.dark_black, fg = colors.dark_black },
 
     FzfLuaHelpNormal = { bg = colors.dark_black },
-    FzfLuaHelpBorder = {
-      fg = colors.dark_black,
-      bg = colors.dark_black,
-    },
+    FzfLuaHelpBorder = { fg = colors.dark_black, bg = colors.dark_black },
     FzfLuaHelpTitle = { fg = colors.dark_black, bg = colors.green },
 
-    FzfLuaScrollBorderFull = {
-      fg = colors.dark_black,
-      bg = colors.dark_black,
-    },
-    FzfLuaScrollBorderEmpty = {
-      fg = colors.dark_black,
-      bg = colors.dark_black,
-    },
+    FzfLuaScrollBorderFull = { fg = colors.dark_black, bg = colors.dark_black },
+    FzfLuaScrollBorderEmpty = { fg = colors.dark_black, bg = colors.dark_black },
 
-    FzfLuaScrollFloatFull = {
-      fg = colors.dark_black,
-      bg = colors.dark_black,
-    },
-    FzfLuaScrollFloatEmpty = {
-      fg = colors.dark_black,
-      bg = colors.dark_black,
-    },
+    FzfLuaScrollFloatFull = { fg = colors.dark_black, bg = colors.dark_black },
+    FzfLuaScrollFloatEmpty = { fg = colors.dark_black, bg = colors.dark_black },
 
     -- FzfLuaHelpNormal = { bg = colors.dark_black },
-    -- FzfLuaHelpBorder = {
-    --   fg = colors.dark_black,
-    --   bg = colors.dark_black,
-    -- },
-    -- FzfLuaHelpTitle = {
-    --   fg = colors.dark_black,
-    --   bg = colors.dark_black,
-    -- },
+    -- FzfLuaHelpBorder = { fg = colors.dark_black, bg = colors.dark_black, },
+    -- FzfLuaHelpTitle = { fg = colors.dark_black, bg = colors.dark_black, },
   }
 end
 

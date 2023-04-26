@@ -14,14 +14,14 @@ M.palette = function(_, colors)
 
   palette = vim.tbl_extend("error", palette, {
     Black = { fg = colors.white, bg = colors.black },
-    DarkerBlack = { fg = colors.white, bg = colors.dark_black },
+    DarkBlack = { fg = colors.white, bg = colors.dark_black },
     Grey = { fg = colors.white, bg = colors.grey },
     Red = { fg = colors.white, bg = colors.red },
     Pink = { fg = colors.white, bg = colors.pink },
-    BabyPink = { fg = colors.white, bg = colors.light_pink },
+    LightPink = { fg = colors.white, bg = colors.light_pink },
     White = { fg = colors.white, bg = colors.white },
     Green = { fg = colors.white, bg = colors.green },
-    VibrantGreen = { fg = colors.white, bg = colors.light_green },
+    LightGreen = { fg = colors.white, bg = colors.light_green },
     NordBlue = { fg = colors.white, bg = colors.nord_blue },
     Blue = { fg = colors.white, bg = colors.blue },
     Yellow = { fg = colors.white, bg = colors.yellow },
