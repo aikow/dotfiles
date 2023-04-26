@@ -15,21 +15,12 @@ M.palette = function(_, colors)
     TelescopePromptPrefix = { fg = colors.red, bg = colors.bg_1 },
 
     TelescopePreviewNormal = { bg = colors.dark_black },
-    TelescopePreviewBorder = {
-      fg = colors.dark_black,
-      bg = colors.dark_black,
-    },
+    TelescopePreviewBorder = { fg = colors.dark_black, bg = colors.dark_black },
     TelescopePreviewTitle = { fg = colors.dark_black, bg = colors.green },
 
     TelescopeResultsNormal = { bg = colors.dark_black },
-    TelescopeResultsBorder = {
-      fg = colors.dark_black,
-      bg = colors.dark_black,
-    },
-    TelescopeResultsTitle = {
-      fg = colors.dark_black,
-      bg = colors.dark_black,
-    },
+    TelescopeResultsBorder = { fg = colors.dark_black, bg = colors.dark_black },
+    TelescopeResultsTitle = { fg = colors.dark_black, bg = colors.dark_black },
 
     TelescopeResultsDiffAdd = { fg = colors.green },
     TelescopeResultsDiffChange = { fg = colors.yellow },

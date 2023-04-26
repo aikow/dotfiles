@@ -10,10 +10,11 @@ local M = {}
 ---@field italic boolean
 ---@field underline boolean
 ---@field strikethrough boolean
+---@field undercurl boolean
 M.Color = {}
 
 ---comment
----@param o Color
+---@param o table
 ---@return any
 function M.Color:new(o)
   o = o or {}
