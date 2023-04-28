@@ -4,22 +4,22 @@ local colorscheme = require("aiko.theme.colorscheme").Scheme:new({
 })
 
 colorscheme.theme = {
-  base00 = "#1E1E1E",
+  base00 = "#1e1e1e",
   base01 = "#262626",
   base02 = "#303030",
-  base03 = "#3C3C3C",
+  base03 = "#3c3c3c",
   base04 = "#464646",
-  base05 = "#D4D4D4",
-  base06 = "#E9E9E9",
-  base07 = "#FFFFFF",
-  base08 = "#D16969",
-  base09 = "#B5CEA8",
-  base0A = "#D7BA7D",
-  base0B = "#BD8D78",
-  base0C = "#9CDCFE",
-  base0D = "#DCDCAA",
-  base0E = "#C586C0",
-  base0F = "#E9E9E9",
+  base05 = "#d4d4d4",
+  base06 = "#e9e9e9",
+  base07 = "#ffffff",
+  base08 = "#d16969",
+  base09 = "#b5cea8",
+  base0A = "#d7ba7d",
+  base0B = "#bd8d78",
+  base0C = "#9cdcfe",
+  base0D = "#dcdcaa",
+  base0E = "#c586c0",
+  base0F = "#e9e9e9",
 }
 
 colorscheme.colors = {
@@ -27,16 +27,16 @@ colorscheme.colors = {
   bg_2 = "#282828",
   bg_3 = "#313131",
   bg_4 = "#3a3a3a",
-  bg_folder = "#7A8A92",
+  bg_folder = "#7a8a92",
   bg_light = "#303030",
   bg_pmenu = "#60a6e0",
   bg_statusline = "#242424",
-  black = "#1E1E1E",
-  blue = "#569CD6",
-  cyan = "#9CDCFE",
+  black = "#1e1e1e",
+  blue = "#569cd6",
+  cyan = "#9cdcfe",
   dark_black = "#1a1a1a",
   dark_purple = "#b77bdf",
-  green = "#B5CEA8",
+  green = "#b5cea8",
   grey = "#444444",
   light_green = "#bfd8b2",
   light_grey_1 = "#4e4e4e",
@@ -48,15 +48,15 @@ colorscheme.colors = {
   orange = "#d3967d",
   pink = "#bb7cb6",
   purple = "#c68aee",
-  red = "#D16969",
+  red = "#d16969",
   sun = "#e1c487",
-  teal = "#4294D6",
+  teal = "#4294d6",
   white = "#dee1e6",
-  yellow = "#D7BA7D",
+  yellow = "#d7ba7d",
 }
 
 local custom = {
-  green = "#4EC994",
+  green = "#4ec994",
 }
 
 colorscheme.polish = {

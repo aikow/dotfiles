@@ -4,22 +4,22 @@ local colorscheme = require("aiko.theme.colorscheme").Scheme:new({
 })
 
 colorscheme.theme = {
-  base00 = "#0B0E14",
+  base00 = "#0b0e14",
   base01 = "#1c1f25",
   base02 = "#24272d",
   base03 = "#2b2e34",
   base04 = "#33363c",
   base05 = "#c9c7be",
-  base06 = "#E6E1CF",
-  base07 = "#D9D7CE",
+  base06 = "#e6e1cf",
+  base07 = "#d9d7ce",
   base08 = "#c9c7be",
-  base09 = "#FFEE99",
+  base09 = "#ffee99",
   base0A = "#56c3f9",
-  base0B = "#AAD84C",
-  base0C = "#FFB454",
-  base0D = "#F07174",
-  base0E = "#FFB454",
-  base0F = "#CBA6F7",
+  base0B = "#aad84c",
+  base0C = "#ffb454",
+  base0D = "#f07174",
+  base0E = "#ffb454",
+  base0F = "#cba6f7",
 }
 
 colorscheme.colors = {
@@ -31,12 +31,12 @@ colorscheme.colors = {
   bg_light = "#24272d",
   bg_pmenu = "#ff9445",
   bg_statusline = "#12151b",
-  black = "#0B0E14",
-  blue = "#36A3D9",
-  cyan = "#95E6CB",
+  black = "#0b0e14",
+  blue = "#36a3d9",
+  cyan = "#95e6cb",
   dark_black = "#05080e",
-  dark_purple = "#A37ACC",
-  green = "#AAD84C",
+  dark_purple = "#a37acc",
+  green = "#aad84c",
   grey = "#33363c",
   light_green = "#b9e75b",
   light_grey_1 = "#3d4046",
@@ -48,11 +48,11 @@ colorscheme.colors = {
   orange = "#ffa455",
   pink = "#ff8087",
   purple = "#c79bf4",
-  red = "#F07178",
+  red = "#f07178",
   sun = "#f0df8a",
   teal = "#74c5aa",
   white = "#ced4df",
-  yellow = "#E7C547",
+  yellow = "#e7c547",
 }
 
 require("aiko.theme").paint(colorscheme)

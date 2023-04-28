@@ -4,7 +4,7 @@ local colorscheme = require("aiko.theme.colorscheme").Scheme:new({
 })
 
 colorscheme.theme = {
-  base00 = "#D8DEE9",
+  base00 = "#d8dee9",
   base01 = "#c7cdd8",
   -- base01 = "#f4f4f4",
   base02 = "#e5e5e6",
@@ -32,7 +32,7 @@ colorscheme.colors = {
   bg_light = "#bac0cb",
   bg_pmenu = "#7191b1",
   bg_statusline = "#ced4df",
-  black = "#D8DEE9",
+  black = "#d8dee9",
   blue = "#3f5f7f",
   cyan = "#6181a1",
   dark_black = "#ced4df",

@@ -14,7 +14,7 @@ colorscheme.theme = {
   base07 = "#bbc2cf",
   base08 = "#ff6c6b",
   base09 = "#ea9558",
-  base0A = "#ECBE7B",
+  base0A = "#ecbe7b",
   base0B = "#98be65",
   base0C = "#66c4ff",
   base0D = "#48a6e6",
@@ -33,7 +33,7 @@ colorscheme.colors = {
   bg_statusline = "#2d3139",
   black = "#282c34",
   blue = "#61afef",
-  cyan = "#46D9FF",
+  cyan = "#46d9ff",
   dark_black = "#22262e",
   dark_purple = "#c678dd",
   green = "#98be65",
@@ -52,7 +52,7 @@ colorscheme.colors = {
   sun = "#f2c481",
   teal = "#4db5bd",
   white = "#bbc2cf",
-  yellow = "#ECBE7B",
+  yellow = "#ecbe7b",
 }
 
 colorscheme.polish = {
