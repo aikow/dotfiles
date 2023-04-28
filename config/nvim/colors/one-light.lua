@@ -23,11 +23,11 @@ colorscheme.theme = {
 }
 
 colorscheme.colors = {
-  bg_1 = "#EAEAEB",
+  bg_1 = "#eaeaeb",
   bg_2 = "#dadadb",
   bg_3 = "#d4d4d5",
   bg_4 = "#cccccd",
-  bg_folder = "#6C6C6C",
+  bg_folder = "#6c6c6c",
   bg_light = "#d3d3d3",
   bg_pmenu = "#5e5f65",
   bg_statusline = "#ececec",
@@ -42,15 +42,15 @@ colorscheme.colors = {
   light_grey_1 = "#b0b0b1",
   light_grey_2 = "#a9a9aa",
   light_grey_3 = "#a2a2a3",
-  light_pink = "#F07178",
+  light_pink = "#f07178",
   line = "#e2e2e2",
   nord_blue = "#428bab",
-  orange = "#FF6A00",
+  orange = "#ff6a00",
   pink = "#ff75a0",
   purple = "#a28dcd",
   red = "#d84a3d",
   sun = "#dea95f",
-  teal = "#519ABA",
+  teal = "#519aba",
   white = "#54555b",
   yellow = "#c18401",
 }

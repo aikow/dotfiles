@@ -51,7 +51,7 @@ colorscheme.colors = {
   red = "#e67e80",
   sun = "#d1b171",
   teal = "#69a59d",
-  white = "#D3C6AA",
+  white = "#d3c6aa",
   yellow = "#dbbc7f",
 }
 

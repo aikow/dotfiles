@@ -4,7 +4,7 @@ local colorscheme = require("aiko.theme.colorscheme").Scheme:new({
 })
 
 colorscheme.theme = {
-  base00 = "#171B20",
+  base00 = "#171b20",
   base01 = "#21262e",
   base02 = "#242931",
   base03 = "#485263",
@@ -15,7 +15,7 @@ colorscheme.theme = {
   base08 = "#e05f65",
   base09 = "#e9a180",
   base0A = "#f1cf8a",
-  base0B = "#78DBA9",
+  base0B = "#78dba9",
   base0C = "#9cd1ff",
   base0D = "#74bee9",
   base0E = "#c68aee",
@@ -25,7 +25,7 @@ colorscheme.theme = {
 colorscheme.colors = {
   white = "#dee1e6",
   dark_black = "#111519",
-  black = "#171B20",
+  black = "#171b20",
   bg_1 = "#1e2227",
   bg_2 = "#262a2f",
   bg_3 = "#2f3338",
@@ -38,7 +38,7 @@ colorscheme.colors = {
   light_pink = "#ea696f",
   pink = "#c68aee",
   line = "#282d35",
-  green = "#78DBA9",
+  green = "#78dba9",
   light_green = "#87eab8",
   blue = "#70a5eb",
   nord_blue = "#74bee9",
@@ -52,7 +52,7 @@ colorscheme.colors = {
   bg_statusline = "#1c2026",
   bg_light = "#2b3038",
   bg_pmenu = "#7ddac5",
-  bg_folder = "#78DBA9",
+  bg_folder = "#78dba9",
 }
 
 require("aiko.theme").paint(colorscheme)
