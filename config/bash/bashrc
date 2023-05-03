@@ -8,7 +8,7 @@ export DOTFILES="${HOME}/.dotfiles"
 export DOTFILES_BASH="${DOTFILES}/config/bash"
 export DOTFILES_SH="${DOTFILES}/config/sh"
 export LOCAL_CONFIG="${HOME}/.local/config"
-export PATH="${HOME}/.local/bin:${DOTFILES}/bin/all:${DOTFILES}/bin/os/bin:${HOME}/.local/share/cargo/bin:${HOME}/.local/share/go/bin:/usr/local/bin:/opt/vc/bin:${PATH}"
+export PATH="${HOME}/.local/bin:${DOTFILES}/bin/all:${DOTFILES}/bin/os/bin:/usr/local/bin:/opt/vc/bin:${PATH}"
 
 export LC_ALL=en_US.UTF-8
 
@@ -19,13 +19,6 @@ else
   export VISUAL="vim"
 fi
 export EDITOR="${VISUAL}"
-
-### Go ###
-export GOPATH="${HOME}/.local/share/go"
-
-### Rust ###
-export CARGO_HOME=$HOME/.local/share/cargo
-export RUSTUP_HOME=$HOME/.local/share/rustup
 
 ### FZF ###
 if command -v fd &>/dev/null; then
@@ -118,6 +111,9 @@ if [[ -f "${HOME}/.fzf.bash" ]]; then
 elif [[ -f /usr/share/fzf/key-bindings.bash ]]; then
   source /usr/share/fzf/key-bindings.bash
 fi
+
+### Cargo and Rust ###
+[[ -f "${HOME}/.cargo/env" ]] && source "${HOME}/.cargo/env"
 
 # Load user aliases
 [[ -f "${DOTFILES_BASH}/aliases" ]] && source "${DOTFILES_BASH}/aliases"
