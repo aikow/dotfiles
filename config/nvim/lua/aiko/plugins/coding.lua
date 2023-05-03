@@ -10,6 +10,7 @@ return {
     "L3MON4D3/luasnip",
     dependencies = { "rafamadriz/friendly-snippets" },
     event = "InsertEnter",
+    build = "make install_jsregexp",
     config = function()
       local ls = require("luasnip")
       local types = require("luasnip.util.types")
