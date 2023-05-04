@@ -1,149 +1,157 @@
-{
-  "[javascript]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
-  "[json]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
-  "[jsonc]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
-  "[typescript]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
-  "[yaml]": {
-    "editor.defaultFormatter": "redhat.vscode-yaml"
-  },
-  "cSpell.userWords": ["aiko", "wessels"],
-  "editor.fontFamily": "FiraCode Nerd Font",
-  "editor.fontLigatures": true,
-  "editor.rulers": [80],
-  "editor.tabSize": 2,
-  "editor.wordWrap": "off",
-  "files.exclude": {
-    "**/*.swp": true
-  },
-  "git.ignoreLegacyWarning": true,
-  "javascript.updateImportsOnFileMove.enabled": "always",
-  "notebook.cellToolbarLocation": {
-    "default": "right",
-    "jupyter-notebook": "left"
-  },
-  "redhat.telemetry.enabled": false,
-  "security.workspace.trust.untrustedFiles": "open",
-  "terminal.integrated.automationProfile.linux": {
-    "icon": "terminal-bash",
-    "path": "bash"
-  },
-  "terminal.integrated.automationProfile.osx": {
-    "icon": "terminal-bash",
-    "path": "bash"
-  },
-  "terminal.integrated.defaultProfile.linux": "fish",
-  "terminal.integrated.defaultProfile.osx": "fish",
-  "terminal.integrated.fontFamily": "Hack Nerd Font",
-  "terminal.integrated.macOptionIsMeta": true,
-  "terminal.integrated.profiles.linux": {
-    "bash": {
-      "args": ["-l"],
+[
+  {
+    "[javascript]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[json]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[jsonc]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[typescript]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[yaml]": {
+      "editor.defaultFormatter": "redhat.vscode-yaml"
+    },
+    "cSpell.userWords": ["aiko", "wessels"],
+    "editor.fontFamily": "FiraCode Nerd Font",
+    "editor.fontLigatures": true,
+    "editor.rulers": [80],
+    "editor.tabSize": 2,
+    "editor.wordWrap": "off",
+    "files.exclude": {
+      "**/*.swp": true
+    },
+    "git.ignoreLegacyWarning": true,
+    "javascript.updateImportsOnFileMove.enabled": "always",
+    "notebook.cellToolbarLocation": {
+      "default": "right",
+      "jupyter-notebook": "left"
+    },
+    "redhat.telemetry.enabled": false,
+    "security.workspace.trust.untrustedFiles": "open",
+    "terminal.integrated.automationProfile.linux": {
       "icon": "terminal-bash",
       "path": "bash"
     },
-    "fish": {
-      "args": ["-l"],
-      "path": "fish"
-    },
-    "nu": {
-      "icon": "terminal-powershell",
-      "path": "nu"
-    },
-    "pwsh": {
-      "icon": "terminal-powershell",
-      "path": "pwsh"
-    },
-    "tmux": {
-      "icon": "terminal-tmux",
-      "path": "tmux"
-    },
-    "zsh": {
-      "path": "zsh"
-    }
-  },
-  "terminal.integrated.profiles.osx": {
-    "bash": {
-      "args": ["-l"],
+    "terminal.integrated.automationProfile.osx": {
       "icon": "terminal-bash",
       "path": "bash"
     },
-    "fish": {
-      "args": ["-l"],
-      "path": "fish"
+    "terminal.integrated.defaultProfile.linux": "fish",
+    "terminal.integrated.defaultProfile.osx": "fish",
+    "terminal.integrated.fontFamily": "Hack Nerd Font",
+    "terminal.integrated.macOptionIsMeta": true,
+    "terminal.integrated.profiles.linux": {
+      "bash": {
+        "args": ["-l"],
+        "icon": "terminal-bash",
+        "path": "bash"
+      },
+      "fish": {
+        "args": ["-l"],
+        "path": "fish"
+      },
+      "nu": {
+        "icon": "terminal-powershell",
+        "path": "nu"
+      },
+      "pwsh": {
+        "icon": "terminal-powershell",
+        "path": "pwsh"
+      },
+      "tmux": {
+        "icon": "terminal-tmux",
+        "path": "tmux"
+      },
+      "zsh": {
+        "path": "zsh"
+      }
     },
-    "nu": {
-      "icon": "terminal-powershell",
-      "path": "nu"
+    "terminal.integrated.profiles.osx": {
+      "bash": {
+        "args": ["-l"],
+        "icon": "terminal-bash",
+        "path": "bash"
+      },
+      "fish": {
+        "args": ["-l"],
+        "path": "fish"
+      },
+      "nu": {
+        "icon": "terminal-powershell",
+        "path": "nu"
+      },
+      "pwsh": {
+        "icon": "terminal-powershell",
+        "path": "pwsh"
+      },
+      "tmux": {
+        "icon": "terminal-tmux",
+        "path": "tmux"
+      },
+      "zsh": {
+        "args": ["-l"],
+        "path": "zsh"
+      }
     },
-    "pwsh": {
-      "icon": "terminal-powershell",
-      "path": "pwsh"
+    "vim.enableNeovim": true,
+    "vim.foldfix": true,
+    "vim.leader": "<space>",
+    "vim.neovimUseConfigFile": true,
+    "vim.normalModeKeyBindingsNonRecursive": [
+      {
+        "before": ["]", "d"],
+        "commands": ["editor.action.marker.next"]
+      },
+      {
+        "before": ["[", "d"],
+        "commands": ["editor.action.marker.prev"]
+      },
+      {
+        "before": ["<leader>", "b"],
+        "commands": ["bookmarks.list"]
+      },
+      {
+        "before": ["<leader>", "m"],
+        "commands": ["bookmarks.toggle"]
+      },
+      {
+        "before": ["<leader>", ";"],
+        "commands": ["workbench.action.showCommands"]
+      },
+      {
+        "before": ["<leader>", "o"],
+        "commands": ["workbench.action.quickOpen"]
+      },
+      {
+        "before": ["leader", "w"],
+        "commands": ["workbench.action.files.save"]
+      }
+    ],
+    "vim.smartRelativeLine": true,
+    "vim.visualModeKeyBindingsNonRecursive": [
+      {
+        "after": ["<", "g", "v"],
+        "before": ["<"]
+      },
+      {
+        "after": [">", "g", "v"],
+        "before": [">"]
+      }
+    ],
+    "workbench.colorTheme": "Nord",
+    "workbench.editorAssociations": {
+      "*.ipynb": "jupyter-notebook"
     },
-    "tmux": {
-      "icon": "terminal-tmux",
-      "path": "tmux"
+    "workbench.iconTheme": "material-icon-theme",
+    "[python]": {
+      "editor.formatOnType": true
     },
-    "zsh": {
-      "args": ["-l"],
-      "path": "zsh"
+    "vs-kubernetes": {
+      "vs-kubernetes.ignore-recommendations": true
     }
-  },
-  "vim.enableNeovim": true,
-  "vim.foldfix": true,
-  "vim.leader": "<space>",
-  "vim.neovimUseConfigFile": true,
-  "vim.normalModeKeyBindingsNonRecursive": [
-    {
-      "before": ["]", "e"],
-      "commands": ["editor.action.marker.next"]
-    },
-    {
-      "before": ["[", "e"],
-      "commands": ["editor.action.marker.prev"]
-    },
-    {
-      "before": ["<leader>", "b"],
-      "commands": ["bookmarks.list"]
-    },
-    {
-      "before": ["<leader>", "m"],
-      "commands": ["bookmarks.toggle"]
-    },
-    {
-      "before": ["<leader>", ";"],
-      "commands": ["workbench.action.showCommands"]
-    },
-    {
-      "before": ["<leader>", "o"],
-      "commands": ["workbench.action.quickOpen"]
-    },
-    {
-      "before": ["leader", "w"],
-      "commands": ["workbench.action.files.save"]
-    }
-  ],
-  "vim.smartRelativeLine": true,
-  "vim.visualModeKeyBindingsNonRecursive": [
-    {
-      "after": ["<", "g", "v"],
-      "before": ["<"]
-    },
-    {
-      "after": [">", "g", "v"],
-      "before": [">"]
-    }
-  ],
-  "workbench.colorTheme": "One Dark Pro Darker",
-  "workbench.editorAssociations": {
-    "*.ipynb": "jupyter-notebook"
-  },
-  "workbench.iconTheme": "material-icon-theme"
-}
+  }
+]
