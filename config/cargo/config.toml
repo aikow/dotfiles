@@ -1,2 +1,5 @@
+[build]
+target-dir = ".cargo/target"
+
 [registries.crates-io]
 protocol = "sparse"
