@@ -12,13 +12,13 @@ colorscheme.theme = {
   base05 = "#d6d2c9",
   base06 = "#ddd9d0",
   base07 = "#e4e0d7",
-  base08 = "#ff8f7e",
-  base09 = "#ffcc66",
+  base08 = "#ffcc66",
+  base09 = "#dc8cff",
   base0A = "#efdeab",
   base0B = "#aee474",
   base0C = "#7eb6bc",
   base0D = "#88b8f6",
-  base0E = "#dc8cff",
+  base0E = "#ff8f7e",
   base0F = "#dc8c64",
 }
 
@@ -56,10 +56,7 @@ colorscheme.colors = {
 }
 
 colorscheme.polish = {
-  TSInclude = { fg = colorscheme.colors.red },
-  TSConstructor = { fg = colorscheme.colors.orange },
-  TSVariable = { link = "TSConstructor" },
-  TSConditional = { link = "TSInclude" },
+  ["@punctuation.bracket"] = { fg = colorscheme.colors.sun },
 }
 
 require("aiko.theme").paint(colorscheme)

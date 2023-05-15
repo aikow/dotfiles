@@ -12,14 +12,14 @@ colorscheme.theme = {
   base05 = "#c9c7be",
   base06 = "#e6e1cf",
   base07 = "#d9d7ce",
-  base08 = "#d9d7ce", -- Confirmed: Variables Confirmed
-  base09 = "#eaa273", -- Confirmed: Integers, Booleans
-  base0A = "#825aff", -- Classes
-  base0B = "#e3a587", -- Confirmed: Strings
-  base0C = "#f09483", -- Escape characters, Regular expressions
-  base0D = "#ffa500", -- Functions, Methods
-  base0E = "#2ca9b4", -- Confirmed: Keywords, Storage, Selector, Markup
-  base0F = "#d75271", -- Deprecated, Opening/Closing embedded language tags
+  base08 = "#db627e",
+  base09 = "#eaa273",
+  base0A = "#169ac9",
+  base0B = "#e3a587",
+  base0C = "#f09483",
+  base0D = "#32d5e3",
+  base0E = "#6be4e6",
+  base0F = "#d75271",
 }
 
 colorscheme.colors = {
@@ -31,7 +31,7 @@ colorscheme.colors = {
   bg_light = "#292929",
   bg_pmenu = "#15bf84",
   bg_statusline = "#181818",
-  black = "#0e0e0e", --  nvim bg
+  black = "#0e0e0e",
   blue = "#25b0bc",
   cyan = "#6be4e6",
   dark_black = "#080808",
@@ -43,12 +43,13 @@ colorscheme.colors = {
   light_grey_2 = "#4a4a4a",
   light_grey_3 = "#525252",
   light_pink = "#a72e5b",
-  line = "#1d1d1d", -- for lines like vertsplit
+  line = "#1d1d1d",
   nord_blue = "#18a3af",
   orange = "#ffa500",
   pink = "#ff75a0",
   purple = "#da70d6",
-  red = "#dc322f",
+  red = "#db627e",
+  seablue = "#169ac9",
   sun = "#ffc038",
   teal = "#749689",
   white = "#ffffff",
@@ -56,16 +57,11 @@ colorscheme.colors = {
 }
 
 colorscheme.polish = {
-  Include = { fg = colorscheme.theme.base0E, bold = true },
-  luaTSField = { fg = colorscheme.theme.base0E },
-  Repeat = { fg = colorscheme.theme.base0E },
-  ["@variable"] = { fg = colorscheme.theme.base08 },
   ["@property"] = { fg = colorscheme.theme.base0E },
+  ["@punctuation.bracket"] = { fg = colorscheme.colors.yellow },
+  ["@punctuation.delimiter"] = { fg = colorscheme.colors.yellow },
   ["@tag.delimiter"] = { fg = colorscheme.theme.base05 },
-  ["@function"] = { fg = colorscheme.colors.orange },
-  ["@parameter"] = { fg = colorscheme.theme.base0F },
-  ["@constructor"] = { fg = colorscheme.theme.base0A },
-  ["@tag.attribute"] = { fg = colorscheme.colors.orange },
+  Include = { fg = colorscheme.theme.base0E, bold = true },
 }
 
 require("aiko.theme").paint(colorscheme)

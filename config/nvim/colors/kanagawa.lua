@@ -56,9 +56,13 @@ colorscheme.colors = {
 }
 
 colorscheme.polish = {
-  TSInclude = { fg = colorscheme.colors.purple },
-  TSURI = { fg = colorscheme.colors.blue },
-  TSTagDelimiter = { fg = colorscheme.colors.red },
+  ["@field.key"] = { fg = colorscheme.theme.base07 },
+  ["@include"] = { fg = colorscheme.colors.purple },
+  ["@punctuation.bracket"] = { fg = colorscheme.colors.purple },
+  ["@punctuation.delimiter"] = { fg = colorscheme.theme.base07 },
+  ["@tag.delimiter"] = { fg = colorscheme.theme.base0F },
+  ["@uri"] = { fg = colorscheme.colors.blue },
+  Number = { fg = colorscheme.colors.baby_pink },
 }
 
 require("aiko.theme").paint(colorscheme)

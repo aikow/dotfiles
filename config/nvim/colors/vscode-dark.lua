@@ -37,6 +37,7 @@ colorscheme.colors = {
   dark_black = "#1a1a1a",
   dark_purple = "#b77bdf",
   green = "#b5cea8",
+  green1 = "#4ec994",
   grey = "#444444",
   light_green = "#bfd8b2",
   light_grey_1 = "#4e4e4e",
@@ -55,17 +56,13 @@ colorscheme.colors = {
   yellow = "#d7ba7d",
 }
 
-local custom = {
-  green = "#4ec994",
-}
-
 colorscheme.polish = {
-  TSParameter = { fg = colorscheme.colors.blue },
-  TSKeyword = { fg = colorscheme.colors.blue },
-  TSVariable = { fg = colorscheme.colors.cyan },
-  luaTSField = { fg = colorscheme.colors.teal },
-  TSFieldKey = { fg = custom.green },
-  TSKeywordFunction = { fg = colorscheme.colors.teal },
+  ["@field.key"] = { fg = colorscheme.colors.green1 },
+  ["@keyword"] = { fg = colorscheme.colors.blue },
+  ["@keyword.function"] = { fg = colorscheme.colors.teal },
+  ["@keyword.return"] = { fg = colorscheme.theme.base0E },
+  ["@parameter"] = { fg = colorscheme.colors.blue },
+  ["@variable"] = { fg = colorscheme.theme.base0C },
 }
 
 require("aiko.theme").paint(colorscheme)

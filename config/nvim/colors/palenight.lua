@@ -56,8 +56,8 @@ colorscheme.colors = {
 }
 
 colorscheme.polish = {
-  TSInclude = { fg = colorscheme.colors.purple },
-  TSFieldKey = { fg = colorscheme.colors.orange },
+  ["@field.key"] = { fg = colorscheme.theme.base09 },
+  ["@include"] = { fg = colorscheme.theme.base0E },
 }
 
 require("aiko.theme").paint(colorscheme)

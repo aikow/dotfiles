@@ -55,4 +55,13 @@ colorscheme.colors = {
   yellow = "#e7c547",
 }
 
+colorscheme.polish = {
+  ["@constructor"] = { fg = colorscheme.theme.base0A },
+  ["@function"] = { fg = colorscheme.colors.orange },
+  ["@parameter"] = { fg = colorscheme.theme.base0F },
+  ["@tag.attribute"] = { fg = colorscheme.colors.orange },
+  ["@tag.delimiter"] = { fg = colorscheme.colors.cyan },
+  luaTSField = { fg = colorscheme.theme.base0D },
+}
+
 require("aiko.theme").paint(colorscheme)

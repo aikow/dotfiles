@@ -56,17 +56,18 @@ colorscheme.colors = {
 }
 
 colorscheme.polish = {
+  ["@punctuation.bracket"] = { fg = colorscheme.colors.nord_blue },
+  DiffAdd = { fg = colorscheme.theme.base05 },
+  FloatBorder = { fg = colorscheme.theme.base05 },
+  Pmenu = { bg = colorscheme.colors.black2 },
+  St_pos_text = { fg = colorscheme.colors.white },
+  TbLineThemeToggleBtn = { bg = colorscheme.colors.one_bg3 },
   TelescopePromptPrefix = { fg = colorscheme.colors.white },
   TelescopeSelection = {
-    bg = colorscheme.colors.bg_2,
+    bg = colorscheme.colors.one_bg,
     fg = colorscheme.colors.white,
   },
-  TSPunctBracket = { fg = colorscheme.colors.nord_blue },
-  FloatBorder = { fg = colorscheme.theme.base05 },
-  DiffAdd = { fg = colorscheme.theme.base05 },
-  TbLineThemeToggleBtn = { bg = colorscheme.colors.bg_4 },
   WhichKeyDesc = { fg = colorscheme.colors.white },
-  Pmenu = { bg = colorscheme.colors.bg_1 },
 }
 
 require("aiko.theme").paint(colorscheme)

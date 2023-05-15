@@ -5,10 +5,10 @@ local colorscheme = require("aiko.theme.colorscheme").Scheme:new({
 
 colorscheme.theme = {
   base00 = "#252221",
-  base01 = "#2f2c2b",
-  base02 = "#393635",
-  base03 = "#43403f",
-  base04 = "#4d4a49",
+  base01 = "#2b2827",
+  base02 = "#2f2c2b",
+  base03 = "#393635",
+  base04 = "#43403f",
   base05 = "#c8baa4",
   base06 = "#beae94",
   base07 = "#cdc0ad",
@@ -23,6 +23,7 @@ colorscheme.theme = {
 }
 
 colorscheme.colors = {
+  beige = "#ab9382",
   bg_1 = "#2b2827",
   bg_2 = "#2f2c2b",
   bg_3 = "#393635",
@@ -55,20 +56,16 @@ colorscheme.colors = {
   yellow = "#d9b27c",
 }
 
-local custom = {
-  beige = "#ab9382",
-}
-
 colorscheme.polish = {
-  TSField = { fg = colorscheme.colors.purple },
-  TSVariable = { fg = colorscheme.theme.base06 },
-  TSModule = { fg = custom.beige },
-  Operator = { fg = colorscheme.colors.blue },
-  TSAttribute = { fg = colorscheme.colors.cyan },
-  TSPunctBracket = { fg = colorscheme.theme.base06 },
-  TSParenthesis = { link = "TSPunctBracket" },
-  TSParameter = { fg = colorscheme.colors.green },
-  TSFuncBuiltin = { fg = colorscheme.colors.yellow },
+  ["@attribute"] = { fg = colorscheme.colors.cyan },
+  ["@field"] = { fg = colorscheme.theme.base0C },
+  ["@function.builtin"] = { fg = colorscheme.theme.base0A },
+  ["@module"] = { fg = colorscheme.theme.base0F },
+  ["@parameter"] = { fg = colorscheme.theme.base0B },
+  ["@parenthesis"] = { link = "@punctuation.bracket" },
+  ["@punctuation.bracket"] = { fg = colorscheme.theme.base06 },
+  ["@variable"] = { fg = colorscheme.theme.base06 },
+  Operator = { fg = colorscheme.theme.base0D },
 }
 
 require("aiko.theme").paint(colorscheme)

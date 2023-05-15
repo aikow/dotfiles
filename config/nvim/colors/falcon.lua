@@ -23,7 +23,7 @@ colorscheme.theme = {
 }
 
 colorscheme.colors = {
-  bg_1 = "#0b0b2b",
+  bg_1 = "#1a1a3a",
   bg_2 = "#161636",
   bg_3 = "#202040",
   bg_4 = "#2a2a4a",
@@ -31,10 +31,10 @@ colorscheme.colors = {
   bg_light = "#2a2a4a",
   bg_pmenu = "#ffb07b",
   bg_statusline = "#0b0b2b",
-  black = "#020222", --  nvim bg
+  black = "#020222",
   blue = "#6699cc",
   cyan = "#bfdaff",
-  dark_black = "#000015",
+  dark_black = "#0c0c2d",
   dark_purple = "#635196",
   green = "#9bccbf",
   grey = "#393959",
@@ -43,30 +43,27 @@ colorscheme.colors = {
   light_grey_2 = "#4d4d6d",
   light_grey_3 = "#5c5c7c",
   light_pink = "#ff8e78",
-  line = "#202040", -- for lines like vertsplit
+  line = "#202040",
   nord_blue = "#a1bce1",
   orange = "#f99157",
   pink = "#ffafb7",
   purple = "#99a4bc",
   red = "#ff761a",
   sun = "#ffd392",
+  tan = "#cfc1b2",
   teal = "#34bfa4",
   white = "#f8f8ff",
+  white2 = "#dfdfe5",
   yellow = "#ffc552",
 }
 
-local custom = {
-  white2 = "#dfdfe5",
-  tan = "#cfc1b2",
-}
-
 colorscheme.polish = {
-  Statement = { fg = colorscheme.colors.purple },
-  Type = { fg = custom.white2 },
-  Include = { fg = custom.tan },
+  ["@keyword"] = { fg = colorscheme.theme.base0D },
+  Include = { fg = colorscheme.colors.tan },
   Keyword = { fg = colorscheme.theme.base0D },
   Operator = { fg = colorscheme.colors.red },
-  ["@keyword"] = { fg = colorscheme.theme.base0D },
+  Statement = { fg = colorscheme.colors.purple },
+  Type = { fg = colorscheme.theme.base0F },
 }
 
 require("aiko.theme").paint(colorscheme)
