@@ -1,5 +1,5 @@
 local colorscheme = require("aiko.theme.colorscheme").Scheme:new({
-  name = "doom",
+  name = "doomchad",
   background = "dark",
 })
 
@@ -17,8 +17,8 @@ colorscheme.theme = {
   base0A = "#ecbe7b",
   base0B = "#98be65",
   base0C = "#66c4ff",
-  base0D = "#48a6e6",
-  base0E = "#9c94d4",
+  base0D = "#dc8ef3",
+  base0E = "#48a6e6",
   base0F = "#c85a50",
 }
 
@@ -32,7 +32,7 @@ colorscheme.colors = {
   bg_pmenu = "#98be65",
   bg_statusline = "#2d3139",
   black = "#282c34",
-  blue = "#61afef",
+  blue = "#51afef",
   cyan = "#46d9ff",
   dark_black = "#22262e",
   dark_purple = "#c678dd",
@@ -56,7 +56,8 @@ colorscheme.colors = {
 }
 
 colorscheme.polish = {
-  TSFieldKey = { fg = colorscheme.colors.blue },
+  ["@field"] = { fg = colorscheme.colors.folder_bg },
+  ["@punctuation.bracket"] = { fg = colorscheme.theme.base0A },
 }
 
 require("aiko.theme").paint(colorscheme)

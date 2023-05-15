@@ -56,7 +56,7 @@ colorscheme.colors = {
 }
 
 colorscheme.polish = {
-  PmenuSel = { fg = colorscheme.colors.black, bg = colorscheme.colors.red },
+  ["@function.builtin"] = { fg = colorscheme.colors.yellow },
 }
 
 require("aiko.theme").paint(colorscheme)

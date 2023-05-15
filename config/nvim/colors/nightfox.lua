@@ -19,7 +19,7 @@ colorscheme.theme = {
   base0C = "#7ad4d6",
   base0D = "#86abdc",
   base0E = "#9d79d6",
-  base0F = "#d85e7c",
+  base0F = "#c0c8d5",
 }
 
 colorscheme.colors = {
@@ -53,6 +53,13 @@ colorscheme.colors = {
   teal = "#5cc6c8",
   white = "#cdcecf",
   yellow = "#dbc074",
+}
+
+colorscheme.polish = {
+  ["@field.key"] = { fg = colorscheme.theme.base05 },
+  ["@keyword"] = { fg = colorscheme.colors.teal },
+  ["@operator"] = { fg = colorscheme.theme.base0E },
+  ["@parameter"] = { fg = colorscheme.colors.teal },
 }
 
 require("aiko.theme").paint(colorscheme)

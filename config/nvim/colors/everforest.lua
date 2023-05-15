@@ -19,7 +19,7 @@ colorscheme.theme = {
   base0C = "#e69875",
   base0D = "#a7c080",
   base0E = "#e67e80",
-  base0F = "#e67e80",
+  base0F = "#d699b6",
 }
 
 colorscheme.colors = {
@@ -55,15 +55,9 @@ colorscheme.colors = {
   yellow = "#dbbc7f",
 }
 
-local custom = {
-  turquoise = "#7fbbb3",
-}
-
 colorscheme.polish = {
-  TSPunctBracket = { fg = colorscheme.colors.red },
-  TSTag = { fg = colorscheme.colors.orange },
-  TSTagDelimiter = { fg = colorscheme.colors.green },
-  TSConstructor = { fg = custom.turquoise },
+  ["@tag"] = { fg = colorscheme.theme.base0C },
+  ["@tag.delimiter"] = { fg = colorscheme.theme.base0A },
 }
 
 require("aiko.theme").paint(colorscheme)

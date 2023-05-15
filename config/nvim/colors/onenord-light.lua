@@ -5,8 +5,7 @@ local colorscheme = require("aiko.theme.colorscheme").Scheme:new({
 
 colorscheme.theme = {
   base00 = "#d8dee9",
-  base01 = "#c7cdd8",
-  -- base01 = "#f4f4f4",
+  base01 = "#f4f4f4",
   base02 = "#e5e5e6",
   base03 = "#dfdfe0",
   base04 = "#d7d7d8",
@@ -57,16 +56,17 @@ colorscheme.colors = {
 }
 
 colorscheme.polish = {
-  WhichKeyDesc = { fg = colorscheme.colors.white },
-  WhichKey = { fg = colorscheme.colors.white },
-  TelescopePromptPrefix = { fg = colorscheme.colors.white },
-  TelescopeSelection = {
-    bg = colorscheme.colors.bg_2,
-    fg = colorscheme.colors.white,
-  },
-  TSPunctBracket = { fg = colorscheme.colors.nord_blue },
-  FloatBorder = { fg = colorscheme.theme.base05 },
+  ["@punctuation.bracket"] = { fg = colorscheme.theme.base0C },
   DiffAdd = { fg = colorscheme.theme.base05 },
+  FloatBorder = { fg = colorscheme.theme.base05 },
+  St_pos_text = { fg = colorscheme.theme.base07 },
+  TelescopePromptPrefix = { fg = colorscheme.theme.base07 },
+  TelescopeSelection = {
+    bg = colorscheme.colors.one_bg,
+    fg = colorscheme.theme.base07,
+  },
+  WhichKey = { fg = colorscheme.theme.base07 },
+  WhichKeyDesc = { fg = colorscheme.theme.base07 },
 }
 
 require("aiko.theme").paint(colorscheme)

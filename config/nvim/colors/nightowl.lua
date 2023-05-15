@@ -56,9 +56,10 @@ colorscheme.colors = {
 }
 
 colorscheme.polish = {
-  TSParameter = { fg = colorscheme.colors.orange },
-  TSConditional = { fg = colorscheme.colors.cyan },
-  PmenuSel = { bg = colorscheme.colors.blue },
+  ["@conditional"] = { fg = colorscheme.theme.base0C },
+  ["@keyword.return"] = { fg = colorscheme.theme.base0C },
+  ["@parameter"] = { fg = colorscheme.colors.orange },
+  PmenuSel = { bg = colorscheme.theme.base0D },
 }
 
 require("aiko.theme").paint(colorscheme)

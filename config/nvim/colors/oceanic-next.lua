@@ -4,22 +4,22 @@ local colorscheme = require("aiko.theme.colorscheme").Scheme:new({
 })
 
 colorscheme.theme = {
-  base00 = "#1b2b34", -- Confirmed
-  base01 = "#343d46", -- Confirmed
-  base02 = "#4f5b66", -- Confirmed
-  base03 = "#65737e", -- Confirmed
-  base04 = "#a7adba", -- Confirmed
-  base05 = "#c0c5ce", -- Confirmed
-  base06 = "#cdd3de", -- Confirmed
-  base07 = "#d8dee9", -- Confirmed
-  base08 = "#6cbdbc", -- Confirmed
-  base09 = "#fac863", -- Confirmed
-  base0A = "#f99157", -- Confirmed
-  base0B = "#99c794", -- Confirmed
-  base0C = "#5aaeae", -- Confirmed
-  base0D = "#6699cc", -- Confirmed
-  base0E = "#c594c5", -- Confirmed
-  base0F = "#ec5f67", -- Confirmed
+  base00 = "#1b2b34",
+  base01 = "#343d46",
+  base02 = "#4f5b66",
+  base03 = "#65737e",
+  base04 = "#a7adba",
+  base05 = "#c0c5ce",
+  base06 = "#cdd3de",
+  base07 = "#d8dee9",
+  base08 = "#6cbdbc",
+  base09 = "#fac863",
+  base0A = "#f99157",
+  base0B = "#99c794",
+  base0C = "#5aaeae",
+  base0D = "#6699cc",
+  base0E = "#c594c5",
+  base0F = "#ec5f67",
 }
 
 colorscheme.colors = {
@@ -31,7 +31,7 @@ colorscheme.colors = {
   bg_light = "#2c3c45",
   bg_pmenu = "#15bf84",
   bg_statusline = "#1f2f38",
-  black = "#1b2b34", --  nvim bg
+  black = "#1b2b34",
   blue = "#6699cc",
   cyan = "#62b3b2",
   dark_black = "#15252e",
@@ -43,7 +43,7 @@ colorscheme.colors = {
   light_grey_2 = "#576770",
   light_grey_3 = "#5f6f78",
   light_pink = "#ff7d85",
-  line = "#2a3a43", -- for lines like vertsplit
+  line = "#2a3a43",
   nord_blue = "#598cbf",
   orange = "#f99157",
   pink = "#ffafb7",
@@ -51,7 +51,7 @@ colorscheme.colors = {
   red = "#ec5f67",
   sun = "#ffd06b",
   teal = "#50a4a4",
-  white = "#d8dee9", -- confirmed
+  white = "#d8dee9",
   yellow = "#fac863",
 }
 

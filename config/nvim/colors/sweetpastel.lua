@@ -55,4 +55,6 @@ colorscheme.colors = {
   yellow = "#ece3b1",
 }
 
+colorscheme.polish = {}
+
 require("aiko.theme").paint(colorscheme)

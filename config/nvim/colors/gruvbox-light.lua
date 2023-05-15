@@ -5,10 +5,10 @@ local colorscheme = require("aiko.theme.colorscheme").Scheme:new({
 
 colorscheme.theme = {
   base00 = "#f2e5bc",
-  base01 = "#e5d8af",
-  base02 = "#d8cba2",
-  base03 = "#cabd94",
-  base04 = "#c0b38a",
+  base01 = "#e3d6ad",
+  base02 = "#e5d8af",
+  base03 = "#d8cba2",
+  base04 = "#cabd94",
   base05 = "#504945",
   base06 = "#3c3836",
   base07 = "#282828",
@@ -57,8 +57,8 @@ colorscheme.colors = {
 
 colorscheme.polish = {
   TbLineThemeToggleBtn = {
-    fg = colorscheme.colors.black,
-    bg = colorscheme.colors.white,
+    fg = colorscheme.theme.base00,
+    bg = colorscheme.theme.base05,
   },
 }
 

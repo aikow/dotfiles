@@ -1,7 +1,7 @@
-local colorscheme = require("aiko.theme.colorscheme").Scheme:new({
+local colorscheme = require("aiko.theme.colorscheme").Scheme:new {
   name = "radium",
   background = "dark",
-})
+}
 
 colorscheme.theme = {
   base00 = "#101317",
@@ -56,8 +56,8 @@ colorscheme.colors = {
 }
 
 colorscheme.polish = {
-  TSPunctBracket = { fg = colorscheme.theme.base07 },
-  TSParenthesis = { link = "TSPunctBracket" },
+  ["@parenthesis"] = { link = "@punctuation.bracket" },
+  ["@punctuation.bracket"] = { fg = colorscheme.theme.base07 },
 }
 
 require("aiko.theme").paint(colorscheme)

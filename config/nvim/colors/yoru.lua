@@ -23,6 +23,7 @@ colorscheme.theme = {
 }
 
 colorscheme.colors = {
+  bg_1 = "#141617",
   bg_2 = "#161819",
   bg_3 = "#1f2122",
   bg_4 = "#27292a",
@@ -54,5 +55,7 @@ colorscheme.colors = {
   white = "#edeff0",
   yellow = "#ecd28b",
 }
+
+colorscheme.polish = {}
 
 require("aiko.theme").paint(colorscheme)

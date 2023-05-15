@@ -23,25 +23,25 @@ colorscheme.theme = {
 }
 
 colorscheme.colors = {
-  bg_1 = "#ebe5d4",
-  bg_2 = "#c6c2aa",
-  bg_3 = "#b6b29a",
-  bg_4 = "#a6a28a",
+  bg_1 = "#f0ead9",
+  bg_2 = "#e0dac9",
+  bg_3 = "#d1cbba",
+  bg_4 = "#c2bcab",
   bg_folder = "#747b6e",
   bg_light = "#d3cdbc",
   bg_pmenu = "#5f9b93",
   bg_statusline = "#ede7d6",
   black = "#fff9e8",
   blue = "#3a94c5",
-  cyan = "#7521e9",
+  cyan = "#89bfdc",
   dark_black = "#f5efde",
   dark_purple = "#966986",
   green = "#5da111",
-  grey = "#a6b0a0",
+  grey = "#b3ad9c",
   light_green = "#87a060",
-  light_grey_1 = "#939f91",
-  light_grey_2 = "#829181",
-  light_grey_3 = "#798878",
+  light_grey_1 = "#a39d8c",
+  light_grey_2 = "#948e7d",
+  light_grey_3 = "#857f6e",
   light_pink = "#ce8196",
   line = "#e8e2d1",
   nord_blue = "#656c5f",
@@ -55,23 +55,19 @@ colorscheme.colors = {
   yellow = "#dfa000",
 }
 
-local custom = {
-  dimgray = "#4e565c",
-}
-
 colorscheme.polish = {
+  ["@constructor"] = { fg = colorscheme.colors.blue },
+  ["@field"] = { fg = colorscheme.theme.base05 },
+  ["@include"] = { fg = colorscheme.theme.base08 },
+  ["@tag"] = { fg = colorscheme.colors.orange },
   DiffAdd = { fg = colorscheme.colors.green },
-  TSTag = { fg = colorscheme.colors.orange },
-  TSField = { fg = colorscheme.theme.base05 },
-  TSInclude = { fg = colorscheme.theme.base08 },
-  TSConstructor = { fg = colorscheme.colors.blue },
-  WhichKeyDesc = { fg = colorscheme.colors.white },
-  WhichKey = { fg = colorscheme.colors.white },
-  NvimTreeFolderName = { fg = custom.dimgray },
-  TbLineThemeToggleBtn = { bg = colorscheme.colors.bg_2 },
-  Pmenu = { bg = colorscheme.colors.bg_1 },
-  IndentBlanklineContextStart = { bg = colorscheme.colors.bg_1 },
-  St_pos_text = { fg = colorscheme.colors.white },
+  IndentBlanklineContextStart = { bg = colorscheme.colors.black2 },
+  NvimTreeFolderName = { fg = "#4e565c" },
+  Pmenu = { bg = colorscheme.colors.black2 },
+  St_pos_text = { fg = colorscheme.theme.base07 },
+  TbLineThemeToggleBtn = { bg = colorscheme.colors.one_bg },
+  WhichKey = { fg = colorscheme.theme.base07 },
+  WhichKeyDesc = { fg = colorscheme.theme.base07 },
 }
 
 require("aiko.theme").paint(colorscheme)
