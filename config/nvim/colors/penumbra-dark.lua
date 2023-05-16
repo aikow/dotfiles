@@ -1,7 +1,5 @@
-local colorscheme = require("aiko.theme.colorscheme").Scheme:new({
-  name = "penumbra-dark",
-  background = "dark",
-})
+local Colorscheme = require("aiko.theme.colorscheme").Scheme
+local colorscheme = Colorscheme:new({ name = "penumbra-dark", background = "dark" })
 
 colorscheme.theme = {
   base00 = "#303338",
@@ -56,14 +54,14 @@ colorscheme.colors = {
 }
 
 colorscheme.polish = {
-  ["@constructor"] = { fg = colorscheme.colors.orange },
-  ["@field.key"] = { fg = colorscheme.theme.base0A },
-  ["@parameter"] = { fg = colorscheme.colors.orange },
-  ["@punctuation.bracket"] = { fg = colorscheme.theme.base08 },
-  ["@tag.attribute"] = { link = "@annotation" },
-  ["@tag.delimiter"] = { fg = colorscheme.theme.base08 },
-  Constant = { fg = colorscheme.theme.base0A },
-  Operator = { fg = colorscheme.colors.cyan },
+  ["@constructor"] = { fg = "#CE9042", },
+  ["@field.key"] = { fg = "#CA7081", },
+  ["@parameter"] = { fg = "#CE9042", },
+  ["@punctuation.bracket"] = { fg = colorscheme.theme.base08, },
+  ["@tag.attribute"] = { link = "@annotation", },
+  ["@tag.delimiter"] = { fg = colorscheme.theme.base08, },
+  Constant = { fg = "#CA7081", },
+  Operator = { fg = "#00B3C2", },
 }
 
 require("aiko.theme").paint(colorscheme)

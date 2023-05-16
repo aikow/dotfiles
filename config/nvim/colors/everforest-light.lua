@@ -1,7 +1,5 @@
-local colorscheme = require("aiko.theme.colorscheme").Scheme:new({
-  name = "everforest-light",
-  background = "light",
-})
+local Colorscheme = require("aiko.theme.colorscheme").Scheme
+local colorscheme = Colorscheme:new({ name = "everforest-light", background = "light" })
 
 colorscheme.theme = {
   base00 = "#fff9e8",
@@ -56,18 +54,18 @@ colorscheme.colors = {
 }
 
 colorscheme.polish = {
-  ["@constructor"] = { fg = colorscheme.colors.blue },
-  ["@field"] = { fg = colorscheme.theme.base05 },
-  ["@include"] = { fg = colorscheme.theme.base08 },
-  ["@tag"] = { fg = colorscheme.colors.orange },
-  DiffAdd = { fg = colorscheme.colors.green },
-  IndentBlanklineContextStart = { bg = colorscheme.colors.black2 },
-  NvimTreeFolderName = { fg = "#4e565c" },
-  Pmenu = { bg = colorscheme.colors.black2 },
-  St_pos_text = { fg = colorscheme.theme.base07 },
-  TbLineThemeToggleBtn = { bg = colorscheme.colors.one_bg },
-  WhichKey = { fg = colorscheme.theme.base07 },
-  WhichKeyDesc = { fg = colorscheme.theme.base07 },
+  ["@constructor"] = { fg = colorscheme.colors.blue, },
+  ["@field"] = { fg = colorscheme.theme.base05, },
+  ["@include"] = { fg = colorscheme.colors.bg_pmenu, },
+  ["@tag"] = { fg = "#F7954F", },
+  DiffAdd = { fg = colorscheme.colors.green, },
+  IndentBlanklineContextStart = { bg = "#F0EAD9", },
+  NvimTreeFolderName = { fg = "#4e565c", },
+  Pmenu = { bg = "#F0EAD9", },
+  St_pos_text = { fg = colorscheme.colors.white, },
+  TbLineThemeToggleBtn = { bg = "#E0DAC9", },
+  WhichKey = { fg = colorscheme.colors.white, },
+  WhichKeyDesc = { fg = colorscheme.colors.white, },
 }
 
 require("aiko.theme").paint(colorscheme)

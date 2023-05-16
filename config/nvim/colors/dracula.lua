@@ -1,7 +1,5 @@
-local colorscheme = require("aiko.theme.colorscheme").Scheme:new({
-  name = "chadracula",
-  background = "dark",
-})
+local Colorscheme = require("aiko.theme.colorscheme").Scheme
+local colorscheme = Colorscheme:new({ name = "dracula", background = "dark" })
 
 colorscheme.theme = {
   base00 = "#282936",
@@ -56,8 +54,8 @@ colorscheme.colors = {
 }
 
 colorscheme.polish = {
-  ["@function.builtin"] = { fg = colorscheme.theme.base0C },
-  ["@number"] = { fg = colorscheme.colors.purple },
+  ["@function.builtin"] = { fg = "#8BE9FD", },
+  ["@number"] = { fg = "#BD93F9", },
 }
 
 require("aiko.theme").paint(colorscheme)

@@ -1,7 +1,5 @@
-local colorscheme = require("aiko.theme.colorscheme").Scheme:new({
-  name = "onenord-light",
-  background = "light",
-})
+local Colorscheme = require("aiko.theme.colorscheme").Scheme
+local colorscheme = Colorscheme:new({ name = "onenord-light", background = "light" })
 
 colorscheme.theme = {
   base00 = "#d8dee9",
@@ -56,17 +54,14 @@ colorscheme.colors = {
 }
 
 colorscheme.polish = {
-  ["@punctuation.bracket"] = { fg = colorscheme.theme.base0C },
-  DiffAdd = { fg = colorscheme.theme.base05 },
-  FloatBorder = { fg = colorscheme.theme.base05 },
-  St_pos_text = { fg = colorscheme.theme.base07 },
-  TelescopePromptPrefix = { fg = colorscheme.theme.base07 },
-  TelescopeSelection = {
-    bg = colorscheme.colors.one_bg,
-    fg = colorscheme.theme.base07,
-  },
-  WhichKey = { fg = colorscheme.theme.base07 },
-  WhichKeyDesc = { fg = colorscheme.theme.base07 },
+  ["@punctuation.bracket"] = { fg = colorscheme.colors.nord_blue, },
+  DiffAdd = { fg = colorscheme.theme.base05, },
+  FloatBorder = { fg = colorscheme.theme.base05, },
+  St_pos_text = { fg = colorscheme.colors.white, },
+  TelescopePromptPrefix = { fg = colorscheme.colors.white, },
+  TelescopeSelection = { bg = colorscheme.colors.bg_2,  fg = colorscheme.colors.white, },
+  WhichKey = { fg = colorscheme.colors.white, },
+  WhichKeyDesc = { fg = colorscheme.colors.white, },
 }
 
 require("aiko.theme").paint(colorscheme)

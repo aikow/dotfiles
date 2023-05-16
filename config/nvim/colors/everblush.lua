@@ -1,7 +1,5 @@
-local colorscheme = require("aiko.theme.colorscheme").Scheme:new({
-  name = "everblush",
-  background = "dark",
-})
+local Colorscheme = require("aiko.theme.colorscheme").Scheme
+local colorscheme = Colorscheme:new({ name = "everblush", background = "dark" })
 
 colorscheme.theme = {
   base00 = "#141b1e",
@@ -43,7 +41,6 @@ colorscheme.colors = {
   light_grey_2 = "#50575a",
   light_grey_3 = "#50575a",
   light_pink = "#f48383",
-  lightbg2 = "#1f2629",
   line = "#22292b",
   nord_blue = "#5aa3db",
   orange = "#fcb163",
@@ -56,6 +53,8 @@ colorscheme.colors = {
   yellow = "#e5c76b",
 }
 
-colorscheme.polish = {}
+colorscheme.extra = {
+  lightbg2 = "#1f2629",
+}
 
 require("aiko.theme").paint(colorscheme)

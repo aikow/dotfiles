@@ -1,7 +1,5 @@
-local colorscheme = require("aiko.theme.colorscheme").Scheme:new({
-  name = "blossom-light",
-  background = "light",
-})
+local Colorscheme = require("aiko.theme.colorscheme").Scheme
+local colorscheme = Colorscheme:new({ name = "blossom-light", background = "light" })
 
 colorscheme.theme = {
   base00 = "#e6dfdc",
@@ -56,14 +54,11 @@ colorscheme.colors = {
 }
 
 colorscheme.polish = {
-  IndentBlanklineContextStart = { bg = colorscheme.colors.black2 },
-  St_pos_text = { fg = colorscheme.theme.base07 },
-  TbLineThemeToggleBtn = {
-    fg = colorscheme.theme.base00,
-    bg = colorscheme.theme.base07,
-  },
-  WhichKey = { fg = colorscheme.theme.base07 },
-  WhichKeyDesc = { fg = colorscheme.theme.base07 },
+  IndentBlanklineContextStart = { bg = colorscheme.colors.bg_1, },
+  St_pos_text = { fg = colorscheme.colors.white, },
+  TbLineThemeToggleBtn = { fg = colorscheme.colors.black,  bg = colorscheme.colors.white, },
+  WhichKey = { fg = colorscheme.colors.white, },
+  WhichKeyDesc = { fg = colorscheme.colors.white, },
 }
 
 require("aiko.theme").paint(colorscheme)

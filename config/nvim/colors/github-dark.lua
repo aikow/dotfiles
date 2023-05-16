@@ -1,7 +1,5 @@
-local colorscheme = require("aiko.theme.colorscheme").Scheme:new({
-  name = "github-dark",
-  background = "dark",
-})
+local Colorscheme = require("aiko.theme.colorscheme").Scheme
+local colorscheme = Colorscheme:new({ name = "github-dark", background = "dark" })
 
 colorscheme.theme = {
   base00 = "#24292e",
@@ -56,11 +54,11 @@ colorscheme.colors = {
 }
 
 colorscheme.polish = {
-  ["@constructor"] = { fg = colorscheme.theme.base0F, bold = true },
-  ["@field.key"] = { fg = colorscheme.theme.base06 },
-  ["@punctuation.bracket"] = { fg = colorscheme.theme.base09 },
-  ["@string"] = { fg = colorscheme.theme.base06 },
-  ["@tag.attribute"] = { link = "@method" },
+  ["@constructor"] = { fg = colorscheme.colors.light_green,  bold = true, },
+  ["@field.key"] = { fg = colorscheme.colors.white, },
+  ["@punctuation.bracket"] = { fg = colorscheme.colors.orange, },
+  ["@string"] = { fg = colorscheme.colors.white, },
+  ["@tag.attribute"] = { link = "@method", },
 }
 
 require("aiko.theme").paint(colorscheme)

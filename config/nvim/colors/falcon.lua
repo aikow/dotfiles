@@ -1,7 +1,5 @@
-local colorscheme = require("aiko.theme.colorscheme").Scheme:new({
-  name = "falcon",
-  background = "dark",
-})
+local Colorscheme = require("aiko.theme.colorscheme").Scheme
+local colorscheme = Colorscheme:new({ name = "falcon", background = "dark" })
 
 colorscheme.theme = {
   base00 = "#020222",
@@ -50,20 +48,23 @@ colorscheme.colors = {
   purple = "#99a4bc",
   red = "#ff761a",
   sun = "#ffd392",
-  tan = "#cfc1b2",
   teal = "#34bfa4",
   white = "#f8f8ff",
-  white2 = "#dfdfe5",
   yellow = "#ffc552",
 }
 
+colorscheme.extra = {
+  tan = "#cfc1b2",
+  white2 = "#dfdfe5",
+}
+
 colorscheme.polish = {
-  ["@keyword"] = { fg = colorscheme.theme.base0D },
-  Include = { fg = colorscheme.colors.tan },
-  Keyword = { fg = colorscheme.theme.base0D },
-  Operator = { fg = colorscheme.colors.red },
-  Statement = { fg = colorscheme.colors.purple },
-  Type = { fg = colorscheme.theme.base0F },
+  ["@keyword"] = { fg = "#FFC552", },
+  Include = { fg = "#CFC1B2", },
+  Keyword = { fg = "#FFC552", },
+  Operator = { fg = "#FF761A", },
+  Statement = { fg = "#99A4BC", },
+  Type = { fg = "#DFDFE5", },
 }
 
 require("aiko.theme").paint(colorscheme)

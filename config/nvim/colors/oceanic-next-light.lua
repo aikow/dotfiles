@@ -1,7 +1,5 @@
-local colorscheme = require("aiko.theme.colorscheme").Scheme:new({
-  name = "oceanic-next-light",
-  background = "light",
-})
+local Colorscheme = require("aiko.theme.colorscheme").Scheme
+local colorscheme = Colorscheme:new({ name = "oceanic-next-light", background = "light" })
 
 colorscheme.theme = {
   base00 = "#d8dee9",
@@ -56,11 +54,11 @@ colorscheme.colors = {
 }
 
 colorscheme.polish = {
-  ["@field"] = { fg = colorscheme.theme.base0C },
-  Constant = { fg = colorscheme.theme.base09 },
-  St_NTerminalMode = { fg = colorscheme.colors.white },
-  St_VisualMode = { bg = colorscheme.colors.teal },
-  St_VisualModeSep = { fg = colorscheme.colors.teal },
+  ["@field"] = { fg = colorscheme.colors.green, },
+  Constant = { fg = colorscheme.theme.base09, },
+  St_NTerminalMode = { fg = colorscheme.colors.white, },
+  St_VisualMode = { bg = colorscheme.colors.teal, },
+  St_VisualModeSep = { fg = colorscheme.colors.teal, },
 }
 
 require("aiko.theme").paint(colorscheme)

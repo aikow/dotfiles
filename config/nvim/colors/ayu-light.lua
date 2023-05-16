@@ -1,7 +1,5 @@
-local colorscheme = require("aiko.theme.colorscheme").Scheme:new({
-  name = "ayu-light",
-  background = "light",
-})
+local Colorscheme = require("aiko.theme.colorscheme").Scheme
+local colorscheme = Colorscheme:new({ name = "ayu-light", background = "light" })
 
 colorscheme.theme = {
   base00 = "#fafafa",
@@ -56,12 +54,12 @@ colorscheme.colors = {
 }
 
 colorscheme.polish = {
-  ["@constructor"] = { fg = colorscheme.theme.base0C },
-  ["@parameter"] = { fg = colorscheme.theme.base09 },
+  ["@constructor"] = { fg = "#4CBF99", },
+  ["@parameter"] = { fg = "#A37ACC", },
   ["@tag.attribute"] = {},
   ["@tag.delimiter"] = {},
-  PmenuSel = { fg = colorscheme.colors.white, bg = colorscheme.colors.cyan },
-  luaTSField = { fg = colorscheme.theme.base0E },
+  PmenuSel = { fg = colorscheme.colors.white,  bg = "#95E6CB", },
+  luaTSField = { fg = "#FA8D3E", },
 }
 
 require("aiko.theme").paint(colorscheme)

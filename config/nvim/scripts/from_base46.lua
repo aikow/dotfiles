@@ -8,42 +8,58 @@ package.loaded.base46 = {
 
 -- Map of color renames from base46 to my local config.
 local color_map = {
+  baby_pink = "light_pink",
   black = "black",
-  darker_black = "dark_black",
-
   black2 = "bg_1",
-  one_bg = "bg_2",
-  one_bg2 = "bg_3",
-  one_bg3 = "bg_4",
-
+  blue = "blue",
+  cyan = "cyan",
+  dark_purple = "dark_purple",
+  darker_black = "dark_black",
+  folder_bg = "bg_folder",
+  green = "green",
   grey = "grey",
   grey_fg = "light_grey_1",
   grey_fg2 = "light_grey_2",
   light_grey = "light_grey_3",
-
-  statusline_bg = "bg_statusline",
   lightbg = "bg_light",
-  pmenu_bg = "bg_pmenu",
-  folder_bg = "bg_folder",
   line = "line",
-
-  red = "red",
-  pink = "pink",
-  baby_pink = "light_pink",
-  white = "white",
-  green = "green",
-  vibrant_green = "light_green",
   nord_blue = "nord_blue",
-  blue = "blue",
-  yellow = "yellow",
-  sun = "sun",
-  purple = "purple",
-  dark_purple = "dark_purple",
-  teal = "teal",
+  one_bg = "bg_2",
+  one_bg2 = "bg_3",
+  one_bg3 = "bg_4",
   orange = "orange",
-  cyan = "cyan",
+  pink = "pink",
+  pmenu_bg = "bg_pmenu",
+  purple = "purple",
+  red = "red",
+  statusline_bg = "bg_statusline",
+  sun = "sun",
+  teal = "teal",
+  vibrant_green = "light_green",
+  white = "white",
+  yellow = "yellow",
 }
 
+local name_map = {
+  catppuccin = "catppuccin-macchiato",
+  chadracula = "dracula",
+  chadtain = "chad",
+  doomchad = "doom",
+  gruvchad = "gruv",
+}
+
+local nonempty = function(t)
+  for _ in pairs(t) do
+    return true
+  end
+
+  return false
+end
+
+---comment
+---@param t table table with sortable keys.
+---@param f function? An optional comparator function.
+---@return function iterator
 local sorted = function(t, f)
   local a = {}
   for n in pairs(t) do
@@ -64,19 +80,15 @@ local sorted = function(t, f)
   return iter
 end
 
----comment
----@param module any
----@param color string | boolean
----@return string
+---Search for a color in the 3 color tables associated with a colorscheme. The
+---order the tables are searched in is first the base 30 colors, then the extra
+---colors, and finally the base_16 colors.
+---@param module { base_16: Theme, base_30: Colors, extra: table<string, string>}
+---@param color string | boolean the value of the attribute on the Color
+---@return string representation of the link as a string of lua code
 local lookup_color = function(module, color)
   if type(color) == "boolean" then
     return color and "true" or "false"
-  end
-
-  for key, value in pairs(module.base_16) do
-    if value == color then
-      return string.format([[colorscheme.theme.%s]], key)
-    end
   end
 
   for key, value in pairs(module.base_30) do
@@ -85,9 +97,32 @@ local lookup_color = function(module, color)
     end
   end
 
+  for key, value in pairs(module.extra) do
+    if value == color then
+      return string.format([[colorscheme.extra.%s]], key)
+    end
+  end
+
+  for key, value in pairs(module.base_16) do
+    if value == color then
+      return string.format([[colorscheme.theme.%s]], key)
+    end
+  end
+
   return string.format([["%s"]], color)
 end
 
+---comment
+---@param name string
+local clean_name = function(name)
+  name = name_map[name] or name
+  return name:gsub("([a-z])([A-Z])", "%1-%2"):gsub("_", "-"):lower()
+end
+
+---Load the lua file as a base46 theme module and convert it into the format
+---expected by my own theme module.
+---@param filename string
+---@return table
 local read_module = function(filename)
   local chunk = loadfile(filename, "t", _ENV)
   if chunk == nil then
@@ -106,24 +141,39 @@ local read_module = function(filename)
   end
 
   local result = {}
-  result.theme = string.gsub(module.name, "_", "-")
+  result.name = clean_name(module.name)
   result.background = module.type
+
+  -- Create a table of custom colors that aren't part of the standard base 30
+  -- colors.
+  result.extra = {}
+
+  -- Extract all the base 16 colors and lowercase the values.
   result.base_16 = {}
   for key, value in pairs(module.base_16) do
-    result.base_16[key] = string.lower(value)
+    result.base_16[key] = value:lower()
   end
 
+  -- Extract all the base 30 colors and apply any renames in the color_map
+  -- table. All color values will be made lowercase.
   result.base_30 = {}
   for key, value in pairs(module.base_30) do
-    local new_key = color_map[key] or key
-    result.base_30[new_key] = string.lower(value)
+    value = value:lower()
+    local new_key = color_map[key]
+    if new_key then
+      result.base_30[new_key] = value
+    else
+      result.extra[key] = value
+    end
   end
 
+  -- Extract any polish highlight groups. We directly search through the base 16
+  -- and base 30 colors to determine which value is being referenced.
   result.polish = {}
   for hl_group, color in pairs(module.polish_hl or {}) do
     local new_color = {}
     for attr, value in pairs(color) do
-      new_color[attr] = lookup_color(module, value)
+      new_color[attr] = lookup_color(result, value)
     end
     result.polish[hl_group] = new_color
   end
@@ -131,73 +181,105 @@ local read_module = function(filename)
   return result
 end
 
-local dump_module = function(filename, module)
-  local file = io.open(filename, "w")
+---comment Convert the color table into a file containing lua code
+---@param dirpath string
+---@param theme table
+local dump_module = function(dirpath, theme)
+  local filepath = ("%s/%s.lua"):format(dirpath, theme.name)
+  print(string.format("writing colorscheme to %s", filepath))
+
+  local file = io.open(filepath, "w")
   if file == nil then
-    error(string.format("unable to open file for writing: %s", filename), 2)
+    error(string.format("unable to open file for writing: %s", filepath), 2)
   end
 
-  file:write(string.format(
-    [[
-      local colorscheme = require("aiko.theme.colorscheme").Scheme:new({
-        name = "%s",
-        background = "%s",
-      })
-    ]],
-    module.theme,
-    module.background
-  ))
-  file:write("\n\n")
+  -- Import Colorscheme class
+  file:write(
+    [[local Colorscheme = require("aiko.theme.colorscheme").Scheme]],
+    "\n"
+  )
 
-  file:write([[colorscheme.theme = {]], "\n")
-  for key, value in sorted(module.base_16) do
+  -- Create Colorscheme instance
+  file:write(
+    string.format(
+      [[local colorscheme = Colorscheme:new({ name = "%s", background = "%s" })]],
+      theme.name,
+      theme.background
+    ),
+    "\n"
+  )
+
+  file:write("\n")
+
+  -- Define the base 16 colors.
+  file:write("colorscheme.theme = {\n")
+  for key, value in sorted(theme.base_16) do
     file:write(string.format([[  %s = "%s",]], key, value), "\n")
   end
   file:write("}\n\n")
 
-  file:write([[colorscheme.colors = {]], "\n")
-  for key, value in sorted(module.base_30) do
+  -- Define the base 30 colors.
+  file:write("colorscheme.colors = {\n")
+  for key, value in sorted(theme.base_30) do
     file:write(string.format([[  %s = "%s",]], key, value), "\n")
   end
   file:write("}\n\n")
 
-  file:write([[colorscheme.polish = {]], "\n")
-  for hl_group, color in sorted(module.polish) do
-    -- TODO: write actual value
-    if string.match(hl_group, "^[a-zA-Z][a-zA-Z0-9_]*$") then
-      file:write(string.format([[  %s = {]], hl_group))
-    else
-      file:write(string.format([[  ["%s"] = {]], hl_group))
+  -- Define the any extra colors.
+  if nonempty(theme.extra) then
+    file:write("colorscheme.extra = {\n")
+    for key, value in sorted(theme.extra) do
+      file:write(string.format([[  %s = "%s",]], key, value), "\n")
     end
-    for attr, value in pairs(color) do
-      file:write(string.format([[ %s = %s, ]], attr, value))
-    end
-    file:write("},\n")
+    file:write("}\n\n")
   end
-  file:write("}\n\n")
 
+  -- Add any polish highlight groups. Each extra polish group is in its own
+  -- separate line.
+  if nonempty(theme.polish) then
+    file:write("colorscheme.polish = {\n")
+    for hl_group, color in sorted(theme.polish) do
+      -- We check to see if the highlight group is a valid lua variable name.
+      if hl_group:match("^[a-zA-Z][a-zA-Z0-9_]*$") then
+        file:write(string.format([[  %s = {]], hl_group))
+      else
+        -- If the group name contains special characters, we need to escape it
+        -- using the table syntax.
+        file:write(string.format([[  ["%s"] = {]], hl_group))
+      end
+
+      -- Loop-through all the attributes of the highlight group
+      for attr, value in pairs(color) do
+        file:write(string.format([[ %s = %s, ]], attr, value))
+      end
+      file:write("},\n")
+    end
+    file:write("}\n\n")
+  end
+
+  -- Add method call to paint the colorscheme.
   file:write([[require("aiko.theme").paint(colorscheme)]], "\n")
 
+  -- Flush and close the file.
   file:flush()
   file:close()
-
-  local format = io.popen(
-    string.format("stylua -f ~/.dotfiles/config/nvim/.stylua.toml %s", filename)
-  )
-  if format == nil then
-    error("failed to format file")
-  end
-  format:close()
 end
+
+-- ------------------------------------------------------------------------
+-- | Main
+-- ------------------------------------------------------------------------
 
 -- Check that we have at least one argument
-if #arg < 1 then
-  error("expected at least 1 argument", 2)
+if #arg < 2 then
+  error("expected at least 2 arguments", 2)
 end
 
+local output_dir = arg[1]
+local filepaths = { table.unpack(arg, 2) }
+
 -- Loop through all files.
-for _, file in ipairs(arg) do
+for _, file in ipairs(filepaths) do
   print(file)
   local module = read_module(file)
-  dump_module(file, module)
+  dump_module(output_dir, module)
 end

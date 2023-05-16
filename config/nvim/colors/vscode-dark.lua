@@ -1,7 +1,5 @@
-local colorscheme = require("aiko.theme.colorscheme").Scheme:new({
-  name = "vscode-dark",
-  background = "dark",
-})
+local Colorscheme = require("aiko.theme.colorscheme").Scheme
+local colorscheme = Colorscheme:new({ name = "vscode-dark", background = "dark" })
 
 colorscheme.theme = {
   base00 = "#1e1e1e",
@@ -37,7 +35,6 @@ colorscheme.colors = {
   dark_black = "#1a1a1a",
   dark_purple = "#b77bdf",
   green = "#b5cea8",
-  green1 = "#4ec994",
   grey = "#444444",
   light_green = "#bfd8b2",
   light_grey_1 = "#4e4e4e",
@@ -56,13 +53,17 @@ colorscheme.colors = {
   yellow = "#d7ba7d",
 }
 
+colorscheme.extra = {
+  green1 = "#4ec994",
+}
+
 colorscheme.polish = {
-  ["@field.key"] = { fg = colorscheme.colors.green1 },
-  ["@keyword"] = { fg = colorscheme.colors.blue },
-  ["@keyword.function"] = { fg = colorscheme.colors.teal },
-  ["@keyword.return"] = { fg = colorscheme.theme.base0E },
-  ["@parameter"] = { fg = colorscheme.colors.blue },
-  ["@variable"] = { fg = colorscheme.theme.base0C },
+  ["@field.key"] = { fg = "#4EC994", },
+  ["@keyword"] = { fg = "#569CD6", },
+  ["@keyword.function"] = { fg = "#4294D6", },
+  ["@keyword.return"] = { fg = "#C586C0", },
+  ["@parameter"] = { fg = "#569CD6", },
+  ["@variable"] = { fg = "#9CDCFE", },
 }
 
 require("aiko.theme").paint(colorscheme)

@@ -1,7 +1,5 @@
-local colorscheme = require("aiko.theme.colorscheme").Scheme:new({
-  name = "tundra",
-  background = "dark",
-})
+local Colorscheme = require("aiko.theme.colorscheme").Scheme
+local colorscheme = Colorscheme:new({ name = "tundra", background = "dark" })
 
 colorscheme.theme = {
   base00 = "#111827",
@@ -56,16 +54,16 @@ colorscheme.colors = {
 }
 
 colorscheme.polish = {
-  ["@constructor"] = { fg = colorscheme.theme.base0D },
-  ["@function.builtin"] = { fg = colorscheme.theme.base0A },
-  ["@function.call"] = { fg = colorscheme.theme.base0D },
-  ["@keyword"] = { fg = colorscheme.theme.base0E },
-  ["@method.call"] = { fg = colorscheme.theme.base0D },
-  Conditional = { fg = colorscheme.colors.baby_pink },
-  Constant = { fg = colorscheme.theme.base0A },
-  Operator = { fg = colorscheme.colors.baby_pink },
-  Repeat = { fg = colorscheme.colors.baby_pink },
-  Type = { fg = colorscheme.colors.baby_pink },
+  ["@constructor"] = { fg = "#BAE6FD", },
+  ["@function.builtin"] = { fg = "#FBC19D", },
+  ["@function.call"] = { fg = "#BAE6FD", },
+  ["@keyword"] = { fg = "#FCA5A5", },
+  ["@method.call"] = { fg = "#BAE6FD", },
+  Conditional = { fg = "#FECDD3", },
+  Constant = { fg = "#FBC19D", },
+  Operator = { fg = "#FECDD3", },
+  Repeat = { fg = "#FECDD3", },
+  Type = { fg = "#FECDD3", },
 }
 
 require("aiko.theme").paint(colorscheme)
