@@ -111,6 +111,7 @@ end
 ---@field background Background The background color, either 'light' or 'dark'
 ---@field theme Theme The base16 theme.
 ---@field colors Colors The extended colors.
+---@field extra table<string, string> Any extra colors that are only specific to this theme.
 ---@field polish table<string, Color> Overrides for the default generated highlight groups.
 M.Scheme = {}
 

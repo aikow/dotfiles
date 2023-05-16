@@ -1,7 +1,5 @@
-local colorscheme = require("aiko.theme.colorscheme").Scheme:new({
-  name = "yoru",
-  background = "dark",
-})
+local Colorscheme = require("aiko.theme.colorscheme").Scheme
+local colorscheme = Colorscheme:new({ name = "yoru", background = "dark" })
 
 colorscheme.theme = {
   base00 = "#0c0e0f",
@@ -43,7 +41,6 @@ colorscheme.colors = {
   light_grey_2 = "#484a4b",
   light_grey_3 = "#505253",
   light_pink = "#ee6a70",
-  lighter_black = "#121415",
   line = "#1b1d1e",
   nord_blue = "#5a84bc",
   orange = "#e89982",
@@ -56,6 +53,8 @@ colorscheme.colors = {
   yellow = "#ecd28b",
 }
 
-colorscheme.polish = {}
+colorscheme.extra = {
+  lighter_black = "#121415",
+}
 
 require("aiko.theme").paint(colorscheme)

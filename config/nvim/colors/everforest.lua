@@ -1,7 +1,5 @@
-local colorscheme = require("aiko.theme.colorscheme").Scheme:new({
-  name = "everforest",
-  background = "dark",
-})
+local Colorscheme = require("aiko.theme.colorscheme").Scheme
+local colorscheme = Colorscheme:new({ name = "everforest", background = "dark" })
 
 colorscheme.theme = {
   base00 = "#2b3339",
@@ -56,8 +54,8 @@ colorscheme.colors = {
 }
 
 colorscheme.polish = {
-  ["@tag"] = { fg = colorscheme.theme.base0C },
-  ["@tag.delimiter"] = { fg = colorscheme.theme.base0A },
+  ["@tag"] = { fg = colorscheme.colors.orange, },
+  ["@tag.delimiter"] = { fg = colorscheme.colors.green, },
 }
 
 require("aiko.theme").paint(colorscheme)

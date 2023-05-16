@@ -1,7 +1,5 @@
-local colorscheme = require("aiko.theme.colorscheme").Scheme:new({
-  name = "penumbra-light",
-  background = "light",
-})
+local Colorscheme = require("aiko.theme.colorscheme").Scheme
+local colorscheme = Colorscheme:new({ name = "penumbra-light", background = "light" })
 
 colorscheme.theme = {
   base00 = "#fff7ed",
@@ -33,7 +31,6 @@ colorscheme.colors = {
   bg_statusline = "#f5ede3",
   black = "#fff7ed",
   blue = "#6e8dd5",
-  coal = "#8a8a8a",
   cyan = "#00a0ba",
   dark_black = "#f5ede3",
   dark_purple = "#806db8",
@@ -56,13 +53,17 @@ colorscheme.colors = {
   yellow = "#92963a",
 }
 
+colorscheme.extra = {
+  coal = "#8a8a8a",
+}
+
 colorscheme.polish = {
-  ["@field"] = { fg = colorscheme.colors.coal },
-  ["@field.key"] = { fg = colorscheme.theme.base08 },
-  ["@function.builtin"] = { fg = colorscheme.theme.base0C },
-  ["@punctuation.bracket"] = { fg = colorscheme.colors.coal },
-  Constant = { fg = colorscheme.theme.base08 },
-  Include = { fg = colorscheme.colors.dark_purple },
+  ["@field"] = { fg = colorscheme.extra.coal, },
+  ["@field.key"] = { fg = colorscheme.colors.pink, },
+  ["@function.builtin"] = { fg = colorscheme.colors.teal, },
+  ["@punctuation.bracket"] = { fg = colorscheme.extra.coal, },
+  Constant = { fg = colorscheme.colors.pink, },
+  Include = { fg = colorscheme.colors.dark_purple, },
 }
 
 require("aiko.theme").paint(colorscheme)

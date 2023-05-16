@@ -1,7 +1,5 @@
-local colorscheme = require("aiko.theme.colorscheme").Scheme:new({
-  name = "oxocarbon",
-  background = "dark",
-})
+local Colorscheme = require("aiko.theme.colorscheme").Scheme
+local colorscheme = Colorscheme:new({ name = "oxocarbon", background = "dark" })
 
 colorscheme.theme = {
   base00 = "#161616",
@@ -38,7 +36,6 @@ colorscheme.colors = {
   dark_purple = "#c7a0dc",
   green = "#42be65",
   grey = "#464646",
-  lavender = "#c7d1ff",
   light_green = "#08bdba",
   light_grey_1 = "#4c4c4c",
   light_grey_2 = "#555555",
@@ -56,9 +53,13 @@ colorscheme.colors = {
   yellow = "#fae3b0",
 }
 
+colorscheme.extra = {
+  lavender = "#c7d1ff",
+}
+
 colorscheme.polish = {
-  Conditional = { fg = colorscheme.theme.base09 },
-  Tag = { fg = colorscheme.theme.base05 },
+  Conditional = { fg = colorscheme.colors.bg_folder, },
+  Tag = { fg = colorscheme.colors.white, },
 }
 
 require("aiko.theme").paint(colorscheme)

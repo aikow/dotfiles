@@ -1,7 +1,5 @@
-local colorscheme = require("aiko.theme.colorscheme").Scheme:new({
-  name = "catppuccin",
-  background = "dark",
-})
+local Colorscheme = require("aiko.theme.colorscheme").Scheme
+local colorscheme = Colorscheme:new({ name = "catppuccin-macchiato", background = "dark" })
 
 colorscheme.theme = {
   base00 = "#1e1d2d",
@@ -38,7 +36,6 @@ colorscheme.colors = {
   dark_purple = "#c7a0dc",
   green = "#abe9b3",
   grey = "#474656",
-  lavender = "#c7d1ff",
   light_green = "#b6f4be",
   light_grey_1 = "#4e4d5d",
   light_grey_2 = "#555464",
@@ -56,10 +53,14 @@ colorscheme.colors = {
   yellow = "#fae3b0",
 }
 
+colorscheme.extra = {
+  lavender = "#c7d1ff",
+}
+
 colorscheme.polish = {
-  ["@property"] = { fg = colorscheme.colors.teal },
-  ["@variable"] = { fg = colorscheme.colors.lavender },
-  ["@variable.builtin"] = { fg = colorscheme.theme.base0F },
+  ["@property"] = { fg = "#B5E8E0", },
+  ["@variable"] = { fg = colorscheme.extra.lavender, },
+  ["@variable.builtin"] = { fg = "#F38BA8", },
 }
 
 require("aiko.theme").paint(colorscheme)

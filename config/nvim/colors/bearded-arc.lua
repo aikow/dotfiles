@@ -1,7 +1,5 @@
-local colorscheme = require("aiko.theme.colorscheme").Scheme:new({
-  name = "bearded-arc",
-  background = "dark",
-})
+local Colorscheme = require("aiko.theme.colorscheme").Scheme
+local colorscheme = Colorscheme:new({ name = "bearded-arc", background = "dark" })
 
 colorscheme.theme = {
   base00 = "#1c2433",
@@ -57,11 +55,11 @@ colorscheme.colors = {
 
 colorscheme.polish = {
   ["@constructor"] = {},
-  ["@keyword.return"] = { fg = colorscheme.theme.base0A },
-  ["@parameter"] = { fg = colorscheme.colors.pink },
-  ["@punctuation.bracket"] = { fg = colorscheme.colors.dark_purple },
-  Conditional = { fg = colorscheme.theme.base0A },
-  Include = { fg = colorscheme.theme.base0A },
+  ["@keyword.return"] = { fg = "#EACD61", },
+  ["@parameter"] = { fg = colorscheme.colors.pink, },
+  ["@punctuation.bracket"] = { fg = "#B78AFF", },
+  Conditional = { fg = "#EACD61", },
+  Include = { fg = "#EACD61", },
 }
 
 require("aiko.theme").paint(colorscheme)

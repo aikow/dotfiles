@@ -1,7 +1,5 @@
-local colorscheme = require("aiko.theme.colorscheme").Scheme:new({
-  name = "nightowl",
-  background = "dark",
-})
+local Colorscheme = require("aiko.theme.colorscheme").Scheme
+local colorscheme = Colorscheme:new({ name = "nightowl", background = "dark" })
 
 colorscheme.theme = {
   base00 = "#011627",
@@ -56,10 +54,10 @@ colorscheme.colors = {
 }
 
 colorscheme.polish = {
-  ["@conditional"] = { fg = colorscheme.theme.base0C },
-  ["@keyword.return"] = { fg = colorscheme.theme.base0C },
-  ["@parameter"] = { fg = colorscheme.colors.orange },
-  PmenuSel = { bg = colorscheme.theme.base0D },
+  ["@conditional"] = { fg = colorscheme.colors.cyan, },
+  ["@keyword.return"] = { fg = colorscheme.colors.cyan, },
+  ["@parameter"] = { fg = "#FFAD60", },
+  PmenuSel = { bg = colorscheme.colors.blue, },
 }
 
 require("aiko.theme").paint(colorscheme)

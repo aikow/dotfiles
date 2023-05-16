@@ -1,7 +1,5 @@
-local colorscheme = require("aiko.theme.colorscheme").Scheme:new({
-  name = "gruvbox-light",
-  background = "light",
-})
+local Colorscheme = require("aiko.theme.colorscheme").Scheme
+local colorscheme = Colorscheme:new({ name = "gruvbox-light", background = "light" })
 
 colorscheme.theme = {
   base00 = "#f2e5bc",
@@ -56,10 +54,7 @@ colorscheme.colors = {
 }
 
 colorscheme.polish = {
-  TbLineThemeToggleBtn = {
-    fg = colorscheme.theme.base00,
-    bg = colorscheme.theme.base05,
-  },
+  TbLineThemeToggleBtn = { fg = "#F2E5BC",  bg = colorscheme.colors.white, },
 }
 
 require("aiko.theme").paint(colorscheme)

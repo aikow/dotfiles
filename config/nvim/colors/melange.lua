@@ -1,7 +1,5 @@
-local colorscheme = require("aiko.theme.colorscheme").Scheme:new({
-  name = "melange",
-  background = "dark",
-})
+local Colorscheme = require("aiko.theme.colorscheme").Scheme
+local colorscheme = Colorscheme:new({ name = "melange", background = "dark" })
 
 colorscheme.theme = {
   base00 = "#2a2520",
@@ -36,7 +34,6 @@ colorscheme.colors = {
   cyan = "#bbcdef",
   dark_black = "#241f1a",
   dark_purple = "#b570c6",
-  firered = "#f17c64",
   green = "#86a3a3",
   grey = "#57524d",
   light_green = "#99d59d",
@@ -56,13 +53,17 @@ colorscheme.colors = {
   yellow = "#e3b865",
 }
 
+colorscheme.extra = {
+  firered = "#f17c64",
+}
+
 colorscheme.polish = {
-  ["@field"] = { fg = colorscheme.theme.base05 },
-  ["@field.key"] = { fg = colorscheme.theme.base05 },
-  ["@function.macro"] = { fg = colorscheme.theme.base0A },
-  Boolean = { fg = colorscheme.colors.purple },
-  Include = { fg = colorscheme.theme.base0A },
-  Operator = { fg = colorscheme.colors.firered },
+  ["@field"] = { fg = "#ECE1D7", },
+  ["@field.key"] = { fg = "#ECE1D7", },
+  ["@function.macro"] = { fg = "#99D59D", },
+  Boolean = { fg = colorscheme.colors.purple, },
+  Include = { fg = "#99D59D", },
+  Operator = { fg = "#F17C64", },
 }
 
 require("aiko.theme").paint(colorscheme)

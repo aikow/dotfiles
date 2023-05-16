@@ -1,7 +1,5 @@
-local colorscheme = require("aiko.theme.colorscheme").Scheme:new({
-  name = "chocolate",
-  background = "dark",
-})
+local Colorscheme = require("aiko.theme.colorscheme").Scheme
+local colorscheme = Colorscheme:new({ name = "chocolate", background = "dark" })
 
 colorscheme.theme = {
   base00 = "#252221",
@@ -23,7 +21,6 @@ colorscheme.theme = {
 }
 
 colorscheme.colors = {
-  beige = "#ab9382",
   bg_1 = "#2b2827",
   bg_2 = "#2f2c2b",
   bg_3 = "#393635",
@@ -56,16 +53,20 @@ colorscheme.colors = {
   yellow = "#d9b27c",
 }
 
+colorscheme.extra = {
+  beige = "#ab9382",
+}
+
 colorscheme.polish = {
-  ["@attribute"] = { fg = colorscheme.colors.cyan },
-  ["@field"] = { fg = colorscheme.theme.base0C },
-  ["@function.builtin"] = { fg = colorscheme.theme.base0A },
-  ["@module"] = { fg = colorscheme.theme.base0F },
-  ["@parameter"] = { fg = colorscheme.theme.base0B },
-  ["@parenthesis"] = { link = "@punctuation.bracket" },
-  ["@punctuation.bracket"] = { fg = colorscheme.theme.base06 },
-  ["@variable"] = { fg = colorscheme.theme.base06 },
-  Operator = { fg = colorscheme.theme.base0D },
+  ["@attribute"] = { fg = colorscheme.colors.cyan, },
+  ["@field"] = { fg = colorscheme.colors.purple, },
+  ["@function.builtin"] = { fg = colorscheme.colors.yellow, },
+  ["@module"] = { fg = colorscheme.extra.beige, },
+  ["@parameter"] = { fg = colorscheme.colors.green, },
+  ["@parenthesis"] = { link = "@punctuation.bracket", },
+  ["@punctuation.bracket"] = { fg = colorscheme.theme.base06, },
+  ["@variable"] = { fg = colorscheme.theme.base06, },
+  Operator = { fg = colorscheme.colors.blue, },
 }
 
 require("aiko.theme").paint(colorscheme)

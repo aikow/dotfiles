@@ -1,7 +1,5 @@
-local colorscheme = require("aiko.theme.colorscheme").Scheme:new({
-  name = "dark-horizon",
-  background = "dark",
-})
+local Colorscheme = require("aiko.theme.colorscheme").Scheme
+local colorscheme = Colorscheme:new({ name = "dark-horizon", background = "dark" })
 
 colorscheme.theme = {
   base00 = "#0e0e0e",
@@ -49,19 +47,22 @@ colorscheme.colors = {
   pink = "#ff75a0",
   purple = "#da70d6",
   red = "#db627e",
-  seablue = "#169ac9",
   sun = "#ffc038",
   teal = "#749689",
   white = "#ffffff",
   yellow = "#fdb830",
 }
 
+colorscheme.extra = {
+  seablue = "#169ac9",
+}
+
 colorscheme.polish = {
-  ["@property"] = { fg = colorscheme.theme.base0E },
-  ["@punctuation.bracket"] = { fg = colorscheme.colors.yellow },
-  ["@punctuation.delimiter"] = { fg = colorscheme.colors.yellow },
-  ["@tag.delimiter"] = { fg = colorscheme.theme.base05 },
-  Include = { fg = colorscheme.theme.base0E, bold = true },
+  ["@property"] = { fg = "#6BE4E6", },
+  ["@punctuation.bracket"] = { fg = colorscheme.colors.yellow, },
+  ["@punctuation.delimiter"] = { fg = colorscheme.colors.yellow, },
+  ["@tag.delimiter"] = { fg = colorscheme.theme.base05, },
+  Include = { fg = "#6BE4E6",  bold = true, },
 }
 
 require("aiko.theme").paint(colorscheme)

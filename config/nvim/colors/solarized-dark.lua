@@ -1,7 +1,5 @@
-local colorscheme = require("aiko.theme.colorscheme").Scheme:new({
-  name = "solarized-dark",
-  background = "dark",
-})
+local Colorscheme = require("aiko.theme.colorscheme").Scheme
+local colorscheme = Colorscheme:new({ name = "solarized-dark", background = "dark" })
 
 colorscheme.theme = {
   base00 = "#002b36",
@@ -54,7 +52,5 @@ colorscheme.colors = {
   white = "#abb2bf",
   yellow = "#b58900",
 }
-
-colorscheme.polish = {}
 
 require("aiko.theme").paint(colorscheme)
