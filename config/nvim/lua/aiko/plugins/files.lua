@@ -43,6 +43,7 @@ return {
       -- stylua: ignore
       local keys = {
         { "_", "<cmd>Neotree source=filesystem reveal=true<CR>", desc = "reveal file in neo-tree" },
+        { "+", "<cmd>Neotree source=buffers reveal=true<CR>", desc = "reveal buffers in neo-tree" },
         { "-", [[<cmd>Neotree source=filesystem reveal=true position=current dir=%:p:h:h<CR>]], desc = "reveal file in neo-tree" },
       }
       lazy_keys(keys)
