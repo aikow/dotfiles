@@ -121,7 +121,7 @@ opt.number = true
 opt.numberwidth = 2
 
 -- Disable using the mouse inside Neovim.
-opt.mouse = ""
+-- opt.mouse = ""
 
 -- Only enable the cursor line in the current buffer.
 opt.cursorline = true -- Highlight the current line
