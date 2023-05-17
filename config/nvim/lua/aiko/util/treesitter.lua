@@ -22,7 +22,7 @@ M.iter_query = function(bufnr, query, callback, opts)
   local capture = opts.capture
   local line_offset = opts.line_offset or { 1, 0 }
 
-  local ts_query = vim.treesitter.parse_query(filetype, query)
+  local ts_query = vim.treesitter.query.parse(filetype, query)
 
   local parser = vim.treesitter.get_parser(bufnr, filetype, {})
   local tree = parser:parse()[1]

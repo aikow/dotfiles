@@ -193,16 +193,10 @@ local dump_module = function(dirpath, theme)
     error(string.format("unable to open file for writing: %s", filepath), 2)
   end
 
-  -- Import Colorscheme class
-  file:write(
-    [[local Colorscheme = require("aiko.theme.colorscheme").Scheme]],
-    "\n"
-  )
-
   -- Create Colorscheme instance
   file:write(
     string.format(
-      [[local colorscheme = Colorscheme:new({ name = "%s", background = "%s" })]],
+      'local colorscheme = require("aiko.theme.colorscheme").Scheme:new({\n  name = "%s",\n  background = "%s",\n})',
       theme.name,
       theme.background
     ),

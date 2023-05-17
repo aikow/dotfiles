@@ -1,5 +1,7 @@
-local Colorscheme = require("aiko.theme.colorscheme").Scheme
-local colorscheme = Colorscheme:new({ name = "doom", background = "dark" })
+local colorscheme = require("aiko.theme.colorscheme").Scheme:new({
+  name = "doom",
+  background = "dark",
+})
 
 colorscheme.theme = {
   base00 = "#282c34",
@@ -54,7 +56,7 @@ colorscheme.colors = {
 }
 
 colorscheme.polish = {
-  ["@field"] = { fg = colorscheme.colors.blue, },
+  ["@field"] = { fg = colorscheme.colors.bg_folder, },
   ["@punctuation.bracket"] = { fg = "#ECBE7B", },
 }
 

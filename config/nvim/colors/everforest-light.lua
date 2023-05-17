@@ -1,5 +1,7 @@
-local Colorscheme = require("aiko.theme.colorscheme").Scheme
-local colorscheme = Colorscheme:new({ name = "everforest-light", background = "light" })
+local colorscheme = require("aiko.theme.colorscheme").Scheme:new({
+  name = "everforest-light",
+  background = "light",
+})
 
 colorscheme.theme = {
   base00 = "#fff9e8",

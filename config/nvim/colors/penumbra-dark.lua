@@ -1,5 +1,7 @@
-local Colorscheme = require("aiko.theme.colorscheme").Scheme
-local colorscheme = Colorscheme:new({ name = "penumbra-dark", background = "dark" })
+local colorscheme = require("aiko.theme.colorscheme").Scheme:new({
+  name = "penumbra-dark",
+  background = "dark",
+})
 
 colorscheme.theme = {
   base00 = "#303338",
