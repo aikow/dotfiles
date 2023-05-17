@@ -1,5 +1,7 @@
-local Colorscheme = require("aiko.theme.colorscheme").Scheme
-local colorscheme = Colorscheme:new({ name = "penumbra-light", background = "light" })
+local colorscheme = require("aiko.theme.colorscheme").Scheme:new({
+  name = "penumbra-light",
+  background = "light",
+})
 
 colorscheme.theme = {
   base00 = "#fff7ed",
@@ -59,10 +61,10 @@ colorscheme.extra = {
 
 colorscheme.polish = {
   ["@field"] = { fg = colorscheme.extra.coal, },
-  ["@field.key"] = { fg = colorscheme.colors.pink, },
+  ["@field.key"] = { fg = colorscheme.colors.red, },
   ["@function.builtin"] = { fg = colorscheme.colors.teal, },
   ["@punctuation.bracket"] = { fg = colorscheme.extra.coal, },
-  Constant = { fg = colorscheme.colors.pink, },
+  Constant = { fg = colorscheme.colors.red, },
   Include = { fg = colorscheme.colors.dark_purple, },
 }
 

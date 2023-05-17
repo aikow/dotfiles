@@ -1,5 +1,7 @@
-local Colorscheme = require("aiko.theme.colorscheme").Scheme
-local colorscheme = Colorscheme:new({ name = "gruvbox-light", background = "light" })
+local colorscheme = require("aiko.theme.colorscheme").Scheme:new({
+  name = "gruvbox-light",
+  background = "light",
+})
 
 colorscheme.theme = {
   base00 = "#f2e5bc",

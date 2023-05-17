@@ -1,5 +1,7 @@
-local Colorscheme = require("aiko.theme.colorscheme").Scheme
-local colorscheme = Colorscheme:new({ name = "oxocarbon", background = "dark" })
+local colorscheme = require("aiko.theme.colorscheme").Scheme:new({
+  name = "oxocarbon",
+  background = "dark",
+})
 
 colorscheme.theme = {
   base00 = "#161616",
@@ -58,7 +60,7 @@ colorscheme.extra = {
 }
 
 colorscheme.polish = {
-  Conditional = { fg = colorscheme.colors.bg_folder, },
+  Conditional = { fg = colorscheme.colors.nord_blue, },
   Tag = { fg = colorscheme.colors.white, },
 }
 

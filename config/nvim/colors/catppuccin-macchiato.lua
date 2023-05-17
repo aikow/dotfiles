@@ -1,5 +1,7 @@
-local Colorscheme = require("aiko.theme.colorscheme").Scheme
-local colorscheme = Colorscheme:new({ name = "catppuccin-macchiato", background = "dark" })
+local colorscheme = require("aiko.theme.colorscheme").Scheme:new({
+  name = "catppuccin-macchiato",
+  background = "dark",
+})
 
 colorscheme.theme = {
   base00 = "#1e1d2d",

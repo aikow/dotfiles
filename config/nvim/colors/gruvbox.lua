@@ -1,5 +1,7 @@
-local Colorscheme = require("aiko.theme.colorscheme").Scheme
-local colorscheme = Colorscheme:new({ name = "gruvbox", background = "dark" })
+local colorscheme = require("aiko.theme.colorscheme").Scheme:new({
+  name = "gruvbox",
+  background = "dark",
+})
 
 colorscheme.theme = {
   base00 = "#282828",
@@ -54,8 +56,8 @@ colorscheme.colors = {
 }
 
 colorscheme.polish = {
-  ["@operator"] = { fg = colorscheme.colors.bg_pmenu, },
-  Operator = { fg = colorscheme.colors.bg_pmenu, },
+  ["@operator"] = { fg = colorscheme.colors.nord_blue, },
+  Operator = { fg = colorscheme.colors.nord_blue, },
 }
 
 require("aiko.theme").paint(colorscheme)
