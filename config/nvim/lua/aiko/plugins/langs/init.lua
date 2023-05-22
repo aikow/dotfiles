@@ -189,14 +189,14 @@ return {
     end,
   },
 
-  -- Connect to databases inside Neovim
+  -- Connect to databases inside Neovim.
   {
     "tpope/vim-dadbod",
     ft = { "sql", "msql", "mysql", "plsql" },
     cmd = { "DB" },
   },
 
-  -- Lua
+  -- Run lua and use the nvim API interactively.
   {
     "rafcamlet/nvim-luapad",
     cmd = { "Luapad", "LuaRun" },
@@ -205,12 +205,11 @@ return {
   -- Nvim Org mode plugin.
   {
     "nvim-neorg/neorg",
-    -- version = "*",
     dependencies = {
       "nvim-treesitter",
       "nvim-neorg/neorg-telescope",
     },
-    -- version = "*",
+    version = "*",
     ft = { "norg" },
     cmd = { "Neorg" },
     build = ":Neorg sync-parsers",
@@ -219,6 +218,7 @@ return {
     end,
   },
 
+  -- Kitty .conf file syntax support.
   {
     "fladson/vim-kitty",
   },
