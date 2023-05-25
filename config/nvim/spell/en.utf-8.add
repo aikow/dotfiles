@@ -11,8 +11,11 @@ config
 configs
 deque
 detokenizing
+dirpath
 enum
 Europarl
+filepath
+filetype
 FIXME
 FZF
 Gitlab
