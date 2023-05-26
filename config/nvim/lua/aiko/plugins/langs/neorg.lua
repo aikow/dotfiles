@@ -3,8 +3,43 @@ local M = {}
 M.setup = function()
   require("neorg").setup({
     load = {
-      -- Builtin modules
+      -- Load all default modules
       ["core.defaults"] = {},
+
+      -- Remove leading whitespace when yanking a code-block.
+      ["core.clipboard.code-blocks"] = {},
+
+      -- Customize the core completion module to use nvim-cmp.
+      ["core.completion"] = {
+        config = {
+          engine = "nvim-cmp",
+        },
+      },
+
+      -- Replace some Neorg markup notation with fancy icons.
+      ["core.concealer"] = {},
+
+      -- Manage directories and workspaces.
+      ["core.dirman"] = {
+        config = {
+          workspaces = {
+            personal = "~/gdrive/notes",
+            notes = "~/notes",
+          },
+          index = "index.norg",
+        },
+      },
+
+      -- Convert Neorg files to other formats like markdown.
+      ["core.export"] = {},
+
+      -- Enable the Telescope integration.
+      ["core.integrations.telescope"] = {},
+
+      -- Easily continue a Neorg item on the next line.
+      ["core.itero"] = {},
+
+      -- Configure the default keybindings.
       ["core.keybinds"] = {
         config = {
           default_keybinds = true,
@@ -28,37 +63,35 @@ M.setup = function()
           end,
         },
       },
-      ["core.dirman"] = {
-        config = {
-          workspaces = {
-            personal = "~/gdrive/notes",
-            notes = "~/notes",
-          },
-          index = "index.norg",
-        },
-      },
 
-      ["core.concealer"] = {},
+      -- Allows editing code-blocks in a separate buffer of that filetype.
+      ["core.looking-glass"] = {},
 
-      ["core.completion"] = {
-        config = {
-          engine = "nvim-cmp",
-        },
-      },
+      -- Easily toggle between the two list types.
+      ["core.pivot"] = {},
 
-      ["core.qol.toc"] = {},
-
-      -- Neorg presentations
+      -- Enable a fancy presenter mode for showing off Neorg documents.
       ["core.presenter"] = {
         config = {
           zen_mode = "zen-mode",
         },
       },
 
-      ["core.export"] = {},
+      -- Shortcuts for increasing and decreasing the nesting level of Neorg
+      -- items.
+      ["core.promo"] = {},
 
-      -- External Modules
-      ["core.integrations.telescope"] = {},
+      -- Generate a table-of-contents dynamically.
+      ["core.qol.toc"] = {},
+
+      -- Generate a summary of the workspace.
+      ["core.summary"] = {},
+
+      -- Allows piping the contents of codeblocks into multiple different files.
+      ["core.tangle"] = {},
+
+      -- Enable the date picker.
+      ["core.ui.calendar"] = {},
     },
   })
 end
