@@ -5,6 +5,7 @@ ASR
 async
 asyncio
 autoencoder
+BLEU
 bool
 BPE
 config
@@ -29,6 +30,8 @@ kwargs
 lowercasing
 LSP
 lua
+multimodality
+Neorg
 Neovide
 neovim
 nvim
