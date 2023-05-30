@@ -60,9 +60,9 @@ colorscheme.extra = {
 }
 
 colorscheme.polish = {
-  ["@property"] = { fg = "#B5E8E0", },
-  ["@variable"] = { fg = colorscheme.extra.lavender, },
-  ["@variable.builtin"] = { fg = "#F38BA8", },
+  ["@property"] = { fg = "#B5E8E0" },
+  ["@variable"] = { fg = colorscheme.extra.lavender },
+  ["@variable.builtin"] = { fg = "#F38BA8" },
 }
 
 require("aiko.theme").paint(colorscheme)

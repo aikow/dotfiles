@@ -56,12 +56,12 @@ colorscheme.colors = {
 }
 
 colorscheme.polish = {
-  ["@constructor"] = { fg = colorscheme.colors.light_green, },
-  ["@field.key"] = { fg = colorscheme.colors.white, },
-  ["@operator"] = { fg = colorscheme.colors.orange, },
-  ["@punctuation.bracket"] = { fg = "#0D7FDD", },
-  Constant = { fg = colorscheme.colors.white, },
-  Tag = { fg = colorscheme.colors.light_green, },
+  ["@constructor"] = { fg = colorscheme.colors.light_green },
+  ["@field.key"] = { fg = colorscheme.colors.white },
+  ["@operator"] = { fg = colorscheme.colors.orange },
+  ["@punctuation.bracket"] = { fg = "#0D7FDD" },
+  Constant = { fg = colorscheme.colors.white },
+  Tag = { fg = colorscheme.colors.light_green },
 }
 
 require("aiko.theme").paint(colorscheme)

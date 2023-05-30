@@ -56,11 +56,11 @@ colorscheme.colors = {
 }
 
 colorscheme.polish = {
-  ["@constructor"] = { fg = colorscheme.colors.light_green,  bold = true, },
-  ["@field.key"] = { fg = colorscheme.colors.white, },
-  ["@punctuation.bracket"] = { fg = colorscheme.colors.orange, },
-  ["@string"] = { fg = colorscheme.colors.white, },
-  ["@tag.attribute"] = { link = "@method", },
+  ["@constructor"] = { fg = colorscheme.colors.light_green, bold = true },
+  ["@field.key"] = { fg = colorscheme.colors.white },
+  ["@punctuation.bracket"] = { fg = colorscheme.colors.orange },
+  ["@string"] = { fg = colorscheme.colors.white },
+  ["@tag.attribute"] = { link = "@method" },
 }
 
 require("aiko.theme").paint(colorscheme)

@@ -56,7 +56,7 @@ colorscheme.colors = {
 }
 
 colorscheme.polish = {
-  ["@punctuation.bracket"] = { fg = colorscheme.colors.sun, },
+  ["@punctuation.bracket"] = { fg = colorscheme.colors.sun },
 }
 
 require("aiko.theme").paint(colorscheme)

@@ -56,8 +56,8 @@ colorscheme.colors = {
 }
 
 colorscheme.polish = {
-  ["@field"] = { fg = colorscheme.colors.bg_folder, },
-  ["@punctuation.bracket"] = { fg = "#ECBE7B", },
+  ["@field"] = { fg = colorscheme.colors.bg_folder },
+  ["@punctuation.bracket"] = { fg = "#ECBE7B" },
 }
 
 require("aiko.theme").paint(colorscheme)

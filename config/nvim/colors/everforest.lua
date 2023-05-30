@@ -56,8 +56,8 @@ colorscheme.colors = {
 }
 
 colorscheme.polish = {
-  ["@tag"] = { fg = colorscheme.colors.orange, },
-  ["@tag.delimiter"] = { fg = colorscheme.colors.green, },
+  ["@tag"] = { fg = colorscheme.colors.orange },
+  ["@tag.delimiter"] = { fg = colorscheme.colors.green },
 }
 
 require("aiko.theme").paint(colorscheme)

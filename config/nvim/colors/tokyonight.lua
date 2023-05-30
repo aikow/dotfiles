@@ -56,12 +56,12 @@ colorscheme.colors = {
 }
 
 colorscheme.polish = {
-  ["@constant"] = { fg = colorscheme.colors.orange, },
-  ["@function.call"] = { fg = colorscheme.colors.bg_pmenu, },
-  ["@method.call"] = { fg = colorscheme.colors.red, },
-  ["@parameter"] = { fg = colorscheme.colors.orange, },
-  ["@punctuation.bracket"] = { fg = colorscheme.colors.purple, },
-  ["@variable"] = { fg = colorscheme.theme.base05, },
+  ["@constant"] = { fg = colorscheme.colors.orange },
+  ["@function.call"] = { fg = colorscheme.colors.bg_pmenu },
+  ["@method.call"] = { fg = colorscheme.colors.red },
+  ["@parameter"] = { fg = colorscheme.colors.orange },
+  ["@punctuation.bracket"] = { fg = colorscheme.colors.purple },
+  ["@variable"] = { fg = colorscheme.theme.base05 },
 }
 
 require("aiko.theme").paint(colorscheme)

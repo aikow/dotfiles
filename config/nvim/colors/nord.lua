@@ -56,8 +56,8 @@ colorscheme.colors = {
 }
 
 colorscheme.polish = {
-  ["@punctuation.bracket"] = { fg = colorscheme.colors.white, },
-  ["@punctuation.delimiter"] = { fg = colorscheme.colors.white, },
+  ["@punctuation.bracket"] = { fg = colorscheme.colors.white },
+  ["@punctuation.delimiter"] = { fg = colorscheme.colors.white },
 }
 
 require("aiko.theme").paint(colorscheme)

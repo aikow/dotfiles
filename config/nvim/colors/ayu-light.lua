@@ -56,12 +56,12 @@ colorscheme.colors = {
 }
 
 colorscheme.polish = {
-  ["@constructor"] = { fg = "#4CBF99", },
-  ["@parameter"] = { fg = "#A37ACC", },
+  ["@constructor"] = { fg = "#4CBF99" },
+  ["@parameter"] = { fg = "#A37ACC" },
   ["@tag.attribute"] = {},
   ["@tag.delimiter"] = {},
-  PmenuSel = { fg = colorscheme.colors.white,  bg = "#95E6CB", },
-  luaTSField = { fg = "#FA8D3E", },
+  PmenuSel = { fg = colorscheme.colors.white, bg = "#95E6CB" },
+  luaTSField = { fg = "#FA8D3E" },
 }
 
 require("aiko.theme").paint(colorscheme)

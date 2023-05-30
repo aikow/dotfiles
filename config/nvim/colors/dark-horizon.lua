@@ -60,11 +60,11 @@ colorscheme.extra = {
 }
 
 colorscheme.polish = {
-  ["@property"] = { fg = "#6BE4E6", },
-  ["@punctuation.bracket"] = { fg = colorscheme.colors.yellow, },
-  ["@punctuation.delimiter"] = { fg = colorscheme.colors.yellow, },
-  ["@tag.delimiter"] = { fg = colorscheme.theme.base05, },
-  Include = { fg = "#6BE4E6",  bold = true, },
+  ["@property"] = { fg = "#6BE4E6" },
+  ["@punctuation.bracket"] = { fg = colorscheme.colors.yellow },
+  ["@punctuation.delimiter"] = { fg = colorscheme.colors.yellow },
+  ["@tag.delimiter"] = { fg = colorscheme.theme.base05 },
+  Include = { fg = "#6BE4E6", bold = true },
 }
 
 require("aiko.theme").paint(colorscheme)

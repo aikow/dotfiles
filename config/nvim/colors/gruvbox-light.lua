@@ -56,7 +56,7 @@ colorscheme.colors = {
 }
 
 colorscheme.polish = {
-  TbLineThemeToggleBtn = { fg = "#F2E5BC",  bg = colorscheme.colors.white, },
+  TbLineThemeToggleBtn = { fg = "#F2E5BC", bg = colorscheme.colors.white },
 }
 
 require("aiko.theme").paint(colorscheme)

@@ -56,8 +56,8 @@ colorscheme.colors = {
 }
 
 colorscheme.polish = {
-  ["@operator"] = { fg = colorscheme.colors.nord_blue, },
-  Operator = { fg = colorscheme.colors.nord_blue, },
+  ["@operator"] = { fg = colorscheme.colors.nord_blue },
+  Operator = { fg = colorscheme.colors.nord_blue },
 }
 
 require("aiko.theme").paint(colorscheme)

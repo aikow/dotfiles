@@ -56,13 +56,13 @@ colorscheme.colors = {
 }
 
 colorscheme.polish = {
-  ["@boolean"] = { fg = colorscheme.theme.base09, },
-  ["@field.key"] = { fg = colorscheme.colors.white, },
-  ["@operator"] = { fg = colorscheme.colors.red, },
-  ["@punctuation.bracket"] = { fg = colorscheme.colors.sun, },
-  ["@string"] = { fg = colorscheme.colors.sun, },
-  Operator = { fg = colorscheme.colors.red, },
-  parameter = { fg = colorscheme.colors.blue, },
+  ["@boolean"] = { fg = colorscheme.theme.base09 },
+  ["@field.key"] = { fg = colorscheme.colors.white },
+  ["@operator"] = { fg = colorscheme.colors.red },
+  ["@punctuation.bracket"] = { fg = colorscheme.colors.sun },
+  ["@string"] = { fg = colorscheme.colors.sun },
+  Operator = { fg = colorscheme.colors.red },
+  parameter = { fg = colorscheme.colors.blue },
 }
 
 require("aiko.theme").paint(colorscheme)

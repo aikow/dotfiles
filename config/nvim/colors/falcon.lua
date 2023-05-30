@@ -61,12 +61,12 @@ colorscheme.extra = {
 }
 
 colorscheme.polish = {
-  ["@keyword"] = { fg = "#FFC552", },
-  Include = { fg = "#CFC1B2", },
-  Keyword = { fg = "#FFC552", },
-  Operator = { fg = "#FF761A", },
-  Statement = { fg = "#99A4BC", },
-  Type = { fg = "#DFDFE5", },
+  ["@keyword"] = { fg = "#FFC552" },
+  Include = { fg = "#CFC1B2" },
+  Keyword = { fg = "#FFC552" },
+  Operator = { fg = "#FF761A" },
+  Statement = { fg = "#99A4BC" },
+  Type = { fg = "#DFDFE5" },
 }
 
 require("aiko.theme").paint(colorscheme)

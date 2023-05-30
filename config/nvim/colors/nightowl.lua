@@ -56,10 +56,10 @@ colorscheme.colors = {
 }
 
 colorscheme.polish = {
-  ["@conditional"] = { fg = colorscheme.colors.cyan, },
-  ["@keyword.return"] = { fg = colorscheme.colors.cyan, },
-  ["@parameter"] = { fg = "#FFAD60", },
-  PmenuSel = { bg = colorscheme.colors.bg_pmenu, },
+  ["@conditional"] = { fg = colorscheme.colors.cyan },
+  ["@keyword.return"] = { fg = colorscheme.colors.cyan },
+  ["@parameter"] = { fg = "#FFAD60" },
+  PmenuSel = { bg = colorscheme.colors.bg_pmenu },
 }
 
 require("aiko.theme").paint(colorscheme)
