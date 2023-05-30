@@ -8,8 +8,10 @@ autoencoder
 BLEU
 bool
 BPE
+cmake
 config
 configs
+cython
 deque
 detokenizing
 dirpath
@@ -43,6 +45,7 @@ pipelined
 prosodic
 protobuf
 pydantic
+python3
 reentrant
 refactorings
 reusability
@@ -50,6 +53,7 @@ Segmenter
 serializeable
 splitable
 submodules
+Submodules
 subproblem
 subproblems
 Subword
