@@ -60,12 +60,12 @@ colorscheme.extra = {
 }
 
 colorscheme.polish = {
-  ["@field"] = { fg = "#ECE1D7", },
-  ["@field.key"] = { fg = "#ECE1D7", },
-  ["@function.macro"] = { fg = "#99D59D", },
-  Boolean = { fg = colorscheme.colors.purple, },
-  Include = { fg = "#99D59D", },
-  Operator = { fg = "#F17C64", },
+  ["@field"] = { fg = "#ECE1D7" },
+  ["@field.key"] = { fg = "#ECE1D7" },
+  ["@function.macro"] = { fg = "#99D59D" },
+  Boolean = { fg = colorscheme.colors.purple },
+  Include = { fg = "#99D59D" },
+  Operator = { fg = "#F17C64" },
 }
 
 require("aiko.theme").paint(colorscheme)

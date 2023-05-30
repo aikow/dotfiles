@@ -57,11 +57,11 @@ colorscheme.colors = {
 
 colorscheme.polish = {
   ["@constructor"] = {},
-  ["@keyword.return"] = { fg = "#EACD61", },
-  ["@parameter"] = { fg = colorscheme.colors.pink, },
-  ["@punctuation.bracket"] = { fg = "#B78AFF", },
-  Conditional = { fg = "#EACD61", },
-  Include = { fg = "#EACD61", },
+  ["@keyword.return"] = { fg = "#EACD61" },
+  ["@parameter"] = { fg = colorscheme.colors.pink },
+  ["@punctuation.bracket"] = { fg = "#B78AFF" },
+  Conditional = { fg = "#EACD61" },
+  Include = { fg = "#EACD61" },
 }
 
 require("aiko.theme").paint(colorscheme)

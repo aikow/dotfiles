@@ -56,11 +56,11 @@ colorscheme.colors = {
 }
 
 colorscheme.polish = {
-  ["@field"] = { fg = colorscheme.colors.green, },
-  Constant = { fg = colorscheme.theme.base09, },
-  St_NTerminalMode = { fg = colorscheme.colors.white, },
-  St_VisualMode = { bg = colorscheme.colors.teal, },
-  St_VisualModeSep = { fg = colorscheme.colors.teal, },
+  ["@field"] = { fg = colorscheme.colors.green },
+  Constant = { fg = colorscheme.theme.base09 },
+  St_NTerminalMode = { fg = colorscheme.colors.white },
+  St_VisualMode = { bg = colorscheme.colors.teal },
+  St_VisualModeSep = { fg = colorscheme.colors.teal },
 }
 
 require("aiko.theme").paint(colorscheme)

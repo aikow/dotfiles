@@ -56,16 +56,16 @@ colorscheme.colors = {
 }
 
 colorscheme.polish = {
-  ["@constructor"] = { fg = "#BAE6FD", },
-  ["@function.builtin"] = { fg = "#FBC19D", },
-  ["@function.call"] = { fg = "#BAE6FD", },
-  ["@keyword"] = { fg = "#FCA5A5", },
-  ["@method.call"] = { fg = "#BAE6FD", },
-  Conditional = { fg = "#FECDD3", },
-  Constant = { fg = "#FBC19D", },
-  Operator = { fg = "#FECDD3", },
-  Repeat = { fg = "#FECDD3", },
-  Type = { fg = "#FECDD3", },
+  ["@constructor"] = { fg = "#BAE6FD" },
+  ["@function.builtin"] = { fg = "#FBC19D" },
+  ["@function.call"] = { fg = "#BAE6FD" },
+  ["@keyword"] = { fg = "#FCA5A5" },
+  ["@method.call"] = { fg = "#BAE6FD" },
+  Conditional = { fg = "#FECDD3" },
+  Constant = { fg = "#FBC19D" },
+  Operator = { fg = "#FECDD3" },
+  Repeat = { fg = "#FECDD3" },
+  Type = { fg = "#FECDD3" },
 }
 
 require("aiko.theme").paint(colorscheme)

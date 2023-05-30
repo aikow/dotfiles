@@ -56,7 +56,7 @@ colorscheme.colors = {
 }
 
 colorscheme.polish = {
-  ["@function.builtin"] = { fg = colorscheme.colors.yellow, },
+  ["@function.builtin"] = { fg = colorscheme.colors.yellow },
 }
 
 require("aiko.theme").paint(colorscheme)

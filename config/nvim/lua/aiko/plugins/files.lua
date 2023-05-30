@@ -21,12 +21,56 @@ return {
       "nvim-tree/nvim-web-devicons",
       "MunifTanjim/nui.nvim",
     },
-    lazy = false,
+    cmd = "Neotree",
+    keys = {
+      {
+        "_",
+        function()
+          require("neo-tree.command").execute({
+            source = "filesystem",
+            reveal = true,
+            position = "left",
+          })
+        end,
+        desc = "reveal file in neo-tree",
+      },
+      {
+        "+",
+        function()
+          require("neo-tree.command").execute({
+            source = "buffers",
+            reveal = true,
+            position = "left",
+          })
+        end,
+        desc = "reveal buffers in neo-tree",
+      },
+      {
+        "-",
+        function()
+          require("neo-tree.command").execute({
+            source = "filesystem",
+            reveal = true,
+            position = "float",
+            dir = vim.fn.expand("%:p:h:h"),
+          })
+        end,
+        desc = "reveal file in neo-tree",
+      },
+    },
     init = function()
       vim.g.neo_tree_remove_legacy_commands = 1
+      if vim.fn.argc() == 1 then
+        local stat = vim.loop.fs_stat(vim.fn.argv(0))
+        if stat and stat.type == "directory" then
+          require("neo-tree")
+        end
+      end
     end,
     opts = {
       filesystem = {
+        bind_to_cwd = false,
+        follow_current_file = true,
         hijack_netrw_behavior = "open_default",
         use_libuv_file_watcher = true,
       },
@@ -39,14 +83,6 @@ return {
     },
     config = function(_, opts)
       require("neo-tree").setup(opts)
-
-      -- stylua: ignore
-      local keys = {
-        { "_", "<cmd>Neotree source=filesystem reveal=true<CR>", desc = "reveal file in neo-tree" },
-        { "+", "<cmd>Neotree source=buffers reveal=true<CR>", desc = "reveal buffers in neo-tree" },
-        { "-", [[<cmd>Neotree source=filesystem reveal=true position=current dir=%:p:h:h<CR>]], desc = "reveal file in neo-tree" },
-      }
-      lazy_keys(keys)
     end,
   },
 

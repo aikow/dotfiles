@@ -56,8 +56,8 @@ colorscheme.colors = {
 }
 
 colorscheme.polish = {
-  ["@parameter"] = { fg = colorscheme.colors.white, },
-  ["@variable"] = { fg = colorscheme.colors.orange, },
+  ["@parameter"] = { fg = colorscheme.colors.white },
+  ["@variable"] = { fg = colorscheme.colors.orange },
 }
 
 require("aiko.theme").paint(colorscheme)

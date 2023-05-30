@@ -60,15 +60,15 @@ colorscheme.extra = {
 }
 
 colorscheme.polish = {
-  ["@attribute"] = { fg = colorscheme.colors.cyan, },
-  ["@field"] = { fg = colorscheme.colors.purple, },
-  ["@function.builtin"] = { fg = colorscheme.colors.yellow, },
-  ["@module"] = { fg = colorscheme.extra.beige, },
-  ["@parameter"] = { fg = colorscheme.colors.green, },
-  ["@parenthesis"] = { link = "@punctuation.bracket", },
-  ["@punctuation.bracket"] = { fg = colorscheme.theme.base06, },
-  ["@variable"] = { fg = colorscheme.theme.base06, },
-  Operator = { fg = colorscheme.colors.blue, },
+  ["@attribute"] = { fg = colorscheme.colors.cyan },
+  ["@field"] = { fg = colorscheme.colors.purple },
+  ["@function.builtin"] = { fg = colorscheme.colors.yellow },
+  ["@module"] = { fg = colorscheme.extra.beige },
+  ["@parameter"] = { fg = colorscheme.colors.green },
+  ["@parenthesis"] = { link = "@punctuation.bracket" },
+  ["@punctuation.bracket"] = { fg = colorscheme.theme.base06 },
+  ["@variable"] = { fg = colorscheme.theme.base06 },
+  Operator = { fg = colorscheme.colors.blue },
 }
 
 require("aiko.theme").paint(colorscheme)

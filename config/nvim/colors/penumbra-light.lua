@@ -60,12 +60,12 @@ colorscheme.extra = {
 }
 
 colorscheme.polish = {
-  ["@field"] = { fg = colorscheme.extra.coal, },
-  ["@field.key"] = { fg = colorscheme.colors.red, },
-  ["@function.builtin"] = { fg = colorscheme.colors.teal, },
-  ["@punctuation.bracket"] = { fg = colorscheme.extra.coal, },
-  Constant = { fg = colorscheme.colors.red, },
-  Include = { fg = colorscheme.colors.dark_purple, },
+  ["@field"] = { fg = colorscheme.extra.coal },
+  ["@field.key"] = { fg = colorscheme.colors.red },
+  ["@function.builtin"] = { fg = colorscheme.colors.teal },
+  ["@punctuation.bracket"] = { fg = colorscheme.extra.coal },
+  Constant = { fg = colorscheme.colors.red },
+  Include = { fg = colorscheme.colors.dark_purple },
 }
 
 require("aiko.theme").paint(colorscheme)

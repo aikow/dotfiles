@@ -56,11 +56,14 @@ colorscheme.colors = {
 }
 
 colorscheme.polish = {
-  IndentBlanklineContextStart = { bg = colorscheme.colors.bg_1, },
-  St_pos_text = { fg = colorscheme.colors.white, },
-  TbLineThemeToggleBtn = { fg = colorscheme.colors.black,  bg = colorscheme.colors.white, },
-  WhichKey = { fg = colorscheme.colors.white, },
-  WhichKeyDesc = { fg = colorscheme.colors.white, },
+  IndentBlanklineContextStart = { bg = colorscheme.colors.bg_1 },
+  St_pos_text = { fg = colorscheme.colors.white },
+  TbLineThemeToggleBtn = {
+    fg = colorscheme.colors.black,
+    bg = colorscheme.colors.white,
+  },
+  WhichKey = { fg = colorscheme.colors.white },
+  WhichKeyDesc = { fg = colorscheme.colors.white },
 }
 
 require("aiko.theme").paint(colorscheme)

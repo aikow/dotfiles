@@ -60,8 +60,8 @@ colorscheme.extra = {
 }
 
 colorscheme.polish = {
-  Conditional = { fg = colorscheme.colors.nord_blue, },
-  Tag = { fg = colorscheme.colors.white, },
+  Conditional = { fg = colorscheme.colors.nord_blue },
+  Tag = { fg = colorscheme.colors.white },
 }
 
 require("aiko.theme").paint(colorscheme)
