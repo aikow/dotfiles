@@ -72,7 +72,6 @@ export HISTFILE=~/.zsh_history
 export HISTIGNORE="l:ls:ll:lll:lt:lg:cd:cd -:pwd:exit:date:* --help:man"
 
 
-
 #######################################################################
 #                         User Configuration                          #
 #######################################################################

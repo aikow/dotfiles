@@ -5,6 +5,7 @@ return {
     opts = {
       align = {},
       comment = {},
+      pairs = {},
       splitjoin = {
         mappings = {
           toggle = "gS",
