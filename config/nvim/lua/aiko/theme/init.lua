@@ -1,7 +1,6 @@
 local M = {}
 
 M.palettes = {
-  "alpha",
   "blankline",
   "cmp",
   "colors",
@@ -12,6 +11,7 @@ M.palettes = {
   "lsp",
   "luasnip",
   "mason",
+  "mini",
   "neo-tree",
   "neorg",
   "syntax",

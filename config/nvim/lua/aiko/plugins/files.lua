@@ -78,6 +78,7 @@ return {
         mappings = {
           ["<C-v>"] = "open_vsplit",
           ["<C-x>"] = "open_split",
+          ["-"] = "navigate_up",
         },
       },
     },
