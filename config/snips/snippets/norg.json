@@ -17,7 +17,7 @@
   "task": {
     "description": "task",
     "prefix": "task",
-    "body": ["- ( ) ${1:task}"]
+    "body": ["- ( ) ${0:task}"]
   },
   "link": {
     "description": "links",
@@ -32,27 +32,27 @@
   "bold": {
     "description": "bold words",
     "prefix": "bold",
-    "body": ["*$0*"]
+    "body": ["*$1*"]
   },
   "italic": {
     "description": "italic words",
     "prefix": "italic",
-    "body": ["/$0/"]
+    "body": ["/$1/"]
   },
   "underline": {
     "description": "underline words",
     "prefix": "underline",
-    "body": ["_$0_"]
+    "body": ["_$1_"]
   },
   "subscript": {
     "description": "subscript",
     "prefix": "subscript",
-    "body": [",$0,"]
+    "body": [",$1,"]
   },
   "superscript": {
     "description": "superscript",
     "prefix": "superscript",
-    "body": ["^$0^"]
+    "body": ["^$1^"]
   },
   "var": {
     "description": "variable",
