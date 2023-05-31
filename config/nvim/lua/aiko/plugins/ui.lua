@@ -166,64 +166,6 @@ return {
     end,
   },
 
-  -- Greeter
-  {
-    "goolord/alpha-nvim",
-    dependencies = { "nvim-tree/nvim-web-devicons" },
-    config = function()
-      local alpha = require("alpha")
-      local dashboard = require("alpha.themes.dashboard")
-
-      -- Set header
-      dashboard.section.header.val = {
-        "                                                     ",
-        "  ███╗   ██╗███████╗ ██████╗ ██╗   ██╗██╗███╗   ███╗ ",
-        "  ████╗  ██║██╔════╝██╔═══██╗██║   ██║██║████╗ ████║ ",
-        "  ██╔██╗ ██║█████╗  ██║   ██║██║   ██║██║██╔████╔██║ ",
-        "  ██║╚██╗██║██╔══╝  ██║   ██║╚██╗ ██╔╝██║██║╚██╔╝██║ ",
-        "  ██║ ╚████║███████╗╚██████╔╝ ╚████╔╝ ██║██║ ╚═╝ ██║ ",
-        "  ╚═╝  ╚═══╝╚══════╝ ╚═════╝   ╚═══╝  ╚═╝╚═╝     ╚═╝ ",
-        "                                                     ",
-      }
-
-      -- Set menu
-      -- stylua: ignore
-      dashboard.section.buttons.val = {
-        dashboard.button("e", "  > New file", ":enew <BAR> startinsert <CR>"),
-        dashboard.button("f", "  > Find file", ":cd $HOME/workspace | Telescope find_files<CR>"),
-        dashboard.button("r", "  > Recent", ":Telescope oldfiles<CR>"),
-        dashboard.button("n", "  > News", ":vert help news<CR>"),
-        dashboard.button("u", "  > Update plugins", ":Lazy sync<CR>"),
-        dashboard.button("c", "  > Config", ":edit $MYVIMRC | :cd %:p:h | split . | wincmd k | pwd<CR>"),
-        dashboard.button("q", "  > Quit", ":qa<CR>"),
-      }
-
-      local v = vim.split(vim.fn.execute("version"), "\n", { trimempty = true })
-      local footer = {}
-      for _, s in ipairs({ v[1]:sub(5, -1), v[2], v[3] }) do
-        local padding = 57 - string.len(s)
-        local left = padding / 2
-        local right = padding - left
-        table.insert(
-          footer,
-          string.rep(" ", left) .. s .. string.rep(" ", right)
-        )
-      end
-      dashboard.section.footer.val = footer
-
-      -- Send config to alpha
-      alpha.setup(dashboard.opts)
-
-      -- Disable folding on alpha buffer
-      vim.api.nvim_create_autocmd("FileType", {
-        pattern = "alpha",
-        callback = function()
-          vim.opt_local.foldenable = false
-        end,
-      })
-    end,
-  },
-
   -- Show indentation.
   {
     "lukas-reineke/indent-blankline.nvim",
@@ -242,6 +184,7 @@ return {
           "man",
           "mason",
           "norg",
+          "starter",
           "terminal",
         },
         buftype_exclude = { "terminal" },
