@@ -3,7 +3,24 @@ return {
     "echasnovski/mini.nvim",
     version = false,
     opts = {
+      ai = {},
       align = {},
+      bracketed = {
+        buffer = { suffix = "b" },
+        comment = { suffix = "x" },
+        conflict = { suffix = "c" },
+        diagnostic = { suffix = "" },
+        file = { suffix = "f" },
+        indent = { suffix = "" },
+        jump = { suffix = "" },
+        location = { suffix = "l" },
+        oldfile = { suffix = "o" },
+        quickfix = { suffix = "q" },
+        treesitter = { suffix = "t" },
+        undo = { suffix = "" },
+        window = { suffix = "w" },
+        yank = { suffix = "" },
+      },
       comment = {},
       pairs = {},
       splitjoin = {
@@ -57,8 +74,9 @@ return {
         header = logo,
         items = {
           section("Empty file", "enew | startinsert ", "Edit"),
+          section("Directory", "Telescope find_files", "Edit"),
           section(
-            "Find file",
+            "Workspace",
             "cd $HOME/workspace | Telescope find_files",
             "Edit"
           ),
