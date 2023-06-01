@@ -70,23 +70,22 @@ return {
       lualine.setup({
         options = {
           icons_enabled = true,
-          component_separators = separators.round.outline,
-          section_separators = separators.round.fill,
+          component_separators = separators.block.outline,
+          section_separators = "",
           disabled_filetypes = {
             statusline = {},
             winbar = {
               "DressingInput",
-              "NvimTree",
               "TelescopePreview",
               "TelescopePrompt",
               "TelescopeResults",
-              "alpha",
               "fzf",
               "help",
               "mason",
               "neo-tree",
               "packer",
               "qf",
+              "starter",
             },
           },
           ignore_focus = {},
@@ -125,11 +124,9 @@ return {
               max_length = function()
                 return vim.o.columns / 3
               end,
-              filetype_names = {
-                NvimTree = "NvimTree",
-                alpha = "Alpha",
-              },
-              disabled_buftypes = { "quickfix", "prompt", "NvimTree" },
+              filetype_names = {},
+              disabled_buftypes = { "quickfix", "prompt", "terminal" },
+              disabled_filetypes = { "starter" },
             },
           },
         },
@@ -173,11 +170,9 @@ return {
       require("indent_blankline").setup({
         filetype_exclude = {
           "",
-          "NvimTree",
           "Outline",
           "TelescopePrompt",
           "TelescopeResults",
-          "alpha",
           "help",
           "lazy",
           "lspinfo",

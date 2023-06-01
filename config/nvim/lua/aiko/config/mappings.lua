@@ -106,30 +106,6 @@ map("n", "<M-t>", "<cmd>tabnew term://fish<CR>", { desc = "Open a shell in a tab
 -- Toggles between most recent buffers
 map("n", "<leader><leader>", "<c-^>", { desc = "switch to most recent buffer" })
 
--- Navigate quickfix list
-map("n", "]q", "<cmd>cnext<CR>", { desc = "cnext" })
-map("n", "[q", "<cmd>cprev<CR>", { desc = "cprev" })
-map("n", "]Q", "<cmd>clast<CR>", { desc = "clast" })
-map("n", "[Q", "<cmd>cfirst<CR>", { desc = "cfirst" })
-
--- Navigate location list
-map("n", "]l", "<cmd>lnext<CR>", { desc = "lnext" })
-map("n", "[l", "<cmd>lprev<CR>", { desc = "lprev" })
-map("n", "]L", "<cmd>llast<CR>", { desc = "llast" })
-map("n", "[L", "<cmd>lfirst<CR>", { desc = "lfirst" })
-
--- navigate buffers
-map("n", "]b", "<cmd>bnext<CR>", { desc = "bnext" })
-map("n", "[b", "<cmd>bprev<CR>", { desc = "bprev" })
-map("n", "]B", "<cmd>blast<CR>", { desc = "blast" })
-map("n", "[B", "<cmd>bfirst<CR>", { desc = "bfirst" })
-
--- navigate files
-map("n", "]f", "<cmd>next<CR>", { desc = "next" })
-map("n", "[f", "<cmd>prev<CR>", { desc = "prev" })
-map("n", "]F", "<cmd>last<CR>", { desc = "last" })
-map("n", "[F", "<cmd>first<CR>", { desc = "first" })
-
 -- Extra completion modes
 map(
   "i",
