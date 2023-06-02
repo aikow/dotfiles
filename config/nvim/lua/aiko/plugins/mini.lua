@@ -74,6 +74,7 @@ return {
         header = logo,
         items = {
           section("Empty file", "enew | startinsert ", "Edit"),
+          section("Terminal", "terminal fish", "Edit"),
           section("Directory", "Telescope find_files", "Edit"),
           section(
             "Workspace",
@@ -91,7 +92,6 @@ return {
           starter.gen_hook.adding_bullet("░ ", false),
           starter.gen_hook.aligning("center", "center"),
         },
-        silent = true,
       }
 
       require("mini.starter").setup(config)
