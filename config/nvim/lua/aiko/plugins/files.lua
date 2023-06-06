@@ -51,7 +51,7 @@ return {
           require("neo-tree.command").execute({
             source = "filesystem",
             reveal = true,
-            position = "float",
+            position = "current",
             dir = vim.fn.expand("%:p:h:h"),
           })
         end,
