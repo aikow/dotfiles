@@ -111,11 +111,13 @@ return {
     "sindrets/diffview.nvim",
     dependencies = { "nvim-lua/plenary.nvim" },
     cmd = {
-      "DiffviewOpen",
       "DiffviewClose",
-      "DiffviewTooggleFiles",
+      "DiffviewFileHistory",
       "DiffviewFocusFiles",
+      "DiffviewLog",
+      "DiffviewOpen",
       "DiffviewRefresh",
+      "DiffviewToggleFiles",
     },
     -- stylua: ignore
     keys = {
