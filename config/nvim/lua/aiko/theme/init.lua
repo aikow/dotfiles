@@ -27,13 +27,13 @@ M.integrations = {
 ---Load all the highlights from the integration for the colorscheme.
 ---@param group string
 ---@param colorscheme Scheme
----@return nil|table<string, string>
+---@return table<string, string>
 M.load_palette = function(group, colorscheme)
   local modpath = "aiko.theme.palettes." .. group
   local ok, mod = pcall(require, modpath)
   if not ok then
     vim.notify("Unable to load group " .. group)
-    return
+    return {}
   end
 
   return mod.palette(colorscheme.theme, colorscheme.colors)
@@ -58,7 +58,7 @@ end
 ---@param colorscheme Scheme
 M.paint = function(colorscheme)
   colorscheme.polish = colorscheme.polish or {}
-  local all = {}
+  local highlights = {}
 
   -- Clear existing highlight groups
   vim.cmd([[highlight clear]])
@@ -72,14 +72,14 @@ M.paint = function(colorscheme)
   -- Load all integrations
   for _, group in ipairs(M.palettes) do
     local palette = M.load_palette(group, colorscheme)
-    all = vim.tbl_extend("force", all, palette)
+    highlights = vim.tbl_extend("force", highlights, palette)
   end
 
-  -- Apply the polish if the color scheme has any
-  all = vim.tbl_extend("force", all, colorscheme.polish)
+  -- Apply the polish if the color scheme has any.
+  highlights = vim.tbl_deep_extend("force", highlights, colorscheme.polish)
 
-  -- Override with the polish.
-  for group, c in pairs(all) do
+  -- Set the highlight groups.
+  for group, c in pairs(highlights) do
     vim.api.nvim_set_hl(0, group, c)
   end
 
