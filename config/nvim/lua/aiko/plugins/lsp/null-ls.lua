@@ -34,8 +34,12 @@ M.setup = function(_, opts)
   local null_ls = require("null-ls")
   local mason_null = require("mason-null-ls")
 
+  local nls = require("null-ls")
   null_ls.setup({
-    sources = {},
+    sources = {
+      nls.builtins.formatting.fish_indent,
+      nls.builtins.diagnostics.fish,
+    },
   })
 
   mason_null.setup({
