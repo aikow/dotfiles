@@ -104,11 +104,7 @@ return {
   -- Neovim development with lua.
   {
     "folke/neodev.nvim",
-    enabled = true,
-    ft = { "lua" },
-    config = function()
-      require("neodev").setup({})
-    end,
+    opts = {},
   },
 
   -- Project local configuration via JSON.
