@@ -1,3 +1,5 @@
+local feedkeys = require("aiko.util").feedkeys
+
 return {
   -- Plenary provides helper functions.
   {
@@ -48,13 +50,6 @@ return {
       -- -----------------------
       -- |   Trigger Keymaps   |
       -- -----------------------
-      local feedkeys = function(keys)
-        vim.api.nvim_feedkeys(
-          vim.api.nvim_replace_termcodes(keys, true, true, true),
-          "n",
-          false
-        )
-      end
 
       map("i", "<M-Tab>", function()
         if ls.jumpable() then
@@ -95,11 +90,17 @@ return {
         end
       end, { silent = true, desc = "luasnip jump back one" })
 
-      map({ "i", "s" }, "<C-l>", function()
+      map({ "i", "s" }, "<C-j>", function()
         if ls.choice_active() then
           ls.change_choice(1)
         end
       end, { silent = true, desc = "luasnip next choice" })
+
+      map({ "i", "s" }, "<C-k>", function()
+        if ls.choice_active() then
+          ls.change_choice(-1)
+        end
+      end, { silent = true, desc = "luasnip previous choice" })
 
       map({ "i", "s" }, "<C-u>", function()
         if ls.choice_active() then
@@ -139,7 +140,6 @@ return {
     "hrsh7th/nvim-cmp",
     event = { "InsertEnter", "CmdlineEnter" },
     dependencies = {
-      "hrsh7th/cmp-nvim-lua",
       "hrsh7th/cmp-nvim-lsp",
       "hrsh7th/cmp-buffer",
       "hrsh7th/cmp-path",
@@ -217,7 +217,6 @@ return {
         sources = cmp.config.sources({
           { name = "crates" },
           { name = "gh_issues" },
-          { name = "nvim_lua" },
           { name = "nvim_lsp" },
           { name = "path" },
           { name = "luasnip" },
@@ -244,7 +243,6 @@ return {
       -- Command mode completions.
       cmp.setup.cmdline(":", {
         sources = cmp.config.sources({
-          { name = "nvim_lua" },
           { name = "cmdline" },
           { name = "path" },
         }),
