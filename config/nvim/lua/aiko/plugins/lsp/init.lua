@@ -5,7 +5,7 @@ return {
     dependencies = {
       "williamboman/mason.nvim",
       "williamboman/mason-lspconfig.nvim",
-      "folke/neodev.nvim",
+      { "folke/neodev.nvim", opts = {} },
       "hrsh7th/cmp-nvim-lsp",
     },
     event = { "BufReadPre" },
@@ -99,12 +99,6 @@ return {
         },
       })
     end,
-  },
-
-  -- Neovim development with lua.
-  {
-    "folke/neodev.nvim",
-    opts = {},
   },
 
   -- Project local configuration via JSON.
