@@ -7,6 +7,3 @@
 
 # Lazy.nvim lock file
 /lazy-lock.json
-
-# Local nvim configuration module
-/lua/aiko/local

@@ -92,7 +92,7 @@ return {
 
       local starter = require("mini.starter")
       local config = {
-        evaluate_single = false,
+        evaluate_single = true,
         header = logo,
         items = {
           section("Empty file", "enew | startinsert ", "Edit"),
