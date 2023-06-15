@@ -1,51 +1,71 @@
 return {
   {
-    "echasnovski/mini.nvim",
-    version = false,
+    "echasnovski/mini.ai",
+    opts = {},
+  },
+
+  {
+    "echasnovski/mini.align",
+    opts = {},
+  },
+
+  {
+    "echasnovski/mini.bracketed",
     opts = {
-      ai = {},
-      align = {},
-      bracketed = {
-        buffer = { suffix = "b" },
-        comment = { suffix = "x" },
-        conflict = { suffix = "c" },
-        diagnostic = { suffix = "" },
-        file = { suffix = "f" },
-        indent = { suffix = "" },
-        jump = { suffix = "" },
-        location = { suffix = "l" },
-        oldfile = { suffix = "o" },
-        quickfix = { suffix = "q" },
-        treesitter = { suffix = "t" },
-        undo = { suffix = "" },
-        window = { suffix = "w" },
-        yank = { suffix = "" },
-      },
-      comment = {},
-      pairs = {},
-      splitjoin = {
-        mappings = {
-          toggle = "gS",
-        },
-      },
-      surround = {
-        mappings = {
-          add = "gs",
-          delete = "ds",
-          find = "",
-          find_left = "",
-          highlight = "gsh",
-          replace = "cs",
-          update_n_lines = "",
-          suffix_last = "l",
-          suffix_next = "n",
-        },
+      buffer = { suffix = "b" },
+      comment = { suffix = "x" },
+      conflict = { suffix = "c" },
+      diagnostic = { suffix = "" },
+      file = { suffix = "f" },
+      indent = { suffix = "" },
+      jump = { suffix = "" },
+      location = { suffix = "l" },
+      oldfile = { suffix = "o" },
+      quickfix = { suffix = "q" },
+      treesitter = { suffix = "t" },
+      undo = { suffix = "" },
+      window = { suffix = "w" },
+      yank = { suffix = "" },
+    },
+  },
+  {
+    "echasnovski/mini.comment",
+    opts = {},
+  },
+  {
+    "echasnovski/mini.pairs",
+    opts = {},
+  },
+  {
+    "echasnovski/mini.splitjoin",
+    opts = {
+      mappings = {
+        toggle = "gS",
       },
     },
-    config = function(_, opts)
-      for mod, o in pairs(opts) do
-        require("mini." .. mod).setup(o)
-      end
+  },
+
+  {
+    "echasnovski/mini.surround",
+    opts = {
+      mappings = {
+        add = "gs",
+        delete = "ds",
+        find = "",
+        find_left = "",
+        highlight = "gsh",
+        replace = "cs",
+        update_n_lines = "",
+        suffix_last = "l",
+        suffix_next = "n",
+      },
+    },
+  },
+
+  {
+    "echasnovski/mini.starter",
+    event = "VimEnter",
+    opts = function()
       local logo = table.concat({
         "                                                  ",
         "███╗   ██╗███████╗ ██████╗ ██╗   ██╗██╗███╗   ███╗",
@@ -64,13 +84,15 @@ return {
         version[2],
         version[3],
       }, "\n")
+
+      -- Small helper function to create a new section.
       local section = function(name, action, section)
         return { name = name, action = action, section = section }
       end
 
       local starter = require("mini.starter")
       local config = {
-        evaluate_single = true,
+        evaluate_single = false,
         header = logo,
         items = {
           section("Empty file", "enew | startinsert ", "Edit"),
@@ -94,13 +116,27 @@ return {
         },
       }
 
-      require("mini.starter").setup(config)
+      return config
+    end,
+    config = function(_, opts)
+      if vim.o.filetype == "lazy" then
+        vim.cmd.close()
+        vim.api.nvim_create_autocmd("User", {
+          pattern = "MiniStarterOpened",
+          callback = function()
+            require("lazy").show()
+          end,
+        })
+      end
+
+      local starter = require("mini.starter")
+      starter.setup(opts)
+
       vim.api.nvim_create_autocmd("User", {
         pattern = "LazyVimStarted",
         callback = function()
           local stats = require("lazy").stats()
           local ms = (math.floor(stats.startuptime * 100 + 0.5) / 100)
-          print(vim.inspect(stats))
           starter.config.footer = starter.config.footer
             .. "\n\n"
             .. "Loaded "
