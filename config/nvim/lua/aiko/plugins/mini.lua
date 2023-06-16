@@ -56,9 +56,13 @@ return {
         highlight = "gsh",
         replace = "cs",
         update_n_lines = "",
+
         suffix_last = "l",
         suffix_next = "n",
       },
+      n_lines = 40,
+      respect_selection_type = true,
+      search_method = "cover_or_next",
     },
   },
 
