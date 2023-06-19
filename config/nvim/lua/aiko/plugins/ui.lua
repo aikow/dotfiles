@@ -67,6 +67,12 @@ return {
         end,
       })
 
+      vim.api.nvim_create_autocmd("ColorschemePre", {
+        callback = function()
+          require("lualine").setup({ options = { theme = "auto" } })
+        end,
+      })
+
       lualine.setup({
         options = {
           icons_enabled = true,
