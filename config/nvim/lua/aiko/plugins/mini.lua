@@ -45,6 +45,12 @@ return {
     },
   },
 
+  -- {
+  --   "echasnovski/mini.statusline",
+  --   opts = {},
+  --   event = "VeryLazy",
+  -- },
+
   {
     "echasnovski/mini.surround",
     opts = {
