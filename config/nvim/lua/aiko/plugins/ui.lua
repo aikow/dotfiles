@@ -111,7 +111,6 @@ return {
           lualine_y = { "diagnostics" },
           lualine_z = { "%l:%c", "%L" },
         },
-
         tabline = {
           lualine_a = {
             {
@@ -124,32 +123,22 @@ return {
           lualine_c = {},
           lualine_x = {},
           lualine_y = {},
-          lualine_z = {
-            {
-              "windows",
-              max_length = function()
-                return vim.o.columns / 3
-              end,
-              filetype_names = {},
-              disabled_buftypes = { "quickfix", "prompt", "terminal" },
-              disabled_filetypes = { "starter" },
-            },
-          },
+          lualine_z = {},
         },
         winbar = {
           lualine_a = {},
           lualine_b = { "filename" },
           lualine_c = { loc },
-          lualine_x = { "encoding", "fileformat", "filetype" },
-          lualine_y = {},
+          lualine_x = { "encoding", "fileformat" },
+          lualine_y = { "filetype" },
           lualine_z = {},
         },
         inactive_winbar = {
           lualine_a = {},
           lualine_b = { "filename" },
-          lualine_c = { loc },
-          lualine_x = { "encoding", "fileformat", "filetype" },
-          lualine_y = {},
+          lualine_c = {},
+          lualine_x = { "encoding", "fileformat" },
+          lualine_y = { "filetype" },
           lualine_z = {},
         },
         extensions = {
