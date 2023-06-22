@@ -283,21 +283,26 @@ return {
 
   {
     "echasnovski/mini.comment",
-    keys = { "gc", "gcc" },
+    keys = {
+      { "gc", mode = { "n", "v" } },
+      { "gcc" },
+    },
     opts = {},
   },
 
   {
     "echasnovski/mini.pairs",
+    enabled = false,
+    event = "VeryLazy",
     opts = {},
   },
 
   {
     "echasnovski/mini.splitjoin",
-    keys = { "gS" },
+    keys = { "gz" },
     opts = {
       mappings = {
-        toggle = "gS",
+        toggle = "gz",
       },
     },
   },
