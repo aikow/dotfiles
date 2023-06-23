@@ -1,8 +1,8 @@
 local M = {}
 
----@alias Background "light" | "dark"
+---@alias NvimBackground "light" | "dark"
 
----@class Color
+---@class NvimColor
 ---@field fg string
 ---@field bg string
 ---@field sp string
@@ -11,12 +11,12 @@ local M = {}
 ---@field underline boolean
 ---@field strikethrough boolean
 ---@field undercurl boolean
-M.Color = {}
+M.NvimColor = {}
 
 ---comment
 ---@param o table
 ---@return any
-function M.Color:new(o)
+function M.NvimColor:new(o)
   o = o or {}
   return setmetatable(o, {
     __index = self,
@@ -26,7 +26,7 @@ function M.Color:new(o)
   })
 end
 
----@class Theme
+---@class Base46Theme
 ---@field base00 string -- Default background color
 ---@field base01 string -- Lighter background color (status bars, line numbers, folding marks)
 ---@field base02 string -- Selection background
@@ -43,12 +43,12 @@ end
 ---@field base0D string -- Functions, methods, attribute IDs, headings
 ---@field base0E string -- Keywords, storage, selector, markup italic, diff changed
 ---@field base0F string -- Deprecated, opening and closing embedded language tags
-M.Theme = {}
+M.Base46Theme = {}
 
 ---comment
----@param o Theme
+---@param o Base46Theme
 ---@return any
-function M.Theme:new(o)
+function M.Base46Theme:new(o)
   o = o or {}
   return setmetatable(o, {
     __index = self,
@@ -58,7 +58,7 @@ function M.Theme:new(o)
   })
 end
 
----@class Colors
+---@class Base46Colors
 ---@field white string
 ---@field black string -- Nvim theme background color
 ---@field dark_black string -- 6% darker than black
@@ -89,12 +89,12 @@ end
 ---@field teal string
 ---@field orange string
 ---@field cyan string
-M.Colors = {}
+M.Base46Colors = {}
 
 ---comment
----@param o Colors
+---@param o Base46Colors
 ---@return any
-function M.Colors:new(o)
+function M.Base46Colors:new(o)
   o = o or {}
   return setmetatable(o, {
     __index = self,
@@ -106,19 +106,19 @@ end
 
 -- A color scheme object defines some basic properties that are then used to
 ---create all the other highlight groups.
----@class Scheme
+---@class Base46
 ---@field name string The name of the color scheme which should match the file name.
----@field background Background The background color, either 'light' or 'dark'
----@field theme Theme The base16 theme.
----@field colors Colors The extended colors.
+---@field background NvimBackground The background color, either 'light' or 'dark'
+---@field theme Base46Theme The base16 theme.
+---@field colors Base46Colors The extended colors.
 ---@field extra table<string, string> Any extra colors that are only specific to this theme.
----@field polish table<string, Color> Overrides for the default generated highlight groups.
-M.Scheme = {}
+---@field polish table<string, NvimColor> Overrides for the default generated highlight groups.
+M.Base46 = {}
 
 ---comment
----@param o { name: string, background: Background }
----@return Scheme
-function M.Scheme:new(o)
+---@param o { name: string, background: NvimBackground }
+---@return Base46
+function M.Base46:new(o)
   o = o or {}
 
   return setmetatable({

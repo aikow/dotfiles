@@ -1,4 +1,4 @@
-local colorscheme = require("aiko.theme.colorscheme").Scheme:new({
+local colorscheme = require("aiko.base46.base46").Base46:new({
   name = "ayu-light",
   background = "light",
 })
@@ -64,4 +64,4 @@ colorscheme.polish = {
   luaTSField = { fg = "#FA8D3E" },
 }
 
-require("aiko.theme").paint(colorscheme)
+require("aiko.base46").paint(colorscheme)

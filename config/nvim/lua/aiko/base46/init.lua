@@ -26,10 +26,10 @@ M.integrations = {
 
 ---Load all the highlights from the integration for the colorscheme.
 ---@param group string
----@param colorscheme Scheme
+---@param colorscheme Base46
 ---@return table<string, string>
 M.load_palette = function(group, colorscheme)
-  local modpath = "aiko.theme.palettes." .. group
+  local modpath = "aiko.base46.palettes." .. group
   local ok, mod = pcall(require, modpath)
   if not ok then
     vim.notify("Unable to load group " .. group)
@@ -42,9 +42,9 @@ end
 ---Run the setup code for an integration that doesn't need to return a list of
 ---highlight groups
 ---@param group string name of the integration
----@param colorscheme Scheme the table of colors in the colorscheme.
+---@param colorscheme Base46 the table of colors in the colorscheme.
 M.load_integration = function(group, colorscheme)
-  local modpath = "aiko.theme.integrations." .. group
+  local modpath = "aiko.base46.integrations." .. group
   local ok, mod = pcall(require, modpath)
   if not ok then
     vim.notify("Unable to load integration " .. group)
@@ -55,7 +55,7 @@ M.load_integration = function(group, colorscheme)
 end
 
 ---Set the neovim color scheme based on the Colorscheme object.
----@param colorscheme Scheme
+---@param colorscheme Base46
 M.paint = function(colorscheme)
   colorscheme.polish = colorscheme.polish or {}
   local highlights = {}

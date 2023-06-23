@@ -1,5 +1,5 @@
 local iter_query = require("aiko.util.treesitter").iter_query
-local sql_format = require("aiko.util.sql-format").sql_format
+local sql_format = require("aiko.util.lang.sql-format").sql_format
 
 vim.opt_local.expandtab = true
 vim.opt_local.autoindent = true
@@ -41,7 +41,7 @@ vim.api.nvim_buf_create_user_command(0, "StringWrap", function()
       local is_fstring = false
       local is_rstring = false
       local words = {}
-      for line in vim.gsplit(text, "\n", true) do
+      for line in vim.gsplit(text, "\n", { trimempty = true }) do
         local modifier, trimmed =
           string.match(vim.trim(line), [[^([frFR]*)"(.*)"$]])
         modifier = modifier or ""
@@ -68,7 +68,7 @@ vim.api.nvim_buf_create_user_command(0, "StringWrap", function()
       -- Only modify it if the string is not a raw string, we do not want to mess
       -- with those.
       -- Start row, start col, end row, end col
-      local width = vim.api.nvim_buf_get_option(0, "textwidth")
+      local width = vim.api.nvim_get_option_value("textwidth")
         - args.range[2]
         - 2
         - (is_fstring and 1 or 0)
