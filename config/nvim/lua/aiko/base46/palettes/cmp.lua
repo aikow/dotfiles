@@ -1,8 +1,8 @@
 local M = {}
 
 ---comment
----@param theme Theme
----@param colors Colors
+---@param theme Base46Base46Theme
+---@param colors Base46Base46Colors
 ---@return table<string, Color>
 M.palette = function(theme, colors)
   return {

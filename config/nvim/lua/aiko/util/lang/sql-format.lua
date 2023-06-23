@@ -40,12 +40,26 @@ end
 M.sql_format = function(bufnr, opts)
   bufnr = (bufnr > 0) and bufnr or vim.api.nvim_get_current_buf()
 
-  local lang = opts.lang or vim.b.sql_format_lang or "sqlite"
-  local trim = opts.trim or vim.b.sql_format_trim or { 1, 1 }
-  local offset = opts.offset or vim.b.sql_format_offset or { 1, 0 }
+  local lang = opts.lang
+    or vim.api.nvim_get_option_value("sql_format_lang")
+    or "sqlite"
+  local trim = opts.trim
+    or vim.api.nvim_get_option_value("sql_format_trim")
+    or { 1, 1 }
+  local offset = opts.offset
+    or vim.api.nvim_get_option_value("sql_format_offset")
+    or { 1, 0 }
 
   local filetype = vim.bo[bufnr].filetype
-  local query = vim.treesitter.get_query(filetype, "injections")
+  local query = vim.treesitter.query.get(filetype, "injections")
+  if not query then
+    vim.notify(
+      string.format("Unable to get injections for %s", filetype),
+      vim.log.levels.WARN
+    )
+    return
+  end
+
   local parser = vim.treesitter.get_parser(bufnr, filetype, {})
   local tree = parser:parse()[1]
   local root = tree:root()

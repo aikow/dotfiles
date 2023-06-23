@@ -1,4 +1,4 @@
-local colorscheme = require("aiko.theme.colorscheme").Scheme:new({
+local colorscheme = require("aiko.base46.base46").Base46:new({
   name = "nightowl",
   background = "dark",
 })
@@ -62,4 +62,4 @@ colorscheme.polish = {
   PmenuSel = { bg = colorscheme.colors.bg_pmenu },
 }
 
-require("aiko.theme").paint(colorscheme)
+require("aiko.base46").paint(colorscheme)

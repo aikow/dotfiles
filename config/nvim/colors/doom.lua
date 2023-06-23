@@ -1,4 +1,4 @@
-local colorscheme = require("aiko.theme.colorscheme").Scheme:new({
+local colorscheme = require("aiko.base46.base46").Base46:new({
   name = "doom",
   background = "dark",
 })
@@ -60,4 +60,4 @@ colorscheme.polish = {
   ["@punctuation.bracket"] = { fg = "#ECBE7B" },
 }
 
-require("aiko.theme").paint(colorscheme)
+require("aiko.base46").paint(colorscheme)

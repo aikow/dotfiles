@@ -1,4 +1,4 @@
-local colorscheme = require("aiko.theme.colorscheme").Scheme:new({
+local colorscheme = require("aiko.base46.base46").Base46:new({
   name = "yoru",
   background = "dark",
 })
@@ -59,4 +59,4 @@ colorscheme.extra = {
   lighter_black = "#121415",
 }
 
-require("aiko.theme").paint(colorscheme)
+require("aiko.base46").paint(colorscheme)

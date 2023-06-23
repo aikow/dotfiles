@@ -83,7 +83,7 @@ end
 ---Search for a color in the 3 color tables associated with a colorscheme. The
 ---order the tables are searched in is first the base 30 colors, then the extra
 ---colors, and finally the base_16 colors.
----@param module { base_16: Theme, base_30: Colors, extra: table<string, string>}
+---@param module { base_16: Base46Theme, base_30: Base46Colors, extra: table<string, string>}
 ---@param color string | boolean the value of the attribute on the Color
 ---@return string representation of the link as a string of lua code
 local lookup_color = function(module, color)
@@ -196,7 +196,7 @@ local dump_module = function(dirpath, theme)
   -- Create Colorscheme instance
   file:write(
     string.format(
-      'local colorscheme = require("aiko.theme.colorscheme").Scheme:new({\n  name = "%s",\n  background = "%s",\n})',
+      'local colorscheme = require("aiko.base46.base46").Base46:new({\n  name = "%s",\n  background = "%s",\n})',
       theme.name,
       theme.background
     ),
@@ -252,7 +252,7 @@ local dump_module = function(dirpath, theme)
   end
 
   -- Add method call to paint the colorscheme.
-  file:write([[require("aiko.theme").paint(colorscheme)]], "\n")
+  file:write([[require("aiko.base46").paint(colorscheme)]], "\n")
 
   -- Flush and close the file.
   file:flush()

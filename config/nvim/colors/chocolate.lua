@@ -1,4 +1,4 @@
-local colorscheme = require("aiko.theme.colorscheme").Scheme:new({
+local colorscheme = require("aiko.base46.base46").Base46:new({
   name = "chocolate",
   background = "dark",
 })
@@ -71,4 +71,4 @@ colorscheme.polish = {
   Operator = { fg = colorscheme.colors.blue },
 }
 
-require("aiko.theme").paint(colorscheme)
+require("aiko.base46").paint(colorscheme)

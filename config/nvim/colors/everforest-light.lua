@@ -1,4 +1,4 @@
-local colorscheme = require("aiko.theme.colorscheme").Scheme:new({
+local colorscheme = require("aiko.base46.base46").Base46:new({
   name = "everforest-light",
   background = "light",
 })
@@ -70,4 +70,4 @@ colorscheme.polish = {
   WhichKeyDesc = { fg = colorscheme.colors.white },
 }
 
-require("aiko.theme").paint(colorscheme)
+require("aiko.base46").paint(colorscheme)

@@ -18,7 +18,7 @@ M.iter_query = function(bufnr, query, callback, opts)
   -- Get options if set, or their default values.
   opts = opts or {}
   local filetype = opts.filetype
-    or vim.api.nvim_buf_get_option(bufnr, "filetype")
+    or vim.api.nvim_get_option_value("filetype", { buf = bufnr })
   local capture = opts.capture
   local line_offset = opts.line_offset or { 1, 0 }
 

@@ -2,7 +2,7 @@ local M = {}
 local str = require("aiko.util.string")
 
 ---comment
----@param colors Colors
+---@param colors Base46Colors
 ---@return table<string, Color>
 M.palette = function(_, colors)
   local palette = {}
