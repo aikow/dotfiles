@@ -7,7 +7,7 @@ opt.lazyredraw = true
 
 -- Search recursively downward from CWD; provides TAB completion for filenames
 -- e.g., `:find vim* <TAB>`
-opt.path:append(",**")
+-- opt.path:append(",**")
 
 -- Permanent undo
 opt.undofile = true
@@ -85,6 +85,7 @@ opt.foldexpr = "nvim_treesitter#foldexpr()"
 opt.foldlevel = 99 -- Nothing is folded by default
 
 -- Set 7 lines to the cursor - when moving vertically using j/k
+opt.smoothscroll = true
 opt.scrolloff = 7
 
 -- Open new splits to the right or down instead of moving current window
@@ -110,7 +111,6 @@ opt.diffopt = opt.diffopt
 opt.termguicolors = true -- 24-bit RGB color support
 opt.showmode = false -- Hide mode indicator
 
--- Always show the status line and tabline
 opt.ruler = false -- Don't show column and row position, handled by theme.
 
 -- Show a ruler at 80 characters.

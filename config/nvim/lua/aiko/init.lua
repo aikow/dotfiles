@@ -36,6 +36,13 @@ M.plugins = function()
       enabled = true,
       notify = false,
     },
+    performance = {
+      rtp = {
+        paths = {
+          vim.fs.normalize("~/.local/config/nvim"),
+        },
+      },
+    },
   })
 end
 
