@@ -3,7 +3,12 @@ return {
   {
     "nvim-telescope/telescope.nvim",
     dependencies = {
-      "nvim-telescope/telescope-fzf-native.nvim",
+      {
+        -- Native C FZF implementation for searching.
+        "nvim-telescope/telescope-fzf-native.nvim",
+        lazy = true,
+        build = "make",
+      },
       "benfowler/telescope-luasnip.nvim",
     },
     cmd = "Telescope",
@@ -173,13 +178,6 @@ return {
       telescope.load_extension("fzf")
       telescope.load_extension("luasnip")
     end,
-  },
-
-  -- Native C FZF implementation for searching.
-  {
-    "nvim-telescope/telescope-fzf-native.nvim",
-    lazy = true,
-    build = "make",
   },
 
   {

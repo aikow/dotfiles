@@ -30,14 +30,6 @@ return {
       "Gwq",
       "Gwrite",
     },
-    config = function()
-      -- vim.api.nvim_create_autocmd("BufReadPre", {
-      --   group = vim.api.nvim_create_augroup("fugitive options", {}),
-      --   callback = function()
-      --     vim.api.nvim_win_set_height(vim.api.nvim_get_current_win(), 20)
-      --   end,
-      -- })
-    end,
   },
 
   -- Git status signs in buffer.

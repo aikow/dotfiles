@@ -1,12 +1,6 @@
 local feedkeys = require("aiko.util").feedkeys
 
 return {
-  -- Plenary provides helper functions.
-  {
-    "nvim-lua/plenary.nvim",
-    lazy = true,
-  },
-
   -- Lua snippet engine.
   {
     "L3MON4D3/luasnip",
@@ -216,7 +210,6 @@ return {
         },
         sources = cmp.config.sources({
           { name = "crates" },
-          { name = "gh_issues" },
           { name = "nvim_lsp" },
           { name = "path" },
           { name = "luasnip" },
@@ -329,20 +322,6 @@ return {
     },
   },
 
-  -- Use '.' to repeat plugin code actions.
-  {
-    "tpope/vim-repeat",
-  },
-
-  -- Effortlessly switch between vim and tmux windows.
-  {
-    "christoomey/vim-tmux-navigator",
-    config = function()
-      vim.g.tmux_navigator_no_mappings = 1
-      vim.g.tmux_navigator_disable_when_zoomed = 1
-    end,
-  },
-
   -- Align tabular data.
   {
     "godlygeek/tabular",
@@ -388,10 +367,5 @@ return {
         sign_priority = 1,
       })
     end,
-  },
-
-  {
-    "echasnovski/mini.bufremove",
-    opts = {},
   },
 }
