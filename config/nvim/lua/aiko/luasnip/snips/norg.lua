@@ -13,7 +13,7 @@ local autoinsert_space = require("aiko.luasnip.callbacks").autoinsert_space
 -- |   Define math regions   |
 -- ---------------------------
 local in_math = function()
-  local query = vim.treesitter.parse_query(
+  local query = vim.treesitter.query.parse(
     "norg",
     [[;;query
     [
@@ -125,8 +125,8 @@ local snip = function(mode, trig, desc, nodes, opts)
   end
 
   -- Parse mode string
-  local wordTrig = true
-  local regTrig = false
+  local word_trig = true
+  local trig_engine = "plain"
   local condition_table = {}
   local show_condition_table = {}
   local autoexpand = false
@@ -134,13 +134,13 @@ local snip = function(mode, trig, desc, nodes, opts)
 
   local modeopts = {
     r = function()
-      regTrig = true
+      trig_engine = "pattern"
     end,
     i = function()
-      wordTrig = false
+      word_trig = false
     end,
     w = function()
-      wordTrig = true
+      word_trig = true
     end,
     A = function()
       autoexpand = true
@@ -193,16 +193,16 @@ local snip = function(mode, trig, desc, nodes, opts)
   local node = s(
     {
       trig = trig,
-      wordTrig = wordTrig,
-      regTrig = regTrig,
+      wordTrig = word_trig,
+      trigEngine = trig_engine,
       dscr = desc,
       snippetType = autoexpand and "autosnippet" or "snippet",
       priority = prio,
+      condition = condition,
+      show_condition = show_condition,
     },
     nodes,
     {
-      condition = condition,
-      show_condition = show_condition,
       callbacks = callbacks,
     }
   )

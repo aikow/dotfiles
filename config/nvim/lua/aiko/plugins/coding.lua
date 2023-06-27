@@ -368,4 +368,9 @@ return {
       })
     end,
   },
+
+  {
+    "echasnovski/mini.bufremove",
+    opts = {},
+  },
 }
