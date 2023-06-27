@@ -150,7 +150,6 @@ end
 -- --------------------------------
 
 local snips = {}
-local autosnips = {}
 
 --- Creates a simple math snippet.
 --
@@ -170,8 +169,8 @@ local snip = function(mode, trig, desc, nodes, opts)
   end
 
   -- Parse mode string
-  local wordTrig = true
-  local regTrig = false
+  local word_trig = true
+  local trig_engine = "plain"
   local condition_table = {}
   local show_condition_table = {}
   local autoexpand = false
@@ -179,15 +178,15 @@ local snip = function(mode, trig, desc, nodes, opts)
 
   local modeopts = {
     r = function()
-      regTrig = true
-      wordTrig = false
+      trig_engine = "pattern"
+      word_trig = false
     end,
     i = function()
-      wordTrig = false
+      word_trig = false
     end,
     w = function()
-      regTrig = false
-      wordTrig = true
+      trig_engine = "plain"
+      word_trig = true
     end,
     A = function()
       autoexpand = true
@@ -259,26 +258,21 @@ local snip = function(mode, trig, desc, nodes, opts)
   local node = s(
     {
       trig = trig,
-      wordTrig = wordTrig,
-      regTrig = regTrig,
+      wordTrig = word_trig,
+      trigEnginre = trig_engine,
+      snippetType = autoexpand and "autosnippet" or "snippet",
       dscr = desc,
       priority = prio,
+      condition = condition,
+      show_condition = show_condition,
     },
     nodes,
     {
-      condition = condition,
-      show_condition = show_condition,
       callbacks = callbacks,
     }
   )
 
-  -- Insert it into the correct table, depending on whether it is an
-  -- auto-snippet.
-  if autoexpand then
-    table.insert(autosnips, node)
-  else
-    table.insert(snips, node)
-  end
+  table.insert(snips, node)
 end
 
 -- =====================================
@@ -1106,4 +1100,4 @@ greek("Y", "Psi", [[\Psi]])
 greek("w", "omega", [[\omega]])
 greek("W", "Omega", [[\Omega]])
 
-return snips, autosnips
+return snips
