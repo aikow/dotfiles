@@ -7,10 +7,10 @@ vim.keymap.set("n", [[\]], "<NOP>")
 vim.g.maplocalleader = [[\]]
 
 -- Setup config.
-require("aiko").setup()
+require("user").setup()
 
 -- Source the local config if it exists.
-local module_ok, module = pcall(require, "aiko.local")
+local module_ok, module = pcall(require, "user.local")
 if module_ok then
   if type(module) == "table" then
     module.setup()

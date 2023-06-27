@@ -1,4 +1,4 @@
-local sql_format = require("aiko.util.lang.sql-format").sql_format
+local sql_format = require("user.util.lang.sql-format").sql_format
 
 -- Set rust specific vim settings.
 vim.opt_local.colorcolumn = { 100 }

@@ -1,4 +1,4 @@
-local colorscheme = require("aiko.base46.base46").Base46:new({
+local colorscheme = require("user.ui.theme").Theme:new({
   name = "github-light",
   background = "light",
 })
@@ -64,4 +64,4 @@ colorscheme.polish = {
   Tag = { fg = colorscheme.colors.light_green },
 }
 
-require("aiko.base46").paint(colorscheme)
+require("user.ui.theme").paint(colorscheme)

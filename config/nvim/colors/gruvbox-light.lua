@@ -1,4 +1,4 @@
-local colorscheme = require("aiko.base46.base46").Base46:new({
+local colorscheme = require("user.ui.theme").Theme:new({
   name = "gruvbox-light",
   background = "light",
 })
@@ -59,4 +59,4 @@ colorscheme.polish = {
   TbLineThemeToggleBtn = { fg = "#F2E5BC", bg = colorscheme.colors.white },
 }
 
-require("aiko.base46").paint(colorscheme)
+require("user.ui.theme").paint(colorscheme)

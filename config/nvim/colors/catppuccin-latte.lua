@@ -1,4 +1,4 @@
-local colorscheme = require("aiko.base46.base46").Base46:new({
+local colorscheme = require("user.ui.theme").Theme:new({
   name = "catppuccin-latte",
   background = "light",
 })
@@ -100,4 +100,4 @@ colorscheme.polish = {
   TSProperty = { fg = colorscheme.colors.teal },
 }
 
-require("aiko.base46").paint(colorscheme)
+require("user.ui.theme").paint(colorscheme)

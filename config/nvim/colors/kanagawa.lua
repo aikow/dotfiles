@@ -1,4 +1,4 @@
-local colorscheme = require("aiko.base46.base46").Base46:new({
+local colorscheme = require("user.ui.theme").Theme:new({
   name = "kanagawa",
   background = "dark",
 })
@@ -65,4 +65,4 @@ colorscheme.polish = {
   Number = { fg = "#D27E99" },
 }
 
-require("aiko.base46").paint(colorscheme)
+require("user.ui.theme").paint(colorscheme)
