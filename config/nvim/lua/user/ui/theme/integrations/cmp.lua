@@ -1,10 +1,10 @@
 local M = {}
 
 ---comment
----@param theme ThemeThemeTheme
----@param colors ThemeThemeColors
----@return table<string, Color>
-M.palette = function(theme, colors)
+---@param theme ThemeBase
+---@param colors ThemeColors
+---@return table<string, NvimColor>
+M.highlights = function(theme, colors)
   return {
     -- nvim cmp
     CmpItemAbbr = { fg = colors.white },

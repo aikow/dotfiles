@@ -1,9 +1,10 @@
 local M = {}
 
 ---comment
+---@param theme ThemeBase
 ---@param colors ThemeColors
----@return table<string, Color>
-M.palette = function(_, colors)
+---@return table<string, NvimColor>
+M.highlights = function(theme, colors)
   return {
     -- LSP References
     LspReferenceText = { fg = colors.dark_black, bg = colors.white },
@@ -17,8 +18,12 @@ M.palette = function(_, colors)
     DiagnosticInformation = { fg = colors.green },
     LspSignatureActiveParameter = { fg = colors.black, bg = colors.green },
 
+    -- Rename UI
     RenamerTitle = { fg = colors.black, bg = colors.red },
     RenamerBorder = { fg = colors.red },
+
+    -- LSP semantic tokens
+    ["@lsp.type.parameter"] = { fg = theme.base08, italic = true },
   }
 end
 

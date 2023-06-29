@@ -2,8 +2,8 @@ local M = {}
 
 ---comment
 ---@param colors ThemeColors
----@return table<string, Color>
-M.palette = function(_, colors)
+---@return table<string, NvimColor>
+M.highlights = function(_, colors)
   return {
     NvimTreeCursorLine = { bg = colors.bg_1 },
     NvimTreeEmptyFolderName = { fg = colors.bg_folder },

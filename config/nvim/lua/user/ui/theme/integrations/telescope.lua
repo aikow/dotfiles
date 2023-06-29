@@ -2,8 +2,8 @@ local M = {}
 
 ---comment
 ---@param colors ThemeColors
----@return table<string, Color>
-M.palette = function(_, colors)
+---@return table<string, NvimColor>
+M.highlights = function(_, colors)
   return {
     TelescopeNormal = { bg = colors.dark_black },
     TelescopeBorder = { fg = colors.dark_black, bg = colors.dark_black },

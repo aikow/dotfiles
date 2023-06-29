@@ -2,8 +2,8 @@ local M = {}
 
 ---comment
 ---@param colors ThemeColors
----@return table<string, Color>
-M.palette = function(_, colors)
+---@return table<string, NvimColor>
+M.highlights = function(_, colors)
   return {
     MasonHeader = { bg = colors.red, fg = colors.black },
     MasonHighlight = { fg = colors.blue },

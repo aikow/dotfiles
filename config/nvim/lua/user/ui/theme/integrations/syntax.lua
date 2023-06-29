@@ -1,9 +1,9 @@
 local M = {}
 
 ---comment
----@param theme ThemeTheme
----@return table<string, Color>
-M.palette = function(theme)
+---@param theme ThemeBase
+---@return table<string, NvimColor>
+M.highlights = function(theme)
   -- Standard syntax highlighting
 
   return {
