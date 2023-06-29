@@ -1,10 +1,10 @@
 local M = {}
 
 ---comment
----@param theme ThemeTheme
+---@param theme ThemeBase
 ---@param colors ThemeColors
----@return table<string, Color>
-M.palette = function(theme, colors)
+---@return table<string, NvimColor>
+M.highlights = function(theme, colors)
   return {
     MatchWord = { bg = colors.grey, fg = colors.white },
 

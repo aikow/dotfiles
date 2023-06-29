@@ -25,32 +25,33 @@ return {
         return ""
       end
 
-      local lsp_progress = function()
-        local lsp = vim.lsp.status()[1]
-        if lsp then
-          local name = lsp.name or ""
-          local msg = lsp.message or ""
-          local percentage = lsp.percentage or 0
-          local title = lsp.title or ""
-          return string.format(
-            " %%<%s: %s %s (%s%%%%) ",
-            name,
-            title,
-            msg,
-            percentage
-          )
-        end
+      local lsp_clients = function()
+        return table.concat(
+          vim
+            .iter(vim.lsp.get_active_clients())
+            :map(function(server)
+              local name = server.name or ""
+              local progress = server.progress:pop()
 
-        local clients = vim.lsp.get_active_clients()
-        if clients then
-          local names = {}
-          for _, client in pairs(clients) do
-            table.insert(names, client.name)
-          end
-          return table.concat(names, ", ")
-        end
+              -- HACK: Figure out how to get around having to force-clear the
+              -- progress messages.
+              server.progress:clear()
 
-        return ""
+              if progress and progress.value then
+                return string.format(
+                  " %%<%s: %s %s (%s%%%%) ",
+                  name,
+                  progress.value.title or "-",
+                  progress.value.message or "-",
+                  progress.value.percentage or "x"
+                )
+              else
+                return string.format(" %%<%s ", name)
+              end
+            end)
+            :totable(),
+          "|"
+        )
       end
 
       local filesize = function()
@@ -98,7 +99,7 @@ return {
           lualine_a = { "mode" },
           lualine_b = { cwd, "branch" },
           lualine_c = { "diff" },
-          lualine_x = { lsp_progress },
+          lualine_x = { lsp_clients },
           lualine_y = { "diagnostics" },
           lualine_z = { "%l:%c", "%L" },
         },

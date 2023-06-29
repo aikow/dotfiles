@@ -1,9 +1,9 @@
 local M = {}
 
 ---comment
----@param theme ThemeTheme
----@return table<string, Color>
-M.palette = function(theme)
+---@param theme ThemeBase
+---@return table<string, NvimColor>
+M.highlights = function(theme)
   return {
     -- `@annotation` is not one of the default capture group, should we keep it
     ["TSDefinitionUsage"] = { sp = theme.base04, underline = true },
@@ -31,7 +31,7 @@ M.palette = function(theme)
     ["@method"] = { fg = theme.base0D },
     ["@namespace"] = { fg = theme.base08 },
     ["@none"] = { fg = theme.base05 },
-    ["@paramter"] = { fg = theme.base08 },
+    ["@parameter"] = { fg = theme.base08, italic = true },
     ["@property"] = { fg = theme.base08 },
     ["@punctuation.bracket"] = { fg = theme.base0F },
     ["@punctuation.delimiter"] = { fg = theme.base0F },

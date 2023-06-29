@@ -1,6 +1,6 @@
 local M = {}
 
-M.setup = function(_, colors)
+M.after = function(_, colors)
   local theme = {
     normal = {
       a = { bg = colors.nord_blue, fg = colors.black, gui = "bold" },

@@ -2,8 +2,8 @@ local M = {}
 
 ---comment
 ---@param colors ThemeColors
----@return table<string, Color>
-M.palette = function(_, colors)
+---@return table<string, NvimColor>
+M.highlights = function(_, colors)
   return {
     IndentBlanklineChar = { fg = colors.line },
     IndentBlanklineSpaceChar = { fg = colors.line },

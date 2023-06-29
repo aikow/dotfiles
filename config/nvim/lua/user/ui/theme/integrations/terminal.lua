@@ -1,6 +1,6 @@
 local M = {}
 
-M.setup = function(theme, _)
+M.after = function(theme, _)
   vim.g.terminal_color_0 = theme.base01
   vim.g.terminal_color_1 = theme.base08
   vim.g.terminal_color_2 = theme.base0B

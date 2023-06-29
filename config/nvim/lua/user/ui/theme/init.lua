@@ -3,7 +3,7 @@ local H = {}
 
 M.Theme = require("user.ui.theme.theme").Theme
 
-M.palettes = {
+M.integrations = {
   "blankline",
   "cmp",
   "colors",
@@ -12,6 +12,7 @@ M.palettes = {
   "fzf-lua",
   "git",
   "lsp",
+  "lualine",
   "luasnip",
   "mason",
   "mini",
@@ -19,42 +20,31 @@ M.palettes = {
   "neorg",
   "syntax",
   "telescope",
+  "terminal",
   "treesitter",
 }
 
-M.integrations = {
-  "lualine",
-  "terminal",
-}
+---Get a list of all integration modules in the runtimepath.
+---@return { highlights: function, after: function }[]
+H.load_integrations = function()
+  local modpath = "user.ui.theme.integrations."
+  local integrations = {}
 
----Load all the highlights from the integration for the colorscheme.
----@param group string
----@param colorscheme Theme
----@return table<string, string>
-H.load_palette = function(group, colorscheme)
-  local modpath = "user.ui.theme.palettes." .. group
-  local ok, mod = pcall(require, modpath)
-  if not ok then
-    vim.notify("Unable to load group " .. group)
-    return {}
+  for _, group in ipairs(M.integrations) do
+    local ok, mod = pcall(require, modpath .. group)
+    if ok then
+      -- Set default values for both functions
+      mod.highlights = mod.highlights or function()
+        return {}
+      end
+      mod.after = mod.highlights or function() end
+      table.insert(integrations, mod)
+    else
+      vim.notify("Unable to load integration " .. group)
+    end
   end
 
-  return mod.palette(colorscheme.theme, colorscheme.colors)
-end
-
----Run the setup code for an integration that doesn't need to return a list of
----highlight groups
----@param group string name of the integration
----@param colorscheme Theme the table of colors in the colorscheme.
-H.load_integration = function(group, colorscheme)
-  local modpath = "user.ui.theme.integrations." .. group
-  local ok, mod = pcall(require, modpath)
-  if not ok then
-    vim.notify("Unable to load integration " .. group)
-    return
-  end
-
-  mod.setup(colorscheme.theme, colorscheme.colors)
+  return integrations
 end
 
 ---Set the neovim color scheme based on the Colorscheme object.
@@ -72,10 +62,15 @@ M.paint = function(colorscheme)
   vim.g.colors_name = colorscheme.name
   vim.opt.background = colorscheme.background or "dark"
 
+  local integrations = H.load_integrations()
+
   -- Load all integrations
-  for _, group in ipairs(M.palettes) do
-    local palette = H.load_palette(group, colorscheme)
-    highlights = vim.tbl_extend("force", highlights, palette)
+  for _, mod in ipairs(integrations) do
+    highlights = vim.tbl_extend(
+      "force",
+      highlights,
+      mod.highlights(colorscheme.theme, colorscheme.colors)
+    )
   end
 
   -- Apply the polish if the color scheme has any.
@@ -87,8 +82,8 @@ M.paint = function(colorscheme)
   end
 
   -- Load all other integrations
-  for _, group in ipairs(M.integrations) do
-    H.load_integration(group, colorscheme)
+  for _, mod in ipairs(integrations) do
+    mod.after(colorscheme.theme, colorscheme.colors)
   end
 end
 

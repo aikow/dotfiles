@@ -3,8 +3,8 @@ local str = require("user.util.string")
 
 ---comment
 ---@param colors ThemeColors
----@return table<string, Color>
-M.palette = function(_, colors)
+---@return table<string, NvimColor>
+M.highlights = function(_, colors)
   local palette = {}
   for name, hex in pairs(colors) do
     name = str.snake_to_camel(name)
