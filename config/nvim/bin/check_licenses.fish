@@ -7,7 +7,7 @@ set -l token $_flag_token
 
 cd lua
 
-set -l plugin_source aiko/plugins/sources.lua
+set -l plugin_source user/plugins/*.lua
 set -l require_source (string replace -a / . (string split -r -m1 . $plugin_source)[1])
 
 set -l plugins (lua -e "
@@ -21,17 +21,16 @@ end
 ")
 
 for plugin in $plugins
-  set -l parts (string split / $plugin)
-  set -l owner $parts[1]
-  set -l repo $parts[2]
+    set -l parts (string split / $plugin)
+    set -l owner $parts[1]
+    set -l repo $parts[2]
 
-  set -l response (
+    set -l response (
     curl --silent \
       -H "Accept: application/vnd.github.v3+json" \
       -H "Authorization: token $token" \
       https://api.github.com/repos/$owner/$repo/license \
     | jq '.license.name'
   )
-  echo "$plugin: $response"
+    echo "$plugin: $response"
 end | column -t
-

@@ -22,16 +22,11 @@ M.plugins = function()
     return
   end
 
-  local imports = {
-    { import = "user.plugins" },
-  }
-
-  -- Only add local plugins if the directory exists.
-  if vim.fn.globpath(vim.o.runtimepath, "/lua/aiko/local/plugins/*") ~= "" then
-    table.insert(imports, { import = "user.local.plugins" })
-  end
-
-  lazy.setup(imports, {
+  lazy.setup({
+    {
+      import = "user.plugins",
+    },
+  }, {
     change_detection = {
       enabled = true,
       notify = false,
