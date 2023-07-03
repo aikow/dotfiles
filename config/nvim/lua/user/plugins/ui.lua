@@ -101,7 +101,7 @@ return {
           lualine_c = { "diff" },
           lualine_x = { lsp_clients },
           lualine_y = { "diagnostics" },
-          lualine_z = { "%l:%c", "%L" },
+          lualine_z = { "%c", "%l:%L" },
         },
         tabline = {
           lualine_a = { { "tabs", mode = 2 } },
