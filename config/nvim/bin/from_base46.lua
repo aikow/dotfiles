@@ -48,14 +48,6 @@ local name_map = {
   gruvchad = "gruv",
 }
 
-local nonempty = function(t)
-  for _ in pairs(t) do
-    return true
-  end
-
-  return false
-end
-
 ---comment
 ---@param t table table with sortable keys.
 ---@param f function? An optional comparator function.
@@ -220,7 +212,7 @@ local dump_module = function(dirpath, theme)
   file:write("}\n\n")
 
   -- Define the any extra colors.
-  if nonempty(theme.extra) then
+  if #theme.extra > 1 then
     file:write("colorscheme.extra = {\n")
     for key, value in sorted(theme.extra) do
       file:write(string.format([[  %s = "%s",]], key, value), "\n")
@@ -230,7 +222,7 @@ local dump_module = function(dirpath, theme)
 
   -- Add any polish highlight groups. Each extra polish group is in its own
   -- separate line.
-  if nonempty(theme.polish) then
+  if #theme.polish > 1 then
     file:write("colorscheme.polish = {\n")
     for hl_group, color in sorted(theme.polish) do
       -- We check to see if the highlight group is a valid lua variable name.

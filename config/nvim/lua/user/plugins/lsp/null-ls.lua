@@ -49,9 +49,7 @@ M.setup = function(_, opts)
     handlers = {
       function(source_name, methods)
         local source_opts = opts[source_name] or {}
-        if source_opts.enabled == false then
-          -- Skip this source
-        else
+        if source_opts.enabled then
           for _, method in pairs(source_opts.methods or methods) do
             null_ls.register(
               null_ls.builtins[method][source_name].with(source_opts.with or {})
