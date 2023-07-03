@@ -40,9 +40,9 @@ end
 M.sql_format = function(bufnr, opts)
   bufnr = (bufnr > 0) and bufnr or vim.api.nvim_get_current_buf()
 
-  local lang = opts.lang or vim.bo.sql_format_lang or "sqlite"
-  local trim = opts.trim or vim.bo.sql_format_trim or { 1, 1 }
-  local offset = opts.offset or vim.bo.sql_format_offset or { 1, 0 }
+  local lang = opts.lang or vim.b.sql_format_lang or "sqlite"
+  local trim = opts.trim or vim.b.sql_format_trim or { 1, 1 }
+  local offset = opts.offset or vim.b.sql_format_offset or { 1, 0 }
 
   local filetype = vim.bo[bufnr].filetype
   local query = vim.treesitter.query.get(filetype, "injections")

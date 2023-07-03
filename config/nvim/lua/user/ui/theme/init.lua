@@ -37,7 +37,7 @@ H.load_integrations = function()
       mod.highlights = mod.highlights or function()
         return {}
       end
-      mod.after = mod.highlights or function() end
+      mod.after = mod.after or function() end
       table.insert(integrations, mod)
     else
       vim.notify("Unable to load integration " .. group)
