@@ -15,9 +15,9 @@ Components.git = function(args)
     return ""
   end
 
-  local head = vim.bo.gitsigns_head or "-"
+  local head = vim.b.gitsigns_head or "-"
   local signs = Components.is_truncated(args.trunc_width) and ""
-    or (vim.bo.gitsigns_status or "")
+    or (vim.b.gitsigns_status or "")
   local icon = args.icon or ""
 
   if signs == "" then
