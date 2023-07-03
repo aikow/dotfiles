@@ -3,7 +3,7 @@ local colorscheme = require("user.ui.theme").Theme:new({
   background = "dark",
 })
 
-local palette = {
+colorscheme.palette = {
   rosewater = "#f5e0dc", -- Winbar
   flamingo = "#f2cdcd", -- Target word
   pink = "#f5c2e7", -- Just pink

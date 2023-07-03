@@ -265,3 +265,5 @@ end
 H.get_diagnostic_count = function(id)
   return #vim.diagnostic.get(0, { severity = id })
 end
+
+return Components

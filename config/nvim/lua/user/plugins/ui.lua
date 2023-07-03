@@ -168,12 +168,6 @@ return {
     end,
   },
 
-  -- {
-  --   "echasnovski/mini.statusline",
-  --   opts = {},
-  --   event = "VeryLazy",
-  -- },
-
   {
     "echasnovski/mini.starter",
     event = "VimEnter",
