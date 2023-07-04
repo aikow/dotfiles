@@ -320,10 +320,4 @@ return {
   {
     "nvim-tree/nvim-web-devicons",
   },
-
-  -- Colorschemes
-  {
-    "ribru17/bamboo.nvim",
-    lazy = true,
-  },
 }

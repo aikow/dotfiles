@@ -148,4 +148,4 @@ opt.conceallevel = 2
 opt.showbreak = " -> "
 opt.fillchars = { eob = " " }
 
-vim.cmd.colorscheme("everforest")
+vim.cmd.colorscheme("base-everforest")
