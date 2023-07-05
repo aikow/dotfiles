@@ -4,6 +4,23 @@ end, {
   desc = "Close the current buffer, even if it is unlisted or has no file.",
 })
 
+vim.api.nvim_create_user_command("Bhclose", function()
+  local shown_buffers = {}
+  for _, tabpage in ipairs(vim.api.nvim_list_tabpages()) do
+    for _, window in ipairs(vim.api.nvim_tabpage_list_wins(tabpage)) do
+      shown_buffers[vim.api.nvim_win_get_buf(window)] = true
+    end
+  end
+
+  for _, buf in ipairs(vim.api.nvim_list_bufs()) do
+    if vim.api.nvim_buf_is_loaded(buf) and not shown_buffers[buf] then
+      vim.api.nvim_buf_delete(buf, {})
+    end
+  end
+end, {
+  desc = "Close all hidden buffers",
+})
+
 vim.api.nvim_create_user_command("SyntaxStack", function()
   local s = vim.fn.synID(vim.fn.line("."), vim.fn.col("."), 1)
   vim.notify(
