@@ -1,4 +1,9 @@
 return {
+  {
+    "echasnovski/mini.colors",
+    opts = {},
+  },
+
   { "aikow/base.nvim" },
 
   {

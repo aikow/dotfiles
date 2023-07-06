@@ -11,7 +11,7 @@ return {
     cmd = "Neotree",
     keys = {
       {
-        "_",
+        "<leader>no",
         function()
           require("neo-tree.command").execute({
             source = "filesystem",
@@ -22,7 +22,7 @@ return {
         desc = "reveal file in neo-tree",
       },
       {
-        "+",
+        "<leader>nb",
         function()
           require("neo-tree.command").execute({
             source = "buffers",
@@ -33,7 +33,7 @@ return {
         desc = "reveal buffers in neo-tree",
       },
       {
-        "-",
+        "<leader>ne",
         function()
           require("neo-tree.command").execute({
             source = "filesystem",
@@ -47,6 +47,8 @@ return {
     },
     init = function()
       vim.g.neo_tree_remove_legacy_commands = 1
+
+      -- Load neo-tree if nvim was passed a directory as a single argument.
       if vim.fn.argc() == 1 then
         local stat = vim.loop.fs_stat(tostring(vim.fn.argv(0)))
         if stat and stat.type == "directory" then
@@ -74,16 +76,70 @@ return {
     end,
   },
 
-  -- Interface for remote network protocols.
   {
-    "miversen33/netman.nvim",
-    enabled = false,
-    lazy = true,
-    config = function()
-      require("netman")
+    "echasnovski/mini.files",
+    keys = {
+      {
+        "-",
+        function()
+          require("mini.files").open(vim.api.nvim_buf_get_name(0))
+        end,
+      },
+      {
+        "_",
+        function()
+          require("mini.files").open()
+        end,
+      },
+    },
+    opts = {
+      windows = {
+        preview = true,
+        width_preview = 40,
+      },
+    },
+    config = function(_, opts)
+      local files = require("mini.files")
+      files.setup(opts)
 
-      -- Add source to neo-tree.
-      table.insert(require("neo-tree").config.sources, "netman.ui.neo-tree")
+      local map_split = function(buf_id, lhs, direction)
+        local rhs = function()
+          -- Make new window and set it as target
+          local target_window = files.get_target_window()
+          if target_window then
+            local new_target_window
+            vim.api.nvim_win_call(target_window, function()
+              vim.cmd(direction .. " split")
+              new_target_window = vim.api.nvim_get_current_win()
+            end)
+
+            MiniFiles.set_target_window(new_target_window)
+          end
+        end
+
+        -- Adding `desc` will result into `show_help` entries
+        local desc = "Split " .. direction
+        vim.keymap.set("n", lhs, rhs, { buffer = buf_id, desc = desc })
+      end
+
+      local files_set_cwd = function(path)
+        -- Works only if cursor is on the valid file system entry
+        local cur_entry_path = MiniFiles.get_fs_entry().path
+        local cur_directory = vim.fs.dirname(cur_entry_path)
+        vim.fn.chdir(cur_directory)
+      end
+
+      vim.api.nvim_create_autocmd("User", {
+        pattern = "MiniFilesBufferCreate",
+        callback = function(args)
+          local buf_id = args.data.buf_id
+
+          vim.keymap.set("n", "g~", files_set_cwd, { buffer = buf_id })
+
+          map_split(buf_id, "gs", "belowright horizontal")
+          map_split(buf_id, "gv", "belowright vertical")
+        end,
+      })
     end,
   },
 
