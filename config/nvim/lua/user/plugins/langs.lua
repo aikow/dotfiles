@@ -65,15 +65,16 @@ return {
     "saecki/crates.nvim",
     ft = "toml",
     version = "*",
-    config = function()
+    opts = {},
+    config = function(_, opts)
       local crates = require("crates")
-      crates.setup()
+      crates.setup(opts)
 
       vim.api.nvim_create_autocmd("BufEnter", {
         pattern = "Cargo.toml",
         callback = function()
           local map = vim.keymap.set
-          local opts = function(desc)
+          local map_opts = function(desc)
             return {
               silent = true,
               buffer = true,
@@ -82,15 +83,15 @@ return {
           end
 
           -- stylua: ignore start
-          map("n", "<localleader>t", crates.toggle, opts("crates toggle menu"))
-          map("n", "<localleader>r", crates.reload, opts("crates reload source"))
-          map("n", "K", crates.show_popup, opts("crates show popup"))
-          map("n", "<localleader>v", crates.show_versions_popup, opts("crates show versions popup"))
-          map("n", "<localleader>f", crates.show_features_popup, opts("crates show features popup"))
-          map("n", "<localleader>u", crates.update_crates, opts("crates update"))
-          map("n", "<localleader>U", crates.update_all_crates, opts("crates update all"))
-          map("n", "<localleader>g", crates.upgrade_crates, opts("crates upgrade"))
-          map("n", "<localleader>G", crates.upgrade_all_crates, opts("crates upgrade all"))
+          map("n", "<localleader>t", crates.toggle, map_opts("crates toggle menu"))
+          map("n", "<localleader>r", crates.reload, map_opts("crates reload source"))
+          map("n", "K", crates.show_popup, map_opts("crates show popup"))
+          map("n", "<localleader>v", crates.show_versions_popup, map_opts("crates show versions popup"))
+          map("n", "<localleader>f", crates.show_features_popup, map_opts("crates show features popup"))
+          map("n", "<localleader>u", crates.update_crates, map_opts("crates update"))
+          map("n", "<localleader>U", crates.update_all_crates, map_opts("crates update all"))
+          map("n", "<localleader>g", crates.upgrade_crates, map_opts("crates upgrade"))
+          map("n", "<localleader>G", crates.upgrade_all_crates, map_opts("crates upgrade all"))
           -- stylua: ignore end
         end,
       })
@@ -105,7 +106,6 @@ return {
       vim.g.tex_flavor = "latex"
 
       vim.g.vimtex_view_method = "zathura"
-      -- vim.g.vimtex_view_method = "sioyek"
 
       vim.g.vimtex_quickfix_mode = 0
       vim.g.vimtex_compiler_method = "latexmk"
@@ -145,9 +145,7 @@ return {
     enabled = false,
     dependencies = { "nvim-treesitter" },
     ft = { "just" },
-    config = function()
-      require("tree-sitter-just").setup({})
-    end,
+    opts = {},
   },
 
   -- Markdown
@@ -173,11 +171,9 @@ return {
       "nvim-treesitter",
     },
     ft = { "nu" },
-    config = function()
-      require("nu").setup({
-        use_lsp_features = true,
-      })
-    end,
+    opts = {
+      use_lsp_features = true,
+    },
   },
 
   -- CSV helper plugin.
@@ -207,9 +203,99 @@ return {
     ft = { "norg" },
     cmd = { "Neorg" },
     build = ":Neorg sync-parsers",
-    config = function()
-      require("user.plugins.langs.neorg").setup()
-    end,
+    opts = {
+      load = {
+        -- Load all default modules
+        ["core.defaults"] = {},
+
+        -- Remove leading whitespace when yanking a code-block.
+        ["core.clipboard.code-blocks"] = {},
+
+        -- Customize the core completion module to use nvim-cmp.
+        ["core.completion"] = {
+          config = {
+            engine = "nvim-cmp",
+          },
+        },
+
+        -- Replace some Neorg markup notation with fancy icons.
+        ["core.concealer"] = {},
+
+        -- Manage directories and workspaces.
+        ["core.dirman"] = {
+          config = {
+            workspaces = {
+              personal = "~/gdrive/notes",
+              notes = "~/notes",
+            },
+            index = "index.norg",
+          },
+        },
+
+        -- Convert Neorg files to other formats like markdown.
+        ["core.export"] = {},
+
+        -- Enable the Telescope integration.
+        ["core.integrations.telescope"] = {},
+
+        -- Easily continue a Neorg item on the next line.
+        ["core.itero"] = {},
+
+        -- Configure the default keybindings.
+        ["core.keybinds"] = {
+          config = {
+            default_keybinds = true,
+            neorg_leader = "<localleader>",
+          -- stylua: ignore
+          hook = function(keybinds)
+            keybinds.map("norg", "n", "<localleader>mi", "<cmd>Neorg inject-metadata<CR>")
+            keybinds.map("norg", "n", "<localleader>mu", "<cmd>Neorg update-metadata<CR>")
+            keybinds.map("norg", "n", "<localleader>t", "<cmd>Neorg tangle current-file<CR>")
+
+            -- Telescope
+            keybinds.map("norg", "i", "<C-l>", "<cmd>Telescope neorg insert_link<CR>")
+            keybinds.map("norg", "i", "<C-h>", "<cmd>Telescope neorg insert_file_link<CR>")
+
+            keybinds.map("norg", "n", "<localleader>fo", "<cmd>Telescope neorg find_norg_files<CR>")
+            keybinds.map("norg", "n", "<localleader>fl", "<cmd>Telescope neorg find_linkable<CR>")
+            keybinds.map("norg", "n", "<localleader>fh", "<cmd>Telescope neorg find_headings<CR>")
+
+            -- Looking glass
+            keybinds.map_event("norg", "n", "<localleader>c", "core.looking-glass.magnify-code-block")
+          end,
+          },
+        },
+
+        -- Allows editing code-blocks in a separate buffer of that filetype.
+        ["core.looking-glass"] = {},
+
+        -- Easily toggle between the two list types.
+        ["core.pivot"] = {},
+
+        -- Enable a fancy presenter mode for showing off Neorg documents.
+        ["core.presenter"] = {
+          config = {
+            zen_mode = "zen-mode",
+          },
+        },
+
+        -- Shortcuts for increasing and decreasing the nesting level of Neorg
+        -- items.
+        ["core.promo"] = {},
+
+        -- Generate a table-of-contents dynamically.
+        ["core.qol.toc"] = {},
+
+        -- Generate a summary of the workspace.
+        ["core.summary"] = {},
+
+        -- Allows piping the contents of codeblocks into multiple different files.
+        ["core.tangle"] = {},
+
+        -- Enable the date picker.
+        ["core.ui.calendar"] = {},
+      },
+    },
   },
 
   -- Kitty .conf file syntax support.

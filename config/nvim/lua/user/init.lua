@@ -23,10 +23,14 @@ M.plugins = function()
   end
 
   lazy.setup({
-    {
-      import = "user.plugins",
+    spec = {
+      { import = "user.plugins" },
     },
-  }, {
+    dev = {
+      path = "~/workspace/repos/neovim",
+      patterns = { "aiko" },
+      fallback = true,
+    },
     change_detection = {
       enabled = true,
       notify = false,

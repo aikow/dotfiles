@@ -261,7 +261,7 @@ return {
       indent = { suffix = "" },
       jump = { suffix = "" },
       location = { suffix = "l" },
-      oldfile = { suffix = "o" },
+      oldfile = { suffix = "" },
       quickfix = { suffix = "q" },
       treesitter = { suffix = "t" },
       undo = { suffix = "" },
