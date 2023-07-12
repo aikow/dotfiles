@@ -102,6 +102,14 @@ autocmd("BufWinEnter", {
   end,
 })
 
+-- Highlight text on yank
+autocmd("TextYankPost", {
+  group = augroup("highlight on yank", {}),
+  callback = function()
+    vim.highlight.on_yank({ higroup = "IncSearch", timeout = 150 })
+  end,
+})
+
 -- Automatically read and source `exrc` file in any parent directory.
 autocmd("VimEnter", {
   group = augroup("Source exrc", {}),
