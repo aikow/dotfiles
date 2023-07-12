@@ -214,7 +214,7 @@ return {
           section("Update plugins", "Lazy sync", "Config"),
           section("News", "help news | wincmd o", "Built-in"),
           section("Help", "Telescope help_tags", "Built-in"),
-          section("Quit", "qa", "Built-in"),
+          section("Quit", "quit", "Built-in"),
         },
         footer = footer,
         content_hooks = {
