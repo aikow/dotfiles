@@ -2,7 +2,7 @@ return {
   -- View tree-like structures from different providers.
   {
     "nvim-neo-tree/neo-tree.nvim",
-    branch = "v2.x",
+    branch = "v3.x",
     dependencies = {
       "nvim-lua/plenary.nvim",
       "nvim-tree/nvim-web-devicons",
@@ -10,6 +10,17 @@ return {
     },
     cmd = "Neotree",
     keys = {
+      {
+        "+",
+        function()
+          require("neo-tree.command").execute({
+            source = "filesystem",
+            reveal = true,
+            position = "left",
+          })
+        end,
+        desc = "reveal file in neo-tree",
+      },
       {
         "<leader>no",
         function()
@@ -134,10 +145,10 @@ return {
         callback = function(args)
           local buf_id = args.data.buf_id
 
-          vim.keymap.set("n", "g~", files_set_cwd, { buffer = buf_id })
+          vim.keymap.set("n", "g.", files_set_cwd, { buffer = buf_id })
 
-          map_split(buf_id, "gs", "belowright horizontal")
-          map_split(buf_id, "gv", "belowright vertical")
+          map_split(buf_id, "<C-x>", "belowright horizontal")
+          map_split(buf_id, "C-v", "belowright vertical")
         end,
       })
     end,
