@@ -67,36 +67,34 @@ return {
       { "<leader>gD", "<cmd>Gitsigns toggle_deleted<CR>", desc = "git toggle showing deleted lines", },
       { "ic", ":<C-u>Gitsigns select_hunk<CR>", mode = { "o", "x" }, desc = "git hunk text object", },
     },
-    config = function()
-      require("gitsigns").setup({
-        signs = {
-          add = { hl = "DiffAdd", text = "│", numhl = "GitSignsAddNr" },
-          change = {
-            hl = "DiffChange",
-            text = "│",
-            numhl = "GitSignsChangeNr",
-          },
-          delete = {
-            hl = "DiffDelete",
-            text = "-",
-            numhl = "GitSignsDeleteNr",
-          },
-          topdelete = {
-            hl = "DiffDelete",
-            text = "‾",
-            numhl = "GitSignsDeleteNr",
-          },
-          changedelete = {
-            hl = "DiffChangeDelete",
-            text = "~",
-            numhl = "GitSignsChangeNr",
-          },
+    opts = {
+      signs = {
+        add = { hl = "DiffAdd", text = "│", numhl = "GitSignsAddNr" },
+        change = {
+          hl = "DiffChange",
+          text = "│",
+          numhl = "GitSignsChangeNr",
         },
-        preview_config = {
-          border = "rounded",
+        delete = {
+          hl = "DiffDelete",
+          text = "-",
+          numhl = "GitSignsDeleteNr",
         },
-      })
-    end,
+        topdelete = {
+          hl = "DiffDelete",
+          text = "‾",
+          numhl = "GitSignsDeleteNr",
+        },
+        changedelete = {
+          hl = "DiffChangeDelete",
+          text = "~",
+          numhl = "GitSignsChangeNr",
+        },
+      },
+      preview_config = {
+        border = "rounded",
+      },
+    },
   },
 
   {

@@ -7,15 +7,10 @@ return {
     dependencies = { "rafamadriz/friendly-snippets" },
     event = "InsertEnter",
     build = "make install_jsregexp",
-    config = function()
-      local ls = require("luasnip")
+    opts = function()
       local types = require("luasnip.util.types")
-      local map = vim.keymap.set
 
-      -- --------------
-      -- |   Config   |
-      -- --------------
-      ls.config.set_config({
+      return {
         enable_autosnippets = true,
         history = true,
         update_events = "TextChanged,TextChangedI",
@@ -39,13 +34,18 @@ return {
             },
           },
         },
-      })
+      }
+    end,
+    config = function(_, opts)
+      local ls = require("luasnip")
+
+      ls.config.set_config(opts)
 
       -- -----------------------
       -- |   Trigger Keymaps   |
       -- -----------------------
 
-      map("i", "<M-Tab>", function()
+      vim.keymap.set("i", "<M-Tab>", function()
         if ls.jumpable() then
           ls.jump(1)
         else
@@ -56,7 +56,7 @@ return {
         desc = "luasnip jump forward one or expand tab",
       })
 
-      map("i", "<Tab>", function()
+      vim.keymap.set("i", "<Tab>", function()
         if ls.expand_or_locally_jumpable() then
           if ls.expandable() then
             -- Set an undo breakpoint
@@ -72,31 +72,31 @@ return {
         desc = "luasnip expand or jump forward one, or if neither are avialable, expand tab",
       })
 
-      map("s", "<Tab>", function()
+      vim.keymap.set("s", "<Tab>", function()
         if ls.jumpable() then
           ls.jump(1)
         end
       end, { silent = true, desc = "luasnip jump forward one" })
 
-      map({ "i", "s" }, "<S-Tab>", function()
+      vim.keymap.set({ "i", "s" }, "<S-Tab>", function()
         if ls.jumpable() then
           ls.jump(-1)
         end
       end, { silent = true, desc = "luasnip jump back one" })
 
-      map({ "i", "s" }, "<C-j>", function()
+      vim.keymap.set({ "i", "s" }, "<C-j>", function()
         if ls.choice_active() then
           ls.change_choice(1)
         end
       end, { silent = true, desc = "luasnip next choice" })
 
-      map({ "i", "s" }, "<C-k>", function()
+      vim.keymap.set({ "i", "s" }, "<C-k>", function()
         if ls.choice_active() then
           ls.change_choice(-1)
         end
       end, { silent = true, desc = "luasnip previous choice" })
 
-      map({ "i", "s" }, "<C-u>", function()
+      vim.keymap.set({ "i", "s" }, "<C-u>", function()
         if ls.choice_active() then
           require("luasnip.extras.select_choice")()
         end
