@@ -16,7 +16,10 @@ end
 ---See the help for the exact syntax.
 ---@return {single: Comments[], triple: Comments[], other: Comments[]}
 local parse_comments = function()
-  local iter = vim.gsplit(vim.o.comments, ",", true)
+  local iter = vim.gsplit(vim.o.comments, ",", {
+    plain = true,
+    trimempty = true,
+  })
   local comments = { single = {}, triple = {}, other = {} }
 
   local split = function(cs)
