@@ -142,10 +142,12 @@ return {
         callback = function(args)
           local buf_id = args.data.buf_id
 
+          map_split(buf_id, "<C-x>", "belowright horizontal")
+          map_split(buf_id, "<C-v>", "belowright vertical")
+
           vim.keymap.set("n", "g.", files_set_cwd, { buffer = buf_id })
 
-          map_split(buf_id, "<C-x>", "belowright horizontal")
-          map_split(buf_id, "C-v", "belowright vertical")
+          vim.keymap.set("n", "<CR>", files.go_in)
         end,
       })
     end,
