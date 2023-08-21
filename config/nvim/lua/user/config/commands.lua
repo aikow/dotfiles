@@ -4,7 +4,7 @@ end, {
   desc = "Close the current buffer, even if it is unlisted or has no file.",
 })
 
-vim.api.nvim_create_user_command("Bhclose", function()
+vim.api.nvim_create_user_command("Bclean", function()
   local shown_buffers = {}
   for _, tabpage in ipairs(vim.api.nvim_list_tabpages()) do
     for _, window in ipairs(vim.api.nvim_tabpage_list_wins(tabpage)) do

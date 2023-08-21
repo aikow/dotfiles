@@ -199,7 +199,7 @@ return {
       "nvim-treesitter",
       "nvim-neorg/neorg-telescope",
     },
-    version = "*",
+    -- version = "*",
     ft = { "norg" },
     cmd = { "Neorg" },
     build = ":Neorg sync-parsers",
@@ -246,23 +246,23 @@ return {
           config = {
             default_keybinds = true,
             neorg_leader = "<localleader>",
-          -- stylua: ignore
-          hook = function(keybinds)
-            keybinds.map("norg", "n", "<localleader>mi", "<cmd>Neorg inject-metadata<CR>")
-            keybinds.map("norg", "n", "<localleader>mu", "<cmd>Neorg update-metadata<CR>")
-            keybinds.map("norg", "n", "<localleader>t", "<cmd>Neorg tangle current-file<CR>")
+            -- stylua: ignore
+            hook = function(keybinds)
+              keybinds.map("norg", "n", "<localleader>mi", "<cmd>Neorg inject-metadata<CR>")
+              keybinds.map("norg", "n", "<localleader>mu", "<cmd>Neorg update-metadata<CR>")
+              keybinds.map("norg", "n", "<localleader>t", "<cmd>Neorg tangle current-file<CR>")
 
-            -- Telescope
-            keybinds.map("norg", "i", "<C-l>", "<cmd>Telescope neorg insert_link<CR>")
-            keybinds.map("norg", "i", "<C-h>", "<cmd>Telescope neorg insert_file_link<CR>")
+              -- Telescope
+              keybinds.map("norg", "i", "<C-l>", "<cmd>Telescope neorg insert_link<CR>")
+              keybinds.map("norg", "i", "<C-h>", "<cmd>Telescope neorg insert_file_link<CR>")
 
-            keybinds.map("norg", "n", "<localleader>fo", "<cmd>Telescope neorg find_norg_files<CR>")
-            keybinds.map("norg", "n", "<localleader>fl", "<cmd>Telescope neorg find_linkable<CR>")
-            keybinds.map("norg", "n", "<localleader>fh", "<cmd>Telescope neorg find_headings<CR>")
+              keybinds.map("norg", "n", "<localleader>fo", "<cmd>Telescope neorg find_norg_files<CR>")
+              keybinds.map("norg", "n", "<localleader>fl", "<cmd>Telescope neorg find_linkable<CR>")
+              keybinds.map("norg", "n", "<localleader>fh", "<cmd>Telescope neorg find_headings<CR>")
 
-            -- Looking glass
-            keybinds.map_event("norg", "n", "<localleader>c", "core.looking-glass.magnify-code-block")
-          end,
+              -- Looking glass
+              keybinds.map_event("norg", "n", "<localleader>c", "core.looking-glass.magnify-code-block")
+            end,
           },
         },
 
