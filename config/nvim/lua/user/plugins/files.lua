@@ -71,6 +71,7 @@ return {
         follow_current_file = true,
         hijack_netrw_behavior = "open_default",
         use_libuv_file_watcher = true,
+        find_by_full_path_words = true,
       },
       window = {
         mappings = {
@@ -78,6 +79,7 @@ return {
           ["<C-x>"] = "open_split",
           ["-"] = "navigate_up",
         },
+        position = "current",
       },
     },
   },
