@@ -6,7 +6,6 @@ return {
     dependencies = {
       "nvim-treesitter/nvim-treesitter-textobjects",
       "nvim-treesitter/nvim-treesitter-refactor",
-      { "nvim-treesitter/playground", name = "nvim-treesitter-playground" },
     },
     event = { "BufReadPost" },
     build = ":TSUpdate",
@@ -124,10 +123,6 @@ return {
             smart_rename = "grr",
           },
         },
-      },
-      playground = {
-        enable = true,
-        disable = {},
       },
       query_linter = {
         enable = true,
