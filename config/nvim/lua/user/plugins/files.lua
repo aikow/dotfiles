@@ -57,8 +57,6 @@ return {
       },
     },
     init = function()
-      vim.g.neo_tree_remove_legacy_commands = 1
-
       -- Load neo-tree if nvim was passed a directory as a single argument.
       if vim.fn.argc() == 1 then
         local stat = vim.loop.fs_stat(tostring(vim.fn.argv(0)))
