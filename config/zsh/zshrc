@@ -69,7 +69,22 @@ setopt noclobber
 export HISTSIZE=100000
 export SAVEHIST=100000
 export HISTFILE=~/.zsh_history
-export HISTIGNORE="l:ls:ll:lll:lt:lg:cd:cd -:pwd:exit:date:* --help:man"
+typeset -TU HISTIGNORE histignore
+export histignore=(
+  "* --help"
+  "cd -"
+  "cd"
+  "date"
+  "exit"
+  "l"
+  "lg"
+  "ll"
+  "lll"
+  "ls"
+  "lt"
+  "man"
+  "pwd"
+)
 
 
 #######################################################################
