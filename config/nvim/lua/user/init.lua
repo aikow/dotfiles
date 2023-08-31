@@ -47,13 +47,30 @@ M.plugins = function()
   })
 end
 
+M.configure_base = function()
+  local builtin = require("user.builtin")
+  builtin.disable_plugins()
+  builtin.disable_providers()
+
+  require("user.globals")
+  require("user.filetype")
+  require("user.mappings")
+  require("user.options")
+  require("user.autocmds")
+  require("user.commands")
+
+  if vim.fn.exists("neovide") == 1 then
+    require("user.neovide")
+  end
+end
+
 M.setup = function()
   -- Setup packer and plugins
   M.bootstrap()
   M.plugins()
 
   -- Setup options, key-maps and personal auto commands.
-  require("user.config").setup()
+  M.configure_base()
 end
 
 return M
