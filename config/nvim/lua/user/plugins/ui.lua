@@ -262,28 +262,28 @@ return {
   -- Show indentation.
   {
     "lukas-reineke/indent-blankline.nvim",
+    branch = "v3",
     config = function()
-      require("indent_blankline").setup({
-        filetype_exclude = {
-          "",
-          "Outline",
-          "TelescopePrompt",
-          "TelescopeResults",
-          "help",
-          "lazy",
-          "lspinfo",
-          "man",
-          "mason",
-          "norg",
-          "starter",
-          "terminal",
+      require("ibl").setup({
+        exclude = {
+          filetypes = {
+            "",
+            "Outline",
+            "TelescopePrompt",
+            "TelescopeResults",
+            "help",
+            "lazy",
+            "lspinfo",
+            "man",
+            "mason",
+            "norg",
+            "starter",
+            "terminal",
+          },
+          buftypes = {
+            "terminal",
+          },
         },
-        buftype_exclude = { "terminal" },
-        use_treesitter = false,
-        show_trailing_blankline_indent = false,
-        show_first_indent_level = false,
-        show_current_context = true,
-        show_current_context_start = false,
       })
     end,
   },
