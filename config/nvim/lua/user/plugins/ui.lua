@@ -202,7 +202,6 @@ return {
         header = logo,
         items = {
           section("Empty file", "enew | startinsert ", "Edit"),
-          section("Terminal", "terminal fish", "Edit"),
           section("Directory", "Telescope find_files", "Edit"),
           section(
             "Workspace",
@@ -210,6 +209,13 @@ return {
             "Edit"
           ),
           section("Recent", "Telescope oldfiles", "Edit"),
+          section("Shell", "terminal fish", "Files"),
+          section("Files", "lua require'mini.files'.open()", "Files"),
+          section(
+            "Tree",
+            "Neotree source=filesystem reveal=true position=float",
+            "Files"
+          ),
           section("Config", "edit $MYVIMRC | cd %:p:h", "Config"),
           section("Update plugins", "Lazy sync", "Config"),
           section("News", "help news | wincmd o", "Built-in"),
