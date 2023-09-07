@@ -11,7 +11,13 @@ export LC_ALL=en_US.UTF-8
 
 # Modify the path
 typeset -U path
-path=("${HOME}/.local/bin" "${DOTFILES}/bin/all" "${DOTFILES}/bin/os/bin" ${path})
+path=(
+  "${HOME}/.local/bin"
+  "${DOTFILES}/bin/all"
+  "${DOTFILES}/bin/os/bin"
+  /usr/local/bin
+  ${path}
+)
 
 ### Bat ###
 if command -v bat &>/dev/null; then
