@@ -33,6 +33,17 @@ return {
         desc = "reveal file in neo-tree",
       },
       {
+        "<leader>ng",
+        function()
+          require("neo-tree.command").execute({
+            source = "git_status",
+            reveal = true,
+            position = "left",
+          })
+        end,
+        desc = "reveal modified files tracked by git in neo-tree",
+      },
+      {
         "<leader>nb",
         function()
           require("neo-tree.command").execute({
