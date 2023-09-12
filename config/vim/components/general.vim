@@ -124,10 +124,8 @@ set splitbelow
 
 " Diff options
 set diffopt+=iwhite " No whitespace in vimdiff
-if has('patch-8.1.0360')
-  " Make diffing better: https://vimways.org/2018/the-power-of-diff/
-  set diffopt+=indent-heuristic
-endif
+" Make diffing better: https://vimways.org/2018/the-power-of-diff/
+set diffopt+=indent-heuristic
 
 " Set spell location to English and German
 set spell

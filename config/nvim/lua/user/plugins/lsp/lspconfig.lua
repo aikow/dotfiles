@@ -46,7 +46,6 @@ M.setup = function(_, opts)
   on_attach(function(client, buffer)
     require("user.plugins.lsp.format").on_attach(client, buffer)
     require("user.plugins.lsp.mappings").on_attach(client, buffer)
-    require("nvim-navic").attach(client, buffer)
   end)
 
   -- diagnostics

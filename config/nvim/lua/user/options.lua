@@ -110,6 +110,7 @@ opt.diffopt = opt.diffopt
 -- Color scheme and background
 opt.termguicolors = true -- 24-bit RGB color support
 opt.showmode = false -- Hide mode indicator
+opt.showtabline = 1
 
 opt.ruler = false -- Don't show column and row position, handled by theme.
 
