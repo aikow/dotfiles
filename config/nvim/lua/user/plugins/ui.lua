@@ -1,171 +1,7 @@
 return {
-  -- Statusline, winbar.
   {
-    "nvim-lualine/lualine.nvim",
-    event = "VeryLazy",
-    opts = function()
-      local separators = require("user.ui.icons").separators
-
-      local cwd = function()
-        local filename = vim.fs.basename(vim.fn.getcwd())
-
-        return "  " .. filename
-      end
-
-      local loc = function()
-        local ok_nvim_navic, nvim_navic = pcall(require, "nvim-navic")
-        if not ok_nvim_navic then
-          return ""
-        end
-
-        if nvim_navic.is_available() then
-          return nvim_navic.get_location() or ""
-        end
-
-        return ""
-      end
-
-      local lsp_clients = function()
-        return table.concat(
-          vim
-            .iter(vim.lsp.get_active_clients())
-            :map(function(server)
-              local name = server.name or ""
-              local progress = server.progress:pop()
-
-              -- HACK: Figure out how to get around having to force-clear the
-              -- progress messages.
-              server.progress:clear()
-
-              if progress and progress.value then
-                return string.format(
-                  " %%<%s: %s %s (%s%%%%) ",
-                  name,
-                  progress.value.title or "-",
-                  progress.value.message or "-",
-                  progress.value.percentage or "x"
-                )
-              else
-                return string.format(" %%<%s ", name)
-              end
-            end)
-            :totable(),
-          "|"
-        )
-      end
-
-      local filesize = function()
-        local size = vim.fn.getfsize(vim.fn.getreg("%"))
-        local formats = { "B", "KB", "MB", "GB", "TB" }
-        local f_idx = 1
-        while size > 1024 and f_idx < #formats do
-          size = size / 1024
-          f_idx = f_idx + 1
-        end
-        return string.format("%d%s", size, formats[f_idx])
-      end
-
-      return {
-        options = {
-          icons_enabled = true,
-          component_separators = separators.block.outline,
-          section_separators = "",
-          disabled_filetypes = {
-            statusline = {},
-            winbar = {
-              "DressingInput",
-              "TelescopePreview",
-              "TelescopePrompt",
-              "TelescopeResults",
-              "fzf",
-              "help",
-              "mason",
-              "neo-tree",
-              "packer",
-              "qf",
-              "starter",
-            },
-          },
-          ignore_focus = {},
-          always_divide_middle = true,
-          globalstatus = true,
-          refresh = {
-            statusline = 1000,
-            tabline = 1000,
-            winbar = 1000,
-          },
-        },
-        sections = {
-          lualine_a = { "mode" },
-          lualine_b = { cwd, "branch" },
-          lualine_c = { "diff" },
-          lualine_x = { lsp_clients },
-          lualine_y = { "diagnostics" },
-          lualine_z = { "%c", "%l:%L" },
-        },
-        tabline = {
-          lualine_a = { { "tabs", mode = 2 } },
-          lualine_b = {},
-          lualine_c = {},
-          lualine_x = {},
-          lualine_y = {},
-          lualine_z = {},
-        },
-        winbar = {
-          lualine_a = {},
-          lualine_b = { "filename" },
-          lualine_c = { loc },
-          lualine_x = { filesize, "encoding", "fileformat" },
-          lualine_y = { "filetype" },
-          lualine_z = {},
-        },
-        inactive_winbar = {
-          lualine_a = {},
-          lualine_b = { "filename" },
-          lualine_c = {},
-          lualine_x = { filesize, "encoding", "fileformat" },
-          lualine_y = { "filetype" },
-          lualine_z = {},
-        },
-        extensions = {
-          "fugitive",
-          "man",
-          "neo-tree",
-          "quickfix",
-        },
-      }
-    end,
-    config = function(_, opts)
-      local lualine = require("lualine")
-
-      -- Hide the tabline if only one tab is opened.
-      vim.api.nvim_create_autocmd({ "VimEnter", "TabNew", "TabClosed" }, {
-        group = vim.api.nvim_create_augroup("LualineTab", {}),
-        callback = function()
-          local show = #vim.api.nvim_list_tabpages() > 1
-          vim.o.showtabline = show and 1 or 0
-          lualine.hide({
-            place = { "tabline" },
-            unhide = show,
-          })
-        end,
-      })
-
-      -- Set the lualine theme to auto before loading any colorschemes.
-      vim.api.nvim_create_autocmd("ColorschemePre", {
-        callback = function()
-          require("lualine").setup({ options = { theme = "auto" } })
-        end,
-      })
-
-      lualine.setup(opts)
-
-      -- Hide the tabline by default.
-      lualine.hide({
-        place = { "tabline" },
-        unhide = false,
-      })
-    end,
+    "echasnovski/mini.statusline",
+    opts = {},
   },
 
   {
@@ -294,6 +130,11 @@ return {
     end,
   },
 
+  {
+    "echasnovski/mini.cursorword",
+    opts = {},
+  },
+
   -- Override neovim default UI components for user input.
   {
     "stevearc/dressing.nvim",
@@ -311,15 +152,6 @@ return {
         backend = { "telescope" },
       },
     },
-  },
-
-  -- LSP based location for status-line.
-  {
-    "SmiteshP/nvim-navic",
-    lazy = true,
-    config = function()
-      vim.g.navic_silence = true
-    end,
   },
 
   -- Dev icons for file types.
