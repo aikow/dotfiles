@@ -35,5 +35,10 @@
       "    ),",
       ")"
     ]
+  },
+  "pydantic field": {
+    "description": "create a pydantic Field with a description",
+    "prefix": "pfield",
+    "body": ["= Field(description=\"$1\")$0"]
   }
 }
