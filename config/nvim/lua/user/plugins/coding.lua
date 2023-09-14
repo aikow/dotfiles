@@ -153,56 +153,29 @@ return {
         },
         mapping = {
           ["<tab>"] = cmp.config.disable,
-          ["<C-n>"] = {
-            i = cmp.mapping.select_next_item({
-              behavior = cmp.SelectBehavior.Insert,
-            }),
-            c = cmp.mapping.select_next_item({
-              behavior = cmp.SelectBehavior.Insert,
-            }),
-          },
-          ["<C-p>"] = {
-            i = cmp.mapping.select_prev_item({
-              behavior = cmp.SelectBehavior.Insert,
-            }),
-            c = cmp.mapping.select_prev_item({
-              behavior = cmp.SelectBehavior.Insert,
-            }),
-          },
+          ["<S-tab>"] = cmp.config.disable,
+          ["<C-n>"] = cmp.mapping.select_next_item({
+            behavior = cmp.SelectBehavior.Insert,
+          }),
+          ["<C-p>"] = cmp.mapping.select_prev_item({
+            behavior = cmp.SelectBehavior.Insert,
+          }),
           ["<C-b>"] = cmp.mapping.scroll_docs(-4),
           ["<C-f>"] = cmp.mapping.scroll_docs(4),
-          ["<C-e>"] = {
-            i = cmp.mapping.abort(),
-            c = cmp.mapping.abort(),
-          },
+          ["<C-e>"] = cmp.mapping.abort(),
           ["<C-y>"] = cmp.mapping.confirm({
             behavior = cmp.ConfirmBehavior.Insert,
             select = true,
           }),
-          ["<CR>"] = {
-            i = cmp.mapping.confirm({
-              behavior = cmp.ConfirmBehavior.Insert,
-              select = false,
-            }),
-          },
-          ["<M-CR>"] = {
-            i = cmp.mapping.confirm({
-              behavior = cmp.ConfirmBehavior.Insert,
-              select = true,
-            }),
-          },
-          ["<C-Space>"] = cmp.mapping({
-            i = cmp.mapping.complete(),
-            c = function()
-              if cmp.visible() then
-                if not cmp.confirm({ select = true }) then
-                  return
-                end
-              else
-                cmp.complete()
-              end
-            end,
+          ["<CR>"] = cmp.mapping.confirm({
+            behavior = cmp.ConfirmBehavior.Insert,
+            select = false,
           }),
+          ["<M-CR>"] = cmp.mapping.confirm({
+            behavior = cmp.ConfirmBehavior.Insert,
+            select = true,
+          }),
+          ["<C-Space>"] = cmp.mapping.complete(),
         },
         sources = cmp.config.sources({
           { name = "crates" },
@@ -231,8 +204,54 @@ return {
       --
       -- Command mode completions.
       cmp.setup.cmdline(":", {
+        -- mapping = cmp.mapping.preset.cmdline(),
+        mapping = {
+          ["<Tab>"] = {
+            c = function()
+              if cmp.visible() then
+                cmp.select_next_item()
+              else
+                cmp.complete()
+              end
+            end,
+          },
+          ["<S-Tab>"] = {
+            c = function()
+              if cmp.visible() then
+                cmp.select_prev_item()
+              else
+                cmp.complete()
+              end
+            end,
+          },
+          -- ["<C-n>"] = {
+          --   c = function(fallback)
+          --     if cmp.visible() then
+          --       cmp.select_next_item()
+          --     else
+          --       fallback()
+          --     end
+          --   end,
+          -- },
+          -- ["<C-p>"] = {
+          --   c = function(fallback)
+          --     if cmp.visible() then
+          --       cmp.select_prev_item()
+          --     else
+          --       fallback()
+          --     end
+          --   end,
+          -- },
+          ["<C-e>"] = {
+            c = cmp.mapping.abort(),
+          },
+          ["<C-y>"] = {
+            c = cmp.mapping.confirm({ select = false }),
+          },
+        },
         sources = cmp.config.sources({
           { name = "cmdline" },
+        }, {
           { name = "path" },
         }),
       })
