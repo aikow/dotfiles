@@ -60,7 +60,7 @@ return {
         },
         footer = footer,
         content_hooks = {
-          starter.gen_hook.adding_bullet("░ ", false),
+          starter.gen_hook.adding_bullet("❭ ", false),
           starter.gen_hook.aligning("center", "center"),
         },
       }
