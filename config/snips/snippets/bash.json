@@ -15,9 +15,10 @@
     "description": "Header for a safe bash script"
   },
   "script directory": {
-    "prefix": "dirname",
+    "prefix": "scriptdir",
     "body": [
-      "readonly __DIRNAME=\"$(cd -- \"$(dirname -- \"\\${BASH_SOURCE[0]}\")\" &>/dev/null && pwd -P)\""
+      "script_dir=\"$(cd -- \"$(dirname -- \"\\${BASH_SOURCE[0]}\")\" &>/dev/null && pwd -P)\"",
+      "readonly script_dir"
     ],
     "description": "A readonly variable with the path to the directory of the current file"
   },
