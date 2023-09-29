@@ -185,9 +185,6 @@ return {
         }, {
           { name = "buffer", keyword_length = 5, max_item_count = 10 },
         }),
-        completion = {
-          --   keyword_length = 1,
-        },
         formatting = {
           format = function(_, vim_item)
             local icons = require("user.ui.icons").lsp.kinds
@@ -224,24 +221,6 @@ return {
               end
             end,
           },
-          -- ["<C-n>"] = {
-          --   c = function(fallback)
-          --     if cmp.visible() then
-          --       cmp.select_next_item()
-          --     else
-          --       fallback()
-          --     end
-          --   end,
-          -- },
-          -- ["<C-p>"] = {
-          --   c = function(fallback)
-          --     if cmp.visible() then
-          --       cmp.select_prev_item()
-          --     else
-          --       fallback()
-          --     end
-          --   end,
-          -- },
           ["<C-e>"] = {
             c = cmp.mapping.abort(),
           },
