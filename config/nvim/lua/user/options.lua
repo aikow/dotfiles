@@ -81,7 +81,8 @@ vim.opt.shortmess = vim.opt.shortmess + "c" -- Don't give ins-complete-menu mess
 
 -- Use treesitter for folding
 opt.foldmethod = "expr"
-opt.foldexpr = "nvim_treesitter#foldexpr()"
+opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+opt.foldtext = "v:lua.vim.treesitter.foldtext()"
 opt.foldlevel = 99 -- Nothing is folded by default
 
 -- Set 7 lines to the cursor - when moving vertically using j/k
