@@ -11,22 +11,22 @@ declare -a _POSITIONAL_ARGS=()
 
 while [[ ${#@} -gt 0 ]]; do
   case "${1}" in
-    -f|--force)
+    -f | --force)
       _FORCE="yes"
-      shift  # Past argument
+      shift # Past argument
       ;;
-    -t|--tag)
+    -t | --tag)
       _TAG="${2}"
-      shift  # Past argument
-      shift  # Past value
+      shift # Past argument
+      shift # Past value
       ;;
-    -*|--*)
+    -*)
       echo "Unknown option ${1}"
       exit 1
       ;;
     *)
-      _POSITIONAL_ARGS+=("${1}")  # Save positional argument
-      shift  # Past argument.
+      _POSITIONAL_ARGS+=("${1}") # Save positional argument
+      shift                      # Past argument.
       ;;
   esac
 done
@@ -43,7 +43,7 @@ readonly INSTALL_DIR="${NU_DIR}/${TAG}"
 readonly FILENAME="nu-${TAG}-x86_64-unknown-linux-gnu"
 readonly GITHUB_URL="https://github.com/nushell/nushell/releases/download/${TAG}/${FILENAME}.tar.gz"
 readonly INSTALL_PATH="${INSTALL_DIR}/nu.tar.gz"
-readonly BINARY_PATH="${HOME}/.local/bin/nu" 
+readonly BINARY_PATH="${HOME}/.local/bin/nu"
 
 mkdir -p "${INSTALL_DIR}"
 
@@ -56,7 +56,6 @@ else
   echo "nu version ${TAG} already downloaded"
 fi
 
-
 if [[ -L "${BINARY_PATH}" ]] || [[ ! -f "${BINARY_PATH}" ]]; then
   ln -sf "${INSTALL_DIR}/${FILENAME}/nu" "${BINARY_PATH}"
 elif [[ -f "{$BINARY_PATH}" ]]; then
@@ -64,4 +63,3 @@ elif [[ -f "{$BINARY_PATH}" ]]; then
   echo "Please remove it manually to continue"
   exit 1
 fi
-
