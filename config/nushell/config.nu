@@ -9,7 +9,7 @@ $env.config = {
     clickable_links: true # enable or disable clickable links. Your terminal has to support links.
   }
   rm: {
-    always_trash: false # always act as if -t was given. Can be overridden with -p
+    always_trash: true # always act as if -t was given. Can be overridden with -p
   }
   cd: {
     abbreviations: true # allows `cd s/o/f` to expand to `cd some/other/folder`
@@ -25,7 +25,7 @@ $env.config = {
   }
   explore: {
     help_banner: true
-    exit_esc: true
+    exit_esc: false
 
     command_bar_text: '#C4C9C6'
     # command_bar: {fg: '#C4C9C6' bg: '#223311' }
@@ -342,4 +342,4 @@ $env.config = {
 }
 
 use ~/.config/nushell/completions *
-source ~/.config/nushell/aliases.nu
+source ~/.config/nushell/lib/aliases.nu
