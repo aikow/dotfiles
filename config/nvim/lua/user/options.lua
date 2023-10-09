@@ -2,18 +2,10 @@ local opt = vim.opt
 
 opt.shell = "/bin/bash"
 
--- make scrolling and painting fast
-opt.lazyredraw = true
-
--- Search recursively downward from CWD; provides TAB completion for filenames
--- e.g., `:find vim* <TAB>`
--- opt.path:append(",**")
-
--- Permanent undo
+-- Back-up, undo files, and automatically write changes.
 opt.undofile = true
-
--- Backups and Swap files
 opt.backup = false
+opt.autowrite = true
 
 -- Better display for messages
 opt.updatetime = 1000
@@ -39,7 +31,6 @@ end
 -- ===========================
 --
 -- Tab key enters 2 spaces
-
 opt.expandtab = true
 opt.tabstop = 2
 opt.shiftwidth = 2
@@ -92,6 +83,7 @@ opt.scrolloff = 7
 -- Open new splits to the right or down instead of moving current window
 opt.splitright = true
 opt.splitbelow = true
+opt.spelloptions = { "camel" }
 
 -- Make diffing better: https://vimways.org/2018/the-power-of-diff/
 opt.diffopt = opt.diffopt

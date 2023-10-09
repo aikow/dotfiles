@@ -5,24 +5,12 @@ local augroup = vim.api.nvim_create_augroup
 autocmd({ "FocusGained", "BufEnter", "WinEnter" }, {
   group = augroup("General autoread", {}),
   callback = function()
-    if vim.api.nvim_buf_get_option(0, "buftype") ~= "" then
+    if vim.api.nvim_get_option_value("buftype", {}) ~= "" then
       return
     end
     vim.api.nvim_command("silent! checktime")
   end,
   desc = "perform a read when entering a new buffer",
-})
-
--- Write changes automatically when leaving a window or losing focus.
-autocmd({ "FocusLost", "WinLeave" }, {
-  group = augroup("general_autowrite", {}),
-  callback = function()
-    if vim.api.nvim_buf_get_option(0, "buftype") ~= "" then
-      return
-    end
-    vim.api.nvim_command("silent! noautocmd write")
-  end,
-  desc = "perform a write when leaving the current buffer",
 })
 
 -- Prevent accidental writes to buffers that shouldn't be edited
@@ -130,7 +118,7 @@ autocmd("VimEnter", {
     for _, f in rpairs(configs) do
       local contents = vim.secure.read(f)
       if contents ~= nil then
-        vim.api.nvim_exec(contents, false)
+        vim.api.nvim_exec2(contents)
       else
         vim.notify(string.format("skipping %s", f), vim.log.levels.DEBUG)
       end

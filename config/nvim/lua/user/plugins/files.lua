@@ -79,7 +79,9 @@ return {
     opts = {
       filesystem = {
         bind_to_cwd = false,
-        follow_current_file = true,
+        follow_current_file = {
+          enabled = true,
+        },
         hijack_netrw_behavior = "open_default",
         use_libuv_file_watcher = true,
         find_by_full_path_words = true,
