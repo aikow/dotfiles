@@ -11,13 +11,6 @@
   # Show the changes per file computed against the current merge base
   stat = !git diff --stat $(git merge-base HEAD \"${REVIEW_BASE:-main}\")
 
-  # Open all changed files in neovim in separate tabs with a diff view again
-  # $REVIEW_BASE.
-  review = !nvim -p $(git changed) +\"tabdo Gvdiffsplit ${REVIEW_BASE:-main}\"
-
-  # Open specific files in neovim with a diff view again $REVIEW_BASE.
-  reviewone = !nvim -p +\"tabdo G diff ${REVIEW_BASE:-main}\"
-
 [core]
   excludesfile = ~/.dotfiles/config/git/gitignore_global
   pager = delta
