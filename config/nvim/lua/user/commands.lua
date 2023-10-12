@@ -6,6 +6,8 @@ end, {
 
 vim.api.nvim_create_user_command("Bclean", function()
   local shown_buffers = {}
+  -- Create a set of buffers that are displayed in at least 1 window in any of
+  -- the currently open tab pages.
   for _, tabpage in ipairs(vim.api.nvim_list_tabpages()) do
     for _, window in ipairs(vim.api.nvim_tabpage_list_wins(tabpage)) do
       shown_buffers[vim.api.nvim_win_get_buf(window)] = true
@@ -13,7 +15,15 @@ vim.api.nvim_create_user_command("Bclean", function()
   end
 
   for _, buf in ipairs(vim.api.nvim_list_bufs()) do
-    if vim.api.nvim_buf_is_loaded(buf) and not shown_buffers[buf] then
+    -- Check that the buffer
+    -- - is not a terminal buffer
+    -- - and is loaded
+    -- - and is not shown
+    if
+      vim.api.nvim_get_option_value("buftype", { buf = buf }) ~= "terminal"
+      and vim.api.nvim_buf_is_loaded(buf)
+      and not shown_buffers[buf]
+    then
       vim.api.nvim_buf_delete(buf, {})
     end
   end

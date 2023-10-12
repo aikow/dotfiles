@@ -22,6 +22,41 @@ vim.keymap.set(
   { desc = "sort imports using isort" }
 )
 
+-- Automatically make the current string an f-string when typing `{`.
+vim.api.nvim_create_autocmd("InsertCharPre", {
+  pattern = { "*.py" },
+  group = vim.api.nvim_create_augroup("py-fstring", { clear = true }),
+  callback = function(opts)
+    if vim.v.char ~= "{" then
+      return
+    end
+
+    local node = vim.treesitter.get_node({})
+
+    if not node then
+      return
+    end
+
+    if node:type() ~= "string" then
+      node = node:parent()
+    end
+
+    if not node or node:type() ~= "string" then
+      return
+    end
+    local row, col, _, _ = vim.treesitter.get_node_range(node)
+    local first_char =
+      vim.api.nvim_buf_get_text(opts.buf, row, col, row, col + 1, {})[1]
+    if first_char == "f" then
+      return
+    end
+
+    vim.api.nvim_input(
+      "<Esc>m'" .. row + 1 .. "gg" .. col + 1 .. "|if<esc>`'la"
+    )
+  end,
+})
+
 -- Automatically wrap multiline concatenated strings.
 vim.api.nvim_buf_create_user_command(0, "StringWrap", function()
   iter_query(
