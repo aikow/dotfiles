@@ -32,6 +32,8 @@ return {
         return { name = name, action = action, section = section }
       end
 
+      local plugins_path = vim.fn.stdpath("data") .. "/lazy/"
+
       local starter = require("mini.starter")
       local config = {
         evaluate_single = true,
@@ -53,6 +55,7 @@ return {
             "Files"
           ),
           section("Config", "edit $MYVIMRC | cd %:p:h", "Config"),
+          section("Plugins", "Neotree " .. plugins_path, "Config"),
           section("Update plugins", "Lazy sync", "Config"),
           section("News", "help news | wincmd o", "Built-in"),
           section("Help", "Telescope help_tags", "Built-in"),

@@ -52,6 +52,8 @@ return {
       local actions = require("telescope.actions")
       local actions_layout = require("telescope.actions.layout")
 
+      local trouble = require("trouble")
+
       telescope.setup({
         defaults = {
           prompt_prefix = "> ",
@@ -97,6 +99,9 @@ return {
 
               ["<C-w>"] = { "<c-s-w>", type = "command" },
 
+              -- Open results using trouble.nvim
+              ["<c-t>"] = trouble.open_with_trouble,
+
               -- Cycle through history.
               ["<C-k>"] = actions.cycle_history_next,
               ["<C-j>"] = actions.cycle_history_prev,
@@ -117,6 +122,10 @@ return {
               ["<C-u>"] = actions.results_scrolling_up,
               ["<C-d>"] = actions.results_scrolling_down,
 
+              -- Open results using trouble.nvim
+              ["<c-t>"] = trouble.open_with_trouble,
+
+              -- Toggle the preview window.
               ["<C-_>"] = actions_layout.toggle_preview,
 
               -- Show keybindings.
@@ -183,7 +192,24 @@ return {
   {
     "folke/trouble.nvim",
     dependencies = { "nvim-tree/nvim-web-devicons" },
+    cmd = "Trouble",
     opts = {},
+    config = function(_, opts)
+      require("trouble").setup(opts)
+
+      vim.keymap.set("n", "<[t", function()
+        require("trouble").next({ skip_groups = false, jump = true })
+      end, { desc = "trouble jump to next diagnostic" })
+      vim.keymap.set("n", "<]t", function()
+        require("trouble").previous({ skip_groups = false, jump = true })
+      end, { desc = "trouble jump to previous diagnostic" })
+      vim.keymap.set("n", "<[T", function()
+        require("trouble").next({ skip_groups = true, jump = true })
+      end, { desc = "trouble jump to next group" })
+      vim.keymap.set("n", "<]T", function()
+        require("trouble").previous({ skip_groups = true, jump = true })
+      end, { desc = "trouble jump to previous group" })
+    end,
   },
 
   {

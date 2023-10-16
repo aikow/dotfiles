@@ -42,11 +42,16 @@ function M.on_attach(client, buffer)
 
   self:map("<leader>a", vim.lsp.buf.code_action, { desc = "LSP code actions", mode = { "n", "v" }, has = "codeAction" })
 
-  -- Telescope mappings
+  -- LSP go-to actions
   self:map("gd", "Telescope lsp_definitions", { desc = "list LSP definitions with telescope" })
   self:map("gr", "Telescope lsp_references", { desc = "list LSP references with telescope" })
   self:map("gi", "Telescope lsp_implementations", { desc = "list LSP implementations with telescope" })
   self:map("gy", "Telescope lsp_type_definitions", { desc = "list LSP type definitions with telescope" })
+
+  self:map("<leader>jd", "Trouble lsp_definitions", { desc = "list LSP definitions with trouble" })
+  self:map("<leader>jr", "Trouble lsp_references", { desc = "list LSP references with trouble" })
+  self:map("<leader>ji", "Trouble lsp_implementations", { desc = "list LSP implementations with trouble" })
+  self:map("<leader>jy", "Trouble lsp_type_definitions", { desc = "list LSP type definitions with trouble" })
 
   -- Symbols outline
   self:map("gO", "SymbolsOutline", { desc = "LSP open symbols outline" })
@@ -55,6 +60,7 @@ function M.on_attach(client, buffer)
   self:map("<leader>e", vim.diagnostic.open_float, { desc = "open diagnostics float for line" })
   self:map("<leader>dl", vim.diagnostic.setloclist, { desc = "set location list to diagnostics" })
   self:map("<leader>dq", vim.diagnostic.setqflist, { desc = "set quickfix list to diagnostics" })
+  self:map("<leader>dt", "Trouble workspace_diagnostics", { desc = "open diagnostics with trouble" })
   self:map("<leader>do", "Telescope diagnostics", { desc = "open diagnostics with telescope" })
 
   self:map("]d", M.diagnostic_goto(true), { desc = "next diagnostic" })

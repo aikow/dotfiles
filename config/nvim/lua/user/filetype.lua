@@ -8,6 +8,7 @@ vim.filetype.add({
   },
   filename = {
     [".gitignore"] = "gitignore",
+    [".rsync-filter"] = "rsync",
     ["aliases"] = "sh",
     ["bashrc"] = "bash",
     ["gitconfig"] = "gitconfig",

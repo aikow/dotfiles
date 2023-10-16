@@ -1,1 +1,7 @@
+# vim: ft=gitignore
+
+# Ignore local .nvim folders
 .nvim/
+
+# Mac OSX
+.DS_Store
