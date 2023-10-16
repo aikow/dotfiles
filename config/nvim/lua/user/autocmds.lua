@@ -118,7 +118,7 @@ autocmd("VimEnter", {
     for _, f in rpairs(configs) do
       local contents = vim.secure.read(f)
       if contents ~= nil then
-        vim.api.nvim_exec2(contents)
+        vim.api.nvim_exec2(contents, {})
       else
         vim.notify(string.format("skipping %s", f), vim.log.levels.DEBUG)
       end

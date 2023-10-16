@@ -33,18 +33,18 @@ highlight def link rsyncWildcardCharacterClass Operator
 
 highlight def link rsyncExclude RedBold
 highlight def link rsyncInclude GreenBold
-highlight def link rsyncMerge OrangeBold
-highlight def link rsyncDirMerge Orange
-highlight def link rsyncHide Grey
-highlight def link rsyncShow Green
+highlight def link rsyncMerge Repeat
+highlight def link rsyncDirMerge Repeat
+highlight def link rsyncHide PreProc
+highlight def link rsyncShow PreProc
 highlight def link rsyncProtect Red
 highlight def link rsyncRisk YellowBold
 highlight def link rsyncClear RedBold
 
-highlight def link rsyncFile RsyncFile
-highlight def link rsyncDir RsyncDir
+highlight def link rsyncFile Type
+highlight def link rsyncDir Constant
 
-highlight def link rsyncAnchoredFile RsyncAnchoredFile
-highlight def link rsyncAnchoredDir RsyncAnchoredDir
+highlight def link rsyncAnchoredFile Type
+highlight def link rsyncAnchoredDir Constant
 
 let b:current_syntax = "rsync"

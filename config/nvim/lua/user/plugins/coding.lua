@@ -315,6 +315,42 @@ return {
     },
   },
 
+  {
+    "echasnovski/mini.operators",
+    opts = {
+      -- Evaluate text and replace with output
+      evaluate = {
+        prefix = "goe",
+        -- Function which does the evaluation
+        func = nil,
+      },
+      -- Exchange text regions
+      exchange = {
+        prefix = "gox",
+        -- Whether to reindent new text to match previous indent
+        reindent_linewise = true,
+      },
+      -- Multiply (duplicate) text
+      multiply = {
+        prefix = "gom",
+        -- Function which can modify text before multiplying
+        func = nil,
+      },
+      -- Replace text with register
+      replace = {
+        prefix = "gor",
+        -- Whether to reindent new text to match previous indent
+        reindent_linewise = true,
+      },
+      -- Sort text
+      sort = {
+        prefix = "gos",
+        -- Function which does the sort
+        func = nil,
+      },
+    },
+  },
+
   -- Align tabular data.
   {
     "godlygeek/tabular",
@@ -327,21 +363,20 @@ return {
     end,
   },
 
-  -- Highlight todo, fixme, note, perf, etc. comments in buffers.
   {
-    "folke/todo-comments.nvim",
-    cmd = { "TodoTelescope", "TodoQuickFix", "TodoLocList" },
-    event = "BufReadPost",
-    -- stylua: ignore
-    keys = {
-      { "]t", function() require("todo-comments").jump_next() end, desc = "Next todo comment" },
-      { "[t", function() require("todo-comments").jump_prev() end, desc = "Previous todo comment" },
-    },
-    config = function()
-      require("todo-comments").setup({
-        signs = true,
-        sign_priority = 1,
-      })
+    "echasnovski/mini.hipatterns",
+    config = function(_, opts)
+      local hipatterns = require("mini.hipatterns")
+      hipatterns.setup(vim.tbl_deep_extend("force", opts, {
+        highlighters = {
+          fixme = { pattern = "FIXME", group = "MiniHipatternsFixme" },
+          hack = { pattern = "HACK", group = "MiniHipatternsHack" },
+          todo = { pattern = "TODO", group = "MiniHipatternsTodo" },
+          note = { pattern = "NOTE", group = "MiniHipatternsNote" },
+
+          hex_color = hipatterns.gen_highlighter.hex_color(),
+        },
+      }))
     end,
   },
 }
