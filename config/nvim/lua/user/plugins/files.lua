@@ -103,7 +103,7 @@ return {
       {
         "-",
         function()
-          require("mini.files").open(vim.api.nvim_buf_get_name(0))
+          require("mini.files").open(require("user.util").buf_path(0))
         end,
       },
       {
