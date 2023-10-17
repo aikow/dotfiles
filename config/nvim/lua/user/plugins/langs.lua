@@ -124,25 +124,17 @@ return {
       }
 
       vim.api.nvim_create_user_command("LatexSurround", function()
-        vim.b["surround" .. vim.fn.char2nr("e")] =
+        vim.b[0]["surround" .. vim.fn.char2nr("e")] =
           [[\\begin{\1environment: \1}\n\t\r\n\\end{\1\1}]]
-        vim.b["surround" .. vim.fn.char2nr("c")] = [[\\\1command: \1{\r}]]
+        vim.b[0]["surround" .. vim.fn.char2nr("c")] = [[\\\1command: \1{\r}]]
       end, { nargs = 0 })
     end,
   },
 
   -- Justfile support syntax support.
-  --
-  -- Currently the vim syntax support works a lot better than the tree-sitter
-  -- based one.
-  {
-    "NoahTheDuke/vim-just",
-    ft = { "just" },
-  },
-
   {
     "IndianBoy42/tree-sitter-just",
-    enabled = false,
+    enabled = true,
     dependencies = { "nvim-treesitter" },
     ft = { "just" },
     opts = {},
