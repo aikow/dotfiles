@@ -1,3 +1,3 @@
-# Section Name
+# Anaconda
 
-
+Python environment manager.
