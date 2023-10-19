@@ -1,11 +1,11 @@
 function _fzf_fish_history --description "Search command history. Replace the command line with the selected command."
-  # history merge incorporates history changes from other fish sessions
-  # it errors out if called in private mode
-  if test -z "$fish_private_mode"
-    builtin history merge
-  end
+    # history merge incorporates history changes from other fish sessions
+    # it errors out if called in private mode
+    if test -z "$fish_private_mode"
+        builtin history merge
+    end
 
-  set command_with_ts (
+    set command_with_ts (
     # Reference https://devhints.io/strftime to understand strftime format symbols
     builtin history --null --show-time="%m-%d %H:%M:%S │ " |
     _fzf_wrapper --read0 \
@@ -17,10 +17,10 @@ function _fzf_fish_history --description "Search command history. Replace the co
     string collect
   )
 
-  if test $status -eq 0
-    set command_selected (string split --max 1 " │ " $command_with_ts)[2]
-    commandline --replace -- $command_selected
-  end
+    if test $status -eq 0
+        set command_selected (string split --max 1 " │ " $command_with_ts)[2]
+        commandline --replace -- $command_selected
+    end
 
-  commandline --function repaint
+    commandline --function repaint
 end
