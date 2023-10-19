@@ -13,41 +13,39 @@ set -l git_version (string split ' ' (git version))[3]
 
 # The name of the current branch
 # Usage example: git pull origin (current_branch)
-function git_current_branch  
-    set ref (git symbolic-ref HEAD 2> /dev/null); or \
-    set ref (git rev-parse --short HEAD 2> /dev/null); or return
+function git_current_branch
+    set ref (git symbolic-ref HEAD 2> /dev/null); or set ref (git rev-parse --short HEAD 2> /dev/null); or return
     echo $ref | sed -e 's|^refs/heads/||'
 end
 
 function git_current_repository
-  set ref (git symbolic-ref HEAD 2> /dev/null); or \
-  set ref (git rev-parse --short HEAD 2> /dev/null); or return
-  echo (git remote -v | cut -d':' -f 2)
+    set ref (git symbolic-ref HEAD 2> /dev/null); or set ref (git rev-parse --short HEAD 2> /dev/null); or return
+    echo (git remote -v | cut -d':' -f 2)
 end
 
 # Check if main exists and use instead of master
-function git_main_branch 
-  command git rev-parse --git-dir &>/dev/null || return
-  for ref in refs/{heads,remotes/{origin,upstream}}/{main,trunk}
-    if command git show-ref -q --verify $ref
-      # TODO: echo ${ref:t}
-      echo $ref
-      return
+function git_main_branch
+    command git rev-parse --git-dir &>/dev/null || return
+    for ref in refs/{heads,remotes/{origin,upstream}}/{main,trunk}
+        if command git show-ref -q --verify $ref
+            # TODO: echo ${ref:t}
+            echo $ref
+            return
+        end
     end
-  end
-  echo master
+    echo master
 end
 
 # Check for develop and similarly named branches.
 function git_develop_branch
-  command git rev-parse --git-dir &>/dev/null || return
-  for branch in dev devel development
-    if command git show-ref -q --verify refs/heads/$branch
-      echo $branch
-      return
+    command git rev-parse --git-dir &>/dev/null || return
+    for branch in dev devel development
+        if command git show-ref -q --verify refs/heads/$branch
+            echo $branch
+            return
+        end
     end
-  end
-  echo develop
+    echo develop
 end
 
 
@@ -59,7 +57,7 @@ end
 # |===============|
 # =================
 # Sorted alphabetically
-abbr g 'git'
+abbr g git
 
 # -----------
 # |   Add   |
@@ -83,9 +81,9 @@ abbr gb 'git branch'
 abbr gba 'git branch -a'
 abbr gbd 'git branch -d'
 function gbda
-  git branch --no-color --merged \
-    | command grep -vE "^([+*]|\s*("(git_main_branch)"|"(git_develop_branch)")\s*\$)" \
-    | command xargs git branch -d 2>/dev/null
+    git branch --no-color --merged \
+        | command grep -vE "^([+*]|\s*("(git_main_branch)"|"(git_develop_branch)")\s*\$)" \
+        | command xargs git branch -d 2>/dev/null
 end
 abbr gbD 'git branch -D'
 abbr gbn 'git branch --no-merged'
@@ -118,8 +116,8 @@ abbr gcmsg 'git commit -m'
 # |   Clone   |
 # -------------
 function gccd
-  command git clone --recurse-submodules $argv
-  test -d $argv[-1] && cd $argv[-1] || cd (string split -r -m1 '.git' $argv[1])[1]
+    command git clone --recurse-submodules $argv
+    test -d $argv[-1] && cd $argv[-1] || cd (string split -r -m1 '.git' $argv[1])[1]
 end
 
 abbr gcl 'git clone --recurse-submodules'
@@ -163,11 +161,11 @@ abbr gdup 'git diff @{upstream}'
 abbr gdw 'git diff --word-diff'
 
 function gdnolock
-  git diff $argv ":(exclude)package-lock.json" ":(exclude)*.lock"
+    git diff $argv ":(exclude)package-lock.json" ":(exclude)*.lock"
 end
 
 function gdv
-  git diff -w $argv | view -
+    git diff -w $argv | view -
 end
 
 # -------------
@@ -176,8 +174,8 @@ end
 abbr gf 'git fetch'
 # --jobs=<n> was added in git 2.8
 vercomp 2.8 -lt $git_version \
-  && abbr gfa 'git fetch --all --prune --jobs=10' \
-  || abbr gfa 'git fetch --all --prune'
+    && abbr gfa 'git fetch --all --prune --jobs=10' \
+    || abbr gfa 'git fetch --all --prune'
 abbr gfo 'git fetch origin'
 
 # ------------------
@@ -228,21 +226,21 @@ abbr glum 'git pull upstream (git_main_branch)'
 abbr ggpull 'git pull origin (git_current_branch)'
 
 function ggu
-  if test (count $argv) -ne 1
-    git pull --rebase origin (git_current_branch)
-  else
-    git pull --rebase origin $argv[1]
-  end
+    if test (count $argv) -ne 1
+        git pull --rebase origin (git_current_branch)
+    else
+        git pull --rebase origin $argv[1]
+    end
 end
 
 function ggl
-  if test (count $argv) -ge 2
-    git pull origin $argv
-  else if test (count $argv) -eq 1
-    git pull origin $argv[1]
-  else
-    git pull origin (git_current_branch)
-  end
+    if test (count $argv) -ge 2
+        git pull origin $argv
+    else if test (count $argv) -eq 1
+        git pull origin $argv[1]
+    else
+        git pull origin (git_current_branch)
+    end
 end
 
 # ------------
@@ -259,29 +257,29 @@ abbr gpsup 'git push --set-upstream origin (git_current_branch)'
 abbr ggpush 'git push origin (git_current_branch)'
 
 function ggp
-  if test (count $argv) -ge 2
-    git push origin $argv
-  else if test (count $argv) -eq 1
-    git push origin $argv[1]
-  else
-    git push origin (git_current_branch)
-  end
+    if test (count $argv) -ge 2
+        git push origin $argv
+    else if test (count $argv) -eq 1
+        git push origin $argv[1]
+    else
+        git push origin (git_current_branch)
+    end
 end
 
 function ggf
-  if test (count $argv) -eq 0 
-    git push --force origin (git_current_branch)
-  else if test (count $argv) -eq 1
-    git push --force origin $argv[1]
-  end
+    if test (count $argv) -eq 0
+        git push --force origin (git_current_branch)
+    else if test (count $argv) -eq 1
+        git push --force origin $argv[1]
+    end
 end
 
 function ggfl
-  if test (count $argv) -eq 0 
-    git push --force-with-lease origin (git_current_branch)
-  else if test (count $argv) -eq 1
-    git push --force-with-lease origin $argv[1]
-  end
+    if test (count $argv) -eq 0
+        git push --force-with-lease origin (git_current_branch)
+    else if test (count $argv) -eq 1
+        git push --force-with-lease origin $argv[1]
+    end
 end
 
 # --------------
@@ -361,8 +359,8 @@ abbr gsmU 'git submodule update --init --recursive'
 # -------------
 # use the default stash push on git 2.13 and newer
 vercomp 2.13 -lt $git_version \
-  && abbr gsta 'git stash push' \
-  || abbr gsta 'git stash save'
+    && abbr gsta 'git stash push' \
+    || abbr gsta 'git stash save'
 
 abbr gstaa 'git stash apply'
 abbr gstc 'git stash clear'
@@ -397,7 +395,7 @@ abbr gwr 'git worktree remove'
 # |   Miscellaneous   |
 # ---------------------
 function grt --description "cd to the git repository root"
-  cd (git rev-parse --show-toplevel || echo .)
+    cd (git rev-parse --show-toplevel || echo .)
 end
 
 abbr gcount 'git shortlog -sn'
@@ -407,26 +405,26 @@ abbr gunignore 'git update-index --no-assume-unchanged'
 abbr gwch 'git whatchanged -p --abbrev-commit --pretty=medium'
 
 function grename
-  if test -z $argv[1] -o -z $argv[2]
-    echo "Usage: grename old_branch new_branch"
-    return 1
-  end
+    if test -z $argv[1] -o -z $argv[2]
+        echo "Usage: grename old_branch new_branch"
+        return 1
+    end
 
-  # Rename branch locally
-  git branch -m $argv[1] $argv[2]
+    # Rename branch locally
+    git branch -m $argv[1] $argv[2]
 
-  # Rename branch in origin remote
-  if git push origin :$argv[1]
-    git push --set-upstream origin $argv[2]
-  end
+    # Rename branch in origin remote
+    if git push origin :$argv[1]
+        git push --set-upstream origin $argv[2]
+    end
 end
 
 function ggpnp
-  if test (count $argv) -eq 0
-    ggl && ggp
-  else
-    ggl $argv && ggp $argv
-  end
+    if test (count $argv) -eq 0
+        ggl && ggp
+    else
+        ggl $argv && ggp $argv
+    end
 end
 
 set -e git_version

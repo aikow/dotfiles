@@ -1,8 +1,8 @@
 function fzf_docker_containers
-  docker_is_valid
-  or return
+    docker_is_valid
+    or return
 
-  set selected_containers (
+    set selected_containers (
     docker container ls --all |
     _fzf_wrapper \
       --header-lines=1 \
@@ -14,14 +14,14 @@ function fzf_docker_containers
       --bind 'ctrl-o:preview(docker container inspect {1})' \
       --bind 'ctrl-p:preview(docker port {1})'
   )
-  if test $status -eq 0
-    set cleaned_containe
-    for container in containers
-      set --append cleaned_containers (
+    if test $status -eq 0
+        set cleaned_containe
+        for container in containers
+            set --append cleaned_containers (
         string split --no-empty --fields 1 $container
       )
+        end
+        string join \n $cleaned_containers
+        return 0
     end
-    string join \n $cleaned_containers
-    return 0
-  end
 end
