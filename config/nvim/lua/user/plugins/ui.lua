@@ -38,25 +38,26 @@ return {
       local config = {
         evaluate_single = true,
         header = logo,
+        -- stylua: ignore
         items = {
+          -- Edit actions
           section("Empty file", "enew | startinsert ", "Edit"),
           section("Directory", "Telescope find_files", "Edit"),
-          section(
-            "Workspace",
-            "cd $HOME/workspace | Telescope find_files",
-            "Edit"
-          ),
+          section("Workspace", "cd $HOME/workspace | Telescope find_files", "Edit"),
           section("Recent", "Telescope oldfiles", "Edit"),
+
+          -- File actions
           section("Shell", "terminal fish", "Files"),
           section("Files", "lua require'mini.files'.open()", "Files"),
-          section(
-            "Tree",
-            "Neotree source=filesystem reveal=true position=float",
-            "Files"
-          ),
+          section("Tree", "Neotree source=filesystem reveal=true position=float", "Files"),
+
+          -- Config and plugin actions
           section("Config", "edit $MYVIMRC | cd %:p:h", "Config"),
+          section("Local config", "edit ~/.local/config/nvim/lua/user/local/init.lua | cd %:p:h", "Config"),
           section("Plugins", "Neotree " .. plugins_path, "Config"),
           section("Update plugins", "Lazy sync", "Config"),
+
+          -- Builtin actions
           section("News", "help news | wincmd o", "Built-in"),
           section("Help", "Telescope help_tags", "Built-in"),
           section("Quit", "quit", "Built-in"),
