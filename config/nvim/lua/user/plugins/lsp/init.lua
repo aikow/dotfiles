@@ -3,14 +3,13 @@ return {
   {
     "neovim/nvim-lspconfig",
     dependencies = {
-      "williamboman/mason.nvim",
+      "mason.nvim",
       "williamboman/mason-lspconfig.nvim",
       { "folke/neodev.nvim", opts = {} },
-      "hrsh7th/cmp-nvim-lsp",
+      "cmp-nvim-lsp",
     },
     event = { "BufReadPre" },
     opts = {
-      autoformat = true,
       servers = {
         "bashls",
         "jsonls",
@@ -23,19 +22,6 @@ return {
       },
     },
     config = require("user.plugins.lsp.lspconfig").setup,
-  },
-
-  -- Hook into the builtin LSP features.
-  {
-    "jose-elias-alvarez/null-ls.nvim",
-    dependencies = {
-      "neovim/nvim-lspconfig",
-      "williamboman/mason.nvim",
-      "jay-babu/mason-null-ls.nvim",
-    },
-    event = "BufReadPre",
-    opts = require("user.plugins.lsp.null-ls").opts,
-    config = require("user.plugins.lsp.null-ls").setup,
   },
 
   -- Easily install any LSP, DAP, linter, or formatter from inside neovim.
@@ -94,11 +80,5 @@ return {
         },
       })
     end,
-  },
-
-  -- Project local configuration via JSON.
-  {
-    "folke/neoconf.nvim",
-    enabled = false,
   },
 }

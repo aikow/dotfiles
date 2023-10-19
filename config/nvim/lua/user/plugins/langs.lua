@@ -159,7 +159,7 @@ return {
   {
     "LhKipp/nvim-nu",
     dependencies = {
-      "null-ls.nvim",
+      "jose-elias-alvarez/null-ls.nvim",
       "nvim-treesitter",
     },
     ft = { "nu" },

@@ -39,12 +39,8 @@ local setup_handlers = function()
 end
 
 M.setup = function(_, opts)
-  -- setup autoformat
-  require("user.plugins.lsp.format").autoformat = opts.autoformat
-
-  -- setup formatting and keymaps
+  -- setup keymaps
   on_attach(function(client, buffer)
-    require("user.plugins.lsp.format").on_attach(client, buffer)
     require("user.plugins.lsp.mappings").on_attach(client, buffer)
   end)
 

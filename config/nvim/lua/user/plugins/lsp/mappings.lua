@@ -70,9 +70,6 @@ function M.on_attach(client, buffer)
   self:map("]w", M.diagnostic_goto(true, "WARNING"), { desc = "next warning" })
   self:map("[w", M.diagnostic_goto(false, "WARNING"), { desc = "previous warning" })
 
-  local format = require("user.plugins.lsp.format").format
-  self:map("<leader>rf", format, { desc = "format document", has = "documentFormatting" })
-  self:map("<leader>rf", format, { desc = "format range", mode = "v", has = "documentRangeFormatting" })
   self:map("<leader>rr", vim.lsp.buf.rename, { desc = "rename using LSP", has = "rename" })
   -- stylua: ignore end
 end

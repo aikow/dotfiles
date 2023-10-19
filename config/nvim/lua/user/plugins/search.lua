@@ -20,6 +20,7 @@ return {
       {"<leader>o", "<cmd>Telescope find_files<CR>",  desc = "telescope find files" },
       {"<leader>p", "<cmd>Telescope buffers<CR>",  desc = "telescope buffers" },
       {"<leader>ff", "<cmd>Telescope live_grep<CR>",  desc = "telescope live grep" },
+      {"<leader>ft", "<cmd>Telescope treesitter<CR>",  desc = "telescope treesitter symbols" },
       {"<leader>fw", "<cmd>Telescope grep_string<CR>",  desc = "telescope grep word under cursor" },
       {"<leader>fb", "<cmd>Telescope current_buffer_fuzzy_find<CR>",  desc = "telescope buffer fuzzy find" },
       -- Git shortcuts
@@ -49,21 +50,12 @@ return {
     config = function()
       local telescope = require("telescope")
       local themes = require("telescope.themes")
-      local actions = require("telescope.actions")
-      local actions_layout = require("telescope.actions.layout")
 
       local trouble = require("trouble")
 
       telescope.setup({
         defaults = {
-          prompt_prefix = "> ",
-          selection_caret = "> ",
-          entry_prefix = "  ",
-
-          initial_mode = "insert",
-          selection_strategy = "reset",
           sorting_strategy = "ascending",
-
           layout_strategy = "flex",
           layout_config = {
             flex = {
@@ -74,72 +66,7 @@ return {
             width = 0.87,
             height = 0.80,
           },
-
           path_display = { "truncate" },
-
-          border = {},
-          borderchars = { " ", " ", " ", " ", " ", " ", " ", " " },
-          -- borderchars = { "─", "│", "─", "│", "╭", "╮", "╯", "╰" },
-
-          winblend = 0,
-          color_devicons = true,
-          -- set_env = { ["COLORTERM"] = "truecolor" },
-
-          mappings = {
-            i = {
-              ["<C-n>"] = actions.move_selection_next,
-              ["<C-p>"] = actions.move_selection_previous,
-
-              -- Scroll through buffer and results.
-              ["<C-b>"] = actions.preview_scrolling_up,
-              ["<C-f>"] = actions.preview_scrolling_down,
-
-              ["<C-u>"] = actions.results_scrolling_up,
-              ["<C-d>"] = actions.results_scrolling_down,
-
-              ["<C-w>"] = { "<c-s-w>", type = "command" },
-
-              -- Open results using trouble.nvim
-              ["<c-t>"] = trouble.open_with_trouble,
-
-              -- Cycle through history.
-              ["<C-k>"] = actions.cycle_history_next,
-              ["<C-j>"] = actions.cycle_history_prev,
-
-              -- Toggle the preview window.
-              ["<C-_>"] = actions_layout.toggle_preview,
-
-              -- Show keybindings.
-              ["<C-h>"] = actions.which_key,
-            },
-            n = {
-              ["<C-j>"] = actions.move_selection_next,
-              ["<C-k>"] = actions.move_selection_previous,
-
-              ["<C-b>"] = actions.preview_scrolling_up,
-              ["<C-f>"] = actions.preview_scrolling_down,
-
-              ["<C-u>"] = actions.results_scrolling_up,
-              ["<C-d>"] = actions.results_scrolling_down,
-
-              -- Open results using trouble.nvim
-              ["<c-t>"] = trouble.open_with_trouble,
-
-              -- Toggle the preview window.
-              ["<C-_>"] = actions_layout.toggle_preview,
-
-              -- Show keybindings.
-              ["<C-h>"] = actions.which_key,
-
-              -- Smart add or send to quick fix list.
-              ["Q"] = actions.smart_send_to_qflist + actions.open_qflist,
-              ["q"] = actions.smart_add_to_qflist + actions.open_qflist,
-
-              -- Smart add or send to location list.
-              ["O"] = actions.smart_send_to_loclist + actions.open_loclist,
-              ["o"] = actions.smart_add_to_loclist + actions.open_qflist,
-            },
-          },
           vimgrep_arguments = {
             "rg",
             "--color=never",
@@ -150,9 +77,19 @@ return {
             "--smart-case",
             "--trim",
           },
+          mappings = {
+            i = {
+              -- Open results using trouble.nvim
+              ["<c-t>"] = trouble.open_with_trouble,
+            },
+            n = {
+              -- Open results using trouble.nvim
+              ["<c-t>"] = trouble.open_with_trouble,
+            },
+          },
         },
         pickers = {
-          colorscheme = themes.get_dropdown(),
+          colorscheme = themes.get_dropdown({ enable_preview = true }),
           command_history = themes.get_dropdown(),
           filetypes = themes.get_dropdown(),
           find_files = {
@@ -217,7 +154,7 @@ return {
     dependencies = { "nvim-tree/nvim-web-devicons" },
     cmd = "FzfLua",
     keys = {
-      { "<leader>z", "<cmd>FzfLua<CR>" },
+      { "<leader>zz", "<cmd>FzfLua<CR>" },
       { "<leader>zo", "<cmd>FzfLua files<CR>" },
       { "<leader>zgo", "<cmd>FzfLua git_files<CR>" },
       { "<leader>zff", "<cmd>FzfLua live_grep<CR>" },
