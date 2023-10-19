@@ -5,41 +5,41 @@
 export DOTFILES="${HOME}/.dotfiles"
 export DOTFILES_ZSH="${DOTFILES}/config/zsh"
 export DOTFILES_SH="${DOTFILES}/config/sh"
-export LOCAL_CONFIG="${HOME}/.local/config"
+export LOCAL_CONFIG="${HOME}/.local/config/zsh"
 
 export LC_ALL=en_US.UTF-8
 
 # Modify the path
 typeset -U path
 path=(
-  "${HOME}/.local/bin"
-  "${DOTFILES}/bin/all"
-  "${DOTFILES}/bin/os/bin"
-  /usr/local/bin
-  ${path}
+	"${HOME}/.local/bin"
+	"${DOTFILES}/bin/all"
+	"${DOTFILES}/bin/os/bin"
+	/usr/local/bin
+	${path}
 )
 
 ### Bat ###
 if command -v bat &>/dev/null; then
-  export BAT_THEME="gruvbox-dark"
+	export BAT_THEME="gruvbox-dark"
 fi
 
 ### Editor ###
 if command -v nvim &>/dev/null; then
-  export VISUAL="nvim"
-else;
-  export VISUAL="vim"
+	export VISUAL="nvim"
+else
+	export VISUAL="vim"
 fi
 export EDITOR="${VISUAL}"
 
 ### FZF ###
 if command -v fd &>/dev/null; then
-  export FZF_DEFAULT_COMMAND='fd --type file --follow --hidden --exclude .git --color=always'
-  export FZF_CTRL_T_COMMAND="${FZF_DEFAULT_COMMAND}"
-  export FZF_DEFAULT_OPTS='--ansi'
+	export FZF_DEFAULT_COMMAND='fd --type file --follow --hidden --exclude .git --color=always'
+	export FZF_CTRL_T_COMMAND="${FZF_DEFAULT_COMMAND}"
+	export FZF_DEFAULT_OPTS='--ansi'
 elif command -v rg &>/dev/null; then
-  export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow --glob "!.git/*"'
-  export FZF_CTRL_T_COMMAND="${FZF_DEFAULT_COMMAND}"
+	export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow --glob "!.git/*"'
+	export FZF_CTRL_T_COMMAND="${FZF_DEFAULT_COMMAND}"
 fi
 export FZF_DEFAULT_OPTS="${FZF_DEFAULT_OPTS} --bind ctrl-d:preview-half-page-down,ctrl-u:preview-half-page-up,ctrl-f:half-page-down,ctrl-b:half-page-up,ctrl-/:toggle-preview --border --height 50% --min-height 20 --preview-window right,40%,follow"
 

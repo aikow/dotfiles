@@ -2,7 +2,7 @@
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+    source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
 #######################################################################
@@ -186,8 +186,8 @@ elif [[ -f /usr/share/fzf/key-bindings.zsh ]]; then
 fi
 
 # Load user aliases
-[[ -f "${DOTFILES_ZSH}/aliases" ]]  && source "${DOTFILES_ZSH}/aliases"
+[[ -f "${DOTFILES_ZSH}/aliases.zsh" ]]  && source "${DOTFILES_ZSH}/aliases.zsh"
 
 # Load local settings and aliases
-[[ -f "${LOCAL_CONFIG}/aliases" ]] && source "${LOCAL_CONFIG}/aliases"
+[[ -f "${LOCAL_CONFIG}/aliases.zsh" ]] && source "${LOCAL_CONFIG}/aliases.zsh"
 [[ -f "${LOCAL_CONFIG}/zshrc" ]] && source "${LOCAL_CONFIG}/zshrc"
