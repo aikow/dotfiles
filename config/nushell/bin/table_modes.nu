@@ -7,6 +7,6 @@ def main [] {
       nu -m $it -c $"open ~/Downloads/firefox/reservations.csv | first 2"
     }
 
-  $nothing
+  null
 }
 
