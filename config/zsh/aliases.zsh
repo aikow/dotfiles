@@ -1,4 +1,4 @@
-#!/bin/zsh
+#!/usr/bin/env zsh
 
 alias zshconfig="${EDITOR} ~/.zshrc"
 alias gitconfig="${EDITOR} ~/.gitconfig"
