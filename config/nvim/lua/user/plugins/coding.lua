@@ -261,7 +261,7 @@ return {
       location = { suffix = "l" },
       oldfile = { suffix = "" },
       quickfix = { suffix = "q" },
-      treesitter = { suffix = "t" },
+      treesitter = { suffix = "r" },
       undo = { suffix = "" },
       window = { suffix = "w" },
       yank = { suffix = "" },

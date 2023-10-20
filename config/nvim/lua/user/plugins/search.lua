@@ -51,7 +51,7 @@ return {
       local telescope = require("telescope")
       local themes = require("telescope.themes")
 
-      local trouble = require("trouble")
+      local trouble = require("trouble.providers.telescope")
 
       telescope.setup({
         defaults = {
@@ -80,11 +80,11 @@ return {
           mappings = {
             i = {
               -- Open results using trouble.nvim
-              ["<c-t>"] = trouble.open_with_trouble,
+              ["<M-t>"] = trouble.open_with_trouble,
             },
             n = {
               -- Open results using trouble.nvim
-              ["<c-t>"] = trouble.open_with_trouble,
+              ["<M-t>"] = trouble.open_with_trouble,
             },
           },
         },
@@ -132,20 +132,23 @@ return {
     cmd = "Trouble",
     opts = {},
     config = function(_, opts)
-      require("trouble").setup(opts)
+      local trouble = require("trouble")
+      trouble.setup(opts)
 
-      vim.keymap.set("n", "<[t", function()
-        require("trouble").next({ skip_groups = false, jump = true })
-      end, { desc = "trouble jump to next diagnostic" })
-      vim.keymap.set("n", "<]t", function()
-        require("trouble").previous({ skip_groups = false, jump = true })
-      end, { desc = "trouble jump to previous diagnostic" })
-      vim.keymap.set("n", "<[T", function()
-        require("trouble").next({ skip_groups = true, jump = true })
-      end, { desc = "trouble jump to next group" })
-      vim.keymap.set("n", "<]T", function()
-        require("trouble").previous({ skip_groups = true, jump = true })
-      end, { desc = "trouble jump to previous group" })
+      -- Setup keybindings to jump between messages.
+      local map = vim.keymap.set
+      local rhs = function(fn)
+        return function()
+          fn({ skip_groups = true, jump = true })
+        end
+      end
+
+      -- stylua: ignore start
+      map("n", "[t", rhs(trouble.next), { desc = "trouble jump to next" })
+      map("n", "]t", rhs(trouble.previous), { desc = "trouble jump to previous" })
+      map("n", "[T", rhs(trouble.first), { desc = "trouble jump to first" })
+      map("n", "]T", rhs(trouble.last), { desc = "trouble jump to last" })
+      -- stylua: ignore end
     end,
   },
 
