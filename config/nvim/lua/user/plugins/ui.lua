@@ -19,8 +19,8 @@ return {
         "                                                  ",
       }, "\n")
 
-      local version =
-        vim.split(vim.fn.execute("version"), "\n", { trimempty = true })
+      local version_str = vim.fn.execute("version") or ""
+      local version = vim.split(version_str, "\n", { trimempty = true })
       local footer = table.concat({
         version[1]:sub(6, -1),
         version[2],

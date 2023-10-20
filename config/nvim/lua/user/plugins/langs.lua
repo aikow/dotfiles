@@ -293,5 +293,6 @@ return {
   -- Kitty .conf file syntax support.
   {
     "fladson/vim-kitty",
+    ft = { "kitty" },
   },
 }
