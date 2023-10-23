@@ -2,7 +2,7 @@
   {
     "shell": [
       {
-        "command": "./bootstrap-fzf.sh",
+        "command": "./bootstrap-fzf",
         "description": "Bootstrapping fzf"
       }
     ]

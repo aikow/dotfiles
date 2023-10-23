@@ -115,5 +115,4 @@ fi
 [[ -f "${DOTFILES_BASH}/aliases/git.bash" ]] && source "${DOTFILES_BASH}/aliases/git.bash"
 
 # Load local aliases and configurations
-[[ -f "${LOCAL_CONFIG}/aliases.bash" ]] && source "${LOCAL_CONFIG}/aliases.bash"
 [[ -f "${LOCAL_CONFIG}/bashrc" ]] && source "${LOCAL_CONFIG}/bashrc"
