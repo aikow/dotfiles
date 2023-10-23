@@ -15,7 +15,6 @@ return {
         mode = { "n", "x" },
         desc = "Format the current buffer",
       },
-
       {
         "<leader>rF",
         function()
@@ -39,34 +38,30 @@ return {
         fish = { "fish_indent" },
         json = { "jq" },
         lua = { "stylua" },
-        markdown = { "prettierd" },
+        markdown = { { "prettierd", "prettier" } },
         python = { "isort", "black" },
         sh = { "shfmt" },
         sql = { "sql_formatter" },
-        yaml = { "prettierd" },
+        yaml = { { "prettierd", "prettier" } },
       },
       formatters = {
-        {
-          black = {
-            prepend_args = { "--preview" },
-          },
-          fish_indent = {},
-          isort = {
-            with = { extra_args = { "--profile=black" } },
-          },
-          jq = {},
-          shfmt = {
-            extra_args = { "--indent", "2", "--case-indent" },
-          },
-          sql_formatter = {
-            prepend_args = function()
-              -- Override the default dialect using a buffer-local variable
-              -- (`sqllanguage`).
-              return { "-l", vim.b[0].sqllanguage or "sqlite" }
-            end,
-          },
-          stylua = {},
+        black = {
+          prepend_args = { "--preview" },
         },
+        isort = {
+          prepend_args = { "--profile=black" },
+        },
+        shfmt = {
+          prepend_args = { "--indent", "2", "--case-indent" },
+        },
+        sql_formatter = {
+          prepend_args = function()
+            -- Override the default dialect using a buffer-local variable
+            -- (`sqllanguage`).
+            return { "-l", vim.b[0].sqllanguage or "sqlite" }
+          end,
+        },
+        stylua = {},
       },
     },
   },
