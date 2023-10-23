@@ -4,7 +4,7 @@ set -gx LC_ALL en_US.UTF-8
 # My environment variables
 set -gx DOTFILES $HOME/.dotfiles
 set -gx DOTFILES_FISH $HOME/.dotfiles/config/fish
-set -gx LOCAL_CONFIG $HOME/.local/config
+set -gx LOCAL_CONFIG $HOME/.local/config/fish
 
 # Editor
 set -gx EDITOR nvim

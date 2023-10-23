@@ -2,7 +2,7 @@
   {
     "shell": [
       {
-        "command": "./bootstrap-rust.sh",
+        "command": "./bootstrap-rust",
         "description": "Bootstrapping rustup"
       }
     ]

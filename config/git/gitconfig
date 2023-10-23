@@ -70,4 +70,4 @@
   name = Aiko Wessels
 
 [include]
-  path = ~/.local/config/gitconfig
+  path = ~/.local/config/git/gitconfig

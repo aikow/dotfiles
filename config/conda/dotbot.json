@@ -9,7 +9,7 @@
   {
     "shell": [
       {
-        "command": "./bootstrap-conda.sh",
+        "command": "./bootstrap-conda",
         "description": "Bootstrapping conda"
       }
     ]

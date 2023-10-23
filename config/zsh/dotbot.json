@@ -9,7 +9,7 @@
   {
     "shell": [
       {
-        "command": "./bootstrap-zinit.sh",
+        "command": "./bootstrap-zinit",
         "description": "Bootstrapping zinit"
       }
     ]
