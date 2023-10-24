@@ -14,6 +14,6 @@ dotbot.create({
 
 dotbot.shell("git submodule update --init --recursive")
 
-if not Path("~/.dotfiles"):isdir() then
+if not Path("~/.dotfiles"):is_dir() then
 	dotbot.link("~/.dotfiles", ".")
 end
