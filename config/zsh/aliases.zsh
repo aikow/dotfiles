@@ -1,8 +1,8 @@
 # --------------
 # |   Config   |
 # --------------
-alias zshconfig="${EDITOR} ~/.zshrc"
-alias dotfiles="${EDITOR} ~/.dotfiles/"
+alias zshconfig='${EDITOR} ~/.zshrc'
+alias dotfiles='${EDITOR} ~/.dotfiles/'
 
 # ----------
 # |   cd   |
@@ -42,3 +42,7 @@ alias druni='docker run --rm -it'
 # Run an interactive container with the current working directory mounted to
 # /mnt/local.
 alias druniv='docker run --rm -it -v $(pwd):/mnt/local'
+
+# Run an interactive container with the current working directory mounted to
+# /mnt/local and set the container working dir to that directory.
+alias drunip='docker run --rm -it -v $(pwd):/mnt/local -w /mnt/local'
