@@ -52,7 +52,13 @@ return {
           prepend_args = { "--profile=black" },
         },
         shfmt = {
-          prepend_args = { "--indent", "2", "--case-indent" },
+          prepend_args = {
+            "--binary-next-line",
+            "--case-indent",
+            "--indent",
+            "2",
+            "--simplify"
+          },
         },
         sql_formatter = {
           prepend_args = function()

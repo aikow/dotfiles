@@ -1,4 +1,20 @@
-# Commands to run in interactive sessions can go here
+# --------------
+# |   config   |
+# --------------
+abbr fishconfig '$EDITOR ~/.config/fish/config.fish'
+abbr dotfiles '$EDITOR ~/.dotfiles/'
+
+# ----------
+# |   cd   |
+# ----------
+abbr .. 'cd ..'
+abbr ... 'cd ../..'
+abbr .... 'cd ../../..'
+abbr ..... 'cd ../../../..'
+
+# ----------
+# |   ls   |
+# ----------
 if command -v exa &>/dev/null
     alias l='exa'
     alias ls='exa --group-directories-first --icons'
@@ -11,7 +27,15 @@ else
     alias ll='ls -Al'
 end
 
-alias ..='cd ..'
-alias ...='cd ../..'
-alias ....='cd ../../..'
-alias .....='cd ../../../..'
+# --------------
+# |   Docker   |
+# --------------
+# Run a container
+abbr drun 'docker run --rm'
+
+# Run an interactive container
+abbr druni 'docker run --rm -it'
+
+# Run an interactive container with the current working directory mounted to
+# /mnt/local.
+abbr druniv 'docker run --rm -it -v $(pwd):/mnt/local'

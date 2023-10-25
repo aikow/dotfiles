@@ -1,2 +1,0 @@
-#!/bin/sh
-python3 $HOME/.dotfiles/config/polybar/scripts/weather/weather.py -u metric

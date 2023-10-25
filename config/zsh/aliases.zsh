@@ -1,13 +1,20 @@
-#!/usr/bin/env zsh
-
+# --------------
+# |   Config   |
+# --------------
 alias zshconfig="${EDITOR} ~/.zshrc"
-alias gitconfig="${EDITOR} ~/.gitconfig"
+alias dotfiles="${EDITOR} ~/.dotfiles/"
 
+# ----------
+# |   cd   |
+# ----------
 alias ..='cd ..'
 alias ...='cd ../..'
 alias ....='cd ../../..'
 alias .....='cd ../../../..'
 
+# ----------
+# |   ls   |
+# ----------
 if command -v exa &>/dev/null; then
   alias l='exa --group-directories-first'
   alias ls='exa --group-directories-first --icons'
@@ -21,8 +28,17 @@ else
   alias lll='ls -lA'
 fi
 
-if command -v hyperfine &>/dev/null; then
-  alias hf='hyperfine'
-fi
-
 alias grep='grep -i --color=auto'
+
+# --------------
+# |   Docker   |
+# --------------
+# Run a container
+alias drun='docker run --rm'
+
+# Run an interactive container
+alias druni='docker run --rm -it'
+
+# Run an interactive container with the current working directory mounted to
+# /mnt/local.
+alias druniv='docker run --rm -it -v $(pwd):/mnt/local'

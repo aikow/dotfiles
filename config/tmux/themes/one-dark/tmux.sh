@@ -14,28 +14,28 @@ onedark_visual_grey="#3e4452"
 onedark_comment_grey="#5c6370"
 
 _t_get() {
-   local option=$1
-   local default_value=$2
-   local option_value
-   option_value="$(tmux show-option -gqv "$option")"
+  local option=$1
+  local default_value=$2
+  local option_value
+  option_value="$(tmux show-option -gqv "$option")"
 
-   if [[ -z "$option_value" ]]; then
-      echo "$default_value"
-   else
-      echo "$option_value"
-   fi
+  if [[ -z $option_value ]]; then
+    echo "$default_value"
+  else
+    echo "$option_value"
+  fi
 }
 
 _t_set() {
-   local option=$1
-   local value=$2
-   tmux set-option -gq "$option" "$value"
+  local option=$1
+  local value=$2
+  tmux set-option -gq "$option" "$value"
 }
 
 _t_setw() {
-   local option=$1
-   local value=$2
-   tmux set-window-option -gq "$option" "$value"
+  local option=$1
+  local value=$2
+  tmux set-window-option -gq "$option" "$value"
 }
 
 _t_set "status" "on"
