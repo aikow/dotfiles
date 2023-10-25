@@ -1,5 +1,3 @@
-#!/usr/bin/env fish
-#
 # Compare version strings
 
 function vercomp --description "Compares two version strings and returns and integer."

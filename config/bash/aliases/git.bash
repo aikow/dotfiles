@@ -3,15 +3,15 @@
 #     https://github.com/robbyrussell/oh-my-zsh/blob/master/plugins/git/git.plugin.zsh
 
 function git_current_branch() {
-	ref=$(git symbolic-ref HEAD 2>/dev/null) ||
-		ref=$(git rev-parse --short HEAD 2>/dev/null) || return
-	echo ${ref#refs/heads/}
+  ref=$(git symbolic-ref HEAD 2>/dev/null) \
+    || ref=$(git rev-parse --short HEAD 2>/dev/null) || return
+  echo "${ref#refs/heads/}"
 }
 
 function git_current_repository() {
-	ref=$(git symbolic-ref HEAD 2>/dev/null) ||
-		ref=$(git rev-parse --short HEAD 2>/dev/null) || return
-	echo $(git remote -v | cut -d':' -f 2)
+  ref=$(git symbolic-ref HEAD 2>/dev/null) \
+    || ref=$(git rev-parse --short HEAD 2>/dev/null) || return
+  git remote -v | cut -d':' -f 2
 }
 
 alias g="git"
@@ -23,11 +23,11 @@ alias gd="git diff"
 alias gdc="git diff --cached"
 
 function gdv() { # mine doesn't add -w
-	git diff $@ | vim -R -
+  git diff "$@" | vim -R -
 }
 
 function gdcv() { # my own
-	git diff --cached $@ | vim -R -
+  git diff --cached "$@" | vim -R -
 }
 
 alias gc="git commit -v"
@@ -69,21 +69,23 @@ alias gstp="git stash pop"
 alias gstd="git stash drop"
 
 function ggpull {
-	git pull origin $(git_current_branch)
+  git pull origin "$(git_current_branch)"
 }
 
 function ggpur {
-	git pull --rebase origin $(git_current_branch)
+  git pull --rebase origin "$(git_current_branch)"
 }
 
 function ggpush {
-	git push origin $(git_current_branch)
+  git push origin "$(git_current_branch)"
 }
 
 function ggpnp {
-	git pull origin $(git_current_branch) && git push origin $(git_current_branch)
+  git pull origin "$(git_current_branch)" && git push origin "$(git_current_branch)"
 }
 
 function glp() {
-	git log --pretty=$@
+  local pretty=$1
+  shift 1
+  git log --pretty="$pretty" "$@"
 }

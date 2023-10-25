@@ -1,10 +1,10 @@
 #!/usr/bin/env sh
 
-function __git_repo() {
+__git_repo() {
   git rev-parse HEAD >/dev/null 2>&1
 }
 
-function fzf_git_status() {
+fzf_git_status() {
   __git_repo || return
 
   git -c color.status=always status --short \
@@ -14,7 +14,7 @@ function fzf_git_status() {
     | sed 's/.* -> //'
 }
 
-function fzf_git_branches() {
+fzf_git_branches() {
   __git_repo || return
 
   git branch -a --color=always \
@@ -27,7 +27,7 @@ function fzf_git_branches() {
     | sed 's#^remtes/##'
 }
 
-function fzf_git_tags() {
+fzf_git_tags() {
   __git_repo || return
 
   git tag --sort -version:refname \
@@ -35,11 +35,11 @@ function fzf_git_tags() {
       --preview 'git show --color=always {}'
 }
 
-function fzf_git_commits() {
+fzf_git_commits() {
   __git_repo || return
 
   git log --date=short --graph --color=always \
-      --format="%C(green)%C(bold)%cd %C(auto)%h%d %s (%an)" \
+    --format="%C(green)%C(bold)%cd %C(auto)%h%d %s (%an)" \
     | fzf --ansi --no-sort --reverse --multi \
       --bind 'ctrl-s:toggle-sort' \
       --header 'Press CTRL-S to toggle sort' \
@@ -47,7 +47,7 @@ function fzf_git_commits() {
     | grep -o "[a-f0-9]\{7,\}"
 }
 
-function fzf_git_remotes() {
+fzf_git_remotes() {
   __git_repo || return
 
   git remote -v \
@@ -55,10 +55,10 @@ function fzf_git_remotes() {
     | uniq \
     | fzf --tac \
       --preview 'git log --oneline --graph --date=short --pretty="format:%C(auto)%cd %h%d %s" {1}' \
-    | cut -d$'\t' -f1
+    | cut -d"\t" -f1
 }
 
-function fzf_git_stash() {
+fzf_git_stash() {
   __git_repo || return
 
   git stash list \
@@ -66,4 +66,3 @@ function fzf_git_stash() {
       --preview 'git show --color=always {1}' \
     | cut -d: -f1
 }
-

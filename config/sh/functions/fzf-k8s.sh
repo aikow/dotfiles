@@ -1,29 +1,27 @@
 #!/usr/bin/env sh
 
-function __has_k8s() {
-  command -v kubectl &>/dev/null && [[ -f ~/.kube/config ]]
+__has_k8s() {
+  command -v kubectl 1>/dev/null 2>&1 && [ -f ~/.kube/config ]
 }
 
-
-function fzf_k8s_pods() {
+fzf_k8s_pods() {
   __has_k8s || return
 
   kubectl get pods -o wide \
     | fzf --header-lines=1 \
-        --preview-window='hidden' \
-        --preview='kubectl logs "$(cut -d" " -f1 <<<{} | sed -E "s:.*/::g")"' \
+      --preview-window='hidden' \
+      --preview='kubectl logs "$(cut -d" " -f1 <<<{} | sed -E "s:.*/::g")"' \
     | cut -d' ' -f1 \
     | sed -E 's:.*/::g'
 }
 
-
-function fzf_k8s_jobs() {
+fzf_k8s_jobs() {
   __has_k8s || return
 
   kubectl get jobs,pytorchjobs -o wide \
     | fzf --header-lines=1 \
-        --preview-window='hidden' \
-        --preview='kubectl logs "$(cut -d" " -f1 <<<{} | sed -E "s:.*/::g")"' \
+      --preview-window='hidden' \
+      --preview='kubectl logs "$(cut -d" " -f1 <<<{} | sed -E "s:.*/::g")"' \
     | cut -d' ' -f1 \
     | sed -E 's:.*/::g'
 }

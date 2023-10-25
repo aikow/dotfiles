@@ -1,3 +1,5 @@
+#!/usr/bin/env lua
+--
 -- Create a mock base46 module
 package.loaded.base46 = {
   override_theme = function(m, theme)
@@ -59,7 +61,7 @@ local sorted = function(t, f)
   end
   table.sort(a, f)
 
-  local i = 0 -- iterator variable
+  local i = 0             -- iterator variable
 
   local iter = function() -- iterator function
     i = i + 1
