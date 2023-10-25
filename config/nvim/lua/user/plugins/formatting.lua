@@ -35,6 +35,8 @@ return {
       },
       formatters_by_ft = {
         bash = { "shfmt" },
+        c = { "clangd" },
+        cpp = { "clangd" },
         fish = { "fish_indent" },
         json = { "jq" },
         lua = { "stylua" },
@@ -57,7 +59,7 @@ return {
             "--case-indent",
             "--indent",
             "2",
-            "--simplify"
+            "--simplify",
           },
         },
         sql_formatter = {

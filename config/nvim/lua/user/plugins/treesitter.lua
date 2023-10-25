@@ -6,6 +6,7 @@ return {
     dependencies = {
       "nvim-treesitter/nvim-treesitter-textobjects",
       "nvim-treesitter/nvim-treesitter-refactor",
+      "nvim-treesitter/nvim-treesitter-context",
     },
     event = { "BufReadPost" },
     build = ":TSUpdate",
@@ -124,15 +125,14 @@ return {
           },
         },
       },
-      query_linter = {
-        enable = true,
-        use_virtual_text = true,
-        lint_events = { "BufWrite", "CursorHold" },
-      },
     },
     config = function(_, opts)
       local configs = require("nvim-treesitter.configs")
       configs.setup(opts)
+
+      require("treesitter-context").setup({
+        enable = true,
+      })
     end,
   },
 }
