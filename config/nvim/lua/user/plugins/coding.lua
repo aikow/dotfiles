@@ -106,6 +106,8 @@ return {
         require("luasnip.loaders").edit_snippet_files({})
       end, { desc = "telescope edit snippets", force = true })
 
+      ls.filetype_extend("htmldjango", { "html" })
+
       -- --------------------------
       -- |   Lazy Load Snippets   |
       -- --------------------------
