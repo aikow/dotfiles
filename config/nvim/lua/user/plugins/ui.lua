@@ -34,6 +34,13 @@ return {
 
       local plugins_path = vim.fn.stdpath("data") .. "/lazy/"
 
+      local man_pages = function()
+        vim.ui.input({ prompt = "Man: " }, function(input)
+          vim.cmd("Man " .. input)
+          require("user.util").feedkeys("<C-w>o")
+        end)
+      end
+
       local starter = require("mini.starter")
       local config = {
         evaluate_single = true,
@@ -59,7 +66,8 @@ return {
 
           -- Builtin actions
           section("News", "help news | wincmd o", "Built-in"),
-          section("Help", "Telescope help_tags", "Built-in"),
+          section("Man", man_pages, "Built-in"),
+          section("Help", "Telescope help_tags | wincmd o", "Built-in"),
           section("Quit", "quit", "Built-in"),
         },
         footer = footer,

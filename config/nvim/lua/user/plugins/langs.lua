@@ -101,6 +101,9 @@ return {
   -- Latex
   {
     "lervag/vimtex",
+    dependencies = {
+      "micangl/cmp-vimtex",
+    },
     ft = { "tex" },
     config = function()
       vim.g.tex_flavor = "latex"

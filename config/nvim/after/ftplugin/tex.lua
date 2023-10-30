@@ -12,7 +12,7 @@ if ok_cmp then
   cmp.setup.buffer({
     sources = cmp.config.sources({
       { name = "luasnip" },
-      { name = "omni" },
+      { name = "vimtex" },
       { name = "path" },
     }, {
       { name = "buffer", keyword_length = 4, max_item_count = 10 },

@@ -178,7 +178,6 @@ return {
           ["<C-Space>"] = cmp.mapping.complete(),
         },
         sources = cmp.config.sources({
-          { name = "crates" },
           { name = "nvim_lsp" },
           { name = "path" },
           { name = "luasnip" },
@@ -246,6 +245,9 @@ return {
     "echasnovski/mini.align",
     keys = { "ga" },
     opts = {},
+    config = function()
+      require("mini.ai")
+    end,
   },
 
   {
@@ -371,12 +373,20 @@ return {
         highlighters = {
           fixme = { pattern = "FIXME", group = "MiniHipatternsFixme" },
           hack = { pattern = "HACK", group = "MiniHipatternsHack" },
+          perf = { pattern = "PERF", group = "MiniHipatternsPerf" },
           todo = { pattern = "TODO", group = "MiniHipatternsTodo" },
           note = { pattern = "NOTE", group = "MiniHipatternsNote" },
 
           hex_color = hipatterns.gen_highlighter.hex_color(),
         },
       }))
+    end,
+    init = function()
+      vim.api.nvim_set_hl(
+        0,
+        "MiniHipatternsPerf",
+        { default = true, link = "DiagnosticHint" }
+      )
     end,
   },
 }
