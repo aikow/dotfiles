@@ -4,7 +4,10 @@ return {
     opts = {},
   },
 
-  { "aikow/base.nvim" },
+  {
+    "aikow/base.nvim",
+    opts = {},
+  },
 
   {
     "ribru17/bamboo.nvim",
