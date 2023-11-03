@@ -110,20 +110,16 @@ vim.keymap.set(
   { desc = "change text up to next underscore '_'" }
 )
 
--- Faster write/save current buffer
-vim.keymap.set("n", "<leader>w", "<cmd>write<CR>", { desc = "write" })
-
 -- Enter a lua command.
 vim.keymap.set(
   "n",
-  "<leader>xf",
+  "<leader>.",
   "<cmd>source %<CR>",
   { silent = true, desc = "source lua or vimscript file" }
 )
-vim.keymap.set("n", "<leader>xl", [[:lua ]], { desc = "enter lua command" })
 vim.keymap.set(
   "n",
-  "<leader>xe",
+  "<leader>l",
   [[:lua =]],
   { desc = "display lua expression" }
 )

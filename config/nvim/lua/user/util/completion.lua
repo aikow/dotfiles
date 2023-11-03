@@ -1,23 +1,20 @@
-local job = require("plenary.job")
-
 local M = {}
 
+---Search the current directory for the needle.
+---
+---Try to use ripgrep if it is installed, otherwise fallback to standard GNU
+---grep.
+---@param needle string
+---@return string[]
 M.grep = function(needle)
+  local command
   if vim.fn.executable("rg") == 1 then
-    return job
-      :new({
-        command = "rg",
-        args = { "-I", "--", needle },
-      })
-      :sync()
+    command = { "rg", "-I", "--", needle }
   else
-    return job
-      :new({
-        command = "grep",
-        args = { needle },
-      })
-      :sync()
+    command = { "grep", "-i", "--", needle }
   end
+  local stdout = vim.system(command, { text = true }):wait().stdout or ""
+  return vim.split(stdout, "\n", { trimempty = true, plain = true })
 end
 
 M.complete_matching_line = function()
@@ -51,11 +48,15 @@ M.complete_matching_line_cwd = function(cur_line)
   local all_lines = M.grep(cur_line)
 
   local uniq_lines = {}
+  local filtered_lines = {}
   for _, v in ipairs(all_lines) do
-    uniq_lines[v] = true
+    if not uniq_lines[v] then
+      uniq_lines[v] = true
+      table.insert(filtered_lines, v)
+    end
   end
 
-  vim.fn.complete(1, uniq_lines)
+  vim.fn.complete(1, filtered_lines)
 
   return ""
 end
