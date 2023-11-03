@@ -186,8 +186,7 @@ elif [[ -f /usr/share/fzf/key-bindings.zsh ]]; then
 fi
 
 # Load user aliases
-[[ -f "${DOTFILES_ZSH}/aliases.zsh" ]]  && source "${DOTFILES_ZSH}/aliases.zsh"
+source "${DOTFILES_ZSH}/aliases.zsh"
 
 # Load local settings and aliases
-[[ -f "${LOCAL_CONFIG}/aliases.zsh" ]] && source "${LOCAL_CONFIG}/aliases.zsh"
 [[ -f "${LOCAL_CONFIG}/zshrc" ]] && source "${LOCAL_CONFIG}/zshrc"

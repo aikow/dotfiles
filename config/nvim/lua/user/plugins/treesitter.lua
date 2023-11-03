@@ -9,6 +9,23 @@ return {
       "nvim-treesitter/nvim-treesitter-context",
     },
     event = { "BufReadPost" },
+    cmd = {
+      "TSConfigInfo",
+      "TSContextDisable",
+      "TSContextEnable",
+      "TSContextToggle",
+      "TSDisable",
+      "TSEnable",
+      "TSInstall",
+      "TSInstallFromGrammar",
+      "TSInstallInfo",
+      "TSInstallSync",
+      "TSModuleInfo",
+      "TSToggle",
+      "TSUninstall",
+      "TSUpdate",
+      "TSUpdateSync",
+    },
     build = ":TSUpdate",
     opts = {
       ensure_installed = {

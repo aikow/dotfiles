@@ -54,8 +54,8 @@ function M.on_attach(client, buffer)
   self:map("<leader>jy", "Trouble lsp_type_definitions", { desc = "list LSP type definitions with trouble" })
 
   -- Telescope - search for symbols
-  self:map("<leader>js", "Telscope lsp_workspace_symbols", { desc = "list LSP workspace symbols with telescope" })
-  self:map("<leader>jS", "Telscope lsp_dynamic_workspace_symbols", { desc = "list LSP workspace symbols dynamically with telescope" })
+  self:map("<leader>js", "Telescope lsp_workspace_symbols", { desc = "list LSP workspace symbols with telescope" })
+  self:map("<leader>jS", "Telescope lsp_dynamic_workspace_symbols", { desc = "list LSP workspace symbols dynamically with telescope" })
 
   -- Symbols outline
   self:map("gO", "SymbolsOutline", { desc = "LSP open symbols outline" })
