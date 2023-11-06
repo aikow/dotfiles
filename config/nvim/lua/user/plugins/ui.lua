@@ -34,11 +34,30 @@ return {
 
       local plugins_path = vim.fn.stdpath("data") .. "/lazy/"
 
+      -- Telescope picker is too slow, so just have a simple input textbox ask
+      -- for the right man page.
       local man_pages = function()
         vim.ui.input({ prompt = "Man: " }, function(input)
           vim.cmd("Man " .. input)
-          require("user.util").feedkeys("<C-w>o")
+          vim.cmd.wincmd("o")
         end)
+      end
+
+      -- Create a custom function for telescope vim help tags, so that we can
+      -- execute wincmd o after selecting a help tag. Telescope does some weird
+      -- parsing of the cmdline and running multiple commands in a row doesn't
+      -- work.
+      local help_tags = function()
+        require("telescope.builtin").help_tags({
+          attach_mappings = function(_, map)
+            map({ "i", "n" }, "<CR>", function(prompt_bufnr)
+              require("telescope.actions").select_default(prompt_bufnr)
+              vim.cmd.wincmd("o")
+            end)
+
+            return true
+          end,
+        })
       end
 
       local starter = require("mini.starter")
@@ -67,7 +86,7 @@ return {
           -- Builtin actions
           section("News", "help news | wincmd o", "Built-in"),
           section("Man", man_pages, "Built-in"),
-          section("Help", "Telescope help_tags | wincmd o", "Built-in"),
+          section("Help", help_tags, "Built-in"),
           section("Quit", "quit", "Built-in"),
         },
         footer = footer,
