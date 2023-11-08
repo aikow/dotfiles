@@ -44,7 +44,7 @@ return {
         json = { "jq" },
         lua = { "stylua" },
         markdown = { { "prettierd", "prettier" } },
-        python = { "isort", "black" },
+        python = { { "ruff", "isort" }, { "ruff", "black" } },
         sh = { "shfmt" },
         sql = { "sql_formatter" },
         yaml = { { "prettierd", "prettier" } },
