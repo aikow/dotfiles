@@ -35,6 +35,8 @@ config.send_composed_key_when_right_alt_is_pressed = false
 -- Shell
 config.default_prog = { "/usr/bin/fish", "-l" }
 
+config.keys = require("user.keys")
+
 -- MacOS specific overrides.
 if info.os() == "darwin" then
   config.default_prog = { "/usr/local/bin/fish", "-l" }

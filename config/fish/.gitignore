@@ -1,3 +1,4 @@
 # Fish variables is a dynamic file which really shouldn't be in the config
 # folder.
+/completions
 /fish_variables
