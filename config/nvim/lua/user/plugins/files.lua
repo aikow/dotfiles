@@ -168,8 +168,8 @@ return {
       -- Create extra keymaps.
       vim.api.nvim_create_autocmd("User", {
         pattern = "MiniFilesBufferCreate",
-        callback = function(args)
-          local buf_id = args.data.buf_id
+        callback = function(params)
+          local buf_id = params.data.buf_id
 
           map_split(buf_id, "<C-x>", "belowright horizontal")
           map_split(buf_id, "<C-v>", "belowright vertical")
