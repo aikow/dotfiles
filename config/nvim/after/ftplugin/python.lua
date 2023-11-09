@@ -15,12 +15,14 @@ vim.g.pyindent_open_paren = vim.bo.shiftwidth
 
 -- Shortcut to run file through interpreter.
 vim.keymap.set({ "n", "v" }, "<localleader>r", [[:!python3 %<CR>]])
-vim.keymap.set(
-  "n",
-  "<localleader>i",
-  [[:write | !isort <C-R>=expand('%:p')<CR><CR>]],
-  { desc = "sort imports using isort" }
-)
+
+vim.keymap.set({ "n", "x" }, "<leader>rl", function()
+  require("conform").format({
+    async = true,
+    lsp_fallback = true,
+    formatters = { "ruff_fix" },
+  })
+end, { desc = "Format the current buffer by fixing all lints" })
 
 -- Automatically make the current string an f-string when typing `{`.
 vim.api.nvim_create_autocmd("InsertCharPre", {

@@ -25,7 +25,7 @@ return {
           })
         end,
         mode = { "n", "x" },
-        desc = "Format the current buffer",
+        desc = "Format the current buffer with tree-sitter injections",
       },
     },
     opts = {
@@ -44,7 +44,7 @@ return {
         json = { "jq" },
         lua = { "stylua" },
         markdown = { { "prettierd", "prettier" } },
-        python = { { "ruff", "isort" }, { "ruff", "black" } },
+        python = { "ruff_format" },
         sh = { "shfmt" },
         sql = { "sql_formatter" },
         yaml = { { "prettierd", "prettier" } },
