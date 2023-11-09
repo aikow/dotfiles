@@ -1,3 +1,17 @@
+---Get the row index of the cursor
+---@return integer
+local curline = function()
+  ---@diagnostic disable-next-line: return-type-mismatch
+  return vim.fn.curline(".")
+end
+
+---Get the column index of the cursor
+---@return integer
+local curcol = function()
+  ---@diagnostic disable-next-line: return-type-mismatch
+  return vim.fn.col(".")
+end
+
 vim.api.nvim_create_user_command("Bclose", function()
   require("mini.bufremove").delete()
 end, {
@@ -31,16 +45,26 @@ end, {
   desc = "Close all hidden buffers",
 })
 
-vim.api.nvim_create_user_command("Help", function(opts)
-  local command = opts.args
+vim.api.nvim_create_user_command("Help", function(params)
+  local command = params.args
 
-  vim.cmd.new()
+  -- Create a new window and buffer respecting all command modifiers and get
+  -- the newly created buffer ID.
+  vim.cmd.new({ mods = params.smods })
   local buf_id = vim.api.nvim_get_current_buf()
 
+  local header = string.format("%s(%s)", command:upper(), 1)
+  vim.api.nvim_buf_set_lines(buf_id, 0, 0, false, { header })
+
+  -- Execute <cmd> --help and add a callback.
   vim.system({ command, "--help" }, { text = true }, function(obj)
+    -- Trim the output, then split by newlines.
     local help_lines = vim.split(vim.trim(obj.stdout), "\n")
+
+    -- Since we're in a callback, we have to wrap our nvim_buf_set_lines call in
+    -- vim.schedule.
     vim.schedule(function()
-      vim.api.nvim_buf_set_lines(buf_id, 0, -1, false, help_lines)
+      vim.api.nvim_buf_set_lines(buf_id, 2, -1, false, help_lines)
       vim.cmd("Man!")
     end)
   end)
@@ -50,7 +74,7 @@ end, {
 })
 
 vim.api.nvim_create_user_command("SyntaxStack", function()
-  local s = vim.fn.synID(vim.fn.line("."), vim.fn.col("."), 1)
+  local s = vim.fn.synID(curline(), curcol(), 1)
   vim.notify(
     string.format(
       "%s -> %s",
@@ -62,8 +86,8 @@ end, {
   desc = "Print the syntax group and highlight group of the token under the cursor",
 })
 
-vim.api.nvim_create_user_command("Random", function(opts)
-  local len = opts.args ~= "" and opts.args or 8
+vim.api.nvim_create_user_command("Random", function(params)
+  local len = params.args ~= "" and params.args or 8
   print(len)
   local chars = "abcdefghijklmnopqrstuvwxyz0123456789"
 

@@ -29,10 +29,10 @@ autocmd("BufRead", {
 -- Jump to last edit position on opening file
 autocmd("BufWinEnter", {
   group = augroup("Last edit position", {}),
-  callback = function(args)
+  callback = function(params)
     -- Exclude files like commit messages.
     for _, pat in pairs({ "/.git/" }) do
-      if string.find(args.file, pat) then
+      if string.find(params.file, pat) then
         return
       end
     end
@@ -72,13 +72,6 @@ autocmd("TermOpen", {
       [[A<Up><CR><C-\><C-n>G]],
       { noremap = true, silent = true }
     )
-
-    -- Create highlight namespace
-    -- TODO: Look into using BufWinEnter event.
-    --
-    -- local namespace = vim.api.nvim_create_namespace("terminal")
-    -- vim.api.nvim_win_set_hl_ns(0, namespace)
-    -- vim.api.nvim_set_hl(namespace, "Normal", { fg = "#000000", bg = "#000000" })
   end,
 })
 
