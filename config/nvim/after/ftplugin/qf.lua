@@ -1,0 +1,8 @@
+vim.keymap.set("n", "dd", function()
+  local entry = vim.fn.line(".")
+  local qflist = vim.fn.getqflist()
+  table.remove(qflist, entry)
+  vim.fn.setqflist(qflist)
+  vim.cmd(entry .. "cfirst")
+  vim.cmd.copen()
+end, {})
