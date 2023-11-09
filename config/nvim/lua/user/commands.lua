@@ -31,6 +31,24 @@ end, {
   desc = "Close all hidden buffers",
 })
 
+vim.api.nvim_create_user_command("Help", function(opts)
+  local command = opts.args
+
+  vim.cmd.new()
+  local buf_id = vim.api.nvim_get_current_buf()
+
+  vim.system({ command, "--help" }, { text = true }, function(obj)
+    local help_lines = vim.split(vim.trim(obj.stdout), "\n")
+    vim.schedule(function()
+      vim.api.nvim_buf_set_lines(buf_id, 0, -1, false, help_lines)
+      vim.cmd("Man!")
+    end)
+  end)
+end, {
+  nargs = 1,
+  desc = "Display the help message for a command in a buffer.",
+})
+
 vim.api.nvim_create_user_command("SyntaxStack", function()
   local s = vim.fn.synID(vim.fn.line("."), vim.fn.col("."), 1)
   vim.notify(
