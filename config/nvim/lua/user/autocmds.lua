@@ -29,6 +29,7 @@ autocmd("BufRead", {
 -- Jump to last edit position on opening file
 autocmd("BufWinEnter", {
   group = augroup("Last edit position", {}),
+  ---@param params NvimAutocmdCallbackParams
   callback = function(params)
     -- Exclude files like commit messages.
     for _, pat in pairs({ "/.git/" }) do

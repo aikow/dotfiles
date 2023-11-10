@@ -45,33 +45,48 @@ end, {
   desc = "Close all hidden buffers",
 })
 
-vim.api.nvim_create_user_command("Help", function(params)
-  local command = params.args
+vim.api.nvim_create_user_command(
+  "Help",
+  ---@param params NvimCommandCallbackParams
+  function(params)
+    local cmd = params.fargs
+    local cmd_str = table.concat(cmd, "-")
 
-  -- Create a new window and buffer respecting all command modifiers and get
-  -- the newly created buffer ID.
-  vim.cmd.new({ mods = params.smods })
-  local buf_id = vim.api.nvim_get_current_buf()
+    -- Create a new window and buffer respecting all command modifiers
+    vim.cmd.new({ mods = params.smods })
+    vim.cmd.file({ string.format("hman://%s", cmd_str) })
 
-  local header = string.format("%s(%s)", command:upper(), 1)
-  vim.api.nvim_buf_set_lines(buf_id, 0, 0, false, { header })
+    -- Get the buffer ID of the newly created window.
+    local buf_id = vim.api.nvim_get_current_buf()
 
-  -- Execute <cmd> --help and add a callback.
-  vim.system({ command, "--help" }, { text = true }, function(obj)
-    -- Trim the output, then split by newlines.
-    local help_lines = vim.split(vim.trim(obj.stdout), "\n")
+    -- Write the command to the first line
+    vim.api.nvim_buf_set_lines(buf_id, 0, 0, false, { cmd_str:upper() })
 
-    -- Since we're in a callback, we have to wrap our nvim_buf_set_lines call in
-    -- vim.schedule.
-    vim.schedule(function()
-      vim.api.nvim_buf_set_lines(buf_id, 2, -1, false, help_lines)
-      vim.cmd("Man!")
+    -- Execute `cmd --help` and add a callback.
+    vim.system({ unpack(cmd), "--help" }, { text = true }, function(obj)
+      -- Trim the output, then split by newlines.
+      local help_lines = vim.split(vim.trim(obj.stdout), "\n")
+
+      -- Since we're in a callback, we have to wrap our nvim_buf_set_lines call in
+      -- vim.schedule.
+      vim.schedule(function()
+        -- Set the buffer contents to the output.
+        vim.api.nvim_buf_set_lines(buf_id, 2, -1, false, help_lines)
+
+        vim.bo[buf_id].swapfile = false
+        vim.bo[buf_id].buftype = "nofile"
+        vim.bo[buf_id].modified = false
+        vim.bo[buf_id].readonly = true
+        vim.bo[buf_id].modifiable = false
+        vim.bo[buf_id].filetype = "man"
+      end)
     end)
-  end)
-end, {
-  nargs = 1,
-  desc = "Display the help message for a command in a buffer.",
-})
+  end,
+  {
+    nargs = "+",
+    desc = "Display the help message for a command in a buffer.",
+  }
+)
 
 vim.api.nvim_create_user_command("SyntaxStack", function()
   local s = vim.fn.synID(curline(), curcol(), 1)
@@ -86,24 +101,29 @@ end, {
   desc = "Print the syntax group and highlight group of the token under the cursor",
 })
 
-vim.api.nvim_create_user_command("Random", function(params)
-  local len = params.args ~= "" and params.args or 8
-  print(len)
-  local chars = "abcdefghijklmnopqrstuvwxyz0123456789"
+vim.api.nvim_create_user_command(
+  "Random",
+  ---@param params NvimCommandCallbackParams
+  function(params)
+    local len = params.args ~= "" and params.args or 8
+    print(len)
+    local chars = "abcdefghijklmnopqrstuvwxyz0123456789"
 
-  -- 65 for uppercase
-  -- 97 for lowercase
-  local rand = ""
-  for _ = 1, len do
-    local idx = math.random(1, #chars)
-    rand = rand .. string.sub(chars, idx, idx)
-  end
+    -- 65 for uppercase
+    -- 97 for lowercase
+    local rand = ""
+    for _ = 1, len do
+      local idx = math.random(1, #chars)
+      rand = rand .. string.sub(chars, idx, idx)
+    end
 
-  local pos = vim.api.nvim_win_get_cursor(0)[2]
-  local line = vim.api.nvim_get_current_line()
-  local nline = line:sub(0, pos) .. rand .. line:sub(pos + 1)
-  vim.api.nvim_set_current_line(nline)
-end, {
-  desc = "Reload and recompile the entire neovim configuration.",
-  nargs = "?",
-})
+    local pos = vim.api.nvim_win_get_cursor(0)[2]
+    local line = vim.api.nvim_get_current_line()
+    local nline = line:sub(0, pos) .. rand .. line:sub(pos + 1)
+    vim.api.nvim_set_current_line(nline)
+  end,
+  {
+    desc = "Reload and recompile the entire neovim configuration.",
+    nargs = "?",
+  }
+)

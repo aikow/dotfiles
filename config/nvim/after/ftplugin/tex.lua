@@ -9,6 +9,7 @@ map("n", "K", "<cmd>VimtexContextMenu<CR>", { silent = true, buffer = true })
 -- Setup LaTeX completion sources to use onmi completion.
 local ok_cmp, cmp = pcall(require, "cmp")
 if ok_cmp then
+  ---@diagnostic disable-next-line: missing-fields
   cmp.setup.buffer({
     sources = cmp.config.sources({
       { name = "luasnip" },
