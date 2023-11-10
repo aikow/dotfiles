@@ -3,6 +3,7 @@ local M = {}
 ---@param on_attach function(client, bufnr)
 local on_attach = function(on_attach)
   vim.api.nvim_create_autocmd("LspAttach", {
+    ---@param params NvimAutocmdCallbackParams
     callback = function(params)
       local buffer = params.buf
       local client = vim.lsp.get_client_by_id(params.data.client_id)
@@ -26,6 +27,7 @@ local setup_handlers = function()
     })
 
   -- Suppress error messages from lang servers.
+  ---@diagnostic disable-next-line: duplicate-set-field
   vim.notify = function(msg, log_level)
     if msg:match("exit code") then
       return

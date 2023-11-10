@@ -168,6 +168,7 @@ return {
       -- Create extra keymaps.
       vim.api.nvim_create_autocmd("User", {
         pattern = "MiniFilesBufferCreate",
+        ---@param params NvimAutocmdCallbackParams
         callback = function(params)
           local buf_id = params.data.buf_id
 

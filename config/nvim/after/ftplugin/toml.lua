@@ -5,6 +5,7 @@
 -- Setup tree-sitter query completion sources to use onmi completion.
 local ok_cmp, cmp = pcall(require, "cmp")
 if ok_cmp then
+  ---@diagnostic disable-next-line: missing-fields
   cmp.setup.buffer({
     sources = cmp.config.sources({
       { name = "nvim_lsp" },
