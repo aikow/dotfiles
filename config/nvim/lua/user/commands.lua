@@ -51,6 +51,8 @@ vim.api.nvim_create_user_command(
   function(params)
     local cmd = params.fargs
     local cmd_str = table.concat(cmd, "-")
+    local cmd_help = { unpack(cmd) }
+    table.insert(cmd_help, "--help")
 
     -- Create a new window and buffer respecting all command modifiers
     vim.cmd.new({ mods = params.smods })
@@ -63,7 +65,7 @@ vim.api.nvim_create_user_command(
     vim.api.nvim_buf_set_lines(buf_id, 0, 0, false, { cmd_str:upper() })
 
     -- Execute `cmd --help` and add a callback.
-    vim.system({ unpack(cmd), "--help" }, { text = true }, function(obj)
+    vim.system(cmd_help, { text = true }, function(obj)
       -- Trim the output, then split by newlines.
       local help_lines = vim.split(vim.trim(obj.stdout), "\n")
 
