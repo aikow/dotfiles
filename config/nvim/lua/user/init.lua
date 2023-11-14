@@ -27,6 +27,7 @@ M.plugins = function()
   lazy.setup({
     spec = {
       { import = "user.plugins" },
+      { import = "user.plugins.langs" },
     },
     dev = {
       path = "~/workspace/repos/neovim",
