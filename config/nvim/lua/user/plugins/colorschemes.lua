@@ -37,7 +37,6 @@ return {
         cmp = true,
         dap = true,
         treesitter = true,
-        lsp_trouble = true,
       },
     },
   },

@@ -51,8 +51,6 @@ return {
       local telescope = require("telescope")
       local themes = require("telescope.themes")
 
-      local trouble = require("trouble.providers.telescope")
-
       telescope.setup({
         defaults = {
           sorting_strategy = "ascending",
@@ -76,16 +74,6 @@ return {
             "--column",
             "--smart-case",
             "--trim",
-          },
-          mappings = {
-            i = {
-              -- Open results using trouble.nvim
-              ["<M-t>"] = trouble.open_with_trouble,
-            },
-            n = {
-              -- Open results using trouble.nvim
-              ["<M-t>"] = trouble.open_with_trouble,
-            },
           },
         },
         pickers = {
@@ -123,32 +111,6 @@ return {
 
       telescope.load_extension("fzf")
       telescope.load_extension("luasnip")
-    end,
-  },
-
-  {
-    "folke/trouble.nvim",
-    dependencies = { "nvim-tree/nvim-web-devicons" },
-    cmd = "Trouble",
-    opts = {},
-    config = function(_, opts)
-      local trouble = require("trouble")
-      trouble.setup(opts)
-
-      -- Setup keybindings to jump between messages.
-      local map = vim.keymap.set
-      local rhs = function(fn)
-        return function()
-          fn({ skip_groups = true, jump = true })
-        end
-      end
-
-      -- stylua: ignore start
-      map("n", "[t", rhs(trouble.next), { desc = "trouble jump to next" })
-      map("n", "]t", rhs(trouble.previous), { desc = "trouble jump to previous" })
-      map("n", "[T", rhs(trouble.first), { desc = "trouble jump to first" })
-      map("n", "]T", rhs(trouble.last), { desc = "trouble jump to last" })
-      -- stylua: ignore end
     end,
   },
 
