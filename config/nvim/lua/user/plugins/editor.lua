@@ -36,9 +36,6 @@ return {
     end,
   },
 
-  -- Use '.' to repeat plugin code actions.
-  { "tpope/vim-repeat" },
-
   {
     "echasnovski/mini.bufremove",
     opts = {},

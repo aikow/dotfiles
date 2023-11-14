@@ -12,10 +12,10 @@ return {
 
       return {
         enable_autosnippets = true,
-        history = true,
-        update_events = "TextChanged,TextChangedI",
-        region_check_events = "CursorHold",
-        delete_check_events = "TextChanged,InsertLeave",
+        link_children = true,
+        update_events = { "TextChanged", "TextChangedI" },
+        region_check_events = { "CursorHold" },
+        delete_check_events = { "TextChanged", "InsertLeave" },
         ext_opts = {
           [types.choiceNode] = {
             active = {
@@ -147,6 +147,7 @@ return {
       local cmp = require("cmp")
 
       -- Setup the insert mode completion.
+      ---@diagnostic disable-next-line: missing-fields
       cmp.setup({
         snippet = {
           expand = function(args)
@@ -186,6 +187,7 @@ return {
         }, {
           { name = "buffer", keyword_length = 5, max_item_count = 10 },
         }),
+        ---@diagnostic disable-next-line: missing-fields
         formatting = {
           format = function(_, vim_item)
             local icons = require("user.ui.icons").lsp.kinds
@@ -201,6 +203,7 @@ return {
       -- ---------------------------
       --
       -- Command mode completions.
+      ---@diagnostic disable-next-line: missing-fields
       cmp.setup.cmdline(":", {
         -- mapping = cmp.mapping.preset.cmdline(),
         mapping = {
@@ -241,15 +244,6 @@ return {
   {
     "echasnovski/mini.ai",
     opts = {},
-  },
-
-  {
-    "echasnovski/mini.align",
-    keys = { "ga" },
-    opts = {},
-    config = function()
-      require("mini.ai")
-    end,
   },
 
   {
@@ -316,42 +310,6 @@ return {
       n_lines = 40,
       respect_selection_type = true,
       search_method = "cover_or_next",
-    },
-  },
-
-  {
-    "echasnovski/mini.operators",
-    opts = {
-      -- Evaluate text and replace with output
-      evaluate = {
-        prefix = "goe",
-        -- Function which does the evaluation
-        func = nil,
-      },
-      -- Exchange text regions
-      exchange = {
-        prefix = "gox",
-        -- Whether to reindent new text to match previous indent
-        reindent_linewise = true,
-      },
-      -- Multiply (duplicate) text
-      multiply = {
-        prefix = "gom",
-        -- Function which can modify text before multiplying
-        func = nil,
-      },
-      -- Replace text with register
-      replace = {
-        prefix = "gor",
-        -- Whether to reindent new text to match previous indent
-        reindent_linewise = true,
-      },
-      -- Sort text
-      sort = {
-        prefix = "gos",
-        -- Function which does the sort
-        func = nil,
-      },
     },
   },
 

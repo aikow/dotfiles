@@ -160,11 +160,6 @@ return {
     end,
   },
 
-  {
-    "echasnovski/mini.cursorword",
-    opts = {},
-  },
-
   -- Override neovim default UI components for user input.
   {
     "stevearc/dressing.nvim",
