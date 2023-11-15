@@ -11,14 +11,19 @@ return {
     event = { "BufReadPre" },
     opts = {
       servers = {
-        "bashls",
-        "jsonls",
-        "ltex",
-        "marksman",
-        "pyright",
-        "lua_ls",
-        "taplo",
-        "yamlls",
+        mason = {
+          "bashls",
+          "jsonls",
+          "ltex",
+          "lua_ls",
+          "marksman",
+          "pyright",
+          "taplo",
+          "yamlls",
+        },
+        native = {
+          "nushell",
+        },
       },
     },
     config = require("user.plugins.lsp.lspconfig").setup,
