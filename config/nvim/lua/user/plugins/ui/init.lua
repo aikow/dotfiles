@@ -1,7 +1,9 @@
 return {
   {
-    "echasnovski/mini.statusline",
-    opts = {},
+    "rebelot/heirline.nvim",
+    config = function()
+      require("user.plugins.ui.heirline").setup()
+    end,
   },
 
   {

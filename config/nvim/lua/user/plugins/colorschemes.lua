@@ -7,7 +7,29 @@ return {
 
   {
     "aikow/base.nvim",
-    opts = {},
+    opts = {
+      integrations = {
+        "builtin.defaults",
+        "builtin.git",
+        "builtin.lsp",
+        "builtin.semantic",
+        "builtin.syntax",
+        "builtin.terminal",
+        "builtin.treesitter",
+        "plugin.cmp",
+        "plugin.devicons",
+        "plugin.fzf-lua",
+        "plugin.heirline",
+        "plugin.indent-blankline",
+        "plugin.luasnip",
+        "plugin.mason",
+        "plugin.mini",
+        "plugin.neo-tree",
+        "plugin.neorg",
+        "plugin.telescope",
+        "plugin.trouble",
+      },
+    },
   },
 
   {

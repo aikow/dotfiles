@@ -98,56 +98,56 @@ M.lsp = {
 M.separators = {
   top_slant = {
     fill = {
-      right = " ",
-      left = " ",
+      left = " ",
+      right = " ",
     },
     outline = {
-      right = " ",
-      left = " ",
+      left = " ",
+      right = " ",
     },
   },
 
   bottom_slant = {
     fill = {
-      right = " ",
-      left = " ",
+      left = " ",
+      right = " ",
     },
     outline = {
-      right = " ",
-      left = " ",
+      left = " ",
+      right = " ",
     },
   },
 
   round = {
     fill = {
-      right = "",
-      left = "",
+      left = "",
+      right = "",
     },
     outline = {
-      right = "",
-      left = "",
+      left = "",
+      right = "",
     },
   },
 
   block = {
     fill = {
-      right = "█",
       left = "█",
+      right = "█",
     },
     outline = {
-      right = "|",
       left = "|",
+      right = "|",
     },
   },
 
   arrow = {
     fill = {
-      right = "",
-      left = "",
+      left = "",
+      right = "",
     },
     outline = {
-      right = "",
-      left = "",
+      left = "",
+      right = "",
     },
   },
 }
