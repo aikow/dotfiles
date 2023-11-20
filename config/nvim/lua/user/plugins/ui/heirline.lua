@@ -5,20 +5,23 @@ local utils = require("heirline.utils")
 local separators = icons.separators.round
 
 local H = {}
+local Components = {}
 
-H.vi_mode_raw = {
-  -- get vim current mode, this information will be required by the provider
-  -- and the highlight functions, so we compute it only once per component
-  -- evaluation and store it as a component attribute
+Components.align = { provider = "%=" }
+Components.space = { provider = " " }
+
+-- ------------------------------------------------------------------------
+-- | Vim Mode
+-- ------------------------------------------------------------------------
+
+---Get the current Vim Mode
+Components.vi_mode_raw = {
   init = function(self)
-    self.mode = vim.fn.mode(1) -- :h mode()
+    self.mode = vim.fn.mode(1)
   end,
-  -- Now we define some dictionaries to map the output of mode() to the
-  -- corresponding string and color. We can put these into `static` to compute
-  -- them at initialisation time.
   static = {
-    mode_names = { -- change the strings if you like it vvvvverbose!
-      n = "N",
+    mode_names = {
+      n = "N ",
       no = "N?",
       nov = "N?",
       noV = "N?",
@@ -27,31 +30,31 @@ H.vi_mode_raw = {
       niR = "Nr",
       niV = "Nv",
       nt = "Nt",
-      v = "V",
+      v = "V ",
       vs = "Vs",
       V = "V_",
       Vs = "Vs",
       ["\22"] = "^V",
       ["\22s"] = "^V",
-      s = "S",
+      s = "S ",
       S = "S_",
       ["\19"] = "^S",
-      i = "I",
+      i = "I ",
       ic = "Ic",
       ix = "Ix",
-      R = "R",
+      R = "R ",
       Rc = "Rc",
       Rx = "Rx",
       Rv = "Rv",
       Rvc = "Rv",
       Rvx = "Rv",
-      c = "C",
+      c = "C ",
       cv = "Ex",
       r = "...",
       rm = "M",
-      ["r?"] = "?",
-      ["!"] = "!",
-      t = "T",
+      ["r?"] = "? ",
+      ["!"] = "! ",
+      t = "T ",
     },
     mode_colors = {
       n = "red",
@@ -69,55 +72,65 @@ H.vi_mode_raw = {
       t = "red",
     },
   },
-  -- We can now access the value of mode() that, by now, would have been
-  -- computed by `init()` and use it to index our strings dictionary.
-  -- note how `static` fields become just regular attributes once the
-  -- component is instantiated.
-  -- To be extra meticulous, we can also add some vim statusline syntax to
-  -- control the padding and make sure our string is always at least 2
-  -- characters long. Plus a nice Icon.
   provider = function(self)
     return "%2(" .. self.mode_names[self.mode] .. "%)"
   end,
-  -- Same goes for the highlight. Now the foreground will change according to the current mode.
   hl = function(self)
-    local mode = self.mode:sub(1, 1) -- get only the first mode character
+    -- Use the first character to determine the color.
+    local mode = self.mode:sub(1, 1)
     return { fg = self.mode_colors[mode], bold = true }
   end,
-  -- Re-evaluate the component only on ModeChanged event!
-  -- Also allows the statusline to be re-evaluated when entering operator-pending mode
   update = {
     "ModeChanged",
     pattern = "*:*",
     callback = vim.schedule_wrap(function()
-      vim.cmd("redrawstatus")
+      vim.cmd.redrawstatus()
     end),
   },
 }
 
-H.vi_mode = utils.surround(
+Components.vi_mode = utils.surround(
   { separators.fill.left, separators.fill.right },
   "gray",
-  { H.vi_mode_raw }
+  { Components.vi_mode_raw }
 )
 
-H.file_name_block = {
-  -- let's first set up some attributes needed by this component and it's children
+-- ------------------------------------------------------------------------
+-- | Filename
+-- ------------------------------------------------------------------------
+H.file_name = function(filename)
+  filename = vim.fn.fnamemodify(filename, ":.")
+  if filename == "" then
+    return "[No Name]"
+  end
+  -- If the filename would occupy more than 1/4 of the available space,
+  -- shorten the path.
+  if not conditions.width_percent_below(#filename, 0.25) then
+    filename = vim.fn.pathshorten(filename)
+  end
+  return filename
+end
+
+H.file_icon = function(file_name)
+  local extension = vim.fn.fnamemodify(file_name, ":e")
+  local icon, icon_color = require("nvim-web-devicons").get_icon_color(
+    file_name,
+    extension,
+    { default = true }
+  )
+
+  return icon, icon_color
+end
+
+Components.file_name_block = {
   init = function(self)
     self.filename = vim.api.nvim_buf_get_name(0)
   end,
 }
--- We can now define some children separately and add them later
 
-H.file_icon = {
+Components.file_icon = {
   init = function(self)
-    local filename = self.filename
-    local extension = vim.fn.fnamemodify(filename, ":e")
-    self.icon, self.icon_color = require("nvim-web-devicons").get_icon_color(
-      filename,
-      extension,
-      { default = true }
-    )
+    self.icon, self.icon_color = H.file_icon(self.filename)
   end,
   provider = function(self)
     return self.icon and (self.icon .. " ")
@@ -127,26 +140,21 @@ H.file_icon = {
   end,
 }
 
-H.file_name = {
+Components.file_name = {
   provider = function(self)
-    -- first, trim the pattern relative to the current directory. For other
-    -- options, see :h filename-modifers
-    local filename = vim.fn.fnamemodify(self.filename, ":.")
-    if filename == "" then
-      return "[No Name]"
-    end
-    -- now, if the filename would occupy more than 1/4th of the available
-    -- space, we trim the file path to its initials
-    -- See Flexible Components section below for dynamic truncation
-    if not conditions.width_percent_below(#filename, 0.25) then
-      filename = vim.fn.pathshorten(filename)
-    end
-    return filename
+    return H.file_name(self.filename)
   end,
-  hl = { fg = "bright_fg" },
+  hl = function()
+    if vim.bo.modified then
+      -- use `force` because we need to override the child's hl foreground
+      return { fg = "cyan", bold = true, force = true }
+    else
+      return { fg = "bright_fg" }
+    end
+  end,
 }
 
-H.file_flags = {
+Components.file_flags = {
   {
     condition = function()
       return vim.bo.modified
@@ -163,30 +171,19 @@ H.file_flags = {
   },
 }
 
--- Now, let's say that we want the filename color to change if the buffer is
--- modified. Of course, we could do that directly using the FileName.hl field,
--- but we'll see how easy it is to alter existing components using a "modifier"
--- component
-
-H.file_name_modifier = {
-  hl = function()
-    if vim.bo.modified then
-      -- use `force` because we need to override the child's hl foreground
-      return { fg = "cyan", bold = true, force = true }
-    end
-  end,
-}
-
 -- let's add the children to our FileNameBlock component
-H.file_name_block = utils.insert(
-  H.file_name_block,
-  H.file_icon,
-  utils.insert(H.file_name_modifier, H.file_name), -- a new table where FileName is a child of FileNameModifier
-  H.file_flags,
-  { provider = "%<" } -- this means that the statusline is cut here when there's not enough space
+Components.file_name_block = utils.insert(
+  Components.file_name_block,
+  Components.file_icon,
+  Components.file_name,
+  Components.file_flags,
+  { provider = "%<" }
 )
 
-H.file_type = {
+-- ------------------------------------------------------------------------
+-- | File Info
+-- ------------------------------------------------------------------------
+Components.file_type = {
   condition = function()
     return vim.bo.filetype ~= ""
   end,
@@ -199,39 +196,27 @@ H.file_type = {
   }),
 }
 
-H.file_encoding = {
+Components.file_encoding = {
   provider = function()
     local enc = (vim.bo.fenc ~= "" and vim.bo.fenc) or vim.o.enc -- :h 'enc'
     return enc ~= "utf-8" and enc:upper()
   end,
 }
 
-H.file_format = {
+Components.file_format = {
   provider = function()
     local fmt = vim.bo.fileformat
     return fmt ~= "unix" and fmt:upper()
   end,
 }
 
-H.ruler = utils.surround(
-  {
-    separators.fill.left,
-    separators.fill.right,
-  },
-  "gray",
-  {
-    -- %l = current line number
-    -- %L = number of lines in the buffer
-    -- %c = column number
-    -- %P = percentage through file of displayed window
-    provider = "%7(%l/%3L%):%2c %P",
-  }
-)
+-- ------------------------------------------------------------------------
+-- | LSP and Diagnostics
+-- ------------------------------------------------------------------------
 
-H.lsp_active = {
+Components.lsp_active = {
   condition = conditions.lsp_attached,
   update = { "LspAttach", "LspDetach" },
-
   utils.surround({ separators.fill.left, separators.fill.right }, "gray", {
     provider = function()
       local names = {}
@@ -244,7 +229,7 @@ H.lsp_active = {
   }),
 }
 
-H.diagnostics = {
+Components.diagnostics = {
   condition = conditions.has_diagnostics,
   static = {
     error_icon = icons.diagnostics.error,
@@ -291,7 +276,10 @@ H.diagnostics = {
   { provider = "]" },
 }
 
-H.git = {
+-- ------------------------------------------------------------------------
+-- | Git
+-- ------------------------------------------------------------------------
+Components.git = {
   condition = conditions.is_git_repo,
   init = function(self)
     self.status_dict = vim.b.gitsigns_status_dict
@@ -343,7 +331,26 @@ H.git = {
   }),
 }
 
-H.cwd = {
+-- ------------------------------------------------------------------------
+-- | Vim Info
+-- ------------------------------------------------------------------------
+
+Components.ruler = utils.surround(
+  {
+    separators.fill.left,
+    separators.fill.right,
+  },
+  "gray",
+  {
+    -- %l = current line number
+    -- %L = number of lines in the buffer
+    -- %c = column number
+    -- %P = percentage through file of displayed window
+    provider = "%7(%l/%3L%):%2c %P",
+  }
+)
+
+Components.cwd = {
   provider = function()
     local icon = (vim.fn.haslocaldir(0) == 1 and "l" or "g") .. " " .. " "
     local cwd = vim.fn.getcwd(0)
@@ -357,7 +364,7 @@ H.cwd = {
   hl = { fg = "blue", bold = true },
 }
 
-H.search_count = {
+Components.search_count = {
   condition = function()
     return vim.v.hlsearch ~= 0 and vim.o.cmdheight == 0
   end,
@@ -377,7 +384,7 @@ H.search_count = {
   end,
 }
 
-H.marco_recording = {
+Components.marco_recording = {
   condition = function()
     return vim.fn.reg_recording() ~= "" and vim.o.cmdheight == 0
   end,
@@ -392,7 +399,11 @@ H.marco_recording = {
   update = { "RecordingEnter", "RecordingLeave" },
 }
 
-H.terminal_name = {
+-- ------------------------------------------------------------------------
+-- | Special Buffers
+-- ------------------------------------------------------------------------
+
+Components.terminal_name = {
   provider = function()
     local tname, _ = vim.api.nvim_buf_get_name(0):gsub(".*:", "")
     return " " .. tname
@@ -400,7 +411,7 @@ H.terminal_name = {
   hl = { fg = "blue", bold = true },
 }
 
-H.help_file_name = {
+Components.help_file_name = {
   condition = function()
     return vim.bo.filetype == "help"
   end,
@@ -411,19 +422,11 @@ H.help_file_name = {
   hl = { fg = "blue" },
 }
 
-H.tabpage = {
-  provider = function(self)
-    print(self.tabnr, self.tabpage)
-    local win_id = vim.api.nvim_tabpage_get_win(self.tabnr)
-    local buf_id = vim.api.nvim_win_get_buf(win_id)
-    local buf_name = vim.api.nvim_buf_get_name(buf_id)
-    local filename = vim.fs.basename(buf_name)
-    if filename == "" then
-      filename = "[No Name]"
-    end
+-- ------------------------------------------------------------------------
+-- | Tabpages
+-- ------------------------------------------------------------------------
 
-    return "%" .. self.tabnr .. "T " .. self.tabpage .. " " .. filename .. " %T"
-  end,
+Components.tabpage = {
   hl = function(self)
     if not self.is_active then
       return "TabLine"
@@ -431,80 +434,95 @@ H.tabpage = {
       return "TabLineSel"
     end
   end,
+  {
+    provider = function(self)
+      return " %" .. self.tabnr .. "T" .. self.tabpage .. " "
+    end,
+  },
+  {
+    provider = function(self)
+      local win_id = vim.api.nvim_tabpage_get_win(self.tabnr)
+      local buf_id = vim.api.nvim_win_get_buf(win_id)
+      local buf_name = vim.api.nvim_buf_get_name(buf_id)
+      local filename = H.file_name(buf_name)
+
+      return filename
+    end,
+  },
+  Components.file_flags,
+  { provider = " %T" },
 }
 
-H.tabpage_close = {
+Components.tabpage_close = {
   provider = "%999X  %X",
   hl = "TabLine",
 }
 
-H.tabpages = {
+Components.tabpages = {
   -- only show this component if there's 2 or more tabpages
   condition = function()
     return #vim.api.nvim_list_tabpages() >= 2
   end,
-  utils.make_tablist(H.tabpage),
-  H.tabpage_close,
+  utils.make_tablist(Components.tabpage),
+  Components.tabpage_close,
   { provider = "%=" },
 }
 
-H.align = { provider = "%=" }
-H.space = { provider = " " }
+-- ------------------------------------------------------------------------
+-- | Statusline
+-- ------------------------------------------------------------------------
 
-H.default_statusline = {
-  H.vi_mode,
-  H.space,
-  H.git,
-  H.space,
-  H.file_name_block,
-  H.align,
-  H.diagnostics,
-  H.space,
-  H.lsp_active,
-  H.space,
-  H.file_type,
-  H.space,
-  H.ruler,
+local Line = {}
+
+Line.default_statusline = {
+  Components.vi_mode,
+  Components.space,
+  Components.git,
+  Components.space,
+  Components.file_name_block,
+  Components.align,
+  Components.diagnostics,
+  Components.space,
+  Components.lsp_active,
+  Components.space,
+  Components.file_type,
+  Components.space,
+  Components.ruler,
 }
 
-H.inactive_statusline = {
+Line.inactive_statusline = {
   condition = conditions.is_not_active,
-  H.file_type,
-  H.space,
-  H.file_name_block,
-  H.align,
+  Components.file_type,
+  Components.space,
+  Components.file_name_block,
+  Components.align,
 }
 
-H.special_statusline = {
+Line.special_statusline = {
   condition = function()
     return conditions.buffer_matches({
       buftype = { "nofile", "prompt", "help", "quickfix" },
       filetype = { "fugitive" },
     })
   end,
-
-  H.file_type,
-  H.space,
-  H.help_file_name,
-  H.align,
+  Components.file_type,
+  Components.space,
+  Components.help_file_name,
+  Components.align,
 }
 
-H.terminal_statusline = {
+Line.terminal_statusline = {
   condition = function()
     return conditions.buffer_matches({ buftype = { "terminal" } })
   end,
-
   hl = { bg = "gray" },
-
-  -- Quickly add a condition to the ViMode to only show it when buffer is active!
-  { condition = conditions.is_active, H.vi_mode, H.space },
-  H.terminal_name,
-  H.align,
-  H.ruler,
+  { condition = conditions.is_active, Components.vi_mode, Components.space },
+  Components.terminal_name,
+  Components.align,
+  Components.ruler,
 }
 
-H.statusline = {
-
+Line.statusline = {
   hl = function()
     if conditions.is_active() then
       return "StatusLine"
@@ -512,24 +530,28 @@ H.statusline = {
       return "StatusLineNC"
     end
   end,
-
-  -- the first statusline with no condition, or which condition returns true is used.
-  -- think of it as a switch case with breaks to stop fallthrough.
   fallthrough = false,
-
-  H.special_statusline,
-  H.terminal_statusline,
-  H.inactive_statusline,
-  H.default_statusline,
+  Line.special_statusline,
+  Line.terminal_statusline,
+  Line.inactive_statusline,
+  Line.default_statusline,
 }
 
-H.tabline = {
+-- ------------------------------------------------------------------------
+-- | Tabline
+-- ------------------------------------------------------------------------
+
+Line.tabline = {
   hl = function()
     return "StatusLine"
   end,
 
-  H.tabpages,
+  Components.tabpages,
 }
+
+-- ------------------------------------------------------------------------
+-- | Colors
+-- ------------------------------------------------------------------------
 
 H.init_colors = function()
   return {
@@ -553,6 +575,10 @@ H.init_colors = function()
   }
 end
 
+-- ------------------------------------------------------------------------
+-- | Main Module
+-- ------------------------------------------------------------------------
+
 local M = {}
 
 M.setup = function()
@@ -563,8 +589,8 @@ M.setup = function()
   })
 
   require("heirline").setup({
-    statusline = H.statusline,
-    tabline = H.tabline,
+    statusline = Line.statusline,
+    tabline = Line.tabline,
   })
 end
 
