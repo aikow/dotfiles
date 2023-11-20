@@ -2,9 +2,11 @@ local conditions = require("heirline.conditions")
 local icons = require("user.ui.icons")
 local utils = require("heirline.utils")
 
+local separators = icons.separators.round
+
 local H = {}
 
-H.vi_mode = {
+H.vi_mode_raw = {
   -- get vim current mode, this information will be required by the provider
   -- and the highlight functions, so we compute it only once per component
   -- evaluation and store it as a component attribute
@@ -93,6 +95,12 @@ H.vi_mode = {
   },
 }
 
+H.vi_mode = utils.surround(
+  { separators.fill.left, separators.fill.right },
+  "gray",
+  { H.vi_mode_raw }
+)
+
 H.file_name_block = {
   -- let's first set up some attributes needed by this component and it's children
   init = function(self)
@@ -179,10 +187,16 @@ H.file_name_block = utils.insert(
 )
 
 H.file_type = {
-  provider = function()
-    return string.upper(vim.bo.filetype)
+  condition = function()
+    return vim.bo.filetype ~= ""
   end,
-  hl = { fg = utils.get_highlight("Type").fg, bold = true },
+
+  utils.surround({ separators.fill.left, separators.fill.right }, "gray", {
+    provider = function()
+      return vim.bo.filetype
+    end,
+    hl = { fg = "orange", bold = true },
+  }),
 }
 
 H.file_encoding = {
@@ -191,6 +205,7 @@ H.file_encoding = {
     return enc ~= "utf-8" and enc:upper()
   end,
 }
+
 H.file_format = {
   provider = function()
     local fmt = vim.bo.fileformat
@@ -198,44 +213,45 @@ H.file_format = {
   end,
 }
 
--- We're getting minimalists here!
-H.ruler = {
-  -- %l = current line number
-  -- %L = number of lines in the buffer
-  -- %c = column number
-  -- %P = percentage through file of displayed window
-  provider = "%7(%l/%3L%):%2c %P",
-}
+H.ruler = utils.surround(
+  {
+    separators.fill.left,
+    separators.fill.right,
+  },
+  "gray",
+  {
+    -- %l = current line number
+    -- %L = number of lines in the buffer
+    -- %c = column number
+    -- %P = percentage through file of displayed window
+    provider = "%7(%l/%3L%):%2c %P",
+  }
+)
 
 H.lsp_active = {
   condition = conditions.lsp_attached,
   update = { "LspAttach", "LspDetach" },
 
-  -- You can keep it simple,
-  -- provider = " [LSP]",
-
-  -- Or complicate things a bit and get the servers names
-  provider = function()
-    local names = {}
-    for _, server in pairs(vim.lsp.get_clients({ bufnr = 0 })) do
-      table.insert(names, server.name)
-    end
-    return " [" .. table.concat(names, " ") .. "]"
-  end,
-  hl = { fg = "green", bold = true },
+  utils.surround({ separators.fill.left, separators.fill.right }, "gray", {
+    provider = function()
+      local names = {}
+      for _, server in pairs(vim.lsp.get_clients({ bufnr = 0 })) do
+        table.insert(names, server.name)
+      end
+      return " [" .. table.concat(names, " ") .. "]"
+    end,
+    hl = { fg = "green", bold = true },
+  }),
 }
 
 H.diagnostics = {
-
   condition = conditions.has_diagnostics,
-
   static = {
     error_icon = icons.diagnostics.error,
     warn_icon = icons.diagnostics.warn,
     info_icon = icons.diagnostics.info,
     hint_icon = icons.diagnostics.hint,
   },
-
   init = function(self)
     self.errors =
       #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.ERROR })
@@ -246,15 +262,10 @@ H.diagnostics = {
     self.info =
       #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.INFO })
   end,
-
   update = { "DiagnosticChanged", "BufEnter" },
-
-  {
-    provider = "![",
-  },
+  { provider = "![" },
   {
     provider = function(self)
-      -- 0 is just another output, we can decide to print it or not!
       return self.errors > 0 and (self.error_icon .. self.errors .. " ")
     end,
     hl = { fg = "diag_error" },
@@ -277,63 +288,59 @@ H.diagnostics = {
     end,
     hl = { fg = "diag_hint" },
   },
-  {
-    provider = "]",
-  },
+  { provider = "]" },
 }
 
 H.git = {
   condition = conditions.is_git_repo,
-
   init = function(self)
     self.status_dict = vim.b.gitsigns_status_dict
     self.has_changes = self.status_dict.added ~= 0
       or self.status_dict.removed ~= 0
       or self.status_dict.changed ~= 0
   end,
-
   hl = { fg = "orange" },
-
-  { -- git branch name
-    provider = function(self)
-      return " " .. self.status_dict.head
-    end,
-    hl = { bold = true },
-  },
-  -- You could handle delimiters, icons and counts similar to Diagnostics
-  {
-    condition = function(self)
-      return self.has_changes
-    end,
-    provider = "(",
-  },
-  {
-    provider = function(self)
-      local count = self.status_dict.added or 0
-      return count > 0 and ("+" .. count)
-    end,
-    hl = { fg = "git_add" },
-  },
-  {
-    provider = function(self)
-      local count = self.status_dict.removed or 0
-      return count > 0 and ("-" .. count)
-    end,
-    hl = { fg = "git_del" },
-  },
-  {
-    provider = function(self)
-      local count = self.status_dict.changed or 0
-      return count > 0 and ("~" .. count)
-    end,
-    hl = { fg = "git_change" },
-  },
-  {
-    condition = function(self)
-      return self.has_changes
-    end,
-    provider = ")",
-  },
+  utils.surround({ separators.fill.left, separators.fill.right }, "gray", {
+    {
+      provider = function(self)
+        return " " .. self.status_dict.head
+      end,
+      hl = { bold = true },
+    },
+    {
+      condition = function(self)
+        return self.has_changes
+      end,
+      provider = "(",
+    },
+    {
+      provider = function(self)
+        local count = self.status_dict.added or 0
+        return count > 0 and ("+" .. count)
+      end,
+      hl = { fg = "git_add" },
+    },
+    {
+      provider = function(self)
+        local count = self.status_dict.removed or 0
+        return count > 0 and ("-" .. count)
+      end,
+      hl = { fg = "git_del" },
+    },
+    {
+      provider = function(self)
+        local count = self.status_dict.changed or 0
+        return count > 0 and ("~" .. count)
+      end,
+      hl = { fg = "git_change" },
+    },
+    {
+      condition = function(self)
+        return self.has_changes
+      end,
+      provider = ")",
+    },
+  }),
 }
 
 H.cwd = {
@@ -382,15 +389,10 @@ H.marco_recording = {
     end,
     hl = { fg = "green", bold = true },
   }),
-  update = {
-    "RecordingEnter",
-    "RecordingLeave",
-  },
+  update = { "RecordingEnter", "RecordingLeave" },
 }
 
 H.terminal_name = {
-  -- we could add a condition to check that buftype == 'terminal'
-  -- or we could do that later (see #conditional-statuslines below)
   provider = function()
     local tname, _ = vim.api.nvim_buf_get_name(0):gsub(".*:", "")
     return " " .. tname
@@ -449,21 +451,15 @@ H.tabpages = {
 H.align = { provider = "%=" }
 H.space = { provider = " " }
 
-H.vi_mode = utils.surround(
-  { icons.separators.round.fill.left, icons.separators.round.fill.right },
-  "gray",
-  { H.vi_mode }
-)
-
 H.default_statusline = {
   H.vi_mode,
   H.space,
-  H.file_name_block,
-  H.space,
   H.git,
   H.space,
-  H.diagnostics,
+  H.file_name_block,
   H.align,
+  H.diagnostics,
+  H.space,
   H.lsp_active,
   H.space,
   H.file_type,
@@ -483,7 +479,7 @@ H.special_statusline = {
   condition = function()
     return conditions.buffer_matches({
       buftype = { "nofile", "prompt", "help", "quickfix" },
-      filetype = { "^git.*", "fugitive" },
+      filetype = { "fugitive" },
     })
   end,
 
@@ -498,14 +494,13 @@ H.terminal_statusline = {
     return conditions.buffer_matches({ buftype = { "terminal" } })
   end,
 
-  hl = { bg = "dark_red" },
+  hl = { bg = "gray" },
 
   -- Quickly add a condition to the ViMode to only show it when buffer is active!
   { condition = conditions.is_active, H.vi_mode, H.space },
-  H.file_type,
-  H.space,
   H.terminal_name,
   H.align,
+  H.ruler,
 }
 
 H.statusline = {
