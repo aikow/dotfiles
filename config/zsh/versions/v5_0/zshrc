@@ -16,8 +16,6 @@ source "${HOME}/.local/share/zinit/zinit.git/zinit.zsh"
 # Plugins
 zinit snippet OMZL::git.zsh
 zinit snippet OMZP::git
-zinit snippet OMZP::colored-man-pages
-zinit snippet OMZP::command-not-found
 
 # These 2 must be in this order
 zinit load zsh-users/zsh-autosuggestions
