@@ -16,8 +16,8 @@ Components.space = { provider = " " }
 
 ---Get the current Vim Mode
 Components.vi_mode_raw = {
-  init = function(self)
-    self.mode = vim.fn.mode(1)
+  init = function(item)
+    item.mode = vim.fn.mode(1)
   end,
   static = {
     mode_names = {
@@ -72,13 +72,13 @@ Components.vi_mode_raw = {
       t = "red",
     },
   },
-  provider = function(self)
-    return "%2(" .. self.mode_names[self.mode] .. "%)"
+  provider = function(item)
+    return "%2(" .. item.mode_names[item.mode] .. "%)"
   end,
-  hl = function(self)
+  hl = function(item)
     -- Use the first character to determine the color.
-    local mode = self.mode:sub(1, 1)
-    return { fg = self.mode_colors[mode], bold = true }
+    local mode = item.mode:sub(1, 1)
+    return { fg = item.mode_colors[mode], bold = true }
   end,
   update = {
     "ModeChanged",
@@ -91,7 +91,7 @@ Components.vi_mode_raw = {
 
 Components.vi_mode = utils.surround(
   { separators.fill.left, separators.fill.right },
-  "gray",
+  "grey",
   { Components.vi_mode_raw }
 )
 
@@ -122,31 +122,34 @@ H.file_icon = function(file_name)
   return icon, icon_color
 end
 
-Components.file_name_block = {
-  init = function(self)
-    self.filename = vim.api.nvim_buf_get_name(0)
+---Base component for file-name related components. Just sets the filename
+---attribute to the name of the current buffer.
+Components.file_name_base = {
+  init = function(item)
+    item.filename = vim.api.nvim_buf_get_name(0)
   end,
 }
 
+---Get the icon for the file type of the current buffer.
 Components.file_icon = {
-  init = function(self)
-    self.icon, self.icon_color = H.file_icon(self.filename)
+  init = function(item)
+    item.icon, item.icon_color = H.file_icon(item.filename)
   end,
-  provider = function(self)
-    return self.icon and (self.icon .. " ")
+  provider = function(item)
+    return item.icon and (item.icon .. " ")
   end,
-  hl = function(self)
-    return { fg = self.icon_color }
+  hl = function(item)
+    return { fg = item.icon_color }
   end,
 }
 
+---Format and display the filename in the current buffer.
 Components.file_name = {
-  provider = function(self)
-    return H.file_name(self.filename)
+  provider = function(item)
+    return H.file_name(item.filename)
   end,
   hl = function()
     if vim.bo.modified then
-      -- use `force` because we need to override the child's hl foreground
       return { fg = "cyan", bold = true, force = true }
     else
       return { fg = "bright_fg" }
@@ -154,6 +157,7 @@ Components.file_name = {
   end,
 }
 
+---Get flags if the buffer is readonly, unmodifiable, or was already modified.
 Components.file_flags = {
   {
     condition = function()
@@ -171,9 +175,9 @@ Components.file_flags = {
   },
 }
 
--- let's add the children to our FileNameBlock component
+---Creates a block that encapsulates everything related to the filename.
 Components.file_name_block = utils.insert(
-  Components.file_name_block,
+  Components.file_name_base,
   Components.file_icon,
   Components.file_name,
   Components.file_flags,
@@ -183,16 +187,17 @@ Components.file_name_block = utils.insert(
 -- ------------------------------------------------------------------------
 -- | File Info
 -- ------------------------------------------------------------------------
+
 Components.file_type = {
   condition = function()
     return vim.bo.filetype ~= ""
   end,
 
-  utils.surround({ separators.fill.left, separators.fill.right }, "gray", {
+  utils.surround({ separators.fill.left, separators.fill.right }, "grey", {
     provider = function()
       return vim.bo.filetype
     end,
-    hl = { fg = "orange", bold = true },
+    hl = { fg = "cyan", bold = true },
   }),
 }
 
@@ -216,8 +221,8 @@ Components.file_format = {
 
 Components.lsp_active = {
   condition = conditions.lsp_attached,
-  update = { "LspAttach", "LspDetach" },
-  utils.surround({ separators.fill.left, separators.fill.right }, "gray", {
+  update = { "LspAttach", "LspDetach", "Colorscheme" },
+  utils.surround({ separators.fill.left, separators.fill.right }, "grey", {
     provider = function()
       local names = {}
       for _, server in pairs(vim.lsp.get_clients({ bufnr = 0 })) do
@@ -237,39 +242,39 @@ Components.diagnostics = {
     info_icon = icons.diagnostics.info,
     hint_icon = icons.diagnostics.hint,
   },
-  init = function(self)
-    self.errors =
+  init = function(item)
+    item.errors =
       #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.ERROR })
-    self.warnings =
+    item.warnings =
       #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.WARN })
-    self.hints =
+    item.hints =
       #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.HINT })
-    self.info =
+    item.info =
       #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.INFO })
   end,
   update = { "DiagnosticChanged", "BufEnter" },
   { provider = "![" },
   {
-    provider = function(self)
-      return self.errors > 0 and (self.error_icon .. self.errors .. " ")
+    provider = function(item)
+      return item.errors > 0 and (item.error_icon .. item.errors .. " ")
     end,
     hl = { fg = "diag_error" },
   },
   {
-    provider = function(self)
-      return self.warnings > 0 and (self.warn_icon .. self.warnings .. " ")
+    provider = function(item)
+      return item.warnings > 0 and (item.warn_icon .. item.warnings .. " ")
     end,
     hl = { fg = "diag_warn" },
   },
   {
-    provider = function(self)
-      return self.info > 0 and (self.info_icon .. self.info .. " ")
+    provider = function(item)
+      return item.info > 0 and (item.info_icon .. item.info .. " ")
     end,
     hl = { fg = "diag_info" },
   },
   {
-    provider = function(self)
-      return self.hints > 0 and (self.hint_icon .. self.hints)
+    provider = function(item)
+      return item.hints > 0 and (item.hint_icon .. item.hints)
     end,
     hl = { fg = "diag_hint" },
   },
@@ -281,50 +286,50 @@ Components.diagnostics = {
 -- ------------------------------------------------------------------------
 Components.git = {
   condition = conditions.is_git_repo,
-  init = function(self)
-    self.status_dict = vim.b.gitsigns_status_dict
-    self.has_changes = self.status_dict.added ~= 0
-      or self.status_dict.removed ~= 0
-      or self.status_dict.changed ~= 0
+  init = function(item)
+    item.status_dict = vim.b.gitsigns_status_dict
+    item.has_changes = item.status_dict.added ~= 0
+      or item.status_dict.removed ~= 0
+      or item.status_dict.changed ~= 0
   end,
   hl = { fg = "orange" },
-  utils.surround({ separators.fill.left, separators.fill.right }, "gray", {
+  utils.surround({ separators.fill.left, separators.fill.right }, "grey", {
     {
-      provider = function(self)
-        return " " .. self.status_dict.head
+      provider = function(item)
+        return " " .. item.status_dict.head
       end,
       hl = { bold = true },
     },
     {
-      condition = function(self)
-        return self.has_changes
+      condition = function(item)
+        return item.has_changes
       end,
       provider = "(",
     },
     {
-      provider = function(self)
-        local count = self.status_dict.added or 0
+      provider = function(item)
+        local count = item.status_dict.added or 0
         return count > 0 and ("+" .. count)
       end,
       hl = { fg = "git_add" },
     },
     {
-      provider = function(self)
-        local count = self.status_dict.removed or 0
+      provider = function(item)
+        local count = item.status_dict.removed or 0
         return count > 0 and ("-" .. count)
       end,
       hl = { fg = "git_del" },
     },
     {
-      provider = function(self)
-        local count = self.status_dict.changed or 0
+      provider = function(item)
+        local count = item.status_dict.changed or 0
         return count > 0 and ("~" .. count)
       end,
       hl = { fg = "git_change" },
     },
     {
-      condition = function(self)
-        return self.has_changes
+      condition = function(item)
+        return item.has_changes
       end,
       provider = ")",
     },
@@ -340,7 +345,7 @@ Components.ruler = utils.surround(
     separators.fill.left,
     separators.fill.right,
   },
-  "gray",
+  "grey",
   {
     -- %l = current line number
     -- %L = number of lines in the buffer
@@ -368,14 +373,14 @@ Components.search_count = {
   condition = function()
     return vim.v.hlsearch ~= 0 and vim.o.cmdheight == 0
   end,
-  init = function(self)
+  init = function(item)
     local ok, search = pcall(vim.fn.searchcount)
     if ok and search.total then
-      self.search = search
+      item.search = search
     end
   end,
-  provider = function(self)
-    local search = self.search
+  provider = function(item)
+    local search = item.search
     return string.format(
       "[%d/%d]",
       search.current,
@@ -426,30 +431,35 @@ Components.help_file_name = {
 -- | Tabpages
 -- ------------------------------------------------------------------------
 
+Components.tabpage_base = {
+  init = function(item)
+    local win_id = vim.api.nvim_tabpage_get_win(item.tabpage)
+    local buf_id = vim.api.nvim_win_get_buf(win_id)
+    item.filename = vim.api.nvim_buf_get_name(buf_id)
+  end,
+}
+
+Components.tabpage_file_name_block = utils.insert(
+  Components.tabpage_base,
+  Components.file_icon,
+  Components.file_name,
+  Components.file_flags
+)
+
 Components.tabpage = {
-  hl = function(self)
-    if not self.is_active then
+  hl = function(item)
+    if not item.is_active then
       return "TabLine"
     else
       return "TabLineSel"
     end
   end,
   {
-    provider = function(self)
-      return " %" .. self.tabnr .. "T" .. self.tabpage .. " "
+    provider = function(item)
+      return "%" .. item.tabnr .. "T " .. item.tabpage .. " "
     end,
   },
-  {
-    provider = function(self)
-      local win_id = vim.api.nvim_tabpage_get_win(self.tabnr)
-      local buf_id = vim.api.nvim_win_get_buf(win_id)
-      local buf_name = vim.api.nvim_buf_get_name(buf_id)
-      local filename = H.file_name(buf_name)
-
-      return filename
-    end,
-  },
-  Components.file_flags,
+  Components.tabpage_file_name_block,
   { provider = " %T" },
 }
 
@@ -515,7 +525,7 @@ Line.terminal_statusline = {
   condition = function()
     return conditions.buffer_matches({ buftype = { "terminal" } })
   end,
-  hl = { bg = "gray" },
+  hl = { bg = "grey" },
   { condition = conditions.is_active, Components.vi_mode, Components.space },
   Components.terminal_name,
   Components.align,
@@ -561,7 +571,7 @@ H.init_colors = function()
     dark_red = utils.get_highlight("DiffDelete").bg,
     green = utils.get_highlight("String").fg,
     blue = utils.get_highlight("Function").fg,
-    gray = utils.get_highlight("NonText").fg,
+    grey = utils.get_highlight("NonText").fg,
     orange = utils.get_highlight("Constant").fg,
     purple = utils.get_highlight("Statement").fg,
     cyan = utils.get_highlight("Special").fg,
@@ -582,9 +592,11 @@ end
 local M = {}
 
 M.setup = function()
-  vim.api.nvim_create_autocmd("Colorscheme", {
+  vim.api.nvim_create_autocmd("ColorschemePre", {
+    group = vim.api.nvim_create_augroup("heirline colors", { clear = true }),
     callback = function()
-      require("heirline").load_colors(H.init_colors)
+      local heirline = require("heirline")
+      heirline.load_colors(H.init_colors)
     end,
   })
 
