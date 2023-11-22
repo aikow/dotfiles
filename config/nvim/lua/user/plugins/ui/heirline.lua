@@ -105,7 +105,7 @@ H.file_name = function(filename)
   end
   -- If the filename would occupy more than 1/4 of the available space,
   -- shorten the path.
-  if not conditions.width_percent_below(#filename, 0.25) then
+  if not conditions.width_percent_below(#filename, 0.25, true) then
     filename = vim.fn.pathshorten(filename)
   end
   return filename
@@ -220,7 +220,9 @@ Components.file_format = {
 -- ------------------------------------------------------------------------
 
 Components.lsp_active = {
-  condition = conditions.lsp_attached,
+  condition = function()
+    return conditions.lsp_attached() and vim.api.nvim_win_get_width(0) > 80
+  end,
   update = { "LspAttach", "LspDetach", "Colorscheme" },
   utils.surround({ separators.fill.left, separators.fill.right }, "grey", {
     provider = function()
@@ -360,7 +362,7 @@ Components.cwd = {
     local icon = (vim.fn.haslocaldir(0) == 1 and "l" or "g") .. " " .. " "
     local cwd = vim.fn.getcwd(0)
     cwd = vim.fn.fnamemodify(cwd, ":~")
-    if not conditions.width_percent_below(#cwd, 0.25) then
+    if not conditions.width_percent_below(#cwd, 0.25, true) then
       cwd = vim.fn.pathshorten(cwd)
     end
     local trail = cwd:sub(-1) == "/" and "" or "/"
@@ -423,6 +425,17 @@ Components.help_file_name = {
   provider = function()
     local filename = vim.api.nvim_buf_get_name(0)
     return vim.fn.fnamemodify(filename, ":t")
+  end,
+  hl = { fg = "blue" },
+}
+
+Components.man_file_name = {
+  condition = function()
+    return vim.bo.filetype == "man"
+  end,
+  provider = function()
+    local filename = vim.api.nvim_buf_get_name(0)
+    return string.sub(filename, 7, -4)
   end,
   hl = { fg = "blue" },
 }
@@ -518,6 +531,7 @@ Line.special_statusline = {
   Components.file_type,
   Components.space,
   Components.help_file_name,
+  Components.man_file_name,
   Components.align,
 }
 
