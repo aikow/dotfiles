@@ -44,7 +44,7 @@ return {
         json = { "jq" },
         lua = { "stylua" },
         markdown = { { "prettierd", "prettier" } },
-        python = { "ruff_format" },
+        python = { "ruff_fix", "ruff_format" },
         sh = { "shfmt" },
         sql = { "sql_formatter" },
         yaml = { { "prettierd", "prettier" } },
@@ -55,6 +55,9 @@ return {
         },
         isort = {
           prepend_args = { "--profile=black" },
+        },
+        ruff_fix = {
+          prepend_args = { "--unfixable", "ARG,F401" },
         },
         shfmt = {
           prepend_args = {
