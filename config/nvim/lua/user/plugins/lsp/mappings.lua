@@ -4,15 +4,11 @@ function M.new(client, buffer)
   return setmetatable({ client = client, buffer = buffer }, { __index = M })
 end
 
-function M:has(cap)
-  return self.client.server_capabilities[cap .. "Provider"]
-end
+function M:has(cap) return self.client.server_capabilities[cap .. "Provider"] end
 
 function M:map(lhs, rhs, opts)
   opts = opts or {}
-  if opts.has and not self:has(opts.has) then
-    return
-  end
+  if opts.has and not self:has(opts.has) then return end
   vim.keymap.set(
     opts.mode or "n",
     lhs,
@@ -24,9 +20,7 @@ end
 function M.diagnostic_goto(next, severity)
   local go = next and vim.diagnostic.goto_next or vim.diagnostic.goto_prev
   severity = severity and vim.diagnostic.severity[severity] or nil
-  return function()
-    go({ severity = severity })
-  end
+  return function() go({ severity = severity }) end
 end
 
 function M.on_attach(client, buffer)

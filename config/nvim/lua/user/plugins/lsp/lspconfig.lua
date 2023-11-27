@@ -32,9 +32,7 @@ local setup_lsp_handlers = function()
   -- Suppress error messages from lang servers.
   ---@diagnostic disable-next-line: duplicate-set-field
   vim.notify = function(msg, log_level)
-    if msg:match("exit code") then
-      return
-    end
+    if msg:match("exit code") then return end
     if log_level == vim.log.levels.ERROR then
       vim.api.nvim_err_writeln(msg)
     else
@@ -58,9 +56,7 @@ local setup_server = function(server)
   -- If the server contains an `override_setup` method which returns true,
   -- don't continue setting up the server afterwards.
   if server_opts.override_setup then
-    if server_opts.override_setup() then
-      return
-    end
+    if server_opts.override_setup() then return end
   end
 
   -- Setup the LSP server using lspconfig.
@@ -100,9 +96,11 @@ end
 
 M.setup = function(_, opts)
   -- setup keymaps
-  on_attach(function(client, buffer)
-    require("user.plugins.lsp.mappings").on_attach(client, buffer)
-  end)
+  on_attach(
+    function(client, buffer)
+      require("user.plugins.lsp.mappings").on_attach(client, buffer)
+    end
+  )
 
   -- diagnostics
   for name, icon in pairs(require("user.ui.icons").diagnostics) do

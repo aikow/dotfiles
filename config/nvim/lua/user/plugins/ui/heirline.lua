@@ -16,9 +16,7 @@ Components.space = { provider = " " }
 
 ---Get the current Vim Mode
 Components.vi_mode_raw = {
-  init = function(item)
-    item.mode = vim.fn.mode(1)
-  end,
+  init = function(item) item.mode = vim.fn.mode(1) end,
   static = {
     mode_names = {
       n = "N ",
@@ -72,9 +70,7 @@ Components.vi_mode_raw = {
       t = "red",
     },
   },
-  provider = function(item)
-    return "%2(" .. item.mode_names[item.mode] .. "%)"
-  end,
+  provider = function(item) return "%2(" .. item.mode_names[item.mode] .. "%)" end,
   hl = function(item)
     -- Use the first character to determine the color.
     local mode = item.mode:sub(1, 1)
@@ -83,9 +79,7 @@ Components.vi_mode_raw = {
   update = {
     "ModeChanged",
     pattern = "*:*",
-    callback = vim.schedule_wrap(function()
-      vim.cmd.redrawstatus()
-    end),
+    callback = vim.schedule_wrap(function() vim.cmd.redrawstatus() end),
   },
 }
 
@@ -100,9 +94,7 @@ Components.vi_mode = utils.surround(
 -- ------------------------------------------------------------------------
 H.file_name = function(filename)
   filename = vim.fn.fnamemodify(filename, ":.")
-  if filename == "" then
-    return "[No Name]"
-  end
+  if filename == "" then return "[No Name]" end
   -- If the filename would occupy more than 1/4 of the available space,
   -- shorten the path.
   if not conditions.width_percent_below(#filename, 0.25, true) then
@@ -125,9 +117,7 @@ end
 ---Base component for file-name related components. Just sets the filename
 ---attribute to the name of the current buffer.
 Components.file_name_base = {
-  init = function(item)
-    item.filename = vim.api.nvim_buf_get_name(0)
-  end,
+  init = function(item) item.filename = vim.api.nvim_buf_get_name(0) end,
 }
 
 ---Get the icon for the file type of the current buffer.
@@ -135,19 +125,13 @@ Components.file_icon = {
   init = function(item)
     item.icon, item.icon_color = H.file_icon(item.filename)
   end,
-  provider = function(item)
-    return item.icon and (item.icon .. " ")
-  end,
-  hl = function(item)
-    return { fg = item.icon_color }
-  end,
+  provider = function(item) return item.icon and (item.icon .. " ") end,
+  hl = function(item) return { fg = item.icon_color } end,
 }
 
 ---Format and display the filename in the current buffer.
 Components.file_name = {
-  provider = function(item)
-    return H.file_name(item.filename)
-  end,
+  provider = function(item) return H.file_name(item.filename) end,
   hl = function()
     if vim.bo.modified then
       return { fg = "cyan", bold = true, force = true }
@@ -160,16 +144,12 @@ Components.file_name = {
 ---Get flags if the buffer is readonly, unmodifiable, or was already modified.
 Components.file_flags = {
   {
-    condition = function()
-      return vim.bo.modified
-    end,
+    condition = function() return vim.bo.modified end,
     provider = "[+]",
     hl = { fg = "green" },
   },
   {
-    condition = function()
-      return not vim.bo.modifiable or vim.bo.readonly
-    end,
+    condition = function() return not vim.bo.modifiable or vim.bo.readonly end,
     provider = "",
     hl = { fg = "orange" },
   },
@@ -189,14 +169,10 @@ Components.file_name_block = utils.insert(
 -- ------------------------------------------------------------------------
 
 Components.file_type = {
-  condition = function()
-    return vim.bo.filetype ~= ""
-  end,
+  condition = function() return vim.bo.filetype ~= "" end,
 
   utils.surround({ separators.fill.left, separators.fill.right }, "grey", {
-    provider = function()
-      return vim.bo.filetype
-    end,
+    provider = function() return vim.bo.filetype end,
     hl = { fg = "cyan", bold = true },
   }),
 }
@@ -297,15 +273,11 @@ Components.git = {
   hl = { fg = "orange" },
   utils.surround({ separators.fill.left, separators.fill.right }, "grey", {
     {
-      provider = function(item)
-        return " " .. item.status_dict.head
-      end,
+      provider = function(item) return " " .. item.status_dict.head end,
       hl = { bold = true },
     },
     {
-      condition = function(item)
-        return item.has_changes
-      end,
+      condition = function(item) return item.has_changes end,
       provider = "(",
     },
     {
@@ -330,9 +302,7 @@ Components.git = {
       hl = { fg = "git_change" },
     },
     {
-      condition = function(item)
-        return item.has_changes
-      end,
+      condition = function(item) return item.has_changes end,
       provider = ")",
     },
   }),
@@ -372,14 +342,10 @@ Components.cwd = {
 }
 
 Components.search_count = {
-  condition = function()
-    return vim.v.hlsearch ~= 0 and vim.o.cmdheight == 0
-  end,
+  condition = function() return vim.v.hlsearch ~= 0 and vim.o.cmdheight == 0 end,
   init = function(item)
     local ok, search = pcall(vim.fn.searchcount)
-    if ok and search.total then
-      item.search = search
-    end
+    if ok and search.total then item.search = search end
   end,
   provider = function(item)
     local search = item.search
@@ -398,9 +364,7 @@ Components.marco_recording = {
   provider = " ",
   hl = { fg = "orange", bold = true },
   utils.surround({ "[", "]" }, nil, {
-    provider = function()
-      return vim.fn.reg_recording()
-    end,
+    provider = function() return vim.fn.reg_recording() end,
     hl = { fg = "green", bold = true },
   }),
   update = { "RecordingEnter", "RecordingLeave" },
@@ -419,9 +383,7 @@ Components.terminal_name = {
 }
 
 Components.help_file_name = {
-  condition = function()
-    return vim.bo.filetype == "help"
-  end,
+  condition = function() return vim.bo.filetype == "help" end,
   provider = function()
     local filename = vim.api.nvim_buf_get_name(0)
     return vim.fn.fnamemodify(filename, ":t")
@@ -430,9 +392,7 @@ Components.help_file_name = {
 }
 
 Components.man_file_name = {
-  condition = function()
-    return vim.bo.filetype == "man"
-  end,
+  condition = function() return vim.bo.filetype == "man" end,
   provider = function()
     local filename = vim.api.nvim_buf_get_name(0)
     return string.sub(filename, 7, -4)
@@ -483,9 +443,7 @@ Components.tabpage_close = {
 
 Components.tabpages = {
   -- only show this component if there's 2 or more tabpages
-  condition = function()
-    return #vim.api.nvim_list_tabpages() >= 2
-  end,
+  condition = function() return #vim.api.nvim_list_tabpages() >= 2 end,
   utils.make_tablist(Components.tabpage),
   Components.tabpage_close,
   { provider = "%=" },
@@ -566,9 +524,7 @@ Line.statusline = {
 -- ------------------------------------------------------------------------
 
 Line.tabline = {
-  hl = function()
-    return "StatusLine"
-  end,
+  hl = function() return "StatusLine" end,
 
   Components.tabpages,
 }

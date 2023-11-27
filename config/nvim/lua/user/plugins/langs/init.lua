@@ -51,9 +51,7 @@ return {
   {
     "iamcco/markdown-preview.nvim",
     ft = { "markdown" },
-    build = function()
-      vim.fn["mkdp#util#install"]()
-    end,
+    build = function() vim.fn["mkdp#util#install"]() end,
   },
 
   -- Fish shell syntax support.
@@ -78,9 +76,7 @@ return {
   {
     "chrisbra/csv.vim",
     ft = { "csv", "tsv" },
-    config = function()
-      vim.g.csv_bind_B = 1
-    end,
+    config = function() vim.g.csv_bind_B = 1 end,
   },
 
   -- Connect to databases inside Neovim.

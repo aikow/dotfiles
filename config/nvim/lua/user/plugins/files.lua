@@ -71,9 +71,7 @@ return {
       -- Load neo-tree if nvim was passed a directory as a single argument.
       if vim.fn.argc() == 1 then
         local stat = vim.loop.fs_stat(tostring(vim.fn.argv(0)))
-        if stat and stat.type == "directory" then
-          require("neo-tree")
-        end
+        if stat and stat.type == "directory" then require("neo-tree") end
       end
     end,
     opts = {
@@ -102,15 +100,11 @@ return {
     keys = {
       {
         "-",
-        function()
-          require("mini.files").open(require("user.util").buf_path(0))
-        end,
+        function() require("mini.files").open(require("user.util").buf_path(0)) end,
       },
       {
         "_",
-        function()
-          require("mini.files").open()
-        end,
+        function() require("mini.files").open() end,
       },
     },
     opts = {
@@ -147,9 +141,7 @@ return {
 
       -- Show/hide dotfiles
       local show_dotfiles = true
-      local filter_show = function()
-        return true
-      end
+      local filter_show = function() return true end
       local filter_hide = function(fs_entry)
         return not vim.startswith(fs_entry.name, ".")
       end

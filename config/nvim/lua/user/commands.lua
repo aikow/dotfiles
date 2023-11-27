@@ -12,11 +12,13 @@ local curcol = function()
   return vim.fn.col(".")
 end
 
-vim.api.nvim_create_user_command("Bclose", function()
-  require("mini.bufremove").delete()
-end, {
-  desc = "Close the current buffer, even if it is unlisted or has no file.",
-})
+vim.api.nvim_create_user_command(
+  "Bclose",
+  function() require("mini.bufremove").delete() end,
+  {
+    desc = "Close the current buffer, even if it is unlisted or has no file.",
+  }
+)
 
 vim.api.nvim_create_user_command("Bclean", function()
   local shown_buffers = {}

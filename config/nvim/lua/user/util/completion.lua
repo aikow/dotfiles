@@ -20,9 +20,7 @@ end
 M.complete_matching_line = function()
   local cur_line = vim.trim(vim.api.nvim_get_current_line())
 
-  if not cur_line then
-    return
-  end
+  if not cur_line then return end
 
   local all_lines = vim.api.nvim_buf_get_lines(0, 0, -1, false)
 
@@ -41,9 +39,7 @@ end
 M.complete_matching_line_cwd = function(cur_line)
   cur_line = cur_line or vim.trim(vim.api.nvim_get_current_line())
 
-  if not cur_line then
-    return
-  end
+  if not cur_line then return end
 
   local all_lines = M.grep(cur_line)
 

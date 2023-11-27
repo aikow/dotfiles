@@ -18,9 +18,7 @@ end
 
 M.plugins = function()
   local ok_lazy, lazy = pcall(require, "lazy")
-  if not ok_lazy then
-    return
-  end
+  if not ok_lazy then return end
 
   -- if user.local.plugins
 
@@ -60,9 +58,7 @@ M.configure_base = function()
   require("user.autocmds")
   require("user.commands")
 
-  if vim.fn.exists("neovide") == 1 then
-    require("user.neovide")
-  end
+  if vim.fn.exists("neovide") == 1 then require("user.neovide") end
 end
 
 M.setup = function()

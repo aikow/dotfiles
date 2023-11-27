@@ -55,15 +55,11 @@ end
 local x = {
   --- Returns true if the cursor is currently in a math zone.
   -- @return boolean
-  m = function()
-    return in_math()
-  end,
+  m = function() return in_math() end,
 
   --- Returns true if the cursor is not currently in a math zone.
   -- @return boolean
-  M = function()
-    return not in_math()
-  end,
+  M = function() return not in_math() end,
 
   --- Returns true if the current line starts with any amount of whitespace
   -- followed by the trigger.
@@ -80,9 +76,7 @@ local x = {
   join = function(conditions)
     return function(line_to_cursor)
       for _, cond in ipairs(conditions) do
-        if not cond(line_to_cursor) then
-          return false
-        end
+        if not cond(line_to_cursor) then return false end
       end
 
       return true
@@ -96,9 +90,7 @@ local x = {
 
 -- return the capture group at index.
 local cap = function(index)
-  return f(function(_, snip)
-    return snip.captures[index]
-  end)
+  return f(function(_, snip) return snip.captures[index] end)
 end
 
 -- --------------------------------
@@ -133,24 +125,12 @@ local snip = function(mode, trig, desc, nodes, opts)
   local callbacks = nil
 
   local modeopts = {
-    r = function()
-      trig_engine = "pattern"
-    end,
-    i = function()
-      word_trig = false
-    end,
-    w = function()
-      word_trig = true
-    end,
-    A = function()
-      autoexpand = true
-    end,
-    S = function()
-      callbacks = autoinsert_space
-    end,
-    b = function()
-      table.insert(condition_table, x.b(trig))
-    end,
+    r = function() trig_engine = "pattern" end,
+    i = function() word_trig = false end,
+    w = function() word_trig = true end,
+    A = function() autoexpand = true end,
+    S = function() callbacks = autoinsert_space end,
+    b = function() table.insert(condition_table, x.b(trig)) end,
     m = function()
       table.insert(condition_table, x.m)
       table.insert(show_condition_table, x.m)
@@ -169,16 +149,12 @@ local snip = function(mode, trig, desc, nodes, opts)
   desc = desc or trig
 
   -- If the nodes is just a string, create a text node from it.
-  if type(nodes) == "string" then
-    nodes = { t(nodes) }
-  end
+  if type(nodes) == "string" then nodes = { t(nodes) } end
 
   -- Go through all the nodes and create text nodes from raw strings inside the
   -- table.
   for idx, node in pairs(nodes) do
-    if type(node) == "string" then
-      nodes[idx] = t(node)
-    end
+    if type(node) == "string" then nodes[idx] = t(node) end
   end
 
   -- Parse the opts table.
@@ -265,16 +241,10 @@ snip("rmA", "^(.*[%)%}])/", "auto fraction previous expression", {
 
     while idx > 0 do
       local char = str:sub(idx, idx)
-      if char == ")" or char == "}" then
-        depth = depth - 1
-      end
-      if char == "(" or char == "(" then
-        depth = depth + 1
-      end
+      if char == ")" or char == "}" then depth = depth - 1 end
+      if char == "(" or char == "(" then depth = depth + 1 end
 
-      if depth == 0 then
-        break
-      end
+      if depth == 0 then break end
       idx = idx - 1
     end
 

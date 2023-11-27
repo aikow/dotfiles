@@ -44,67 +44,33 @@ return {
       -- -----------------------
       -- |   Trigger Keymaps   |
       -- -----------------------
+      vim.keymap.set(
+        { "i", "s" },
+        "<Tab>",
+        function() ls.jump(1) end,
+        { silent = true, desc = "luasnip jump forward one" }
+      )
 
-      vim.keymap.set("i", "<M-Tab>", function()
-        if ls.jumpable() then
-          ls.jump(1)
-        else
-          feedkeys("<tab>")
-        end
-      end, {
-        silent = true,
-        desc = "luasnip jump forward one or expand tab",
-      })
-
-      vim.keymap.set("i", "<Tab>", function()
-        if ls.expand_or_locally_jumpable() then
-          if ls.expandable() then
-            -- Set an undo breakpoint
-            feedkeys("<c-g>u")
-          end
-
-          ls.expand_or_jump()
-        else
-          feedkeys("<tab>")
-        end
-      end, {
-        silent = true,
-        desc = "luasnip expand or jump forward one, or if neither are avialable, expand tab",
-      })
-
-      vim.keymap.set("s", "<Tab>", function()
-        if ls.jumpable() then
-          ls.jump(1)
-        end
-      end, { silent = true, desc = "luasnip jump forward one" })
-
-      vim.keymap.set({ "i", "s" }, "<S-Tab>", function()
-        if ls.jumpable() then
-          ls.jump(-1)
-        end
-      end, { silent = true, desc = "luasnip jump back one" })
+      vim.keymap.set(
+        { "i", "s" },
+        "<S-Tab>",
+        function() ls.jump(-1) end,
+        { silent = true, desc = "luasnip jump back one" }
+      )
 
       vim.keymap.set({ "i", "s" }, "<C-j>", function()
-        if ls.choice_active() then
-          ls.change_choice(1)
-        end
+        if ls.choice_active() then ls.change_choice(1) end
       end, { silent = true, desc = "luasnip next choice" })
 
       vim.keymap.set({ "i", "s" }, "<C-k>", function()
-        if ls.choice_active() then
-          ls.change_choice(-1)
-        end
+        if ls.choice_active() then ls.change_choice(-1) end
       end, { silent = true, desc = "luasnip previous choice" })
 
-      vim.keymap.set({ "i", "s" }, "<C-u>", function()
-        if ls.choice_active() then
-          require("luasnip.extras.select_choice")()
-        end
-      end, { silent = true, desc = "luasnip select choice" })
-
-      vim.api.nvim_create_user_command("LuaSnipEdit", function()
-        require("luasnip.loaders").edit_snippet_files({})
-      end, { desc = "telescope edit snippets", force = true })
+      vim.api.nvim_create_user_command(
+        "LuaSnipEdit",
+        function() require("luasnip.loaders").edit_snippet_files({}) end,
+        { desc = "telescope edit snippets", force = true }
+      )
 
       ls.filetype_extend("htmldjango", { "html" })
 
@@ -150,9 +116,7 @@ return {
       ---@diagnostic disable-next-line: missing-fields
       cmp.setup({
         snippet = {
-          expand = function(args)
-            require("luasnip").lsp_expand(args.body)
-          end,
+          expand = function(args) require("luasnip").lsp_expand(args.body) end,
         },
         mapping = {
           ["<tab>"] = cmp.config.disable,
@@ -225,18 +189,13 @@ return {
               end
             end,
           },
-          ["<C-e>"] = {
-            c = cmp.mapping.abort(),
-          },
-          ["<C-y>"] = {
-            c = cmp.mapping.confirm({ select = false }),
-          },
+          ["<C-e>"] = { c = cmp.mapping.abort() },
+          ["<C-y>"] = { c = cmp.mapping.confirm({ select = false }) },
         },
-        sources = cmp.config.sources({
-          { name = "cmdline" },
-        }, {
-          { name = "path" },
-        }),
+        sources = cmp.config.sources(
+          { { name = "cmdline" } },
+          { { name = "path" } }
+        ),
       })
     end,
   },
