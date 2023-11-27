@@ -5,9 +5,7 @@ local augroup = vim.api.nvim_create_augroup
 autocmd({ "FocusGained", "BufEnter", "WinEnter" }, {
   group = augroup("General autoread", {}),
   callback = function()
-    if vim.api.nvim_get_option_value("buftype", {}) ~= "" then
-      return
-    end
+    if vim.api.nvim_get_option_value("buftype", {}) ~= "" then return end
     vim.api.nvim_command("silent! checktime")
   end,
   desc = "perform a read when entering a new buffer",
@@ -33,9 +31,7 @@ autocmd("BufWinEnter", {
   callback = function(params)
     -- Exclude files like commit messages.
     for _, pat in pairs({ "/.git/" }) do
-      if string.find(params.file, pat) then
-        return
-      end
+      if string.find(params.file, pat) then return end
     end
 
     local line = vim.fn.line
@@ -79,9 +75,7 @@ autocmd("TermOpen", {
 -- Automatically set the colorcolumn to the textwidth of the current buffer.
 autocmd("BufWinEnter", {
   group = augroup("textwidth colorcolumn", {}),
-  callback = function()
-    vim.wo.colorcolumn = "" .. vim.bo.textwidth
-  end,
+  callback = function() vim.wo.colorcolumn = "" .. vim.bo.textwidth end,
 })
 
 -- Highlight text on yank

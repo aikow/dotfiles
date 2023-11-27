@@ -19,26 +19,18 @@ local autoinsert_space = require("user.luasnip.callbacks").autoinsert_space
 local x = {
   --- Returns true if the cursor is currently in a math zone.
   -- @return boolean
-  m = function()
-    return vim.fn["vimtex#syntax#in_mathzone"]() == 1
-  end,
+  m = function() return vim.fn["vimtex#syntax#in_mathzone"]() == 1 end,
 
   --- Returns true if the cursor is not currently in a math zone.
   -- @return boolean
-  M = function()
-    return vim.fn["vimtex#syntax#in_mathzone"]() ~= 1
-  end,
+  M = function() return vim.fn["vimtex#syntax#in_mathzone"]() ~= 1 end,
 
   --- Returns true if the cursor is currently in a latex comment.
   -- @return boolean
-  c = function()
-    return vim.fn["vimtex#syntax_in_comment"]() == 1
-  end,
+  c = function() return vim.fn["vimtex#syntax_in_comment"]() == 1 end,
 
   --- Returns a true if the cursor is currently not in a latex comment.
-  C = function()
-    return vim.fn["vimtex#syntax_in_comment"]() ~= 1
-  end,
+  C = function() return vim.fn["vimtex#syntax_in_comment"]() ~= 1 end,
 
   --- Returns a function that returns true if the cursor is currently inside an
   -- environment specified by name.
@@ -75,9 +67,7 @@ local x = {
   join = function(conditions)
     return function(line_to_cursor)
       for _, cond in ipairs(conditions) do
-        if not cond(line_to_cursor) then
-          return false
-        end
+        if not cond(line_to_cursor) then return false end
       end
 
       return true
@@ -91,9 +81,7 @@ local x = {
 
 -- return the capture group at index.
 local cap = function(index)
-  return f(function(_, snip)
-    return snip.captures[index]
-  end)
+  return f(function(_, snip) return snip.captures[index] end)
 end
 
 -- Convert content of node at index to snake case.
@@ -122,9 +110,7 @@ local table_node = function(args)
   for j = 1, count do
     local i_node = i(j)
     tabs[2 * j - 1] = i_node
-    if j ~= count then
-      tabs[2 * j] = t(" & ")
-    end
+    if j ~= count then tabs[2 * j] = t(" & ") end
   end
 
   return sn(nil, tabs)
@@ -181,22 +167,14 @@ local snip = function(mode, trig, desc, nodes, opts)
       trig_engine = "pattern"
       word_trig = false
     end,
-    i = function()
-      word_trig = false
-    end,
+    i = function() word_trig = false end,
     w = function()
       trig_engine = "plain"
       word_trig = true
     end,
-    A = function()
-      autoexpand = true
-    end,
-    S = function()
-      callbacks = autoinsert_space
-    end,
-    b = function()
-      table.insert(condition_table, x.b(trig))
-    end,
+    A = function() autoexpand = true end,
+    S = function() callbacks = autoinsert_space end,
+    b = function() table.insert(condition_table, x.b(trig)) end,
     m = function()
       table.insert(condition_table, x.m)
       table.insert(show_condition_table, x.m)
@@ -223,16 +201,12 @@ local snip = function(mode, trig, desc, nodes, opts)
   desc = desc or trig
 
   -- If the nodes is just a string, create a text node from it.
-  if type(nodes) == "string" then
-    nodes = { t(nodes) }
-  end
+  if type(nodes) == "string" then nodes = { t(nodes) } end
 
   -- Go through all the nodes and create text nodes from raw strings inside the
   -- table.
   for idx, node in pairs(nodes) do
-    if type(node) == "string" then
-      nodes[idx] = t(node)
-    end
+    if type(node) == "string" then nodes[idx] = t(node) end
   end
 
   -- Parse the opts table.
@@ -554,16 +528,10 @@ snip("rmA", "^(.*[%)%}])/", "auto fraction previous expression", {
 
     while idx > 0 do
       local char = str:sub(idx, idx)
-      if char == ")" or char == "}" then
-        depth = depth - 1
-      end
-      if char == "(" or char == "(" then
-        depth = depth + 1
-      end
+      if char == ")" or char == "}" then depth = depth - 1 end
+      if char == "(" or char == "(" then depth = depth + 1 end
 
-      if depth == 0 then
-        break
-      end
+      if depth == 0 then break end
       idx = idx - 1
     end
 

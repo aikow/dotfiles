@@ -5,9 +5,10 @@ local f = ls.function_node
 local fmt = require("luasnip.extras.fmt").fmt
 
 local replace = function(index, char)
-  return f(function(arg)
-    return string.rep(char, string.len(arg[1][1]))
-  end, { index })
+  return f(
+    function(arg) return string.rep(char, string.len(arg[1][1])) end,
+    { index }
+  )
 end
 
 ---@alias Comments { start: string, mid: string, stop: string, indent: string }
@@ -29,9 +30,7 @@ local parse_comments = function()
 
   while true do
     local cs = iter()
-    if not cs then
-      break
-    end
+    if not cs then break end
     local flags, text = split(cs)
 
     if #flags == 0 then
@@ -94,13 +93,9 @@ local comment_format = function()
   end
 
   local comments = parse_comments()
-  if not vim.tbl_isempty(comments.single) then
-    return comments.single[1]
-  end
+  if not vim.tbl_isempty(comments.single) then return comments.single[1] end
 
-  if not vim.tbl_isempty(comments.other) then
-    return comments.other[1]
-  end
+  if not vim.tbl_isempty(comments.other) then return comments.other[1] end
 
   return comments.triple[1]
 end
@@ -110,9 +105,7 @@ end
 ---@return function
 local comment = function(part)
   return f(function()
-    if vim.o.filetype == "" then
-      return ""
-    end
+    if vim.o.filetype == "" then return "" end
 
     local cf = comment_format()
     local c
@@ -122,9 +115,7 @@ local comment = function(part)
       c = cf[part]
     end
 
-    if c ~= "" then
-      c = c .. " "
-    end
+    if c ~= "" then c = c .. " " end
 
     return c
   end, {})

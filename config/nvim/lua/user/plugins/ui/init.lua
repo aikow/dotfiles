@@ -1,9 +1,7 @@
 return {
   {
     "rebelot/heirline.nvim",
-    config = function()
-      require("user.plugins.ui.heirline").setup()
-    end,
+    config = function() require("user.plugins.ui.heirline").setup() end,
   },
 
   {
@@ -105,9 +103,7 @@ return {
         vim.cmd.close()
         vim.api.nvim_create_autocmd("User", {
           pattern = "MiniStarterOpened",
-          callback = function()
-            require("lazy").show()
-          end,
+          callback = function() require("lazy").show() end,
         })
       end
 

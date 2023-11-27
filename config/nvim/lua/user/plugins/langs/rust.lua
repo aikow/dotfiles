@@ -5,14 +5,10 @@ return {
     ft = "rust",
     config = function()
       local ok_rust_tools, rust_tools = pcall(require, "rust-tools")
-      if not ok_rust_tools then
-        return
-      end
+      if not ok_rust_tools then return end
 
       local ok_cmp_nvim_lsp, cmp_lsp = pcall(require, "cmp_nvim_lsp")
-      if not ok_cmp_nvim_lsp then
-        return
-      end
+      if not ok_cmp_nvim_lsp then return end
 
       local capabilities = cmp_lsp.default_capabilities(
         vim.lsp.protocol.make_client_capabilities()
