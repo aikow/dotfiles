@@ -561,7 +561,7 @@ end
 
 local M = {}
 
-M.setup = function()
+M.config = function()
   vim.api.nvim_create_autocmd("ColorschemePre", {
     group = vim.api.nvim_create_augroup("heirline colors", { clear = true }),
     callback = function()
