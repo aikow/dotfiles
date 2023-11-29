@@ -1,3 +1,5 @@
+local command = vim.api.nvim_create_user_command
+
 ---Get the row index of the cursor
 ---@return integer
 local curline = function()
@@ -12,15 +14,11 @@ local curcol = function()
   return vim.fn.col(".")
 end
 
-vim.api.nvim_create_user_command(
-  "Bclose",
-  function() require("mini.bufremove").delete() end,
-  {
-    desc = "Close the current buffer, even if it is unlisted or has no file.",
-  }
-)
+command("Bclose", function() require("mini.bufremove").delete() end, {
+  desc = "Close the current buffer, even if it is unlisted or has no file.",
+})
 
-vim.api.nvim_create_user_command("Bclean", function()
+command("Bclean", function()
   local shown_buffers = {}
   -- Create a set of buffers that are displayed in at least 1 window in any of
   -- the currently open tab pages.
@@ -47,7 +45,7 @@ end, {
   desc = "Close all hidden buffers",
 })
 
-vim.api.nvim_create_user_command(
+command(
   "Help",
   ---@param params NvimCommandCallbackParams
   function(params)
@@ -92,7 +90,22 @@ vim.api.nvim_create_user_command(
   }
 )
 
-vim.api.nvim_create_user_command("SyntaxStack", function()
+command(
+  "Start",
+  ---@param params NvimCommandCallbackParams
+  function(params)
+    local mods = vim.tbl_extend(
+      "keep",
+      params.smods,
+      { keepalt = true, noswapfile = true }
+    )
+    vim.cmd.new({ mods = mods })
+    require("mini.starter").open()
+  end,
+  { desc = "Open the starter" }
+)
+
+command("SyntaxStack", function()
   local s = vim.fn.synID(curline(), curcol(), 1)
   vim.notify(
     string.format(
@@ -105,7 +118,7 @@ end, {
   desc = "Print the syntax group and highlight group of the token under the cursor",
 })
 
-vim.api.nvim_create_user_command(
+command(
   "Random",
   ---@param params NvimCommandCallbackParams
   function(params)
