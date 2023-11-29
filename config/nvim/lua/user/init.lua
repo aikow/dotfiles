@@ -1,6 +1,6 @@
 local M = {}
 
-M.bootstrap = function()
+M.bootstrap_lazy = function()
   local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
   if not vim.loop.fs_stat(lazypath) then
     vim.fn.system({
@@ -16,7 +16,7 @@ M.bootstrap = function()
   vim.opt.runtimepath:prepend(lazypath)
 end
 
-M.plugins = function()
+M.setup_plugins = function()
   local ok_lazy, lazy = pcall(require, "lazy")
   if not ok_lazy then return end
 
@@ -46,7 +46,7 @@ M.plugins = function()
   })
 end
 
-M.configure_base = function()
+M.setup_base = function()
   local builtin = require("user.builtin")
   builtin.disable_plugins()
   builtin.disable_providers()
@@ -63,11 +63,11 @@ end
 
 M.setup = function()
   -- Setup packer and plugins
-  M.bootstrap()
-  M.plugins()
+  M.bootstrap_lazy()
+  M.setup_plugins()
 
   -- Setup options, key-maps and personal auto commands.
-  M.configure_base()
+  M.setup_base()
 end
 
 return M

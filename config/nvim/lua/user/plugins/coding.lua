@@ -44,19 +44,31 @@ return {
       -- -----------------------
       -- |   Trigger Keymaps   |
       -- -----------------------
+      vim.keymap.set("i", "<Tab>", function()
+        if ls.expand_or_locally_jumpable() then
+          ls.expand_or_jump()
+        else
+          feedkeys("<tab>")
+        end
+      end, {
+        silent = true,
+        desc = "luasnip expand or jump forward one, or if neither are avialable, expand tab",
+      })
+
       vim.keymap.set(
-        { "i", "s" },
+        "s",
         "<Tab>",
         function() ls.jump(1) end,
         { silent = true, desc = "luasnip jump forward one" }
       )
 
-      vim.keymap.set(
-        { "i", "s" },
-        "<S-Tab>",
-        function() ls.jump(-1) end,
-        { silent = true, desc = "luasnip jump back one" }
-      )
+      vim.keymap.set({ "i", "s" }, "<S-Tab>", function()
+        if ls.jumpable(-1) then
+          ls.jump(-1)
+        else
+          feedkeys("<C-d>")
+        end
+      end, { silent = true, desc = "luasnip jump back one" })
 
       vim.keymap.set({ "i", "s" }, "<C-j>", function()
         if ls.choice_active() then ls.change_choice(1) end
