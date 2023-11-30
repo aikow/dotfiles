@@ -1,0 +1,101 @@
+#!/usr/bin/env bash
+
+set -o errexit
+set -o pipefail
+set -o nounset
+
+IFS=$' \n\t'
+
+# Store positional args in an array.
+declare -a _positional_args=()
+
+while [[ ${#@} -gt 0 ]]; do
+  case "${1}" in
+    -e | --extract)
+      _extract="yes"
+      shift # Past argument
+      ;;
+    -f | --force)
+      _force="yes"
+      shift # Past argument
+      ;;
+    -t | --tag)
+      _tag="${2}"
+      shift # Past argument
+      shift # Past value
+      ;;
+    -*)
+      echo "Unknown option ${1}"
+      exit 1
+      ;;
+    *)
+      _positional_args+=("${1}") # Save positional argument
+      shift                      # Past argument.
+      ;;
+  esac
+done
+
+# Restore positional arguments and delete the temporary array.
+set -- "${_positional_args[@]+"${_positional_args[@]}"}"
+unset _positional_args
+
+# Extract CLI arguments and flags
+extract="${_extract:-no}"
+force="${_force:-no}"
+tag="${_tag?Missing tag}"
+
+keep_last_n=5
+
+installation_base_dir=$HOME/workspace/tools/neovim
+if [[ ${tag} == "nightly" ]]; then
+  installation_dir="${installation_base_dir}/${tag}/$(date +%Y-%m-%d)"
+else
+  installation_dir="${installation_base_dir}/${tag}"
+fi
+nvim_bin="${HOME}/.local/bin/nvim"
+
+download_url="https://github.com/neovim/neovim/releases/download/${tag?Missing tag}/nvim.appimage"
+checksum_url="https://github.com/neovim/neovim/releases/download/${tag}/nvim.appimage.sha256sum"
+
+# Download the neovim version if it isn't available locally
+if [[ -f "${installation_dir}/nvim.appimage" && ${force} != "yes" ]]; then
+  echo "${tag} already downloaded"
+else
+  mkdir -p "${installation_dir}"
+
+  curl -L "${download_url}" --output "${installation_dir}/nvim.appimage"
+  curl -L "${checksum_url}" --output "${installation_dir}/nvim.appimage.sha256sum"
+
+  (
+    cd "${installation_dir}"
+    sha256sum --check --status "${installation_dir}/nvim.appimage.sha256sum"
+  )
+
+  chmod +x "${installation_dir}/nvim.appimage"
+
+  # Only keep the last 4 nightly images.
+  if [[ ${tag} == "nightly" ]]; then
+    find "${installation_base_dir}/${tag}" -maxdepth 1 -type d -printf '%P\0' \
+      | sort -z \
+      | tail -z -n +$((keep_last_n + 2)) \
+      | xargs -0 rm
+  fi
+fi
+
+[[ -L ${nvim_bin} ]] && unlink "${nvim_bin}"
+
+# Set the active neovim version, extracting if necessary.
+if [[ ${extract} == "yes" ]]; then
+  (
+    cd "${installation_dir}"
+    ./nvim.appimage --appimage-extract &>/dev/null
+    rsync --archive --delete ./squashfs-root/ "${installation_base_dir}/active/"
+    [[ -d ./squashfs-root ]] && rm -r "./squashfs-root"
+  )
+
+  # Create a symlink to the nvim binary.
+  ln -s "${installation_base_dir}/active/AppRun" "${nvim_bin}"
+else
+  rsync --archive --delete "${installation_dir}/nvim.appimage" "${installation_base_dir}/active/"
+  ln -s "${installation_base_dir}/active/nvim.appimage" "${nvim_bin}"
+fi
