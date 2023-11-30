@@ -16,7 +16,7 @@ return {
           require("neo-tree.command").execute({
             source = "filesystem",
             reveal = true,
-            position = "left",
+            position = "current",
           })
         end,
         desc = "reveal file in neo-tree",
