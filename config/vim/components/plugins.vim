@@ -24,15 +24,6 @@ let plug_dir = data_dir . '/plugged'
 "
 call plug#begin(plug_dir)
 
-if executable("python3")
-  " Snippets and snippets
-  Plug 'sirver/ultisnips'
-    let g:UltiSnipsExpandTrigger = '<Tab>'
-    let g:UltiSnipsJumpForwardTrigger = '<Tab>'
-    let g:UltiSnipsJumpBackwardTrigger = '<S-Tab>'
-endif
-
-
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                           Functionality Plugins                            "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""

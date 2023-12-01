@@ -47,20 +47,6 @@ set clipboard+=unnamedplus
 filetype plugin on
 filetype indent on
 
-" Set the python provider for neovim
-if has('nvim')
-  let s:pynvim_path = expand("$HOME/.miniconda3/envs/pynvim3/bin/python")
-
-  if !filereadable(s:pynvim_path)
-    " Bootstrap the python3 conda env with pynvim
-    echom "Bootstrapping the conda python3 env..."
-    execute "!" . expand('conda env create -f $HOME/.dotfiles/config/vim/envs/pynvim3.yml')
-  endif
-
-  let g:python3_host_prog = s:pynvim_path
-endif
-
-
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                                  Editing                                   "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -103,9 +89,6 @@ set smartcase
 if executable('rg')
   set grepprg=rg\ --vimgrep\ --no-heading\ --smart-case
   set grepformat=%f:%l:%c:%m,%f:%l:%m
-elseif executable('ag')
-  set grepprg=ag\ --nogroup\ --nocolor
-  set grepformat=%f:%l:%m
 endif
 
 " Wrapping options
@@ -191,18 +174,8 @@ nnoremap <C-s> :%s/\v
 cnoremap <C-s> %s/\v
 vnoremap <C-s> :s/\v
 
-if has("nvim")
-  nnoremap <C-l> :lua<space>
-  nnoremap <C-l><C-l> :lua=<space>
-endif
-
 " <leader><leader> toggles between buffers
 nnoremap <leader><leader> <c-^>
-
-if has("nvim")
-  tnoremap jk <c-\><C-n>
-  tnoremap kj <c-\><C-n>
-endif
 
 " Keymap for replacing up to next _ or -
 nnoremap <leader>m ct_
@@ -293,12 +266,6 @@ augroup unmodifiable
   autocmd BufRead *.orig set readonly
   autocmd BufRead *.pacnew set readonly
 augroup END
-
-if has("nvim")
-  augroup term_opts
-    autocmd TermOpen * setlocal nospell nonumber norelativenumber
-  augroup END
-end
 
 " https://stackoverflow.com/questions/31449496/vim-ignore-specifc-file-in-autocommand
 augroup last_pos

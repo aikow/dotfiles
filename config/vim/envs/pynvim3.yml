@@ -1,8 +1,0 @@
-name: pynvim3
-dependencies:
-- python=3.8 
-- pip 
-- pip:
-  - pynvim
-  - neovim-remote
-
