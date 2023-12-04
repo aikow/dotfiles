@@ -15,6 +15,7 @@ return {
         function()
           require("neo-tree.command").execute({
             source = "filesystem",
+            dir = vim.fn.expand("%:p:h:h"),
             reveal = true,
             position = "current",
           })
@@ -53,18 +54,6 @@ return {
           })
         end,
         desc = "reveal buffers in neo-tree",
-      },
-      {
-        "<leader>ne",
-        function()
-          require("neo-tree.command").execute({
-            source = "filesystem",
-            reveal = true,
-            position = "current",
-            dir = vim.fn.expand("%:p:h:h"),
-          })
-        end,
-        desc = "reveal file in neo-tree",
       },
     },
     init = function()
@@ -156,6 +145,29 @@ return {
         local cur_directory = vim.fs.dirname(cur_entry_path)
         vim.fn.chdir(cur_directory)
       end
+
+      -- vim.api.nvim_create_autocmd("User", {
+      --   pattern = "MiniFilesActionRename",
+      --   ---@param params NvimAutocmdCallbackParams
+      --   callback = function(params)
+      --     local action = params.data.action
+      --     if action ~= "rename" then return end
+      --
+      --     local from_path = params.data.from
+      --     local to_path = params.data.to
+      --
+      --     for _, client in ipairs(vim.lsp.get_clients()) do
+      --       -- Make sure that the renaming won't accidently change any libraries
+      --       -- or other workspace folders that it shouldn't.
+      --       -- Use oil.nvim as a reference
+      --       for _, workspace_folder in ipairs(client.workspace_folders) do
+      --         -- 1. Check if from_path and to_path are subdirs in a workspace
+      --         -- folder.
+      --         -- 2. Send a rename request to the language server.
+      --       end
+      --     end
+      --   end,
+      -- })
 
       -- Create extra keymaps.
       vim.api.nvim_create_autocmd("User", {
