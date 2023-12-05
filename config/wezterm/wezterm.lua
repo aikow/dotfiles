@@ -1,5 +1,4 @@
 local wezterm = require("wezterm")
-local util = require("user.util")
 local info = require("user.info")
 
 local config = wezterm.config_builder()
@@ -24,7 +23,8 @@ config.window_padding = {
 }
 
 -- Fonts
-config.font = wezterm.font_with_fallback({ "Hack Nerd Font", "JetBrains Mono" })
+config.font =
+  wezterm.font_with_fallback({ "JetBrainsMono Nerd Font", "JetBrains Mono" })
 config.font_size = 11
 config.use_ime = false
 
