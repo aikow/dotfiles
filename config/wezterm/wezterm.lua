@@ -23,8 +23,14 @@ config.window_padding = {
 }
 
 -- Fonts
-config.font = wezterm.font("JetBrains Mono")
-config.font_size = 11
+if info.os() == "darwin" then
+  config.font =
+    wezterm.font_with_fallback({ "JetBrainsMono Nerd Font", "JetBrains Mono" })
+  config.font_size = 13
+else
+  config.font = wezterm.font("JetBrains Mono")
+  config.font_size = 11
+end
 config.use_ime = false
 
 -- Behavior
@@ -32,17 +38,13 @@ config.send_composed_key_when_left_alt_is_pressed = false
 config.send_composed_key_when_right_alt_is_pressed = false
 
 -- Shell
-config.default_prog = { "/usr/bin/fish", "-l" }
-
-config.keys = require("user.keys")
-
--- MacOS specific overrides.
 if info.os() == "darwin" then
   config.default_prog = { "/usr/local/bin/fish", "-l" }
-  config.font =
-    wezterm.font_with_fallback({ "JetBrainsMono Nerd Font", "JetBrains Mono" })
-  config.font_size = 13
+else
+  config.default_prog = { "/usr/bin/fish", "-l" }
 end
+
+config.keys = require("user.keys")
 
 -- Load a module called local and use it to apply local settings
 local ok, module = pcall(require, "local")
