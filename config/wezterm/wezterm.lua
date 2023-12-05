@@ -23,8 +23,7 @@ config.window_padding = {
 }
 
 -- Fonts
-config.font =
-  wezterm.font_with_fallback({ "JetBrainsMono Nerd Font", "JetBrains Mono" })
+config.font = wezterm.font("JetBrains Mono")
 config.font_size = 11
 config.use_ime = false
 
@@ -40,6 +39,8 @@ config.keys = require("user.keys")
 -- MacOS specific overrides.
 if info.os() == "darwin" then
   config.default_prog = { "/usr/local/bin/fish", "-l" }
+  config.font =
+    wezterm.font_with_fallback({ "JetBrainsMono Nerd Font", "JetBrains Mono" })
   config.font_size = 13
 end
 
