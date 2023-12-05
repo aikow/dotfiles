@@ -59,19 +59,6 @@ Plug 'junegunn/fzf.vim'
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"                              Language Plugins                              "
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-" Markdown preview in google chrome
-Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
-  let g:mkdp_browser = 'firefox'
-  let g:mkdp_page_title = '「${name}」'
-  let g:mkdp_filetypes = ['markdown', 'md']
-
-Plug 'aikow/vim-fish'
-
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                                Color Themes                                "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Plugins for color themes
