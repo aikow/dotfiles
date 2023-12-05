@@ -112,7 +112,7 @@ scrolling:
 # Font configuration
 font:
   # Hack Nerd Font
-  family: &family JetBrainsMono Nerd Font
+  family: &family JetBrains Mono
 
   # Normal (roman) font face
   normal:
