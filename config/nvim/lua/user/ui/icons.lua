@@ -1,52 +1,19 @@
 local M = {}
 
-M.diagnostics = {
-  hint = "",
-  info = "",
-  warn = "",
-  error = "",
-}
-
-M.packer = {
-  working = "ﲊ",
-  error = "✗ ",
-  done = " ",
-  removed = " ",
-  moved = "",
-}
-
 M.mason = {
   pending = " ",
-  installed = " ",
-  uninstalled = "ﮊ ",
+  installed = " ",
+  uninstalled = " ",
 }
 
-M.lspkind = {
-  Class = "ﴯ",
-  Color = "",
-  Constant = "",
-  Constructor = "",
-  Enum = "",
-  EnumMember = "",
-  Event = "",
-  Field = "ﰠ",
-  File = "",
-  Folder = "",
-  Function = "",
-  Interface = "",
-  Keyword = "",
-  Method = "",
-  Module = "",
-  Operator = "",
-  Property = "ﰠ",
-  Reference = "",
-  Snippet = "",
-  Struct = "פּ",
-  Text = "",
-  TypeParameter = "",
-  Unit = "塞",
-  Value = "",
-  Variable = "",
+-- ------------------------------------------------------------------------
+-- | Diagnostics
+-- ------------------------------------------------------------------------
+M.diagnostics = {
+  hint = " ",
+  info = " ",
+  warn = " ",
+  error = " ",
 }
 
 -- ------------------------------------------------------------------------
@@ -58,8 +25,8 @@ M.lsp = {
     Boolean = " ",
     Class = " ",
     Color = " ",
-    Constant = " ",
-    Constructor = " ",
+    Constant = " ",
+    Constructor = " ",
     Copilot = " ",
     Enum = " ",
     EnumMember = " ",
@@ -67,10 +34,10 @@ M.lsp = {
     Field = " ",
     File = " ",
     Folder = " ",
-    Function = " ",
-    Interface = " ",
+    Function = "󰊕 ",
+    Interface = " ",
     Key = " ",
-    Keyword = " ",
+    Keyword = "󰌋 ",
     Method = " ",
     Module = " ",
     Namespace = " ",
@@ -81,14 +48,14 @@ M.lsp = {
     Package = " ",
     Property = " ",
     Reference = " ",
-    Snippet = " ",
+    Snippet = " ",
     String = " ",
     Struct = " ",
     Text = " ",
     TypeParameter = " ",
-    Unit = " ",
-    Value = " ",
-    Variable = " ",
+    Unit = "塞",
+    Value = " ",
+    Variable = "󰫧 ",
   },
 }
 
@@ -98,23 +65,23 @@ M.lsp = {
 M.separators = {
   top_slant = {
     fill = {
-      left = " ",
-      right = " ",
+      left = "",
+      right = "",
     },
     outline = {
-      left = " ",
-      right = " ",
+      left = "",
+      right = "",
     },
   },
 
   bottom_slant = {
     fill = {
-      left = " ",
-      right = " ",
+      left = "",
+      right = "",
     },
     outline = {
-      left = " ",
-      right = " ",
+      left = "",
+      right = "",
     },
   },
 
@@ -126,6 +93,17 @@ M.separators = {
     outline = {
       left = "",
       right = "",
+    },
+  },
+
+  half = {
+    fill = {
+      left = "▐",
+      right = "▌",
+    },
+    outline = {
+      left = "|",
+      right = "|",
     },
   },
 
