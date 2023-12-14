@@ -12,7 +12,7 @@ dotbot.create({
 	"~/workspace/repos",
 })
 
-dotbot.shell("git submodule update --init --recursive")
+dotbot.shell({ "git", "submodule", "update", "--init", "--recursive" })
 
 if not Path("~/.dotfiles"):is_dir() then
 	dotbot.link("~/.dotfiles", ".")

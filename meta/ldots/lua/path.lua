@@ -1,3 +1,4 @@
+---@type lfs
 local lfs = require("lfs")
 
 local not_implemented = function()
@@ -15,16 +16,17 @@ Path.root_dir = "/"
 Path.path_sep = "/"
 Path.cur_dir = "."
 Path.parent_dir = ".."
+Path.user_dir = "~"
 
 -- ------------------------------------------------------------------------
 -- | Private Helper Methods
 -- ------------------------------------------------------------------------
 
-local startswith = function(s, t)
+local function startswith(s, t)
 	return string.sub(s, 1, string.len(t)) == t
 end
 
-local endswith = function(s, t)
+local function endswith(s, t)
 	return string.sub(s, -string.len(t)) == t
 end
 
@@ -32,7 +34,7 @@ end
 ---@param path string
 ---@param ... string
 ---@return string
-local join = function(path, ...)
+local function join(path, ...)
 	if not path or path == "" then
 		path = Path.cur_dir
 	else
@@ -53,7 +55,7 @@ end
 ---comment
 ---@param path string
 ---@return string
-local normalize = function(path)
+local function normalize(path)
 	local parts = {}
 
 	for part in path:gmatch("[^/]+") do
@@ -81,7 +83,7 @@ end
 ---Converts a PathLike type into an actual raw path.
 ---@param pathlike PathLike
 ---@return RawPath
-local pathlike_to_raw_path = function(pathlike)
+local function pathlike_to_raw_path(pathlike)
 	if type(pathlike) == "string" then
 		return {
 			path = pathlike,
@@ -334,19 +336,21 @@ end
 ---Read the value of the symlink if the current path is a symlink.
 ---@return Path
 function Path:readlink()
-	not_implemented()
+	---@diagnostic disable-next-line: param-type-mismatch
+	return Path:new(lfs.symlinkattributes(self.path, "target"))
 end
 
 ---comment
 ---@return Path
 function Path:resolve()
-	not_implemented()
+	---@diagnostic disable-next-line: param-type-mismatch
+	return Path:new(lfs.symlinkattributes(self.path, "target"))
 end
 
 ---comment
 ---@return Path
 function Path:expand_user()
-	not_implemented()
+	return Path:new(string.gsub(self.path, "^~", Path.home().path, 1))
 end
 
 ---comment
@@ -376,44 +380,70 @@ end
 -- | File System Operations
 -- ------------------------------------------------------------------------
 
-function Path:chmod() end
-
-function Path:touch()
+function Path:chmod()
 	not_implemented()
+end
+
+---Update access and or modification time.
+---@param atime integer?
+---@param mtime integer?
+function Path:touch(atime, mtime)
+	lfs.touch(self.path, atime, mtime)
 end
 
 function Path:rmdir()
-	not_implemented()
+	lfs.rmdir(self.path)
 end
 
 ---comment
----@param opts {parents: boolean, exists_ok: boolean}
+---@param opts {parents: boolean, exists_ok: boolean}?
 function Path:mkdir(opts)
-	not_implemented()
+	opts = opts or {}
+	opts.parents = opts.parents ~= nil and opts.parents or false
+	opts.exists_ok = opts.exists_ok ~= nil and opts.exists_ok or false
+	lfs.mkdir(self.path)
 end
 
 ---comment
 ---@param target PathLike
 function Path:symlink_to(target)
-	not_implemented()
+	target = pathlike_to_raw_path(target)
+	lfs.link(self.path, target.path, true)
 end
 
 ---comment
 ---@param target PathLike
 function Path:link_to(target)
-	not_implemented()
+	target = pathlike_to_raw_path(target)
+	lfs.link(self.path, target.path, false)
 end
 
 function Path:unlink()
-	not_implemented()
+	if self:is_symlink() then
+		os.remove(self.path)
+	end
 end
 
+---comment
+---@param target PathLike
 function Path:rename(target)
-	not_implemented()
+	target = pathlike_to_raw_path(target)
+	if Path:new(target):exists() then
+		error(string.format("target file already exists: %s"), 2)
+	end
+
+	os.rename(self.path, target.path)
 end
 
+---comment
+---@param target PathLike
 function Path:replace(target)
-	not_implemented()
+	target = pathlike_to_raw_path(target)
+	if not Path:new(target):exists() then
+		error(string.format("target file does not exist, so it cannot be replaced: %s", target.path), 2)
+	end
+
+	os.rename(self.path, target.path)
 end
 
 ---comment
