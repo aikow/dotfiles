@@ -1,0 +1,33 @@
+import = ["~/.dotfiles/config/alacritty/themes/gruvbox-material-dark-hard.toml"]
+live_config_reload = true
+working_directory = "None"
+
+[cursor]
+unfocused_hollow = true
+vi_mode_style = "Block"
+style = {shape="Beam"}
+
+[cursor.style]
+shape = "Beam"
+
+[env]
+TERM = "xterm-256color"
+WINIT_X11_SCALE_FACTOR = "1.0"
+
+[font]
+family = "JetBrains Mono"
+size = 11
+bold = {family = "JetBrains Mono", style = "Bold"}
+bold_italic ={ family = "JetBrains Mono", style = "Bold Italic"}
+italic = {family = "JetBrains Mono", style = "Italic" }
+normal = { family = "JetBrains Mono", style = "Regular" }
+
+[scrolling]
+history = 100000
+
+[shell]
+args = ["--login"]
+program = "/usr/bin/fish"
+
+[window]
+dynamic_title = true
