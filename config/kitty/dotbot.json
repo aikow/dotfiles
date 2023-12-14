@@ -14,12 +14,5 @@
         "path": "kitty.conf"
       }
     }
-  },
-  {
-    "link": {
-      "~/.config/kitty/open-actions.conf": {
-        "path": "open-actions.conf"
-      }
-    }
   }
 ]
