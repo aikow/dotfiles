@@ -1,3 +1,5 @@
+---@meta
+
 ---@class NvimCommandCallbackParams
 ---@field name string Command name
 ---@field args string The args passed to the command, if any `<args>`
