@@ -7,6 +7,7 @@ end
 
 ---@class Path
 ---@field path string
+---@overload fun(...: PathLike): Path
 local Path = {}
 
 ---@alias RawPath { path: string }
@@ -125,7 +126,7 @@ end
 
 ---@return Path
 function Path.cwd()
-	local cwd = lfs.currentdir()
+	local cwd = lfs.current_dir()
 	if cwd == nil then
 		error("Unable to get current working directory")
 	end
@@ -160,11 +161,8 @@ end
 ---@param opts {walk_up: boolean}
 ---@return Path
 function Path:relative_to(other, opts)
-	if opts then
-		opts.walk_up = opts.walk_up == nil and false or opts.walk_up
-	else
-		opts = { walk_up = true }
-	end
+	opts = opts or {}
+	opts.walk_up = opts.walk_up ~= nil and opts.walk_up or false
 
 	not_implemented()
 end
@@ -483,10 +481,9 @@ end
 -- | Path Table Meta
 -- ------------------------------------------------------------------------
 
+---@diagnostic disable-next-line: param-type-mismatch
 setmetatable(Path, {
 	__call = Path.new,
 })
 
-return {
-	Path = Path,
-}
+return Path

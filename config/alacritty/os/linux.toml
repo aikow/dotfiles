@@ -1,0 +1,15 @@
+[font]
+family = "JetBrains Mono"
+size = 11
+bold = { family = "JetBrains Mono", style = "Bold" }
+bold_italic = { family = "JetBrains Mono", style = "Bold Italic" }
+italic = { family = "JetBrains Mono", style = "Italic" }
+normal = { family = "JetBrains Mono", style = "Regular" }
+
+[env]
+TERM = "xterm-256color"
+WINIT_X11_SCALE_FACTOR = "1.0"
+
+[shell]
+program = "/usr/bin/fish"
+args = ["--login"]

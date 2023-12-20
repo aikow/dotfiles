@@ -1,0 +1,16 @@
+import = [
+  "~/.dotfiles/config/alacritty/current-theme.toml",
+  "~/.dotfiles/config/alacritty/current-os.toml",
+]
+live_config_reload = true
+
+[cursor]
+unfocused_hollow = true
+vi_mode_style = "Block"
+style = { shape = "Beam" }
+
+[scrolling]
+history = 100000
+
+[window]
+dynamic_title = true
