@@ -1,10 +1,3 @@
-local assert_eq = function(lhs, rhs, message)
-	if lhs ~= rhs then
-		local msg = string.format("'%s' ~= '%s' : %s", lhs, rhs, message)
-		error(msg, 2)
-	end
-end
-
 local Test = {}
 
 Test.new = function()
