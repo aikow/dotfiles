@@ -1,3 +1,6 @@
 [submodule "meta/dotbot"]
 	path = meta/dotbot
 	url = https://github.com/aikow/dotbot.git
+[submodule "meta/dotdot"]
+	path = meta/dotdot
+	url = https://github.com/aikow/dotdot-lua.git
