@@ -77,7 +77,7 @@ return {
           },
         },
         pickers = {
-          colorscheme = themes.get_dropdown({ enable_preview = true }),
+          colorscheme = themes.get_dropdown({ enable_preview = false }),
           command_history = themes.get_dropdown(),
           filetypes = themes.get_dropdown(),
           find_files = {
