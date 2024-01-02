@@ -473,10 +473,9 @@ Line.default_statusline = {
 
 Line.inactive_statusline = {
   condition = conditions.is_not_active,
-  Components.file_type,
-  Components.space,
   Components.file_name_block,
   Components.align,
+  Components.file_type,
 }
 
 Line.special_statusline = {
