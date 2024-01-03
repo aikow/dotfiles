@@ -74,8 +74,9 @@ opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
 opt.foldtext = "v:lua.vim.treesitter.foldtext()"
 opt.foldlevel = 99 -- Nothing is folded by default
 
+-- Requires neovim 0.10.0
 -- Set 7 lines to the cursor - when moving vertically using j/k
-opt.smoothscroll = true
+if vim.fn.exists("&smoothscroll") == 1 then opt.smoothscroll = true end
 opt.scrolloff = 7
 
 -- Open new splits to the right or down instead of moving current window

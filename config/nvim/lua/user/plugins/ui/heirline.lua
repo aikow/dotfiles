@@ -203,7 +203,14 @@ Components.lsp_active = {
   utils.surround({ separators.fill.left, separators.fill.right }, "grey", {
     provider = function()
       local names = {}
-      for _, server in pairs(vim.lsp.get_clients({ bufnr = 0 })) do
+      local clients
+      -- Requires neovim 0.10.0
+      if vim.lsp.get_clients then
+        clients = vim.lsp.get_clients({ bufnr = 0 })
+      else
+        clients = vim.lsp.get_active_clients({ bufnr = 0 })
+      end
+      for _, server in pairs(clients) do
         table.insert(names, server.name)
       end
       return " [" .. table.concat(names, " ") .. "]"
