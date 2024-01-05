@@ -7,10 +7,13 @@ abbr dotfiles '$EDITOR ~/.dotfiles/'
 # ----------
 # |   cd   |
 # ----------
-abbr .. 'cd ..'
-abbr ... 'cd ../..'
-abbr .... 'cd ../../..'
-abbr ..... 'cd ../../../..'
+#
+# Converts an arbitrary number of . dots into a command to cd to the proper
+# parent dir.
+function cd_up
+    echo cd (string repeat -n (math (string length -- $argv[1]) - 1) ../)
+end
+abbr --add dotdot --regex '^\.{2,}$' --function cd_up
 
 # ----------
 # |   ls   |
