@@ -1,5 +1,4 @@
 [font]
-family = "JetBrains Mono"
 size = 11
 bold = { family = "JetBrains Mono", style = "Bold" }
 bold_italic = { family = "JetBrains Mono", style = "Bold Italic" }
