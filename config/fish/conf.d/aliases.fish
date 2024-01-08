@@ -2,6 +2,8 @@
 # |   config   |
 # --------------
 abbr fishconfig '$EDITOR ~/.config/fish/config.fish'
+alias fishreload 'source ~/.config/fish/conf.d/*.fish; source ~/.config/fish/config.fish'
+
 abbr dotfiles '$EDITOR ~/.dotfiles/'
 
 # ----------
@@ -33,6 +35,13 @@ end
 # --------------
 # |   Docker   |
 # --------------
+abbr d docker
+abbr dc docker container
+abbr di docker image
+abbr dn docker network
+abbr dps docker ps
+abbr dv docker volume
+
 # Run a container
 abbr drun 'docker run --rm'
 
