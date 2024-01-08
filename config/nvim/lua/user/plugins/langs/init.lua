@@ -60,6 +60,34 @@ return {
     ft = { "fish" },
   },
 
+  -- Rust language support.
+  {
+    "mrcjkb/rustaceanvim",
+    ft = "rust",
+    init = function()
+      vim.g.rustaceanvim = {
+        tools = {
+          autoSetHints = true,
+          -- hover_with_actions = true, -- Show action inside the hover menu
+          inlay_hints = {
+            show_parameter_hints = true,
+            parameter_hints_prefix = "<- ",
+            other_hints_prefix = "=> ",
+          },
+        },
+        server = {
+          settings = {
+            ["rust-analyzer"] = {
+              checkOnSave = {
+                command = "clippy",
+              },
+            },
+          },
+        },
+      }
+    end,
+  },
+
   -- Syntax support for nushell.
   {
     "LhKipp/nvim-nu",
