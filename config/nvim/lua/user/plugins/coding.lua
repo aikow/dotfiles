@@ -94,12 +94,12 @@ return {
         default_priority = 100,
       })
       require("luasnip.loaders.from_vscode").lazy_load({
-        paths = "~/.dotfiles/config/snips",
+        paths = { "~/.dotfiles/config/snips" },
         default_priority = 100,
       })
 
       require("luasnip.loaders.from_lua").lazy_load({
-        paths = "./lua/user/luasnip/snips",
+        paths = { "./lua/user/luasnip/snips" },
         default_priority = 1000,
       })
     end,
@@ -248,7 +248,47 @@ return {
   {
     "echasnovski/mini.pairs",
     event = "VeryLazy",
-    opts = {},
+    opts = {
+      modes = {
+        insert = true,
+        command = false,
+        terminal = false,
+      },
+      mappings = {
+        -- [["#$%&'()*+,-./:;<=>?@[\]^_`{|}~]]
+
+        ["("] = { action = "open", pair = "()", neigh_pattern = ".[%s)]" },
+        ["["] = {
+          action = "open",
+          pair = "[]",
+          neigh_pattern = ".[%s%]]",
+        },
+        ["{"] = { action = "open", pair = "{}", neigh_pattern = ".[%s}]" },
+
+        [")"] = { action = "close", pair = "()", neigh_pattern = "[^\\]." },
+        ["]"] = { action = "close", pair = "[]", neigh_pattern = "[^\\]." },
+        ["}"] = { action = "close", pair = "{}", neigh_pattern = "[^\\]." },
+
+        ['"'] = {
+          action = "closeopen",
+          pair = '""',
+          neigh_pattern = ".%s",
+          register = { cr = false },
+        },
+        ["'"] = {
+          action = "closeopen",
+          pair = "''",
+          neigh_pattern = "%s%s",
+          register = { cr = false },
+        },
+        ["`"] = {
+          action = "closeopen",
+          pair = "``",
+          neigh_pattern = ".%s",
+          register = { cr = false },
+        },
+      },
+    },
   },
 
   {
@@ -289,9 +329,9 @@ return {
     cmd = "Tabularize",
     config = function()
       -- Add tabular pattern to parse latex table with multicolumns
-      vim.cmd.AddTabularPattern(
-        [[latex_table /\v(\&)|(\\multicolumn(\{[^}]*\}){3})@=/]]
-      )
+      vim.cmd.AddTabularPattern({
+        [[latex_table /\v(\&)|(\\multicolumn(\{[^}]*\}){3})@=/]],
+      })
     end,
   },
 
