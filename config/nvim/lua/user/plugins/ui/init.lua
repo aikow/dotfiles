@@ -11,6 +11,12 @@ return {
     config = require("user.plugins.ui.starter").config,
   },
 
+  {
+    "echasnovski/mini.notify",
+    opts = {},
+    init = function() vim.notify = require("mini.notify").make_notify() end,
+  },
+
   -- Show indentation.
   {
     "lukas-reineke/indent-blankline.nvim",
