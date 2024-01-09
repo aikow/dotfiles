@@ -84,6 +84,10 @@ disabled = false
 format = 'on [⛵ $context \($namespace\)](dimmed green) '
 disabled = true
 
+[status]
+disabled = false
+symbol = ''
+
 [time]
 disabled = false
 
