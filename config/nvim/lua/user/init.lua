@@ -20,13 +20,22 @@ M.setup_plugins = function()
   local ok_lazy, lazy = pcall(require, "lazy")
   if not ok_lazy then return end
 
-  -- if user.local.plugins
+  local specs = {
+    { import = "user.plugins" },
+  }
+
+  -- Check that the local plugins module actually exists. We do this by checking
+  -- if the directory contains any lua files.
+  if
+    vim
+      .iter(vim.fs.dir(vim.fs.normalize("~/.local/config/nvim/lua/local/plugins")))
+      :any(function(item) return vim.endswith(item, ".lua") end)
+  then
+    table.insert(specs, { import = "local.plugins" })
+  end
 
   lazy.setup({
-    spec = {
-      { import = "user.plugins" },
-      { import = "user.plugins.langs" },
-    },
+    spec = specs,
     dev = {
       path = "~/workspace/repos/neovim",
       patterns = { "aiko" },

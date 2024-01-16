@@ -116,10 +116,8 @@ opt.numberwidth = 2
 -- Disable using the mouse inside Neovim.
 opt.mouse = "nvi"
 -- Remove how-to disable mouse and previous line from right-click menu.
-vim.cmd([[
-  aunmenu PopUp.How-to\ disable\ mouse
-  aunmenu PopUp.-1-
-]])
+vim.cmd.aunmenu({ "PopUp.How-to\\ disable\\ mouse" })
+vim.cmd.aunmenu({ "PopUp.-1-" })
 
 -- Only enable the cursor line in the current buffer.
 opt.cursorline = true -- Highlight the current line
@@ -139,4 +137,4 @@ opt.conceallevel = 2
 opt.showbreak = " -> "
 opt.fillchars = { eob = " " }
 
-vim.cmd.colorscheme("base-everforest")
+vim.cmd.colorscheme({ "base-everforest" })

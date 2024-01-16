@@ -119,6 +119,12 @@ return {
       "hrsh7th/cmp-path",
       "hrsh7th/cmp-cmdline",
       "saadparwaiz1/cmp_luasnip",
+      {
+        "petertriho/cmp-git",
+        opts = {
+          filetypes = { "gitcommit", "octo", "markdown" },
+        },
+      },
     },
     config = function()
       local cmp = require("cmp")
@@ -159,6 +165,7 @@ return {
           { name = "nvim_lsp" },
           { name = "path" },
           { name = "luasnip" },
+          { name = "git" },
         }, {
           { name = "buffer", keyword_length = 5, max_item_count = 10 },
         }),
@@ -330,7 +337,8 @@ return {
     config = function()
       -- Add tabular pattern to parse latex table with multicolumns
       vim.cmd.AddTabularPattern({
-        [[latex_table /\v(\&)|(\\multicolumn(\{[^}]*\}){3})@=/]],
+        "latex_table",
+        [[/\v(\&)|(\\multicolumn(\{[^}]*\}){3})@=/]],
       })
     end,
   },

@@ -7,7 +7,7 @@ if vim.fn.exists(":Tabularize") == 2 then
 
     function! MarkdownTable()
       let p = '^\s*|\s.*\s|\s*$'
-      let line_nr = line('.') 
+      let line_nr = line('.')
       if getline(line_nr) =~# '^\s*|' && (getline(line_nr - 1) =~# p || getline(line_nr + 1) =~# p)
         let prefix = getline('.')[0:col('.')]
         let column = strlen(substitute(prefix, '[^|]', '', 'g'))

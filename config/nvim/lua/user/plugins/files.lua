@@ -114,12 +114,12 @@ return {
           if target_window then
             local new_target_window
             vim.api.nvim_win_call(target_window, function()
-              vim.cmd(direction .. " split")
+              vim.cmd({ cmd = direction, args = { "split" } })
               new_target_window = vim.api.nvim_get_current_win()
             end)
 
             MiniFiles.set_target_window(new_target_window)
-            MiniFiles.go_in()
+            MiniFiles.go_in({})
           end
         end
 

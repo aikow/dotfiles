@@ -1,7 +1,4 @@
 return {
-  -- unpack(require("user.plugins.langs.rust")),
-  -- unpack(require("user.plugins.langs.neorg")),
-
   -- Latex
   {
     "lervag/vimtex",
@@ -111,5 +108,18 @@ return {
   {
     "fladson/vim-kitty",
     ft = { "kitty" },
+  },
+
+  -- Nvim Org mode plugin.
+  {
+    "nvim-neorg/neorg",
+    dependencies = {
+      "nvim-treesitter",
+      "nvim-neorg/neorg-telescope",
+    },
+    ft = { "norg" },
+    cmd = { "Neorg" },
+    build = ":Neorg sync-parsers",
+    opts = require("user.plugins.langs.neorg").opts,
   },
 }
