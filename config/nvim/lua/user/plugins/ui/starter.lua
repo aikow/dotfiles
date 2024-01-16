@@ -4,7 +4,7 @@ local M = {}
 -- for the right man page.
 local man_pages = function()
   vim.ui.input({ prompt = "Man: " }, function(input)
-    vim.cmd("Man " .. input)
+    vim.cmd.Man({ input })
     vim.cmd.wincmd("o")
   end)
 end
@@ -54,15 +54,14 @@ M.opts = function()
     "                                                  ",
   }, "\n")
 
-  local version_str = vim.fn.execute("version") or ""
-  local version = vim.split(version_str, "\n", { trimempty = true })
-  local footer = table.concat({
-    version[1]:sub(6, -1),
-    version[2],
-    version[3],
-  }, "\n")
+  local ver = vim.version()
+  local version_str =
+    string.format("v%s.%s.%s", ver.major, ver.minor, ver.patch)
+  if ver.prerelease then version_str = version_str .. "-" .. ver.prerelease end
+  if ver.build then version_str = version_str .. "+" .. ver.build end
+  local footer = version_str
 
-  local local_config = "~/.local/config/nvim/lua/user/local/init.lua"
+  local local_config = "~/.local/config/nvim/lua/local/init.lua"
   local plugins_path = vim.fn.stdpath("data") .. "/lazy/"
 
   local starter = require("mini.starter")

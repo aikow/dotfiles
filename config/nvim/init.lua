@@ -13,7 +13,7 @@ require("user").setup()
 vim.opt.runtimepath:prepend(vim.fs.normalize("~/.local/config/nvim"))
 
 -- Source the local config if it exists.
-local module_ok, module = pcall(require, "user.local")
+local module_ok, module = pcall(require, "local")
 if module_ok then
   if type(module) == "table" then
     module.setup()
