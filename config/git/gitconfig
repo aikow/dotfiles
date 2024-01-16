@@ -1,15 +1,11 @@
 [alias]
   # Pretty print branches sorted by last commit date.
-  pbranch = !git branch --sort=-committerdate --format='%(HEAD) %(color:yellow)%(refname:short)%(color:reset) ︙ %(color:red)%(objectname:short)%(color:reset) ︙ %(contents:subject) ︙ %(authorname) (%(color:green)%(committerdate:relative)%(color:reset))'
+  pretty-branch = !git branch --sort=-committerdate --format='%(HEAD) %(color:yellow)%(refname:short)%(color:reset) ︙ %(color:red)%(objectname:short)%(color:reset) ︙ %(contents:subject) ︙ %(authorname) (%(color:green)%(committerdate:relative)%(color:reset))'
 
   # Pretty print log format.
-  plog = !git log --graph --pretty='%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%ad) %C(bold blue)<%an>%Creset'
+  pretty-log = !git log --graph --pretty='%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%ad) %C(bold blue)<%an>%Creset'
 
-  # List files which have changed compared to the $REVIEW_BASE.
-  changed = !git diff --name-only $(git merge-base HEAD \"${REVIEW_BASE:-main}\")
-
-  # Show the changes per file computed against the current merge base
-  stat = !git diff --stat $(git merge-base HEAD \"${REVIEW_BASE:-main}\")
+  delete-gone = !git for-each-ref --format '%(refname:short)|%(upstream:track)' refs/heads | rg '\\[gone]' | cut -d'|' -f1 | xargs git branch -D
 
 [core]
   excludesfile = ~/.dotfiles/config/git/gitignore_global
