@@ -1,5 +1,6 @@
 vim.filetype.add({
   extension = {
+    dvc = "yaml",
     just = "just",
     nu = "nu",
     rsync = "rsync",
@@ -14,12 +15,9 @@ vim.filetype.add({
     ["gitconfig"] = "gitconfig",
   },
   pattern = {
+    [".*/%.dvc/config"] = "gitconfig",
     ["[Dd]ockerfile.*"] = "dockerfile",
-
-    -- Case-insensitive match.
-    ["[Mm][Aa][Nn][Ii][Ff][Ee][Ss][Tt]%.in"] = "manifest",
-
-    ["%.?[Jj][Uu][Ss][Tt][Ff][Ii][Ll][Ee]"] = "just",
+    ["%.?justfile"] = "just",
 
     -- Fallback matching on file contents.
     [".*"] = {
