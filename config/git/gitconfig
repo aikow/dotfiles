@@ -53,7 +53,7 @@
 
 [mergetool "nvim"]
   # Define command which will be used when "nvim" is set as a merge tool
-  cmd = nvim -c \"Gvdiffsplit!\" \"$MERGED\"
+  cmd = "nvim -c \"Gvdiffsplit!\" \"$MERGED\""
 
 [pull]
 	rebase = true
