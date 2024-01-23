@@ -2,6 +2,7 @@ vim.filetype.add({
   extension = {
     dvc = "yaml",
     just = "just",
+    log = "log",
     nu = "nu",
     rsync = "rsync",
     tmux = "tmux",
@@ -18,6 +19,8 @@ vim.filetype.add({
     [".*/%.dvc/config"] = "gitconfig",
     ["[Dd]ockerfile.*"] = "dockerfile",
     ["%.?justfile"] = "just",
+    ["requirements-.*%.txt"] = "requirements",
+    [".*/requirements/[^/]+%.txt"] = "requirements",
 
     -- Fallback matching on file contents.
     [".*"] = {
