@@ -17,3 +17,4 @@ I generally try to adhere to the following conventions for highlights
 | o         | citation to an *o*ther paper |
 | p         | a "pro" or an upside         |
 | r         | experiment results           |
+| x         | example                      |
