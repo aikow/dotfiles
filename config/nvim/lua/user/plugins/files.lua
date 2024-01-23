@@ -107,14 +107,14 @@ return {
       files.setup(opts)
 
       -- Create a new split and open the entry under the cursor in it.
-      local map_split = function(buf_id, lhs, direction)
+      local map_split = function(buf_id, lhs, direction_mods)
         local rhs = function()
           -- Make new window and set it as target
           local target_window = files.get_target_window()
           if target_window then
             local new_target_window
             vim.api.nvim_win_call(target_window, function()
-              vim.cmd({ cmd = direction, args = { "split" } })
+              vim.cmd.split({ mods = direction_mods })
               new_target_window = vim.api.nvim_get_current_win()
             end)
 
@@ -124,7 +124,7 @@ return {
         end
 
         -- Adding `desc` will result into `show_help` entries
-        local desc = "Split " .. direction
+        local desc = "Split " .. table.concat(direction_mods, " ")
         vim.keymap.set("n", lhs, rhs, { buffer = buf_id, desc = desc })
       end
 
@@ -176,8 +176,12 @@ return {
         callback = function(params)
           local buf_id = params.data.buf_id
 
-          map_split(buf_id, "<C-x>", "belowright horizontal")
-          map_split(buf_id, "<C-v>", "belowright vertical")
+          map_split(
+            buf_id,
+            "<C-x>",
+            { split = "belowright", horizontal = true }
+          )
+          map_split(buf_id, "<C-v>", { split = "belowright", vertical = true })
 
           vim.keymap.set("n", "g.", toggle_dotfiles, {
             buffer = buf_id,
