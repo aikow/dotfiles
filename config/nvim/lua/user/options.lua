@@ -71,7 +71,7 @@ vim.opt.shortmess = vim.opt.shortmess + "c" -- Don't give ins-complete-menu mess
 -- Use treesitter for folding
 opt.foldmethod = "expr"
 opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
-opt.foldtext = "v:lua.vim.treesitter.foldtext()"
+opt.foldtext = ""
 opt.foldlevel = 99 -- Nothing is folded by default
 
 -- Requires neovim 0.10.0

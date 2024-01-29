@@ -92,13 +92,13 @@ vim.keymap.set(
 vim.keymap.set(
   "i",
   "<C-x><C-m>",
-  [[<c-r>=luaeval("require('user.util.completion').complete_matching_line()")<CR>]],
+  [[<c-r>=luaeval("require('user.completion').complete_matching_line()")<CR>]],
   { desc = "complete matching lines from current buffer" }
 )
 vim.keymap.set(
   "i",
   "<C-x><C-d>",
-  [[<c-r>=luaeval("require('user.util.completion').complete_matching_line_cwd()")<CR>]],
+  [[<c-r>=luaeval("require('user.completion').complete_matching_line_cwd()")<CR>]],
   { desc = "complete matching lines from the current working directory" }
 )
 

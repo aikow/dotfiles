@@ -15,7 +15,7 @@ autocmd({ "FocusGained", "BufEnter", "WinEnter" }, {
 local unmodifiable_group = augroup("Unmodifiable files", {})
 autocmd("FileType", {
   group = unmodifiable_group,
-  pattern = "help",
+  pattern = { "help", "log" },
   command = "setlocal readonly",
 })
 autocmd("BufRead", {
@@ -25,7 +25,7 @@ autocmd("BufRead", {
 })
 
 -- Jump to last edit position on opening file
-autocmd("BufWinEnter", {
+autocmd("BufReadPost", {
   group = augroup("Last edit position", {}),
   ---@param params NvimAutocmdCallbackParams
   callback = function(params)
@@ -34,10 +34,9 @@ autocmd("BufWinEnter", {
       if string.find(params.file, pat) then return end
     end
 
-    local line = vim.fn.line
-    if line([['"]]) > 0 and line([['"]]) <= line("$") then
-      -- Set the cursor position to the position of the last save.
-      vim.fn.setpos(".", vim.fn.getpos("'\""))
+    local mark = vim.api.nvim_buf_get_mark(0, '"')
+    if mark[1] > 1 and mark[1] < vim.api.nvim_buf_line_count(0) then
+      vim.api.nvim_win_set_cursor(0, mark)
     end
   end,
 })
