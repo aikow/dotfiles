@@ -1,5 +1,8 @@
 local M = {}
 
+---Feed the given string into neovim as if they were pressed by the user. All
+---termcode and keycode sequences are replaced.
+---@param keys string
 M.feedkeys = function(keys)
   vim.api.nvim_feedkeys(
     vim.api.nvim_replace_termcodes(keys, true, true, true),

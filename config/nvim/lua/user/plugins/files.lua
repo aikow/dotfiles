@@ -82,6 +82,33 @@ return {
         position = "current",
       },
     },
+    config = function(_, opts)
+      require("neo-tree").setup(opts)
+      local neo_tree_events = require("neo-tree.events")
+
+      -- We need to convert the neo-tree event data to the same format as nvim-tree
+      local lsp_did_rename = function(args)
+        require("user.lsp").lsp_did_rename(args.source, args.destination)
+      end
+
+      -- just in case setup is called multiple times
+      local rename_id = "nvim_lsp_file_operations_rename"
+      local move_id = "nvim_lsp_file_operations_move"
+      neo_tree_events.unsubscribe({ id = rename_id })
+      neo_tree_events.unsubscribe({ id = move_id })
+
+      -- now subscribe to the events
+      neo_tree_events.subscribe({
+        id = rename_id,
+        event = neo_tree_events.FILE_RENAMED,
+        handler = lsp_did_rename,
+      })
+      neo_tree_events.subscribe({
+        id = move_id,
+        event = neo_tree_events.FILE_MOVED,
+        handler = lsp_did_rename,
+      })
+    end,
   },
 
   {
@@ -146,28 +173,13 @@ return {
         vim.fn.chdir(cur_directory)
       end
 
-      -- vim.api.nvim_create_autocmd("User", {
-      --   pattern = "MiniFilesActionRename",
-      --   ---@param params NvimAutocmdCallbackParams
-      --   callback = function(params)
-      --     local action = params.data.action
-      --     if action ~= "rename" then return end
-      --
-      --     local from_path = params.data.from
-      --     local to_path = params.data.to
-      --
-      --     for _, client in ipairs(vim.lsp.get_clients()) do
-      --       -- Make sure that the renaming won't accidently change any libraries
-      --       -- or other workspace folders that it shouldn't.
-      --       -- Use oil.nvim as a reference
-      --       for _, workspace_folder in ipairs(client.workspace_folders) do
-      --         -- 1. Check if from_path and to_path are subdirs in a workspace
-      --         -- folder.
-      --         -- 2. Send a rename request to the language server.
-      --       end
-      --     end
-      --   end,
-      -- })
+      -- Register renaming and moving files with any attached LSP servers.
+      vim.api.nvim_create_autocmd("User", {
+        pattern = { "MiniFilesActionRename", "MiniFilesActionMove" },
+        callback = function(args)
+          require("user.lsp").lsp_did_rename(args.data.from, args.data.to)
+        end,
+      })
 
       -- Create extra keymaps.
       vim.api.nvim_create_autocmd("User", {
