@@ -44,11 +44,11 @@ $env.config = {
     metric: true # true => KB, MB, GB (ISO standard), false => KiB, MiB, GiB (Windows standard)
     format: "auto" # b, kb, kib, mb, mib, gb, gib, tb, tib, pb, pib, eb, eib, zb, zib, auto
   }
-  # cursor_shape: {
-  #   emacs: line
-  #   vi_insert: line
-  #   vi_normal: block
-  # }
+  cursor_shape: {
+    emacs: line
+    vi_insert: line
+    vi_normal: block
+  }
   color_config: (themes default dark)
   use_grid_icons: true
   footer_mode: "25" # always, never, number_of_rows, auto
@@ -59,163 +59,156 @@ $env.config = {
   shell_integration: true # enables terminal markers and a workaround to arrow keys stop working issue
   show_banner: false # true or false to enable or disable the banner
   render_right_prompt_on_last_line: false # true or false to enable or disable right prompt to be rendered on last line of the prompt.
+
+  # ------------------------------------------------------------------------
+  # | Hooks
+  # ------------------------------------------------------------------------
   hooks: {
-    pre_prompt: [{ ||
-      null  # replace with source code to run before the prompt is shown
-    }]
-    pre_execution: [{ ||
-      null  # replace with source code to run before the repl input is run
-    }]
+    pre_prompt: [{ || null }]
+    pre_execution: [{ || null }]
     env_change: {
-      PWD: [{|before, after|
-        ls;
-        null  # replace with source code to run if the PWD environment is different since the last repl input
-      }]
+      PWD: [{ |before, after| ls; null }]
     }
     display_output: { ||
       if (term size).columns >= 200 { table --expand --expand-deep 1 } else { table }
     }
   }
+
+  # ------------------------------------------------------------------------
+  # | Menus
+  # ------------------------------------------------------------------------
   menus: [
-      # Configuration for default nushell menus
-      # Note the lack of souce parameter
-      {
-        name: completion_menu
-        only_buffer_difference: false
-        marker: "| "
-        type: {
-            layout: columnar
-            columns: 4
-            col_width: 20   # Optional value. If missing all the screen width is used to calculate column width
-            col_padding: 2
-            page_size: 20
-        }
-        style: {
-            text: green
-            selected_text: green_reverse
-            description_text: yellow
-        }
+    # Configuration for default nushell menus
+    # Note the lack of souce parameter
+    {
+      name: ide_completion_menu
+      only_buffer_difference: false
+      marker: " 󰮫 "
+      type: {
+        layout: ide
+        min_completion_width: 0,
+        max_completion_width: 80,
+        max_completion_height: 16,
+        padding: 0,
+        border: true,
+        cursor_offset: 0,
+        description_mode: "prefer_right"
+        min_description_width: 0
+        max_description_width: 50
+        max_description_height: 10
+        description_offset: 1
       }
-      {
-        name: history_menu
-        only_buffer_difference: true
-        marker: "? "
-        type: {
-            layout: list
-            page_size: 10
-        }
-        style: {
-            text: green
-            selected_text: green_reverse
-            description_text: yellow
-        }
+      style: {
+        text: green
+        selected_text: green_reverse
+        description_text: yellow
       }
-      {
-        name: help_menu
-        only_buffer_difference: true
-        marker: "? "
-        type: {
-            layout: description
-            columns: 4
-            col_width: 20   # Optional value. If missing all the screen width is used to calculate column width
-            col_padding: 2
-            selection_rows: 4
-            description_rows: 10
-        }
-        style: {
-            text: green
-            selected_text: green_reverse
-            description_text: yellow
-        }
+    }
+    {
+      name: history_menu
+      only_buffer_difference: true
+      marker: "  "
+      type: {
+        layout: list
+        page_size: 10
       }
-      # Example of extra menus created using a nushell source
-      # Use the source field to create a list of records that populates
-      # the menu
-      {
-        name: commands_menu
-        only_buffer_difference: false
-        marker: "# "
-        type: {
-            layout: columnar
-            columns: 4
-            col_width: 20
-            col_padding: 2
-        }
-        style: {
-            text: green
-            selected_text: green_reverse
-            description_text: yellow
-        }
-        source: { |buffer, position|
-            help commands
-            | where name =~ $buffer
-            | each { |it| {value: $it.name description: $it.usage} }
-        }
+      style: {
+        text: green
+        selected_text: green_reverse
+        description_text: yellow
       }
-      {
-        name: vars_menu
-        only_buffer_difference: true
-        marker: "# "
-        type: {
-            layout: list
-            page_size: 10
-        }
-        style: {
-            text: green
-            selected_text: green_reverse
-            description_text: yellow
-        }
-        source: { |buffer, position|
-            scope variables
-            | where name =~ $buffer
-            | sort-by name
-            | each { |it| {value: $it.name description: $it.type} }
-        }
+    }
+    {
+      name: help_menu
+      only_buffer_difference: true
+      marker: " 󰋖 "
+      type: {
+        layout: description
+        columns: 4
+        col_width: 20
+        col_padding: 2
+        selection_rows: 4
+        description_rows: 10
       }
-      {
-        name: commands_with_description
-        only_buffer_difference: true
-        marker: "# "
-        type: {
-            layout: description
-            columns: 4
-            col_width: 20
-            col_padding: 2
-            selection_rows: 4
-            description_rows: 10
-        }
-        style: {
-            text: green
-            selected_text: green_reverse
-            description_text: yellow
-        }
-        source: { |buffer, position|
-            scope commands
-            | where name =~ $buffer
-            | each { |it| {value: $it.name description: $it.usage} }
-        }
+      style: {
+        text: green
+        selected_text: green_reverse
+        description_text: yellow
       }
+    }
+    # Example of extra menus created using a nushell source
+    # Use the source field to create a list of records that populates
+    # the menu
+    {
+      name: commands_menu
+      only_buffer_difference: false
+      marker: "  "
+      type: {
+        layout: columnar
+        columns: 4
+        col_width: 20
+        col_padding: 2
+      }
+      style: {
+        text: green
+        selected_text: green_reverse
+        description_text: yellow
+      }
+      source: { |buffer, position|
+        help commands
+        | where name =~ $buffer
+        | each { |it| {value: $it.name description: $it.usage} }
+      }
+    }
+    {
+      name: vars_menu
+      only_buffer_difference: true
+      marker: " 󰫧 "
+      type: {
+        layout: list
+        page_size: 10
+      }
+      style: {
+        text: green
+        selected_text: green_reverse
+        description_text: yellow
+      }
+      source: { |buffer, position|
+        scope variables
+        | where name =~ $buffer
+        | sort-by name
+        | each { |it| {value: $it.name description: $it.type} }
+      }
+    }
+    {
+      name: commands_with_description
+      only_buffer_difference: true
+      marker: "  "
+      type: {
+        layout: description
+        columns: 4
+        col_width: 20
+        col_padding: 2
+        selection_rows: 4
+        description_rows: 10
+      }
+      style: {
+        text: green
+        selected_text: green_reverse
+        description_text: yellow
+      }
+      source: { |buffer, position|
+        scope commands
+        | where name =~ $buffer
+        | each { |it| {value: $it.name description: $it.usage} }
+      }
+    }
   ]
+
+  # ------------------------------------------------------------------------
+  # | Keybindings
+  # ------------------------------------------------------------------------
   keybindings: [
-    {
-      name: completion_menu
-      modifier: none
-      keycode: tab
-      mode: [vi_insert] # Options: emacs vi_normal vi_insert
-      event: {
-        until: [
-          { send: menu name: completion_menu }
-          { send: menunext }
-        ]
-      }
-    }
-    {
-      name: completion_previous
-      modifier: shift
-      keycode: backtab
-      mode: [vi_normal vi_insert] # Note: You can add the same keybinding to all modes by using a list
-      event: { send: menuprevious }
-    }
     {
       name: fuzzy_history
       modifier: control
@@ -225,13 +218,6 @@ $env.config = {
         send: executehostcommand
         cmd: "commandline (history | each { |it| $it.command } | uniq | reverse | str join (char nl) | fzf --layout=reverse --height=40% -q (commandline) | decode utf-8 | str trim)"
       }
-    }
-    {
-      name: previous_history
-      modifier: control
-      keycode: char_p
-      mode: [vi_insert vi_normal]
-      event: { send: PreviousHistory }
     }
     {
       name: history_hint_complete
@@ -248,43 +234,59 @@ $env.config = {
       event: { send: HistoryHintWordComplete }
     }
 
+    # ------------------
+    # |   Bind Menus   |
+    # ------------------
+    {
+      name: completion_menu
+      modifier: none
+      keycode: tab
+      mode: [vi_insert]
+      event: {
+        until: [
+          { send: menu name: ide_completion_menu }
+          { send: menunext }
+          { edit: complete }
+        ]
+      }
+    }
+    {
+      name: completion_previous
+      modifier: shift
+      keycode: backtab
+      mode: [vi_normal vi_insert]
+      event: { send: menuprevious }
+    }
+
     # ---------------------
     # |   Helpful Menus   |
     # ---------------------
     {
       name: commands_menu
-      modifier: control
-      keycode: char_e
+      modifier: alt
+      keycode: char_c
       mode: [vi_normal vi_insert]
       event: { send: menu name: commands_menu }
     }
     {
       name: commands_with_description
-      modifier: control
-      keycode: char_x
+      modifier: alt
+      keycode: char_d
       mode: [vi_normal vi_insert]
       event: { send: menu name: commands_with_description }
     }
     {
       name: vars_menu
-      modifier: control
-      keycode: char_y
+      modifier: alt
+      keycode: char_v
       mode: [vi_normal vi_insert]
       event: { send: menu name: vars_menu }
-    }
-
-    # ---------------
-    # |   Editing   |
-    # ---------------
-    {
-      name: open_editor
-      modifier: control
-      keycode: char_e
-      mode: [vi_normal vi_insert]
-      event: { send: OpenEditor }
     }
   ]
 }
 
+# ------------------------------------------------------------------------
+# | Load Extra Modules
+# ------------------------------------------------------------------------
 use ~/.config/nushell/completions *
 source ~/.config/nushell/lib/aliases.nu
