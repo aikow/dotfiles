@@ -78,7 +78,7 @@ else
     find "${installation_base_dir}/${tag}" -maxdepth 1 -type d -printf '%P\0' \
       | sort -z \
       | tail -z -n +$((keep_last_n + 2)) \
-      | xargs -r0 rm
+      | xargs -r0 -I {} rm -rf "${installation_base_dir}/${tag}/{}"
   fi
 fi
 
