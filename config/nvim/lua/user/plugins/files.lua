@@ -77,6 +77,10 @@ return {
         mappings = {
           ["<C-v>"] = "open_vsplit",
           ["<C-x>"] = "open_split",
+          ["<localleader>o"] = function(state)
+            local node = state.tree:get_node()
+            vim.ui.open(node.path)
+          end,
           ["-"] = "navigate_up",
         },
         position = "current",
