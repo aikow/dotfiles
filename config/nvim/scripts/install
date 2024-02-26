@@ -44,7 +44,7 @@ extract="${_extract:-no}"
 force="${_force:-no}"
 tag="${_tag?Missing tag}"
 
-keep_last_n=5
+keep_last_n=3
 
 installation_base_dir=$HOME/workspace/tools/neovim
 if [[ ${tag} == "nightly" ]]; then
@@ -54,18 +54,20 @@ else
 fi
 nvim_bin="${HOME}/.local/bin/nvim"
 
-download_url="https://github.com/neovim/neovim/releases/download/${tag?Missing tag}/nvim.appimage"
+download_url="https://github.com/neovim/neovim/releases/download/${tag}/nvim.appimage"
 checksum_url="https://github.com/neovim/neovim/releases/download/${tag}/nvim.appimage.sha256sum"
 
 # Download the neovim version if it isn't available locally
 if [[ -f "${installation_dir}/nvim.appimage" && ${force} != "yes" ]]; then
   echo "${tag} already downloaded"
 else
+  echo "Downloading ${tag}"
   mkdir -p "${installation_dir}"
 
   curl -L "${download_url}" --output "${installation_dir}/nvim.appimage"
   curl -L "${checksum_url}" --output "${installation_dir}/nvim.appimage.sha256sum"
 
+  echo "Checking checksums"
   (
     cd "${installation_dir}"
     sha256sum --check --status "${installation_dir}/nvim.appimage.sha256sum"
@@ -75,17 +77,24 @@ else
 
   # Only keep the last 4 nightly images.
   if [[ ${tag} == "nightly" ]]; then
-    find "${installation_base_dir}/${tag}" -maxdepth 1 -type d -printf '%P\0' \
-      | sort -z \
+    nightly_tag_dir=${installation_base_dir}/${tag}
+
+    echo "Cleaning old nightly images"
+    find "${nightly_tag_dir}" -mindepth 1 -maxdepth 1 -type d -printf '%P\0' \
+      | sort -zr \
       | tail -z -n +$((keep_last_n + 2)) \
-      | xargs -r0 -I {} rm -rf "${installation_base_dir}/${tag}/{}"
+      | xargs -0 -r -I::: rm -rf "${nightly_tag_dir}/:::"
   fi
 fi
 
-[[ -L ${nvim_bin} ]] && unlink "${nvim_bin}"
+if [[ -L ${nvim_bin} ]]; then
+  echo "Unlinking old binary"
+  unlink "${nvim_bin}"
+fi
 
 # Set the active neovim version, extracting if necessary.
 if [[ ${extract} == "yes" ]]; then
+  echo "Extracting appimage"
   (
     cd "${installation_dir}"
     ./nvim.appimage --appimage-extract &>/dev/null
@@ -94,8 +103,11 @@ if [[ ${extract} == "yes" ]]; then
   )
 
   # Create a symlink to the nvim binary.
+  echo "Linking binary"
   ln -s "${installation_base_dir}/active/AppRun" "${nvim_bin}"
 else
   rsync --archive --delete "${installation_dir}/nvim.appimage" "${installation_base_dir}/active/"
+
+  echo "Linking binary"
   ln -s "${installation_base_dir}/active/nvim.appimage" "${nvim_bin}"
 fi
