@@ -18,15 +18,11 @@ opt.ttimeoutlen = 5
 opt.clipboard = "unnamedplus"
 
 -- Enable local config files using a trustdb.
-if vim.secure.read then opt.exrc = true end
+opt.exrc = true
 
--- ===========================
--- |=========================|
--- ||                       ||
--- || Editing and Searching ||
--- ||                       ||
--- |=========================|
--- ===========================
+-- ------------------------------------------------------------------------
+-- | Editing and Searching
+-- ------------------------------------------------------------------------
 --
 -- Tab key enters 2 spaces
 opt.expandtab = true
@@ -76,7 +72,7 @@ opt.foldlevel = 99 -- Nothing is folded by default
 
 -- Requires neovim 0.10.0
 -- Set 7 lines to the cursor - when moving vertically using j/k
-if vim.fn.exists("&smoothscroll") == 1 then opt.smoothscroll = true end
+opt.smoothscroll = true
 opt.scrolloff = 7
 
 -- Open new splits to the right or down instead of moving current window
@@ -91,14 +87,9 @@ opt.diffopt = opt.diffopt
   + "indent-heuristic"
   + "linematch:60"
 
--- ==============================
--- |============================|
--- ||                          ||
--- ||   Appearance and Theme   ||
--- ||                          ||
--- |============================|
--- ==============================
---
+-- ------------------------------------------------------------------------
+-- | Appearance and Themes
+-- ------------------------------------------------------------------------
 -- Color scheme and background
 opt.termguicolors = true -- 24-bit RGB color support
 opt.showmode = false -- Hide mode indicator
