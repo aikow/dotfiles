@@ -1,19 +1,21 @@
+local map = vim.keymap.set
+
 -- Treat long lines as break lines.
-vim.keymap.set("n", "j", "gj")
-vim.keymap.set("n", "k", "gk")
+map("n", "j", "gj")
+map("n", "k", "gk")
 
 -- Don't deselect visual when indenting in visual mode>
-vim.keymap.set("x", "<", "<gv")
-vim.keymap.set("x", ">", ">gv")
+map("x", "<", "<gv")
+map("x", ">", ">gv")
 
 -- Very magic regexps by default.
-vim.keymap.set("n", "?", [[?\v]])
-vim.keymap.set("n", "/", [[/\v]])
-vim.keymap.set("n", "<C-s>", [[:%s/\v]])
-vim.keymap.set("x", "<C-s>", [[:s/\v]])
-vim.keymap.set("c", "<C-s>", [[%s/\v]])
+map("n", "?", [[?\v]])
+map("n", "/", [[/\v]])
+map("n", "<C-s>", [[:%s/\v]])
+map("x", "<C-s>", [[:s/\v]])
+map("c", "<C-s>", [[%s/\v]])
 
-vim.keymap.set(
+map(
   "i",
   "<C-s>",
   [[<C-g>u<Esc>[s1z=`]a<C-g>u]],
@@ -21,13 +23,13 @@ vim.keymap.set(
 )
 
 -- Clear the search buffer to remove highlighting from the last search
-vim.keymap.set(
+map(
   "n",
   "<C-_>",
   [[:let @/ = ""<CR>]],
   { silent = true, desc = "clear search buffer register" }
 )
-vim.keymap.set(
+map(
   "n",
   "<C-/>",
   [[:let @/ = ""<CR>]],
@@ -35,95 +37,87 @@ vim.keymap.set(
 )
 
 -- Select the text that was last pasted
-vim.keymap.set(
+map(
   "n",
   "gp",
   [['`[' . strpart(getregtype(), 0,  1) . '`]']],
   { expr = true, desc = "select the last pasted region" }
 )
 -- Automatically jump to the end of pasted text
-vim.keymap.set("x", "y", "y`]")
-vim.keymap.set({ "x", "n" }, "p", "p`]")
+map("x", "y", "y`]")
+map({ "x", "n" }, "p", "p`]")
 
 -- Make Y behave like other capital numbers
-vim.keymap.set("n", "Y", "y$")
+map("n", "Y", "y$")
 
 -- Keep it centered
-vim.keymap.set("n", "n", "nzzzv")
-vim.keymap.set("n", "N", "Nzzzv")
+map("n", "n", "nzzzv")
+map("n", "N", "Nzzzv")
 
 -- Undo breakpoints while typing
-vim.keymap.set("i", ",", ",<C-g>u")
-vim.keymap.set("i", ".", ".<C-g>u")
-vim.keymap.set("i", "!", "!<C-g>u")
-vim.keymap.set("i", "?", "?<C-g>u")
+map("i", ",", ",<C-g>u")
+map("i", ".", ".<C-g>u")
+map("i", "!", "!<C-g>u")
+map("i", "?", "?<C-g>u")
 
 -- Faster pane resizing
-vim.keymap.set("n", "<C-w><", "5<C-w><")
-vim.keymap.set("n", "<C-w>>", "5<C-w>>")
-vim.keymap.set("n", "<C-w>-", "5<C-w>-")
-vim.keymap.set("n", "<C-w>+", "5<C-w>+")
+map("n", "<C-w><", "5<C-w><")
+map("n", "<C-w>>", "5<C-w>>")
+map("n", "<C-w>-", "5<C-w>-")
+map("n", "<C-w>+", "5<C-w>+")
 
 -- Search history on command line
-vim.keymap.set("c", "<C-k>", "<Up>")
-vim.keymap.set("c", "<C-j>", "<Down>")
+map("c", "<C-k>", "<Up>")
+map("c", "<C-j>", "<Down>")
 
 -- Shortcuts for inserting filename, directory name, and full path into command
 -- mode.
-vim.keymap.set("c", "%H", [[<C-R>=expand('%:h:p') . '/'<CR>]])
-vim.keymap.set("c", "%T", [[<C-R>=expand('%:t')<CR>]])
-vim.keymap.set("c", "%P", [[<C-R>=expand('%:p')<CR>]])
+map("c", "%H", [[<C-R>=expand('%:h:p') . '/'<CR>]])
+map("c", "%T", [[<C-R>=expand('%:t')<CR>]])
+map("c", "%P", [[<C-R>=expand('%:p')<CR>]])
 
--- stylua: ignore start
-vim.keymap.set("n", "<M-v>", "<cmd>vsplit term://fish<CR>", { desc = "Open a shell in a vertical split" })
-vim.keymap.set("n", "<M-s>", "<cmd>split term://fish<CR>", { desc = "Open a shell in a horizontal split" })
-vim.keymap.set("n", "<M-t>", "<cmd>tabnew term://fish<CR>", { desc = "Open a shell in a tab page" })
--- stylua: ignore end
-
--- Toggles between most recent buffers
-vim.keymap.set(
+map(
   "n",
-  "<leader><leader>",
-  "<c-^>",
-  { desc = "switch to most recent buffer" }
+  "<M-v>",
+  "<cmd>vsplit term://fish<CR>",
+  { desc = "Open a shell in a vertical split" }
+)
+map(
+  "n",
+  "<M-s>",
+  "<cmd>split term://fish<CR>",
+  { desc = "Open a shell in a horizontal split" }
+)
+map(
+  "n",
+  "<M-t>",
+  "<cmd>tabnew term://fish<CR>",
+  { desc = "Open a shell in a tab page" }
 )
 
+-- Toggles between most recent buffers
+map("n", "<leader><leader>", "<c-^>", { desc = "switch to most recent buffer" })
+
 -- Extra completion modes
-vim.keymap.set(
+map(
   "i",
   "<C-x><C-m>",
   [[<c-r>=luaeval("require('user.completion').complete_matching_line()")<CR>]],
   { desc = "complete matching lines from current buffer" }
 )
-vim.keymap.set(
-  "i",
-  "<C-x><C-d>",
-  [[<c-r>=luaeval("require('user.completion').complete_matching_line_cwd()")<CR>]],
-  { desc = "complete matching lines from the current working directory" }
-)
 
 -- Replacing up to next _ or -
-vim.keymap.set(
-  "n",
-  "<leader>c",
-  "ct_",
-  { desc = "change text up to next underscore '_'" }
-)
+map("n", "<leader>c", "ct_", { desc = "change text up to next underscore '_'" })
 
 -- Enter a lua command.
-vim.keymap.set(
+map(
   "n",
   "<leader>.",
   "<cmd>source %<CR>",
   { silent = true, desc = "source lua or vimscript file" }
 )
-vim.keymap.set(
-  "n",
-  "<leader>l",
-  [[:lua =]],
-  { desc = "display lua expression" }
-)
+map("n", "<leader>l", [[:lua =]], { desc = "display lua expression" })
 
 -- Create a <nop> mapping for <leader>r so that I do not keep accidentally
 -- replacing characters if the LSP server is not attached yet.
-vim.keymap.set("n", "<leader>r", "<nop>", { desc = "nop" })
+map("n", "<leader>r", "<nop>", { desc = "nop" })
