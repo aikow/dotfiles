@@ -76,30 +76,12 @@ return {
 
       -- Indentation is currently still an experimental feature.
       indent = {
-        enable = false,
+        enable = true,
         disable = { "python" },
       },
 
       -- Text objects
       textobjects = {
-        select = {
-          enable = true,
-          lookahead = true, -- Automatically jump forward to textobj, similar to targets.vim
-          keymaps = {
-            -- You can use the capture groups defined in textobjects.scm
-            ["a/"] = "@comment.outer",
-            ["am"] = "@function.outer",
-            ["im"] = "@function.inner",
-            ["ao"] = "@class.outer",
-            ["io"] = "@class.inner",
-            ["ai"] = "@conditional.outer",
-            ["ii"] = "@conditional.inner",
-            ["al"] = "@loop.outer",
-            ["il"] = "@loop.inner",
-            ["aa"] = "@parameter.outer",
-            ["ia"] = "@parameter.inner",
-          },
-        },
         move = {
           enable = true,
           set_jumps = true, -- whether to set jumps in the jumplist
@@ -132,6 +114,7 @@ return {
       },
       refactor = {
         highlight_definitions = {
+          enable = true,
           disable = { "nu" },
           clear_on_cursor_move = true,
         },
