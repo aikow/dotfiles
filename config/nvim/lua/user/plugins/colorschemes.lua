@@ -27,7 +27,7 @@ return {
         "plugin.neo-tree",
         "plugin.neorg",
         "plugin.telescope",
-        "plugin.trouble",
+        "plugin.treesitter",
       },
     },
   },

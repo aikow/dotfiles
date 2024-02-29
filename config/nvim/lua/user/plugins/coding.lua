@@ -220,7 +220,28 @@ return {
 
   {
     "echasnovski/mini.ai",
-    opts = {},
+    dependencies = {
+      "nvim-treesitter/nvim-treesitter-textobjects",
+    },
+    opts = function()
+      local spec_treesitter = require("mini.ai").gen_spec.treesitter
+      return {
+        custom_textobjects = {
+          -- a = spec_treesitter({
+          --   a = "@parameterr.outer",
+          --   i = "@parameterr.inner",
+          -- }),
+          i = spec_treesitter({
+            a = "@conditional.outer",
+            i = "@conditional.inner",
+          }),
+          l = spec_treesitter({ a = "@loop.outer", i = "@loop.inner" }),
+          m = spec_treesitter({ a = "@function.outer", i = "@function.inner" }),
+          o = spec_treesitter({ a = "@class.outer", i = "@class.inner" }),
+          x = spec_treesitter({ a = "@comment.outer", i = "@comment.inner" }),
+        },
+      }
+    end,
   },
 
   {
@@ -319,15 +340,25 @@ return {
         find_left = "",
         highlight = "gsh",
         replace = "cs",
-        update_n_lines = "",
+        update_n_lines = "gsu",
 
-        suffix_last = "l",
-        suffix_next = "n",
+        suffix_last = "",
+        suffix_next = "",
       },
       n_lines = 40,
       respect_selection_type = true,
       search_method = "cover_or_next",
     },
+    config = function(_, opts)
+      require("mini.surround").setup(opts)
+      vim.keymap.set(
+        "x",
+        "gs",
+        [[:<C-u>lua MiniSurround.add('visual')<CR>]],
+        { silent = true }
+      )
+      vim.keymap.set("n", "gss", "gs_", { remap = true })
+    end,
   },
 
   -- Align tabular data.

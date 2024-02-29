@@ -74,14 +74,41 @@ return {
         find_by_full_path_words = true,
       },
       window = {
+        -- NeoTree is based on [NuiTree](https://github.com/MunifTanjim/nui.nvim/tree/main/lua/nui/tree)
+        -- The node is based on [NuiNode](https://github.com/MunifTanjim/nui.nvim/tree/main/lua/nui/tree#nuitreenode)
         mappings = {
+          ["-"] = "navigate_up",
           ["<C-v>"] = "open_vsplit",
           ["<C-x>"] = "open_split",
-          ["<localleader>o"] = function(state)
-            local node = state.tree:get_node()
-            vim.ui.open(node.path)
-          end,
-          ["-"] = "navigate_up",
+          ["O"] = {
+            function(state) vim.ui.open(state.tree:get_node().path) end,
+            desc = "Open default OS handler",
+          },
+          ["gn"] = {
+            function(state)
+              local filename = state.tree:get_node().name
+              vim.fn.setreg('"', filename)
+              vim.notify("Copied: " .. filename)
+            end,
+            desc = "Yank the file name",
+          },
+          ["gr"] = {
+            function(state)
+              local filepath =
+                vim.fn.fnamemodify(state.tree:get_node().path, ":.")
+              vim.fn.setreg('"', filepath)
+              vim.notify("Copied: " .. filepath)
+            end,
+            desc = "Yank the relative path",
+          },
+          ["gp"] = {
+            function(state)
+              local filepath = state.tree:get_node().path
+              vim.fn.setreg('"', filepath)
+              vim.notify("Copied: " .. filepath)
+            end,
+            desc = "Yank the absolute path",
+          },
         },
         position = "current",
       },
