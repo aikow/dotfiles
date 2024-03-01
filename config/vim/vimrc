@@ -1,0 +1,461 @@
+" ------------------------------------------------------------------------
+" | Bootstrap vimplug
+" ------------------------------------------------------------------------
+"
+" Automatically try to install vim-plug if it not already installed.
+set rtp+=~/.local/share/vim
+let data_dir = has('nvim') ? stdpath('data') . '/site' : expand('~/.local/share/vim')
+if empty(glob(data_dir . '/autoload/plug.vim'))
+  echom "Installing vim-plug, " . data_dir . '/autoload/plug.vim was empty' 
+  silent execute '!curl -fLo ' . data_dir . '/autoload/plug.vim --create-dirs 
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
+
+
+" Set a different plugin directory depending on whether the config is for neovim
+" and gvim or for classic vim
+let plug_dir = data_dir . '/plugged'
+
+
+" ------------------------------------------------------------------------
+" | Start plugins
+" ------------------------------------------------------------------------
+"
+call plug#begin(plug_dir)
+
+" ------------------------------------------------------------------------
+" | Coding plugins
+" ------------------------------------------------------------------------
+" 
+" Repeat commands from plugins
+Plug 'tpope/vim-repeat'
+
+" Comment and uncomment according to filetype
+Plug 'tpope/vim-commentary'
+
+" Better parenthesis and quoting tools
+Plug 'tpope/vim-surround'
+nmap gs ys
+
+" Better netrw file manager
+Plug 'tpope/vim-vinegar'
+  let g:netrw_browse_split = 0
+
+" Git plugin
+Plug 'tpope/vim-fugitive'
+
+" Plugin to align text
+Plug 'godlygeek/tabular'
+
+" Fuzzy finder
+Plug 'airblade/vim-rooter'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
+  " Enable per-command history
+  " - History files will be stored in the specified directory
+  " - When set, CTRL-N and CTRL-P will be bound to 'next-history' and
+  "   'previous-history' instead of 'down' and 'up'.
+  let g:fzf_history_dir = '~/.local/share/fzf-history'
+
+
+" ------------------------------------------------------------------------
+" | Colorschemes Plugins
+" ------------------------------------------------------------------------
+"
+" Plugins for color themes
+Plug 'joshdick/onedark.vim'
+Plug 'arcticicestudio/nord-vim'
+Plug 'sainnhe/everforest'
+Plug 'sainnhe/gruvbox-material'
+Plug 'shinchu/lightline-gruvbox.vim'
+
+" ------------------------------------------------------------------------
+" | UI Plugins
+" ------------------------------------------------------------------------
+" 
+" Customizes the status bar
+Plug 'itchyny/lightline.vim'
+  let g:lightline = {}
+  let g:lightline.colorscheme = 'gruvbox'
+  let g:lightline.active = {
+        \   'left': [ [ 'mode', 'paste' ], [ 'fugitive', 'filename' ], ['ctrlpmark'] ],
+        \   'right': [ [ 'syntastic', 'lineinfo' ], ['percent'], ['filetype' ] ]
+        \ }
+  let g:lightline.tabline = {
+        \   'left': [ ['tabs'] ],
+        \   'right': [ ['close'] ]
+        \ }
+  let g:lightline.tab = {
+        \   'active': [ 'tabnum', 'filename', 'modified' ],
+        \   'inactive': [ 'tabnum', 'filename', 'modified' ]
+        \ }
+  let g:lightline.tab_component_function = {
+        \   'tabnum': 'LightlineWebDevIcons'
+        \ }
+  let g:lightline.component_function = {
+        \   'fugitive': 'LightlineFugitive',
+        \   'filename': 'LightlineFilename',
+        \   'fileformat': 'LightlineFileformat',
+        \   'filetype': 'LightlineFiletype',
+        \   'fileencoding': 'LightlineFileencoding',
+        \   'mode': 'LightlineMode',
+        \   'ctrlpmark': 'CtrlPMark',
+        \   'lineinfo': 'LightlineLineinfo'
+        \ }
+  let g:lightline.component_visible_condition = {
+        \   'mode' : '1',
+        \   'filename' : '(&filetype!="qf")',
+        \   'modified': '&modified||!&modifiable',
+        \   'readonly': '&readonly',
+        \   'paste': '&paste',
+        \   'spell': '&spell'
+        \ }
+  let g:lightline.component_function_visible_condition = {
+        \   'mode' : '1',
+        \   'filename' : '(&filetype!="qf")',
+        \   'modified': '&modified||!&modifiable',
+        \   'readonly': '&readonly',
+        \   'paste': '&paste',
+        \   'spell': '&spell'
+        \ }
+  let g:lightline.component_expand = {
+        \   'syntastic': 'SyntasticStatuslineFlag',
+        \ }
+  let g:lightline.component_type = {
+        \   'syntastic': 'error',
+        \ }
+  let g:lightline.separator = { 'left': "\ue0b0", 'right': "\ue0b2" }
+  let g:lightline.subseparator = { 'left': "\ue0b1", 'right': "\ue0b3" }
+
+  function! LightlineWebDevIcons(n)
+    let l:bufnr = tabpagebuflist(a:n)[tabpagewinnr(a:n) - 1]
+    return WebDevIconsGetFileTypeSymbol(bufname(l:bufnr))
+  endfunction
+
+  function! LightlineModified()
+    return (&ft =~ 'help' || &ft =~ 'qf') ? '' : &modified ? '+' : &modifiable ? '' : '-'
+  endfunction
+
+  function! LightlineReadonly()
+    return &ft !~? 'help' && &readonly ? 'RO' : ''
+  endfunction
+
+  function! LightlineFilename()
+    if (&filetype=="qf")
+      return ''
+    endif
+    let fname = expand('%:t')
+    return fname == 'ControlP' && has_key(g:lightline, 'ctrlp_item') ? g:lightline.ctrlp_item :
+          \ fname == '__Tagbar__' ? g:lightline.fname :
+          \ fname =~ '__Gundo\|NERD_tree' ? '' :
+          \ &ft == 'vimfiler' ? vimfiler#get_status_string() :
+          \ &ft == 'unite' ? unite#get_status_string() :
+          \ &ft == 'vimshell' ? vimshell#get_status_string() :
+          \ ('' != LightlineReadonly() ? LightlineReadonly() . ' ' : '') .
+          \ ('' != fname ? fname : '') .
+          \ ('' != LightlineModified() ? ' ' . LightlineModified() : '')
+  endfunction
+
+  function! LightlineFugitive()
+    try
+      if expand('%:t') !~? 'Tagbar\|Gundo\|NERD' && &ft !~? 'vimfiler' && exists('*fugitive#head')
+        let mark = ''  " edit here for cool mark
+        let branch = fugitive#head()
+        return branch !=# '' ? mark.branch : ''
+      endif
+    catch
+    endtry
+    return ''
+  endfunction
+
+  function! LightlineFileformat()
+    return winwidth(0) > 70 ? &fileformat : ''
+  endfunction
+
+  function! LightlineFiletype()
+    return winwidth(0) > 70 ? (&filetype !=# '' ? &filetype : 'no ft') : ''
+  endfunction
+
+  function! LightlineFileencoding()
+    return winwidth(0) > 70 ? (&fenc !=# '' ? &fenc : &enc) : ''
+  endfunction
+
+  function! LightlineMode()
+    if (&filetype=="qf")
+      return 'Results'
+    endif
+    let fname = expand('%:t')
+    return fname == '__Tagbar__' ? 'Tagbar' :
+          \ &ft == 'vimfiler' ? 'VimFiler' :
+          \ &ft == 'vimshell' ? 'VimShell' :
+          \ winwidth(0) > 10 ? lightline#mode() : ''
+  endfunction
+
+  function! LightlineLineinfo()
+    return winwidth(0) > 70 ? (line(".") . "," . col(".")) : '' 
+  endfunction
+
+" Nerd font icons
+Plug 'ryanoasis/vim-devicons'
+
+" ------------------------------------------------------------------------
+" | End Plugins
+" ------------------------------------------------------------------------
+call plug#end()
+
+
+" ------------------------------------------------------------------------
+" | Options
+" ------------------------------------------------------------------------
+"
+" Set runtimepath to the source files in the dotfiles directory
+set rtp+=~/.dotfiles/config/vim
+
+" Set the shell to bash.
+set shell=bash
+
+" Don't need vi compatibility
+set nocompatible
+
+" make scrolling and painting fast
+set ttyfast
+set lazyredraw
+
+" use Unicode
+set encoding=utf-8
+
+" Permanent undo
+set undodir=~/.local/vim/undo
+set undofile
+set nobackup
+set hidden
+
+" Better display for messages
+set updatetime=1000
+
+" Set the timeout times
+set timeoutlen=500
+set ttimeoutlen=5
+
+" Use system clipboard
+set clipboard+=unnamedplus
+
+" Filetype plugins
+filetype plugin on
+filetype indent on
+
+" ------------------------------------------------------------------------
+" | Editing
+" ------------------------------------------------------------------------
+"
+" Indent new line the same as the preceding line
+set autoindent
+
+" Tab key enters 2 spaces
+set expandtab
+set tabstop=2
+set shiftwidth=2
+set softtabstop=2 
+
+" highlight matching parens, braces, brackets, etc
+set showmatch
+
+" Wildmenu options
+set wildmenu
+set wildmode=list:longest
+set wildignore=*.o,*~,*.pyc,.hg,.svn,*.png,*.jpg,*.gif,*.settings,*.min.js,*.swp,publish/*
+
+" Set completeopt to have a better completion experience
+" :help completeopt
+" menuone: popup even when there's only one match
+" noinsert: Do not insert text until a selection is made
+" noselect: Do not select, force user to select one from the menu
+if has('patch-7.4.775')
+  set completeopt=menuone,noinsert,noselect
+endif
+
+" Avoid showing extra messages when using completion
+set shortmess+=c
+
+" Searching
+set hlsearch 
+set incsearch
+set ignorecase
+set smartcase
+
+if executable('rg')
+  set grepprg=rg\ --vimgrep\ --no-heading\ --smart-case
+  set grepformat=%f:%l:%c:%m,%f:%l:%m
+endif
+
+" Wrapping options
+set formatoptions=tcroqnblj
+
+" Folding
+set foldmethod=indent
+set foldlevelstart=99
+
+" Set 7 lines to the cursor - when moving vertically using j/k
+set scrolloff=7
+
+" Open new splits to the right or down instead of moving current window
+set splitright
+set splitbelow
+
+" Diff options
+set diffopt+=iwhite " No whitespace in vimdiff
+set diffopt+=indent-heuristic
+
+" Set spell location to English and German
+set spell
+set spelllang=en,de
+
+
+" ------------------------------------------------------------------------
+" | Appearance
+" ------------------------------------------------------------------------
+"
+" Enable syntax highlighting for languages
+syntax enable
+
+set novisualbell
+set belloff=all
+
+set background=dark
+colorscheme gruvbox-material
+
+" Status line and tabline
+set showtabline=1
+set laststatus=2
+set cmdheight=1
+set noshowmode
+
+" Show character column
+set colorcolumn=80
+set ruler
+set number
+set cursorline
+
+" Wrap lines
+set wrap
+
+
+" ------------------------------------------------------------------------
+" | Keybindings
+" ------------------------------------------------------------------------
+"
+nnoremap <SPACE> <Nop>
+let mapleader=" "
+let maplocalleader = "\\"
+
+" Treat long lines as break lines (useful when moving around in them)
+noremap j gj
+noremap k gk
+
+" Don't deselect visual when indenting in visual mode
+vnoremap < <gv
+vnoremap > >gv
+
+" Very magic by default
+nnoremap ? ?\v
+nnoremap / /\v
+nnoremap <C-s> :%s/\v
+cnoremap <C-s> %s/\v
+vnoremap <C-s> :s/\v
+
+" <leader><leader> toggles between buffers
+nnoremap <leader><leader> <c-^>
+
+" Keymap for replacing up to next _ or -
+nnoremap <leader>m ct_
+
+" Automatically correct spelling with the first option
+inoremap <C-s> <c-g>u<Esc>[s1z=`]a<c-g>u
+
+" Clear the search buffer to remove highlighting from the last search
+nnoremap <silent> <c-_> :let @/ = ""<CR>
+
+" Use <gp> to select the text that was last pasted
+nnoremap <expr> gp '`[' . strpart(getregtype(), 0,  1) . '`]'
+
+" Make Y behave like other capital numbers
+nnoremap Y y$
+
+" Keep it centered
+nnoremap n nzzzv
+nnoremap N Nzzzv
+
+" Undo Break points
+inoremap , ,<c-g>u
+inoremap . .<c-g>u
+inoremap ! !<c-g>u
+inoremap ? ?<c-g>u
+
+" Automatically jump to the end of pasted text
+xnoremap <silent> y y`]
+xnoremap <silent> p p`]
+nnoremap <silent> p p`]
+
+cnoremap %H <C-r>=expand('%:h:p') . '/'<CR>
+cnoremap %T <C-r>=expand('%:t')<CR>
+cnoremap %P <C-r>=expand('%:p')<CR>
+
+" ------------------------------------------------------------------------
+" | Leader
+" ------------------------------------------------------------------------
+"
+" Finding searching and navigating
+nnoremap <silent> <leader>; :Commands<CR>
+nnoremap <silent> <leader>o :Files<CR>
+nnoremap <silent> <leader>p :Buffers<CR>
+nnoremap <silent> <leader>ff :Rg<CR>
+nnoremap <silent> <leader>fl :Lines<CR>
+nnoremap <silent> <leader>fb :BLines<CR>
+nnoremap <silent> <leader>f' :Marks<CR>
+nnoremap <silent> <leader>h/ :History<CR>
+nnoremap <silent> <leader>h; :History:<CR>
+
+" Git shortcuts
+nnoremap <silent> <leader>go :GFiles<CR>
+nnoremap <silent> <leader>gO :GFiles?<CR>
+nnoremap <silent> <leader>gC :Commits<CR>
+nnoremap <silent> <leader>gc :BCommits<CR>
+
+" Setting shortcuts
+nnoremap <silent> <leader>hc :Colors<CR>
+nnoremap <silent> <leader>hh :Helptags<CR>
+nnoremap <silent> <leader>hk :Maps<CR>
+nnoremap <silent> <leader>hf :Filetypes<CR>
+
+" ------------------------------------------------------------------------
+" | Functions
+" ------------------------------------------------------------------------
+"
+" Reload files changed outside of Vim not currently modified in Vim 
+set autoread
+augroup general_autoread
+  autocmd!
+  autocmd FocusGained,BufEnter * :silent! checktime
+augroup END
+
+" Prevent accidental writes to buffers that shouldn't be edited
+augroup unmodifiable
+  autocmd BufRead *.orig set readonly
+  autocmd BufRead *.pacnew set readonly
+augroup END
+
+" https://stackoverflow.com/questions/31449496/vim-ignore-specifc-file-in-autocommand
+augroup last_pos
+  autocmd BufReadPost * if expand('%:p') !~# '\m/\.git/' && line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+augroup END
+
+" ------------------------------------------------------------------------
+" | Load local config
+" ------------------------------------------------------------------------
+
+" Load local config options
+let g:local_config = expand('~/.local/config/vim/vimrc')
+if filereadable(g:local_config)
+  source g:local_config
+endif
