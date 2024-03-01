@@ -3,7 +3,7 @@
     "link": {
       "~/.vimrc": {
         "relink": true,
-        "path": "full.vim"
+        "path": "vimrc"
       }
     }
   }
