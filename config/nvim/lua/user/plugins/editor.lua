@@ -37,6 +37,11 @@ return {
   },
 
   {
+    "echasnovski/mini.cursorword",
+    opts = {},
+  },
+
+  {
     "echasnovski/mini.bufremove",
     opts = {},
   },
