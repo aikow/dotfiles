@@ -12,22 +12,12 @@ if empty(glob(data_dir . '/autoload/plug.vim'))
   autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 
-
-" Set a different plugin directory depending on whether the config is for neovim
-" and gvim or for classic vim
-let plug_dir = data_dir . '/plugged'
-
-
 " ------------------------------------------------------------------------
-" | Start plugins
+" | Plugins
 " ------------------------------------------------------------------------
-"
-call plug#begin(plug_dir)
 
-" ------------------------------------------------------------------------
-" | Coding plugins
-" ------------------------------------------------------------------------
-" 
+call plug#begin(data_dir . '/plugged')
+
 " Repeat commands from plugins
 Plug 'tpope/vim-repeat'
 
@@ -36,7 +26,7 @@ Plug 'tpope/vim-commentary'
 
 " Better parenthesis and quoting tools
 Plug 'tpope/vim-surround'
-nmap gs ys
+  nmap gs ys
 
 " Better netrw file manager
 Plug 'tpope/vim-vinegar'
@@ -48,8 +38,10 @@ Plug 'tpope/vim-fugitive'
 " Plugin to align text
 Plug 'godlygeek/tabular'
 
-" Fuzzy finder
+" Automatically set vim directory to project root
 Plug 'airblade/vim-rooter'
+
+" Fuzzy finder
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
   " Enable per-command history
@@ -58,22 +50,13 @@ Plug 'junegunn/fzf.vim'
   "   'previous-history' instead of 'down' and 'up'.
   let g:fzf_history_dir = '~/.local/share/fzf-history'
 
-
-" ------------------------------------------------------------------------
-" | Colorschemes Plugins
-" ------------------------------------------------------------------------
-"
-" Plugins for color themes
+" Colorschemes plugins
 Plug 'joshdick/onedark.vim'
 Plug 'arcticicestudio/nord-vim'
 Plug 'sainnhe/everforest'
 Plug 'sainnhe/gruvbox-material'
 Plug 'shinchu/lightline-gruvbox.vim'
 
-" ------------------------------------------------------------------------
-" | UI Plugins
-" ------------------------------------------------------------------------
-" 
 " Customizes the status bar
 Plug 'itchyny/lightline.vim'
   let g:lightline = {}
@@ -199,11 +182,7 @@ Plug 'itchyny/lightline.vim'
 " Nerd font icons
 Plug 'ryanoasis/vim-devicons'
 
-" ------------------------------------------------------------------------
-" | End Plugins
-" ------------------------------------------------------------------------
 call plug#end()
-
 
 " ------------------------------------------------------------------------
 " | Options
@@ -311,7 +290,6 @@ set diffopt+=indent-heuristic
 set spell
 set spelllang=en,de
 
-
 " ------------------------------------------------------------------------
 " | Appearance
 " ------------------------------------------------------------------------
@@ -322,6 +300,7 @@ syntax enable
 set novisualbell
 set belloff=all
 
+set termguicolors
 set background=dark
 colorscheme gruvbox-material
 
@@ -340,11 +319,9 @@ set cursorline
 " Wrap lines
 set wrap
 
-
 " ------------------------------------------------------------------------
 " | Keybindings
 " ------------------------------------------------------------------------
-"
 nnoremap <SPACE> <Nop>
 let mapleader=" "
 let maplocalleader = "\\"
@@ -429,7 +406,7 @@ nnoremap <silent> <leader>hk :Maps<CR>
 nnoremap <silent> <leader>hf :Filetypes<CR>
 
 " ------------------------------------------------------------------------
-" | Functions
+" | Autocmds
 " ------------------------------------------------------------------------
 "
 " Reload files changed outside of Vim not currently modified in Vim 
@@ -453,9 +430,9 @@ augroup END
 " ------------------------------------------------------------------------
 " | Load local config
 " ------------------------------------------------------------------------
-
+"
 " Load local config options
-let g:local_config = expand('~/.local/config/vim/vimrc')
-if filereadable(g:local_config)
-  source g:local_config
+let local_config = expand('~/.local/config/vim/vimrc')
+if filereadable(local_config)
+  source local_config
 endif
