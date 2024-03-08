@@ -69,9 +69,7 @@ $env.config = {
     env_change: {
       PWD: [{ |before, after| ls; null }]
     }
-    display_output: { ||
-      if (term size).columns >= 200 { table --expand --expand-deep 1 } else { table }
-    }
+    display_output: { || null }
   }
 
   # ------------------------------------------------------------------------
