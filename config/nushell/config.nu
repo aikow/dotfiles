@@ -69,7 +69,7 @@ $env.config = {
     env_change: {
       PWD: [{ |before, after| ls; null }]
     }
-    display_output: { || null }
+    display_output: { || table }
   }
 
   # ------------------------------------------------------------------------
