@@ -15,7 +15,7 @@
 
 ;; Regex
 ;; FIXME: This currently doesn't work for calls to the regex module - presumably
-;; is this query not being used at all.
+;; this query is not being used at all.
 (call
   function: (attribute
     object: (identifier) @_mod

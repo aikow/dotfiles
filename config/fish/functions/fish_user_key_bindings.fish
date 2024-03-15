@@ -22,7 +22,7 @@ function add_less
         set cmd " | less"
     end
 
-    fish_commandline_append cmd
+    fish_commandline_append $cmd
 end
 
 function add_fzf
