@@ -12,9 +12,9 @@ export LC_ALL=en_US.UTF-8
 
 ### Editor ###
 if command -v nvim &>/dev/null; then
-  export VISUAL="nvim"
+  export VISUAL=nvim
 else
-  export VISUAL="vim"
+  export VISUAL=vim
 fi
 export EDITOR="${VISUAL}"
 
@@ -60,14 +60,14 @@ export PS0="\e[5 q"
 
 # Load the custom prompt
 source "${DOTFILES_BASH}/prompt/ps1rc.bash"
-PS1="$(__mkps1)"
+PS1=$(__mkps1)
 
 # Enable programmable completion features
 if ! shopt -oq posix; then
   if [[ -f /usr/share/bash-completion/bash_completion ]]; then
-    . /usr/share/bash-completion/bash_completion
+    source /usr/share/bash-completion/bash_completion
   elif [[ -f /etc/bash_completion ]]; then
-    . /etc/bash_completion
+    source /etc/bash_completion
   fi
 fi
 
@@ -96,23 +96,17 @@ if [[ $- =~ i ]]; then
   bind '"\C-g\C-s": "$(_gs)\e\C-e\er"'
 fi
 
-#######################################################################
-#                               Aliases                               #
-#######################################################################
-
+# ------------------------------------------------------------------------
+# | Load external modules
+# ------------------------------------------------------------------------
+#
 # Source fzf and cargo
-if [[ -f "${HOME}/.fzf.bash" ]]; then
-  source "${HOME}/.fzf.bash"
-elif [[ -f /usr/share/fzf/key-bindings.bash ]]; then
-  source /usr/share/fzf/key-bindings.bash
-fi
-
-### Cargo and Rust ###
-[[ -f "${HOME}/.cargo/env" ]] && source "${HOME}/.cargo/env"
+command -v fzf &>/dev/null && eval "$(fzf --bash)"
+[[ -f ${HOME}/.cargo/env ]] && source "${HOME}/.cargo/env"
 
 # Load user aliases
 source "${DOTFILES_BASH}/aliases/general.bash"
 source "${DOTFILES_BASH}/aliases/git.bash"
 
 # Load local aliases and configurations
-[[ -f "${LOCAL_CONFIG}/bashrc" ]] && source "${LOCAL_CONFIG}/bashrc"
+[[ -f ${LOCAL_CONFIG}/bashrc ]] && source "${LOCAL_CONFIG}/bashrc"
