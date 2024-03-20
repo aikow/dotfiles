@@ -36,9 +36,13 @@ return {
     "ribru17/bamboo.nvim",
     lazy = true,
     opts = {
-      -- "vulgaris" or "multiplex"
-      style = "vulgaris",
+      style = "multiplex",
     },
+  },
+
+  {
+    "rebelot/kanagawa.nvim",
+    lazy = true,
   },
 
   {
@@ -57,7 +61,7 @@ return {
         mini = true,
         neotree = true,
         cmp = true,
-        dap = true,
+        dap = false,
         treesitter = true,
       },
     },

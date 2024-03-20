@@ -547,7 +547,7 @@ H.init_colors = function()
     dark_red = utils.get_highlight("DiffDelete").bg,
     green = utils.get_highlight("String").fg,
     blue = utils.get_highlight("Function").fg,
-    grey = utils.get_highlight("NonText").fg,
+    grey = utils.get_highlight("Comment").fg,
     orange = utils.get_highlight("Constant").fg,
     purple = utils.get_highlight("Statement").fg,
     cyan = utils.get_highlight("Special").fg,
@@ -568,6 +568,8 @@ end
 local M = {}
 
 M.config = function()
+  -- Setup an autocmd to get the colors from highlight groups for non base.nvim
+  -- color schemes.
   vim.api.nvim_create_autocmd("ColorschemePre", {
     group = vim.api.nvim_create_augroup("heirline colors", { clear = true }),
     callback = function()
