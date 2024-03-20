@@ -104,12 +104,6 @@ return {
     cmd = { "DB" },
   },
 
-  -- Kitty .conf file syntax support.
-  {
-    "fladson/vim-kitty",
-    ft = { "kitty" },
-  },
-
   -- Nvim Org mode plugin.
   {
     "nvim-neorg/neorg",
