@@ -22,7 +22,7 @@ return {
         config = {
           workspaces = {
             personal = "~/gdrive/notes",
-            notes = "~/notes",
+            docs = "~/Documents/",
           },
           index = "index.norg",
         },

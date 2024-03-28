@@ -104,16 +104,20 @@ return {
     cmd = { "DB" },
   },
 
+  {
+    "vhyrro/luarocks.nvim",
+    priority = 1000,
+    config = true,
+  },
+
   -- Nvim Org mode plugin.
   {
     "nvim-neorg/neorg",
     dependencies = {
+      "vhyrro/luarocks.nvim",
       "nvim-treesitter",
       "nvim-neorg/neorg-telescope",
     },
-    ft = { "norg" },
-    cmd = { "Neorg" },
-    build = ":Neorg sync-parsers",
     opts = require("user.plugins.langs.neorg").opts,
   },
 }
