@@ -1,7 +1,7 @@
 # --------------
 # |   config   |
 # --------------
-abbr fishconfig '$EDITOR ~/.config/fish/config.fish'
+alias fishconfig '$EDITOR ~/.config/fish/config.fish'
 alias fishreload 'source ~/.config/fish/conf.d/*.fish; source ~/.config/fish/config.fish'
 
 abbr dotfiles '$EDITOR ~/.dotfiles/'

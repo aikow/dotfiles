@@ -32,3 +32,7 @@ for _, dir in pairs(path) do
 end
 
 vim.env.PATH = table.concat(newpath, ":")
+
+-- Neovide specific keymaps
+vim.keymap.set("n", "<D-v>", '"+p')
+vim.keymap.set("i", "<D-v>", "<C-r>+")

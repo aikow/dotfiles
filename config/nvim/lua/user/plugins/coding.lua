@@ -265,15 +265,6 @@ return {
   },
 
   {
-    "echasnovski/mini.comment",
-    keys = {
-      { "gc", mode = { "n", "v" } },
-      { "gcc" },
-    },
-    opts = {},
-  },
-
-  {
     "echasnovski/mini.pairs",
     event = "VeryLazy",
     opts = {
