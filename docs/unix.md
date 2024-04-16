@@ -4,27 +4,28 @@
 
 ### General
 
-| Program      | Description                             | Link |
-| ------------ | --------------------------------------- | ---- |
-| `bat`        | Prettier cat                            |      |
-| `broot`      | Concise `tree`                          |      |
-| `delta`      | Prettier diffs                          |      |
-| `difftastic` | Prettier diffs with syntax              |      |
-| `dust`       | Prettier `du`                           |      |
-| `exa`        | Prettier `ls`                           |      |
-| `fd-find`    | Faster and simpler `find`               |      |
-| `fzf`        | Fuzzy finder over lists                 |      |
-| `hexyl`      | Better `hexdump`                        |      |
-| `hyperfine`  | For benchmarking two commands           |      |
-| `just`       | Simpler `make` alternative              |      |
-| `nushell`    | Modern future shell                     |      |
-| `parallel`   | A parallel version of xargs             |      |
-| `ripgrep`    | Faster better `grep`                    |      |
-| `rnr`        | Better `rename` command                 |      |
-| `sd`         | Simpler `sed`                           |      |
-| `skim`       | Fuzzy finder over lists                 |      |
-| `tokei`      | Code statistics for git repository      |      |
-| `watchexec`  | Execute on file change                  |      |
+| Program      | Description                        | Link |
+| ------------ | ---------------------------------- | ---- |
+| `bat`        | Prettier cat                       |      |
+| `broot`      | Concise `tree`                     |      |
+| `delta`      | Prettier diffs                     |      |
+| `difftastic` | Prettier diffs with syntax         |      |
+| `dust`       | Prettier `du`                      |      |
+| `exa`        | Prettier `ls`                      |      |
+| `fd-find`    | Faster and simpler `find`          |      |
+| `fq`         | `jq` for binary formats            |      |
+| `fzf`        | Fuzzy finder over lists            |      |
+| `hexyl`      | Better `hexdump`                   |      |
+| `hyperfine`  | For benchmarking two commands      |      |
+| `just`       | Simpler `make` alternative         |      |
+| `nushell`    | Modern future shell                |      |
+| `parallel`   | A parallel version of xargs        |      |
+| `ripgrep`    | Faster better `grep`               |      |
+| `rnr`        | Better `rename` command            |      |
+| `sd`         | Simpler `sed`                      |      |
+| `skim`       | Fuzzy finder over lists            |      |
+| `tokei`      | Code statistics for git repository |      |
+| `watchexec`  | Execute on file change             |      |
 
 ### Theming
 

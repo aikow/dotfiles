@@ -7,6 +7,7 @@
 Edit `/usr/share/X11/xorg.conf.d/40-libinput.conf` and set `Option "NaturalScrolling" "True"`
 
 For the mouse
+
 ```sh
 # Match on all types of devices but joysticks
 Section "InputClass"
@@ -19,6 +20,7 @@ EndSection
 ```
 
 For the touchpad
+
 ```sh
 Section "InputClass"
         Identifier "libinput touchpad catchall"
@@ -28,4 +30,3 @@ Section "InputClass"
         Option "NaturalScrolling" "True"
 EndSection
 ```
-
