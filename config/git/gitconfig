@@ -29,6 +29,7 @@
 [diff]
   tool = vimdiff
   colorMoved = default
+	algorithm = histogram
 
 [difftool]
   prompt = false
