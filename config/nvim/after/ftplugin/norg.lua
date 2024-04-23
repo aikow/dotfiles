@@ -1,4 +1,5 @@
 vim.opt.comments = ""
+vim.opt.wrap = false
 
 -- ---------------------
 -- |   Local Keymaps   |
@@ -16,7 +17,7 @@ vim.keymap.set(
 -- -------------------------
 vim.b.minihipatterns_config = {
   highlighters = {
-    today = { pattern = "#today", group = "MiniHipatternsNote" },
+    today = { pattern = "#time.due", group = "MiniHipatternsNote" },
   },
 }
 
