@@ -12,11 +12,19 @@ vim.g.pyindent_open_paren = vim.bo.shiftwidth
 
 -- Shortcut to run file through interpreter.
 vim.keymap.set({ "n", "v" }, "<localleader>r", [[:!python3 %<CR>]])
-vim.keymap.set(
-  { "n", "v" },
-  "<localleader>b",
-  [[:!black --preview --enable-unstable-feature=string_processing %<CR>]]
-)
+vim.keymap.set({ "n", "v" }, "<localleader>b", function()
+  vim
+    .system({
+      "black",
+      "--line-length",
+      tostring(vim.o.textwidth),
+      "--preview",
+      "--enable-unstable-feature=string_processing",
+      vim.fs.normalize(vim.api.nvim_buf_get_name(0)),
+    })
+    :wait()
+  vim.cmd.edit()
+end)
 
 vim.keymap.set(
   { "n", "x" },

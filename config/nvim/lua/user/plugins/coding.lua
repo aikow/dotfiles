@@ -119,12 +119,6 @@ return {
       "hrsh7th/cmp-path",
       "hrsh7th/cmp-cmdline",
       "saadparwaiz1/cmp_luasnip",
-      {
-        "petertriho/cmp-git",
-        opts = {
-          filetypes = { "gitcommit", "octo", "markdown" },
-        },
-      },
     },
     config = function()
       local cmp = require("cmp")
@@ -227,10 +221,6 @@ return {
       local spec_treesitter = require("mini.ai").gen_spec.treesitter
       return {
         custom_textobjects = {
-          -- a = spec_treesitter({
-          --   a = "@parameterr.outer",
-          --   i = "@parameterr.inner",
-          -- }),
           i = spec_treesitter({
             a = "@conditional.outer",
             i = "@conditional.inner",

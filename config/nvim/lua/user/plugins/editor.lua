@@ -1,11 +1,5 @@
 return {
 
-  -- Plenary provides helper functions.
-  {
-    "nvim-lua/plenary.nvim",
-    lazy = true,
-  },
-
   -- Effortlessly switch between vim and tmux windows.
   {
     "christoomey/vim-tmux-navigator",

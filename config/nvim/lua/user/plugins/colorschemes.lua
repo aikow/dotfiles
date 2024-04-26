@@ -1,11 +1,5 @@
 return {
   {
-    "echasnovski/mini.colors",
-    lazy = true,
-    opts = {},
-  },
-
-  {
     "aikow/base.nvim",
     opts = {
       integrations = {
