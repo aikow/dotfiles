@@ -66,10 +66,6 @@ map("n", "<C-w>>", "5<C-w>>")
 map("n", "<C-w>-", "5<C-w>-")
 map("n", "<C-w>+", "5<C-w>+")
 
--- Search history on command line
-map("c", "<C-k>", "<Up>")
-map("c", "<C-j>", "<Down>")
-
 -- Shortcuts for inserting filename, directory name, and full path into command
 -- mode.
 map("c", "%H", [[<C-R>=expand('%:h:p') . '/'<CR>]])

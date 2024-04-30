@@ -3,10 +3,11 @@ return {
   -- Effortlessly switch between vim and tmux windows.
   {
     "christoomey/vim-tmux-navigator",
-    config = function()
+    init = function()
       vim.g.tmux_navigator_no_mappings = 1
       vim.g.tmux_navigator_disable_when_zoomed = 1
-
+    end,
+    config = function()
       -- Tmux / vim navigation
       -- stylua: ignore start
       vim.keymap.set("n", "<M-h>", "<cmd>TmuxNavigateLeft<CR>", { silent = true, desc = "tmux navigate left" })
