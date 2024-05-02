@@ -41,6 +41,32 @@ autocmd("BufReadPost", {
   end,
 })
 
+-- Change to project root directory.
+autocmd({ "VimEnter", "BufReadPost", "BufEnter" }, {
+  nested = true,
+  ---@params params NvimAutocmdCallbackPrams
+  callback = function(params)
+    local path = vim.api.nvim_buf_get_name(0)
+    if path ~= "" then
+      path = vim.fs.dirname(path)
+    else
+      path = vim.uv.cwd() or vim.fn.getcwd()
+    end
+    local root = vim.fs.root(path, {
+      ".editorconfig", -- general editor settings
+      ".exrc", -- nvim config
+      ".git", -- git
+      "Cargo.toml", -- rust
+      "Makefile", -- c/c++
+      "package.json", -- javascript
+      "pyproject.toml", -- python
+      "setup.py", -- python
+    })
+
+    if root then vim.fn.chdir(root) end
+  end,
+})
+
 -- Enable spelling after reading a buffer
 autocmd("BufReadPost", {
   group = augroup("Enable spelling", {}),

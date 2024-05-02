@@ -1,6 +1,6 @@
 local M = {}
 
-M.bootstrap_lazy = function()
+function M.bootstrap_lazy()
   local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
   if not vim.loop.fs_stat(lazypath) then
     vim.fn.system({
@@ -16,7 +16,7 @@ M.bootstrap_lazy = function()
   vim.opt.runtimepath:prepend(lazypath)
 end
 
-M.setup_plugins = function()
+function M.setup_lazy()
   local ok_lazy, lazy = pcall(require, "lazy")
   if not ok_lazy then return end
 
@@ -36,6 +36,7 @@ M.setup_plugins = function()
 
   lazy.setup({
     spec = specs,
+    ---@diagnostic disable-next-line: assign-type-mismatch
     dev = {
       path = "~/workspace/repos/neovim",
       patterns = { "aiko" },
@@ -55,7 +56,7 @@ M.setup_plugins = function()
   })
 end
 
-M.setup_base = function()
+function M.setup_user()
   local builtin = require("user.builtin")
   builtin.disable_plugins()
   builtin.disable_providers()
@@ -70,13 +71,14 @@ M.setup_base = function()
   if vim.fn.exists("neovide") == 1 then require("user.neovide") end
 end
 
-M.setup = function()
-  -- Setup packer and plugins
+function M.setup()
+  -- Setup lazy.nvim package manager
   M.bootstrap_lazy()
-  M.setup_plugins()
+  M.setup_lazy()
 
-  -- Setup options, key-maps and personal auto commands.
-  M.setup_base()
+  -- Setup options, key-maps and personal auto commands, and all other user
+  -- commands.
+  M.setup_user()
 end
 
 return M

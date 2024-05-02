@@ -244,25 +244,4 @@ return {
       })
     end,
   },
-
-  -- Automatically cd to project root.
-  {
-    "airblade/vim-rooter",
-    config = function()
-      vim.g.rooter_patterns = {
-        ".editorconfig", -- general editor settings
-        ".exrc", -- nvim config
-        ".git", -- git
-        ".hg", -- mercurial
-        ".nvimrc", -- nvim config
-        ".svn", -- subversion
-        "Cargo.toml", -- rust
-        "Makefile", -- c/c++
-        "package.json", -- javascript
-        "pyproject.toml", -- python
-        "setup.cfg", -- python
-      }
-      vim.g.rooter_silent_chdir = 1
-    end,
-  },
 }

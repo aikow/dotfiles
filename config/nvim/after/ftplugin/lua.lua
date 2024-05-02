@@ -1,3 +1,3 @@
-local map = vim.keymap.set
+vim.opt.textwidth = 100
 
-map("n", "<localleader>s", "<cmd>luafile %<CR>", { buffer = true })
+vim.keymap.set("n", "<localleader>s", "<cmd>luafile %<CR>", { buffer = true })
