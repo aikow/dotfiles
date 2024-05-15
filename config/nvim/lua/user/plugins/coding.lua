@@ -167,8 +167,7 @@ return {
         formatting = {
           format = function(_, vim_item)
             local icons = require("user.ui.icons").lsp.kinds
-            vim_item.kind =
-              string.format("%s %s", icons[vim_item.kind], vim_item.kind)
+            vim_item.kind = string.format("%s %s", icons[vim_item.kind], vim_item.kind)
             return vim_item
           end,
         },
@@ -204,10 +203,7 @@ return {
           ["<C-e>"] = { c = cmp.mapping.abort() },
           ["<C-y>"] = { c = cmp.mapping.confirm({ select = false }) },
         },
-        sources = cmp.config.sources(
-          { { name = "cmdline" } },
-          { { name = "path" } }
-        ),
+        sources = cmp.config.sources({ { name = "cmdline" } }, { { name = "path" } }),
       })
     end,
   },
@@ -332,12 +328,7 @@ return {
     },
     config = function(_, opts)
       require("mini.surround").setup(opts)
-      vim.keymap.set(
-        "x",
-        "gs",
-        [[:<C-u>lua MiniSurround.add('visual')<CR>]],
-        { silent = true }
-      )
+      vim.keymap.set("x", "gs", [[:<C-u>lua MiniSurround.add('visual')<CR>]], { silent = true })
       vim.keymap.set("n", "gss", "gs_", { remap = true })
     end,
   },
@@ -357,9 +348,9 @@ return {
 
   {
     "echasnovski/mini.hipatterns",
-    config = function(_, opts)
+    config = function()
       local hipatterns = require("mini.hipatterns")
-      hipatterns.setup(vim.tbl_deep_extend("force", opts, {
+      hipatterns.setup({
         highlighters = {
           fixme = { pattern = "FIXME", group = "MiniHipatternsFixme" },
           hack = { pattern = "HACK", group = "MiniHipatternsHack" },
@@ -369,14 +360,10 @@ return {
 
           hex_color = hipatterns.gen_highlighter.hex_color(),
         },
-      }))
+      })
     end,
     init = function()
-      vim.api.nvim_set_hl(
-        0,
-        "MiniHipatternsPerf",
-        { default = true, link = "DiagnosticHint" }
-      )
+      vim.api.nvim_set_hl(0, "MiniHipatternsPerf", { default = true, link = "DiagnosticHint" })
     end,
   },
 }

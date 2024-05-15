@@ -37,6 +37,16 @@ return {
   {
     "rebelot/kanagawa.nvim",
     lazy = true,
+    opts = {
+      overrides = function()
+        return {
+          ["@comment.todo.comment"] = { bg = "none" },
+          ["@comment.note.comment"] = { bg = "none" },
+          ["@comment.error.comment"] = { bg = "none" },
+          ["@comment.warning.comment"] = { bg = "none" },
+        }
+      end,
+    },
   },
 
   {
