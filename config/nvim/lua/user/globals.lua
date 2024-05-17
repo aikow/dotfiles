@@ -8,7 +8,7 @@
 _G.rpairs = function(ls)
   if type(ls) ~= "table" then
     error(string.format("expected list, got %s instead", type(ls)))
-  elseif not vim.tbl_islist(ls) then
+  elseif not vim.islist(ls) then
     error("expected list, got table instead", 2)
   end
 
