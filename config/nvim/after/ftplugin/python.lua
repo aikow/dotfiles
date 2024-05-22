@@ -62,6 +62,68 @@ vim.api.nvim_create_autocmd("InsertCharPre", {
   end,
 })
 
+---Get the type annotation the cursor is currently in and surround the entire node with an
+---`Annotated` block.
+local function add_annotated()
+  local bufnr = vim.api.nvim_get_current_buf()
+  local winnr = vim.api.nvim_get_current_win()
+
+  -- These are 1- and 0- indexed respectively.
+  local cursor_row, cursor_col = unpack(vim.api.nvim_win_get_cursor(winnr))
+
+  -- Get the root language tree for the current buffer
+  local language_tree = vim.treesitter.get_parser(bufnr, "python", {})
+  local tree = language_tree:parse()[1]
+
+  -- Create the query by parsing the query string directly.
+  local query = vim.treesitter.query.parse("python", "(_ type: (type _) @type_annotation)")
+
+  -- Iterate over all captures and find the capture that surrounds the current node.
+  local node = vim
+    .iter(query:iter_captures(tree:root(), bufnr))
+    :map(function(_, node, _, _) return node end)
+    :filter(function(node)
+      -- The treesitter function is 0-, 0- indexed.
+      return vim.treesitter.is_in_node_range(node, cursor_row - 1, cursor_col)
+    end)
+    :next()
+
+  -- If we didn't find a matching type annotation, exit silently.
+  if not node then return end
+
+  local start_row, start_col, end_row, end_col = vim.treesitter.get_node_range(node)
+
+  -- Get the text of the matching type annotation we found. The returned text is a single string, so
+  -- we need to split by newlines to convert it into the format needed by `nvim_buf_set_text`.
+  local text = vim.treesitter.get_node_text(node, bufnr, {})
+  local lines = vim.split(text, "\n")
+
+  -- Add the surrounding text and updated the cursor position. Depending on whether or not the
+  -- original type annotation spans multiple nodes, we need to use a different offset for the cursor
+  -- column.
+  lines[1] = "Annotated[" .. lines[1]
+  lines[#lines] = lines[#lines] .. ", ]"
+  local new_cursor_col_offset
+  if #lines == 1 then
+    new_cursor_col_offset = 12
+  else
+    new_cursor_col_offset = 2
+  end
+
+  -- Update text and cursor position.
+  vim.api.nvim_buf_set_text(bufnr, start_row, start_col, end_row, end_col, lines)
+  vim.api.nvim_win_set_cursor(0, { end_row + 1, end_col + new_cursor_col_offset })
+
+  vim.cmd.startinsert()
+end
+
+vim.keymap.set(
+  "n",
+  "<localleader>ta",
+  add_annotated,
+  { desc = "Surround the current type annotation the cursor is in with an `Annotated` block." }
+)
+
 -- Automatically wrap multiline concatenated strings.
 local iter_query = require("user.util.treesitter").iter_query
 vim.api.nvim_buf_create_user_command(0, "StringWrap", function()

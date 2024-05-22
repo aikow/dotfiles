@@ -25,11 +25,10 @@ M.iter_query = function(bufnr, query, callback, opts)
 
   local parser = vim.treesitter.get_parser(bufnr, filetype, {})
   local tree = parser:parse()[1]
-  local root = tree:root()
 
   local changes = {}
   -- TODO: replace iter_captures with iter_matches to make it more generic.
-  for id, node in ts_query:iter_captures(root, bufnr, 0, -1) do
+  for id, node in ts_query:iter_captures(tree:root(), bufnr, 0, -1) do
     local name = ts_query.captures[id]
     if capture == nil or name == capture then
       local range = { node:range() }
@@ -37,8 +36,7 @@ M.iter_query = function(bufnr, query, callback, opts)
 
       -- Clean the input text.
       local text = vim.treesitter.get_node_text(node, bufnr)
-      local formatted =
-        callback(text, { range = range, indentation = indentation })
+      local formatted = callback(text, { range = range, indentation = indentation })
 
       -- Add indentation
       for idx, line in ipairs(formatted) do
@@ -56,13 +54,7 @@ M.iter_query = function(bufnr, query, callback, opts)
 
   -- Apply all the changes in reverse order.
   for _, change in ipairs(changes) do
-    vim.api.nvim_buf_set_lines(
-      bufnr,
-      change.start,
-      change.final,
-      false,
-      change.formatted
-    )
+    vim.api.nvim_buf_set_lines(bufnr, change.start, change.final, false, change.formatted)
   end
 end
 
