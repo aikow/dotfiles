@@ -13,7 +13,6 @@ return {
       "Gedit",
       "Ggrep",
       "Ghdiffsplit",
-      "Git",
       "Glcd",
       "Glgrep",
       "Gllog",
@@ -30,6 +29,18 @@ return {
       "Gwq",
       "Gwrite",
     },
+  },
+
+  {
+    "echasnovski/mini-git",
+    main = "mini.git",
+    dependencies = {
+      -- Load vim-fugitive first so that the Git command from mini.git overrides the one from
+      -- vim-fugitive.
+      "tpope/vim-fugitive",
+    },
+    cmd = { "Git" },
+    opts = {},
   },
 
   {

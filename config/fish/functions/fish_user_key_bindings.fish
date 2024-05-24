@@ -31,6 +31,12 @@ end
 
 function fish_user_key_bindings
     fish_vi_key_bindings insert
+
+    # Force the vi cursor style when inside a tmux session.
+    if string match -q -- 'tmux*' $TERM
+        set -g fish_vi_cursor_force 1
+    end
+
     set fish_cursor_default block
     set fish_cursor_insert line
     set fish_cursor_replace_one underscore
@@ -41,8 +47,8 @@ function fish_user_key_bindings
 
     bind -M insert \cp history-prefix-search-backward
     bind -M insert \cn history-prefix-search-forward
-    bind -M insert \ck complete
-    bind -M insert \cj complete-and-search
+    bind -M insert \cj complete
+    bind -M insert \ck complete-and-search
 
     bind -M insert \cx\ce edit_command_buffer
 

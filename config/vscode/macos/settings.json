@@ -251,7 +251,7 @@
   "vs-kubernetes": {
     "vs-kubernetes.ignore-recommendations": true
   },
-  "workbench.colorTheme": "Nord",
+  "workbench.colorTheme": "Gruvbox Dark Medium",
   "workbench.editorAssociations": {
     "*.ipynb": "jupyter-notebook"
   },

@@ -38,6 +38,7 @@ return {
 
   {
     "echasnovski/mini.bufremove",
+    cmd = { "Bclose" },
     opts = {},
   },
 }
