@@ -5,6 +5,10 @@ local utils = require("heirline.utils")
 local separators = icons.separators.round
 
 local H = {}
+H.conditions = {}
+
+function H.conditions.is_git_repo() return vim.b.minigit_summary ~= nil end
+
 local Components = {}
 
 Components.align = { provider = "%=" }
@@ -85,31 +89,33 @@ Components.vi_mode_raw = {
 
 Components.vi_mode = utils.surround(
   { separators.fill.left, separators.fill.right },
-  "grey",
+  "bright_bg",
   { Components.vi_mode_raw }
 )
 
 -- ------------------------------------------------------------------------
 -- | Filename
 -- ------------------------------------------------------------------------
+
 H.file_name = function(filename)
   filename = vim.fn.fnamemodify(filename, ":.")
   if filename == "" then return "[No Name]" end
+  local start = string.find(filename, "://")
+  local protocol = start ~= nil and string.sub(filename, 1, start - 1) or ""
+
   -- If the filename would occupy more than 1/4 of the available space,
   -- shorten the path.
   if not conditions.width_percent_below(#filename, 0.25, true) then
     filename = vim.fn.pathshorten(filename)
+    if protocol ~= "" then filename = protocol .. ":" .. string.sub(filename, 2) end
   end
   return filename
 end
 
 H.file_icon = function(file_name)
   local extension = vim.fn.fnamemodify(file_name, ":e")
-  local icon, icon_color = require("nvim-web-devicons").get_icon_color(
-    file_name,
-    extension,
-    { default = true }
-  )
+  local icon, icon_color =
+    require("nvim-web-devicons").get_icon_color(file_name, extension, { default = true })
 
   return icon, icon_color
 end
@@ -170,8 +176,7 @@ Components.file_name_block = utils.insert(
 
 Components.file_type = {
   condition = function() return vim.bo.filetype ~= "" end,
-
-  utils.surround({ separators.fill.left, separators.fill.right }, "grey", {
+  utils.surround({ separators.fill.left, separators.fill.right }, "bright_bg", {
     provider = function() return vim.bo.filetype end,
     hl = { fg = "cyan", bold = true },
   }),
@@ -196,20 +201,12 @@ Components.file_format = {
 -- ------------------------------------------------------------------------
 
 Components.lsp_active = {
-  condition = function()
-    return conditions.lsp_attached() and vim.api.nvim_win_get_width(0) > 80
-  end,
+  condition = function() return conditions.lsp_attached() and vim.api.nvim_win_get_width(0) > 80 end,
   update = { "LspAttach", "LspDetach", "Colorscheme" },
-  utils.surround({ separators.fill.left, separators.fill.right }, "grey", {
+  utils.surround({ separators.fill.left, separators.fill.right }, "bright_bg", {
     provider = function()
       local names = {}
-      local clients
-      -- Requires neovim 0.10.0
-      if vim.lsp.get_clients then
-        clients = vim.lsp.get_clients({ bufnr = 0 })
-      else
-        clients = vim.lsp.get_active_clients({ bufnr = 0 })
-      end
+      local clients = vim.lsp.get_clients({ bufnr = 0 })
       for _, server in pairs(clients) do
         table.insert(names, server.name)
       end
@@ -228,39 +225,27 @@ Components.diagnostics = {
     hint_icon = icons.diagnostics.hint,
   },
   init = function(item)
-    item.errors =
-      #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.ERROR })
-    item.warnings =
-      #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.WARN })
-    item.hints =
-      #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.HINT })
-    item.info =
-      #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.INFO })
+    item.errors = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.ERROR })
+    item.warnings = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.WARN })
+    item.hints = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.HINT })
+    item.info = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.INFO })
   end,
   update = { "DiagnosticChanged", "BufEnter" },
   { provider = "![" },
   {
-    provider = function(item)
-      return item.errors > 0 and (item.error_icon .. item.errors .. " ")
-    end,
+    provider = function(item) return item.errors > 0 and (item.error_icon .. item.errors .. " ") end,
     hl = { fg = "diag_error" },
   },
   {
-    provider = function(item)
-      return item.warnings > 0 and (item.warn_icon .. item.warnings .. " ")
-    end,
+    provider = function(item) return item.warnings > 0 and (item.warn_icon .. item.warnings .. " ") end,
     hl = { fg = "diag_warn" },
   },
   {
-    provider = function(item)
-      return item.info > 0 and (item.info_icon .. item.info .. " ")
-    end,
+    provider = function(item) return item.info > 0 and (item.info_icon .. item.info .. " ") end,
     hl = { fg = "diag_info" },
   },
   {
-    provider = function(item)
-      return item.hints > 0 and (item.hint_icon .. item.hints)
-    end,
+    provider = function(item) return item.hints > 0 and (item.hint_icon .. item.hints) end,
     hl = { fg = "diag_hint" },
   },
   { provider = "]" },
@@ -270,47 +255,52 @@ Components.diagnostics = {
 -- | Git
 -- ------------------------------------------------------------------------
 Components.git = {
-  condition = conditions.is_git_repo,
+  condition = H.conditions.is_git_repo,
   init = function(item)
-    item.status_dict = vim.b.gitsigns_status_dict
-    item.has_changes = item.status_dict.added ~= 0
-      or item.status_dict.removed ~= 0
-      or item.status_dict.changed ~= 0
+    item.git_info = vim.b.minigit_summary
+    item.diff_info = vim.b.minidiff_summary
+    if item.git_info == nil or item.diff_info == nil then
+      item.has_changes = false
+    else
+      item.has_changes = item.diff_info.source_name == "git"
+        and (item.diff_info.add ~= 0 or item.diff_info.delete ~= 0 or item.diff_info.change ~= 0)
+    end
   end,
   hl = { fg = "orange" },
-  utils.surround({ separators.fill.left, separators.fill.right }, "grey", {
+  utils.surround({ separators.fill.left, separators.fill.right }, "bright_bg", {
     {
-      provider = function(item) return " " .. item.status_dict.head end,
+      provider = function(item) return " " .. (item.git_info.head_name or "") end,
       hl = { bold = true },
     },
     {
       condition = function(item) return item.has_changes end,
-      provider = "(",
-    },
-    {
-      provider = function(item)
-        local count = item.status_dict.added or 0
-        return count > 0 and ("+" .. count)
-      end,
-      hl = { fg = "git_add" },
-    },
-    {
-      provider = function(item)
-        local count = item.status_dict.removed or 0
-        return count > 0 and ("-" .. count)
-      end,
-      hl = { fg = "git_del" },
-    },
-    {
-      provider = function(item)
-        local count = item.status_dict.changed or 0
-        return count > 0 and ("~" .. count)
-      end,
-      hl = { fg = "git_change" },
-    },
-    {
-      condition = function(item) return item.has_changes end,
-      provider = ")",
+      {
+        provider = "(",
+      },
+      {
+        provider = function(item)
+          local count = item.diff_info.add or 0
+          return count > 0 and ("+" .. count)
+        end,
+        hl = { fg = "git_add" },
+      },
+      {
+        provider = function(item)
+          local count = item.diff_info.delete or 0
+          return count > 0 and ("-" .. count)
+        end,
+        hl = { fg = "git_del" },
+      },
+      {
+        provider = function(item)
+          local count = item.diff_info.change or 0
+          return count > 0 and ("~" .. count)
+        end,
+        hl = { fg = "git_change" },
+      },
+      {
+        provider = ")",
+      },
     },
   }),
 }
@@ -324,7 +314,7 @@ Components.ruler = utils.surround(
     separators.fill.left,
     separators.fill.right,
   },
-  "grey",
+  "bright_bg",
   {
     -- %l = current line number
     -- %L = number of lines in the buffer
@@ -339,9 +329,7 @@ Components.cwd = {
     local icon = (vim.fn.haslocaldir(0) == 1 and "l" or "g") .. " " .. " "
     local cwd = vim.fn.getcwd(0)
     cwd = vim.fn.fnamemodify(cwd, ":~")
-    if not conditions.width_percent_below(#cwd, 0.25, true) then
-      cwd = vim.fn.pathshorten(cwd)
-    end
+    if not conditions.width_percent_below(#cwd, 0.25, true) then cwd = vim.fn.pathshorten(cwd) end
     local trail = cwd:sub(-1) == "/" and "" or "/"
     return icon .. cwd .. trail
   end,
@@ -356,18 +344,12 @@ Components.search_count = {
   end,
   provider = function(item)
     local search = item.search
-    return string.format(
-      "[%d/%d]",
-      search.current,
-      math.min(search.total, search.maxcount)
-    )
+    return string.format("[%d/%d]", search.current, math.min(search.total, search.maxcount))
   end,
 }
 
 Components.marco_recording = {
-  condition = function()
-    return vim.fn.reg_recording() ~= "" and vim.o.cmdheight == 0
-  end,
+  condition = function() return vim.fn.reg_recording() ~= "" and vim.o.cmdheight == 0 end,
   provider = " ",
   hl = { fg = "orange", bold = true },
   utils.surround({ "[", "]" }, nil, {
@@ -435,9 +417,7 @@ Components.tabpage = {
     end
   end,
   {
-    provider = function(item)
-      return "%" .. item.tabnr .. "T " .. item.tabpage .. " "
-    end,
+    provider = function(item) return "%" .. item.tabnr .. "T " .. item.tabpage .. " " end,
   },
   Components.tabpage_file_name_block,
   { provider = " %T" },
@@ -500,10 +480,8 @@ Line.special_statusline = {
 }
 
 Line.terminal_statusline = {
-  condition = function()
-    return conditions.buffer_matches({ buftype = { "terminal" } })
-  end,
-  hl = { bg = "grey" },
+  condition = function() return conditions.buffer_matches({ buftype = { "terminal" } }) end,
+  hl = { bg = "bright_bg" },
   { condition = conditions.is_active, Components.vi_mode, Components.space },
   Components.terminal_name,
   Components.align,

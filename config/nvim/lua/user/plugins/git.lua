@@ -39,8 +39,13 @@ return {
       -- vim-fugitive.
       "tpope/vim-fugitive",
     },
-    cmd = { "Git" },
     opts = {},
+    config = function(_, opts)
+      local minigit = require("mini.git")
+      minigit.setup(opts)
+
+      vim.keymap.set("n", "<leader>gk", minigit.show_at_cursor)
+    end,
   },
 
   {
