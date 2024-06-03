@@ -113,7 +113,7 @@ vim.cmd.aunmenu({ "PopUp.-1-" })
 -- Only enable the cursor line in the current buffer.
 opt.cursorline = true -- Highlight the current line
 local group = vim.api.nvim_create_augroup("CursorLineControl", { clear = true })
-local set_cursorline = function(event, value, pattern)
+local function set_cursorline(event, value, pattern)
   vim.api.nvim_create_autocmd(event, {
     group = group,
     pattern = pattern,

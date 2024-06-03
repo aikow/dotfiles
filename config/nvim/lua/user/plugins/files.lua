@@ -59,7 +59,7 @@ return {
     init = function()
       -- Load neo-tree if nvim was passed a directory as a single argument.
       if vim.fn.argc() == 1 then
-        local stat = vim.loop.fs_stat(tostring(vim.fn.argv(0)))
+        local stat = vim.uv.fs_stat(tostring(vim.fn.argv(0)))
         if stat and stat.type == "directory" then require("neo-tree") end
       end
     end,
@@ -94,8 +94,7 @@ return {
           },
           ["gr"] = {
             function(state)
-              local filepath =
-                vim.fn.fnamemodify(state.tree:get_node().path, ":.")
+              local filepath = vim.fn.fnamemodify(state.tree:get_node().path, ":.")
               vim.fn.setreg('"', filepath)
               vim.notify("Copied: " .. filepath)
             end,
@@ -176,8 +175,8 @@ return {
               new_target_window = vim.api.nvim_get_current_win()
             end)
 
-            MiniFiles.set_target_window(new_target_window)
-            MiniFiles.go_in({})
+            files.set_target_window(new_target_window)
+            files.go_in({})
           end
         end
 
@@ -189,17 +188,15 @@ return {
       -- Show/hide dotfiles
       local show_dotfiles = true
       local filter_show = function() return true end
-      local filter_hide = function(fs_entry)
-        return not vim.startswith(fs_entry.name, ".")
-      end
+      local filter_hide = function(fs_entry) return not vim.startswith(fs_entry.name, ".") end
       local toggle_dotfiles = function()
         show_dotfiles = not show_dotfiles
         local new_filter = show_dotfiles and filter_show or filter_hide
-        MiniFiles.refresh({ content = { filter = new_filter } })
+        files.refresh({ content = { filter = new_filter } })
       end
       local files_set_cwd = function()
         -- Works only if cursor is on the valid file system entry
-        local cur_entry_path = MiniFiles.get_fs_entry().path
+        local cur_entry_path = files.get_fs_entry().path
         local cur_directory = vim.fs.dirname(cur_entry_path)
         vim.fn.chdir(cur_directory)
       end
@@ -207,9 +204,7 @@ return {
       -- Register renaming and moving files with any attached LSP servers.
       vim.api.nvim_create_autocmd("User", {
         pattern = { "MiniFilesActionRename", "MiniFilesActionMove" },
-        callback = function(args)
-          require("user.lsp").lsp_did_rename(args.data.from, args.data.to)
-        end,
+        callback = function(args) require("user.lsp").lsp_did_rename(args.data.from, args.data.to) end,
       })
 
       -- Create extra keymaps.
@@ -219,11 +214,7 @@ return {
         callback = function(params)
           local buf_id = params.data.buf_id
 
-          map_split(
-            buf_id,
-            "<C-x>",
-            { split = "belowright", horizontal = true }
-          )
+          map_split(buf_id, "<C-x>", { split = "belowright", horizontal = true })
           map_split(buf_id, "<C-v>", { split = "belowright", vertical = true })
 
           vim.keymap.set("n", "g.", toggle_dotfiles, {

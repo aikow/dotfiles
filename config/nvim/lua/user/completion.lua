@@ -1,6 +1,6 @@
 local M = {}
 
-M.complete_matching_line = function()
+function M.complete_matching_line()
   local cur_line = vim.trim(vim.api.nvim_get_current_line())
 
   if not cur_line then return end
@@ -9,9 +9,7 @@ M.complete_matching_line = function()
 
   local matching_lines = {}
   for _, v in ipairs(all_lines) do
-    if string.find(v, cur_line, 1, true) then
-      table.insert(matching_lines, v)
-    end
+    if string.find(v, cur_line, 1, true) then table.insert(matching_lines, v) end
   end
 
   vim.fn.complete(1, matching_lines)

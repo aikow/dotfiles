@@ -56,9 +56,7 @@ local x = {
   -- followed by the trigger.
   -- @param trig The trigger used to expand the snippet.
   b = function(trig)
-    return function(line_to_cursor)
-      return string.match(line_to_cursor, "^%s*" .. trig .. "$")
-    end
+    return function(line_to_cursor) return string.match(line_to_cursor, "^%s*" .. trig .. "$") end
   end,
 
   --- Join multiple conditions into a single condition.
@@ -80,12 +78,12 @@ local x = {
 -- ------------------------
 
 -- return the capture group at index.
-local cap = function(index)
+local function cap(index)
   return f(function(_, snip) return snip.captures[index] end)
 end
 
 -- Convert content of node at index to snake case.
-local to_snake = function(index)
+local function to_snake(index)
   return f(function(args)
     s = args[1][1]
     s = s:gsub("ü", "ue")
@@ -102,7 +100,7 @@ local to_snake = function(index)
 end
 
 -- Dynamically create a bunch of snippet nodes parsed from a latex table string.
-local table_node = function(args)
+local function table_node(args)
   local tabs = {}
   local table = args[1][1]:gsub("%s", ""):gsub("|", "")
   local count = table:len()
@@ -149,10 +147,8 @@ local snips = {}
 -- @param nodes string or table: the expansion or a table of nodes.
 -- @param opts table:
 --  prio int:
-local snip = function(mode, trig, desc, nodes, opts)
-  if not mode:gmatch("([rwib])([mM]?)(A?)(S?)") then
-    error("unknown mode: " .. mode, 2)
-  end
+local function snip(mode, trig, desc, nodes, opts)
+  if not mode:gmatch("([rwib])([mM]?)(A?)(S?)") then error("unknown mode: " .. mode, 2) end
 
   -- Parse mode string
   local word_trig = true
@@ -394,13 +390,7 @@ snip(
     { item = i(0) }
   )
 )
-snip(
-  "bMA",
-  "-",
-  "new item inside enumeration",
-  [[\item ]],
-  { env = "enumerate" }
-)
+snip("bMA", "-", "new item inside enumeration", [[\item ]], { env = "enumerate" })
 snip(
   "bM",
   "item",
@@ -493,13 +483,7 @@ snip("wMS", "em", "emphasis", { t([[\emph{]]), i(1), t("}") })
 -- |   Enter Math mode   |
 -- -----------------------
 snip("wMA", "mk", "inline math", { t("$"), i(1), t("$") }, { prio = 100 })
-snip(
-  "rMAS",
-  "([%w])mk",
-  "inline math surround letter",
-  { "$", cap(1), "$" },
-  { prio = 200 }
-)
+snip("rMAS", "([%w])mk", "inline math surround letter", { "$", cap(1), "$" }, { prio = 200 })
 snip(
   "wMA",
   "dm",
@@ -580,18 +564,8 @@ snip(
 -- ----------------
 -- |   Matrices   |
 -- ----------------
-snip(
-  "iA",
-  "pmat",
-  "round matrix",
-  { t([[\begin{pmatrix} ]]), i(1), t([[ \end{pmatrix}]]) }
-)
-snip(
-  "iA",
-  "bmat",
-  "square matrix",
-  { t([[\begin{bmatrix} ]]), i(1), t([[ \end{bmatrix}]]) }
-)
+snip("iA", "pmat", "round matrix", { t([[\begin{pmatrix} ]]), i(1), t([[ \end{pmatrix}]]) })
+snip("iA", "bmat", "square matrix", { t([[\begin{bmatrix} ]]), i(1), t([[ \end{bmatrix}]]) })
 
 -- ----------------------------
 -- |   Sub and Superscripts   |
@@ -619,51 +593,22 @@ snip("imA", "xn1", "x subscript n plus one", "x_{n+1}")
 
 -- Auto subscript two numbers
 snip("rmA", "(%a)(%d)", "auto subscript number", { cap(1), t("_"), cap(2) })
-snip(
-  "rmA",
-  "(%a_)(%d%d)",
-  "auto subscript two numbers",
-  { cap(1), t("{"), cap(2), t("}") }
-)
+snip("rmA", "(%a_)(%d%d)", "auto subscript two numbers", { cap(1), t("{"), cap(2), t("}") })
 
 -- Dot
 snip("wmA", "dot", "dot variable", { "\\dot{", i(1), "}" }, { prio = 100 })
-snip(
-  "rmA",
-  "(%a)dot",
-  "dot previous variable",
-  { "\\dot{", cap(1), "}" },
-  { prio = 1000 }
-)
+snip("rmA", "(%a)dot", "dot previous variable", { "\\dot{", cap(1), "}" }, { prio = 1000 })
 
 -- Ddot
 snip("wmA", "ddt", "ddot variable", { "\\ddot{", i(1), "}" }, { prio = 100 })
-snip(
-  "rmA",
-  "(%a)ddt",
-  "ddot previous variable",
-  { "\\ddot{", cap(1), "}" },
-  { prio = 1000 }
-)
+snip("rmA", "(%a)ddt", "ddot previous variable", { "\\ddot{", cap(1), "}" }, { prio = 1000 })
 
 -- Math calligraphy
 snip("wmA", "cal", "cal variable", { "\\mathcal{", i(1), "}" }, { prio = 100 })
-snip(
-  "rmA",
-  "(%a)cal",
-  "cal previous variable",
-  { "\\mathcal{", cap(1), "}" },
-  { prio = 1000 }
-)
+snip("rmA", "(%a)cal", "cal previous variable", { "\\mathcal{", cap(1), "}" }, { prio = 1000 })
 
 -- Math fraktal
-snip(
-  "wmA",
-  "frak",
-  "fraktal variable",
-  { "\\mathfrak{", i(1), "}" },
-  { prio = 100 }
-)
+snip("wmA", "frak", "fraktal variable", { "\\mathfrak{", i(1), "}" }, { prio = 100 })
 snip(
   "rmA",
   "(%a)frak",
@@ -674,48 +619,18 @@ snip(
 
 -- Bar
 snip("wmA", "bar", "bar variable", { "\\bar{", i(1), "}" }, { prio = 100 })
-snip(
-  "rmA",
-  "(%a)bar",
-  "bar previous variable",
-  { "\\bar{", cap(1), "}" },
-  { prio = 1000 }
-)
+snip("rmA", "(%a)bar", "bar previous variable", { "\\bar{", cap(1), "}" }, { prio = 1000 })
 
 -- Hat
 snip("wmA", "hat", "hat variable", { "\\hat{", i(1), "}" }, { prio = 100 })
-snip(
-  "rmA",
-  "(%a)hat",
-  "hat previous variable",
-  { "\\hat{", cap(1), "}" },
-  { prio = 1000 }
-)
+snip("rmA", "(%a)hat", "hat previous variable", { "\\hat{", cap(1), "}" }, { prio = 1000 })
 
 -- Tilde
-snip(
-  "wmA",
-  "tld",
-  "tilde variable",
-  { "\\widetilde{", i(1), "}" },
-  { prio = 100 }
-)
-snip(
-  "rmA",
-  "(%a)tld",
-  "tilde previous variable",
-  { "\\widetilde{", cap(1), "}" },
-  { prio = 1000 }
-)
+snip("wmA", "tld", "tilde variable", { "\\widetilde{", i(1), "}" }, { prio = 100 })
+snip("rmA", "(%a)tld", "tilde previous variable", { "\\widetilde{", cap(1), "}" }, { prio = 1000 })
 
 -- Wide tilde
-snip(
-  "wmA",
-  "wld",
-  "wide tilde variable",
-  { "\\widetilde{", i(1), "}" },
-  { prio = 100 }
-)
+snip("wmA", "wld", "wide tilde variable", { "\\widetilde{", i(1), "}" }, { prio = 100 })
 snip(
   "rmA",
   "(%a)wld",
@@ -726,13 +641,7 @@ snip(
 
 -- Vector
 snip("wmA", "vec", "vector", { "\\vec{", i(1), "}" }, { prio = 100 })
-snip(
-  "rmA",
-  "(%a)vec",
-  "vector previous",
-  { "\\vec{", cap(1), "}" },
-  { prio = 1000 }
-)
+snip("rmA", "(%a)vec", "vector previous", { "\\vec{", cap(1), "}" }, { prio = 1000 })
 
 -- Column vector
 snip(
@@ -770,12 +679,7 @@ snip(
   })
 )
 
-snip(
-  "wm",
-  "lim",
-  "limit",
-  fmta([[\lim_{<1> \to <2>}]], { i(1, "n"), i(2, "\\infty") })
-)
+snip("wm", "lim", "limit", fmta([[\lim_{<1> \to <2>}]], { i(1, "n"), i(2, "\\infty") }))
 snip(
   "wm",
   "limsup",
@@ -839,12 +743,7 @@ snip(
 )
 snip("imA", "SI", "SI unit", { "\\SI{", i(1), "}{", i(2), "}" })
 snip("wm", "set", "set definition", { "\\{ ", i(1), " \\} " })
-snip(
-  "wm",
-  "bset",
-  "big set definition",
-  { "\\left\\{ ", i(1), " \\mid ", i(2), " \\right\\} " }
-)
+snip("wm", "bset", "big set definition", { "\\left\\{ ", i(1), " \\mid ", i(2), " \\right\\} " })
 snip(
   "wM",
   "bigset",
@@ -862,40 +761,15 @@ snip(
 -- -------------------
 -- |   Parenthesis   |
 -- -------------------
-snip(
-  "imA",
-  "ceil",
-  "ceiling",
-  { t([[\left\lceil ]]), i(1), t([[ \right\rceil]]) }
-)
-snip(
-  "imA",
-  "floor",
-  "floor",
-  { t([[\left\lfloor ]]), i(1), t([[ \right\rfloor]]) }
-)
+snip("imA", "ceil", "ceiling", { t([[\left\lceil ]]), i(1), t([[ \right\rceil]]) })
+snip("imA", "floor", "floor", { t([[\left\lfloor ]]), i(1), t([[ \right\rfloor]]) })
 snip("imA", "()", "parenthesis", { t([[\left(]]), i(1), t([[\right)]]) })
 snip("mi", "lr", "parenthesis", { t([[\left(]]), i(1), t([[\right)]]) })
 snip("imA", "lr(", "parenthesis", { t([[\left(]]), i(1), t([[\right)]]) })
 snip("imA", "lr|", "parenthesis norm", { t([[\left|]]), i(1), t([[\right|]]) })
-snip(
-  "imA",
-  "lrb",
-  "parenthesis curly braces",
-  { t([[\left{]]), i(1), t([[\right}]]) }
-)
-snip(
-  "imA",
-  "lr[",
-  "parenthesis square brackets",
-  { t([[\left[]]), i(1), t([=[\right]]=]) }
-)
-snip(
-  "imA",
-  "lra",
-  "parenthesis angle brackets",
-  { t([[\left\lange]]), i(1), t([[\right\rangle]]) }
-)
+snip("imA", "lrb", "parenthesis curly braces", { t([[\left{]]), i(1), t([[\right}]]) })
+snip("imA", "lr[", "parenthesis square brackets", { t([[\left[]]), i(1), t([=[\right]]=]) })
+snip("imA", "lra", "parenthesis angle brackets", { t([[\left\lange]]), i(1), t([[\right\rangle]]) })
 
 -- ---------------
 -- |   Symbols   |
@@ -1010,7 +884,7 @@ snip("imAS", "KK", "double stroke K", [[\mathbb{K}]])
 snip("wmAS", "pi", "pi", [[\pi]], { prio = 100 })
 snip("wmAS", "zeta", "zeta", [[\zeta]], { prio = 100 })
 
-local greek = function(symbol, name, latex)
+local function greek(symbol, name, latex)
   snip("imAS", "@" .. symbol, name, latex)
   snip("iMAS", "@" .. symbol, name, "$" .. latex .. "$")
 end

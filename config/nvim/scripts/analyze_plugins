@@ -1,0 +1,19 @@
+#!/usr/bin/env nu
+
+ls ~/.local/share/nvim/lazy
+| where type == dir
+| par-each { |it| 
+    let name = ($it.name | path basename)
+    let data = (tokei $it.name --output json | from json)
+
+    {
+      name: $name
+      total: $data.Total.code
+      total_comments: $data.Total.comments
+      lua: $data.Lua?.code
+      lua_comments: $data.Lua?.comments
+      vim: $data.'Vim script'?.code
+      vim_comments: $data.'Vim script'?.comments
+    }
+  }
+| sort-by total

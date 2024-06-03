@@ -30,7 +30,7 @@ M.default_plugins = {
   "ftplugin",
 }
 
-M.disable_plugins = function()
+function M.disable_plugins()
   for _, plugin in pairs(M.default_plugins) do
     vim.g["loaded_" .. plugin] = 1
   end
@@ -44,7 +44,7 @@ local default_providers = {
   "ruby",
 }
 
-M.disable_providers = function()
+function M.disable_providers()
   for _, provider in ipairs(default_providers) do
     vim.g["loaded_" .. provider .. "_provider"] = 0
   end

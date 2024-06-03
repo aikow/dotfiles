@@ -2,7 +2,7 @@ local M = {}
 
 -- Telescope picker is too slow, so just have a simple input textbox ask
 -- for the right man page.
-local man_pages = function()
+local function man_pages()
   vim.ui.input({ prompt = "Man: " }, function(input)
     vim.cmd.Man({ input })
     vim.cmd.wincmd("o")
@@ -13,7 +13,7 @@ end
 -- execute wincmd o after selecting a help tag. Telescope does some weird
 -- parsing of the cmdline and running multiple commands in a row doesn't
 -- work.
-local help_tags = function()
+local function help_tags()
   -- Load all plugins first
   local lazy = require("lazy")
   local plugins = {}
@@ -35,14 +35,14 @@ local help_tags = function()
 end
 
 -- Small helper function to create a new section.
-local section = function(section, name, action)
+local function section(section, name, action)
   return { section = section, name = name, action = action }
 end
 
 ---Open the given directory in a floating window with neotree.
-local neotree = function(dir) return "Neotree position=float " .. dir end
+local function neotree(dir) return "Neotree position=float " .. dir end
 
-M.opts = function()
+function M.opts()
   local logo = table.concat({
     "                                                  ",
     "███╗   ██╗███████╗ ██████╗ ██╗   ██╗██╗███╗   ███╗",
@@ -55,8 +55,7 @@ M.opts = function()
   }, "\n")
 
   local ver = vim.version()
-  local version_str =
-    string.format("v%s.%s.%s", ver.major, ver.minor, ver.patch)
+  local version_str = string.format("v%s.%s.%s", ver.major, ver.minor, ver.patch)
   if ver.prerelease then version_str = version_str .. "-" .. ver.prerelease end
   if ver.build then version_str = version_str .. "+" .. ver.build end
   local footer = version_str
@@ -102,7 +101,7 @@ M.opts = function()
   return config
 end
 
-M.config = function(_, opts)
+function M.config(_, opts)
   if vim.o.filetype == "lazy" then
     vim.cmd.close()
     vim.api.nvim_create_autocmd("User", {

@@ -5,7 +5,7 @@
 ---@return function The iterator function.
 ---@return table The iterator list state.
 ---@return integer The iterator current position.
-_G.rpairs = function(ls)
+function _G.rpairs(ls)
   if type(ls) ~= "table" then
     error(string.format("expected list, got %s instead", type(ls)))
   elseif not vim.islist(ls) then
@@ -22,8 +22,8 @@ end
 
 ---Pretty print an object.
 ---@param o any The object to print.
-_G.pp = function(o) print(vim.inspect(o)) end
+function _G.pp(o) print(vim.inspect(o)) end
 
 ---Pretty print an object in a single line.
 ---@param o any The object to print.
-_G.ppo = function(o) print(string.gsub(vim.inspect(o), "\n", " ")) end
+function _G.ppo(o) print(string.gsub(vim.inspect(o), "\n", " ")) end

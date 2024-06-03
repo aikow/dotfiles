@@ -9,7 +9,7 @@ local fmt = require("luasnip.extras.fmt").fmt
 -- ------------------------
 -- |   Helper functions   |
 -- ------------------------
-local import_name = function(index)
+local function import_name(index)
   return f(function(args)
     local parts = vim.split(args[1][1], ".", { plain = true, trimempty = true })
     local name = parts[#parts] or ""

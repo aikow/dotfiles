@@ -3,7 +3,7 @@ local M = {}
 M.lsp_timeout = 10000
 
 ---Register a callback to run when connecting to a new LSP client.
----@param on_attach fun(client: lsp.Client, buffer: integer)
+---@param on_attach fun(client: vim.lsp.Client, buffer: integer)
 function M.on_attach(on_attach)
   vim.api.nvim_create_autocmd("LspAttach", {
     ---@param params NvimAutocmdCallbackParams
@@ -36,9 +36,7 @@ end
 ---@return vim.regex
 local function get_regex(pattern)
   local regex = vim.fn.glob2regpat(pattern.glob)
-  if pattern.options and pattern.options.ignoreCase then
-    regex = "\\c" .. regex
-  end
+  if pattern.options and pattern.options.ignoreCase then regex = "\\c" .. regex end
 
   ---@diagnostic disable-next-line: return-type-mismatch
   return vim.regex(regex)
@@ -74,23 +72,20 @@ end
 ---@param to_path string
 function M.lsp_will_rename(from_path, to_path)
   for _, client in ipairs(vim.lsp.get_clients()) do
-    local will_rename = get_path(
-      client,
-      { "server_capabilities", "workspace", "fileOperations", "willRename" }
-    )
+    local will_rename =
+      get_path(client, { "server_capabilities", "workspace", "fileOperations", "willRename" })
     if will_rename == nil then return end
 
     local filters = will_rename.filters or {}
     if matches_filters(filters, from_path) then
-      local success, resp =
-        pcall(client.request_sync, "workspace/willRenameFiles", {
-          files = {
-            {
-              oldUri = vim.uri_from_fname(from_path),
-              newUri = vim.uri_from_fname(to_path),
-            },
+      local success, resp = pcall(client.request_sync, "workspace/willRenameFiles", {
+        files = {
+          {
+            oldUri = vim.uri_from_fname(from_path),
+            newUri = vim.uri_from_fname(to_path),
           },
-        }, M.lsp_timeout)
+        },
+      }, M.lsp_timeout)
 
       if success and resp and resp.result ~= nil then
         vim.lsp.util.apply_workspace_edit(resp.result, client.offset_encoding)
@@ -101,10 +96,8 @@ end
 
 function M.lsp_did_rename(from_path, to_path)
   for _, client in pairs(vim.lsp.get_clients()) do
-    local did_rename = get_path(
-      client,
-      { "server_capabilities", "workspace", "fileOperations", "didRename" }
-    )
+    local did_rename =
+      get_path(client, { "server_capabilities", "workspace", "fileOperations", "didRename" })
     if did_rename == nil then return end
 
     local filters = did_rename.filters or {}

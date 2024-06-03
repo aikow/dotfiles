@@ -4,11 +4,8 @@ local i = ls.insert_node
 local f = ls.function_node
 local fmt = require("luasnip.extras.fmt").fmt
 
-local replace = function(index, char)
-  return f(
-    function(arg) return string.rep(char, string.len(arg[1][1])) end,
-    { index }
-  )
+local function replace(index, char)
+  return f(function(arg) return string.rep(char, string.len(arg[1][1])) end, { index })
 end
 
 ---@alias Comments { start: string, mid: string, stop: string, indent: string }
@@ -16,7 +13,7 @@ end
 ---Parse vim 'comments' option to extract line comment format.
 ---See the help for the exact syntax.
 ---@return {single: Comments[], triple: Comments[], other: Comments[]}
-local parse_comments = function()
+local function parse_comments()
   local iter = vim.gsplit(vim.o.comments, ",", {
     plain = true,
     trimempty = true,
@@ -35,46 +32,30 @@ local parse_comments = function()
 
     if #flags == 0 then
       -- Parse the single line comment string.
-      table.insert(
-        comments.other,
-        1,
-        { start = text, mid = text, stop = text, indent = "" }
-      )
+      table.insert(comments.other, 1, { start = text, mid = text, stop = text, indent = "" })
     elseif flags:match("s") and not flags:match("O") then
       -- Parse 3 part comment string, but ignore those with the O flag
       local ctriple = {}
       local indent = ""
 
-      if string.match(flags:sub(-1), "%d+") then
-        indent = string.rep(" ", flags:sub(-1))
-      end
+      if string.match(flags:sub(-1), "%d+") then indent = string.rep(" ", flags:sub(-1)) end
       ctriple.start = text
 
       cs = iter()
       flags, text = split(cs)
-      assert(
-        vim.startswith(flags, "m"),
-        "Expected middle comment format of triple"
-      )
+      assert(vim.startswith(flags, "m"), "Expected middle comment format of triple")
       ctriple.mid = text
 
       cs = iter()
       flags, text = split(cs)
-      assert(
-        vim.startswith(flags, "e"),
-        "Expected end comment format of triple"
-      )
+      assert(vim.startswith(flags, "e"), "Expected end comment format of triple")
       ctriple.stop = text
       ctriple.indent = indent
 
       table.insert(comments.triple, 1, ctriple)
     elseif flags:match("b") then
       if #text == 1 then
-        table.insert(
-          comments.single,
-          1,
-          { start = text, mid = text, stop = text, indent = "" }
-        )
+        table.insert(comments.single, 1, { start = text, mid = text, stop = text, indent = "" })
       end
     end
   end
@@ -84,7 +65,7 @@ end
 
 ---Use the parsed comment's format and return a triple.
 ---@return Comments
-local comment_format = function()
+local function comment_format()
   if vim.o.commentstring:match("%%s$") then
     -- Remove last two characters
     local cf
@@ -103,7 +84,7 @@ end
 ---Creates a function node for luasnip.
 ---@param part "start"|"mid"|"stop"
 ---@return function
-local comment = function(part)
+local function comment(part)
   return f(function()
     if vim.o.filetype == "" then return "" end
 
@@ -126,7 +107,7 @@ end
 ---@param padding integer
 ---@param part "start"|"mid"|"stop"
 ---@return function
-local fill = function(char, padding, part)
+local function fill(char, padding, part)
   return f(function()
     local clen = string.len(comment_format()[part])
     return string.rep(char, vim.bo.textwidth - padding - clen)
@@ -140,7 +121,7 @@ end
 ---@param part "start"|"mid"|"stop"
 ---@param side "left"|"right"
 ---@return function
-local center = function(index, char, padding, part, side)
+local function center(index, char, padding, part, side)
   return f(function(arg)
     local cf = comment_format()
     local clen

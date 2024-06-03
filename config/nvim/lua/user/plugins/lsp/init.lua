@@ -5,7 +5,7 @@ return {
     dependencies = {
       "mason.nvim",
       "williamboman/mason-lspconfig.nvim",
-      { "folke/neodev.nvim", opts = {} },
+      { "folke/lazydev.nvim", opts = {} },
       "cmp-nvim-lsp",
     },
     event = { "BufReadPre" },

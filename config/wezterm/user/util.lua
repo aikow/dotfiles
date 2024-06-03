@@ -4,7 +4,7 @@ local M = {}
 ---@param cmd string The command to run
 ---@param opts {trim: "none" | "all" | "right" | "left" | nil, normalize_line_endings: boolean?}?
 ---@return string
-M.capture = function(cmd, opts)
+function M.capture(cmd, opts)
   opts = opts or {}
   opts.trim = opts.trim == nil and "none" or opts.trim
   opts.normalize_line_endings = opts.normalize_line_endings == nil and true

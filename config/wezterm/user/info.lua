@@ -6,7 +6,7 @@ local M = {}
 
 ---Returns the current OS name.
 ---@return os
-M.os = function()
+function M.os()
   local uname = util.capture("uname", { trim = "all" }):lower()
   if uname == "darwin" then
     return "darwin"

@@ -2,14 +2,14 @@ local command = vim.api.nvim_create_user_command
 
 ---Get the row index of the cursor
 ---@return integer
-local curline = function()
+local function curline()
   ---@diagnostic disable-next-line: return-type-mismatch
   return vim.fn.curline(".")
 end
 
 ---Get the column index of the cursor
 ---@return integer
-local curcol = function()
+local function curcol()
   ---@diagnostic disable-next-line: return-type-mismatch
   return vim.fn.col(".")
 end
@@ -94,11 +94,7 @@ command(
   "Start",
   ---@param params NvimCommandCallbackParams
   function(params)
-    local mods = vim.tbl_extend(
-      "keep",
-      params.smods,
-      { keepalt = true, noswapfile = true }
-    )
+    local mods = vim.tbl_extend("keep", params.smods, { keepalt = true, noswapfile = true })
     vim.cmd.new({ mods = mods })
     require("mini.starter").open()
   end,
@@ -123,7 +119,6 @@ command(
   ---@param params NvimCommandCallbackParams
   function(params)
     local len = params.args ~= "" and params.args or 8
-    print(len)
     local chars = "abcdefghijklmnopqrstuvwxyz0123456789"
 
     -- 65 for uppercase

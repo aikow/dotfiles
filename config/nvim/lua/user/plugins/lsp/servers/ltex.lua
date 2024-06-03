@@ -1,6 +1,6 @@
 local M = {}
 
-local on_init = function(client)
+local function on_init(client)
   local spellpath = vim.fn.expand("~/.dotfiles/config/nvim/spell/en.utf-8.add")
   local spellfile = io.open(spellpath, "r")
   if not spellfile then return end
@@ -16,10 +16,7 @@ local on_init = function(client)
   -- Setup an auto-command that detects when a word was added to the spell
   -- file to reload the language server.
   vim.api.nvim_create_autocmd("FileChangedShellPost", {
-    group = vim.api.nvim_create_augroup(
-      "LTeX update dictionary",
-      { clear = true }
-    ),
+    group = vim.api.nvim_create_augroup("LTeX update dictionary", { clear = true }),
     pattern = spellpath,
     callback = function() print("Updated spell file") end,
   })

@@ -5,7 +5,6 @@ return {
     "nvim-treesitter/nvim-treesitter",
     dependencies = {
       "nvim-treesitter/nvim-treesitter-textobjects",
-      "nvim-treesitter/nvim-treesitter-refactor",
       "nvim-treesitter/nvim-treesitter-context",
     },
     build = ":TSUpdate",
@@ -85,14 +84,6 @@ return {
           },
           swap_previous = {
             ["[a"] = "@parameter.inner",
-          },
-        },
-      },
-      refactor = {
-        smart_rename = {
-          enable = true,
-          keymaps = {
-            smart_rename = "<leader>rs",
           },
         },
       },

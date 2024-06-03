@@ -97,7 +97,7 @@ Components.vi_mode = utils.surround(
 -- | Filename
 -- ------------------------------------------------------------------------
 
-H.file_name = function(filename)
+function H.file_name(filename)
   filename = vim.fn.fnamemodify(filename, ":.")
   if filename == "" then return "[No Name]" end
   local start = string.find(filename, "://")
@@ -112,7 +112,7 @@ H.file_name = function(filename)
   return filename
 end
 
-H.file_icon = function(file_name)
+function H.file_icon(file_name)
   local extension = vim.fn.fnamemodify(file_name, ":e")
   local icon, icon_color =
     require("nvim-web-devicons").get_icon_color(file_name, extension, { default = true })
@@ -517,7 +517,7 @@ Line.tabline = {
 -- | Colors
 -- ------------------------------------------------------------------------
 
-H.init_colors = function()
+function H.init_colors()
   return {
     bright_bg = utils.get_highlight("Folded").bg,
     bright_fg = utils.get_highlight("Folded").fg,
@@ -545,7 +545,7 @@ end
 
 local M = {}
 
-M.config = function()
+function M.config()
   -- Setup an autocmd to get the colors from highlight groups for non base.nvim
   -- color schemes.
   vim.api.nvim_create_autocmd("ColorschemePre", {

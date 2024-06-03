@@ -11,7 +11,7 @@ local M = {}
 ---@param opts table The table has the following options
 ---filetype string filetype of the treesitter parser.
 ---capture string name of the capture group.
-M.iter_query = function(bufnr, query, callback, opts)
+function M.iter_query(bufnr, query, callback, opts)
   -- Default to the current buffer.
   bufnr = (bufnr > 0) and bufnr or vim.api.nvim_get_current_buf()
 

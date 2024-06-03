@@ -3,7 +3,7 @@ local M = {}
 ---Run the given function when an LSP server attaches to a buffer, using the
 ---builtin LspAttach autocommand.
 ---@param fn fun(client, bufnr: integer)
-local on_attach = function(fn)
+local function on_attach(fn)
   vim.api.nvim_create_autocmd("LspAttach", {
     ---@param params NvimAutocmdCallbackParams
     callback = function(params)
@@ -15,19 +15,17 @@ local on_attach = function(fn)
 end
 
 ---Override some options from neovim's builtin LSP handlers.
-local setup_lsp_handlers = function()
+local function setup_lsp_handlers()
   -- Pretty borders for signature help and hover.
-  vim.lsp.handlers["textDocument/hover"] =
-    vim.lsp.with(vim.lsp.handlers.hover, {
-      border = "rounded",
-    })
+  -- vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
+  --   border = "rounded",
+  -- })
 
-  vim.lsp.handlers["textDocument/signatureHelp"] =
-    vim.lsp.with(vim.lsp.handlers.signature_help, {
-      border = "rounded",
-      focusable = false,
-      relative = "cursor",
-    })
+  -- vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, {
+  --   border = "rounded",
+  --   focusable = false,
+  --   relative = "cursor",
+  -- })
 
   -- Suppress error messages from lang servers.
   ---@diagnostic disable-next-line: duplicate-set-field
@@ -43,15 +41,14 @@ end
 
 ---Setup a single server's configuration using nvim-lspconfig.
 ---@param server string
-local setup_server = function(server)
+local function setup_server(server)
   -- Check if a module to configure the server exists.
   local server_mod_name = "user.plugins.lsp.servers." .. server
   local ok, server_mod = pcall(require, server_mod_name)
   local server_opts = ok and server_mod.opts or {}
 
-  server_opts.capabilities = require("cmp_nvim_lsp").default_capabilities(
-    vim.lsp.protocol.make_client_capabilities()
-  )
+  -- server_opts.capabilities =
+  --   require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
 
   -- If the server contains an `override_setup` method which returns true,
   -- don't continue setting up the server afterwards.
@@ -66,7 +63,7 @@ end
 ---Setup servers via mason-lspconfig. This means Mason will automatically try to
 ---install any missing servers.
 ---@param mason_servers string[]
-local setup_mason_servers = function(mason_servers)
+local function setup_mason_servers(mason_servers)
   local mason_lspconfig = require("mason-lspconfig")
   mason_lspconfig.setup({ ensure_installed = vim.tbl_values(mason_servers) })
 
@@ -88,19 +85,19 @@ end
 ---Setup native servers using lspconfig directly. This is useful for servers
 ---that aren't supposed to be managed by Mason.
 ---@param native_servers string[]
-local setup_native_servers = function(native_servers)
+local function setup_native_servers(native_servers)
   for _, server in ipairs(native_servers) do
     setup_server(server)
   end
 end
 
-M.setup = function(_, opts)
+function M.setup(_, opts)
   -- setup keymaps
   on_attach(
-    function(client, buffer)
-      require("user.plugins.lsp.mappings").on_attach(client, buffer)
-    end
+    function(client, buffer) require("user.plugins.lsp.mappings").on_attach(client, buffer) end
   )
+
+  on_attach(function() vim.opt_local.omnifunc = "v:lua.MiniCompletion.completefunc_lsp" end)
 
   -- diagnostics
   for name, icon in pairs(require("user.ui.icons").diagnostics) do
