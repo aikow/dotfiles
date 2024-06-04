@@ -26,17 +26,6 @@ local function setup_lsp_handlers()
     focusable = false,
     relative = "cursor",
   })
-
-  -- -- Suppress error messages from lang servers.
-  -- ---@diagnostic disable-next-line: duplicate-set-field
-  -- vim.notify = function(msg, log_level)
-  --   if msg:match("exit code") then return end
-  --   if log_level == vim.log.levels.ERROR then
-  --     vim.api.nvim_err_writeln(msg)
-  --   else
-  --     vim.api.nvim_echo({ { msg } }, true, {})
-  --   end
-  -- end
 end
 
 ---Setup a single server's configuration using nvim-lspconfig.
@@ -51,13 +40,13 @@ local function setup_server(server)
   -- Check if a module to configure the server exists.
   local server_mod_name = "user.plugins.lsp.servers." .. server_name
   local ok, server_mod = pcall(require, server_mod_name)
-  local server_opts = ok and server_mod.opts or {}
+  local server_opts = ok and server_mod.opts or server.opts or {}
 
   server_opts.capabilities =
     require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
 
-  -- If the server contains an `override_setup` method which returns true,
-  -- don't continue setting up the server afterwards.
+  -- If the server contains an `override_setup` method which returns true, don't continue setting up
+  -- the server afterwards.
   if server_opts.override_setup then
     if server_opts.override_setup() then return end
   end
@@ -66,8 +55,8 @@ local function setup_server(server)
   require("lspconfig")[server_name].setup(server_opts)
 end
 
----Setup servers via mason-lspconfig. This means Mason will automatically try to
----install any missing servers.
+---Setup servers via mason-lspconfig. This means Mason will automatically try to install any missing
+---servers.
 ---@param mason_servers (string | table)[]
 local function setup_mason_servers(mason_servers)
   local mason_lspconfig = require("mason-lspconfig")
@@ -90,8 +79,8 @@ local function setup_mason_servers(mason_servers)
   local handlers = {}
   for _, server in ipairs(all_mason_servers) do
     if server.setup == "mason" then
-      -- Setup the server using mason.
-      handlers[server] = function() setup_server(server) end
+      -- Setup the server using the handlers from mason-lspconfig.
+      handlers[server[1]] = function() setup_server(server) end
     elseif server.setup == "lspconfig" then
       -- Setup the server directly using lspconfig.
       setup_server(server)
