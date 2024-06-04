@@ -31,9 +31,6 @@ return {
       -- Convert Neorg files to other formats like markdown.
       ["core.export"] = {},
 
-      -- Enable the Telescope integration.
-      ["core.integrations.telescope"] = {},
-
       -- Easily continue a Neorg item on the next line.
       ["core.itero"] = {},
 

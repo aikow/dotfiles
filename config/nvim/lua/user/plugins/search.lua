@@ -114,18 +114,4 @@ return {
       telescope.load_extension("luasnip")
     end,
   },
-
-  {
-    "ibhagwan/fzf-lua",
-    dependencies = { "nvim-tree/nvim-web-devicons" },
-    cmd = "FzfLua",
-    keys = {
-      { "<leader>zz", "<cmd>FzfLua<CR>" },
-      { "<leader>zo", "<cmd>FzfLua files<CR>" },
-      { "<leader>zp", "<cmd>FzfLua buffers<CR>" },
-      { "<leader>zgo", "<cmd>FzfLua git_files<CR>" },
-      { "<leader>zff", "<cmd>FzfLua live_grep<CR>" },
-      { "<leader>zfg", "<cmd>FzfLua live_grep_glob<CR>" },
-    },
-  },
 }

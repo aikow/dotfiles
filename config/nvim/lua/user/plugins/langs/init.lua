@@ -6,7 +6,7 @@ return {
       "micangl/cmp-vimtex",
     },
     ft = { "tex" },
-    config = function()
+    init = function()
       vim.g.tex_flavor = "latex"
 
       vim.g.vimtex_view_method = "zathura"
@@ -33,15 +33,6 @@ return {
         vim.b[0]["surround" .. vim.fn.char2nr("c")] = [[\\\1command: \1{\r}]]
       end, { nargs = 0 })
     end,
-  },
-
-  -- Justfile support syntax support.
-  {
-    "IndianBoy42/tree-sitter-just",
-    enabled = true,
-    dependencies = { "nvim-treesitter" },
-    ft = { "just" },
-    opts = {},
   },
 
   -- Markdown
@@ -109,7 +100,6 @@ return {
     "nvim-neorg/neorg",
     dependencies = {
       "nvim-treesitter",
-      "nvim-neorg/neorg-telescope",
     },
     version = "7.0.0",
     ft = "norg",
