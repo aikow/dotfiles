@@ -31,10 +31,10 @@ function M.on_attach(client, buffer)
   self:map("K", vim.lsp.buf.hover, { desc = "LSP hover" })
 
   -- Signature help
-  self:map("<leader>k", vim.lsp.buf.signature_help, { desc = "LSP signature help", has = "signatureHelp" })
-  self:map("<c-k>", vim.lsp.buf.signature_help, { mode = "i", desc = "LSP signature help", has = "signatureHelp" })
+  self:map("<c-k>", vim.lsp.buf.signature_help, { mode = {"i", "n"}, desc = "LSP signature help", has = "signatureHelp" })
 
-  self:map("<leader>a", vim.lsp.buf.code_action, { desc = "LSP code actions", mode = { "n", "v" }, has = "codeAction" })
+  -- Code actions
+  self:map("<leader>a", vim.lsp.buf.code_action, { mode = { "n", "v" }, desc = "LSP code actions", has = "codeAction" })
 
   -- LSP go-to actions
   self:map("gd", "Telescope lsp_definitions", { desc = "list LSP definitions with telescope" })
@@ -42,19 +42,15 @@ function M.on_attach(client, buffer)
   self:map("gi", "Telescope lsp_implementations", { desc = "list LSP implementations with telescope" })
   self:map("gy", "Telescope lsp_type_definitions", { desc = "list LSP type definitions with telescope" })
 
-
   -- Telescope - search for symbols
-  self:map("<leader>js", "Telescope lsp_workspace_symbols", { desc = "list LSP workspace symbols with telescope" })
-  self:map("<leader>jS", "Telescope lsp_dynamic_workspace_symbols", { desc = "list LSP workspace symbols dynamically with telescope" })
-
-  -- Symbols outline
-  self:map("gO", "SymbolsOutline", { desc = "LSP open symbols outline" })
+  self:map("<leader>lss", "Telescope lsp_workspace_symbols", { desc = "list LSP workspace symbols with telescope" })
+  self:map("<leader>lsd", "Telescope lsp_dynamic_workspace_symbols", { desc = "list LSP workspace symbols dynamically with telescope" })
 
   -- Diagnostics
-  self:map("<leader>e", vim.diagnostic.open_float, { desc = "open diagnostics float for line" })
+  self:map("<leader>do", vim.diagnostic.open_float, { desc = "open diagnostics float for line" })
   self:map("<leader>dl", vim.diagnostic.setloclist, { desc = "set location list to diagnostics" })
   self:map("<leader>dq", vim.diagnostic.setqflist, { desc = "set quickfix list to diagnostics" })
-  self:map("<leader>do", "Telescope diagnostics", { desc = "open diagnostics with telescope" })
+  self:map("<leader>df", "Telescope diagnostics", { desc = "open diagnostics with telescope" })
 
   self:map("]d", M.diagnostic_goto(true), { desc = "next diagnostic" })
   self:map("[d", M.diagnostic_goto(false), { desc = "previous diagnostic" })

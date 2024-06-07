@@ -15,26 +15,11 @@ map("n", "<C-s>", [[:%s/\v]])
 map("x", "<C-s>", [[:s/\v]])
 map("c", "<C-s>", [[%s/\v]])
 
-map(
-  "i",
-  "<C-s>",
-  [[<C-g>u<Esc>[s1z=`]a<C-g>u]],
-  { desc = "correct last spelling mistake" }
-)
+map("i", "<C-s>", [[<C-g>u<Esc>[s1z=`]a<C-g>u]], { desc = "correct last spelling mistake" })
 
 -- Clear the search buffer to remove highlighting from the last search
-map(
-  "n",
-  "<C-_>",
-  [[:let @/ = ""<CR>]],
-  { silent = true, desc = "clear search buffer register" }
-)
-map(
-  "n",
-  "<C-/>",
-  [[:let @/ = ""<CR>]],
-  { silent = true, desc = "clear search buffer register" }
-)
+map("n", "<C-_>", [[:let @/ = ""<CR>]], { silent = true, desc = "clear search buffer register" })
+map("n", "<C-/>", [[:let @/ = ""<CR>]], { silent = true, desc = "clear search buffer register" })
 
 -- Select the text that was last pasted
 map(
@@ -72,24 +57,9 @@ map("c", "%H", [[<C-R>=expand('%:h:p') . '/'<CR>]])
 map("c", "%T", [[<C-R>=expand('%:t')<CR>]])
 map("c", "%P", [[<C-R>=expand('%:p')<CR>]])
 
-map(
-  "n",
-  "<M-v>",
-  "<cmd>vsplit term://fish<CR>",
-  { desc = "Open a shell in a vertical split" }
-)
-map(
-  "n",
-  "<M-s>",
-  "<cmd>split term://fish<CR>",
-  { desc = "Open a shell in a horizontal split" }
-)
-map(
-  "n",
-  "<M-t>",
-  "<cmd>tabnew term://fish<CR>",
-  { desc = "Open a shell in a tab page" }
-)
+map("n", "<M-v>", "<cmd>vsplit term://fish<CR>", { desc = "Open a shell in a vertical split" })
+map("n", "<M-s>", "<cmd>split term://fish<CR>", { desc = "Open a shell in a horizontal split" })
+map("n", "<M-t>", "<cmd>tabnew term://fish<CR>", { desc = "Open a shell in a tab page" })
 
 -- Toggles between most recent buffers
 map("n", "<leader><leader>", "<c-^>", { desc = "switch to most recent buffer" })
@@ -106,14 +76,6 @@ map(
 map("n", "<leader>c", "ct_", { desc = "change text up to next underscore '_'" })
 
 -- Enter a lua command.
-map(
-  "n",
-  "<leader>.",
-  "<cmd>source %<CR>",
-  { silent = true, desc = "source lua or vimscript file" }
-)
-map("n", "<leader>l", [[:lua =]], { desc = "display lua expression" })
-
--- Create a <nop> mapping for <leader>r so that I do not keep accidentally
--- replacing characters if the LSP server is not attached yet.
-map("n", "<leader>r", "<nop>", { desc = "nop" })
+map("n", "<leader>.", "<cmd>source %<CR>", { silent = true, desc = "source lua or vimscript file" })
+map("n", "<leader>e", [[:lua =]], { desc = "evaluate lua expression" })
+map("n", "<leader>E", [[:lua =]], { desc = "evaluate lua statement" })
