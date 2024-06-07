@@ -73,6 +73,17 @@ return {
         signs = { add = "│", change = "│", delete = "-" },
       },
     },
+    config = function(_, opts)
+      local minidiff = require("mini.diff")
+      minidiff.setup(opts)
+
+      vim.keymap.set(
+        "n",
+        "<leader>gO",
+        minidiff.toggle_overlay,
+        { desc = "mini.diff toggle overlay" }
+      )
+    end,
   },
 
   {
