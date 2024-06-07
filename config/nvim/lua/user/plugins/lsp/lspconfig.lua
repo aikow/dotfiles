@@ -84,6 +84,9 @@ local function setup_mason_servers(mason_servers)
     elseif server.setup == "lspconfig" then
       -- Setup the server directly using lspconfig.
       setup_server(server)
+    elseif server.setup == "none" then
+      print("not setting up", server[1])
+      handlers[server[1]] = function() end
     end
   end
   mason_lspconfig.setup_handlers(handlers)

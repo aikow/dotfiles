@@ -19,7 +19,6 @@ return {
         "pyright",
         "taplo",
         "yamlls",
-        { "rust_analyzer", setup = "none" },
         { "nushell", setup = "lspconfig", install = false },
       },
     },
