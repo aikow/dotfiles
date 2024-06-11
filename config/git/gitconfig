@@ -7,6 +7,9 @@
 
   delete-gone = !git for-each-ref --format '%(refname:short)|%(upstream:track)' refs/heads | rg '\\[gone]' | cut -d'|' -f1 | xargs git branch -D
 
+[blame]
+date = human
+
 [core]
   excludesfile = ~/.dotfiles/config/git/gitignore_global
   pager = delta
