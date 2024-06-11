@@ -106,9 +106,7 @@ autocmd("BufWinEnter", {
 -- Highlight text on yank
 autocmd("TextYankPost", {
   group = augroup("highlight on yank", {}),
-  callback = function()
-    vim.highlight.on_yank({ higroup = "IncSearch", timeout = 150 })
-  end,
+  callback = function() vim.highlight.on_yank({ higroup = "IncSearch", timeout = 150 }) end,
 })
 
 -- Automatically read and source `exrc` file in any parent directory.
@@ -121,10 +119,7 @@ autocmd("VimEnter", {
     }
 
     -- Find the list of configs.
-    local configs = vim.fs.find(
-      exrc_patterns,
-      { upward = true, type = "file", limit = math.huge }
-    )
+    local configs = vim.fs.find(exrc_patterns, { upward = true, type = "file", limit = math.huge })
 
     -- Iterate over the files in reverse so that the "most local" one gets
     -- sourced last.

@@ -333,17 +333,10 @@ return {
     end,
   },
 
-  -- Align tabular data.
   {
-    "godlygeek/tabular",
-    cmd = "Tabularize",
-    config = function()
-      -- Add tabular pattern to parse latex table with multicolumns
-      vim.cmd.AddTabularPattern({
-        "latex_table",
-        [[/\v(\&)|(\\multicolumn(\{[^}]*\}){3})@=/]],
-      })
-    end,
+    "echasnovski/mini.align",
+    keys = { "ga", "gA" },
+    opts = {},
   },
 
   {

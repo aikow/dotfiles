@@ -27,9 +27,7 @@ vim.filetype.add({
       priority = -math.huge,
       function(_, bufnr)
         local line = vim.api.nvim_buf_get_lines(bufnr, 0, 1, false)[1] or ""
-        if vim.regex([[\v^#!.*/bin/(env\s+)?nu>]]):match_str(line) ~= nil then
-          return "nu"
-        end
+        if vim.regex([[\v^#!.*/bin/(env\s+)?nu>]]):match_str(line) ~= nil then return "nu" end
       end,
     },
   },

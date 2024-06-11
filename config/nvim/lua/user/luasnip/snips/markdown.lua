@@ -19,32 +19,17 @@ return {
   }),
 
   -- Math
-  s(
-    { trig = "mk", wordTrig = true, snippetType = "autosnippet" },
-    { t("$"), i(1), t("$") }
-  ),
+  s({ trig = "mk", wordTrig = true, snippetType = "autosnippet" }, { t("$"), i(1), t("$") }),
 
   -- Code
-  s(
-    { trig = "nk", wordTrig = true, snippetType = "autosnippet" },
-    { t("`"), i(1), t("`") }
-  ),
+  s({ trig = "nk", wordTrig = true, snippetType = "autosnippet" }, { t("`"), i(1), t("`") }),
   s(
     { trig = "dn", wordTrig = true, snippetType = "autosnippet" },
     { t("```"), i(1, "text"), t({ "", "" }), i(0), t({ "", "```" }) }
   ),
 
   -- Text formatting
-  s(
-    { trig = "ii", wordTrig = true, snippetType = "autosnippet" },
-    { t("*"), i(1), t("*") }
-  ),
-  s(
-    { trig = "bb", wordTrig = true, snippetType = "autosnippet" },
-    { t("**"), i(1), t("**") }
-  ),
-  s(
-    { trig = "BB", wordTrig = true, snippetType = "autosnippet" },
-    { t("***"), i(1), t("***") }
-  ),
+  s({ trig = "ii", wordTrig = true, snippetType = "autosnippet" }, { t("*"), i(1), t("*") }),
+  s({ trig = "bb", wordTrig = true, snippetType = "autosnippet" }, { t("**"), i(1), t("**") }),
+  s({ trig = "BB", wordTrig = true, snippetType = "autosnippet" }, { t("***"), i(1), t("***") }),
 }
