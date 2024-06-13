@@ -27,24 +27,23 @@ function M.on_attach(client, buffer)
   local self = M.new(client, buffer)
 
   -- stylua: ignore start
-  self:map("gD", vim.lsp.buf.declaration, { desc = "LSP go to declaration" })
-  self:map("K", vim.lsp.buf.hover, { desc = "LSP hover" })
+  -- Extend default LSP actions.
+  self:map("gD", vim.lsp.buf.declaration, { desc = "vim.lsp.buf.declaration()" })
+  self:map("gri", vim.lsp.buf.implementation, { desc = "vim.lsp.buf.implementation()" })
+  self:map("gy", vim.lsp.buf.type_definition, { desc = "vim.lsp.buf.implementation()" })
 
   -- Signature help
-  self:map("<c-k>", vim.lsp.buf.signature_help, { mode = {"i", "n"}, desc = "LSP signature help", has = "signatureHelp" })
-
-  -- Code actions
-  self:map("<leader>a", vim.lsp.buf.code_action, { mode = { "n", "v" }, desc = "LSP code actions", has = "codeAction" })
+  self:map("<c-s>", vim.lsp.buf.signature_help, { mode = {"i", "n"}, desc = "LSP signature help", has = "signatureHelp" })
 
   -- LSP go-to actions
-  self:map("gd", "Telescope lsp_definitions", { desc = "list LSP definitions with telescope" })
-  self:map("gr", "Telescope lsp_references", { desc = "list LSP references with telescope" })
-  self:map("gi", "Telescope lsp_implementations", { desc = "list LSP implementations with telescope" })
-  self:map("gy", "Telescope lsp_type_definitions", { desc = "list LSP type definitions with telescope" })
+  self:map("gd", "Telescope lsp_definitions", { desc = "telescope lsp definitions" })
+  self:map("<leader>lr", "Telescope lsp_references", { desc = "telescope lsp references" })
+  self:map("<leader>li", "Telescope lsp_implementations", { desc = "telescope lsp implementations" })
+  self:map("<leader>ly", "Telescope lsp_type_definitions", { desc = "telescope lsp type definitions" })
 
   -- Telescope - search for symbols
-  self:map("<leader>lss", "Telescope lsp_workspace_symbols", { desc = "list LSP workspace symbols with telescope" })
-  self:map("<leader>lsd", "Telescope lsp_dynamic_workspace_symbols", { desc = "list LSP workspace symbols dynamically with telescope" })
+  self:map("<leader>ls", "Telescope lsp_workspace_symbols", { desc = "list LSP workspace symbols with telescope" })
+  self:map("<leader>lS", "Telescope lsp_dynamic_workspace_symbols", { desc = "list LSP workspace symbols dynamically with telescope" })
 
   -- Diagnostics
   self:map("<leader>do", vim.diagnostic.open_float, { desc = "open diagnostics float for line" })
@@ -52,6 +51,7 @@ function M.on_attach(client, buffer)
   self:map("<leader>dq", vim.diagnostic.setqflist, { desc = "set quickfix list to diagnostics" })
   self:map("<leader>df", "Telescope diagnostics", { desc = "open diagnostics with telescope" })
 
+  -- Diagnostic movements with [ and ]
   self:map("]d", M.diagnostic_goto(true), { desc = "next diagnostic" })
   self:map("[d", M.diagnostic_goto(false), { desc = "previous diagnostic" })
   self:map("]e", M.diagnostic_goto(true, "ERROR"), { desc = "next error" })

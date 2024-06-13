@@ -24,8 +24,7 @@ config.window_padding = {
 
 -- Fonts
 if info.os() == "darwin" then
-  config.font =
-    wezterm.font_with_fallback({ "JetBrainsMono Nerd Font", "JetBrains Mono" })
+  config.font = wezterm.font("JetBrainsMono Nerd Font", { weight = "Medium" })
   config.font_size = 13
 else
   config.font = wezterm.font("JetBrains Mono")
