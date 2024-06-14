@@ -14,10 +14,10 @@ map("n", "/", [[/\v]])
 map("n", "<leader>ss", [[:%s/\v]], { desc = "global search and replace" })
 map("x", "<leader>ss", [[:s/\v]], { desc = "region search and replace" })
 
+-- Correct last spelling mistake
 map("i", "<C-.>", [[<C-g>u<Esc>[s1z=`]a<C-g>u]], { desc = "correct last spelling mistake" })
 
 -- Clear the search buffer to remove highlighting from the last search
-map("n", "<C-_>", [[:let @/ = ""<CR>]], { silent = true, desc = "clear search buffer register" })
 map("n", "<C-/>", [[:let @/ = ""<CR>]], { silent = true, desc = "clear search buffer register" })
 
 -- Select the text that was last pasted
@@ -50,12 +50,12 @@ map("n", "<C-w>>", "5<C-w>>")
 map("n", "<C-w>-", "5<C-w>-")
 map("n", "<C-w>+", "5<C-w>+")
 
--- Shortcuts for inserting filename, directory name, and full path into command
--- mode.
+-- Shortcuts for inserting filename, directory name, and full path into command mode.
 map("c", "%H", [[<C-R>=expand('%:h:p') . '/'<CR>]])
 map("c", "%T", [[<C-R>=expand('%:t')<CR>]])
 map("c", "%P", [[<C-R>=expand('%:p')<CR>]])
 
+-- Open a terminal session in a split.
 map("n", "<M-v>", "<cmd>vsplit term://fish<CR>", { desc = "open a shell in a vertical split" })
 map("n", "<M-s>", "<cmd>split term://fish<CR>", { desc = "open a shell in a horizontal split" })
 map("n", "<M-t>", "<cmd>tabnew term://fish<CR>", { desc = "open a shell in a tab page" })
@@ -63,18 +63,12 @@ map("n", "<M-t>", "<cmd>tabnew term://fish<CR>", { desc = "open a shell in a tab
 -- Toggles between most recent buffers
 map("n", "<leader><leader>", "<c-^>", { desc = "switch to most recent buffer" })
 
--- Extra completion modes
-map(
-  "i",
-  "<C-x><C-m>",
-  [[<c-r>=luaeval("require('user.completion').complete_matching_line()")<CR>]],
-  { desc = "complete matching lines from current buffer" }
-)
-
--- Replacing up to next _ or -
+-- Replacing up to next _
 map("n", "<leader>c", "ct_", { desc = "change upto next underscore '_'" })
 
--- Enter a lua command.
+-- Source the current buffer.
 map("n", "<leader>.", "<cmd>source %<CR>", { silent = true, desc = "source lua or vimscript file" })
+
+-- Enter a lua command.
 map("n", "<leader>e", [[:lua =]], { desc = "evaluate lua expression" })
 map("n", "<leader>E", [[:lua ]], { desc = "evaluate lua statement" })
