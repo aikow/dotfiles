@@ -81,12 +81,25 @@ local function add_annotated()
   -- Iterate over all captures and find the capture that surrounds the current node.
   local node = vim
     .iter(query:iter_captures(tree:root(), bufnr))
-    :map(function(_, node, _, _) return node end)
-    :filter(function(node)
+    :map(function(_, n, _, _) return n end)
+    :filter(function(n)
       -- The treesitter function is 0-, 0- indexed.
-      return vim.treesitter.is_in_node_range(node, cursor_row - 1, cursor_col)
+      return vim.treesitter.is_in_node_range(n, cursor_row - 1, cursor_col)
     end)
     :next()
+
+  -- If we didn't find a matching type annotation, try matching a different query.
+  if not node then
+    query = vim.treesitter.query.parse("python", "(subscript) @type_annotation")
+    node = vim
+      .iter(query:iter_captures(tree:root(), bufnr))
+      :map(function(_, n, _, _) return n end)
+      :filter(function(n)
+        -- The treesitter function is 0-, 0- indexed.
+        return vim.treesitter.is_in_node_range(n, cursor_row - 1, cursor_col)
+      end)
+      :next()
+  end
 
   -- If we didn't find a matching type annotation, exit silently.
   if not node then return end
