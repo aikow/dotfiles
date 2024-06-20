@@ -58,7 +58,7 @@ foreground = "#4C4F69"
 background = "#40A02B"
 foreground = "#EFF1F5"
 
-[colors.search.footer_bar]
+[colors.footer_bar]
 background = "#6C6F85"
 foreground = "#EFF1F5"
 

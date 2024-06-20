@@ -18,9 +18,8 @@ function M:map(lhs, rhs, opts)
 end
 
 function M.diagnostic_goto(next, severity)
-  local go = next and vim.diagnostic.goto_next or vim.diagnostic.goto_prev
   severity = severity and vim.diagnostic.severity[severity] or nil
-  return function() go({ severity = severity }) end
+  return function() vim.diagnostic.jump({ count = next and 1 or -1, severity = severity }) end
 end
 
 function M.on_attach(client, buffer)
@@ -46,10 +45,10 @@ function M.on_attach(client, buffer)
   self:map("<leader>lS", "Telescope lsp_dynamic_workspace_symbols", { desc = "list LSP workspace symbols dynamically with telescope" })
 
   -- Diagnostics
-  self:map("<leader>do", vim.diagnostic.open_float, { desc = "open diagnostics float for line" })
+  self:map("<leader>k", vim.diagnostic.open_float, { desc = "open diagnostics float for line" })
   self:map("<leader>dl", vim.diagnostic.setloclist, { desc = "set location list to diagnostics" })
   self:map("<leader>dq", vim.diagnostic.setqflist, { desc = "set quickfix list to diagnostics" })
-  self:map("<leader>df", "Telescope diagnostics", { desc = "open diagnostics with telescope" })
+  self:map("<leader>do", "Telescope diagnostics", { desc = "open diagnostics with telescope" })
 
   -- Diagnostic movements with [ and ]
   self:map("]d", M.diagnostic_goto(true), { desc = "next diagnostic" })

@@ -16,7 +16,7 @@ return {
     -- stylua: ignore
     keys = {
       {"<leader>i", "<cmd>Telescope resume<CR>",  desc = "telescope reopen last picker" },
-      {"<leader>ds", "<cmd>Telescope spell_suggest<CR>",  desc = "telescope spell suggest" },
+      {"<leader>hz", "<cmd>Telescope spell_suggest<CR>",  desc = "telescope spell suggest" },
       -- Finding searching and navigating
       {"<leader>o", "<cmd>Telescope find_files<CR>",  desc = "telescope find files" },
       {"<leader>p", "<cmd>Telescope buffers<CR>",  desc = "telescope buffers" },
