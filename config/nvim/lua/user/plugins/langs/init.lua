@@ -98,10 +98,6 @@ return {
   -- Notes and tasks.
   {
     "nvim-neorg/neorg",
-    dependencies = {
-      "nvim-treesitter",
-    },
-    version = "7.0.0",
     ft = "norg",
     opts = require("user.plugins.langs.neorg").opts,
   },
