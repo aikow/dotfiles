@@ -116,8 +116,6 @@ return {
     dependencies = {
       "hrsh7th/cmp-nvim-lsp",
       "hrsh7th/cmp-buffer",
-      "hrsh7th/cmp-path",
-      "hrsh7th/cmp-cmdline",
       "saadparwaiz1/cmp_luasnip",
     },
     config = function()
@@ -157,9 +155,7 @@ return {
         },
         sources = cmp.config.sources({
           { name = "nvim_lsp" },
-          { name = "path" },
           { name = "luasnip" },
-          { name = "git" },
         }, {
           { name = "buffer", keyword_length = 5, max_item_count = 10 },
         }),
@@ -171,39 +167,6 @@ return {
             return vim_item
           end,
         },
-      })
-
-      -- ---------------------------
-      -- |   Setup Command Lines   |
-      -- ---------------------------
-      --
-      -- Command mode completions.
-      ---@diagnostic disable-next-line: missing-fields
-      cmp.setup.cmdline(":", {
-        -- mapping = cmp.mapping.preset.cmdline(),
-        mapping = {
-          ["<Tab>"] = {
-            c = function()
-              if cmp.visible() then
-                cmp.select_next_item()
-              else
-                cmp.complete()
-              end
-            end,
-          },
-          ["<S-Tab>"] = {
-            c = function()
-              if cmp.visible() then
-                cmp.select_prev_item()
-              else
-                cmp.complete()
-              end
-            end,
-          },
-          ["<C-e>"] = { c = cmp.mapping.abort() },
-          ["<C-y>"] = { c = cmp.mapping.confirm({ select = false }) },
-        },
-        sources = cmp.config.sources({ { name = "cmdline" } }, { { name = "path" } }),
       })
     end,
   },

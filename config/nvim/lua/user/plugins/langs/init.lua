@@ -42,12 +42,6 @@ return {
     build = function() vim.fn["mkdp#util#install"]() end,
   },
 
-  -- Fish shell syntax support.
-  {
-    "aikow/vim-fish",
-    ft = { "fish" },
-  },
-
   -- Rust language support.
   {
     "mrcjkb/rustaceanvim",
