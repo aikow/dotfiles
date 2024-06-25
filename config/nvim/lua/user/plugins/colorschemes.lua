@@ -55,7 +55,7 @@ return {
     lazy = true,
     opts = {
       integrations = {
-        gitsigns = true,
+        gitsigns = false,
         indent_blankline = {
           enabled = true,
           color_indent_levels = false,
@@ -63,7 +63,7 @@ return {
         markdown = true,
         mason = true,
         mini = true,
-        neotree = true,
+        neotree = false,
         cmp = true,
         dap = false,
         treesitter = true,

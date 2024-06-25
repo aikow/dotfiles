@@ -1,0 +1,27 @@
+{
+  "description": "Caps Lock → Control when held | Caps Lock → Escape when tapped",
+  "manipulators": [
+    {
+      "from": {
+        "key_code": "caps_lock",
+        "modifiers": {
+          "optional": [
+            "left_shift",
+            "left_command"
+          ]
+        }
+      },
+      "to": [
+        {
+          "key_code": "left_control"
+        }
+      ],
+      "to_if_alone": [
+        {
+          "key_code": "escape"
+        }
+      ],
+      "type": "basic"
+    }
+  ]
+}

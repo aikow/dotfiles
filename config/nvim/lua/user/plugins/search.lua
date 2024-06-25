@@ -46,7 +46,7 @@ return {
       {"<leader>ht", "<cmd>Telescope builtin<CR>",  desc = "telescope builtin pickers" },
       {"<leader>hq", "<cmd>Telescope quickfix<CR>",  desc = "telescope quickfix list" },
       {"<leader>hl", "<cmd>Telescope loclist<CR>",  desc = "telescope location list" },
-      {"<leader>hp", "<cmd>Telescope reloader<CR>",  desc = "telescope reload lua module" },
+      {"<leader>hr", "<cmd>Telescope reloader<CR>",  desc = "telescope reload lua module" },
     },
     config = function()
       local telescope = require("telescope")
@@ -78,6 +78,7 @@ return {
           },
         },
         pickers = {
+          builtin = themes.get_dropdown({ enable_preview = false }),
           colorscheme = themes.get_dropdown({ enable_preview = false }),
           command_history = themes.get_dropdown(),
           filetypes = themes.get_dropdown(),

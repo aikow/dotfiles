@@ -39,9 +39,6 @@ local function section(section, name, action)
   return { section = section, name = name, action = action }
 end
 
----Open the given directory in a floating window with neotree.
-local function neotree(dir) return "Neotree position=float " .. dir end
-
 function M.opts()
   local logo = table.concat({
     "                                                  ",
@@ -61,7 +58,6 @@ function M.opts()
   local footer = version_str
 
   local local_config = "~/.local/config/nvim/lua/local/init.lua"
-  local plugins_path = vim.fn.stdpath("data") .. "/lazy/"
 
   local starter = require("mini.starter")
   local config = {
@@ -73,17 +69,15 @@ function M.opts()
       section("Workspace", "Open", "Telescope find_files"),
       section("Workspace", "Recent", "Telescope oldfiles"),
       section("Workspace", "Files", "lua require'mini.files'.open()"),
-      section("Workspace", "Tree", neotree(".")),
 
       -- Config and plugin actions
       section("Config", "Config", "edit $MYVIMRC"),
-      section("Config", "Local Config", "edit " .. local_config),
-      section("Config", "Plugins Dir", neotree(plugins_path)),
+      section("Config", "System Config", "edit " .. local_config),
       section("Config", "Update Plugins", "Lazy sync"),
 
       -- Dotfiles
       section("Dotfiles", "Dotfiles", "Telescope find_files cwd=~/.dotfiles"),
-      section("Dotfiles", "System", "Telescope find_files cwd=~/.local/config"),
+      section("Dotfiles", "Local", "Telescope find_files cwd=~/.local/config"),
 
       -- Builtin actions
       section("Built-in", "News", "help news | wincmd o"),
