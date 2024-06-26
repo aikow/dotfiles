@@ -26,3 +26,5 @@ hidutil property --set '
 ```
 
 [Reference](https://jonnyzzz.com/blog/2017/12/04/macos-keys/)
+
+Alternatively, you can install karabiner to remap the keys instead.

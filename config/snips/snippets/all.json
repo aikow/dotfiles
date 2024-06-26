@@ -15,5 +15,47 @@
       "$LINE_COMMENT │ ${1}",
       "$LINE_COMMENT └───────────────────────────────────────────────────────────────────────"
     ]
+  },
+  "fold level 1": {
+    "prefix": "ff1",
+    "body": [
+      "$LINE_COMMENT {{{1"
+    ],
+    "description": "Insert a level 1 fold marker"
+  },
+  "fold level 2": {
+    "prefix": "ff2",
+    "body": [
+      "$LINE_COMMENT {{{2"
+    ],
+    "description": "Insert a level 2 fold marker"
+  },
+  "fold level 3": {
+    "prefix": "ff3",
+    "body": [
+      "$LINE_COMMENT {{{3"
+    ],
+    "description": "Insert a level 3 fold marker"
+  },
+  "fold level 4": {
+    "prefix": "ff4",
+    "body": [
+      "$LINE_COMMENT {{{4"
+    ],
+    "description": "Insert a level 4 fold marker"
+  },
+  "fold level 5": {
+    "prefix": "ff5",
+    "body": [
+      "$LINE_COMMENT {{{5"
+    ],
+    "description": "Insert a level 5 fold marker"
+  },
+  "fold level 6": {
+    "prefix": "ff6",
+    "body": [
+      "$LINE_COMMENT {{{6"
+    ],
+    "description": "Insert a level 6 fold marker"
   }
 }
