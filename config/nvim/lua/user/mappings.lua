@@ -15,6 +15,7 @@ map("n", "<leader>ss", [[:%s/\v]], { desc = "global search and replace" })
 map("x", "<leader>ss", [[:s/\v]], { desc = "region search and replace" })
 
 -- Correct last spelling mistake
+map("n", "<leader>zz", "set invspell", { desc = "toggle spellcheck" })
 map("i", "<C-.>", [[<C-g>u<Esc>[s1z=`]a<C-g>u]], { desc = "correct last spelling mistake" })
 
 -- Clear the search buffer to remove highlighting from the last search

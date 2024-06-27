@@ -54,12 +54,26 @@ command(
     local cmd_help = { unpack(cmd) }
     table.insert(cmd_help, "--help")
 
-    -- Create a new window and buffer respecting all command modifiers
-    vim.cmd.new({ mods = params.smods })
-    vim.cmd.file({ string.format("hman://%s", cmd_str) })
+    -- Prefix the buffer name with hman
+    local buf_name = string.format("hman://%s", cmd_str)
 
-    -- Get the buffer ID of the newly created window.
-    local buf_id = vim.api.nvim_get_current_buf()
+    -- Check if a buffer with this name already exists, and reuse it if it does.
+    local buf_id = vim
+      .iter(vim.api.nvim_list_bufs())
+      :find(function(b) return vim.api.nvim_buf_get_name(b) == buf_name end)
+    if buf_id == nil then
+      -- Create a scratch buffer
+      buf_id = vim.api.nvim_create_buf(true, true)
+      vim.api.nvim_buf_set_name(buf_id, buf_name)
+    else
+      -- Make sure the buffer is modifiable before setting the lines.
+      vim.bo[buf_id].modifiable = true
+      vim.bo[buf_id].readonly = false
+    end
+
+    -- Create a new window and buffer respecting all command modifiers
+    vim.cmd.split({ mods = params.smods })
+    vim.api.nvim_win_set_buf(0, buf_id)
 
     -- Write the command to the first line
     vim.api.nvim_buf_set_lines(buf_id, 0, 0, false, { cmd_str:upper() })

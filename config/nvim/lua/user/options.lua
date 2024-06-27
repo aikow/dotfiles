@@ -35,6 +35,7 @@ opt.showmatch = true
 -- Searching
 opt.ignorecase = true
 opt.smartcase = true
+opt.inccommand = "split"
 
 -- Set ripgrep as default search tool
 if vim.fn.executable("rg") == 1 then
@@ -60,8 +61,14 @@ opt.completeopt:append({
   "menu", -- Use a popup menu to show possible completions
   "menuone", -- Show menu even with one result
   "noselect", -- Don't automatically select a match
+  "fuzzy",
 })
 opt.shortmess:append("WcC") -- Don't give ins-complete-menu messages
+
+-- Wildmenu options
+opt.wildoptions:append("fuzzy")
+opt.wildmode = "longest,full"
+opt.wildignore:append({ ".o", ".so", ".a", ".git" })
 
 -- Use treesitter for folding
 opt.foldmethod = "expr"
