@@ -85,11 +85,4 @@ return {
     ft = { "sql", "msql", "mysql", "plsql" },
     cmd = { "DB" },
   },
-
-  -- Notes and tasks.
-  {
-    "nvim-neorg/neorg",
-    ft = "norg",
-    opts = require("user.plugins.langs.neorg").opts,
-  },
 }
