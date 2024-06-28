@@ -20,6 +20,7 @@ return {
       -- Finding searching and navigating
       {"<leader>o", "<cmd>Telescope find_files<CR>",  desc = "telescope find files" },
       {"<leader>p", "<cmd>Telescope buffers<CR>",  desc = "telescope buffers" },
+      {"<leader>fo", "<cmd>Telescope oldfiles<CR>",  desc = "telescope oldfiles" },
       {"<leader>ff", "<cmd>Telescope live_grep<CR>",  desc = "telescope live grep" },
       {"<leader>ft", "<cmd>Telescope treesitter<CR>",  desc = "telescope treesitter symbols" },
       {"<leader>fw", "<cmd>Telescope grep_string<CR>",  desc = "telescope grep word under cursor" },

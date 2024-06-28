@@ -12,7 +12,7 @@ ls ~/.local/share/nvim/lazy
       total_comments: $data.Total.comments
       lua: $data.Lua?.code
       lua_comments: $data.Lua?.comments
-      vim: $data.'Vim script'?.code
+      vimscript: $data.'Vim script'?.code
       vim_comments: $data.'Vim script'?.comments
     }
   }
