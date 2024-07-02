@@ -17,6 +17,8 @@ function cd_up
 end
 abbr --add dotdot --regex '^\.{2,}$' --function cd_up
 
+abbr cdp 'cd (projects | fzf)'
+
 # ----------
 # |   ls   |
 # ----------

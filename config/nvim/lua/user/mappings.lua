@@ -51,6 +51,9 @@ map("n", "<C-w>>", "5<C-w>>")
 map("n", "<C-w>-", "5<C-w>-")
 map("n", "<C-w>+", "5<C-w>+")
 
+-- Open Netrw with -
+map("n", "+", "<CMD>Explore<CR>")
+
 -- Shortcuts for inserting filename, directory name, and full path into command mode.
 map("c", "%H", [[<C-R>=expand('%:h:p') . '/'<CR>]])
 map("c", "%T", [[<C-R>=expand('%:t')<CR>]])

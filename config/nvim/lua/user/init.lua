@@ -57,10 +57,7 @@ function M.setup_lazy()
 end
 
 function M.setup_user()
-  local builtin = require("user.builtin")
-  builtin.disable_plugins()
-  builtin.disable_providers()
-
+  require("user.builtin")
   require("user.globals")
   require("user.filetype")
   require("user.mappings")

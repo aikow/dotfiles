@@ -11,3 +11,7 @@ editors, shells, and other programs.
 In order to automate the installation process, first create the `.install.conf`
 file in the base directory. If the `.install.conf` file doesn't exist, running
 `./install` will prompt for the user to pick a config.
+
+```text
+This is a code block
+```
