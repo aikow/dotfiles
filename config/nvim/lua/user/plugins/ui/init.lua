@@ -67,8 +67,11 @@ return {
     },
   },
 
-  -- Dev icons for file types.
   {
-    "nvim-tree/nvim-web-devicons",
-  },
+    "echasnovski/mini.icons",
+    opts = {},
+    init = function()
+      require("mini.icons").mock_nvim_web_devicons()
+    end
+  }
 }

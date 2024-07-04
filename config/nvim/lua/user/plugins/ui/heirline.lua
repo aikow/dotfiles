@@ -113,11 +113,7 @@ function H.file_name(filename)
 end
 
 function H.file_icon(file_name)
-  local extension = vim.fn.fnamemodify(file_name, ":e")
-  local icon, icon_color =
-    require("nvim-web-devicons").get_icon_color(file_name, extension, { default = true })
-
-  return icon, icon_color
+  return require("mini.icons").get("file", file_name)
 end
 
 ---Base component for file-name related components. Just sets the filename
@@ -132,7 +128,7 @@ Components.file_icon = {
     item.icon, item.icon_color = H.file_icon(item.filename)
   end,
   provider = function(item) return item.icon and (item.icon .. " ") end,
-  hl = function(item) return { fg = item.icon_color } end,
+  hl = function(item) return item.icon_color end,
 }
 
 ---Format and display the filename in the current buffer.
@@ -263,7 +259,7 @@ Components.git = {
       item.has_changes = false
     else
       item.has_changes = item.diff_info.source_name == "git"
-        and (item.diff_info.add ~= 0 or item.diff_info.delete ~= 0 or item.diff_info.change ~= 0)
+          and (item.diff_info.add ~= 0 or item.diff_info.delete ~= 0 or item.diff_info.change ~= 0)
     end
   end,
   hl = { fg = "orange" },
