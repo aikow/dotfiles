@@ -4,7 +4,7 @@ local command = vim.api.nvim_create_user_command
 ---@return integer
 local function curline()
   ---@diagnostic disable-next-line: return-type-mismatch
-  return vim.fn.curline(".")
+  return vim.fn.line(".")
 end
 
 ---Get the column index of the cursor

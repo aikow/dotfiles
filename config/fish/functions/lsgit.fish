@@ -1,3 +1,3 @@
 function lsgit
-    fd --type d -HI '^\.git$' -x echo {//} | sort
+    fd -HI --type d '^\.git$' -x echo {//}
 end
