@@ -41,19 +41,27 @@
   },
   "getopts flag": {
     "prefix": "fopt",
-    "body": ["$1)", "\t$2=true", "\t;;"],
+    "body": [
+      "$1)",
+      "\t$2=true",
+      "\t;;"
+    ],
     "description": "Parse a flag from getopts"
   },
   "getopts argument": {
     "prefix": "aopt",
-    "body": ["$1)", "\t$2=\"\\${OPTARG}\"", "\t;;"],
+    "body": [
+      "$1)",
+      "\t$2=\"\\${OPTARG}\"",
+      "\t;;"
+    ],
     "description": "Parse an optional argument from getopts"
   },
   "command line argument parser": {
     "prefix": "clap",
     "body": [
       "# Store positional args in an array.",
-      "declare -a _POSITIONAL_ARGS=()",
+      "declare -a _positional_args=()",
       "",
       "while [[ \\${#@} -gt 0 ]]; do",
       "\tcase \"\\$1\" in",
@@ -63,42 +71,50 @@
       "\t\t\texit 1",
       "\t\t\t;;",
       "\t\t*)",
-      "\t\t\t_POSITIONAL_ARGS+=(\"\\$1\")  # Save positional argument",
-      "\t\t\tshift  # Past argument.",
+      "\t\t\t_positional_args+=(\"\\$1\")  # Save positional argument",
+      "\t\t\tshift",
       "\t\t\t;;",
       "\tesac",
       "done",
       "",
       "# Restore positional arguments and delete the temporary array.",
-      "set -- \"\\${_POSITIONAL_ARGS[@]+\"\\${_POSITIONAL_ARGS[@]}\"}\"",
-      "unset _POSITIONAL_ARGS"
+      "set -- \"\\${_positional_args[@]+\"\\${_positional_args[@]}\"}\"",
+      "unset _positional_args"
     ],
     "description": "Small heading to separate sections"
   },
   "flag command line argument": {
     "prefix": "fclap",
-    "body": ["-$1 | --$2)", "\t$3=true", "\tshift  # Past argument", "\t;;"],
+    "body": [
+      "-$1 | --$2)",
+      "\t${3:_${2/-/_/g}}=true",
+      "\tshift",
+      "\t;;"
+    ],
     "description": "Parse a flag from the CLI arguments"
   },
   "argument command line argument": {
     "prefix": "aclap",
     "body": [
       "-$1 | --$2)",
-      "\t$3=\"\\$2\"",
-      "\tshift  # Past argument",
-      "\tshift  # Past value",
+      "\t${3:_${2/-/_/g}}=\"\\$2\"",
+      "\tshift 2",
       "\t;;"
     ],
     "description": "Parse an optional argument from the CLI arguments"
   },
   "command exists": {
-    "prefix": "ifcmd",
-    "body": ["command -v ${1:COMMAND} &>/dev/null"],
+    "prefix": "exists",
+    "body": [
+      "command -v ${1:COMMAND} &>/dev/null"
+    ],
     "description": "Check if a command is on PATH and return with exit status 0"
   },
   "redirect to dev null": {
     "prefix": "null",
-    "body": ["&>/dev/null"],
+    "body": [
+      "&>/dev/null"
+    ],
     "description": "Redirect both stdout and stderr to dev/null"
   }
 }
