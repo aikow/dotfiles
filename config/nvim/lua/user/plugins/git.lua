@@ -8,6 +8,15 @@ return {
       local minigit = require("mini.git")
       minigit.setup(opts)
 
+      -- Set the file type for status windows.
+      vim.api.nvim_create_autocmd("User", {
+        pattern = "MiniGitCommandSplit",
+        callback = function(data)
+          if data.data.git_subcommand ~= "status" then return end
+          vim.bo.filetype = "gitstatus"
+        end,
+      })
+
       -- Sync scrolling for buffers for `git blame`.
       vim.api.nvim_create_autocmd("User", {
         pattern = "MiniGitCommandSplit",
