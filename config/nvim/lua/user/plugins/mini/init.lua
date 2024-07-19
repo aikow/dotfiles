@@ -12,7 +12,6 @@ return {
     require("mini.align").setup({})
     require("mini.cursorword").setup({})
     require("mini.pairs").setup({})
-    require("mini.splitjoin").setup({})
 
     vim.notify = require("mini.notify").make_notify()
 
@@ -27,6 +26,15 @@ return {
         m = spec_treesitter({ a = "@function.outer", i = "@function.inner" }),
         o = spec_treesitter({ a = "@class.outer", i = "@class.inner" }),
         z = spec_treesitter({ a = "@comment.outer", i = "@comment.inner" }),
+      },
+    })
+
+    -- ------------------------------------------------------------------------
+    -- | mini.splitjoin
+    -- ------------------------------------------------------------------------
+    require("mini.splitjoin").setup({
+      mappings = {
+        toggle = "gz",
       },
     })
 
@@ -50,11 +58,11 @@ return {
       exchange = { prefix = "" },
       multiply = { prefix = "" },
       replace = { prefix = "" },
-      sort = { prefix = "gz" },
+      sort = { prefix = "gS" },
     })
 
     -- ------------------------------------------------------------------------
-    -- | mini.split
+    -- | mini.surround
     -- ------------------------------------------------------------------------
     require("mini.surround").setup({
       mappings = {
