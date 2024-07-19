@@ -95,7 +95,7 @@ function M.opts()
   return config
 end
 
-function M.config(_, opts)
+function M.setup()
   if vim.o.filetype == "lazy" then
     vim.cmd.close()
     vim.api.nvim_create_autocmd("User", {
@@ -105,6 +105,7 @@ function M.config(_, opts)
   end
 
   local starter = require("mini.starter")
+  local opts = M.opts()
   starter.setup(opts)
 
   vim.api.nvim_create_autocmd("User", {

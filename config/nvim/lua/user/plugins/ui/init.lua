@@ -4,19 +4,6 @@ return {
     config = function() require("user.plugins.ui.heirline").config() end,
   },
 
-  {
-    "echasnovski/mini.starter",
-    event = "VimEnter",
-    opts = require("user.plugins.ui.starter").opts,
-    config = require("user.plugins.ui.starter").config,
-  },
-
-  {
-    "echasnovski/mini.notify",
-    opts = {},
-    init = function() vim.notify = require("mini.notify").make_notify() end,
-  },
-
   -- Show indentation.
   {
     "lukas-reineke/indent-blankline.nvim",
@@ -70,8 +57,6 @@ return {
   {
     "echasnovski/mini.icons",
     opts = {},
-    init = function()
-      require("mini.icons").mock_nvim_web_devicons()
-    end
-  }
+    init = function() require("mini.icons").mock_nvim_web_devicons() end,
+  },
 }
