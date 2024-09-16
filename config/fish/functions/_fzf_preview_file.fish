@@ -20,7 +20,7 @@ function _fzf_preview_file --description "Print a preview for the given file bas
     else if test -d "$file_path" # directory
         # -A list hidden files as well, except for . and ..
         # -F helps classify files by appending symbols after the file name
-        command exa -a -F --long "$file_path"
+        command eza -a -F --long "$file_path"
     else if test -c "$file_path"
         _fzf_report_file_type "$file_path" "character device file"
     else if test -b "$file_path"

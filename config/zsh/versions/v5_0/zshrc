@@ -76,8 +76,8 @@ export HISTIGNORE="l:ls:ll:lll:lt:lg:cd:cd -:pwd:exit:date:* --help:man"
 auto_ls() {
 	emulate -L zsh
 	echo
-  if command -v exa &>/dev/null; then
-    exa --icons -a --group-directories-first
+  if command -v eza &>/dev/null; then
+    eza --icons -a --group-directories-first
   else
     ls -AG --color=always
   fi

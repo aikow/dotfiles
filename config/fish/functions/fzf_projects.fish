@@ -3,7 +3,7 @@ function fzf_projects
         projects |
             _fzf_wrapper \
             --multi \
-            --preview='exa {}' \
+            --preview='eza {}' \
             --preview-window='nowrap'
     )
 

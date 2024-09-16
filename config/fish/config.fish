@@ -15,7 +15,7 @@ if status is-interactive
     function _autols_hook --description "Auto ls" --on-event fish_prompt
         if test "$_autols_last" != "$PWD"
             echo
-            exa --classify --grid --all --icons --group-directories-first
+            eza --classify --grid --all --icons --group-directories-first
         end
         set -g _autols_last "$PWD"
     end

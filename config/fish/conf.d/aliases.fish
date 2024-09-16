@@ -22,13 +22,13 @@ abbr cdp 'cd (projects | fzf)'
 # ----------
 # |   ls   |
 # ----------
-if command -v exa &>/dev/null
-    alias l='exa'
-    alias ls='exa --group-directories-first --icons'
-    alias lg='exa -l --group-directories-first --icons --git'
-    alias lt='exa --group-directories-first --tree --icons'
-    alias ll='exa -l --group-directories-first --icons'
-    alias lll='exa -la --group-directories-first --icons --group'
+if command -v eza &>/dev/null
+    alias l='eza'
+    alias ls='eza --group-directories-first --icons'
+    alias lg='eza -l --group-directories-first --icons --git'
+    alias lt='eza --group-directories-first --tree --icons'
+    alias ll='eza -l --group-directories-first --icons'
+    alias lll='eza -la --group-directories-first --icons --group'
 else
     alias l='ls'
     alias ll='ls -Al'

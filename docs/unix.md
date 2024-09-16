@@ -11,7 +11,7 @@
 | `delta`      | Prettier diffs                     |      |
 | `difftastic` | Prettier diffs with syntax         |      |
 | `dust`       | Prettier `du`                      |      |
-| `exa`        | Prettier `ls`                      |      |
+| `eza`        | Prettier `ls`                      |      |
 | `fd-find`    | Faster and simpler `find`          |      |
 | `fq`         | `jq` for binary formats            |      |
 | `fzf`        | Fuzzy finder over lists            |      |
