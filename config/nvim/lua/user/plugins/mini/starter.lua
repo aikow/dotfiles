@@ -14,14 +14,6 @@ end
 -- parsing of the cmdline and running multiple commands in a row doesn't
 -- work.
 local function help_tags()
-  -- Load all plugins first
-  local lazy = require("lazy")
-  local plugins = {}
-  for _, p in ipairs(lazy.plugins()) do
-    table.insert(plugins, p.name)
-  end
-  lazy.load({ plugins = plugins })
-
   require("telescope.builtin").help_tags({
     attach_mappings = function(_, map)
       map({ "i", "n" }, "<CR>", function(prompt_bufnr)
@@ -35,7 +27,7 @@ local function help_tags()
 end
 
 -- Small helper function to create a new section.
-local function section(section, name, action)
+local function create_section(section, name, action)
   return { section = section, name = name, action = action }
 end
 
@@ -65,25 +57,25 @@ function M.opts()
     header = logo,
     items = {
       -- Edit actions
-      section("Workspace", "Edit", "enew | startinsert "),
-      section("Workspace", "Open", "Telescope find_files"),
-      section("Workspace", "Recent", "Telescope oldfiles"),
-      section("Workspace", "Files", "lua require'mini.files'.open()"),
+      create_section("Workspace", "Edit", "enew | startinsert "),
+      create_section("Workspace", "Open", "Telescope find_files"),
+      create_section("Workspace", "Recent", "Telescope oldfiles"),
+      create_section("Workspace", "Files", "lua require'mini.files'.open()"),
 
       -- Config and plugin actions
-      section("Config", "Config", "edit $MYVIMRC"),
-      section("Config", "System Config", "edit " .. local_config),
-      section("Config", "Update Plugins", "Lazy sync"),
+      create_section("Config", "Config", "edit $MYVIMRC"),
+      create_section("Config", "System Config", "edit " .. local_config),
+      create_section("Config", "Update Plugins", "Lazy sync"),
 
       -- Dotfiles
-      section("Dotfiles", "Dotfiles", "Telescope find_files cwd=~/.dotfiles"),
-      section("Dotfiles", "Local", "Telescope find_files cwd=~/.local/config"),
+      create_section("Dotfiles", "Dotfiles", "Telescope find_files cwd=~/.dotfiles"),
+      create_section("Dotfiles", "Local", "Telescope find_files cwd=~/.local/config"),
 
       -- Builtin actions
-      section("Built-in", "News", "help news | wincmd o"),
-      section("Built-in", "Man", man_pages),
-      section("Built-in", "Help", help_tags),
-      section("Built-in", "Quit", "quit"),
+      create_section("Built-in", "News", "help news | wincmd o"),
+      create_section("Built-in", "Man", man_pages),
+      create_section("Built-in", "Help", help_tags),
+      create_section("Built-in", "Quit", "quit"),
     },
     footer = footer,
     content_hooks = {

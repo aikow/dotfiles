@@ -4,6 +4,14 @@ return {
     "nvim-treesitter/nvim-treesitter-textobjects",
   },
   config = function()
+    local icons = require("mini.icons")
+    icons.setup({})
+    icons.mock_nvim_web_devicons()
+
+    local notify = require("mini.notify")
+    notify.setup({})
+    vim.notify = notify.make_notify()
+
     require("user.plugins.mini.clue").setup()
     require("user.plugins.mini.files").setup()
     require("user.plugins.mini.git").setup()
@@ -12,8 +20,6 @@ return {
     require("mini.align").setup({})
     require("mini.cursorword").setup({})
     require("mini.pairs").setup({})
-
-    vim.notify = require("mini.notify").make_notify()
 
     -- ------------------------------------------------------------------------
     -- | mini.ai
