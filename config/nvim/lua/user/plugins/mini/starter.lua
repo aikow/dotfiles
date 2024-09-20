@@ -62,18 +62,18 @@ function M.opts()
       create_section("Workspace", "Recent", "Telescope oldfiles"),
       create_section("Workspace", "Files", "lua require'mini.files'.open()"),
 
-      -- Config and plugin actions
+      -- Config
       create_section("Config", "Config", "edit $MYVIMRC"),
-      create_section("Config", "System Config", "edit " .. local_config),
-      create_section("Config", "Update Plugins", "Lazy sync"),
+      create_section("Config", "Config Local", "edit " .. local_config),
+      create_section("Config", "Lazy", "Lazy show"),
+      create_section("Config", "Mason", "Mason"),
 
       -- Dotfiles
       create_section("Dotfiles", "Dotfiles", "Telescope find_files cwd=~/.dotfiles"),
-      create_section("Dotfiles", "Local", "Telescope find_files cwd=~/.local/config"),
+      create_section("Dotfiles", "Dotfiles Local", "Telescope find_files cwd=~/.local/config"),
 
       -- Builtin actions
       create_section("Built-in", "News", "help news | wincmd o"),
-      create_section("Built-in", "Man", man_pages),
       create_section("Built-in", "Help", help_tags),
       create_section("Built-in", "Quit", "quit"),
     },
