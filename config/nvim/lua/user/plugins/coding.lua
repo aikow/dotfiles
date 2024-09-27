@@ -162,8 +162,8 @@ return {
         ---@diagnostic disable-next-line: missing-fields
         formatting = {
           format = function(_, vim_item)
-            local icons = require("user.ui.icons").lsp.kinds
-            vim_item.kind = string.format("%s %s", icons[vim_item.kind], vim_item.kind)
+            local icon = require("mini.icons").get('lsp', vim_item.kind)
+            vim_item.kind = string.format("%s %s", icon, vim_item.kind)
             return vim_item
           end,
         },
