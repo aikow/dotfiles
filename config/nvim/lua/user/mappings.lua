@@ -4,7 +4,7 @@ local map = vim.keymap.set
 map("n", "j", "gj")
 map("n", "k", "gk")
 
--- Don't deselect visual when indenting in visual mode>
+-- Don't deselect visual when indenting in visual mode.
 map("x", "<", "<gv")
 map("x", ">", ">gv")
 
@@ -18,8 +18,10 @@ map("x", "<leader>ss", [[:s/\v]], { desc = "region search and replace" })
 map("n", "<leader>zz", "set invspell", { desc = "toggle spellcheck" })
 map("i", "<C-.>", [[<C-g>u<Esc>[s1z=`]a<C-g>u]], { desc = "correct last spelling mistake" })
 
--- Clear the search buffer to remove highlighting from the last search
+-- Clear the search buffer to remove highlighting from the last search. The extra mapping for <C-_>
+-- is needed for alacritty.
 map("n", "<C-/>", [[:let @/ = ""<CR>]], { silent = true, desc = "clear search buffer register" })
+map("n", "<C-_>", [[:let @/ = ""<CR>]], { silent = true, desc = "clear search buffer register" })
 
 -- Select the text that was last pasted
 map(
@@ -28,7 +30,7 @@ map(
   [['`[' . strpart(getregtype(), 0,  1) . '`]']],
   { expr = true, desc = "select the last pasted region" }
 )
--- Automatically jump to the end of pasted text
+-- Automatically jump to the end of text when yanking and pasting
 map("x", "y", "y`]")
 map({ "x", "n" }, "p", "p`]")
 
@@ -51,7 +53,7 @@ map("n", "<C-w>>", "5<C-w>>")
 map("n", "<C-w>-", "5<C-w>-")
 map("n", "<C-w>+", "5<C-w>+")
 
--- Open Netrw with -
+-- Open Netrw in the current window
 map("n", "+", "<CMD>Explore<CR>")
 
 -- Shortcuts for inserting filename, directory name, and full path into command mode.
