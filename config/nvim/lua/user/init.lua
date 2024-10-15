@@ -28,10 +28,10 @@ function M.setup_lazy()
   -- if the directory contains any lua files.
   if
     vim
-      .iter(vim.fs.dir(vim.fs.normalize("~/.local/config/nvim/lua/local/plugins")))
+      .iter(vim.fs.dir(vim.fs.normalize("~/.local/config/nvim/lua/user/local/plugins"), { depth = 8 }))
       :any(function(item) return vim.endswith(item, ".lua") end)
   then
-    table.insert(specs, { import = "local.plugins" })
+    table.insert(specs, { import = "user.local.plugins" })
   end
 
   lazy.setup({

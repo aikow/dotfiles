@@ -1,8 +1,8 @@
-local dotbot = require("dotbot")
+local dot = require("dot")
 
-dotbot.ensure(dotbot.executable("conda"))
-dotbot.run("./bootstrap-conda")
+dot.ensure(dot.executable("conda"))
+dot.run("./bootstrap-conda")
 
-dotbot.link({
-	["~/.condarc"] = "condarc",
+dot.link({
+  ["~/.condarc"] = "condarc",
 }, { force = true, relink = true })

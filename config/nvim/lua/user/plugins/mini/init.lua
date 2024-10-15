@@ -19,7 +19,6 @@ return {
 
     require("mini.align").setup({})
     require("mini.cursorword").setup({})
-    require("mini.pairs").setup({})
 
     -- ------------------------------------------------------------------------
     -- | mini.ai

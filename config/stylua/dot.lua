@@ -1,3 +1,3 @@
-local dotbot = require("dotbot")
+local dot = require("dot")
 
-dotbot.link("~/.config/stylua/stylua.toml", "stylua.toml")
+dot.link("~/.config/stylua/stylua.toml", "stylua.toml")
