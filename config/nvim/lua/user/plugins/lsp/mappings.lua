@@ -28,8 +28,6 @@ function M.on_attach(client, buffer)
   -- stylua: ignore start
   -- Extend default LSP actions.
   self:map("gD", vim.lsp.buf.declaration, { desc = "vim.lsp.buf.declaration()" })
-  self:map("gri", vim.lsp.buf.implementation, { desc = "vim.lsp.buf.implementation()" })
-  self:map("gy", vim.lsp.buf.type_definition, { desc = "vim.lsp.buf.implementation()" })
 
   -- Signature help
   self:map("<c-s>", vim.lsp.buf.signature_help, { mode = {"i", "n"}, desc = "LSP signature help", has = "signatureHelp" })
