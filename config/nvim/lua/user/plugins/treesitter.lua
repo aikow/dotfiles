@@ -44,9 +44,9 @@ return {
       -- Enable Treesitter syntax highlighting.
       highlight = {
         enable = true,
-        -- Disable tree-sitter syntax highlighting for tex files, since
-        -- vimtex depends on its own syntax highlighting for some features.
-        disable = { "latex" },
+        -- Use vim's regex syntax highlighting for tex files, since vimtex depends on its own syntax
+        -- highlighting for some features.
+        additional_vim_regex_highlighting = { "latex" },
       },
 
       -- Indentation is currently still an experimental feature.
