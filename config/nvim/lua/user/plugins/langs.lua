@@ -67,18 +67,6 @@ return {
     end,
   },
 
-  -- Syntax support for nushell.
-  {
-    "LhKipp/nvim-nu",
-    dependencies = {
-      "nvim-treesitter",
-    },
-    ft = { "nu" },
-    opts = {
-      use_lsp_features = false,
-    },
-  },
-
   -- Connect to databases inside Neovim.
   {
     "tpope/vim-dadbod",

@@ -37,11 +37,8 @@ opt.ignorecase = true
 opt.smartcase = true
 opt.inccommand = "split"
 
--- Set ripgrep as default search tool
-if vim.fn.executable("rg") == 1 then
-  opt.grepprg = "rg --vimgrep --no-heading --smart-case"
-  opt.grepformat = "%f:%l:%c:%m,%f:%l:%m"
-end
+opt.grepprg = "rg --vimgrep --no-heading --smart-case"
+opt.grepformat = "%f:%l:%c:%m"
 
 -- Format options
 -- "t" Auto-wrap using 'textwidth'
@@ -63,16 +60,17 @@ opt.completeopt:append({
   "noselect", -- Don't automatically select a match
   "fuzzy",
 })
-opt.shortmess:append("WcC") -- Don't give ins-complete-menu messages
+opt.shortmess:append("WcCI") -- Don't give ins-complete-menu messages
 
 -- Wildmenu options
 opt.wildoptions:append("fuzzy")
-opt.wildmode = "longest,full"
+opt.wildmode = "longest:full,full"
 opt.wildignore:append({ ".o", ".so", ".a", ".git" })
+opt.pumheight = 16
 
--- Use treesitter for folding
+-- -- Use treesitter for folding
 opt.foldmethod = "expr"
-opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+opt.foldexpr = "v:lua.require'user.util'.foldexpr()"
 opt.foldtext = ""
 opt.foldlevel = 99 -- Nothing is folded by default
 
@@ -144,7 +142,14 @@ set_cursorline("FileType", false, "TelescopePrompt")
 
 -- Conceal
 opt.conceallevel = 2
-opt.fillchars = { eob = " " }
+opt.fillchars = {
+  foldopen = "",
+  foldclose = "",
+  fold = " ",
+  foldsep = " ",
+  diff = "╱",
+  eob = " ",
+}
 opt.fillchars:append(require("user.ui.border").win_borders_fillchars.single)
 
 vim.cmd.colorscheme({ "base-everforest" })
