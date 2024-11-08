@@ -112,9 +112,7 @@ function H.file_name(filename)
   return filename
 end
 
-function H.file_icon(file_name)
-  return require("mini.icons").get("file", file_name)
-end
+function H.file_icon(file_name) return require("mini.icons").get("file", file_name) end
 
 ---Base component for file-name related components. Just sets the filename
 ---attribute to the name of the current buffer.
@@ -259,7 +257,7 @@ Components.git = {
       item.has_changes = false
     else
       item.has_changes = item.diff_info.source_name == "git"
-          and (item.diff_info.add ~= 0 or item.diff_info.delete ~= 0 or item.diff_info.change ~= 0)
+        and (item.diff_info.add ~= 0 or item.diff_info.delete ~= 0 or item.diff_info.change ~= 0)
     end
   end,
   hl = { fg = "orange" },
@@ -513,6 +511,8 @@ Line.tabline = {
 -- | Colors
 -- ------------------------------------------------------------------------
 
+---comment
+---@return table<string, string|integer>
 function H.init_colors()
   return {
     bright_bg = utils.get_highlight("Folded").bg,
@@ -548,6 +548,7 @@ function M.config()
     group = vim.api.nvim_create_augroup("heirline colors", { clear = true }),
     callback = function()
       local heirline = require("heirline")
+      ---@diagnostic disable-next-line: param-type-mismatch
       heirline.load_colors(H.init_colors)
     end,
   })

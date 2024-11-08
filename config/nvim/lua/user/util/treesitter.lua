@@ -24,6 +24,7 @@ function M.iter_query(bufnr, query, callback, opts)
   local ts_query = vim.treesitter.query.parse(filetype, query)
 
   local parser = vim.treesitter.get_parser(bufnr, filetype, {})
+  if not parser then return end
   local tree = parser:parse()[1]
 
   local changes = {}

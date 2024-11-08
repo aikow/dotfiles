@@ -1,14 +1,5 @@
 local M = {}
 
--- Telescope picker is too slow, so just have a simple input textbox ask
--- for the right man page.
-local function man_pages()
-  vim.ui.input({ prompt = "Man: " }, function(input)
-    vim.cmd.Man({ input })
-    vim.cmd.wincmd("o")
-  end)
-end
-
 -- Create a custom function for telescope vim help tags, so that we can
 -- execute wincmd o after selecting a help tag. Telescope does some weird
 -- parsing of the cmdline and running multiple commands in a row doesn't

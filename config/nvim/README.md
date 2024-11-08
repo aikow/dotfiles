@@ -1,64 +1,16 @@
 # Neovim
 
-My lua config files for Neovim.
-
-## Getting Started
-
-Luasnip can support additional regex transformations, which can be enabled by
-installing `jsregexp` package from luarocks.
-
-To install it globally, use
-
-```bash
-sudo luarocks install jsregexp
-```
-
-Or to install it locally for the current user, use
-
-```bash
-luarocks install --local jsregexp
-```
-
-## Mappings
-
-| <leader>+ | group                                  |
-| --------- | -------------------------------------- |
-| a         | LSP code action                        |
-| b         | DAP ...                                |
-| c         | Change text up to next underscore '\_' |
-| d         | Diagnostics ...                        |
-| e         | Open diagnostic float                  |
-| f         | Find ...                               |
-| g         | Git ...                                |
-| h         | Help and vim builtin's ...             |
-| i         | Resume telescope                       |
-| k         | LSP signature help                     |
-| l         | LSP ...                                |
-| o         | Find files                             |
-| p         | Find buffers                           |
-| r         | Refactor ...                           |
-| v         | Incremental selection with tree-sitter |
-| w         | Save file                              |
-| x         | Source file                            |
-| z         | FZF lua ...                            |
-
-## To Do
-
-- [ ] Implement custom statusline
-
 ## Tree-Sitter Parsers
 
 ### `cc1plus` Errors
 
-With an active conda environment, the python `gcc` package can cause issues.
-Simply deactivating the conda environment should fix them.
+With an active conda environment, the python `gcc` package can cause issues when trying to install
+parsers. Simply deactivating the conda environment should fix them.
 
 ### `c++11 extension` errors
 
-On macos, start nvim with
+**Solution: ** start nvim with a more modern C compiler.
 
 ```bash
-CC=gcc-12 nvim
+CC='zig cc --std17' nvim +TSUpdateSync
 ```
-
-to use the gcc-12 compiler.

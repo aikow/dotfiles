@@ -14,20 +14,6 @@ local function on_attach(fn)
   })
 end
 
----Override some options from neovim's builtin LSP handlers.
-local function setup_lsp_handlers()
-  -- Pretty borders for signature help and hover.
-  vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
-    border = "rounded",
-  })
-
-  vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, {
-    border = "rounded",
-    focusable = false,
-    relative = "cursor",
-  })
-end
-
 ---Setup a single server's configuration using nvim-lspconfig.
 ---@param server string | table
 local function setup_server(server)
@@ -104,9 +90,6 @@ function M.setup(_, opts)
     vim.fn.sign_define(name, { text = icon, texthl = name, numhl = "" })
   end
   vim.diagnostic.config(opts.diagnostics)
-
-  -- Setup LSP related handlers.
-  setup_lsp_handlers()
 
   local lsp_servers = vim
     .iter(opts.servers)

@@ -63,8 +63,7 @@ autocmd("BufReadPost", {
 -- Change to project root directory.
 autocmd({ "VimEnter", "BufReadPost", "BufEnter" }, {
   nested = true,
-  ---@params params NvimAutocmdCallbackPrams
-  callback = function(params)
+  callback = function()
     local path = vim.api.nvim_buf_get_name(0)
     if path ~= "" then
       path = vim.fs.dirname(path)

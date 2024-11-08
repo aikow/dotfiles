@@ -32,6 +32,7 @@ return {
       "Mason",
       "MasonInstall",
       "MasonLog",
+      "MasonUpdate",
       "MasonUninstall",
       "MasonUninstallAll",
     },
