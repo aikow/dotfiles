@@ -58,8 +58,9 @@ opt.completeopt:append({
   "menu", -- Use a popup menu to show possible completions
   "menuone", -- Show menu even with one result
   "noselect", -- Don't automatically select a match
-  "fuzzy",
 })
+if vim.fn.has("0.11") == 1 then opt.completeopt:append({ "fuzzy" }) end
+
 opt.shortmess:append("WcCI") -- Don't give ins-complete-menu messages
 
 -- Wildmenu options

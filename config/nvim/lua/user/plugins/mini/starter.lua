@@ -37,7 +37,7 @@ function M.opts()
   local ver = vim.version()
   local version_str = string.format("v%s.%s.%s", ver.major, ver.minor, ver.patch)
   if ver.prerelease then version_str = version_str .. "-" .. ver.prerelease end
-  if ver.build then version_str = version_str .. "+" .. ver.build end
+  if ver.build and ver.build ~= vim.NIL then version_str = version_str .. "+" .. ver.build end
   local footer = version_str
 
   local local_config = "~/.local/config/nvim/lua/local/init.lua"
