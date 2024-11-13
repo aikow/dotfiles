@@ -67,6 +67,8 @@ opt.shortmess:append("WcCI") -- Don't give ins-complete-menu messages
 opt.wildoptions:append("fuzzy")
 opt.wildmode = "longest:full,full"
 opt.wildignore:append({ ".o", ".so", ".a", ".git" })
+
+-- Pop-up menu options
 opt.pumheight = 16
 
 -- -- Use treesitter for folding
@@ -127,19 +129,6 @@ opt.mouse = "a"
 -- Remove default mouse menu options
 vim.cmd.aunmenu({ "PopUp.How-to\\ disable\\ mouse" })
 vim.cmd.aunmenu({ "PopUp.-1-" })
-
--- Only enable the cursor line in the current buffer.
-opt.cursorline = true
-local function set_cursorline(event, value, pattern)
-  vim.api.nvim_create_autocmd(event, {
-    group = vim.api.nvim_create_augroup("CursorLineControl", { clear = true }),
-    pattern = pattern,
-    callback = function() vim.opt_local.cursorline = value end,
-  })
-end
-set_cursorline("WinLeave", false)
-set_cursorline("WinEnter", true)
-set_cursorline("FileType", false, "TelescopePrompt")
 
 -- Conceal
 opt.conceallevel = 2
