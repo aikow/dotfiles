@@ -1,9 +1,4 @@
 return {
-  {
-    "rebelot/heirline.nvim",
-    config = function() require("user.plugins.ui.heirline").config() end,
-  },
-
   -- Show indentation.
   {
     "lukas-reineke/indent-blankline.nvim",

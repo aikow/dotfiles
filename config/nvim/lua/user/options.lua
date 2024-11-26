@@ -103,8 +103,11 @@ opt.diffopt:append({
 -- Color scheme and background
 opt.termguicolors = true -- 24-bit RGB color support
 opt.showmode = false -- Hide mode indicator
-opt.showtabline = 1
 opt.ruler = false -- Don't show column and row position, handled by theme.
+
+-- Tabline
+vim.o.tabline = "%!v:lua.require'user.ui'.tabline()"
+opt.showtabline = 2
 
 -- Define which helper symbols to show
 opt.listchars = "tab:> ,extends:…,precedes:…,nbsp:␣"

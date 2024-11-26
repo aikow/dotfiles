@@ -19,6 +19,7 @@ return {
 
     require("mini.align").setup({})
     require("mini.cursorword").setup({})
+    require("mini.statusline").setup({})
 
     -- ------------------------------------------------------------------------
     -- | mini.ai
