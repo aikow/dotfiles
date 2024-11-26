@@ -47,7 +47,6 @@ function M.setup()
       { mode = "n", keys = "<leader>g", desc = "+Git" },
       { mode = "n", keys = "<leader>h", desc = "+Neovim" },
       { mode = "n", keys = "<leader>l", desc = "+LSP" },
-      { mode = "n", keys = "<leader>n", desc = "+Tree" },
       { mode = "n", keys = "<leader>r", desc = "+Refactor/Reformat" },
 
       miniclue.gen_clues.builtin_completion(),

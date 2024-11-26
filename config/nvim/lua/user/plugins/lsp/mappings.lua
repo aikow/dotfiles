@@ -43,20 +43,15 @@ function M.on_attach(client, buffer)
   self:map("<leader>lS", "Telescope lsp_dynamic_workspace_symbols", { desc = "list LSP workspace symbols dynamically with telescope" })
 
   -- Diagnostics
-  self:map("<leader>k", vim.diagnostic.open_float, { desc = "open diagnostics float for line" })
   self:map("<leader>dl", vim.diagnostic.setloclist, { desc = "set location list to diagnostics" })
   self:map("<leader>dq", vim.diagnostic.setqflist, { desc = "set quickfix list to diagnostics" })
   self:map("<leader>do", "Telescope diagnostics", { desc = "open diagnostics with telescope" })
 
   -- Diagnostic movements with [ and ]
-  self:map("]d", M.diagnostic_goto(true), { desc = "next diagnostic" })
-  self:map("[d", M.diagnostic_goto(false), { desc = "previous diagnostic" })
   self:map("]e", M.diagnostic_goto(true, "ERROR"), { desc = "next error" })
   self:map("[e", M.diagnostic_goto(false, "ERROR"), { desc = "previous error" })
   self:map("]w", M.diagnostic_goto(true, "WARNING"), { desc = "next warning" })
   self:map("[w", M.diagnostic_goto(false, "WARNING"), { desc = "previous warning" })
-
-  self:map("<leader>rr", vim.lsp.buf.rename, { desc = "rename using LSP", has = "rename" })
   -- stylua: ignore end
 end
 

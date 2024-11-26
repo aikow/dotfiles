@@ -85,11 +85,17 @@ function M.setup(_, opts)
   )
 
   -- Setup diagnostic icons and highlights.
-  for name, icon in pairs(require("user.ui.icons").diagnostics) do
-    name = "DiagnosticSign" .. name
-    vim.fn.sign_define(name, { text = icon, texthl = name, numhl = "" })
-  end
-  vim.diagnostic.config(opts.diagnostics)
+  local diagnostic_icons = require("user.ui.icons").diagnostics
+  vim.diagnostic.config({
+    signs = {
+      text = {
+        [vim.diagnostic.severity.HINT] = diagnostic_icons.hint,
+        [vim.diagnostic.severity.INFO] = diagnostic_icons.info,
+        [vim.diagnostic.severity.WARN] = diagnostic_icons.warn,
+        [vim.diagnostic.severity.ERROR] = diagnostic_icons.error,
+      },
+    },
+  })
 
   local lsp_servers = vim
     .iter(opts.servers)
