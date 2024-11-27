@@ -55,9 +55,9 @@ opt.formatoptions:append("tcroqnblj")
 -- Builtin completion options
 opt.infercase = true -- Make completion case-insensitive.
 opt.completeopt:append({
-  "menu", -- Use a popup menu to show possible completions
-  "menuone", -- Show menu even with one result
-  "noselect", -- Don't automatically select a match
+  "menu",            -- Use a popup menu to show possible completions
+  "menuone",         -- Show menu even with one result
+  "noselect",        -- Don't automatically select a match
 })
 if vim.fn.has("0.11") == 1 then opt.completeopt:append({ "fuzzy" }) end
 
@@ -102,12 +102,12 @@ opt.diffopt:append({
 -- ------------------------------------------------------------------------
 -- Color scheme and background
 opt.termguicolors = true -- 24-bit RGB color support
-opt.showmode = false -- Hide mode indicator
-opt.ruler = false -- Don't show column and row position, handled by theme.
+opt.showmode = false     -- Hide mode indicator
+opt.ruler = false        -- Don't show column and row position, handled by theme.
 
 -- Tabline
 vim.o.tabline = "%!v:lua.require'user.ui'.tabline()"
-opt.showtabline = 2
+opt.showtabline = 1
 
 -- Define which helper symbols to show
 opt.listchars = "tab:> ,extends:…,precedes:…,nbsp:␣"
