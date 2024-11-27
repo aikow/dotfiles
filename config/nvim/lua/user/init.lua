@@ -27,7 +27,7 @@ function M.setup_lazy()
   -- Check that the local plugins module actually exists. We do this by checking
   -- if the directory contains any lua files.
   if
-    vim
+      vim
       .iter(vim.fs.dir(vim.fs.normalize("~/.local/config/nvim/lua/user/local/plugins"), { depth = 8 }))
       :any(function(item) return vim.endswith(item, ".lua") end)
   then
@@ -38,8 +38,8 @@ function M.setup_lazy()
     spec = specs,
     ---@diagnostic disable-next-line: assign-type-mismatch
     dev = {
-      path = "~/workspace/repos/neovim",
-      patterns = { "aiko" },
+      path = "~/workspace/repos/aikow",
+      patterns = { "aikow" },
       fallback = true,
     },
     change_detection = {
