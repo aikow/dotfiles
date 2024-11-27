@@ -1,3 +1,6 @@
+### Project Ignores ###
+/bak
+
 # Stores the local config containing a bash array with the configs that should
 # be installed.
 .install.conf
