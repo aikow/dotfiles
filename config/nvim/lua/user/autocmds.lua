@@ -100,13 +100,15 @@ autocmd("BufReadPost", {
 -- Set settings for built-in terminal
 autocmd("TermOpen", {
   group = augroup("Terminal Settings", {}),
-  callback = function()
+  ---@param ev NvimAutocmdCallbackParams
+  callback = function(ev)
     vim.opt_local.spell = false
     vim.opt_local.number = false
-    vim.opt_local.relativenumber = false
+
+    vim.b[ev.buf].minicompletion_disable = true
 
     vim.api.nvim_buf_set_keymap(
-      0,
+      ev.buf,
       "n",
       "<localleader>r",
       [[A<Up><CR><C-\><C-n>G]],

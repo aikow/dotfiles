@@ -29,23 +29,4 @@ return {
       })
     end,
   },
-
-  -- Override neovim default UI components for user input.
-  {
-    "stevearc/dressing.nvim",
-    event = "VeryLazy",
-    opts = {
-      input = {
-        insert_only = false,
-        start_in_insert = true,
-        win_options = {
-          winblend = 0,
-          winhighlight = "NormalFloat:DiagnosticError",
-        },
-      },
-      select = {
-        backend = { "telescope" },
-      },
-    },
-  },
 }

@@ -1,22 +1,5 @@
 local M = {}
 
--- Create a custom function for telescope vim help tags, so that we can
--- execute wincmd o after selecting a help tag. Telescope does some weird
--- parsing of the cmdline and running multiple commands in a row doesn't
--- work.
-local function help_tags()
-  require("telescope.builtin").help_tags({
-    attach_mappings = function(_, map)
-      map({ "i", "n" }, "<CR>", function(prompt_bufnr)
-        require("telescope.actions").select_default(prompt_bufnr)
-        vim.cmd.wincmd("o")
-      end)
-
-      return true
-    end,
-  })
-end
-
 -- Small helper function to create a new section.
 local function create_section(section, name, action)
   return { section = section, name = name, action = action }
@@ -43,14 +26,16 @@ function M.opts()
   local local_config = "~/.local/config/nvim/lua/local/init.lua"
 
   local starter = require("mini.starter")
+  local minipick = require("mini.pick")
+
   local config = {
     evaluate_single = true,
     header = logo,
     items = {
       -- Edit actions
       create_section("Workspace", "Edit", "enew | startinsert "),
-      create_section("Workspace", "Open", "Telescope find_files"),
-      create_section("Workspace", "Recent", "Telescope oldfiles"),
+      create_section("Workspace", "Open", "Pick files"),
+      create_section("Workspace", "Recent", "Pick oldfiles"),
       create_section("Workspace", "Files", "lua require'mini.files'.open()"),
 
       -- Config
@@ -60,12 +45,20 @@ function M.opts()
       create_section("Config", "Mason", "Mason"),
 
       -- Dotfiles
-      create_section("Dotfiles", "Dotfiles", "Telescope find_files cwd=~/.dotfiles"),
-      create_section("Dotfiles", "Dotfiles Local", "Telescope find_files cwd=~/.local/config"),
+      create_section(
+        "Dotfiles",
+        "Dotfiles",
+        function() minipick.builtin.files({}, { source = { cwd = "~/.dotfiles" } }) end
+      ),
+      create_section(
+        "Dotfiles",
+        "Dotfiles Local",
+        function() minipick.builtin.files({}, { source = { cwd = "~/.local/config" } }) end
+      ),
 
       -- Builtin actions
       create_section("Built-in", "News", "help news | wincmd o"),
-      create_section("Built-in", "Help", help_tags),
+      create_section("Built-in", "Help", "Pick help | wincmd o"),
       create_section("Built-in", "Quit", "quit"),
     },
     footer = footer,

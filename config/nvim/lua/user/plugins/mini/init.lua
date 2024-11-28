@@ -15,11 +15,21 @@ return {
     require("user.plugins.mini.clue").setup()
     require("user.plugins.mini.files").setup()
     require("user.plugins.mini.git").setup()
+    require("user.plugins.mini.pick").setup()
     require("user.plugins.mini.starter").setup()
 
     require("mini.align").setup({})
     require("mini.cursorword").setup({})
     require("mini.statusline").setup({})
+
+    -- ------------------------------------------------------------------------
+    -- | mini.completion
+    -- ------------------------------------------------------------------------
+    require("mini.completion").setup({})
+    vim.api.nvim_create_autocmd("FileType", {
+      pattern = { "minifiles" },
+      callback = function() vim.b.minicompletion_disable = true end,
+    })
 
     -- ------------------------------------------------------------------------
     -- | mini.ai

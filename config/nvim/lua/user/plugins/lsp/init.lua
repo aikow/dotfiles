@@ -6,7 +6,7 @@ return {
       "mason.nvim",
       "williamboman/mason-lspconfig.nvim",
       { "folke/lazydev.nvim", opts = {} },
-      "cmp-nvim-lsp",
+      -- "cmp-nvim-lsp",
     },
     event = { "BufReadPre" },
     opts = {

@@ -27,25 +27,25 @@ function M.on_attach(client, buffer)
 
   -- stylua: ignore start
   -- Extend default LSP actions.
-  self:map("gD", vim.lsp.buf.declaration, { desc = "vim.lsp.buf.declaration()" })
+  self:map("gD", vim.lsp.buf.declaration, { desc = "lsp go to declaration" })
 
   -- Signature help
-  self:map("<c-s>", vim.lsp.buf.signature_help, { mode = {"i", "n"}, desc = "LSP signature help", has = "signatureHelp" })
+  self:map("<c-s>", vim.lsp.buf.signature_help, { mode = {"i", "n"}, desc = "lsp signature help", has = "signatureHelp" })
 
   -- LSP go-to actions
-  self:map("gd", "Telescope lsp_definitions", { desc = "telescope lsp definitions" })
-  self:map("<leader>lr", "Telescope lsp_references", { desc = "telescope lsp references" })
-  self:map("<leader>li", "Telescope lsp_implementations", { desc = "telescope lsp implementations" })
-  self:map("<leader>ly", "Telescope lsp_type_definitions", { desc = "telescope lsp type definitions" })
+  self:map("gd", "Pick lsp scope='definition'", { desc = "mini.pick lsp definitions" })
+  self:map("<leader>lr", "Pick lsp scope='references'", { desc = "mini.pick lsp references" })
+  self:map("<leader>li", "Pick lsp scope='implementation'", { desc = "mini.pick lsp implementations" })
+  self:map("<leader>ly", "Pick lsp scope='type_definition'", { desc = "mini.pick lsp type definitions" })
 
-  -- Telescope - search for symbols
-  self:map("<leader>ls", "Telescope lsp_workspace_symbols", { desc = "list LSP workspace symbols with telescope" })
-  self:map("<leader>lS", "Telescope lsp_dynamic_workspace_symbols", { desc = "list LSP workspace symbols dynamically with telescope" })
+  -- Search for symbols
+  self:map("<leader>ls", "Pick lsp scope='document_symbol'", { desc = "mini.pick document symbols" })
+  self:map("<leader>lS", "Pick lsp scope='workspace_symbol'", { desc = "mini.pick workspace symbols" })
 
   -- Diagnostics
   self:map("<leader>dl", vim.diagnostic.setloclist, { desc = "set location list to diagnostics" })
   self:map("<leader>dq", vim.diagnostic.setqflist, { desc = "set quickfix list to diagnostics" })
-  self:map("<leader>do", "Telescope diagnostics", { desc = "open diagnostics with telescope" })
+  self:map("<leader>do", "Pick diagnostic", { desc = "mini.pick diagnostics" })
 
   -- Diagnostic movements with [ and ]
   self:map("]e", M.diagnostic_goto(true, "ERROR"), { desc = "next error" })

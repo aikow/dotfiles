@@ -28,8 +28,8 @@ local function setup_server(server)
   local ok, server_mod = pcall(require, server_mod_name)
   local server_opts = ok and server_mod.opts or server.opts or {}
 
-  server_opts.capabilities =
-    require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
+  -- server_opts.capabilities =
+  -- require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
 
   -- If the server contains an `override_setup` method which returns true, don't continue setting up
   -- the server afterwards.

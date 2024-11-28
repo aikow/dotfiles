@@ -6,9 +6,9 @@ M.opts = {
       workspace = {
         checkThirdParty = false,
       },
-      completion = {
-        callSnippet = "Replace",
-      },
+      -- completion = {
+      --   callSnippet = "Replace",
+      -- },
     },
   },
 }
