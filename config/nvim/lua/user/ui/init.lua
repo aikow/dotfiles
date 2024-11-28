@@ -12,8 +12,8 @@ function M.buf_display_name(bufname, is_active)
   if protocol == "term" then
     local _, pid, cmd = rest:match("^(.*)//(%d+):(.*)$")
     return string.format(
-      "%%#%s#%s%%#%s#%s | %s",
-      is_active and "MiniIconsRed" or "TabLine",
+      "%%#%s#%s %%#%s#%s | %s",
+      is_active and "TabLineSel" or "TabLine",
       protocol_icons.term,
       is_active and "TabLineSel" or "TabLine",
       pid,
@@ -23,24 +23,24 @@ function M.buf_display_name(bufname, is_active)
     local icon = protocol_icons[protocol] or ("[" .. protocol .. "]")
     local filename = vim.fn.fnamemodify(rest, ":t")
     return string.format(
-      "%%#%s#%s%%#%s#%s",
-      is_active and "MiniIconsOrange" or "TabLine",
+      "%%#%s#%s %%#%s#%s",
+      is_active and "TabLineSel" or "TabLine",
       icon,
       is_active and "TabLineSel" or "TabLine",
       filename
     )
   else
-    local icon, icon_hl
+    local icon
     if vim.t.diffview_view_initialized then
-      icon, icon_hl = protocol_icons.diffview, "MiniIconsOrange"
+      icon = protocol_icons.diffview
     else
-      icon, icon_hl = require("mini.icons").get("file", bufname)
+      icon = require("mini.icons").get("file", bufname)
     end
 
     local filename = vim.fn.fnamemodify(bufname, ":t")
     return string.format(
-      "%%#%s#%s%%#%s#%s",
-      is_active and icon_hl or "TabLine",
+      "%%#%s#%s %%#%s#%s",
+      is_active and "TabLineSel" or "TabLine",
       icon,
       is_active and "TabLineSel" or "TabLine",
       filename
