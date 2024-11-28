@@ -56,9 +56,9 @@ local function matches_filters(filters, name)
     local match_type = filter.pattern.matches
 
     if
-      not match_type
-      or (match_type == "folder" and is_dir)
-      or (match_type == "file" and not is_dir)
+        not match_type
+        or (match_type == "folder" and is_dir)
+        or (match_type == "file" and not is_dir)
     then
       local regex = get_regex(filter.pattern)
       if regex:match_str(path:absolute()) ~= nil then return true end
@@ -73,7 +73,7 @@ end
 function M.lsp_will_rename(from_path, to_path)
   for _, client in ipairs(vim.lsp.get_clients()) do
     local will_rename =
-      get_path(client, { "server_capabilities", "workspace", "fileOperations", "willRename" })
+        get_path(client, { "server_capabilities", "workspace", "fileOperations", "willRename" })
     if will_rename == nil then return end
 
     local filters = will_rename.filters or {}
@@ -97,12 +97,12 @@ end
 function M.lsp_did_rename(from_path, to_path)
   for _, client in pairs(vim.lsp.get_clients()) do
     local did_rename =
-      get_path(client, { "server_capabilities", "workspace", "fileOperations", "didRename" })
+        get_path(client, { "server_capabilities", "workspace", "fileOperations", "didRename" })
     if did_rename == nil then return end
 
     local filters = did_rename.filters or {}
     if matches_filters(filters, from_path) then
-      client.notify("workspace/didRenameFiles", {
+      client:notify("workspace/didRenameFiles", {
         files = {
           {
             oldUri = vim.uri_from_fname(from_path),

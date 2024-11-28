@@ -10,15 +10,11 @@ return {
         exclude = {
           filetypes = {
             "",
-            "Outline",
-            "TelescopePrompt",
-            "TelescopeResults",
             "help",
             "lazy",
             "lspinfo",
             "man",
             "mason",
-            "norg",
             "starter",
             "terminal",
           },

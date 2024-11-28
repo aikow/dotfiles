@@ -10,7 +10,7 @@ local ai = require("luasnip.nodes.absolute_indexer")
 local fmta = require("luasnip.extras.fmt").fmta
 local extras = require("luasnip.extras")
 local rep = extras.rep
-local autoinsert_space = require("user.luasnip.callbacks").autoinsert_space
+local autoinsert_space = {}
 
 -- ----------------------
 -- |   Vimtex Regions   |

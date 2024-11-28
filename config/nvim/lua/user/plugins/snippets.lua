@@ -90,7 +90,7 @@ return {
       -- |   Lazy Load Snippets   |
       -- --------------------------
       require("luasnip.loaders.from_vscode").lazy_load({
-        exclude = { "tex", "norg" },
+        exclude = { "tex" },
         default_priority = 100,
       })
       require("luasnip.loaders.from_vscode").lazy_load({

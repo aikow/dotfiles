@@ -26,7 +26,7 @@ return {
 
       vim.api.nvim_create_user_command("LatexSurround", function()
         vim.b[0]["surround" .. vim.fn.char2nr("e")] =
-          [[\\begin{\1environment: \1}\n\t\r\n\\end{\1\1}]]
+        [[\\begin{\1environment: \1}\n\t\r\n\\end{\1\1}]]
         vim.b[0]["surround" .. vim.fn.char2nr("c")] = [[\\\1command: \1{\r}]]
       end, { nargs = 0 })
     end,
@@ -57,6 +57,16 @@ return {
         server = {
           settings = {
             ["rust-analyzer"] = {
+              capabilities = {
+                textDocument = {
+                  completion = {
+                    completionItem = {
+                      -- TODO: Remove this once mini.completion supports snippets.
+                      snippetSupport = false
+                    },
+                  }
+                }
+              },
               checkOnSave = {
                 command = "clippy",
               },

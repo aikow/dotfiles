@@ -28,8 +28,16 @@ local function setup_server(server)
   local ok, server_mod = pcall(require, server_mod_name)
   local server_opts = ok and server_mod.opts or server.opts or {}
 
-  -- server_opts.capabilities =
-  -- require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
+  server_opts.capabilities = {
+    textDocument = {
+      completion = {
+        completionItem = {
+          -- TODO: Remove this once mini.completion supports snippets.
+          snippetSupport = false
+        }
+      }
+    }
+  }
 
   -- If the server contains an `override_setup` method which returns true, don't continue setting up
   -- the server afterwards.
@@ -48,10 +56,10 @@ local function setup_mason_servers(mason_servers)
   local mason_lspconfig = require("mason-lspconfig")
   mason_lspconfig.setup({
     ensure_installed = vim
-      .iter(mason_servers)
-      :filter(function(s) return s.install == true end)
-      :map(function(s) return s[1] end)
-      :totable(),
+        .iter(mason_servers)
+        :filter(function(s) return s.install == true end)
+        :map(function(s) return s[1] end)
+        :totable(),
   })
 
   -- Extend the list of servers with all the installed servers.
@@ -98,16 +106,16 @@ function M.setup(_, opts)
   })
 
   local lsp_servers = vim
-    .iter(opts.servers)
-    :map(function(s)
-      if type(s) ~= "table" then s = { s } end
+      .iter(opts.servers)
+      :map(function(s)
+        if type(s) ~= "table" then s = { s } end
 
-      if s.setup == nil then s.setup = "mason" end
-      if s.install == nil then s.install = true end
+        if s.setup == nil then s.setup = "mason" end
+        if s.install == nil then s.install = true end
 
-      return s
-    end)
-    :totable()
+        return s
+      end)
+      :totable()
 
   -- Setup the actual LSP servers.
   setup_mason_servers(lsp_servers)

@@ -4,8 +4,6 @@ local t = ls.text_node
 local i = ls.insert_node
 local f = ls.function_node
 
--- local autoinsert_space = require("user.luasnip.callbacks").autoinsert_space
-
 return {
   s({ trig = "file", wordTrig = true }, {
     t("["),
