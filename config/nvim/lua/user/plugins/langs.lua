@@ -23,12 +23,6 @@ return {
           "-interaction=nonstopmode",
         },
       }
-
-      vim.api.nvim_create_user_command("LatexSurround", function()
-        vim.b[0]["surround" .. vim.fn.char2nr("e")] =
-        [[\\begin{\1environment: \1}\n\t\r\n\\end{\1\1}]]
-        vim.b[0]["surround" .. vim.fn.char2nr("c")] = [[\\\1command: \1{\r}]]
-      end, { nargs = 0 })
     end,
   },
 
@@ -38,44 +32,6 @@ return {
     ft = { "markdown" },
     build = function() vim.fn["mkdp#util#install"]() end,
   },
-
-  -- -- Rust language support.
-  -- {
-  --   "mrcjkb/rustaceanvim",
-  --   ft = "rust",
-  --   init = function()
-  --     vim.g.rustaceanvim = {
-  --       tools = {
-  --         autoSetHints = true,
-  --         -- hover_with_actions = true, -- Show action inside the hover menu
-  --         inlay_hints = {
-  --           show_parameter_hints = true,
-  --           parameter_hints_prefix = "<- ",
-  --           other_hints_prefix = "=> ",
-  --         },
-  --       },
-  --       server = {
-  --         settings = {
-  --           ["rust-analyzer"] = {
-  --             capabilities = {
-  --               textDocument = {
-  --                 completion = {
-  --                   completionItem = {
-  --                     -- TODO: Remove this once mini.completion supports snippets.
-  --                     snippetSupport = false
-  --                   },
-  --                 }
-  --               }
-  --             },
-  --             checkOnSave = {
-  --               command = "clippy",
-  --             },
-  --           },
-  --         },
-  --       },
-  --     }
-  --   end,
-  -- },
 
   -- Connect to databases inside Neovim.
   {

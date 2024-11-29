@@ -33,7 +33,9 @@ return {
     -- ------------------------------------------------------------------------
     -- | mini.completion
     -- ------------------------------------------------------------------------
-    require("mini.completion").setup({})
+    require("mini.completion").setup({
+      set_vim_settings = false,
+    })
     vim.api.nvim_create_autocmd("FileType", {
       pattern = { "minifiles" },
       callback = function() vim.b.minicompletion_disable = true end,

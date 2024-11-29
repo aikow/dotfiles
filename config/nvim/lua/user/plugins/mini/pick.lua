@@ -25,6 +25,15 @@ function M.setup()
   local loclist = function() extra.list({ scope = "loclist" }) end
   local quickfix = function() extra.list({ scope = "quickfix" }) end
   local search_history = function() extra.history({ scope = "/" }) end
+  local colorschemes = function()
+    minipick.start({
+      source = {
+        name = "Colorschemes",
+        items = vim.fn.getcompletion("", "color"),
+        choose = function(item) vim.cmd.colorscheme({ item }) end,
+      },
+    })
+  end
 
   local man_pages = function()
     local manpage = builtin.cli({ command = { "apropos", "." } })
@@ -57,6 +66,7 @@ function M.setup()
   vim.keymap.set("n", "<leader>;", extra.commands, { desc = "mini.pick vim commands" })
   vim.keymap.set("n", "<leader>h/", search_history, { desc = "mini.pick search history" })
   vim.keymap.set("n", "<leader>h;", command_history, { desc = "mini.pick command history" })
+  vim.keymap.set("n", "<leader>hc", colorschemes, { desc = "mini.pick colorschemes" })
   vim.keymap.set("n", "<leader>hh", builtin.help, { desc = "mini.pick help tags" })
   vim.keymap.set("n", "<leader>hk", extra.keymaps, { desc = "mini.pick keymaps" })
   vim.keymap.set("n", "<leader>hl", loclist, { desc = "mini.pick loclist" })

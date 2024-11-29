@@ -97,7 +97,6 @@ return {
         paths = { "~/.dotfiles/config/snips" },
         default_priority = 100,
       })
-
       require("luasnip.loaders.from_lua").lazy_load({
         paths = { "./lua/user/luasnip/snips" },
         default_priority = 1000,

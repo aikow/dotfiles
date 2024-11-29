@@ -22,7 +22,6 @@ return {
 
   {
     "ribru17/bamboo.nvim",
-    lazy = true,
     opts = {
       style = "multiplex",
     },
@@ -30,7 +29,6 @@ return {
 
   {
     "rebelot/kanagawa.nvim",
-    lazy = true,
     opts = {
       overrides = function()
         return {
@@ -46,7 +44,6 @@ return {
   {
     "catppuccin/nvim",
     name = "catppuccin.nvim",
-    lazy = true,
     opts = {
       integrations = {
         gitsigns = false,
