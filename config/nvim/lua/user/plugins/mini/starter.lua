@@ -5,6 +5,11 @@ local function create_section(section, name, action)
   return { section = section, name = name, action = action }
 end
 
+local function pick_help()
+  require("mini.pick").builtin.help()
+  vim.cmd.wincmd({ "o" })
+end
+
 function M.opts()
   local logo = table.concat({
     "                                                  ",
@@ -58,7 +63,7 @@ function M.opts()
 
       -- Builtin actions
       create_section("Built-in", "News", "help news | wincmd o"),
-      create_section("Built-in", "Help", "Pick help | wincmd o"),
+      create_section("Built-in", "Help", pick_help),
       create_section("Built-in", "Quit", "quit"),
     },
     footer = footer,

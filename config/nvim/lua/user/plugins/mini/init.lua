@@ -20,7 +20,15 @@ return {
 
     require("mini.align").setup({})
     require("mini.cursorword").setup({})
+
+    -- ------------------------------------------------------------------------
+    -- | mini.statusline
+    -- ------------------------------------------------------------------------
     require("mini.statusline").setup({})
+    vim.api.nvim_create_autocmd("FileType", {
+      pattern = { "DiffviewFiles" },
+      callback = function() vim.b.ministatusline_disable = true end,
+    })
 
     -- ------------------------------------------------------------------------
     -- | mini.completion
