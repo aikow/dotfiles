@@ -39,43 +39,43 @@ return {
     build = function() vim.fn["mkdp#util#install"]() end,
   },
 
-  -- Rust language support.
-  {
-    "mrcjkb/rustaceanvim",
-    ft = "rust",
-    init = function()
-      vim.g.rustaceanvim = {
-        tools = {
-          autoSetHints = true,
-          -- hover_with_actions = true, -- Show action inside the hover menu
-          inlay_hints = {
-            show_parameter_hints = true,
-            parameter_hints_prefix = "<- ",
-            other_hints_prefix = "=> ",
-          },
-        },
-        server = {
-          settings = {
-            ["rust-analyzer"] = {
-              capabilities = {
-                textDocument = {
-                  completion = {
-                    completionItem = {
-                      -- TODO: Remove this once mini.completion supports snippets.
-                      snippetSupport = false
-                    },
-                  }
-                }
-              },
-              checkOnSave = {
-                command = "clippy",
-              },
-            },
-          },
-        },
-      }
-    end,
-  },
+  -- -- Rust language support.
+  -- {
+  --   "mrcjkb/rustaceanvim",
+  --   ft = "rust",
+  --   init = function()
+  --     vim.g.rustaceanvim = {
+  --       tools = {
+  --         autoSetHints = true,
+  --         -- hover_with_actions = true, -- Show action inside the hover menu
+  --         inlay_hints = {
+  --           show_parameter_hints = true,
+  --           parameter_hints_prefix = "<- ",
+  --           other_hints_prefix = "=> ",
+  --         },
+  --       },
+  --       server = {
+  --         settings = {
+  --           ["rust-analyzer"] = {
+  --             capabilities = {
+  --               textDocument = {
+  --                 completion = {
+  --                   completionItem = {
+  --                     -- TODO: Remove this once mini.completion supports snippets.
+  --                     snippetSupport = false
+  --                   },
+  --                 }
+  --               }
+  --             },
+  --             checkOnSave = {
+  --               command = "clippy",
+  --             },
+  --           },
+  --         },
+  --       },
+  --     }
+  --   end,
+  -- },
 
   -- Connect to databases inside Neovim.
   {
