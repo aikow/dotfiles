@@ -22,7 +22,7 @@ function M.setup()
   local cur_buf_lines = function() extra.buf_lines({ scope = "current" }) end
   local git_buf_commits = function() extra.git_commits({ path = vim.fn.expand("%") }) end
   local grep_curword = function() builtin.grep({ pattern = vim.fn.expand("<cword>") }) end
-  local loclist = function() extra.list({ scope = "loclist" }) end
+  local loclist = function() extra.list({ scope = "location" }) end
   local quickfix = function() extra.list({ scope = "quickfix" }) end
   local search_history = function() extra.history({ scope = "/" }) end
   local colorschemes = function()

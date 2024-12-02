@@ -45,17 +45,9 @@ return {
     "catppuccin/nvim",
     name = "catppuccin.nvim",
     opts = {
-      default_integrations = false,
       integrations = {
         diffview = true,
-        indent_blankline = true,
-        markdown = true,
         mason = true,
-        mini = true,
-        native_lsp = true,
-        semantic_tokens = true,
-        treesitter = true,
-        treesitter_context = true,
       },
     },
   },
