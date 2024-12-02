@@ -7,7 +7,6 @@ return {
       "williamboman/mason-lspconfig.nvim",
       { "folke/lazydev.nvim", opts = {} },
     },
-    event = { "BufReadPre" },
     opts = {
       servers = {
         "bashls",
@@ -18,8 +17,8 @@ return {
         "pyright",
         "taplo",
         "yamlls",
-        { "rust_analyzer", setup = 'lspconfig', install = false },
-        { "nushell",       setup = "lspconfig", install = false },
+        { "rust_analyzer", setup = "lspconfig", install = false },
+        { "nushell", setup = "lspconfig", install = false },
       },
     },
     config = require("user.plugins.lsp.lspconfig").setup,
@@ -28,33 +27,12 @@ return {
   -- Easily install any LSP, DAP, linter, or formatter from inside neovim.
   {
     "williamboman/mason.nvim",
-    cmd = {
-      "Mason",
-      "MasonInstall",
-      "MasonLog",
-      "MasonUpdate",
-      "MasonUninstall",
-      "MasonUninstallAll",
-    },
     build = ":MasonUpdate",
-    config = function()
-      local icons = require("user.ui.icons").mason
-
-      require("mason").setup({
-        ui = {
-          icons = {
-            package_pending = icons.pending,
-            package_installed = icons.installed,
-            package_uninstalled = icons.uninstalled,
-          },
-        },
-      })
-    end,
+    opts = {},
   },
 
   -- JSON schemastore integration for JSON LS.
   {
     "b0o/SchemaStore.nvim",
-    lazy = true,
   },
 }
