@@ -11,11 +11,13 @@ map("x", ">", ">gv")
 -- Very magic regexps by default.
 map("n", "?", [[?\v]])
 map("n", "/", [[/\v]])
-map("n", "<leader>ss", [[:%s/\v]], { desc = "global search and replace" })
-map("x", "<leader>ss", [[:s/\v]], { desc = "region search and replace" })
+map("n", "<leader>rs", [[:%s/\v]], { desc = "search and replace" })
+map("x", "<leader>rs", [[:s/\v]], { desc = "region search and replace" })
+map("n", "<leader>rS", [[:cfdo %s/\v]], { desc = "global search and replace" })
 
 -- Correct last spelling mistake
-map("n", "<leader>zz", "set invspell", { desc = "toggle spellcheck" })
+map("n", "<leader>zz", "<cmd>set invspell<CR>", { desc = "toggle spellcheck" })
+map("n", "<leader>zw", "<cmd>set invwrap<CR>", { desc = "toggle wrap" })
 map("i", "<C-.>", [[<C-g>u<Esc>[s1z=`]a<C-g>u]], { desc = "correct last spelling mistake" })
 
 -- Clear the search buffer to remove highlighting from the last search. The extra mapping for <C-_>

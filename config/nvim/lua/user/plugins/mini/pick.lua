@@ -50,9 +50,11 @@ function M.setup()
   vim.keymap.set("n", "<leader>p", builtin.buffers, { desc = "mini.pick buffers" })
   vim.keymap.set("n", "<leader>fB", extra.buf_lines, { desc = "mini.pick all buffer fuzzy find" })
   vim.keymap.set("n", "<leader>fb", cur_buf_lines, { desc = "mini.pick buffer fuzzy find" })
+  vim.keymap.set("n", "<leader>fe", extra.explorer, { desc = "mini.pick explore" })
   vim.keymap.set("n", "<leader>ff", builtin.grep_live, { desc = "mini.pick live grep" })
   vim.keymap.set("n", "<leader>fo", extra.oldfiles, { desc = "mini.pick oldfiles" })
-  vim.keymap.set("n", "<leader>ft", extra.treesitter, { desc = "mini.pick treesitter symbols" })
+  vim.keymap.set("n", "<leader>ft", extra.treesitter, { desc = "mini.pick treesitter nodes" })
+  vim.keymap.set("n", "<leader>fn", extra.hipatterns, { desc = "mini.pick todo hipatterns" })
   vim.keymap.set("n", "<leader>fw", grep_curword, { desc = "mini.pick grep word under cursor" })
 
   -- Git shortcuts
