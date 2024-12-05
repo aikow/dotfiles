@@ -11,7 +11,7 @@ return {
     local notify = require("mini.notify")
     notify.setup({})
     vim.notify = notify.make_notify()
-    vim.keymap.set("n", "hn", notify.show_history, { desc = "mini.notify show history" })
+    vim.keymap.set("n", "<leader>hn", notify.show_history, { desc = "mini.notify show history" })
 
     require("user.plugins.mini.clue").setup()
     require("user.plugins.mini.files").setup()
