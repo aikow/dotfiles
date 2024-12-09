@@ -16,4 +16,11 @@ MiniDeps.later(function()
       },
     },
   })
+
+  vim.keymap.set(
+    "n",
+    "<leader>gg",
+    "<cmd>DiffviewOpen<CR>",
+    { desc = "open a diff against the current index" }
+  )
 end)

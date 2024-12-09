@@ -51,4 +51,23 @@ MiniDeps.later(function()
       stylua = {},
     },
   })
+
+  vim.keymap.set(
+    { "n", "x" },
+    "<leader>rf",
+    function() require("conform").format({ async = true, lsp_fallback = true }) end,
+    { desc = "Format the current buffer" }
+  )
+  vim.keymap.set(
+    { "n", "x" },
+    "<leader>rF",
+    function()
+      require("conform").format({
+        async = true,
+        lsp_fallback = true,
+        formatters = { "injected" },
+      })
+    end,
+    { desc = "Format the current buffer with tree-sitter injections" }
+  )
 end)

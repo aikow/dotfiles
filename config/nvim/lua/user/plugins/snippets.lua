@@ -1,6 +1,6 @@
 local feedkeys = require("user.util").feedkeys
 
-MiniDeps.later(function()
+MiniDeps.now(function()
   MiniDeps.add({
     source = "L3MON4D3/luasnip",
     depends = { "rafamadriz/friendly-snippets" },
@@ -32,9 +32,12 @@ MiniDeps.later(function()
       },
     },
   }
-  local ls = require("luasnip")
 
-  ls.config.set_config(opts)
+  require("luasnip").config.set_config(opts)
+end)
+
+MiniDeps.later(function()
+  local ls = require("luasnip")
 
   -- -----------------------
   -- |   Trigger Keymaps   |
