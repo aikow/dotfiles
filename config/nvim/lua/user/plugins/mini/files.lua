@@ -65,7 +65,7 @@ function M.setup()
       map_split(buf_id, "<C-x>", { split = "belowright", horizontal = true })
       map_split(buf_id, "<C-v>", { split = "belowright", vertical = true })
 
-      vim.keymap.set("n", "g.", toggle_dotfiles, {
+      vim.keymap.set("n", "gh", toggle_dotfiles, {
         buffer = buf_id,
         desc = "toggle showing/hiding dotfiles in the file explorer.",
       })
@@ -73,12 +73,6 @@ function M.setup()
         buffer = buf_id,
         desc = "Set the current working directory to the path under the cursor.",
       })
-      vim.keymap.set(
-        "n",
-        "<CR>",
-        minifiles.go_in,
-        { buffer = buf_id, desc = "Open a file and close the explorer." }
-      )
     end,
   })
 

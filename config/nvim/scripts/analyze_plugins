@@ -1,6 +1,6 @@
 #!/usr/bin/env nu
 
-ls ~/.local/share/nvim/lazy
+ls ~/.local/share/nvim/site/pack/deps
 | where type == dir
 | par-each { |it| 
     let name = ($it.name | path basename)

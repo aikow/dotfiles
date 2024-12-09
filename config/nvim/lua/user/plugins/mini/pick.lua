@@ -34,7 +34,6 @@ function M.setup()
       },
     })
   end
-
   local man_pages = function()
     local manpage = builtin.cli({ command = { "apropos", "." } })
     vim.cmd.Man({ manpage:match("^(%S+)") })

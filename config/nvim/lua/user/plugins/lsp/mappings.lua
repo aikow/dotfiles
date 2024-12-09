@@ -4,8 +4,6 @@ function M.new(client, buffer)
   return setmetatable({ client = client, buffer = buffer }, { __index = M })
 end
 
-function M:has(cap) return self.client.server_capabilities[cap .. "Provider"] end
-
 function M:map(lhs, rhs, opts)
   opts = opts or {}
   if opts.has and not self:has(opts.has) then return end
@@ -29,11 +27,9 @@ function M.on_attach(client, buffer)
   -- Extend default LSP actions.
   self:map("gD", vim.lsp.buf.declaration, { desc = "lsp go to declaration" })
 
-  -- Signature help
-  self:map("<c-s>", vim.lsp.buf.signature_help, { mode = {"i", "n"}, desc = "lsp signature help", has = "signatureHelp" })
-
   -- LSP go-to actions
-  self:map("gd", "Pick lsp scope='definition'", { desc = "mini.pick lsp definitions" })
+  self:map("gd", vim.lsp.buf.definition, { desc = "lsp go to definition" })
+  self:map("<leader>ld", "Pick lsp scope='definition'", { desc = "mini.pick lsp definitions" })
   self:map("<leader>lr", "Pick lsp scope='references'", { desc = "mini.pick lsp references" })
   self:map("<leader>li", "Pick lsp scope='implementation'", { desc = "mini.pick lsp implementations" })
   self:map("<leader>ly", "Pick lsp scope='type_definition'", { desc = "mini.pick lsp type definitions" })
@@ -43,8 +39,8 @@ function M.on_attach(client, buffer)
   self:map("<leader>lS", "Pick lsp scope='workspace_symbol'", { desc = "mini.pick workspace symbols" })
 
   -- Diagnostics
-  self:map("<leader>dl", vim.diagnostic.setloclist, { desc = "set location list to diagnostics" })
-  self:map("<leader>dq", vim.diagnostic.setqflist, { desc = "set quickfix list to diagnostics" })
+  self:map("<leader>dl", vim.diagnostic.setloclist, { desc = "diagnostic set location list" })
+  self:map("<leader>dq", vim.diagnostic.setqflist, { desc = "diagnostic set quickfix list" })
   self:map("<leader>do", "Pick diagnostic", { desc = "mini.pick diagnostics" })
 
   -- Diagnostic movements with [ and ]

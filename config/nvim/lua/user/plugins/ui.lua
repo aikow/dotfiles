@@ -1,28 +1,25 @@
-return {
-  -- Show indentation.
-  {
-    "lukas-reineke/indent-blankline.nvim",
-    config = function()
-      require("ibl").setup({
-        indent = {
-          char = "▏",
-        },
-        exclude = {
-          filetypes = {
-            "",
-            "help",
-            "lazy",
-            "lspinfo",
-            "man",
-            "mason",
-            "starter",
-            "terminal",
-          },
-          buftypes = {
-            "terminal",
-          },
-        },
-      })
-    end,
-  },
-}
+MiniDeps.later(function()
+  MiniDeps.add({
+    source = "lukas-reineke/indent-blankline.nvim",
+  })
+
+  require("ibl").setup({
+    indent = {
+      char = "▏",
+    },
+    exclude = {
+      filetypes = {
+        "",
+        "help",
+        "lspinfo",
+        "man",
+        "mason",
+        "starter",
+        "terminal",
+      },
+      buftypes = {
+        "terminal",
+      },
+    },
+  })
+end)

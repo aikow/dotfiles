@@ -10,7 +10,7 @@ local function pick_help()
   vim.cmd.wincmd({ "o" })
 end
 
-function M.opts()
+function M.setup()
   local logo = table.concat({
     "                                                  ",
     "███╗   ██╗███████╗ ██████╗ ██╗   ██╗██╗███╗   ███╗",
@@ -33,7 +33,7 @@ function M.opts()
   local starter = require("mini.starter")
   local minipick = require("mini.pick")
 
-  local config = {
+  local opts = {
     evaluate_single = true,
     header = logo,
     items = {
@@ -46,7 +46,7 @@ function M.opts()
       -- Config
       create_section("Config", "Config", "edit $MYVIMRC"),
       create_section("Config", "Config Local", "edit " .. local_config),
-      create_section("Config", "Lazy", "Lazy show"),
+      create_section("Config", "Update Plugins", "DepsUpdate"),
       create_section("Config", "Mason", "Mason"),
 
       -- Dotfiles
@@ -73,39 +73,7 @@ function M.opts()
     },
   }
 
-  return config
-end
-
-function M.setup()
-  if vim.o.filetype == "lazy" then
-    vim.cmd.close()
-    vim.api.nvim_create_autocmd("User", {
-      pattern = "MiniStarterOpened",
-      callback = function() require("lazy").show() end,
-    })
-  end
-
-  local starter = require("mini.starter")
-  local opts = M.opts()
-  starter.setup(opts)
-
-  vim.api.nvim_create_autocmd("User", {
-    pattern = "LazyVimStarted",
-    callback = function()
-      local stats = require("lazy").stats()
-      local ms = (math.floor(stats.startuptime * 100 + 0.5) / 100)
-      starter.config.footer = starter.config.footer
-        .. "\n\n"
-        .. "Loaded "
-        .. stats.loaded
-        .. " plugins out of "
-        .. stats.count
-        .. " in "
-        .. ms
-        .. "ms"
-      pcall(starter.refresh)
-    end,
-  })
+  require("mini.starter").setup(opts)
 end
 
 return M
