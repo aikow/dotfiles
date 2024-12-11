@@ -1,32 +1,32 @@
-MiniDeps.later(function()
-  ---Setup a single server's configuration using nvim-lspconfig.
-  local function setup_server(server_name)
-    -- Check if a module to configure the server exists.
-    local server_mod_name = "user.plugins.lsp.servers." .. server_name
-    local ok, server_mod = pcall(require, server_mod_name)
-    local server_opts = ok and server_mod.opts or {}
+---Setup a single server's configuration using nvim-lspconfig.
+local function setup_server(server_name)
+  -- Check if a module to configure the server exists.
+  local server_mod_name = "user.plugins.lsp.servers." .. server_name
+  local ok, server_mod = pcall(require, server_mod_name)
+  local server_opts = ok and server_mod.opts or {}
 
-    server_opts.capabilities = {
-      textDocument = {
-        completion = {
-          completionItem = {
-            -- TODO: Remove this once mini.completion supports snippets.
-            snippetSupport = false,
-          },
+  server_opts.capabilities = {
+    textDocument = {
+      completion = {
+        completionItem = {
+          -- TODO: Remove this once mini.completion supports snippets.
+          snippetSupport = false,
         },
       },
-    }
+    },
+  }
 
-    -- If the server contains an `override_setup` method which returns true, don't continue setting up
-    -- the server afterwards.
-    if server_opts.override_setup then
-      if server_opts.override_setup() then return end
-    end
-
-    -- Setup the LSP server using lspconfig.
-    require("lspconfig")[server_name].setup(server_opts)
+  -- If the server contains an `override_setup` method which returns true, don't continue setting up
+  -- the server afterwards.
+  if server_opts.override_setup then
+    if server_opts.override_setup() then return end
   end
 
+  -- Setup the LSP server using lspconfig.
+  require("lspconfig")[server_name].setup(server_opts)
+end
+
+MiniDeps.now(function()
   -- Provide adapter and helper functions for setting up language servers.
   MiniDeps.add({
     source = "neovim/nvim-lspconfig",
@@ -47,7 +47,10 @@ MiniDeps.later(function()
   require("mason-lspconfig").setup_handlers({
     function(server_name) setup_server(server_name) end,
   })
+
+  -- Setup LSP servers not installed by mason.
   setup_server("rust_analyzer")
+  setup_server("julials")
   setup_server("nushell")
 
   -- Setup keymaps when an LSP server is attach.

@@ -1,29 +1,35 @@
-MiniDeps.now(function()
-  MiniDeps.add({
-    source = "echasnovski/mini.nvim",
-    depends = {
-      "nvim-treesitter/nvim-treesitter",
-      "nvim-treesitter/nvim-treesitter-textobjects",
-    },
-  })
+MiniDeps.now(
+  function()
+    MiniDeps.add({
+      source = "echasnovski/mini.nvim",
+      depends = {
+        "nvim-treesitter/nvim-treesitter",
+        "nvim-treesitter/nvim-treesitter-textobjects",
+      },
+    })
+  end
+)
 
+MiniDeps.now(function()
+  -- ------------------------------------------------------------------------
+  -- | mini.icons
+  -- ------------------------------------------------------------------------
   local icons = require("mini.icons")
   icons.setup({})
   icons.mock_nvim_web_devicons()
 
+  -- ------------------------------------------------------------------------
+  -- | mini.notify
+  -- ------------------------------------------------------------------------
   local notify = require("mini.notify")
   notify.setup({})
   vim.notify = notify.make_notify()
   vim.keymap.set("n", "<leader>hn", notify.show_history, { desc = "mini.notify show history" })
 
-  require("user.plugins.mini.clue").setup()
-  require("user.plugins.mini.files").setup()
-  require("user.plugins.mini.git").setup()
-  require("user.plugins.mini.pick").setup()
+  -- ------------------------------------------------------------------------
+  -- | mini.starter
+  -- ------------------------------------------------------------------------
   require("user.plugins.mini.starter").setup()
-
-  require("mini.align").setup({})
-  require("mini.cursorword").setup({})
 
   -- ------------------------------------------------------------------------
   -- | mini.statusline
@@ -33,6 +39,16 @@ MiniDeps.now(function()
     pattern = { "DiffviewFiles" },
     callback = function() vim.b.ministatusline_disable = true end,
   })
+end)
+
+MiniDeps.later(function()
+  require("user.plugins.mini.clue").setup()
+  require("user.plugins.mini.files").setup()
+  require("user.plugins.mini.git").setup()
+  require("user.plugins.mini.pick").setup()
+
+  require("mini.align").setup({})
+  require("mini.cursorword").setup({})
 
   -- ------------------------------------------------------------------------
   -- | mini.completion
