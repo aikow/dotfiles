@@ -59,7 +59,7 @@ function M.setup()
     callback = function(params)
       local buf_id = params.data.buf_id
 
-      map_split(buf_id, "<C-x>", { split = "belowright", horizontal = true })
+      map_split(buf_id, "<C-s>", { split = "belowright", horizontal = true })
       map_split(buf_id, "<C-v>", { split = "belowright", vertical = true })
 
       vim.keymap.set("n", "gp", function() vim.fn.setreg("+", minifiles.get_fs_entry().path) end, {

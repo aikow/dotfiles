@@ -1,10 +1,7 @@
-set shell := ["bash", "-xc"]
+set shell := ["bash", "-c"]
 
 format:
   fd -elua -X stylua
-
-lint: format
-  fd -elua -X luacheck
 
 format-spell:
   for file in spell/*.add; do sort -f -o "${file}" "${file}"; done
