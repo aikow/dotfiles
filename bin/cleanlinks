@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+for path in "$@"; do
+  for entry in "$path"/* "$path"/.*; do
+    if [[ -L $entry && ! -e "$(readlink $entry)" ]]; then
+      unlink $entry
+    fi
+  done
+done

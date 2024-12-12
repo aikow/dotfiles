@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+command -v nvim &>/dev/null || exit 1
+      
+symlinkfb "$PWD" ~/.config/nvim

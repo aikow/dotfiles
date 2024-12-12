@@ -13,17 +13,14 @@ function M.setup()
   local map_split = function(buf_id, lhs, direction_mods)
     local rhs = function()
       -- Make new window and set it as target
-      local target_window = minifiles.get_target_window()
-      if target_window then
-        local new_target_window
-        vim.api.nvim_win_call(target_window, function()
-          vim.cmd.split({ mods = direction_mods })
-          new_target_window = vim.api.nvim_get_current_win()
-        end)
+      local cur_target = minifiles.get_explorer_state().target_window
+      local new_target = vim.api.nvim_win_call(cur_target, function()
+        vim.cmd.split({ mods = direction_mods })
+        return vim.api.nvim_get_current_win()
+      end)
 
-        minifiles.set_target_window(new_target_window)
-        minifiles.go_in({})
-      end
+      minifiles.set_target_window(new_target)
+      minifiles.go_in({ close_on_file = true })
     end
 
     -- Adding `desc` will result into `show_help` entries
@@ -65,13 +62,17 @@ function M.setup()
       map_split(buf_id, "<C-x>", { split = "belowright", horizontal = true })
       map_split(buf_id, "<C-v>", { split = "belowright", vertical = true })
 
+      vim.keymap.set("n", "gp", function() vim.fn.setreg("+", minifiles.get_fs_entry().path) end, {
+        buffer = buf_id,
+        desc = "mini.files yank absolute path",
+      })
       vim.keymap.set("n", "gh", toggle_dotfiles, {
         buffer = buf_id,
-        desc = "toggle showing/hiding dotfiles in the file explorer.",
+        desc = "mini.files toggle hidden",
       })
       vim.keymap.set("n", "gc", files_set_cwd, {
         buffer = buf_id,
-        desc = "Set the current working directory to the path under the cursor.",
+        desc = "mini.files set current working directory",
       })
     end,
   })

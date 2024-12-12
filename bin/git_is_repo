@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+if ! command git &>/dev/null; then
+  exit 1
+fi
+
+if ! git rev-parse HEAD &>/dev/null; then
+  exit 1
+fi

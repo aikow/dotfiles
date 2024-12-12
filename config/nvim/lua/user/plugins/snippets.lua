@@ -49,16 +49,10 @@ MiniDeps.later(function()
       feedkeys("<tab>")
     end
   end, {
-    silent = true,
-    desc = "luasnip expand or jump forward one, or if neither are avialable, expand tab",
+    desc = "luasnip expand or jump forward",
   })
 
-  vim.keymap.set(
-    "s",
-    "<Tab>",
-    function() ls.jump(1) end,
-    { silent = true, desc = "luasnip jump forward one" }
-  )
+  vim.keymap.set("s", "<Tab>", function() ls.jump(1) end, { desc = "luasnip jump forward" })
 
   vim.keymap.set({ "i", "s" }, "<S-Tab>", function()
     if ls.jumpable(-1) then
@@ -66,27 +60,27 @@ MiniDeps.later(function()
     else
       feedkeys("<C-d>")
     end
-  end, { silent = true, desc = "luasnip jump back one" })
+  end, { desc = "luasnip jump back" })
 
   vim.keymap.set({ "i", "s" }, "<C-j>", function()
     if ls.choice_active() then ls.change_choice(1) end
-  end, { silent = true, desc = "luasnip next choice" })
+  end, { desc = "luasnip next choice" })
 
   vim.keymap.set({ "i", "s" }, "<C-k>", function()
     if ls.choice_active() then ls.change_choice(-1) end
-  end, { silent = true, desc = "luasnip previous choice" })
+  end, { desc = "luasnip previous choice" })
 
   vim.api.nvim_create_user_command(
     "LuaSnipEdit",
-    function() require("luasnip.loaders").edit_snippet_files({}) end,
-    { desc = "telescope edit snippets", force = true }
+    require("luasnip.loaders").edit_snippet_files,
+    { desc = "luasnip edit snippets" }
   )
-
-  ls.filetype_extend("htmldjango", { "html" })
 
   -- --------------------------
   -- |   Lazy Load Snippets   |
   -- --------------------------
+  ls.filetype_extend("htmldjango", { "html" })
+
   require("luasnip.loaders.from_vscode").lazy_load({
     exclude = { "tex" },
     default_priority = 100,

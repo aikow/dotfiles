@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+command -v fish &>/dev/null || exit 1
+
+symlinkfb "$PWD" ~/.config/fish

@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+command -v nu &>/dev/null || exit 1
+
+if [[ $DOTFILES_OS == "Darwin" ]]; then
+  symlinkfb "$PWD" ~/Library/Application\ Support/nushell
+elif [[ $DOTFILES_OS == "Linux" ]]; then
+  symlinkfb "$PWD" ~/.config/nushell
+fi

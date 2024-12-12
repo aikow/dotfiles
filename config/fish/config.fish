@@ -1,10 +1,7 @@
 # ----------------------
 # |   Configure PATH   |
 # ----------------------
-fish_add_path --path --move $HOME/go/bin
-fish_add_path --path --move $HOME/.cargo/bin
-fish_add_path --path --move $DOTFILES/bin/all
-fish_add_path --path --move $DOTFILES/bin/os/bin
+fish_add_path --path --move $DOTFILES/bin
 fish_add_path --path --move $HOME/.local/bin
 
 # ----------------------------

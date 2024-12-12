@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+command -v kitty &>/dev/null || exit 1
+
+symlinkfb "$PWD/kitty.conf" ~/.config/kitty/kitty.conf
+symlinkfb "$PWD/tab_bar.py" ~/.config/kitty/tab_bar.py

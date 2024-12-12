@@ -1,0 +1,34 @@
+#!/usr/bin/env bash
+
+set -o xtrace
+#
+# Force create a symlink but create a backup of the target before replacing it
+# with the symlink if it exists.
+
+if [[ $# != 2 ]]; then
+  echo "usage: symlinkfb path target"
+  exit 1
+fi
+
+backup_dir=$HOME/.local/backups/symlinkfb
+mkdir -p "$backup_dir"
+
+if [[ -e $2 ]]; then
+  path=$(realpath "$2")
+  backup_file=$backup_dir/$(date -Iseconds)${path////--}
+
+  link_target=$(realpath "$2")
+  if [[ $link_target == "$(realpath "$1")" ]]; then
+    # No work to do here.
+    exit
+  fi
+
+  if [[ -L $2 ]]; then
+    echo "symlinked to $(readlink "$2")" >"$backup_file"
+    unlink "$2"
+  else
+    mv "$2" "$backup_file"
+  fi
+fi
+
+ln -s "$1" "$2"

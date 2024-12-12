@@ -6,11 +6,11 @@ This folder contains all configuration files for zsh using
 
 ## Installation
 
-Run the [bootstrap](./bootstrap-zinit.bash) script to automatically install
+Run the [install](./scripts/install_zinit) script to automatically install
 zinit and all plugins.
 
 ```bash
-bash bootstrap-zinit.bash
+scripts/install_zinit
 ```
 
 To change your default shell to zsh use

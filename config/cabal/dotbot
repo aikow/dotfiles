@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+command -v cabal &>/dev/null || exit 1
+
+symlinkfb "$PWD/config" ~/.cabal/config

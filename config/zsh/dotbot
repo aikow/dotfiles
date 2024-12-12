@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+command -v zsh &>/dev/null || exit 1
+
+scripts/install_zinit
+
+symlinkfb "$PWD/zshenv" ~/.zshenv
+symlinkfb "$PWD/zshrc" ~/.zshrc

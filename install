@@ -1,40 +1,15 @@
 #!/usr/bin/env bash
 
-set -o errexit
-set -o pipefail
-set -o nounset
+export DOTFILES_HOME=$PWD
+DOTFILES_OS=$(uname -o)
+export DOTFILES_OS
 
-# Config file settings
-readonly CONFIG_DIR="config"
-readonly CONFIG_SUFFIX="json"
-readonly INSTALL_CONFIG_FILE=".install.conf"
+bash dotbot
 
-# Dotbot path
-readonly DOTBOT_DIR="meta/dotbot"
-readonly DOTBOT_BIN="bin/dotbot"
+for config_dotbot in config/*/dotbot; do
+  pushd "$(dirname "$config_dotbot")" || exit
 
-# Base directory of the git repository
-BASEDIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-readonly BASEDIR
+  bash "$config_dotbot"
 
-# Update the git repository
-cd "${BASEDIR}"
-git submodule update --init --recursive "${DOTBOT_DIR}"
-
-if [[ -f "${INSTALL_CONFIG_FILE}" ]]; then
-  # Read the config file and only install those configs.
-  unset config
-  while read -r config; do
-    conf_file="${CONFIG_DIR}/${config}/dotbot.${CONFIG_SUFFIX}"
-    if [[ -f $conf_file ]]; then
-      "${BASEDIR}/${DOTBOT_DIR}/${DOTBOT_BIN}" -vv -f "${conf_file}" || true
-    else
-      echo "Skipping ${config}, check that the directory exists"
-    fi
-  done <"${INSTALL_CONFIG_FILE}"
-else
-  "${BASEDIR}/${DOTBOT_DIR}/${DOTBOT_BIN}" -vv \
-    -b "${BASEDIR}" \
-    -f "${BASEDIR}/dotbot.${CONFIG_SUFFIX}" \
-    -d "${BASEDIR}/config"
-fi
+  popd || exit
+done

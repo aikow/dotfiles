@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+
+git_is_repo || return
+
+git log \
+  --date=short \
+  --graph \
+  --color=always \
+  --format="%C(green)%C(bold)%cd %C(auto)%h%d %s (%an)" \
+  | fzf \
+    --ansi \
+    --no-sort \
+    --reverse \
+    --multi \
+    --bind 'ctrl-s:toggle-sort' \
+    --header 'Press CTRL-S to toggle sort' \
+    --preview 'grep -o "[a-f0-9]\{7,\}" <<< {} | xargs git show --color=always' \
+  | grep -o "[a-f0-9]\{7,\}"

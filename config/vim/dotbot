@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+command -v vim &>/dev/null || exit 1
+      
+symlinkfb "$PWD/vimrc" ~/.vimrc

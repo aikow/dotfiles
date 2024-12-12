@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+fd -HI --type d '^\.git$' "${1:-.}" -x echo '{//}'

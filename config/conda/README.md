@@ -1,3 +1,0 @@
-# Anaconda
-
-Python environment manager.

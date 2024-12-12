@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+command -v alacritty &>/dev/null || exit 1
+
+mkdir -p ~/.config/alacritty
+cleanlinks ~/.config/alacritty
+
+symlinkfb "$PWD/alacritty.toml" ~/.config/alacritty/alacritty.toml
+symlinkfb "$PWD/themes/gruvbox-material-dark-medium.toml" current-theme.toml
+symlinkfb "$PWD/os/$DOTFILES_OS.toml" current-os.toml

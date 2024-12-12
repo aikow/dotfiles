@@ -7,4 +7,3 @@
 ## Configuration
 
 - [A Guide to Customizing TMUX](https://www.hamvocke.com/blog/a-guide-to-customizing-your-tmux-conf/)
-

@@ -16,7 +16,7 @@ function add_argument
 end
 
 function add_less
-    if command -v bat &>/dev/null
+    if command -q bat
         set cmd " | bat"
     else
         set cmd " | less"

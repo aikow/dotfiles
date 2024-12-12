@@ -2,5 +2,3 @@
 # folder.
 /completions
 /fish_variables
-
-/functions/fzf_key_bindings.fish

@@ -5,9 +5,9 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
     source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
-#######################################################################
-#                                 zinit                               #
-#######################################################################
+# ------------------------------------------------------------------------
+# | Zinit
+# ------------------------------------------------------------------------
 #
 # Source the zinit script
 source "${HOME}/.local/share/zinit/zinit.git/zinit.zsh"
@@ -44,9 +44,9 @@ zinit light romkatv/powerlevel10k
 source "${DOTFILES_ZSH}/p10k.zsh"
 
 
-#######################################################################
-#                               History                               #
-#######################################################################
+# ------------------------------------------------------------------------
+# | History
+# ------------------------------------------------------------------------
 #
 # History Options
 setopt append_history
@@ -85,9 +85,9 @@ export histignore=(
 )
 
 
-#######################################################################
-#                         User Configuration                          #
-#######################################################################
+# ------------------------------------------------------------------------
+# | Shell Options
+# ------------------------------------------------------------------------
 #
 # command correction
 setopt correct
@@ -136,10 +136,6 @@ bindkey '^n' history-beginning-search-forward
 # Clear screen
 bindkey "^l" clear-screen
 
-# Git bindings
-source "${DOTFILES_SH}/functions/fzf-git.sh"
-source "${DOTFILES_SH}/functions/fzf-k8s.sh"
-
 function join-lines() {
   local item
   while read item; do
@@ -156,25 +152,19 @@ function bind_function() {
 }
 
 bind_function fzf_git_status ^g^f
-bind_function fzf_git_branches ^g^b
-bind_function fzf_git_tags ^g^t
-bind_function fzf_git_remotes ^g^r
-bind_function fzf_git_commits ^g^h
+bind_function fzf_git_branch ^g^b
+bind_function fzf_git_tag ^g^t
+bind_function fzf_git_remote ^g^r
+bind_function fzf_git_log ^g^h
 bind_function fzf_git_stash ^g^s
-bind_function fzf_k8s_pods ^g^p
-bind_function fzf_k8s_jobs ^g^j
 
 # Load completions 
 autoload -U compinit && compinit
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
 
-# ZSH tab completion with fzf
-# zinit light Aloxaf/fzf-tab
-
-
-#######################################################################
-#                               Sources                               #
-#######################################################################
+# ------------------------------------------------------------------------
+# | Extra Modules
+# ------------------------------------------------------------------------
 #
 # Source fzf if installed
 command -v fzf &>/dev/null && eval "$(fzf --zsh)"
