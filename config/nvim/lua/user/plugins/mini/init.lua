@@ -51,17 +51,6 @@ MiniDeps.later(function()
   require("mini.cursorword").setup({})
 
   -- ------------------------------------------------------------------------
-  -- | mini.completion
-  -- ------------------------------------------------------------------------
-  require("mini.completion").setup({
-    set_vim_settings = false,
-  })
-  vim.api.nvim_create_autocmd("FileType", {
-    pattern = { "minifiles" },
-    callback = function() vim.b.minicompletion_disable = true end,
-  })
-
-  -- ------------------------------------------------------------------------
   -- | mini.ai
   -- ------------------------------------------------------------------------
   local spec_treesitter = require("mini.ai").gen_spec.treesitter

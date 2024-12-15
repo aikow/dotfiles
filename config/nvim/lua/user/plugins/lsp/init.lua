@@ -5,16 +5,7 @@ local function setup_server(server_name)
   local ok, server_mod = pcall(require, server_mod_name)
   local server_opts = ok and server_mod.opts or {}
 
-  server_opts.capabilities = {
-    textDocument = {
-      completion = {
-        completionItem = {
-          -- TODO: Remove this once mini.completion supports snippets.
-          snippetSupport = false,
-        },
-      },
-    },
-  }
+  server_opts.capabilities = require("blink.cmp").get_lsp_capabilities(server_opts.capabilities)
 
   -- If the server contains an `override_setup` method which returns true, don't continue setting up
   -- the server afterwards.
@@ -25,6 +16,32 @@ local function setup_server(server_name)
   -- Setup the LSP server using lspconfig.
   require("lspconfig")[server_name].setup(server_opts)
 end
+
+MiniDeps.now(function()
+  MiniDeps.add({
+    source = "saghen/blink.cmp",
+    depends = { "rafamadriz/friendly-snippets" },
+    hooks = {
+      post_checkout = function(params)
+        vim.system({ "cargo", "build", "--release" }, { cwd = params.path }):wait()
+      end,
+    },
+  })
+
+  require("blink.cmp").setup({
+    snippets = {
+      expand = function(snippet) require("luasnip").lsp_expand(snippet) end,
+      active = function(filter)
+        if filter and filter.direction then return require("luasnip").jumpable(filter.direction) end
+        return require("luasnip").in_snippet()
+      end,
+      jump = function(direction) require("luasnip").jump(direction) end,
+    },
+    sources = {
+      default = { "lsp", "path", "luasnip", "buffer" },
+    },
+  })
+end)
 
 MiniDeps.now(function()
   -- Provide adapter and helper functions for setting up language servers.

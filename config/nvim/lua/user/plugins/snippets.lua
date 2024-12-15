@@ -3,8 +3,11 @@ local feedkeys = require("user.util").feedkeys
 MiniDeps.now(function()
   MiniDeps.add({
     source = "L3MON4D3/luasnip",
-    depends = { "rafamadriz/friendly-snippets" },
-    hooks = { post_checkout = function() vim.system({ "make", "install_jsregexp" }) end },
+    hooks = {
+      post_checkout = function(params)
+        vim.system({ "make", "install_jsregexp" }, { cwd = params.path }):wait()
+      end,
+    },
   })
 
   local types = require("luasnip.util.types")
