@@ -35,9 +35,8 @@ MiniDeps.now(function()
 
   require("blink.cmp").setup({
     completion = {
-      list = {
-        selection = "auto_insert",
-      },
+      list = { selection = "auto_insert" },
+      trigger = { show_on_insert_on_trigger_character = false },
     },
     snippets = {
       expand = function(snippet) require("luasnip").lsp_expand(snippet) end,
@@ -49,6 +48,7 @@ MiniDeps.now(function()
     },
     sources = {
       default = { "lsp", "path", "luasnip", "buffer" },
+      cmdline = {},
     },
   })
 end)
