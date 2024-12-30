@@ -2,6 +2,8 @@ local opt = vim.opt
 
 opt.shell = "bash"
 
+opt.runtimepath:append("~/.dotfiles/config/snippets")
+
 -- Back-up, undo files, and automatically write changes.
 opt.undofile = true
 opt.backup = false
@@ -106,7 +108,7 @@ opt.showmode = false -- Hide mode indicator
 opt.ruler = false -- Don't show column and row position, handled by theme.
 
 -- Tabline
-vim.o.tabline = "%!v:lua.require'user.ui'.tabline()"
+vim.o.tabline = "%!v:lua.require'user.ui.tabline'.tabline()"
 opt.showtabline = 1
 
 -- Define which helper symbols to show

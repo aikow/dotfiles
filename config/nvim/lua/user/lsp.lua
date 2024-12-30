@@ -49,8 +49,8 @@ end
 ---@param name string
 ---@return boolean
 local function matches_filters(filters, name)
-  local path = require("plenary").Path:new(name)
-  local is_dir = path:is_dir()
+  local path = vim.fs.abspath(name)
+  local is_dir = vim.uv.fs_stat(path).type == "directory"
 
   for _, filter in pairs(filters) do
     local match_type = filter.pattern.matches
@@ -61,7 +61,7 @@ local function matches_filters(filters, name)
       or (match_type == "file" and not is_dir)
     then
       local regex = get_regex(filter.pattern)
-      if regex:match_str(path:absolute()) ~= nil then return true end
+      if regex:match_str(path) ~= nil then return true end
     end
   end
   return false

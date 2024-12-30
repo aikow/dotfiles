@@ -51,6 +51,43 @@ MiniDeps.later(function()
   require("mini.cursorword").setup({})
 
   -- ------------------------------------------------------------------------
+  -- | mini.snippets
+  -- ------------------------------------------------------------------------
+  local minisnippets = require("mini.snippets")
+  minisnippets.setup({
+    expand = {
+      select = function(snippets, insert)
+        require("blink.cmp").cancel()
+        vim.schedule(function() minisnippets.default_select(snippets, insert) end)
+      end,
+    },
+    snippets = {
+      -- Load custom file with global snippets first
+      minisnippets.gen_loader.from_file("~/.dotfiles/config/snippets/snippets/all.json"),
+      minisnippets.gen_loader.from_lang(),
+    },
+  })
+
+  local expand_all = function() minisnippets.expand({ match = false }) end
+  vim.keymap.set("i", "<C-g><C-j>", expand_all, { desc = "Expand all" })
+  local expand_or_jump = function()
+    local can_expand = #minisnippets.expand({ insert = false }) > 0
+    if can_expand then
+      vim.schedule(minisnippets.expand)
+      return ""
+    end
+    local is_active = minisnippets.session.get() ~= nil
+    if is_active then
+      minisnippets.session.jump("next")
+      return ""
+    end
+    return "\t"
+  end
+  local jump_prev = function() minisnippets.session.jump("prev") end
+  vim.keymap.set("i", "<Tab>", expand_or_jump, { expr = true })
+  vim.keymap.set("i", "<S-Tab>", jump_prev)
+
+  -- ------------------------------------------------------------------------
   -- | mini.ai
   -- ------------------------------------------------------------------------
   local spec_treesitter = require("mini.ai").gen_spec.treesitter

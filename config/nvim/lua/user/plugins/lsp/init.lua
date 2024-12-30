@@ -39,15 +39,15 @@ MiniDeps.now(function()
       trigger = { show_on_insert_on_trigger_character = false },
     },
     snippets = {
-      expand = function(snippet) require("luasnip").lsp_expand(snippet) end,
-      active = function(filter)
-        if filter and filter.direction then return require("luasnip").jumpable(filter.direction) end
-        return require("luasnip").in_snippet()
+      expand = function(snippet)
+        local insert = MiniSnippets.config.expand.insert or MiniSnippets.default_insert
+        insert({ body = snippet })
       end,
-      jump = function(direction) require("luasnip").jump(direction) end,
+      active = function() return false end,
+      jump = function() end,
     },
     sources = {
-      default = { "lsp", "path", "luasnip", "buffer" },
+      default = { "lsp", "path", "buffer" },
       cmdline = {},
     },
   })
