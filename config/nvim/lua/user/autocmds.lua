@@ -88,12 +88,6 @@ autocmd("TermOpen", {
   end,
 })
 
--- Automatically set the colorcolumn to the textwidth of the current buffer.
-autocmd("BufWinEnter", {
-  group = augroup("textwidth colorcolumn", {}),
-  callback = function() vim.opt_local.colorcolumn = "" .. vim.bo.textwidth end,
-})
-
 -- Highlight text on yank
 autocmd("TextYankPost", {
   group = augroup("highlight on yank", {}),

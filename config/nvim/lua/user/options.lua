@@ -119,9 +119,8 @@ opt.showbreak = " -> "
 opt.linebreak = true
 opt.breakindent = true
 
--- Show a ruler at 80 characters.
+-- Default to a maximum of 80 characters per line
 opt.textwidth = 80
-opt.colorcolumn = { 80 }
 
 -- Enable line numbers
 opt.number = true
