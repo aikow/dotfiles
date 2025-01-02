@@ -1,1 +1,1 @@
-vim.opt.omnifunc = "v:lua.vim.treesitter.query.omnifunc"
+vim.opt_local.omnifunc = "v:lua.vim.treesitter.query.omnifunc"
