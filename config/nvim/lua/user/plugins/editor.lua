@@ -1,3 +1,5 @@
+MiniDeps.later(function() MiniDeps.add({ source = "tpope/vim-vinegar" }) end)
+
 MiniDeps.later(function()
   vim.g.tmux_navigator_no_mappings = 1
   vim.g.tmux_navigator_disable_when_zoomed = 1

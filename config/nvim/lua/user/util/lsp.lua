@@ -16,7 +16,7 @@ end
 
 ---Get the attribute of obj which is indexed by the items in the path.
 ---This is a convenience method for dealing with optional nil elements somewhere
----in a
+---in a deeply nested table.
 ---
 ---@param obj table
 ---@param path string[]
@@ -37,7 +37,6 @@ local function get_regex(pattern)
   local regex = vim.fn.glob2regpat(pattern.glob)
   if pattern.options and pattern.options.ignoreCase then regex = "\\c" .. regex end
 
-  ---@diagnostic disable-next-line: return-type-mismatch
   return vim.regex(regex)
 end
 
@@ -49,7 +48,8 @@ end
 ---@return boolean
 local function matches_filters(filters, name)
   local path = vim.fs.abspath(name)
-  local is_dir = vim.uv.fs_stat(path).type == "directory"
+  local stat = vim.uv.fs_stat(path)
+  local is_dir = stat.type == "directory"
 
   for _, filter in pairs(filters) do
     local match_type = filter.pattern.matches
@@ -93,6 +93,9 @@ function M.lsp_will_rename(from_path, to_path)
   end
 end
 
+---Handle renaming a file for all LSP clients after it has been renamed.
+---@param from_path string
+---@param to_path string
 function M.lsp_did_rename(from_path, to_path)
   for _, client in pairs(vim.lsp.get_clients()) do
     local did_rename =
@@ -100,7 +103,7 @@ function M.lsp_did_rename(from_path, to_path)
     if did_rename == nil then return end
 
     local filters = did_rename.filters or {}
-    if matches_filters(filters, from_path) then
+    if matches_filters(filters, to_path) then
       client:notify("workspace/didRenameFiles", {
         files = {
           {

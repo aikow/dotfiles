@@ -30,6 +30,11 @@ MiniDeps.now(function()
   -- | mini.starter
   -- ------------------------------------------------------------------------
   require("user.plugins.mini.starter").setup()
+  vim.api.nvim_create_user_command("Starter", function(params)
+    local mods = vim.tbl_extend("keep", params.smods, { keepalt = true, noswapfile = true })
+    vim.cmd.new({ mods = mods })
+    require("mini.starter").open()
+  end, { desc = "Open the starter" })
 
   -- ------------------------------------------------------------------------
   -- | mini.statusline

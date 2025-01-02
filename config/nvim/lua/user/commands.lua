@@ -1,19 +1,5 @@
 local command = vim.api.nvim_create_user_command
 
----Get the row index of the cursor
----@return integer
-local function curline()
-  ---@diagnostic disable-next-line: return-type-mismatch
-  return vim.fn.line(".")
-end
-
----Get the column index of the cursor
----@return integer
-local function curcol()
-  ---@diagnostic disable-next-line: return-type-mismatch
-  return vim.fn.col(".")
-end
-
 command("Bclose", function() require("mini.bufremove").delete() end, {
   desc = "Close the current buffer, even if it is unlisted or has no file.",
 })
@@ -97,44 +83,4 @@ command("Help", function(params)
 end, {
   nargs = "+",
   desc = "Display the help message for a command in a buffer.",
-})
-
-command("Start", function(params)
-  local mods = vim.tbl_extend("keep", params.smods, { keepalt = true, noswapfile = true })
-  vim.cmd.new({ mods = mods })
-  require("mini.starter").open()
-end, { desc = "Open the starter" })
-
-command("SyntaxStack", function()
-  local s = vim.fn.synID(curline(), curcol(), 1)
-  vim.notify(
-    string.format(
-      "%s -> %s",
-      vim.fn.synIDattr(s, "name"),
-      vim.fn.synIDattr(vim.fn.synIDtrans(s), "name")
-    )
-  )
-end, {
-  desc = "Print the syntax group and highlight group of the token under the cursor",
-})
-
-command("Random", function(params)
-  local len = params.args ~= "" and params.args or 8
-  local chars = "abcdefghijklmnopqrstuvwxyz0123456789"
-
-  -- 65 for uppercase
-  -- 97 for lowercase
-  local rand = ""
-  for _ = 1, len do
-    local idx = math.random(1, #chars)
-    rand = rand .. string.sub(chars, idx, idx)
-  end
-
-  local pos = vim.api.nvim_win_get_cursor(0)[2]
-  local line = vim.api.nvim_get_current_line()
-  local nline = line:sub(0, pos) .. rand .. line:sub(pos + 1)
-  vim.api.nvim_set_current_line(nline)
-end, {
-  desc = "Reload and recompile the entire neovim configuration.",
-  nargs = "?",
 })

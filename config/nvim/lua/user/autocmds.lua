@@ -15,7 +15,7 @@ autocmd({ "FocusGained", "BufEnter", "WinEnter" }, {
 local unmodifiable_group = augroup("Unmodifiable files", {})
 autocmd("FileType", {
   group = unmodifiable_group,
-  pattern = { "help", "log" },
+  pattern = { "log" },
   command = "setlocal readonly",
 })
 autocmd("BufRead", {
@@ -78,8 +78,6 @@ autocmd("TermOpen", {
     vim.opt_local.spell = false
     vim.opt_local.number = false
 
-    vim.b[params.buf].minicompletion_disable = true
-
     vim.api.nvim_buf_set_keymap(
       params.buf,
       "n",
@@ -114,8 +112,7 @@ autocmd("VimEnter", {
     -- Find the list of configs.
     local configs = vim.fs.find(exrc_patterns, { upward = true, type = "file", limit = math.huge })
 
-    -- Iterate over the files in reverse so that the "most local" one gets
-    -- sourced last.
+    -- Iterate over the files in reverse so that the "most local" one gets sourced last.
     for _, f in rpairs(configs) do
       local contents = vim.secure.read(f)
       if contents ~= nil then

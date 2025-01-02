@@ -49,7 +49,7 @@ function M.setup()
   -- Register renaming and moving files with any attached LSP servers.
   vim.api.nvim_create_autocmd("User", {
     pattern = { "MiniFilesActionRename", "MiniFilesActionMove" },
-    callback = function(args) require("user.lsp").lsp_did_rename(args.data.from, args.data.to) end,
+    callback = function(args) require("user.util.lsp").lsp_did_rename(args.data.from, args.data.to) end,
   })
 
   -- Create extra keymaps.
