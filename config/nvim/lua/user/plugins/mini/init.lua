@@ -70,22 +70,6 @@ MiniDeps.later(function()
 
   local expand_all = function() minisnippets.expand({ match = false }) end
   vim.keymap.set("i", "<C-g><C-j>", expand_all, { desc = "Expand all" })
-  local expand_or_jump = function()
-    local can_expand = #minisnippets.expand({ insert = false }) > 0
-    if can_expand then
-      vim.schedule(minisnippets.expand)
-      return ""
-    end
-    local is_active = minisnippets.session.get() ~= nil
-    if is_active then
-      minisnippets.session.jump("next")
-      return ""
-    end
-    return "\t"
-  end
-  local jump_prev = function() minisnippets.session.jump("prev") end
-  vim.keymap.set("i", "<Tab>", expand_or_jump, { expr = true })
-  vim.keymap.set("i", "<S-Tab>", jump_prev)
 
   -- ------------------------------------------------------------------------
   -- | mini.ai
