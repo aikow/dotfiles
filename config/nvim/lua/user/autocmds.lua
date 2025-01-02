@@ -46,7 +46,6 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
 -- Jump to last edit position on opening file
 autocmd("BufReadPost", {
   group = augroup("Last edit position", {}),
-  ---@param params NvimAutocmdCallbackParams
   callback = function(params)
     -- Exclude files like commit messages.
     for _, pat in pairs({ "/.git/" }) do
@@ -75,15 +74,14 @@ autocmd("BufReadPost", {
 -- Set settings for built-in terminal
 autocmd("TermOpen", {
   group = augroup("Terminal Settings", {}),
-  ---@param ev NvimAutocmdCallbackParams
-  callback = function(ev)
+  callback = function(params)
     vim.opt_local.spell = false
     vim.opt_local.number = false
 
-    vim.b[ev.buf].minicompletion_disable = true
+    vim.b[params.buf].minicompletion_disable = true
 
     vim.api.nvim_buf_set_keymap(
-      ev.buf,
+      params.buf,
       "n",
       "<localleader>r",
       [[A<Up><CR><C-\><C-n>G]],

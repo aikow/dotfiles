@@ -13,7 +13,6 @@ vim.g.pyindent_open_paren = vim.bo.shiftwidth
 vim.api.nvim_create_autocmd("InsertCharPre", {
   pattern = { "*.py" },
   group = vim.api.nvim_create_augroup("py-fstring", { clear = true }),
-  ---@param params NvimAutocmdCallbackParams
   callback = function(params)
     if vim.v.char ~= "{" then return end
 
