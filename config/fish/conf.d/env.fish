@@ -13,12 +13,6 @@ set -gx VISUAL nvim
 # Man pager
 set -gx MANPAGER 'nvim +Man!'
 
-# Neovide
-set -gx NEOVIDE_MULTIGRID true
-
-# Bat
-set -gx BAT_THEME gruvbox-dark
-
 # FZF
 if command -q fd
     set -gx FZF_DEFAULT_COMMAND 'fd --type file --follow --hidden --exclude .git --color=always'

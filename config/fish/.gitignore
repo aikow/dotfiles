@@ -2,3 +2,9 @@
 # folder.
 /completions
 /fish_variables
+
+/conf.d/*
+!/conf.d/aliases.fish
+!/conf.d/env.fish
+!/conf.d/fzf.fish
+!/conf.d/git_aliases.fish
