@@ -38,10 +38,9 @@ M.handlers = {
   end,
 }
 
----Get the display name for a buffer given its normal name.
----@param bufname string The name of the buffer as it returned by `bufname()` and `nvim_buf_get_name()`
+---Get the display name for the given tab.
 ---@return string
-function M.buf_display_name(tabid, is_active)
+function M.get_tab_title(tabid, is_active)
   -- Get the current buffer of the tab
   local winid = vim.api.nvim_tabpage_get_win(tabid)
   local bufid = vim.api.nvim_win_get_buf(winid)
@@ -85,7 +84,7 @@ function M.tabline()
     s = s .. "%#" .. hl .. "#%" .. tabid .. "T"
 
     -- Format the name of the current buffer
-    local display_name = M.buf_display_name(tabid, is_active)
+    local display_name = M.get_tab_title(tabid, is_active)
     s = s .. string.format(" %d %s ", pos, display_name)
   end
 

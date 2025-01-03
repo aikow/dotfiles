@@ -28,17 +28,17 @@ autocmd("BufRead", {
 vim.api.nvim_create_autocmd({ "FileType" }, {
   group = vim.api.nvim_create_augroup("bigfile", { clear = true }),
   pattern = "bigfile",
-  callback = function(ev)
-    local path = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(ev.buf), ":p:~:.")
+  callback = function(params)
+    local path = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(params.buf), ":p:~:.")
     vim.notify(
       ("Big file detected `%s`.\nSome Neovim features have been disabled."):format(path),
       vim.log.levels.INFO
     )
 
-    local ft = vim.filetype.match({ buf = ev.buf }) or ""
-    vim.api.nvim_buf_call(ev.buf, function()
-      vim.b[ev.buf].minihipatterns_disable = true
-      vim.schedule(function() vim.bo[ev.buf].syntax = ft end)
+    local ft = vim.filetype.match({ buf = params.buf }) or ""
+    vim.api.nvim_buf_call(params.buf, function()
+      vim.b[params.buf].minihipatterns_disable = true
+      vim.schedule(function() vim.bo[params.buf].syntax = ft end)
     end)
   end,
 })

@@ -1,12 +1,13 @@
 local opt = vim.opt
 
+-- Use bash as the default shell regardless of what the user shell is
 opt.shell = "bash"
 
+-- Add snippets directory to the runtime path
 opt.runtimepath:append("~/.dotfiles/config/snippets")
 
 -- Back-up, undo files, and automatically write changes.
 opt.undofile = true
-opt.backup = false
 opt.autowrite = true
 opt.updatetime = 1000
 
@@ -63,7 +64,8 @@ opt.completeopt:append({
 })
 if vim.fn.has("nvim-0.11") == 1 then opt.completeopt:append({ "fuzzy" }) end
 
-opt.shortmess:append("WcCI") -- Don't give ins-complete-menu messages
+-- Don't give ins-complete-menu messages
+opt.shortmess:append("WcCI")
 
 -- Wildmenu options
 opt.wildoptions:append("fuzzy")
@@ -107,7 +109,6 @@ opt.termguicolors = true -- 24-bit RGB color support
 
 -- Tabline
 vim.o.tabline = "%!v:lua.require'user.ui.tabline'.tabline()"
-opt.showtabline = 1
 
 -- Define which helper symbols to show
 opt.listchars = "tab:󰌒 ,extends:…,precedes:…,nbsp:␣"
