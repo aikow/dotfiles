@@ -5,5 +5,5 @@
 # Lua-language-server config
 .luarc.json
 
-# Lazy.nvim lock file
-/lazy-lock.json
+# mini.deps lock file
+mini-deps-snap

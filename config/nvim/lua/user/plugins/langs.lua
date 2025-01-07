@@ -24,14 +24,6 @@ MiniDeps.later(function()
 end)
 
 MiniDeps.later(function()
-  -- Markdown
-  MiniDeps.add({
-    source = "iamcco/markdown-preview.nvim",
-    hooks = { post_checkout = function() vim.fn["mkdp#util#install"]() end },
-  })
-end)
-
-MiniDeps.later(function()
   -- Connect to databases inside Neovim.
   MiniDeps.add({ source = "tpope/vim-dadbod" })
 end)

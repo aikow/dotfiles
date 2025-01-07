@@ -11,6 +11,7 @@ vim.g.neovide_no_idle = false
 vim.g.neovide_transparency = 1.0
 vim.g.neovide_floating_blur_amount_x = 2.0
 vim.g.neovide_floating_blur_amount_y = 2.0
+vim.g.neovide_floating_corner_radius = 1.0
 
 vim.g.neovide_input_use_logo = false
 vim.g.neovide_input_macos_option_key_is_meta = "both"
