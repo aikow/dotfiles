@@ -16,19 +16,12 @@ MiniDeps.later(function()
 
   require("blink.cmp").setup({
     completion = {
-      list = { selection = "auto_insert" },
+      list = { selection = { auto_insert = true } },
       trigger = { show_on_insert_on_trigger_character = false },
     },
-    snippets = {
-      expand = function(snippet)
-        local insert = MiniSnippets.config.expand.insert or MiniSnippets.default_insert
-        insert({ body = snippet })
-      end,
-      active = function() return false end,
-      jump = function() end,
-    },
+    snippets = { preset = "mini_snippets" },
     sources = {
-      default = { "lsp", "path", "buffer" },
+      default = { "lsp", "path", "snippets", "buffer" },
       cmdline = {},
     },
   })
