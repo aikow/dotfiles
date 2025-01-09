@@ -68,7 +68,7 @@ MiniDeps.later(function()
     },
     snippets = {
       -- Load custom file with global snippets first
-      minisnippets.gen_loader.from_file("~/.dotfiles/config/snippets/snippets/all.json"),
+      minisnippets.gen_loader.from_runtime("global.{json,lua}"),
       minisnippets.gen_loader.from_lang(),
     },
   })
