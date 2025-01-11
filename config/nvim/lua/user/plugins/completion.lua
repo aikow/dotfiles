@@ -4,11 +4,13 @@ MiniDeps.later(function()
     depends = { "rafamadriz/friendly-snippets" },
     hooks = {
       post_checkout = function(params)
-        local proc = vim.system({ "cargo", "build", "--release" }, { cwd = params.path }):wait()
+        local proc = vim
+          .system({ "rustup", "run", "nightly", "cargo", "build", "--release" }, { cwd = params.path })
+          :wait()
         if proc.code == 0 then
           vim.notify("Building blink.cmp done", vim.log.levels.INFO)
         else
-          vim.notify("Building blink.cmp failed", vim.log.levels.ERROR)
+          vim.notify("Building blink.cmp failed\n" .. proc.stderr, vim.log.levels.ERROR)
         end
       end,
     },
