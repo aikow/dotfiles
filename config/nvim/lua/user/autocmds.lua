@@ -24,7 +24,7 @@ autocmd("BufRead", {
   command = "setlocal readonly",
 })
 
---Manage big files
+-- Manage big files
 vim.api.nvim_create_autocmd({ "FileType" }, {
   group = vim.api.nvim_create_augroup("bigfile", { clear = true }),
   pattern = "bigfile",
@@ -40,22 +40,6 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
       vim.b[params.buf].minihipatterns_disable = true
       vim.schedule(function() vim.bo[params.buf].syntax = ft end)
     end)
-  end,
-})
-
--- Jump to last edit position on opening file
-autocmd("BufReadPost", {
-  group = augroup("Last edit position", {}),
-  callback = function(params)
-    -- Exclude files like commit messages.
-    for _, pat in pairs({ "/.git/" }) do
-      if string.find(params.file, pat) then return end
-    end
-
-    local mark = vim.api.nvim_buf_get_mark(0, '"')
-    if mark[1] > 1 and mark[1] < vim.api.nvim_buf_line_count(0) then
-      vim.api.nvim_win_set_cursor(0, mark)
-    end
   end,
 })
 

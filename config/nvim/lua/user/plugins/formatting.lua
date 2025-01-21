@@ -30,7 +30,18 @@ MiniDeps.later(function()
         prepend_args = { "--preview" },
       },
       ruff_fix = {
-        prepend_args = { "--unfixable", "ARG,F401" },
+        args = {
+          "check",
+          "--fix",
+          "--unfixable",
+          "ARG,F401",
+          "--force-exclude",
+          "--exit-zero",
+          "--no-cache",
+          "--stdin-filename",
+          "$FILENAME",
+          "-",
+        },
       },
       shfmt = {
         prepend_args = {

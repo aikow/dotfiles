@@ -54,6 +54,14 @@ MiniDeps.later(function()
 
   require("mini.align").setup({})
   require("mini.cursorword").setup({})
+  require("mini.visits").setup({})
+
+  -- ------------------------------------------------------------------------
+  -- | mini.misc
+  -- ------------------------------------------------------------------------
+  local minimisc = require("mini.misc")
+  minimisc.setup_termbg_sync()
+  minimisc.setup_restore_cursor()
 
   -- ------------------------------------------------------------------------
   -- | mini.snippets
@@ -95,7 +103,7 @@ MiniDeps.later(function()
   -- ------------------------------------------------------------------------
   require("mini.splitjoin").setup({
     mappings = {
-      toggle = "gz",
+      toggle = "gS",
     },
   })
 
@@ -116,10 +124,10 @@ MiniDeps.later(function()
   -- ------------------------------------------------------------------------
   require("mini.operators").setup({
     evaluate = { prefix = "g=" },
-    exchange = { prefix = "" },
-    multiply = { prefix = "" },
-    replace = { prefix = "" },
-    sort = { prefix = "gS" },
+    exchange = { prefix = "gox" },
+    multiply = { prefix = "gom" },
+    replace = { prefix = "gor" },
+    sort = { prefix = "gos" },
   })
 
   -- ------------------------------------------------------------------------
