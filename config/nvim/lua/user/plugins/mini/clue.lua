@@ -42,10 +42,13 @@ function M.setup()
     },
 
     clues = {
+      { mode = "n", keys = "<leader>a", desc = "+Orgmode" },
       { mode = "n", keys = "<leader>d", desc = "+Diagnostic" },
       { mode = "n", keys = "<leader>f", desc = "+Find" },
       { mode = "n", keys = "<leader>g", desc = "+Git" },
       { mode = "n", keys = "<leader>h", desc = "+Neovim" },
+      { mode = "n", keys = "<leader>j", desc = "+MiniVisits" },
+      { mode = "n", keys = "<leader>k", desc = "+Iron" },
       { mode = "n", keys = "<leader>l", desc = "+LSP" },
       { mode = "n", keys = "<leader>r", desc = "+Refactor/Reformat" },
       { mode = "n", keys = "<leader>z", desc = "+Toggle" },

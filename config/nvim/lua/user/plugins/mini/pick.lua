@@ -2,7 +2,7 @@ local M = {}
 
 function M.setup()
   local minipick = require("mini.pick")
-  minipick.setup({})
+  minipick.setup({ options = { use_cache = true } })
 
   vim.ui.select = minipick.ui_select
 
@@ -36,7 +36,7 @@ function M.setup()
   end
   local man_pages = function()
     local manpage = builtin.cli({ command = { "apropos", "." } })
-    vim.cmd.Man({ manpage:match("^(%S+)") })
+    if manpage then vim.cmd.Man({ manpage:match("^(%S+)") }) end
   end
 
   -- ---------------

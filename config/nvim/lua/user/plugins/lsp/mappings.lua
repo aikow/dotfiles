@@ -6,12 +6,11 @@ end
 
 function M:map(lhs, rhs, opts)
   opts = opts or {}
-  if opts.has and not self:has(opts.has) then return end
   vim.keymap.set(
     opts.mode or "n",
     lhs,
     type(rhs) == "string" and ("<cmd>%s<cr>"):format(rhs) or rhs,
-    { silent = true, buffer = self.buffer, expr = opts.expr, desc = opts.desc }
+    { silent = true, buffer = self.buffer, desc = opts.desc }
   )
 end
 
@@ -25,10 +24,16 @@ function M.on_attach(client, buffer)
 
   -- stylua: ignore start
   -- Extend default LSP actions.
+  self:map("<leader>s", vim.lsp.buf.signature_help, { desc = "lsp signature help" })
   self:map("gD", vim.lsp.buf.declaration, { desc = "lsp go to declaration" })
+  self:map("gd", vim.lsp.buf.definition, { desc = "lsp go to definition" })
+  self:map("grS", function() vim.lsp.buf.typehierarchy("supertypes") end, { desc = "lsp list supertypes" })
+  self:map("grci", vim.lsp.buf.incoming_calls, { desc = "lsp list incoming calls" })
+  self:map("grco", vim.lsp.buf.outgoing_calls, { desc = "lsp list outgoing calls" })
+  self:map("grs", function() vim.lsp.buf.typehierarchy("subtypes") end, { desc = "lsp list subtypes" })
+  self:map("gry", vim.lsp.buf.type_definition, { desc = "lsp type declarations" })
 
   -- LSP go-to actions
-  self:map("gd", vim.lsp.buf.definition, { desc = "lsp go to definition" })
   self:map("<leader>ld", "Pick lsp scope='definition'", { desc = "mini.pick lsp definitions" })
   self:map("<leader>lr", "Pick lsp scope='references'", { desc = "mini.pick lsp references" })
   self:map("<leader>li", "Pick lsp scope='implementation'", { desc = "mini.pick lsp implementations" })
