@@ -2,8 +2,9 @@
 
 command -v nu &>/dev/null || exit 1
 
-if [[ $DOTFILES_OS == "Darwin" ]]; then
-  symlinkfb "$PWD" ~/Library/Application\ Support/nushell
-elif [[ $DOTFILES_OS == "Linux" ]]; then
-  symlinkfb "$PWD" ~/.config/nushell
-fi
+case $DOTFILES_OS in
+  Darwin) target=~/Library/Application\ Support/nushell ;;
+  Linux) target=~/.config/nushell ;;
+esac
+
+symlinkfb "$PWD" "$target"

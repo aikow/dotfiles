@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+mkdir -p ~/.config/stylua
+symlinkfb "$PWD/stylua.toml" ~/.config/stylua/stylua.toml

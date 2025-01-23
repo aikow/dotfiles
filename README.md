@@ -15,3 +15,12 @@ file in the base directory. If the `.install.conf` file doesn't exist, running
 ```text
 This is a code block
 ```
+
+## Usage
+
+### Environment variables
+
+- `DOTFILES_OS`
+- `DOTBOT_FORCE`
+- `DOTFILES`
+- `DOTFILES_HOME`

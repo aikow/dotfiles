@@ -7,12 +7,10 @@ MiniDeps.now(function()
       "builtin.git",
       "builtin.lsp",
       "builtin.semantic",
-      "builtin.statusline",
       "builtin.syntax",
       "builtin.terminal",
       "builtin.treesitter",
       "plugin.indent-blankline",
-      "plugin.luasnip",
       "plugin.mason",
       "plugin.mini",
       "plugin.treesitter",
@@ -29,7 +27,7 @@ MiniDeps.now(function()
   })
 
   require("catppuccin").setup({
-    fintegrations = {
+    integrations = {
       diffview = true,
       mason = true,
     },

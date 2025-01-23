@@ -59,7 +59,6 @@ MiniDeps.later(function()
           return { "-l", vim.b[0].sqllanguage or "sqlite" }
         end,
       },
-      stylua = {},
     },
   })
 

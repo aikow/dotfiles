@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+case $DOTFILES_OS in
+  Darwin) target=~/Library/Application Support/Code/User ;;
+  Linux) target=~/.config/Code/User ;;
+esac
+
+[[ ! -f $target || $DOTBOT_FORCE == yes ]] && cp "$PWD/settings.json" "$target"

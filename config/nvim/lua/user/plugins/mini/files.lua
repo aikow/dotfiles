@@ -69,7 +69,7 @@ function M.setup()
         buffer = buf_id,
         desc = "mini.files toggle hidden",
       })
-      vim.keymap.set("n", "gc", files_set_cwd, {
+      vim.keymap.set("n", "g.", files_set_cwd, {
         buffer = buf_id,
         desc = "mini.files set current working directory",
       })
