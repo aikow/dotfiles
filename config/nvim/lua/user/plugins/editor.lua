@@ -1,4 +1,6 @@
-MiniDeps.later(function() MiniDeps.add({ source = "tpope/vim-vinegar" }) end)
+-- Need to run vim-vinegar immediately so that all settings are applied when opening a directory via
+-- the cmdline.
+MiniDeps.now(function() MiniDeps.add({ source = "tpope/vim-vinegar" }) end)
 
 MiniDeps.later(function()
   vim.g.tmux_navigator_no_mappings = 1
