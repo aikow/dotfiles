@@ -1,5 +1,0 @@
-#!/usr/bin/env bash
-
-command -v cargo &>/dev/null || exit 1
-
-symlinkfb "$PWD/cargo.toml" ~/.cargo/config.toml

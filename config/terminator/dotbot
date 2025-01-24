@@ -1,5 +1,0 @@
-#!/usr/bin/env bash
-
-command -v terminator &>/dev/null || exit 1
-
-symlinkfb "$PWD/config" ~/.config/terminator/config
