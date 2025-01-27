@@ -48,7 +48,7 @@ config.keys = require("user.keys")
 -- Load a module called local and use it to apply local settings
 local ok, module = pcall(require, "local")
 if ok and type(module.setup) == "function" then
-  module.setup(config)
+  config = module.setup(config)
 end
 
 return config
