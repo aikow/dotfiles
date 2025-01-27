@@ -51,15 +51,22 @@ MiniDeps.later(function()
   require("user.plugins.mini.files").setup()
   require("user.plugins.mini.git").setup()
   require("user.plugins.mini.pick").setup()
+  require("user.plugins.mini.visits").setup()
 
   require("mini.align").setup({})
   require("mini.cursorword").setup({})
-  require("mini.visits").setup({})
+
+  -- ------------------------------------------------------------------------
+  -- | mini.basics
+  -- ------------------------------------------------------------------------
+  local minibasics = require("mini.basics")
+  vim.keymap.set("n", "<leader>td", minibasics.toggle_diagnostic, { desc = "toggle diagnostics" })
 
   -- ------------------------------------------------------------------------
   -- | mini.misc
   -- ------------------------------------------------------------------------
   local minimisc = require("mini.misc")
+  minimisc.setup({})
   minimisc.setup_termbg_sync()
   minimisc.setup_restore_cursor()
 
@@ -101,11 +108,7 @@ MiniDeps.later(function()
   -- ------------------------------------------------------------------------
   -- | mini.splitjoin
   -- ------------------------------------------------------------------------
-  require("mini.splitjoin").setup({
-    mappings = {
-      toggle = "gS",
-    },
-  })
+  require("mini.splitjoin").setup({})
 
   -- ------------------------------------------------------------------------
   -- | mini.bracketed

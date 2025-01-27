@@ -46,7 +46,7 @@ function M.setup()
 
   -- mini.visits
   vim.keymap.set("n", "<leader>jl", extra.visit_labels, { desc = "mini.pick visit labels" })
-  vim.keymap.set("n", "<leader>jp", extra.visit_paths, { desc = "mini.pick visit paths" })
+  vim.keymap.set("n", "<leader>jj", extra.visit_paths, { desc = "mini.pick visit paths" })
 
   -- Finding searching and navigating
   vim.keymap.set("n", "<leader>o", builtin.files, { desc = "mini.pick find files" })

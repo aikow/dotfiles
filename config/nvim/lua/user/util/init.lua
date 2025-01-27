@@ -19,6 +19,43 @@ function M.buf_path(buf_id)
   end
 end
 
+function M.chdir_parent()
+  local path = vim.api.nvim_buf_get_name(0)
+  if path ~= "" then
+    dir = vim.fs.dirname(path)
+    vim.fn.chdir(dir)
+    vim.notify("changed directory to\n" .. dir, vim.log.levels.INFO)
+  else
+    vim.notify("unable to change directory, not a valid path", vim.log.levels.WARN)
+  end
+end
+
+function M.chdir_root()
+  local path = vim.api.nvim_buf_get_name(0)
+  if path ~= "" then
+    path = vim.fs.dirname(path)
+  else
+    path = vim.uv.cwd() or vim.fn.getcwd()
+  end
+  local root = vim.fs.root(path, {
+    ".editorconfig", -- general editor settings
+    ".exrc", -- nvim config
+    ".git", -- git
+    "Cargo.toml", -- rust
+    "Makefile", -- c/c++
+    "package.json", -- javascript
+    "pyproject.toml", -- python
+    "setup.py", -- python
+  })
+
+  if root then
+    vim.fn.chdir(root)
+    vim.notify("changed directory to\n" .. root, vim.log.levels.INFO)
+  else
+    vim.notify("unable to find a root directory", vim.log.levels.WARN)
+  end
+end
+
 M.skip_foldexpr = {} ---@type table<number,boolean>
 local skip_check = assert(vim.uv.new_check())
 function M.foldexpr()

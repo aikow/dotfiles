@@ -56,7 +56,7 @@ function M.setup()
       { mode = "n", keys = "<leader>k", desc = "+Iron" },
       { mode = "n", keys = "<leader>l", desc = "+LSP" },
       { mode = "n", keys = "<leader>r", desc = "+Refactor/Reformat" },
-      { mode = "n", keys = "<leader>z", desc = "+Toggle" },
+      { mode = "n", keys = "<leader>t", desc = "+Toggle" },
 
       miniclue.gen_clues.builtin_completion(),
       miniclue.gen_clues.g(),
