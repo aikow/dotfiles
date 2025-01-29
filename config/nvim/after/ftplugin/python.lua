@@ -62,6 +62,11 @@ vim.keymap.set(
   "n",
   "<localleader>fb",
   function()
+    if vim.fn.executable("black") ~= 1 then
+      vim.notify("could not find 'black' executable", vim.log.levels.WARN)
+      return
+    end
+
     vim
       .system({
         "black",
