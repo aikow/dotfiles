@@ -45,6 +45,12 @@ MiniDeps.now(function()
   setup_server("julials")
   setup_server("nushell")
 
+  -- Configure neovim diagnostics
+  vim.diagnostic.config({
+    virtual_lines = false,
+    virtual_text = true,
+  })
+
   -- Setup keymaps when an LSP server is attach.
   vim.api.nvim_create_autocmd("LspAttach", {
     callback = function(params)

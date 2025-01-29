@@ -116,4 +116,33 @@ function M.lsp_did_rename(from_path, to_path)
   end
 end
 
+function M.document_symbols(kinds)
+  return function()
+    vim.lsp.buf.document_symbol({
+      on_list = function(options)
+        options.items = vim
+          .iter(options.items)
+          :filter(function(o) return vim.tbl_contains(kinds, o.kind) end)
+          :totable()
+        vim.fn.setqflist({}, " ", options)
+        vim.cmd.copen()
+      end,
+    })
+  end
+end
+
+local function toggle(value)
+  vim.validate("value", value, "boolean")
+  return not value
+end
+
+function M.toggle_virtual_diagnostics()
+  local config = vim.diagnostic.config()
+  if config then
+    config.virtual_lines = toggle(config.virtual_lines)
+    config.virtual_text = toggle(config.virtual_text)
+    vim.diagnostic.config(config)
+  end
+end
+
 return M

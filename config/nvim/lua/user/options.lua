@@ -115,6 +115,7 @@ opt.diffopt:append({
 -- Wildmenu options
 opt.wildoptions:append("fuzzy")
 opt.wildmode = "longest:full,full"
+opt.cmdheight = 1
 
 -- Pop-up menu options
 opt.pumheight = 16

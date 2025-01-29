@@ -3,6 +3,9 @@ local M = {}
 function M.setup()
   local minifiles = require("mini.files")
   minifiles.setup({
+    mappings = {
+      go_in_plus = "<cr>",
+    },
     windows = {
       preview = true,
       width_preview = 40,

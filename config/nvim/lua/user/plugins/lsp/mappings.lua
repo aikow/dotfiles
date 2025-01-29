@@ -1,10 +1,23 @@
-local M = {}
+local LspUtil = require("user.util.lsp")
 
-function M.new(client, buffer)
-  return setmetatable({ client = client, buffer = buffer }, { __index = M })
+local H = {}
+
+function H.diagnostic_goto(next, severity)
+  severity = severity and vim.diagnostic.severity[severity] or nil
+  return function() vim.diagnostic.jump({ count = next and 1 or -1, severity = severity }) end
 end
 
-function M:map(lhs, rhs, opts)
+function H.typehierarchy(direction)
+  return function() vim.lsp.buf.typehierarchy(direction) end
+end
+
+local LspBuf = {}
+
+function LspBuf.new(client, buffer)
+  return setmetatable({ client = client, buffer = buffer }, { __index = LspBuf })
+end
+
+function LspBuf:map(lhs, rhs, opts)
   opts = opts or {}
   vim.keymap.set(
     opts.mode or "n",
@@ -14,44 +27,20 @@ function M:map(lhs, rhs, opts)
   )
 end
 
-function M.diagnostic_goto(next, severity)
-  severity = severity and vim.diagnostic.severity[severity] or nil
-  return function() vim.diagnostic.jump({ count = next and 1 or -1, severity = severity }) end
-end
-
-function M.document_symbols(kinds)
-  return function()
-    vim.lsp.buf.document_symbol({
-      on_list = function(options)
-        options.items = vim
-          .iter(options.items)
-          :filter(function(o) return vim.tbl_contains(kinds, o.kind) end)
-          :totable()
-        vim.fn.setqflist({}, " ", options)
-        vim.cmd.copen()
-      end,
-    })
-  end
-end
-
-function M.typehierarchy(direction)
-  return function() vim.lsp.buf.typehierarchy(direction) end
-end
-
-function M.on_attach(client, buffer)
-  local self = M.new(client, buffer)
+function LspBuf.on_attach(client, buffer)
+  local self = LspBuf.new(client, buffer)
 
   -- stylua: ignore start
   -- Extend default LSP actions.
-  self:map("<leader>s", vim.lsp.buf.signature_help,                            { desc = "lsp signature help" })
-  self:map("gD",        vim.lsp.buf.declaration,                               { desc = "lsp go to declaration" })
-  self:map("gd",        vim.lsp.buf.definition,                                { desc = "lsp go to definition" })
-  self:map("gO",        M.document_symbols({ "Function", "Method", "Class" }), { desc = "vim.lsp.buf.document_symbol" })
-  self:map("grS",       M.typehierarchy("supertypes"),                         { desc = "lsp list supertypes" })
-  self:map("grci",      vim.lsp.buf.incoming_calls,                            { desc = "lsp list incoming calls" })
-  self:map("grco",      vim.lsp.buf.outgoing_calls,                            { desc = "lsp list outgoing calls" })
-  self:map("grs",       M.typehierarchy("subtypes"),                           { desc = "lsp list subtypes" })
-  self:map("gry",       vim.lsp.buf.type_definition,                           { desc = "lsp type declarations" })
+  self:map("<leader>s", vim.lsp.buf.signature_help,                                  { desc = "lsp signature help" })
+  self:map("gD",        vim.lsp.buf.declaration,                                     { desc = "lsp go to declaration" })
+  self:map("gd",        vim.lsp.buf.definition,                                      { desc = "lsp go to definition" })
+  self:map("gO",        LspUtil.document_symbols({ "Function", "Method", "Class" }), { desc = "vim.lsp.buf.document_symbol" })
+  self:map("grS",       H.typehierarchy("supertypes"),                               { desc = "lsp list supertypes" })
+  self:map("grci",      vim.lsp.buf.incoming_calls,                                  { desc = "lsp list incoming calls" })
+  self:map("grco",      vim.lsp.buf.outgoing_calls,                                  { desc = "lsp list outgoing calls" })
+  self:map("grs",       H.typehierarchy("subtypes"),                                 { desc = "lsp list subtypes" })
+  self:map("gry",       vim.lsp.buf.type_definition,                                 { desc = "lsp type declarations" })
 
   -- LSP go-to actions
   self:map("<leader>ld", "Pick lsp scope='definition'",      { desc = "mini.pick lsp definitions" })
@@ -69,11 +58,11 @@ function M.on_attach(client, buffer)
   self:map("<leader>do", "Pick diagnostic",         { desc = "mini.pick diagnostics" })
 
   -- Diagnostic movements with [ and ]
-  self:map("]e", M.diagnostic_goto(true, "ERROR"),    { desc = "next error" })
-  self:map("[e", M.diagnostic_goto(false, "ERROR"),   { desc = "previous error" })
-  self:map("]w", M.diagnostic_goto(true, "WARNING"),  { desc = "next warning" })
-  self:map("[w", M.diagnostic_goto(false, "WARNING"), { desc = "previous warning" })
+  self:map("]e", H.diagnostic_goto(true, "ERROR"),    { desc = "next error" })
+  self:map("[e", H.diagnostic_goto(false, "ERROR"),   { desc = "previous error" })
+  self:map("]w", H.diagnostic_goto(true, "WARNING"),  { desc = "next warning" })
+  self:map("[w", H.diagnostic_goto(false, "WARNING"), { desc = "previous warning" })
   -- stylua: ignore end
 end
 
-return M
+return LspBuf
