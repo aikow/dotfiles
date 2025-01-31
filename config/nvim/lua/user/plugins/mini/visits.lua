@@ -1,5 +1,3 @@
-local M = {}
-
 local function map_visits(lhs, rhs, desc)
   vim.keymap.set(
     "n",
@@ -21,21 +19,17 @@ end
 
 local function map_select(lhs, desc, ...) map_visits(lhs, make_select_path(...), desc) end
 
-function M.setup()
-  local minivisits = require("mini.visits")
-  minivisits.setup({})
+local minivisits = require("mini.visits")
+minivisits.setup({})
 
-  map_select("r", "select recent (all)", true, 1)
-  map_select("R", "select recent (cwd)", false, 1)
-  map_select("y", "select frecent (all)", true, 0.5)
-  map_select("Y", "select frecent (cwd)", false, 0.5)
-  map_select("f", "select frequent (all)", true, 0)
-  map_select("F", "select frequent (cwd)", false, 0)
+map_select("r", "select recent (all)", true, 1)
+map_select("R", "select recent (cwd)", false, 1)
+map_select("y", "select frecent (all)", true, 0.5)
+map_select("Y", "select frecent (cwd)", false, 0.5)
+map_select("f", "select frequent (all)", true, 0)
+map_select("F", "select frequent (cwd)", false, 0)
 
-  map_visits("j", "lua MiniVisits.add_label()", "add label")
-  map_visits("J", "lua MiniVisits.remove_label()", "remove label")
-  map_visits("l", 'lua MiniVisits.select_label("", "")', "select label (all)")
-  map_visits("L", "lua MiniVisits.select_label()", "select label (cwd)")
-end
-
-return M
+map_visits("j", "lua MiniVisits.add_label()", "add label")
+map_visits("J", "lua MiniVisits.remove_label()", "remove label")
+map_visits("l", 'lua MiniVisits.select_label("", "")', "select label (all)")
+map_visits("L", "lua MiniVisits.select_label()", "select label (cwd)")

@@ -30,7 +30,7 @@ MiniDeps.now(function()
   -- ------------------------------------------------------------------------
   -- | mini.starter
   -- ------------------------------------------------------------------------
-  require("user.plugins.mini.starter").setup()
+  require("user.plugins.mini.starter")
 
   -- ------------------------------------------------------------------------
   -- | mini.statusline
@@ -56,12 +56,14 @@ MiniDeps.now(function()
 end)
 
 MiniDeps.later(function()
-  require("user.plugins.mini.clue").setup()
-  require("user.plugins.mini.files").setup()
-  require("user.plugins.mini.git").setup()
-  require("user.plugins.mini.pick").setup()
-  require("user.plugins.mini.visits").setup()
+  require("user.plugins.mini.clue")
+  require("user.plugins.mini.files")
+  require("user.plugins.mini.git")
+  require("user.plugins.mini.pick")
+  require("user.plugins.mini.visits")
+end)
 
+MiniDeps.later(function()
   require("mini.align").setup({})
   require("mini.cursorword").setup({})
   require("mini.splitjoin").setup({})
