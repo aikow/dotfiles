@@ -5,7 +5,16 @@ local function setup_server(server_name)
   local ok, server_mod = pcall(require, server_mod_name)
   local server_opts = ok and server_mod.opts or {}
 
-  server_opts.capabilities = require("blink.cmp").get_lsp_capabilities(server_opts.capabilities)
+  server_opts.capabilities = {
+    textDocument = {
+      completion = {
+        completionItem = {
+          -- TODO: Remove this once mini.completion supports snippets.
+          snippetSupport = false,
+        },
+      },
+    },
+  }
 
   -- If the server contains an `override_setup` method which returns true, don't continue setting up
   -- the server afterwards.
@@ -22,7 +31,6 @@ MiniDeps.now(function()
   MiniDeps.add({
     source = "neovim/nvim-lspconfig",
     depends = {
-      "saghen/blink.cmp",
       "williamboman/mason.nvim",
       "williamboman/mason-lspconfig.nvim",
       "folke/lazydev.nvim",
@@ -52,11 +60,5 @@ MiniDeps.now(function()
   })
 
   -- Setup keymaps when an LSP server is attach.
-  vim.api.nvim_create_autocmd("LspAttach", {
-    callback = function(params)
-      local buffer = params.buf
-      local client = vim.lsp.get_client_by_id(params.data.client_id)
-      require("user.plugins.lsp.mappings").on_attach(client, buffer)
-    end,
-  })
+  require("user.util.lsp").on_attach(require("user.plugins.lsp.mappings").on_attach)
 end)

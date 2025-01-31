@@ -21,6 +21,7 @@ map("n", "<leader>rS", [[:cfdo %s/\v]], { desc = "global search and replace" })
 -- Toggle
 map("n", "<leader>tz", "<cmd>set invspell<CR>",                             { desc = "toggle spellcheck" })
 map("n", "<leader>tw", "<cmd>set invwrap<CR>",                              { desc = "toggle wrap" })
+map("n", "<leader>td", require("mini.basics").toggle_diagnostic,            { desc = "toggle diagnostics" })
 map("n", "<leader>tD", require("user.util.lsp").toggle_virtual_diagnostics, { desc = "toggle virtual diagnostics" })
 
 -- Spelling
@@ -30,10 +31,8 @@ map("i", "<C-.>", [[<C-g>u<Esc>[s1z=`]a<C-g>u]], { desc = "correct last spelling
 map("n", "g.", require("user.util").chdir_parent, { desc = "set the working directory to the dir of the current file" })
 map("n", "g>", require("user.util").chdir_root,   { desc = "recursively search for a root directory from the current file" })
 
--- Clear the search buffer to remove highlighting from the last search. The extra mapping for <C-_>
--- is needed for alacritty.
+-- Clear the search buffer to remove highlighting from the last search.
 map("n", "<C-/>", [[:let @/ = ""<CR>]], { desc = "clear search buffer register", silent = true })
-map("n", "<C-_>", [[:let @/ = ""<CR>]], { desc = "clear search buffer register", silent = true })
 
 -- Select the text that was last pasted
 map("n", "gp", [['`[' . strpart(getregtype(), 0,  1) . '`]']], { expr = true, desc = "select the last pasted region" })
@@ -60,9 +59,6 @@ map("n", "<C-w><", "5<C-w><")
 map("n", "<C-w>>", "5<C-w>>")
 map("n", "<C-w>-", "5<C-w>-")
 map("n", "<C-w>+", "5<C-w>+")
-
--- Open Netrw in the current window
-map("n", "+", "<CMD>Explore<CR>")
 
 -- Shortcuts for inserting filename, directory name, and full path into command mode.
 map("c", "%H", [[<C-R>=expand('%:h:p') . '/'<CR>]])

@@ -17,6 +17,7 @@ MiniDeps.now(function()
   local icons = require("mini.icons")
   icons.setup({})
   icons.mock_nvim_web_devicons()
+  icons.tweak_lsp_kind("prepend")
 
   -- ------------------------------------------------------------------------
   -- | mini.notify
@@ -30,11 +31,6 @@ MiniDeps.now(function()
   -- | mini.starter
   -- ------------------------------------------------------------------------
   require("user.plugins.mini.starter").setup()
-  vim.api.nvim_create_user_command("Starter", function(params)
-    local mods = vim.tbl_extend("keep", params.smods, { keepalt = true, noswapfile = true })
-    vim.cmd.new({ mods = mods })
-    require("mini.starter").open()
-  end, { desc = "Open the starter" })
 
   -- ------------------------------------------------------------------------
   -- | mini.statusline
@@ -43,6 +39,19 @@ MiniDeps.now(function()
   vim.api.nvim_create_autocmd("FileType", {
     pattern = { "DiffviewFiles" },
     callback = function() vim.b.ministatusline_disable = true end,
+  })
+
+  -- ------------------------------------------------------------------------
+  -- | mini.completion
+  -- ------------------------------------------------------------------------
+  -- Needs to be loaded _now_, so that 'completefunc' gets set during the LspAttach event
+  require("mini.completion").setup({
+    set_vim_settings = false,
+  })
+  -- Disable MiniCompletion for some filetypes
+  vim.api.nvim_create_autocmd("FileType", {
+    pattern = { "minifiles" },
+    callback = function() vim.b.minicompletion_disable = true end,
   })
 end)
 
@@ -55,41 +64,8 @@ MiniDeps.later(function()
 
   require("mini.align").setup({})
   require("mini.cursorword").setup({})
-
-  -- ------------------------------------------------------------------------
-  -- | mini.basics
-  -- ------------------------------------------------------------------------
-  local minibasics = require("mini.basics")
-  vim.keymap.set("n", "<leader>td", minibasics.toggle_diagnostic, { desc = "toggle diagnostics" })
-
-  -- ------------------------------------------------------------------------
-  -- | mini.misc
-  -- ------------------------------------------------------------------------
-  local minimisc = require("mini.misc")
-  minimisc.setup({})
-  minimisc.setup_termbg_sync()
-  minimisc.setup_restore_cursor()
-
-  -- ------------------------------------------------------------------------
-  -- | mini.snippets
-  -- ------------------------------------------------------------------------
-  local minisnippets = require("mini.snippets")
-  minisnippets.setup({
-    expand = {
-      select = function(snippets, insert)
-        require("blink.cmp").cancel()
-        vim.schedule(function() minisnippets.default_select(snippets, insert) end)
-      end,
-    },
-    snippets = {
-      -- Load custom file with global snippets first
-      minisnippets.gen_loader.from_runtime("global.{json,lua}"),
-      minisnippets.gen_loader.from_lang(),
-    },
-  })
-
-  local expand_all = function() minisnippets.expand({ match = false }) end
-  vim.keymap.set("i", "<C-g><C-j>", expand_all, { desc = "Expand all" })
+  require("mini.splitjoin").setup({})
+  require("mini.trailspace").setup({})
 
   -- ------------------------------------------------------------------------
   -- | mini.ai
@@ -106,11 +82,6 @@ MiniDeps.later(function()
   })
 
   -- ------------------------------------------------------------------------
-  -- | mini.splitjoin
-  -- ------------------------------------------------------------------------
-  require("mini.splitjoin").setup({})
-
-  -- ------------------------------------------------------------------------
   -- | mini.bracketed
   -- ------------------------------------------------------------------------
   require("mini.bracketed").setup({
@@ -123,6 +94,42 @@ MiniDeps.later(function()
   })
 
   -- ------------------------------------------------------------------------
+  -- | mini.diff
+  -- ------------------------------------------------------------------------
+  local minidiff = require("mini.diff")
+  minidiff.setup({
+    view = {
+      style = "sign",
+      signs = { add = "│", change = "│", delete = "-" },
+    },
+  })
+
+  vim.keymap.set("n", "<leader>gO", minidiff.toggle_overlay, { desc = "mini.diff toggle overlay" })
+
+  -- ------------------------------------------------------------------------
+  -- | mini.hipatterns
+  -- ------------------------------------------------------------------------
+  local hipatterns = require("mini.hipatterns")
+  hipatterns.setup({
+    highlighters = {
+      fixme = { pattern = "FIXME", group = "MiniHipatternsFixme" },
+      hack = { pattern = "HACK", group = "MiniHipatternsHack" },
+      todo = { pattern = "TODO", group = "MiniHipatternsTodo" },
+      note = { pattern = "NOTE", group = "MiniHipatternsNote" },
+
+      hex_color = hipatterns.gen_highlighter.hex_color(),
+    },
+  })
+
+  -- ------------------------------------------------------------------------
+  -- | mini.misc
+  -- ------------------------------------------------------------------------
+  local minimisc = require("mini.misc")
+  minimisc.setup({})
+  minimisc.setup_termbg_sync()
+  minimisc.setup_restore_cursor()
+
+  -- ------------------------------------------------------------------------
   -- | mini.operators
   -- ------------------------------------------------------------------------
   require("mini.operators").setup({
@@ -132,6 +139,21 @@ MiniDeps.later(function()
     replace = { prefix = "gor" },
     sort = { prefix = "gos" },
   })
+
+  -- ------------------------------------------------------------------------
+  -- | mini.snippets
+  -- ------------------------------------------------------------------------
+  local minisnippets = require("mini.snippets")
+  minisnippets.setup({
+    snippets = {
+      -- Load custom file with global snippets first
+      minisnippets.gen_loader.from_runtime("global.{json,lua}"),
+      minisnippets.gen_loader.from_lang(),
+    },
+  })
+
+  local expand_all = function() minisnippets.expand({ match = false }) end
+  vim.keymap.set("i", "<C-g><C-j>", expand_all, { desc = "Expand all" })
 
   -- ------------------------------------------------------------------------
   -- | mini.surround
@@ -154,32 +176,4 @@ MiniDeps.later(function()
     search_method = "cover_or_next",
   })
   vim.keymap.set("x", "gs", [[:<C-u>lua MiniSurround.add('visual')<CR>]], { silent = true })
-
-  -- ------------------------------------------------------------------------
-  -- | mini.hipatterns
-  -- ------------------------------------------------------------------------
-  local hipatterns = require("mini.hipatterns")
-  hipatterns.setup({
-    highlighters = {
-      fixme = { pattern = "FIXME", group = "MiniHipatternsFixme" },
-      hack = { pattern = "HACK", group = "MiniHipatternsHack" },
-      todo = { pattern = "TODO", group = "MiniHipatternsTodo" },
-      note = { pattern = "NOTE", group = "MiniHipatternsNote" },
-
-      hex_color = hipatterns.gen_highlighter.hex_color(),
-    },
-  })
-
-  -- ------------------------------------------------------------------------
-  -- | mini.diff
-  -- ------------------------------------------------------------------------
-  local minidiff = require("mini.diff")
-  minidiff.setup({
-    view = {
-      style = "sign",
-      signs = { add = "│", change = "│", delete = "-" },
-    },
-  })
-
-  vim.keymap.set("n", "<leader>gO", minidiff.toggle_overlay, { desc = "mini.diff toggle overlay" })
 end)
