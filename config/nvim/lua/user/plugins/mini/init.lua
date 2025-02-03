@@ -53,6 +53,16 @@ MiniDeps.now(function()
     pattern = { "minifiles" },
     callback = function() vim.b.minicompletion_disable = true end,
   })
+  -- Make <CR> more consistent when the completion menu is open
+  local feedkeys = require("user.util").feedkeys
+  vim.keymap.set("i", "<CR>", function()
+    if vim.fn.pumvisible() ~= 0 then
+      local item_selected = vim.fn.complete_info()["selected"] ~= -1
+      return item_selected and feedkeys("<C-y>") or feedkeys("<C-y><CR>")
+    else
+      feedkeys("<CR>")
+    end
+  end, { desc = "mini.completion accept selected or <cr>" })
 end)
 
 MiniDeps.later(function()

@@ -85,4 +85,12 @@ function M.foldexpr()
   return "0"
 end
 
+function M.toggle_cursor_column()
+  if vim.o.colorcolumn == "" then
+    vim.o.colorcolumn = tostring(vim.o.textwidth)
+  else
+    vim.o.colorcolumn = ""
+  end
+end
+
 return M
