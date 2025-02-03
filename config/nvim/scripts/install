@@ -3,6 +3,7 @@
 set -o errexit
 set -o pipefail
 set -o nounset
+set -o xtrace
 
 IFS=$' \n\t'
 
@@ -54,8 +55,8 @@ else
 fi
 nvim_bin="${HOME}/.local/bin/nvim"
 
-download_url="https://github.com/neovim/neovim/releases/download/${tag}/nvim.appimage"
-checksum_url="https://github.com/neovim/neovim/releases/download/${tag}/nvim.appimage.sha256sum"
+arch="linux-x86_64"
+base_url="https://github.com/neovim/neovim/releases/download/${tag}"
 
 # Download the neovim version if it isn't available locally
 if [[ -f "${installation_dir}/nvim.appimage" && ${force} != "yes" ]]; then
@@ -64,16 +65,26 @@ else
   echo "Downloading ${tag}"
   mkdir -p "${installation_dir}"
 
-  curl -L "${download_url}" --output "${installation_dir}/nvim.appimage"
-  curl -L "${checksum_url}" --output "${installation_dir}/nvim.appimage.sha256sum"
+  curl -L "${base_url}/nvim.appimage" --output "${installation_dir}/nvim.appimage" --fail \
+    || curl -L "${base_url}/nvim-${arch}.appimage" --output "${installation_dir}/nvim-${arch}.appimage"
+  curl -L "${base_url}/nvim.appimage.sha256sum" --output "${installation_dir}/nvim.appimage.sha256sum" --fail \
+    || curl -L "${base_url}/shasum.txt" --output "${installation_dir}/shasum.txt"
+
+  if [[ -f ${installation_dir}/nvim.appimage ]]; then
+    appimage_file="${installation_dir}/nvim.appimage"
+    shasum_file="${installation_dir}/nvim.appimage.sha256sum"
+  else
+    appimage_file="${installation_dir}/nvim-${arch}.appimage"
+    shasum_file="${installation_dir}/shasum.txt"
+  fi
 
   echo "Checking checksums"
   (
     cd "${installation_dir}"
-    sha256sum --check --status "${installation_dir}/nvim.appimage.sha256sum"
+    sha256sum --check --ignore-missing --status "${shasum_file}"
   )
 
-  chmod +x "${installation_dir}/nvim.appimage"
+  chmod +x "${appimage_file}"
 
   # Only keep the last 4 nightly images.
   if [[ ${tag} == "nightly" ]]; then
@@ -97,7 +108,7 @@ if [[ ${extract} == "yes" ]]; then
   echo "Extracting appimage"
   (
     cd "${installation_dir}"
-    ./nvim.appimage --appimage-extract &>/dev/null
+    "${appimage_file}" --appimage-extract &>/dev/null
     rsync --archive --delete ./squashfs-root/ "${installation_base_dir}/active/"
     [[ -d ./squashfs-root ]] && rm -r "./squashfs-root"
   )
@@ -106,7 +117,7 @@ if [[ ${extract} == "yes" ]]; then
   echo "Linking binary"
   ln -s "${installation_base_dir}/active/AppRun" "${nvim_bin}"
 else
-  rsync --archive --delete "${installation_dir}/nvim.appimage" "${installation_base_dir}/active/"
+  rsync --archive --delete "${appimage_file}" "${installation_base_dir}/active/"
 
   echo "Linking binary"
   ln -s "${installation_base_dir}/active/nvim.appimage" "${nvim_bin}"
