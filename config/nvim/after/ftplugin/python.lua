@@ -25,7 +25,7 @@ vim.api.nvim_create_autocmd("InsertCharPre", {
     if not node or node:type() ~= "string" then return end
     local row, col, _, _ = vim.treesitter.get_node_range(node)
     local first_char = vim.api.nvim_buf_get_text(params.buf, row, col, row, col + 1, {})[1]
-    if first_char == "f" then return end
+    if first_char == "f" or first_char == "r" then return end
 
     vim.api.nvim_input("<Esc>m'" .. row + 1 .. "gg" .. col + 1 .. "|if<esc>`'la")
   end,
