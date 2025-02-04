@@ -61,4 +61,7 @@ MiniDeps.now(function()
 
   -- Setup keymaps when an LSP server is attach.
   require("user.util.lsp").on_attach(require("user.plugins.lsp.mappings").on_attach)
+  require("user.util.lsp").on_attach(
+    function(_, buffer) vim.bo[buffer].completefunc = "v:lua.MiniCompletion.completefunc_lsp" end
+  )
 end)

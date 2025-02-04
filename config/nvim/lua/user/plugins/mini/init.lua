@@ -28,6 +28,14 @@ MiniDeps.now(function()
   vim.keymap.set("n", "<leader>hn", notify.show_history, { desc = "mini.notify show history" })
 
   -- ------------------------------------------------------------------------
+  -- | mini.misc
+  -- ------------------------------------------------------------------------
+  local minimisc = require("mini.misc")
+  minimisc.setup({})
+  minimisc.setup_termbg_sync()
+  minimisc.setup_restore_cursor()
+
+  -- ------------------------------------------------------------------------
   -- | mini.starter
   -- ------------------------------------------------------------------------
   require("user.plugins.mini.starter")
@@ -46,6 +54,10 @@ MiniDeps.now(function()
   -- ------------------------------------------------------------------------
   -- Needs to be loaded _now_, so that 'completefunc' gets set during the LspAttach event
   require("mini.completion").setup({
+    lsp_completion = {
+      source_func = "completefunc",
+      auto_setup = false,
+    },
     set_vim_settings = false,
   })
   -- Disable MiniCompletion for some filetypes
@@ -132,14 +144,6 @@ MiniDeps.later(function()
       hex_color = hipatterns.gen_highlighter.hex_color(),
     },
   })
-
-  -- ------------------------------------------------------------------------
-  -- | mini.misc
-  -- ------------------------------------------------------------------------
-  local minimisc = require("mini.misc")
-  minimisc.setup({})
-  minimisc.setup_termbg_sync()
-  minimisc.setup_restore_cursor()
 
   -- ------------------------------------------------------------------------
   -- | mini.operators
