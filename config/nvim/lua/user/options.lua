@@ -45,6 +45,7 @@ vim.cmd.filetype({ "plugin", "indent", "on" })
 -- Set 7 lines to the cursor - when moving vertically using j/k
 opt.smoothscroll = true
 opt.scrolloff = 7
+opt.sidescrolloff = 2
 
 -- Open new splits to the right or down instead of moving current window.
 opt.splitright = true
