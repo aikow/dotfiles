@@ -89,7 +89,6 @@ MiniDeps.later(function()
   require("mini.align").setup({})
   require("mini.cursorword").setup({})
   require("mini.splitjoin").setup({})
-  require("mini.trailspace").setup({})
 
   -- ------------------------------------------------------------------------
   -- | mini.ai
@@ -192,4 +191,17 @@ MiniDeps.later(function()
     search_method = "cover_or_next",
   })
   vim.keymap.set("x", "gs", [[:<C-u>lua MiniSurround.add('visual')<CR>]], { silent = true })
+
+  -- ------------------------------------------------------------------------
+  -- | mini.trailspace
+  -- ------------------------------------------------------------------------
+  local minitrailspace = require("mini.trailspace")
+  minitrailspace.setup({})
+  vim.keymap.set("n", "<leader>rt", minitrailspace.trim, { desc = "mini.trailspace trim" })
+  vim.keymap.set(
+    "n",
+    "<leader>rT",
+    minitrailspace.trim_last_lines,
+    { desc = "mini.trailspace trim last lines" }
+  )
 end)
