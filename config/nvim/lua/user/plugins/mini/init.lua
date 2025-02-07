@@ -48,34 +48,36 @@ MiniDeps.now(function()
     pattern = { "DiffviewFiles" },
     callback = function() vim.b.ministatusline_disable = true end,
   })
-
-  -- ------------------------------------------------------------------------
-  -- | mini.completion
-  -- ------------------------------------------------------------------------
-  -- Needs to be loaded _now_, so that 'completefunc' gets set during the LspAttach event
-  require("mini.completion").setup({
-    lsp_completion = {
-      source_func = "completefunc",
-      auto_setup = false,
-    },
-    set_vim_settings = false,
-  })
-  -- Disable MiniCompletion for some filetypes
-  vim.api.nvim_create_autocmd("FileType", {
-    pattern = { "minifiles" },
-    callback = function() vim.b.minicompletion_disable = true end,
-  })
-  -- Make <CR> more consistent when the completion menu is open
-  local feedkeys = require("user.util").feedkeys
-  vim.keymap.set("i", "<CR>", function()
-    if vim.fn.pumvisible() ~= 0 then
-      local item_selected = vim.fn.complete_info()["selected"] ~= -1
-      return item_selected and feedkeys("<C-y>") or feedkeys("<C-y><CR>")
-    else
-      feedkeys("<CR>")
-    end
-  end, { desc = "mini.completion accept selected or <cr>" })
 end)
+
+-- MiniDeps.now(function()
+--   -- ------------------------------------------------------------------------
+--   -- | mini.completion
+--   -- ------------------------------------------------------------------------
+--   -- Needs to be loaded _now_, so that 'completefunc' gets set during the LspAttach event
+--   require("mini.completion").setup({
+--     lsp_completion = {
+--       source_func = "completefunc",
+--       auto_setup = false,
+--     },
+--     set_vim_settings = false,
+--   })
+--   -- Disable MiniCompletion for some filetypes
+--   vim.api.nvim_create_autocmd("FileType", {
+--     pattern = { "minifiles" },
+--     callback = function() vim.b.minicompletion_disable = true end,
+--   })
+--   -- Make <CR> more consistent when the completion menu is open
+--   local feedkeys = require("user.util").feedkeys
+--   vim.keymap.set("i", "<CR>", function()
+--     if vim.fn.pumvisible() ~= 0 then
+--       local item_selected = vim.fn.complete_info()["selected"] ~= -1
+--       return item_selected and feedkeys("<C-y>") or feedkeys("<C-y><CR>")
+--     else
+--       feedkeys("<CR>")
+--     end
+--   end, { desc = "mini.completion accept selected or <cr>" })
+-- end)
 
 MiniDeps.later(function()
   require("user.plugins.mini.clue")
