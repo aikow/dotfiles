@@ -1,18 +1,67 @@
 #!/usr/bin/env bash
 
+set -o nounset
+set -o pipefail
+
 export DOTFILES_HOME=$PWD
 export DOTFILES_BIN=$DOTFILES_HOME/bin
-DOTFILES_OS=$(uname -o)
-export DOTFILES_OS
 
 PATH=$DOTFILES_BIN:$PATH
 
-bash dotbot
+# Installation specific variables begin with DOTBOT_
+DOTBOT_FORCE=no
+DOTBOT_OS=$(uname -o)
+export DOTBOT_OS
+export DOTBOT_OS_SHORT=${DOTBOT_OS##*/}
 
-for config_dotbot in config/*/dotbot; do
-  pushd "$(dirname "$config_dotbot")" || exit
+run() {
+  local config_path=$1
 
-  bash "$config_dotbot"
+  local config_dir="$(dirname "$config_path")"
+  local config="$(basename "$config_path")"
 
-  popd || exit
-done
+  local name=${config_dir##*/}
+
+  local old_pwd=$PWD
+  cd "$config_dir" || exit
+
+  bash "$config"
+  local exitcode=$?
+
+  if [[ $exitcode -eq 0 ]]; then
+    echo "($name) installed"
+  elif [[ $exitcode -lt 128 ]]; then
+    echo "($name)($exitcode) installation failed"
+  else
+    local errmsg
+    case "$exitcode" in
+      128) errmsg="command not installed - skipping" ;;
+      129) errmsg="unsupported OS '$DOTBOT_OS' - skipping" ;;
+      *) errmsg="unknown dotbot error - skipping" ;;
+    esac
+    echo "($name)($exitcode) $errmsg"
+  fi
+
+  cd "$old_pwd" || exit
+
+  return "$exitcode"
+}
+
+main() {
+  if [[ $# -ge 1 ]]; then
+    for config in "$@"; do
+      run $config
+    done
+  else
+    # If no dotbot file is given as an argument, first run the root dotbot file,
+    # then run all dotbot files that can be found in the config/ directory.
+    run dotbot
+
+    for config_dotbot in config/*/dotbot; do
+      run "$config_dotbot"
+    done
+
+  fi
+}
+
+main "$@"

@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
 
-command -v screen &>/dev/null || exit 1
+command -v screen &>/dev/null || exit 128
 
-symlinkfb "$PWD/screenrc ~/.screenrc"
+symlinkfb "$PWD/screenrc" ~/.screenrc

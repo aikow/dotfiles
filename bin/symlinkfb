@@ -1,6 +1,4 @@
 #!/usr/bin/env bash
-
-set -o xtrace
 #
 # Force create a symlink but create a backup of the target before replacing it
 # with the symlink if it exists.
@@ -10,25 +8,34 @@ if [[ $# != 2 ]]; then
   exit 1
 fi
 
+link_source=$1
+link_target=$2
+
 backup_dir=$HOME/.local/backups/symlinkfb
 mkdir -p "$backup_dir"
 
-if [[ -e $2 ]]; then
-  path=$(realpath "$2")
+if [[ -e $link_target ]]; then
+  path=$(realpath "$link_target")
   backup_file=$backup_dir/$(date -Iseconds)${path////--}
 
-  link_target=$(realpath "$2")
-  if [[ $link_target == "$(realpath "$1")" ]]; then
+  link_target=$(realpath "$link_target")
+  if [[ $link_target == "$(realpath "$link_source")" ]]; then
     # No work to do here.
     exit
   fi
 
-  if [[ -L $2 ]]; then
-    echo "symlinked to $(readlink "$2")" >"$backup_file"
-    unlink "$2"
+  if [[ -L $link_target ]]; then
+    echo "symlinked to $(readlink "$link_target")" >"$backup_file"
+    unlink "$link_target"
   else
-    mv "$2" "$backup_file"
+    mv "$link_target" "$backup_file"
   fi
 fi
 
-ln -s "$1" "$2"
+# Check if the link target is a broken symlink. If the target would have
+# existed, we would have already removed it in the previous if block.
+if [[ -h $link_target ]]; then
+  unlink "$link_target"
+fi
+
+ln -s "$link_source" "$link_target"

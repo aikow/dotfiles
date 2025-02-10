@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-command -v fd &>/dev/null || exit 1
+command -v fd &>/dev/null || exit 128
 
 mkdir -p ~/.config/fd
 symlinkfb "$PWD/ignore" ~/.config/fd/ignore

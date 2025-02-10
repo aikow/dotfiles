@@ -7,7 +7,7 @@ cleanlinks \
 
 mkdir -p \
   ~/.config \
-  ~/.local/{bin,config} \
-  ~/workspace/{lib,playground,repos,tools}
+  ~/.local/{backups,bin,config} \
+  ~/workspace/{lib,playground,repos,scripts,tools}
 
 [[ -d ~/.dotfiles ]] || symlinkfb "$PWD" ~/.dotfiles

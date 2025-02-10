@@ -1,8 +1,12 @@
 #!/usr/bin/env bash
 
-case $DOTFILES_OS in
+case $DOTBOT_OS in
   Darwin) target=~/Library/Application Support/Code/User ;;
-  Linux) target=~/.config/Code/User ;;
+  */Linux) target=~/.config/code/user ;;
+  *) exit 129 ;;
 esac
 
-[[ ! -f $target || $DOTBOT_FORCE == yes ]] && cp "$PWD/settings.json" "$target"
+if [[ ! -f $target || $DOTBOT_FORCE == yes ]]; then
+  mkdir "$(dirname "$target")"
+  cp "$PWD/settings.json" "$target"
+fi

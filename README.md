@@ -20,7 +20,7 @@ This is a code block
 
 ### Environment variables
 
-- `DOTFILES_OS`
+- `DOTBOT_OS`
 - `DOTBOT_FORCE`
 - `DOTFILES`
 - `DOTFILES_HOME`
