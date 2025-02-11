@@ -434,5 +434,5 @@ augroup END
 " Load local config options
 let local_config = expand('~/.local/config/vim/vimrc')
 if filereadable(local_config)
-  source local_config
+  execute "source " .. local_config
 endif

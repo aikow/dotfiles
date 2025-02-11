@@ -1,4 +1,4 @@
-MiniDeps.now(function()
+MiniDeps.later(function()
   MiniDeps.add({
     source = "saghen/blink.cmp",
     depends = { "rafamadriz/friendly-snippets" },
@@ -23,7 +23,7 @@ MiniDeps.now(function()
     },
     snippets = { preset = "mini_snippets" },
     sources = {
-      default = { "lsp", "path", "snippets", "buffer" },
+      default = { "lsp", "buffer" },
       cmdline = {},
     },
   })

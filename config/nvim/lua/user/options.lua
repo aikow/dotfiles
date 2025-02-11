@@ -153,5 +153,3 @@ opt.fillchars = {
   eob = " ",
 }
 opt.fillchars:append(require("user.ui.border").win_borders_fillchars.single)
-
-vim.cmd.colorscheme({ "base-everforest" })
