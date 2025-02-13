@@ -138,6 +138,9 @@ opt.showbreak = " -> "
 opt.linebreak = true
 opt.breakindent = true
 
+-- Show cursor line
+opt.cursorline = true
+
 -- Enable line numbers
 opt.number = true
 opt.numberwidth = 2

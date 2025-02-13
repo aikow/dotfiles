@@ -9,34 +9,31 @@ map("n", "k", "gk")
 map("x", "<", "<gv")
 map("x", ">", ">gv")
 
--- Very magic regexps by default.
-map("n", "?", [[?\v]])
-map("n", "/", [[/\v]])
-
 -- Refactoring
-map("n", "<leader>rs", [[:%s/\v]],      { desc = "search and replace" })
-map("x", "<leader>rs", [[:s/\v]],       { desc = "region search and replace" })
-map("n", "<leader>rS", [[:cfdo %s/\v]], { desc = "global search and replace" })
+map("n", "<leader>rs", ":%s/",      { desc = "search and replace" })
+map("x", "<leader>rs", ":s/",       { desc = "region search and replace" })
+map("n", "<leader>rS", ":cfdo %s/", { desc = "global search and replace" })
 
 -- Toggle
 map("n", "<leader>tz", "<cmd>set invspell<CR>",                             { desc = "toggle spellcheck" })
 map("n", "<leader>tw", "<cmd>set invwrap<CR>",                              { desc = "toggle wrap" })
 map("n", "<leader>td", require("mini.basics").toggle_diagnostic,            { desc = "toggle diagnostics" })
 map("n", "<leader>tD", require("user.util.lsp").toggle_virtual_diagnostics, { desc = "toggle virtual diagnostics" })
-map("n", "<leader>tl", require("user.util").toggle_cursor_column, { desc = "toggle virtual diagnostics" })
+map("n", "<leader>tl", require("user.util").toggle_cursor_column,           { desc = "toggle virtual diagnostics" })
 
 -- Spelling
-map("i", "<C-.>", [[<C-g>u<Esc>[s1z=`]a<C-g>u]], { desc = "correct last spelling mistake" })
+map("i", "<C-.>", "<C-g>u<Esc>[s1z=`]a<C-g>u", { desc = "correct last spelling mistake" })
 
 -- Set the working directory
 map("n", "g.", require("user.util").chdir_parent, { desc = "set the working directory to the dir of the current file" })
 map("n", "g>", require("user.util").chdir_root,   { desc = "recursively search for a root directory from the current file" })
 
 -- Clear the search buffer to remove highlighting from the last search.
-map("n", "<C-/>", [[:let @/ = ""<CR>]], { desc = "clear search buffer register", silent = true })
+map("n", "<C-/>", ":let @/ = ''<CR>", { desc = "clear search buffer register", silent = true })
+map("n", "<C-_>", ":let @/ = ''<CR>", { desc = "clear search buffer register", silent = true })
 
 -- Select the text that was last pasted
-map("n", "gp", [['`[' . strpart(getregtype(), 0,  1) . '`]']], { expr = true, desc = "select the last pasted region" })
+map("n", "gp", "'`[' . strpart(getregtype(), 0,  1) . '`]'", { expr = true, desc = "select the last pasted region" })
 
 -- Automatically jump to the end of text when yanking and pasting
 map("x", "y", "y`]")
@@ -62,14 +59,18 @@ map("n", "<C-w>-", "5<C-w>-")
 map("n", "<C-w>+", "5<C-w>+")
 
 -- Shortcuts for inserting filename, directory name, and full path into command mode.
-map("c", "%H", [[<C-R>=expand('%:h:p') . '/'<CR>]])
-map("c", "%T", [[<C-R>=expand('%:t')<CR>]])
-map("c", "%P", [[<C-R>=expand('%:p')<CR>]])
+map("c", "%H", "<C-R>=expand('%:h:p') . '/'<CR>")
+map("c", "%T", "<C-R>=expand('%:t')<CR>")
+map("c", "%P", "<C-R>=expand('%:p')<CR>")
 
 -- Open a terminal session in a split.
-map("n", "<M-v>", "<cmd>vsplit term://fish<CR>", { desc = "open a shell in a vertical split" })
-map("n", "<M-s>", "<cmd>split term://fish<CR>",  { desc = "open a shell in a horizontal split" })
-map("n", "<M-t>", "<cmd>tabnew term://fish<CR>", { desc = "open a shell in a tab page" })
+map("n", "<leader>wb", "<cmd>split term://bash<CR>" , { desc = "open bash in a horizontal split" })
+map("n", "<leader>wB", "<cmd>vsplit term://bash<CR>", { desc = "open bash in a horizontal split" })
+map("n", "<leader>wf", "<cmd>split term://fish<CR>" , { desc = "open fish in a horizontal split" })
+map("n", "<leader>wF", "<cmd>vsplit term://fish<CR>", { desc = "open fish in a vertical split" })
+map('n', '<leader>ws', ":split term://"             , { desc = "open a command in a horizontal split" })
+map("n", "<leader>wv", ":vsplit term://"            , { desc = "open a command in a vertical split" })
+map("n", "<leader>wt", ":tabnew term://"            , { desc = "open a command in a new tab" })
 
 -- Toggles between most recent buffers
 map("n", "<leader><leader>", "<c-^>", { desc = "switch to most recent buffer" })
@@ -81,5 +82,5 @@ map("n", "<leader>c", "ct_", { desc = "change upto next underscore '_'" })
 map("n", "<leader>.", "<cmd>source %<CR>", { desc = "source current file" })
 
 -- Enter a lua command.
-map("n", "<leader>e", [[:lua =]], { desc = "evaluate lua expression" })
-map("n", "<leader>E", [[:lua ]],  { desc = "evaluate lua statement" })
+map("n", "<leader>e", ":lua =", { desc = "evaluate lua expression" })
+map("n", "<leader>E", ":lua ",  { desc = "evaluate lua statement" })
