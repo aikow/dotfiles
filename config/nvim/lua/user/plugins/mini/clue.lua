@@ -54,6 +54,7 @@ miniclue.setup({
     { mode = "n", keys = "<leader>l", desc = "+LSP" },
     { mode = "n", keys = "<leader>r", desc = "+Refactor/Reformat" },
     { mode = "n", keys = "<leader>t", desc = "+Toggle" },
+    { mode = "n", keys = "<leader>w", desc = "+Window" },
 
     miniclue.gen_clues.builtin_completion(),
     miniclue.gen_clues.g(),
