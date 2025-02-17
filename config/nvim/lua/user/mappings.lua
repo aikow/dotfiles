@@ -20,6 +20,7 @@ map("n", "<leader>tw", "<cmd>set invwrap<CR>",                              { de
 map("n", "<leader>td", require("mini.basics").toggle_diagnostic,            { desc = "toggle diagnostics" })
 map("n", "<leader>tD", require("user.util.lsp").toggle_virtual_diagnostics, { desc = "toggle virtual diagnostics" })
 map("n", "<leader>tl", require("user.util").toggle_cursor_column,           { desc = "toggle virtual diagnostics" })
+map("n", "<leader>ti", require("user.util.lsp").toggle_inlay_hints,         { desc = "toggle inlay hints" })
 
 -- Spelling
 map("i", "<C-.>", "<C-g>u<Esc>[s1z=`]a<C-g>u", { desc = "correct last spelling mistake" })

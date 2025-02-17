@@ -24,7 +24,8 @@ MiniDeps.later(function()
     },
     snippets = { preset = "mini_snippets" },
     sources = { default = { "lsp", "buffer" } },
-    cmdline = { sources = {} },
+    cmdline = { enabled = false },
+    term = { enabled = false },
     signature = { enabled = true },
   })
 end)

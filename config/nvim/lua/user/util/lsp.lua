@@ -124,6 +124,7 @@ function M.document_symbols(kinds)
           .iter(options.items)
           :filter(function(o) return vim.tbl_contains(kinds, o.kind) end)
           :totable()
+        ---@diagnostic disable-next-line: param-type-mismatch
         vim.fn.setqflist({}, " ", options)
         vim.cmd.copen()
       end,
@@ -131,18 +132,15 @@ function M.document_symbols(kinds)
   end
 end
 
-local function toggle(value)
-  vim.validate("value", value, "boolean")
-  return not value
-end
-
 function M.toggle_virtual_diagnostics()
   local config = vim.diagnostic.config()
   if config then
-    config.virtual_lines = toggle(config.virtual_lines)
-    config.virtual_text = toggle(config.virtual_text)
+    config.virtual_lines = not config.virtual_lines
+    config.virtual_text = not config.virtual_text
     vim.diagnostic.config(config)
   end
 end
+
+function M.toggle_inlay_hints() vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled()) end
 
 return M
