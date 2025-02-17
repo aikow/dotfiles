@@ -20,11 +20,11 @@ MiniDeps.later(function()
     completion = {
       list = { selection = { auto_insert = true } },
       trigger = { show_on_insert_on_trigger_character = false },
+      documentation = { auto_show = true, auto_show_delay_ms = 500 },
     },
     snippets = { preset = "mini_snippets" },
-    sources = {
-      default = { "lsp", "buffer" },
-      cmdline = {},
-    },
+    sources = { default = { "lsp", "buffer" } },
+    cmdline = { sources = {} },
+    signature = { enabled = true },
   })
 end)
