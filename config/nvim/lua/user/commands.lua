@@ -35,7 +35,7 @@ command("Help", function(params)
   local cmd = params.fargs
   local cmd_str = table.concat(cmd, "-")
   local cmd_help = { unpack(cmd) }
-  table.insert(cmd_help, "--help")
+  if not params.bang then table.insert(cmd_help, "--help") end
 
   -- Prefix the buffer name with hman
   local buf_name = string.format("hman://%s", cmd_str)
@@ -82,5 +82,6 @@ command("Help", function(params)
   end)
 end, {
   nargs = "+",
+  bang = true,
   desc = "Display the help message for a command in a buffer.",
 })

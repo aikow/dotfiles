@@ -57,6 +57,20 @@ local just = function()
     },
   })
 end
+local projects = function()
+  local workspace = os.getenv("WORKSPACE_HOME") or vim.fs.normalize("~/workspace")
+  builtin.cli({
+    command = { "lsgit", workspace },
+  }, {
+    source = {
+      choose = function(item)
+        builtin.files({}, {
+          source = { cwd = item },
+        })
+      end,
+    },
+  })
+end
 
 -- ---------------
 -- |   Keymaps   |
@@ -69,6 +83,7 @@ vim.keymap.set("n", "<leader>jj", extra.visit_paths, { desc = "mini.pick visit p
 
 -- Finding searching and navigating
 vim.keymap.set("n", "<leader>o", builtin.files, { desc = "mini.pick find files" })
+vim.keymap.set("n", "<leader>O", projects, { desc = "mini.pick projects" })
 vim.keymap.set("n", "<leader>p", builtin.buffers, { desc = "mini.pick buffers" })
 vim.keymap.set("n", "<leader>fB", extra.buf_lines, { desc = "mini.pick all buffer fuzzy find" })
 vim.keymap.set("n", "<leader>fb", cur_buf_lines, { desc = "mini.pick buffer fuzzy find" })

@@ -111,7 +111,7 @@ MiniDeps.later(function()
   -- ------------------------------------------------------------------------
   require("mini.basics").setup({
     options = { basics = false },
-    mappings = { basic = false },
+    mappings = { basic = false, option_toggle_prefix = "" },
   })
 
   -- ------------------------------------------------------------------------
