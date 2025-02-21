@@ -1,4 +1,27 @@
 {
+  "script heading": {
+    "prefix": "shead",
+    "body": [
+      "$LINE_COMMENT Author: Aiko Wessels <aiko.wessels@gmail.com>",
+      "$LINE_COMMENT Date: $CURRENT_YEAR-$CURRENT_MONTH-$CURRENT_DATE",
+      "$LINE_COMMENT"
+    ],
+    "description": "Insert a small header for use in scripts"
+  },
+  "random digit": {
+    "prefix": "randd",
+    "body": [
+      "$RANDOM"
+    ],
+    "description": "Insert 6 random base 10 digits"
+  },
+  "random hex digit": {
+    "prefix": "randx",
+    "body": [
+      "$RANDOM_HEX"
+    ],
+    "description": "Insert 6 random base hex digits"
+  },
   "ascii line separator": {
     "prefix": "lsep",
     "body": [

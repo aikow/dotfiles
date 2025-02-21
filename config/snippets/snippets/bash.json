@@ -116,5 +116,12 @@
       "&>/dev/null"
     ],
     "description": "Redirect both stdout and stderr to dev/null"
+  },
+  "split variable": {
+    "prefix": "vsplit",
+    "body": [
+      "readarray -t -d${1:,} ${2:arr} < <(printf \"%s\" \"\\$${3:var}\""
+    ],
+    "description": "split a variable on a delimiter and store the parts in an array"
   }
 }
