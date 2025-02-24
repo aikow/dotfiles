@@ -6,9 +6,10 @@ M.opts = {
       workspace = {
         checkThirdParty = false,
       },
-      completion = {
-        callSnippet = "Replace",
-      },
+      -- FIXME(mini.completion): Remove this once snippets are supported
+      -- completion = {
+      --   callSnippet = "Replace",
+      -- },
     },
   },
 }

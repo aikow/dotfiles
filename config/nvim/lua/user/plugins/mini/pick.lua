@@ -71,6 +71,11 @@ local projects = function()
     },
   })
 end
+local todo_comments = function()
+  builtin.grep({
+    pattern = "TODO|NOTE|HACK|FIXME|PERF",
+  })
+end
 
 -- ---------------
 -- |   Keymaps   |
@@ -92,6 +97,7 @@ vim.keymap.set("n", "<leader>ff", builtin.grep_live, { desc = "mini.pick live gr
 vim.keymap.set("n", "<leader>fo", extra.oldfiles, { desc = "mini.pick oldfiles" })
 vim.keymap.set("n", "<leader>ft", extra.treesitter, { desc = "mini.pick treesitter nodes" })
 vim.keymap.set("n", "<leader>fn", extra.hipatterns, { desc = "mini.pick todo hipatterns" })
+vim.keymap.set("n", "<leader>fN", todo_comments, { desc = "mini.pick todo comments" })
 vim.keymap.set("n", "<leader>fw", grep_curword, { desc = "mini.pick grep word under cursor" })
 vim.keymap.set("n", "<leader>fj", just, { desc = "mini.pick run a just command" })
 

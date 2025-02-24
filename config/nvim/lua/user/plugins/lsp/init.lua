@@ -5,6 +5,7 @@ local function setup_server(server_name)
   local ok, server_mod = pcall(require, server_mod_name)
   local server_opts = ok and server_mod.opts or {}
 
+  -- FIXME(mini.completion): Remove this once snippets are supported
   server_opts.capabilities = {
     textDocument = {
       completion = {
