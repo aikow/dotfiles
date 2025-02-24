@@ -5,7 +5,15 @@ local function setup_server(server_name)
   local ok, server_mod = pcall(require, server_mod_name)
   local server_opts = ok and server_mod.opts or {}
 
-  server_opts.capabilities = require("blink.cmp").get_lsp_capabilities(server_opts.capabilities)
+  server_opts.capabilities = {
+    textDocument = {
+      completion = {
+        completionItem = {
+          snippetSupport = false,
+        },
+      },
+    },
+  }
 
   -- If the server contains an `override_setup` method which returns true, don't continue setting up
   -- the server afterwards.
@@ -22,7 +30,6 @@ MiniDeps.now(function()
   MiniDeps.add({
     source = "neovim/nvim-lspconfig",
     depends = {
-      "saghen/blink.cmp",
       "williamboman/mason.nvim",
       "williamboman/mason-lspconfig.nvim",
       "folke/lazydev.nvim",
