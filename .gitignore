@@ -1,1 +1,5 @@
+# Backup directory
+/bak/
+
+# Dotbot config file should be local to each machine.
 /.dotbot.conf
