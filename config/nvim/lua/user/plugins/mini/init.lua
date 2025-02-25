@@ -3,6 +3,7 @@ MiniDeps.now(
     MiniDeps.add({
       source = "echasnovski/mini.nvim",
       depends = {
+        "rafamadriz/friendly-snippets",
         "nvim-treesitter/nvim-treesitter",
         "nvim-treesitter/nvim-treesitter-textobjects",
       },
@@ -62,11 +63,13 @@ MiniDeps.now(function()
     },
     set_vim_settings = false,
   })
+
   -- Disable MiniCompletion for some filetypes
   vim.api.nvim_create_autocmd("FileType", {
     pattern = { "minifiles" },
     callback = function() vim.b.minicompletion_disable = true end,
   })
+
   -- Make <CR> more consistent when the completion menu is open
   local keycode = function(x) return vim.api.nvim_replace_termcodes(x, true, true, true) end
   vim.keymap.set("i", "<CR>", function()
@@ -118,12 +121,10 @@ MiniDeps.later(function()
   -- | mini.bracketed
   -- ------------------------------------------------------------------------
   require("mini.bracketed").setup({
-    comment = { suffix = "z" },
     diagnostic = { suffix = "" },
     jump = { suffix = "" },
     undo = { suffix = "" },
     window = { suffix = "" },
-    yank = { suffix = "" },
   })
 
   -- ------------------------------------------------------------------------
@@ -149,7 +150,6 @@ MiniDeps.later(function()
       hack = { pattern = "HACK", group = "MiniHipatternsHack" },
       todo = { pattern = "TODO", group = "MiniHipatternsTodo" },
       note = { pattern = "NOTE", group = "MiniHipatternsNote" },
-
       hex_color = hipatterns.gen_highlighter.hex_color(),
     },
   })
