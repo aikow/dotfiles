@@ -61,6 +61,7 @@ autocmd("TermOpen", {
   callback = function(params)
     vim.opt_local.spell = false
     vim.opt_local.number = false
+    vim.opt_local.wrap = false
 
     vim.api.nvim_buf_set_keymap(
       params.buf,
