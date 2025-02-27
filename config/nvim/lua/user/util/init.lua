@@ -1,29 +1,30 @@
 local M = {}
 
----Feed the given string into neovim as if they were pressed by the user. All
----termcode and keycode sequences are replaced.
+---Feed the given string into neovim as if they were pressed by the user. All termcode and keycode
+---sequences are replaced.
 ---@param keys string
 function M.feedkeys(keys)
   vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes(keys, true, true, true), "n", false)
 end
 
----Take a buffer as input and return the path, and won't fail for buffers like
----terminal buffers.
+---Take a buffer as input and return the path, and won't fail for buffers like terminal buffers. If
+---the path doesn't exist yet, fall back to the current directory.
 ---@param buf_id integer
 function M.buf_path(buf_id)
   local buftype = vim.api.nvim_get_option_value("buftype", { buf = buf_id })
   if buftype == "" then
-    return vim.api.nvim_buf_get_name(buf_id)
-  else
-    return vim.fn.getcwd()
+    local path = vim.api.nvim_buf_get_name(buf_id)
+    if vim.uv.fs_stat(path) then return path end
   end
+
+  return vim.uv.cwd()
 end
 
 function M.chdir_parent()
   local path = vim.api.nvim_buf_get_name(0)
   if path ~= "" then
     dir = vim.fs.dirname(path)
-    vim.fn.chdir(dir)
+    vim.uv.chdir(dir)
     vim.notify("changed directory to\n" .. dir, vim.log.levels.INFO)
   else
     vim.notify("unable to change directory, not a valid path", vim.log.levels.WARN)
@@ -35,7 +36,7 @@ function M.chdir_root()
   if path ~= "" then
     path = vim.fs.dirname(path)
   else
-    path = vim.uv.cwd() or vim.fn.getcwd()
+    path = vim.uv.cwd()
   end
   local root = vim.fs.root(path, {
     ".editorconfig", -- general editor settings
@@ -49,7 +50,7 @@ function M.chdir_root()
   })
 
   if root then
-    vim.fn.chdir(root)
+    vim.uv.chdir(root)
     vim.notify("changed directory to\n" .. root, vim.log.levels.INFO)
   else
     vim.notify("unable to find a root directory", vim.log.levels.WARN)

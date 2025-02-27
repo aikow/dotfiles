@@ -39,9 +39,6 @@ vim.api.nvim_create_autocmd("VimEnter", {
   end,
 })
 
--- Enable all filetype plugins
-vim.cmd.filetype({ "plugin", "indent", "on" })
-
 -- Set 7 lines to the cursor - when moving vertically using j/k
 opt.smoothscroll = true
 opt.scrolloff = 7

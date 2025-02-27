@@ -43,7 +43,7 @@ local files_set_cwd = function()
   -- Works only if cursor is on the valid file system entry
   local cur_entry_path = minifiles.get_fs_entry().path
   local cur_directory = vim.fs.dirname(cur_entry_path)
-  vim.fn.chdir(cur_directory)
+  vim.uv.chdir(cur_directory)
 end
 
 -- Register renaming and moving files with any attached LSP servers.
@@ -65,6 +65,10 @@ vim.api.nvim_create_autocmd("User", {
       buffer = buf_id,
       desc = "mini.files yank absolute path",
     })
+    vim.keymap.set("n", "gx", function() vim.ui.open(minifiles.get_fs_entry().path) end, {
+      buffer = buf_id,
+      desc = "vim.ui.open",
+    })
     vim.keymap.set("n", "gh", toggle_dotfiles, {
       buffer = buf_id,
       desc = "mini.files toggle hidden",
@@ -79,3 +83,4 @@ vim.api.nvim_create_autocmd("User", {
 -- Keymaps to open mini.files
 vim.keymap.set("n", "-", function() minifiles.open(require("user.util").buf_path(0)) end)
 vim.keymap.set("n", "_", function() minifiles.open() end)
+vim.keymap.set("n", "+", function() minifiles.open(minifiles.get_latest_path()) end)

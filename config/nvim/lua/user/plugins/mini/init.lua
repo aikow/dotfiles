@@ -93,6 +93,7 @@ end)
 MiniDeps.later(function()
   require("mini.align").setup({})
   require("mini.cursorword").setup({})
+  require("mini.jump2d").setup({})
   require("mini.splitjoin").setup({})
 
   -- ------------------------------------------------------------------------
