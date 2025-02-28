@@ -52,7 +52,7 @@ autocmd("VimEnter", {
     local configs = vim.fs.find(exrc_patterns, { upward = true, type = "file", limit = math.huge })
 
     -- Iterate over the files in reverse so that the "most local" one gets sourced last.
-    for _, f in vim.iter(configs):rev() do
+    for f in vim.iter(configs):rev() do
       local contents = vim.secure.read(f)
       if contents ~= nil then
         vim.api.nvim_exec2(contents, {})
