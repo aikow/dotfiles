@@ -23,8 +23,9 @@ end
 function M.chdir_parent()
   local path = vim.api.nvim_buf_get_name(0)
   if path ~= "" then
-    dir = vim.fs.dirname(path)
-    vim.uv.chdir(dir)
+    local dir = vim.fs.dirname(path)
+    -- NOTE: Using vim.uv.chdir doesn't update buffers
+    vim.fn.chdir(dir)
     vim.notify("changed directory to\n" .. dir, vim.log.levels.INFO)
   else
     vim.notify("unable to change directory, not a valid path", vim.log.levels.WARN)
@@ -50,7 +51,8 @@ function M.chdir_root()
   })
 
   if root then
-    vim.uv.chdir(root)
+    -- NOTE: Using vim.uv.chdir doesn't update buffers
+    vim.fn.chdir(root)
     vim.notify("changed directory to\n" .. root, vim.log.levels.INFO)
   else
     vim.notify("unable to find a root directory", vim.log.levels.WARN)

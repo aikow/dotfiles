@@ -43,7 +43,7 @@ local files_set_cwd = function()
   -- Works only if cursor is on the valid file system entry
   local cur_entry_path = minifiles.get_fs_entry().path
   local cur_directory = vim.fs.dirname(cur_entry_path)
-  vim.uv.chdir(cur_directory)
+  vim.fn.chdir(cur_directory)
 end
 
 -- Register renaming and moving files with any attached LSP servers.

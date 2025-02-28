@@ -21,7 +21,7 @@ opt.writebackup = false
 opt.updatetime = 1000
 opt.undofile = true
 opt.autowrite = true
---
+
 -- Set the timeout times
 opt.timeoutlen = 500
 opt.ttimeoutlen = 5
@@ -55,6 +55,7 @@ opt.textwidth = 80
 -- ------------------------------------------------------------------------
 -- | Editing and Searching
 -- ------------------------------------------------------------------------
+
 -- Tab key enters 2 spaces
 opt.expandtab = true
 opt.tabstop = 2
@@ -89,7 +90,7 @@ if vim.fn.has("nvim-0.11") == 1 then opt.completeopt:append({ "fuzzy" }) end
 -- Don't give ins-complete-menu messages
 opt.shortmess:append("WcCI")
 
--- -- Use treesitter for folding
+-- Use treesitter for folding
 opt.foldmethod = "expr"
 opt.foldexpr = "v:lua.require'user.util'.foldexpr()"
 opt.foldtext = ""
@@ -130,7 +131,7 @@ opt.listchars = "tab:󰌒 ,extends:…,precedes:…,nbsp:␣"
 opt.list = true
 
 -- Show line breaks
-opt.wrap = false
+opt.wrap = true
 opt.showbreak = " -> "
 opt.linebreak = true
 opt.breakindent = true
