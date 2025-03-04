@@ -73,7 +73,7 @@ local projects = function()
 end
 local todo_comments = function()
   builtin.grep({
-    pattern = "TODO|NOTE|HACK|FIXME|PERF",
+    pattern = [[\b(?:TODO|NOTE|HACK|FIXME|PERF)\b]],
   })
 end
 

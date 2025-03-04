@@ -46,7 +46,8 @@ end
 config.keys = require("user.keys")
 
 -- Load a module called local and use it to apply local settings
-local ok, module = pcall(require, "local")
+local home = os.getenv("HOME")
+local ok, module = pcall(dofile, home .. ".local/config/wezterm/local.lua")
 if ok and type(module.setup) == "function" then
   config = module.setup(config)
 end

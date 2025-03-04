@@ -28,7 +28,7 @@ if command -q eza
     alias lg='eza -l --group-directories-first --icons --git'
     alias lt='eza --group-directories-first --tree --icons'
     alias ll='eza -l --group-directories-first --icons'
-    alias lll='eza -la --group-directories-first --icons --group'
+    alias lll='eza -la --group-directories-first --icons --group --links --header'
 else
     alias l='ls'
     alias ll='ls -Al'

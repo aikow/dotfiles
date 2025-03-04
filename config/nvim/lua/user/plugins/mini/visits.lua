@@ -3,7 +3,7 @@ local function map_visits(lhs, rhs, desc)
     "n",
     "<leader>j" .. lhs,
     type(rhs) == "string" and "<cmd>" .. rhs .. "<cr>" or rhs,
-    { desc = "mini.visits" .. desc }
+    { desc = "mini.visits " .. desc }
   )
 end
 

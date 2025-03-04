@@ -92,8 +92,8 @@ MiniDeps.later(function()
 
   require("treesitter-context").setup({
     enable = true,
-    max_lines = 16,
-    multiline_threshold = 8,
+    max_lines = 8,
+    multiline_threshold = 1,
     trim_scope = "inner",
   })
 end)
