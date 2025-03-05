@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
 
-command -v starship &>/dev/null || exit 128
+hascommand starship || exit 128
 
 symlinkfb "$PWD/starship.toml" ~/.config/starship.toml

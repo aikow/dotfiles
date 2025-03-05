@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-command -v alacritty &>/dev/null || exit 128
+hascommand alacritty || exit 128
 
 mkdir -p ~/.config/alacritty
 cleanlinks ~/.config/alacritty

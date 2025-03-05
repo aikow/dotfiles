@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
-command -v wezterm &>/dev/null || exit 128
+hascommand wezterm || exit 128
 
+mkdir -p ~/.config/wezterm
 symlinkfb "$PWD/user" ~/.config/wezterm/user
 symlinkfb "$PWD/wezterm.lua" ~/.config/wezterm/wezterm.lua

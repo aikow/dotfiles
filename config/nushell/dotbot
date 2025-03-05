@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-command -v nu &>/dev/null || exit 128
+hascommand nu || exit 128
 
 case $DOTBOT_OS in
   Darwin) target=~/Library/Application\ Support/nushell ;;

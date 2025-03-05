@@ -10,7 +10,7 @@ export DOTFILES_BIN=$DOTFILES_HOME/bin
 PATH=$DOTFILES_BIN:$PATH
 
 # Installation specific variables begin with DOTBOT_
-export DOTBOT_FORCE=no
+export DOTBOT_FORCE=${DOTBOT_FORCE:-no}
 DOTBOT_OS=$(uname -o)
 export DOTBOT_OS
 export DOTBOT_OS_SHORT=${DOTBOT_OS##*/}

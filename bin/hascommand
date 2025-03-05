@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+if [[ $DOTBOT_FORCE != "yes" ]]; then
+  command -v wezterm &>/dev/null || exit 128
+fi

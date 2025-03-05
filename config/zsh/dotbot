@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-command -v zsh &>/dev/null || exit 128
+hascommand zsh || exit 128
 
 scripts/install_zinit
 

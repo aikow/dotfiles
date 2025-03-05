@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
 
-command -v tmux &>/dev/null || exit 128
+hascommand tmux || exit 128
 
 symlinkfb "$PWD/tmux.conf" ~/.tmux.conf
