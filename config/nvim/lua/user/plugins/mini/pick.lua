@@ -18,6 +18,7 @@ local builtin = minipick.builtin
 local command_history = function() extra.history({ scope = ":" }) end
 local cur_buf_lines = function() extra.buf_lines({ scope = "current" }) end
 local git_buf_commits = function() extra.git_commits({ path = vim.fn.expand("%") }) end
+local git_status = function() builtin.cli({ command = { "git", "diff", "--name-only" } }) end
 local grep_curword = function() builtin.grep({ pattern = vim.fn.expand("<cword>") }) end
 local loclist = function() extra.list({ scope = "location" }) end
 local quickfix = function() extra.list({ scope = "quickfix" }) end
@@ -107,6 +108,7 @@ vim.keymap.set("n", "<leader>gb", extra.git_branches, { desc = "mini.pick git br
 vim.keymap.set("n", "<leader>gc", git_buf_commits, { desc = "mini.pick git buffer commits" })
 vim.keymap.set("n", "<leader>gh", extra.git_hunks, { desc = "mini.pick hunks" })
 vim.keymap.set("n", "<leader>go", extra.git_files, { desc = "mini.pick git files" })
+vim.keymap.set("n", "<leader>gs", git_status, { desc = "mini.pick git status" })
 
 -- Vim internals shortcuts
 vim.keymap.set("n", "<leader>;", extra.commands, { desc = "mini.pick vim commands" })
