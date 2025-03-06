@@ -54,9 +54,18 @@ MiniDeps.now(function()
   setup_server("nushell")
 
   -- Configure neovim diagnostics
+  vim.diagnostic.get_namespaces()
   vim.diagnostic.config({
     virtual_lines = false,
     virtual_text = true,
+    float = {
+      suffix = function(diagnostic)
+        if vim.iter(vim.diagnostic.get_namespaces()):enumerate():last()[1] > 1 then
+          return " [" .. diagnostic.source .. "]", "Comment"
+          ---@diagnostic disable-next-line: missing-return
+        end
+      end,
+    },
   })
 
   -- Setup keymaps when an LSP server is attach.
