@@ -29,18 +29,19 @@ end
 
 function LspBuf.on_attach(client, buffer)
   local self = LspBuf.new(client, buffer)
+  local winid = vim.api.nvim_get_current_win()
 
   -- stylua: ignore start
   -- Extend default LSP actions.
-  self:map("<leader>s", vim.lsp.buf.signature_help,                                  { desc = "lsp signature help" })
-  self:map("gD",        vim.lsp.buf.declaration,                                     { desc = "lsp go to declaration" })
-  self:map("gd",        vim.lsp.buf.definition,                                      { desc = "lsp go to definition" })
-  self:map("gO",        LspUtil.document_symbols({ "Function", "Method", "Class" }), { desc = "vim.lsp.buf.document_symbol" })
-  self:map("grS",       H.typehierarchy("supertypes"),                               { desc = "lsp list supertypes" })
-  self:map("grci",      vim.lsp.buf.incoming_calls,                                  { desc = "lsp list incoming calls" })
-  self:map("grco",      vim.lsp.buf.outgoing_calls,                                  { desc = "lsp list outgoing calls" })
-  self:map("grs",       H.typehierarchy("subtypes"),                                 { desc = "lsp list subtypes" })
-  self:map("gry",       vim.lsp.buf.type_definition,                                 { desc = "lsp type declarations" })
+  self:map("<leader>s", vim.lsp.buf.signature_help,                                         { desc = "lsp signature help" })
+  self:map("gD",        vim.lsp.buf.declaration,                                            { desc = "lsp go to declaration" })
+  self:map("gd",        vim.lsp.buf.definition,                                             { desc = "lsp go to definition" })
+  self:map("gO",        LspUtil.document_symbols(winid, { "Function", "Method", "Class" }), { desc = "vim.lsp.buf.document_symbol" })
+  self:map("grS",       H.typehierarchy("supertypes"),                                      { desc = "lsp list supertypes" })
+  self:map("grci",      vim.lsp.buf.incoming_calls,                                         { desc = "lsp list incoming calls" })
+  self:map("grco",      vim.lsp.buf.outgoing_calls,                                         { desc = "lsp list outgoing calls" })
+  self:map("grs",       H.typehierarchy("subtypes"),                                        { desc = "lsp list subtypes" })
+  self:map("gry",       vim.lsp.buf.type_definition,                                        { desc = "lsp type declarations" })
 
   -- LSP go-to actions
   self:map("<leader>ld", "Pick lsp scope='definition'",      { desc = "mini.pick lsp definitions" })

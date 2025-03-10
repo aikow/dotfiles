@@ -116,17 +116,21 @@ function M.lsp_did_rename(from_path, to_path)
   end
 end
 
-function M.document_symbols(kinds)
+function M.document_symbols(winid, kinds)
   return function()
     vim.lsp.buf.document_symbol({
       on_list = function(options)
         options.items = vim
           .iter(options.items)
-          :filter(function(o) return vim.tbl_contains(kinds, o.kind) end)
+          :filter(function(o)
+            -- Need to remove any LSP-Kind icons from the kind string.
+            local kind = string.gsub(o.kind, "%W", "")
+            return vim.tbl_contains(kinds, kind)
+          end)
           :totable()
         ---@diagnostic disable-next-line: param-type-mismatch
-        vim.fn.setqflist({}, " ", options)
-        vim.cmd.copen()
+        vim.fn.setloclist(winid, {}, " ", options)
+        vim.api.nvim_win_call(winid, vim.cmd.lopen)
       end,
     })
   end
