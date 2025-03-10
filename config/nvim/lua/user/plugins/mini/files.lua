@@ -60,6 +60,7 @@ vim.api.nvim_create_autocmd("User", {
 
     map_split(buf_id, "<C-s>", { split = "belowright", horizontal = true })
     map_split(buf_id, "<C-v>", { split = "belowright", vertical = true })
+    map_split(buf_id, "<C-t>", { tab = vim.fn.tabpagenr("$") })
 
     vim.keymap.set("n", "gp", function() vim.fn.setreg("+", minifiles.get_fs_entry().path) end, {
       buffer = buf_id,

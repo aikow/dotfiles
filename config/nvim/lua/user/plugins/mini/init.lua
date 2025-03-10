@@ -11,6 +11,7 @@ MiniDeps.now(
   end
 )
 
+-- Setup mini modules that need to run immediately.
 MiniDeps.now(function()
   -- ------------------------------------------------------------------------
   -- | mini.icons
@@ -27,6 +28,7 @@ MiniDeps.now(function()
   notify.setup({})
   vim.notify = notify.make_notify()
   vim.keymap.set("n", "<leader>hn", notify.show_history, { desc = "mini.notify show history" })
+  vim.keymap.set("n", "<leader>hN", notify.clear, { desc = "mini.notify show history" })
 
   -- ------------------------------------------------------------------------
   -- | mini.misc
@@ -42,55 +44,30 @@ MiniDeps.now(function()
   require("user.plugins.mini.starter")
 
   -- ------------------------------------------------------------------------
+  -- | mini.files
+  -- ------------------------------------------------------------------------
+  -- Load mini.files immediately to handle opening the case when nvim is passed a path to a directory
+  -- instead of a file.
+  require("user.plugins.mini.files")
+
+  -- ------------------------------------------------------------------------
   -- | mini.statusline
   -- ------------------------------------------------------------------------
   require("mini.statusline").setup({})
+  -- Disable the statusline for certain filetypes.
   vim.api.nvim_create_autocmd("FileType", {
     pattern = { "DiffviewFiles" },
     callback = function() vim.b.ministatusline_disable = true end,
   })
 end)
 
-MiniDeps.now(function()
-  -- ------------------------------------------------------------------------
-  -- | mini.completion
-  -- ------------------------------------------------------------------------
-  -- Needs to be loaded _now_, so that 'completefunc' gets set during the LspAttach event
-  require("mini.completion").setup({
-    lsp_completion = {
-      source_func = "completefunc",
-      auto_setup = false,
-    },
-    set_vim_settings = false,
-  })
-
-  -- Disable MiniCompletion for some filetypes
-  vim.api.nvim_create_autocmd("FileType", {
-    pattern = { "minifiles" },
-    callback = function() vim.b.minicompletion_disable = true end,
-  })
-
-  -- Make <CR> more consistent when the completion menu is open
-  local keycode = function(x) return vim.api.nvim_replace_termcodes(x, true, true, true) end
-  vim.keymap.set("i", "<CR>", function()
-    if vim.fn.pumvisible() ~= 0 then
-      local item_selected = vim.fn.complete_info()["selected"] ~= -1
-      return item_selected and keycode("<C-y>") or keycode("<C-y><CR>")
-    else
-      return keycode("<CR>")
-    end
-  end, { expr = true, desc = "mini.completion accept selected or <cr>" })
-end)
-
+-- Load everything else later.
 MiniDeps.later(function()
   require("user.plugins.mini.clue")
-  require("user.plugins.mini.files")
   require("user.plugins.mini.git")
   require("user.plugins.mini.pick")
   require("user.plugins.mini.visits")
-end)
 
-MiniDeps.later(function()
   require("mini.align").setup({})
   require("mini.cursorword").setup({})
   require("mini.jump2d").setup({})
@@ -127,6 +104,35 @@ MiniDeps.later(function()
     undo = { suffix = "" },
     window = { suffix = "" },
   })
+
+  -- ------------------------------------------------------------------------
+  -- | mini.completion
+  -- ------------------------------------------------------------------------
+  -- Needs to be loaded _now_, so that 'completefunc' gets set during the LspAttach event
+  require("mini.completion").setup({
+    lsp_completion = {
+      source_func = "completefunc",
+      auto_setup = false,
+    },
+    set_vim_settings = false,
+  })
+
+  -- Disable MiniCompletion for some filetypes
+  vim.api.nvim_create_autocmd("FileType", {
+    pattern = { "minifiles" },
+    callback = function() vim.b.minicompletion_disable = true end,
+  })
+
+  -- Make <CR> more consistent when the completion menu is open
+  local keycode = function(x) return vim.api.nvim_replace_termcodes(x, true, true, true) end
+  vim.keymap.set("i", "<CR>", function()
+    if vim.fn.pumvisible() ~= 0 then
+      local item_selected = vim.fn.complete_info()["selected"] ~= -1
+      return item_selected and keycode("<C-y>") or keycode("<C-y><CR>")
+    else
+      return keycode("<CR>")
+    end
+  end, { expr = true, desc = "mini.completion accept selected or <cr>" })
 
   -- ------------------------------------------------------------------------
   -- | mini.diff
