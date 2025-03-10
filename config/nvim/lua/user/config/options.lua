@@ -80,11 +80,10 @@ opt.formatoptions = "qjl1ortc"
 
 -- Builtin completion options
 opt.infercase = true -- Make completion case-insensitive.
-opt.completeopt:append({
-  "menu", -- Use a popup menu to show possible completions
+opt.completeopt = {
   "menuone", -- Show menu even with one result
   "noselect", -- Don't automatically select a match
-})
+}
 if vim.fn.has("nvim-0.11") == 1 then opt.completeopt:append({ "fuzzy" }) end
 
 -- Don't give ins-complete-menu messages
