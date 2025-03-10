@@ -10,6 +10,9 @@ MiniDeps.later(function()
         nu = {
           command = { "nu" },
         },
+        bash = {
+          command = { "bash" },
+        },
       },
       buflisted = true,
     },
