@@ -35,7 +35,7 @@ vim.api.nvim_create_autocmd("VimEnter", {
   once = true,
   callback = function()
     vim.cmd.aunmenu({ "PopUp.How-to\\ disable\\ mouse" })
-    vim.cmd.aunmenu({ "PopUp.-1-" })
+    vim.cmd.aunmenu({ "PopUp.-2-" })
   end,
 })
 
