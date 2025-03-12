@@ -1,14 +1,11 @@
 [alias]
   # Pretty print branches sorted by last commit date.
   pretty-branch = !git branch --sort=-committerdate --format='%(HEAD) %(color:yellow)%(refname:short)%(color:reset) ︙ %(color:red)%(objectname:short)%(color:reset) ︙ %(contents:subject) ︙ %(authorname) (%(color:green)%(committerdate:relative)%(color:reset))'
-
-  # Pretty print log format.
   pretty-log = !git log --graph --pretty='%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%ad) %C(bold blue)<%an>%Creset'
-
-  delete-gone = !git for-each-ref --format '%(refname:short)|%(upstream:track)' refs/heads | rg '\\[gone]' | cut -d'|' -f1 | xargs git branch -D
+  delete-gone = !git for-each-ref --format "%(refname:short)\t%(upstream:track)" refs/heads | rg -F '[gone]' | cut -f1 | xargs git branch -D
 
 [blame]
-date = human
+  date = human
 
 [core]
   excludesfile = ~/.dotfiles/config/git/gitignore_global
@@ -47,7 +44,6 @@ date = human
   user = aikow
 
 [merge]
-  # set "nvim" as tool for merging
   tool = nvim
   conflictstyle = diff3
 
@@ -56,8 +52,7 @@ date = human
   prompt = false
 
 [mergetool "nvim"]
-  # Define command which will be used when "nvim" is set as a merge tool
-  cmd = "nvim -c \"Gvdiffsplit!\" \"$MERGED\""
+  cmd = "nvim -d \"$LOCAL\" \"$MERGED\" \"$REMOTE\""
 
 [pull]
 	rebase = true
