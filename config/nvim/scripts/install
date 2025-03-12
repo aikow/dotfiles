@@ -120,5 +120,5 @@ else
   rsync --archive --delete "${appimage_file}" "${installation_base_dir}/active/"
 
   echo "Linking binary"
-  ln -s "${installation_base_dir}/active/nvim.appimage" "${nvim_bin}"
+  ln -s "${installation_base_dir}"/active/nvim*.appimage "${nvim_bin}"
 fi
