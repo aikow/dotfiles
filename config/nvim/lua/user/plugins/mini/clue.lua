@@ -6,17 +6,19 @@ miniclue.setup({
     },
   },
   triggers = {
-    -- Leader triggers
-    { mode = "n", keys = "<Leader>" },
-    { mode = "x", keys = "<Leader>" },
+    -- Leader
+    { mode = "n", keys = "<leader>" },
+    { mode = "x", keys = "<leader>" },
+
+    -- Local leader
+    { mode = "n", keys = "<localleader>" },
+    { mode = "x", keys = "<localleader>" },
 
     -- Built-in completion
     { mode = "i", keys = "<C-x>" },
 
     -- Brackets
-    { mode = "i", keys = "[" },
     { mode = "n", keys = "[" },
-    { mode = "i", keys = "]" },
     { mode = "n", keys = "]" },
 
     -- `g` key
@@ -60,7 +62,7 @@ miniclue.setup({
     miniclue.gen_clues.g(),
     miniclue.gen_clues.marks(),
     miniclue.gen_clues.registers(),
-    miniclue.gen_clues.windows(),
+    miniclue.gen_clues.windows({ submode_resize = true }),
     miniclue.gen_clues.z(),
   },
 })

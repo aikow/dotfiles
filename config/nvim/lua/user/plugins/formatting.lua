@@ -5,10 +5,15 @@ MiniDeps.later(function()
   })
 
   require("conform").setup({
-    format_on_save = {
+    default_format_opts = {
       timeout_ms = 500,
-      lsp_fallback = true,
+      lsp_format = "fallback",
     },
+    format_on_save = function(bufid)
+      if vim.g.autoformat_enable ~= false and vim.b[bufid].autoformat_enable ~= false then
+        return {}
+      end
+    end,
     formatters_by_ft = {
       bash = { "shfmt" },
       c = { "clangd" },
@@ -80,4 +85,20 @@ MiniDeps.later(function()
     end,
     { desc = "Format the current buffer with tree-sitter injections" }
   )
+  vim.keymap.set("n", "<leader>tf", function()
+    local bufid = vim.api.nvim_get_current_buf()
+    if vim.b[bufid].autoformat_enable == nil then
+      vim.b[bufid].autoformat_enable = false
+    else
+      vim.b[bufid].autoformat_enable = not vim.b[bufid].autoformat_enable
+    end
+  end, { desc = "toggle format on save" })
+  vim.keymap.set("n", "<leader>tF", function()
+    if vim.g.autoformat_enable == nil then
+      vim.g.autoformat_enable = false
+    else
+      vim.g.autoformat_enable = not vim.g.autoformat_enable
+    end
+  end, { desc = "toggle global format on save" })
+
 end)
