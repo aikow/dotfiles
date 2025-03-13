@@ -65,13 +65,16 @@ map("c", "%T", "<C-R>=expand('%:t')<CR>")
 map("c", "%P", "<C-R>=expand('%:p')<CR>")
 
 -- Open a terminal session in a split.
-map("n", "<leader>wb", "<cmd>split term://bash<CR>" , { desc = "open bash in a horizontal split" })
-map("n", "<leader>wB", "<cmd>vsplit term://bash<CR>", { desc = "open bash in a horizontal split" })
-map("n", "<leader>wf", "<cmd>split term://fish<CR>" , { desc = "open fish in a horizontal split" })
-map("n", "<leader>wF", "<cmd>vsplit term://fish<CR>", { desc = "open fish in a vertical split" })
-map('n', '<leader>ws', ":split term://"             , { desc = "open a command in a horizontal split" })
-map("n", "<leader>wv", ":vsplit term://"            , { desc = "open a command in a vertical split" })
-map("n", "<leader>wt", ":tabnew term://"            , { desc = "open a command in a new tab" })
+map("n", "<leader>wb", "<cmd>split term://bash<CR>" ,    { desc = "open bash in a horizontal split" })
+map("n", "<leader>wB", "<cmd>vsplit term://bash<CR>",    { desc = "open bash in a horizontal split" })
+map("n", "<leader>wf", "<cmd>split term://fish<CR>" ,    { desc = "open fish in a horizontal split" })
+map("n", "<leader>wF", "<cmd>vsplit term://fish<CR>",    { desc = "open fish in a vertical split" })
+map("n", "<leader>wl", "<cmd>vsplit term://lazygit<CR>", { desc = "open lazygit in a vertical split" })
+map('n', '<leader>ws', ":split term://" ,                { desc = "open a command in a horizontal split" })
+map("n", "<leader>wv", ":vsplit term://",                { desc = "open a command in a vertical split" })
+map("n", "<leader>wt", ":tabnew term://",                { desc = "open a command in a new tab" })
+map("n", "<leader>wz", "<cmd>split term://zsh<CR>",      { desc = "open zsh in a horizontal split" })
+map("n", "<leader>wZ", "<cmd>vsplit term://zsh<CR>",     { desc = "open zsh in a vertical split" })
 
 -- Toggles between most recent buffers
 map("n", "<leader><leader>", "<c-^>", { desc = "switch to most recent buffer" })
