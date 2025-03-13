@@ -35,7 +35,11 @@ vim.api.nvim_create_autocmd("VimEnter", {
   once = true,
   callback = function()
     vim.cmd.aunmenu({ "PopUp.How-to\\ disable\\ mouse" })
-    vim.cmd.aunmenu({ "PopUp.-2-" })
+    if vim.fn.has("nvim-0.11") == 1 then
+      vim.cmd.aunmenu({ "PopUp.-2-" })
+    else
+      vim.cmd.aunmenu({ "PopUp.-1-" })
+    end
   end,
 })
 
