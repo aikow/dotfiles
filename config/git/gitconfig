@@ -1,8 +1,8 @@
 [alias]
   # Pretty print branches sorted by last commit date.
-  pretty-branch = !git branch --sort=-committerdate --format='%(HEAD) %(color:yellow)%(refname:short)%(color:reset) ︙ %(color:red)%(objectname:short)%(color:reset) ︙ %(contents:subject) ︙ %(authorname) (%(color:green)%(committerdate:relative)%(color:reset))'
-  pretty-log = !git log --graph --pretty='%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%ad) %C(bold blue)<%an>%Creset'
-  delete-gone = !git for-each-ref --format "%(refname:short)\t%(upstream:track)" refs/heads | rg -F '[gone]' | cut -f1 | xargs git branch -D
+  branch-pretty = !git branch --sort=-committerdate --format='%(HEAD) %(color:yellow)%(refname:short)%(color:reset) ︙ %(color:red)%(objectname:short)%(color:reset) ︙ %(contents:subject) ︙ %(authorname) (%(color:green)%(committerdate:relative)%(color:reset))'
+  log-pretty = !git log --graph --pretty='%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%ad) %C(bold blue)<%an>%Creset'
+  branch-delete-gone = !git for-each-ref --format '%(refname:short)%09%(upstream:track)' refs/heads | rg -F '[gone]' | cut -f1 | xargs -r git branch -D
 
 [blame]
   date = human
