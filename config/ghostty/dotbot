@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+hascommand ghostty || exit 128
+
+mkdir -p ~/.config/ghostty
+cleanlinks ~/.config/ghostty
+
+symlinkfb "$PWD/config" ~/.config/ghostty/config
+symlinkfb "$PWD/os/$DOTBOT_OS_SHORT-config" ~/.config/ghostty/os-config

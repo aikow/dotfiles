@@ -1,0 +1,11 @@
+# vim: ft=ghostty
+
+config-file = ?os-config
+config-file = ?~/.local/config/ghostty/config
+
+font-family = Iosevka Nerd Font Mono
+font-size = 13
+
+command = /usr/bin/fish
+
+theme = Kanagawa Wave

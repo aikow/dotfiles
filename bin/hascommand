@@ -1,5 +1,12 @@
 #!/usr/bin/env bash
 
+if [[ $# -ne 1 ]]; then
+  echo "Usage: has_command CMD" >/dev/stderr
+  exit 1
+fi
+
+cmd="$1"
+
 if [[ $DOTBOT_FORCE != "yes" ]]; then
-  command -v wezterm &>/dev/null || exit 128
+  command -v "${cmd}" &>/dev/null || exit 128
 fi
