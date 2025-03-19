@@ -2,6 +2,7 @@
 # |   Config   |
 # --------------
 alias zshconfig='${EDITOR} ~/.zshrc'
+alias zshreload='source ~/.zshrc; source ~/.zshenv'
 alias dotfiles='${EDITOR} ~/.dotfiles/'
 
 # ----------

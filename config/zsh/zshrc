@@ -60,6 +60,7 @@ setopt hist_save_no_dups
 setopt hist_verify
 
 # Share history across all your terminal windows
+setopt incappendhistory
 setopt noshare_history
 setopt noclobber
 

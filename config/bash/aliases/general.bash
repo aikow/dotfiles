@@ -2,6 +2,7 @@
 # |   Config   |
 # --------------
 alias bashconfig='${EDITOR} ~/.zshrc'
+alias bashreload='source ~/.bashrc'
 alias dotfiles='${EDITOR} ~/.dotfiles/'
 
 # ----------
