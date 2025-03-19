@@ -1,33 +1,33 @@
-local opt = vim.opt
+local o = vim.o
 
 -- ------------------------------------------------------------------------
 -- | General
 -- ------------------------------------------------------------------------
 -- Always use bash as the shell
-opt.shell = "bash"
+o.shell = "bash"
 
 -- Add snippets directory to the runtime path
-opt.runtimepath:append("~/.dotfiles/config/snippets")
+o.runtimepath = o.runtimepath .. ",~/.dotfiles/config/snippets"
 
 -- Enable local config files using a trustdb.
-opt.exrc = true
+o.exrc = true
 
 -- Use system clipboard
-opt.clipboard = "unnamedplus"
+o.clipboard = "unnamedplus"
 
 -- Don't store backup while overwriting the file
-opt.backup = false
-opt.writebackup = false
-opt.updatetime = 1000
-opt.undofile = true
-opt.autowrite = true
+o.backup = false
+o.writebackup = false
+o.updatetime = 1000
+o.undofile = true
+o.autowrite = true
 
 -- Set the timeout times
-opt.timeoutlen = 500
-opt.ttimeoutlen = 5
+o.timeoutlen = 500
+o.ttimeoutlen = 5
 
 -- Enable all mouse options
-opt.mouse = "a"
+o.mouse = "a"
 
 -- Remove default mouse menu options
 vim.api.nvim_create_autocmd("VimEnter", {
@@ -44,116 +44,104 @@ vim.api.nvim_create_autocmd("VimEnter", {
 })
 
 -- Set 7 lines to the cursor - when moving vertically using j/k
-opt.smoothscroll = true
-opt.scrolloff = 7
-opt.sidescrolloff = 2
+o.smoothscroll = true
+o.scrolloff = 7
+o.sidescrolloff = 2
 
 -- Open new splits to the right or down instead of moving current window.
-opt.splitright = true
-opt.splitbelow = true
-opt.splitkeep = "screen"
+o.splitright = true
+o.splitbelow = true
+o.splitkeep = "screen"
 
 -- Default to a maximum of 80 characters per line
-opt.textwidth = 80
+o.textwidth = 80
 
 -- ------------------------------------------------------------------------
 -- | Editing and Searching
 -- ------------------------------------------------------------------------
 
 -- Tab key enters 2 spaces
-opt.expandtab = true
-opt.tabstop = 2
-opt.shiftwidth = 2
-opt.softtabstop = 2
-opt.smartindent = true
+o.expandtab = true
+o.tabstop = 2
+o.shiftwidth = 2
+o.softtabstop = 2
+o.smartindent = true
 
 -- highlight matching parens, braces, brackets, etc
-opt.showmatch = true
+o.showmatch = true
 
 -- Searching
-opt.ignorecase = true
-opt.smartcase = true
-opt.inccommand = "split"
+o.ignorecase = true
+o.smartcase = true
+o.inccommand = "split"
 
 -- Set grepprg to use ripgrep
-opt.grepprg = "rg --vimgrep --no-heading --smart-case"
-opt.grepformat = "%f:%l:%c:%m"
+o.grepprg = "rg --vimgrep --no-heading --smart-case"
+o.grepformat = "%f:%l:%c:%m"
 
 -- Format options
-opt.formatoptions = "qjl1ortc"
+o.formatoptions = "qjl1ortc"
 
 -- Builtin completion options
-opt.infercase = true -- Make completion case-insensitive.
-opt.completeopt = {
-  "menuone", -- Show menu even with one result
-  "noselect", -- Don't automatically select a match
-}
-if vim.fn.has("nvim-0.11") == 1 then opt.completeopt:append({ "fuzzy" }) end
+o.infercase = true -- Make completion case-insensitive.
+if vim.fn.has("nvim-0.11") == 1 then
+  o.completeopt = "menuone,noselect,fuzzy"
+else
+  o.completeopt = "menuone,noselect"
+end
 
 -- Don't give ins-complete-menu messages
-opt.shortmess:append("WcCI")
+o.shortmess = o.shortmess .. "WcCI"
 
 -- Use treesitter for folding
-opt.foldmethod = "expr"
-opt.foldexpr = "v:lua.require'user.util'.foldexpr()"
-opt.foldtext = ""
-opt.foldlevel = 99 -- Nothing is folded by default
+o.foldmethod = "expr"
+o.foldexpr = "v:lua.require'user.util'.foldexpr()"
+o.foldtext = ""
+o.foldlevel = 99 -- Nothing is folded by default
 
 -- Spell options.
-opt.spelloptions = { "camel" }
+o.spelloptions = "camel"
 
 -- Make diffing better: https://vimways.org/2018/the-power-of-diff/
-opt.diffopt:append({
-  "iwhite", -- No whitespace in vimdiff
-  "algorithm:patience",
-  "indent-heuristic",
-  "linematch:60",
-})
+o.diffopt = o.diffopt .. ",iwhite,algorithm:patience,indent-heuristic,linematch:60"
 
 -- ------------------------------------------------------------------------
 -- | Appearance and Themes
 -- ------------------------------------------------------------------------
 
 -- Wildmenu options
-opt.wildoptions:append("fuzzy")
-opt.wildmode = "longest:full,full"
-opt.cmdheight = 1
+o.wildoptions = o.wildoptions .. ",fuzzy"
+o.wildmode = "longest:full,full"
+o.cmdheight = 1
 
 -- Pop-up menu options
-opt.pumheight = 16
+o.pumheight = 16
 
--- Color scheme and background
-opt.termguicolors = true -- 24-bit RGB color support
+-- Default floating window options
+o.winborder = "rounded"
 
 -- Tabline
-vim.o.tabline = "%!v:lua.require'user.ui.tabline'.tabline()"
-opt.showmode = false
+o.tabline = "%!v:lua.require'user.ui.tabline'.tabline()"
+o.showmode = false
 
 -- Define which helper symbols to show
-opt.listchars = "tab:󰌒 ,extends:…,precedes:…,nbsp:␣"
-opt.list = true
+o.listchars = "tab:󰌒 ,extends:…,precedes:…,nbsp:␣"
+o.list = true
 
 -- Show line breaks
-opt.wrap = true
-opt.showbreak = " -> "
-opt.linebreak = true
-opt.breakindent = true
+o.wrap = true
+o.showbreak = " -> "
+o.linebreak = true
+o.breakindent = true
 
 -- Show cursor line
-opt.cursorline = true
+o.cursorline = true
 
 -- Enable line numbers
-opt.number = true
-opt.numberwidth = 2
+o.number = true
+o.numberwidth = 2
 
 -- Conceal
-opt.conceallevel = 2
-opt.fillchars = {
-  foldopen = "",
-  foldclose = "",
-  fold = " ",
-  foldsep = " ",
-  diff = "╱",
-  eob = " ",
-}
-opt.fillchars:append(require("user.ui.border").win_borders_fillchars.single)
+o.conceallevel = 2
+o.fillchars = "foldopen:,foldclose:,fold: ,foldsep: ,diff:╱,eob: "
+vim.opt.fillchars:append(require("user.ui.border").win_borders_fillchars.single)
