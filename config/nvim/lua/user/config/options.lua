@@ -118,7 +118,8 @@ o.cmdheight = 1
 o.pumheight = 16
 
 -- Default floating window options
-o.winborder = "rounded"
+-- TODO(nvim-0.11): Reenable this once more plugins support this
+-- o.winborder = "rounded"
 
 -- Tabline
 o.tabline = "%!v:lua.require'user.ui.tabline'.tabline()"

@@ -1,9 +1,11 @@
 # --------------
 # |   Config   |
 # --------------
-alias bashconfig='${EDITOR} ~/.zshrc'
+alias bashconfig='${EDITOR} ~/.bashrc'
+alias lbashconfig='${EDITOR} ~/.local/config/bash/bashrc'
 alias bashreload='source ~/.bashrc'
 alias dotfiles='${EDITOR} ~/.dotfiles/'
+alias ldotfiles='${EDITOR} ~/.local/config/'
 
 # ----------
 # |   cd   |
@@ -17,12 +19,12 @@ alias .....='cd ../../../..'
 # |   ls   |
 # ----------
 if command -v eza &>/dev/null; then
-  alias l='eza --group-directories-first'
-  alias ls='eza --group-directories-first --icons'
-  alias lg='eza -l --group-directories-first --icons --git'
-  alias lt='eza --group-directories-first --tree --icons'
-  alias ll='eza -l --group-directories-first --icons'
-  alias lll='eza -la --group-directories-first --icons --group'
+  alias l='eza'
+  alias ls='eza --group-directories-first --icons=auto'
+  alias lg='eza --group-directories-first --icons=auto --git'
+  alias lt='eza --group-directories-first --icons=auto --tree'
+  alias ll='eza --group-directories-first --icons=auto --long'
+  alias lll='eza --group-directories-first --icons=auto --long --almost-all --group --links --header'
 else
   alias l='ls'
   alias ll='ls -l'

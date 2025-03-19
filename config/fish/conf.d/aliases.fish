@@ -2,9 +2,11 @@
 # |   config   |
 # --------------
 alias fishconfig '$EDITOR ~/.config/fish/config.fish'
+alias lfishconfig '$EDITOR ~/.local/config/fish/config.fish'
 alias fishreload 'source ~/.config/fish/conf.d/*.fish; source ~/.config/fish/config.fish'
 
-abbr dotfiles '$EDITOR ~/.dotfiles/'
+alias dotfiles '$EDITOR ~/.dotfiles/'
+alias ldotfiles '$EDITOR ~/.local/config/'
 
 # ----------
 # |   cd   |
@@ -24,14 +26,15 @@ abbr cdp 'cd (projects | fzf)'
 # ----------
 if command -q eza
     alias l='eza'
-    alias ls='eza --group-directories-first --icons'
-    alias lg='eza -l --group-directories-first --icons --git'
-    alias lt='eza --group-directories-first --tree --icons'
-    alias ll='eza -l --group-directories-first --icons'
-    alias lll='eza -la --group-directories-first --icons --group --links --header'
+    alias ls='eza --group-directories-first --icons=auto'
+    alias lg='eza --group-directories-first --icons=auto --git'
+    alias lt='eza --group-directories-first --icons=auto --tree'
+    alias ll='eza --group-directories-first --icons=auto --long'
+    alias lll='eza --group-directories-first --icons=auto --long --almost-all --group --links --header'
 else
     alias l='ls'
-    alias ll='ls -Al'
+    alias ll='ls -l'
+    alias lll='ls -lA'
 end
 
 # --------------
