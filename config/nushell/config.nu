@@ -220,4 +220,4 @@ alias ll = ls -l
 alias lll = ls -la
 
 # Load custom completions
-use git.nu
+use ~/.config/nushell/completions/git.nu
