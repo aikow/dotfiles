@@ -17,11 +17,11 @@ alias .....='cd ../../../..'
 # ----------
 if command -v eza &>/dev/null; then
   alias l='eza --group-directories-first'
-  alias ls='eza --group-directories-first --icons'
-  alias lg='eza -l --group-directories-first --icons --git'
-  alias lt='eza --group-directories-first --tree --icons'
-  alias ll='eza -l --group-directories-first --icons'
-  alias lll='eza -la --group-directories-first --icons --group'
+  alias ls='eza --group-directories-first --icons=auto'
+  alias lg='eza -l --group-directories-first --icons=auto --git'
+  alias lt='eza --group-directories-first --tree --icons=auto'
+  alias ll='eza -l --group-directories-first --icons=auto'
+  alias lll='eza -la --group-directories-first --icons=auto --group'
 else
   alias l='ls'
   alias ll='ls -l'

@@ -159,7 +159,7 @@ bind_function fzf_git_log ^g^h
 bind_function fzf_git_stash ^g^s
 
 # Load completions 
-autoload -U compinit && compinit
+autoload -Uz compinit && compinit && compinit
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
 
 # ------------------------------------------------------------------------
