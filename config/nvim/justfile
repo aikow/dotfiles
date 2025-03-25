@@ -1,7 +1,8 @@
-set shell := ["bash", "-c"]
+lint:
+  ts_query_ls check after/queries \
+  --config '{"parser_install_directories": ["{{env("HOME")}}/.local/share/nvim/site/pack/deps/opt/nvim-treesitter/parser"]}'
 
 format:
   fd -elua -X stylua
-
-format-spell:
+  ts_query_ls format --mode=write after/queries
   for file in spell/*.add; do sort -f -o "${file}" "${file}"; done

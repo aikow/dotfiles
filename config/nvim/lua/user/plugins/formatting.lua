@@ -100,5 +100,4 @@ MiniDeps.later(function()
       vim.g.autoformat_enable = not vim.g.autoformat_enable
     end
   end, { desc = "toggle global format on save" })
-
 end)
