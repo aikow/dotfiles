@@ -1,0 +1,12 @@
+{
+  "strict mode": {
+    "prefix": "strict",
+    "body": [
+      "use strict;",
+      "use safe;",
+      "",
+      "$0"
+    ],
+    "description": "Insert a standard pearl header"
+  }
+}

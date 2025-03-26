@@ -1,0 +1,17 @@
+{
+  "julia module": {
+    "prefix": "module",
+    "body": [
+      "module $1",
+      "",
+      "function ${2:main}($3)",
+      "\t$0",
+      "end",
+      "",
+      "end $LINE_COMMENT $1",
+      "",
+      "using .$1"
+    ],
+    "description": "Insert a julia module defintion"
+  }
+}

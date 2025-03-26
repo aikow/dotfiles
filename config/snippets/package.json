@@ -1,59 +1,73 @@
-{
-  "name": "aiko-vscode-snippets",
-  "engines": {
-    "vscode": "^1.11.0"
-  },
-  "contributes": {
-    "snippets": [
-      {
-        "language": [
-          "all"
-        ],
-        "path": "./snippets/all.json"
-      },
-      {
-        "language": [
-          "sh",
-          "bash"
-        ],
-        "path": "./snippets/bash.json"
-      },
-      {
-        "language": [
-          "fish"
-        ],
-        "path": "./snippets/fish.json"
-      },
-      {
-        "language": [
-          "lua"
-        ],
-        "path": "./snippets/lua.json"
-      },
-      {
-        "language": [
-          "norg"
-        ],
-        "path": "./snippets/norg.json"
-      },
-      {
-        "language": [
-          "nu"
-        ],
-        "path": "./snippets/nu.json"
-      },
-      {
-        "language": [
-          "python"
-        ],
-        "path": "./snippets/python.json"
-      },
-      {
-        "language": [
-          "rust"
-        ],
-        "path": "./snippets/rust.json"
-      }
-    ]
+[
+  {
+    "contributes": {
+      "snippets": [
+        {
+          "language": [
+            "all"
+          ],
+          "path": "./snippets/all.json"
+        },
+        {
+          "language": [
+            "sh",
+            "bash"
+          ],
+          "path": "./snippets/bash.json"
+        },
+        {
+          "language": [
+            "fish"
+          ],
+          "path": "./snippets/fish.json"
+        },
+        {
+          "language": [
+            "julia"
+          ],
+          "path": "./snippets/julia.json"
+        },
+        {
+          "language": [
+            "lua"
+          ],
+          "path": "./snippets/lua.json"
+        },
+        {
+          "language": [
+            "norg"
+          ],
+          "path": "./snippets/norg.json"
+        },
+        {
+          "language": [
+            "nu"
+          ],
+          "path": "./snippets/nu.json"
+        },
+        {
+          "language": [
+            "perl"
+          ],
+          "path": "./snippets/perl.json"
+        },
+        {
+          "language": [
+            "python"
+          ],
+          "path": "./snippets/python.json"
+        },
+        {
+          "language": [
+            "rust"
+          ],
+          "path": "./snippets/rust.json"
+        }
+      ]
+    },
+    "engines": {
+      "vscode": "^1.11.0"
+    },
+    "name": "aiko-vscode-snippets"
   }
-}
+]
