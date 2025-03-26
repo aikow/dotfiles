@@ -11,7 +11,6 @@ MiniDeps.now(function()
       "builtin.terminal",
       "builtin.treesitter",
       "plugin.indent-blankline",
-      "plugin.mason",
       "plugin.mini",
       "plugin.treesitter",
     },
@@ -29,7 +28,6 @@ MiniDeps.now(function()
   require("catppuccin").setup({
     integrations = {
       diffview = true,
-      mason = true,
     },
   })
 end)

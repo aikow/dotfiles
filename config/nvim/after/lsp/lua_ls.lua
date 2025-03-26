@@ -1,6 +1,4 @@
-local M = {}
-
-M.opts = {
+return {
   settings = {
     Lua = {
       workspace = {
@@ -12,5 +10,3 @@ M.opts = {
     },
   },
 }
-
-return M

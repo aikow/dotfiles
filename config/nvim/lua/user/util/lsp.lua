@@ -2,18 +2,6 @@ local M = {}
 
 M.lsp_timeout = 10000
 
----Register a callback to run when connecting to a new LSP client.
----@param on_attach fun(client: vim.lsp.Client, buffer: integer)
-function M.on_attach(on_attach)
-  vim.api.nvim_create_autocmd("LspAttach", {
-    callback = function(params)
-      local buffer = params.buf
-      local client = vim.lsp.get_client_by_id(params.data.client_id)
-      if client then on_attach(client, buffer) end
-    end,
-  })
-end
-
 ---Get the attribute of obj which is indexed by the items in the path.
 ---This is a convenience method for dealing with optional nil elements somewhere
 ---in a deeply nested table.
@@ -116,6 +104,10 @@ function M.lsp_did_rename(from_path, to_path)
   end
 end
 
+---Show the document symbols of the buffer displayed in window with winid in the location list after
+---applying a filer.
+---@param winid integer Window ID.
+---@param kinds string[] List of symbol kinds to display.
 function M.document_symbols(winid, kinds)
   return function()
     vim.lsp.buf.document_symbol({
@@ -136,6 +128,7 @@ function M.document_symbols(winid, kinds)
   end
 end
 
+---Switch between showing virtual diagnostics after each line and below each line.
 function M.toggle_virtual_diagnostics()
   local config = vim.diagnostic.config()
   if config then
@@ -145,6 +138,7 @@ function M.toggle_virtual_diagnostics()
   end
 end
 
+---Toggle showing inlay hints.
 function M.toggle_inlay_hints() vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled()) end
 
 return M
