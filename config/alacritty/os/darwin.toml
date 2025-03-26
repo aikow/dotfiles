@@ -1,0 +1,10 @@
+[font]
+size = 13
+normal = { family = "JetBrainsMono Nerd Font", style = "Regular" }
+offset = { x = 1, y = 0 }
+
+[terminal]
+shell = {program = "/usr/local/bin/fish", args = ["--login"]}
+
+[window]
+option_as_alt = "Both"

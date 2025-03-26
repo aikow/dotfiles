@@ -11,7 +11,7 @@ PATH=$DOTFILES_BIN:$PATH
 
 # Installation specific variables begin with DOTBOT_
 export DOTBOT_FORCE=${DOTBOT_FORCE:-no}
-DOTBOT_OS=$(uname -o)
+DOTBOT_OS="$(uname -o | tr '[:upper:]' '[:lower:]')"
 export DOTBOT_OS
 export DOTBOT_OS_SHORT=${DOTBOT_OS##*/}
 
