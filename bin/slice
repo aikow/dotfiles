@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+start="$1"
+stop="${2:-+1}"
+
+if [[ $stop == +* ]]; then
+  stop="$(printf '%s%s\n' "$start" "$stop" | bc)"
+fi
+
+if [[ $# > 2 ]]; then
+  shift 2
+  perl -wnl -e '$. > '"$start"' && print; $. > '"$stop"' && exit;' "$@"
+else
+  perl -wnl -e '$. > '"$start"' && print; $. > '"$stop"' && exit;'
+fi
