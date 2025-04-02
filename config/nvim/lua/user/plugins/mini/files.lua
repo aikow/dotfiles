@@ -10,7 +10,7 @@ minifiles.setup({
 })
 
 -- Create a new split and open the entry under the cursor in it.
-local map_split = function(buf_id, lhs, direction_mods)
+local map_split = function(buf_id, lhs, direction_mods, desc)
   local rhs = function()
     -- Make new window and set it as target
     local cur_target = minifiles.get_explorer_state().target_window
@@ -23,8 +23,6 @@ local map_split = function(buf_id, lhs, direction_mods)
     minifiles.go_in({ close_on_file = true })
   end
 
-  -- Adding `desc` will result into `show_help` entries
-  local desc = "Split " .. table.concat(direction_mods, " ")
   vim.keymap.set("n", lhs, rhs, { buffer = buf_id, desc = desc })
 end
 
@@ -58,25 +56,25 @@ vim.api.nvim_create_autocmd("User", {
   callback = function(params)
     local buf_id = params.data.buf_id
 
-    map_split(buf_id, "<C-s>", { split = "belowright", horizontal = true })
-    map_split(buf_id, "<C-v>", { split = "belowright", vertical = true })
-    map_split(buf_id, "<C-t>", { tab = vim.fn.tabpagenr("$") })
+    map_split(buf_id, "<C-s>", { split = "belowright", horizontal = true }, "Split below")
+    map_split(buf_id, "<C-v>", { split = "belowright", vertical = true }, "Split right")
+    map_split(buf_id, "<C-t>", { tab = vim.fn.tabpagenr("$") }, "Split tab")
 
-    vim.keymap.set("n", "gp", function() vim.fn.setreg("+", minifiles.get_fs_entry().path) end, {
+    vim.keymap.set("n", "yp", function() vim.fn.setreg("+", minifiles.get_fs_entry().path) end, {
       buffer = buf_id,
-      desc = "mini.files yank absolute path",
+      desc = "Yank absolute path",
     })
     vim.keymap.set("n", "gx", function() vim.ui.open(minifiles.get_fs_entry().path) end, {
       buffer = buf_id,
-      desc = "vim.ui.open",
+      desc = "Open with vim.ui.open",
     })
     vim.keymap.set("n", "gh", toggle_dotfiles, {
       buffer = buf_id,
-      desc = "mini.files toggle hidden",
+      desc = "Toggle hidden",
     })
     vim.keymap.set("n", "g.", files_set_cwd, {
       buffer = buf_id,
-      desc = "mini.files set current working directory",
+      desc = "Set current working directory",
     })
   end,
 })
