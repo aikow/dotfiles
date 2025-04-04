@@ -1,6 +1,4 @@
-local M = {}
-
-M.opts = {
+return {
   settings = {
     json = {
       format = { enabled = false },
@@ -9,5 +7,3 @@ M.opts = {
     },
   },
 }
-
-return M

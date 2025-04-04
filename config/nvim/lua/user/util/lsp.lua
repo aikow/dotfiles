@@ -116,6 +116,10 @@ function M.lsp_did_rename(from_path, to_path)
   end
 end
 
+---Show the document symbols of the buffer displayed in window with winid in the location list after
+---applying a filer.
+---@param winid integer Window ID.
+---@param kinds string[] List of symbol kinds to display.
 function M.document_symbols(winid, kinds)
   return function()
     vim.lsp.buf.document_symbol({
@@ -136,6 +140,7 @@ function M.document_symbols(winid, kinds)
   end
 end
 
+---Switch between showing virtual diagnostics after each line and below each line.
 function M.toggle_virtual_diagnostics()
   local config = vim.diagnostic.config()
   if config then
@@ -145,6 +150,7 @@ function M.toggle_virtual_diagnostics()
   end
 end
 
+---Toggle showing inlay hints.
 function M.toggle_inlay_hints() vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled()) end
 
 return M

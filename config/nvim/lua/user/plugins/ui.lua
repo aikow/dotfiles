@@ -7,19 +7,5 @@ MiniDeps.later(function()
     indent = {
       char = "▏",
     },
-    exclude = {
-      filetypes = {
-        "",
-        "help",
-        "lspinfo",
-        "man",
-        "mason",
-        "starter",
-        "terminal",
-      },
-      buftypes = {
-        "terminal",
-      },
-    },
   })
 end)

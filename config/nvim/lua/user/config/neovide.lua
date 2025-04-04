@@ -8,7 +8,7 @@ vim.g.neovide_refresh_rate = 60
 vim.g.neovide_refresh_rate_idle = 60
 vim.g.neovide_no_idle = false
 
-vim.g.neovide_transparency = 1.0
+vim.g.neovide_opacity = 1.0
 vim.g.neovide_floating_blur_amount_x = 2.0
 vim.g.neovide_floating_blur_amount_y = 2.0
 vim.g.neovide_floating_corner_radius = 1.0
