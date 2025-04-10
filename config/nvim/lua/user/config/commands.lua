@@ -31,6 +31,12 @@ end, {
   desc = "Close all hidden buffers",
 })
 
+command("Search", function(params)
+  local query = vim.uri_encode(params.args)
+  local url = string.format("https://ecosia.org/search?q=%s", query)
+  vim.ui.open(url)
+end, { nargs = 1 })
+
 command("Help", function(params)
   local cmd = params.fargs
   local cmd_str = table.concat(cmd, "-")
