@@ -1,5 +1,53 @@
 local minifiles = require("mini.files")
+
+local H = {}
+
+H.show_hidden = true
+H.show_ignored = false
+
+function H.toggle_hidden()
+  H.show_hidden = not H.show_hidden
+  minifiles.refresh({ content = { sort = H.filter_ignore } })
+  print(H.show_hidden)
+end
+
+function H.toggle_ignore()
+  H.show_ignored = not H.show_ignored
+  minifiles.refresh({ content = { sort = H.filter_ignore } })
+  print(H.show_ignored)
+end
+
+function H.filter_ignore(entries)
+  -- technically can filter entries here too, and checking gitignore for _every entry individually_
+  -- like I would have to in `content.filter` above is too slow. Here we can give it _all_ the entries
+  -- at once, which is much more performant.
+  local dir = vim.fs.dirname(entries[1].path)
+  local cmd = { 'fd', '.', dir, '--max-depth', '1' }
+  if H.show_hidden then
+    table.insert(cmd, '--hidden')
+  end
+  if H.show_ignored then
+    table.insert(cmd, '-I')
+  end
+  table.insert(cmd, '--exec')
+  table.insert(cmd, 'echo')
+  table.insert(cmd, '{/}')
+
+  local proc = vim.system(cmd, { text = true }):wait()
+  if proc.code ~= 0 then
+    return
+  end
+  local output_lines = vim.split(vim.trim(proc.stdout), '\n')
+
+  return minifiles.default_sort(vim.iter(entries):filter(function(entry)
+    return vim.tbl_contains(output_lines, entry.name)
+  end):totable())
+end
+
 minifiles.setup({
+  content = {
+    sort = H.filter_ignore,
+  },
   mappings = {
     go_in_plus = "<cr>",
   },
@@ -26,15 +74,6 @@ local map_split = function(buf_id, lhs, direction_mods, desc)
   vim.keymap.set("n", lhs, rhs, { buffer = buf_id, desc = desc })
 end
 
--- Show/hide dotfiles
-local show_dotfiles = true
-local filter_show = function() return true end
-local filter_hide = function(fs_entry) return not vim.startswith(fs_entry.name, ".") end
-local toggle_dotfiles = function()
-  show_dotfiles = not show_dotfiles
-  local new_filter = show_dotfiles and filter_show or filter_hide
-  minifiles.refresh({ content = { filter = new_filter } })
-end
 
 -- Set the current working directory.
 local files_set_cwd = function()
@@ -68,9 +107,13 @@ vim.api.nvim_create_autocmd("User", {
       buffer = buf_id,
       desc = "Open with vim.ui.open",
     })
-    vim.keymap.set("n", "gh", toggle_dotfiles, {
+    vim.keymap.set("n", "gh", H.toggle_hidden, {
       buffer = buf_id,
       desc = "Toggle hidden",
+    })
+    vim.keymap.set("n", "gi", H.toggle_ignore, {
+      buffer = buf_id,
+      desc = "Toggle ignored",
     })
     vim.keymap.set("n", "g.", files_set_cwd, {
       buffer = buf_id,
