@@ -21,6 +21,7 @@ end)
 MiniDeps.now(function()
   MiniDeps.add({ source = "ribru17/bamboo.nvim" })
   MiniDeps.add({ source = "rebelot/kanagawa.nvim" })
+  MiniDeps.add({ source = "EdenEast/nightfox.nvim" })
   MiniDeps.add({
     source = "catppuccin/nvim",
     name = "catppuccin.nvim",

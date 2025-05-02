@@ -21,27 +21,25 @@ function H.filter_ignore(entries)
   -- technically can filter entries here too, and checking gitignore for _every entry individually_
   -- like I would have to in `content.filter` above is too slow. Here we can give it _all_ the entries
   -- at once, which is much more performant.
+  if #entries == 0 then return {} end
   local dir = vim.fs.dirname(entries[1].path)
-  local cmd = { 'fd', '.', dir, '--max-depth', '1' }
-  if H.show_hidden then
-    table.insert(cmd, '--hidden')
-  end
-  if H.show_ignored then
-    table.insert(cmd, '-I')
-  end
-  table.insert(cmd, '--exec')
-  table.insert(cmd, 'echo')
-  table.insert(cmd, '{/}')
+  local cmd = { "fd", ".", dir, "--max-depth", "1" }
+  if H.show_hidden then table.insert(cmd, "--hidden") end
+  if H.show_ignored then table.insert(cmd, "-I") end
+  table.insert(cmd, "--exec")
+  table.insert(cmd, "echo")
+  table.insert(cmd, "{/}")
 
   local proc = vim.system(cmd, { text = true }):wait()
-  if proc.code ~= 0 then
-    return
-  end
-  local output_lines = vim.split(vim.trim(proc.stdout), '\n')
+  if proc.code ~= 0 then return end
+  local output_lines = vim.split(vim.trim(proc.stdout), "\n")
 
-  return minifiles.default_sort(vim.iter(entries):filter(function(entry)
-    return vim.tbl_contains(output_lines, entry.name)
-  end):totable())
+  return minifiles.default_sort(
+    vim
+      .iter(entries)
+      :filter(function(entry) return vim.tbl_contains(output_lines, entry.name) end)
+      :totable()
+  )
 end
 
 minifiles.setup({
@@ -73,7 +71,6 @@ local map_split = function(buf_id, lhs, direction_mods, desc)
 
   vim.keymap.set("n", lhs, rhs, { buffer = buf_id, desc = desc })
 end
-
 
 -- Set the current working directory.
 local files_set_cwd = function()

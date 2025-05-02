@@ -2,9 +2,8 @@ local LspUtil = require("user.util.lsp")
 
 local H = {}
 
-function H.diagnostic_goto(next, severity)
-  severity = severity and vim.diagnostic.severity[severity] or nil
-  return function() vim.diagnostic.jump({ count = next and 1 or -1, severity = severity }) end
+function H.diagnostic_goto(count, severity)
+  return function() vim.diagnostic.jump({ count = count, severity = severity }) end
 end
 
 function H.typehierarchy(direction)
@@ -15,7 +14,7 @@ function H.document_symbols(winid)
   return LspUtil.document_symbols(winid, { "Function", "Method", "Class" })
 end
 
-function H.on_attach(_, buffer)
+function H.on_attach(client, buffer)
   local map = function(lhs, rhs, opts)
     opts = opts or {}
     vim.keymap.set(
@@ -55,30 +54,19 @@ function H.on_attach(_, buffer)
   map("<leader>do", "Pick diagnostic",         { desc = "mini.pick diagnostics" })
 
   -- Diagnostic movements with [ and ]
-  map("]e", H.diagnostic_goto(true, "ERROR"),    { desc = "next error" })
-  map("[e", H.diagnostic_goto(false, "ERROR"),   { desc = "previous error" })
-  map("]w", H.diagnostic_goto(true, "WARNING"),  { desc = "next warning" })
-  map("[w", H.diagnostic_goto(false, "WARNING"), { desc = "previous warning" })
+  map("]e", H.diagnostic_goto(1, "ERROR"),    { desc = "next error" })
+  map("[e", H.diagnostic_goto(-1, "ERROR"),   { desc = "previous error" })
+  map("]w", H.diagnostic_goto(1, "WARNING"),  { desc = "next warning" })
+  map("[w", H.diagnostic_goto(-1, "WARNING"), { desc = "previous warning" })
   -- stylua: ignore end
 
   vim.bo[buffer].completefunc = "v:lua.MiniCompletion.completefunc_lsp"
-end
 
----Setup a single server's configuration using nvim-lspconfig.
-function H.setup_server(server_name)
-  -- Check if a module to configure the server exists.
-  local server_mod_name = "user.plugins.lsp.servers." .. server_name
-  local ok, server_mod = pcall(require, server_mod_name)
-  local server_opts = ok and server_mod.opts or {}
-
-  -- If the server contains an `override_setup` method which returns true, don't continue setting up
-  -- the server afterwards.
-  if server_opts.override_setup then
-    if server_opts.override_setup() then return end
+  -- Setup LSP folding
+  if client:supports_method("textDocument/foldingRange") then
+    local win = vim.api.nvim_get_current_win()
+    vim.wo[win][0].foldexpr = "v:lua.vim.lsp.foldexpr()"
   end
-
-  -- Setup the LSP server using lspconfig.
-  require("lspconfig")[server_name].setup(server_opts)
 end
 
 MiniDeps.now(function()
@@ -99,14 +87,12 @@ MiniDeps.now(function()
     automatic_installation = false,
     ensure_installed = { "lua_ls" },
   })
-  require("mason-lspconfig").setup_handlers({
-    function(server_name) H.setup_server(server_name) end,
-  })
+  require("mason-lspconfig").setup_handlers({ vim.lsp.enable })
 
   -- Setup LSP servers not installed by mason.
-  H.setup_server("julials")
-  H.setup_server("nushell")
-  H.setup_server("rust_analyzer")
+  vim.lsp.enable("julials")
+  vim.lsp.enable("nushell")
+  vim.lsp.enable("rust_analyzer")
 
   -- Configure neovim diagnostics
   vim.diagnostic.get_namespaces()
@@ -115,10 +101,7 @@ MiniDeps.now(function()
     virtual_text = true,
     float = {
       suffix = function(diagnostic)
-        if vim.iter(vim.diagnostic.get_namespaces()):enumerate():last()[1] > 1 then
-          return " [" .. diagnostic.source .. "]", "Comment"
-          ---@diagnostic disable-next-line: missing-return
-        end
+        if diagnostic.source then return " [" .. diagnostic.source .. "]", "Comment" end
       end,
     },
   })

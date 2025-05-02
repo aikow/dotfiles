@@ -70,10 +70,9 @@ end
 ---@param from_path string
 ---@param to_path string
 function M.lsp_will_rename(from_path, to_path)
-  for _, client in ipairs(vim.lsp.get_clients()) do
+  for _, client in vim.iter(vim.lsp.get_clients({ method = "workspace/willRenameFiles" })) do
     local will_rename =
       get_path(client, { "server_capabilities", "workspace", "fileOperations", "willRename" })
-    if will_rename == nil then return end
 
     local filters = will_rename.filters or {}
     if matches_filters(filters, from_path) then
@@ -97,10 +96,9 @@ end
 ---@param from_path string
 ---@param to_path string
 function M.lsp_did_rename(from_path, to_path)
-  for _, client in pairs(vim.lsp.get_clients()) do
+  for _, client in vim.iter(vim.lsp.get_clients({ method = "workspace/didRenameFiles" })) do
     local did_rename =
       get_path(client, { "server_capabilities", "workspace", "fileOperations", "didRename" })
-    if did_rename == nil then return end
 
     local filters = did_rename.filters or {}
     if matches_filters(filters, to_path) then
