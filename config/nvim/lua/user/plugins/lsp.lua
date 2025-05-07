@@ -84,15 +84,13 @@ MiniDeps.now(function()
   require("lazydev").setup()
   require("mason").setup()
   require("mason-lspconfig").setup({
+    automatic_enable = true,
     automatic_installation = false,
     ensure_installed = { "lua_ls" },
   })
-  require("mason-lspconfig").setup_handlers({ vim.lsp.enable })
 
   -- Setup LSP servers not installed by mason.
-  vim.lsp.enable("julials")
-  vim.lsp.enable("nushell")
-  vim.lsp.enable("rust_analyzer")
+  vim.lsp.enable({ "julials", "nushell", "rust_analyzer" })
 
   -- Configure neovim diagnostics
   vim.diagnostic.get_namespaces()

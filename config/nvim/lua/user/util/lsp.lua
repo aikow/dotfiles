@@ -17,7 +17,6 @@ end
 ---Get the attribute of obj which is indexed by the items in the path.
 ---This is a convenience method for dealing with optional nil elements somewhere
 ---in a deeply nested table.
----
 ---@param obj table
 ---@param path string[]
 ---@return any

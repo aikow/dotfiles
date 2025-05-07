@@ -19,7 +19,7 @@ map("n", "<leader>tz", "<cmd>set invspell<CR>",                             { de
 map("n", "<leader>tw", "<cmd>set invwrap<CR>",                              { desc = "toggle wrap" })
 map("n", "<leader>td", require("mini.basics").toggle_diagnostic,            { desc = "toggle diagnostics" })
 map("n", "<leader>tD", require("user.util.lsp").toggle_virtual_diagnostics, { desc = "toggle virtual diagnostics" })
-map("n", "<leader>tl", require("user.util").toggle_cursor_column,           { desc = "toggle virtual diagnostics" })
+map("n", "<leader>tl", require("user.util").toggle_color_column,           { desc = "toggle virtual diagnostics" })
 map("n", "<leader>ti", require("user.util.lsp").toggle_inlay_hints,         { desc = "toggle inlay hints" })
 
 -- Spelling

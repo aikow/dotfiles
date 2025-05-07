@@ -1,6 +1,10 @@
-local protocol_icons = require("user.ui.icons").protocols
-
 local M = {}
+
+M.icons = {
+  minigit = "󰊢",
+  term = "󰆍",
+  diffview = "󰇂",
+}
 
 -- ------------------------------------------------------------------------
 -- | Tabpage Icon Handlers
@@ -14,19 +18,19 @@ M.handlers = {
   protocol_terminal = function(state)
     if state.protocol ~= "term" then return end
     local _, pid, cmd = state.rest:match("^(.*)//(%d+):(.*)$")
-    return protocol_icons.term, pid .. " | " .. cmd
+    return M.icons.term, pid .. " | " .. cmd
   end,
 
   protocol = function(state)
     if state.protocol == nil then return end
-    local icon = protocol_icons[state.protocol] or ("[" .. state.protocol .. "]")
+    local icon = M.icons[state.protocol] or ("[" .. state.protocol .. "]")
     local filename = vim.fn.fnamemodify(state.rest, ":t")
     return icon, filename
   end,
 
   diffview = function(state)
     if not vim.t[state.tabid].diffview_view_initialized then return end
-    local icon = protocol_icons.diffview
+    local icon = M.icons.diffview
     local filename = vim.fn.fnamemodify(state.bufname, ":t")
     return icon, filename
   end,

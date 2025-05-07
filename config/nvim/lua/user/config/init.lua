@@ -11,7 +11,10 @@ function M.setup()
   if vim.fn.exists("neovide") == 1 then require("user.config.neovide") end
 
   local ok, mod = pcall(require, "vim._extui")
-  if ok then mod.enable({}) end
+  if ok then mod.enable({
+    enable = true,
+    msg = { pos = "box" },
+  }) end
 end
 
 return M

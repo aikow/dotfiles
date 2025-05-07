@@ -95,7 +95,8 @@ o.shortmess = o.shortmess .. "WcCI"
 
 -- Use treesitter for folding
 o.foldmethod = "expr"
-o.foldexpr = "v:lua.require'user.util'.foldexpr()"
+-- o.foldexpr = "v:lua.require'user.util'.foldexpr()"
+o.foldexpr = "v:lua.vim.treesitter.foldexpr()"
 o.foldtext = ""
 o.foldlevel = 99 -- Nothing is folded by default
 
@@ -112,7 +113,7 @@ o.diffopt = o.diffopt .. ",iwhite,algorithm:patience,indent-heuristic,linematch:
 -- Wildmenu options
 o.wildoptions = o.wildoptions .. ",fuzzy"
 o.wildmode = "longest:full,full"
-o.cmdheight = 1
+o.cmdheight = 0
 
 -- Pop-up menu options
 o.pumheight = 16
@@ -144,4 +145,4 @@ o.numberwidth = 2
 -- Conceal
 o.conceallevel = 2
 o.fillchars = "foldopen:,foldclose:,fold: ,foldsep: ,diff:╱,eob: "
-vim.opt.fillchars:append(require("user.ui.border").win_borders_fillchars.single)
+  .. ",vert:┃,horiz:━,horizdown:┳,horizup:┻,verthoriz:╋,vertleft:┫,vertright:┣"

@@ -35,8 +35,6 @@ autocmd({ "FileType" }, {
 autocmd("TermOpen", {
   group = augroup("Terminal settings", {}),
   callback = function(params)
-    vim.opt_local.spell = false
-    vim.opt_local.number = false
     vim.opt_local.wrap = true -- With wrap disabled, you can scroll sideways, which is disconcerting
 
     vim.keymap.set("n", "<localleader>r", [[A<Up><CR><C-\><C-n>G]], { buffer = params.buf })
