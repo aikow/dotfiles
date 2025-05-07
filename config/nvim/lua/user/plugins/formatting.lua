@@ -1,7 +1,7 @@
 MiniDeps.later(function()
   MiniDeps.add({
     source = "stevearc/conform.nvim",
-    depends = { "williamboman/mason.nvim" },
+    depends = { "mason-org/mason.nvim" },
   })
 
   require("conform").setup({
