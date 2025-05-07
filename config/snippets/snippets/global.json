@@ -26,7 +26,7 @@
     "prefix": "lsep",
     "body": [
       "$LINE_COMMENT ------------------------------------------------------------------------",
-      "$LINE_COMMENT | $1",
+      "$LINE_COMMENT | ${1:$TM_SELECTED_TEXT}",
       "$LINE_COMMENT ------------------------------------------------------------------------$0"
     ],
     "description": "Small heading to separate sections"
@@ -35,7 +35,7 @@
     "prefix": "ulsep",
     "body": [
       "$LINE_COMMENT ┌───────────────────────────────────────────────────────────────────────",
-      "$LINE_COMMENT │ ${1}",
+      "$LINE_COMMENT │ ${1:$TM_SELECTED_TEXT}",
       "$LINE_COMMENT └───────────────────────────────────────────────────────────────────────"
     ]
   },
