@@ -19,7 +19,7 @@ map("n", "<leader>tz", "<cmd>set invspell<CR>",                             { de
 map("n", "<leader>tw", "<cmd>set invwrap<CR>",                              { desc = "toggle wrap" })
 map("n", "<leader>td", require("mini.basics").toggle_diagnostic,            { desc = "toggle diagnostics" })
 map("n", "<leader>tD", require("user.util.lsp").toggle_virtual_diagnostics, { desc = "toggle virtual diagnostics" })
-map("n", "<leader>tl", require("user.util").toggle_color_column,           { desc = "toggle virtual diagnostics" })
+map("n", "<leader>tl", require("user.util").toggle_color_column,            { desc = "toggle virtual diagnostics" })
 map("n", "<leader>ti", require("user.util.lsp").toggle_inlay_hints,         { desc = "toggle inlay hints" })
 
 -- Spelling
@@ -34,7 +34,7 @@ map("n", "<C-/>", ":let @/ = ''<CR>", { desc = "clear search buffer register", s
 map("n", "<C-_>", ":let @/ = ''<CR>", { desc = "clear search buffer register", silent = true })
 
 -- Select the text that was last pasted
-map("n", "gp", "'`[' . strpart(getregtype(), 0,  1) . '`]'", { expr = true, desc = "select the last pasted region" })
+map("n", "gp", "'`[' . strpart(getregtype(), 0, 1) . '`]'", { expr = true, desc = "select the last pasted region" })
 
 -- Automatically jump to the end of text when yanking and pasting
 map("x", "y", "y`]")

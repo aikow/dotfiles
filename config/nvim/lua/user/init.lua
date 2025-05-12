@@ -16,7 +16,7 @@ function M.bootstrap_mini()
       :wait()
 
     vim.cmd.packadd({ "mini.nvim" })
-    vim.cmd.helptags({ "ALL" })
+    pcall(vim.cmd.helptags, { "ALL" })
   end
 end
 
@@ -26,12 +26,12 @@ function M.setup_plugins()
 
   minideps.setup({
     path = {
-      package = M.path_package,
+      package = M.package_path,
     },
   })
 
   -- Automatically load all lua files in the plugin dir
-  local plugin_dir = vim.fs.normalize("~/.dotfiles/config/nvim/lua/user/plugins")
+  local plugin_dir = vim.fn.stdpath("config") .. "/lua/user/plugins"
   for name, fs_type in vim.fs.dir(plugin_dir) do
     if fs_type == "directory" then name = name .. "/init.lua" end
     dofile(plugin_dir .. "/" .. name)
@@ -39,7 +39,6 @@ function M.setup_plugins()
 end
 
 function M.setup()
-  -- Setup lazy.nvim package manager
   M.bootstrap_mini()
   M.setup_plugins()
 

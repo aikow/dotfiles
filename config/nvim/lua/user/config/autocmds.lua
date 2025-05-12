@@ -40,23 +40,3 @@ autocmd("TermOpen", {
     vim.keymap.set("n", "<localleader>r", [[A<Up><CR><C-\><C-n>G]], { buffer = params.buf })
   end,
 })
-
--- Automatically read and source `exrc` file in any parent directory.
-autocmd("VimEnter", {
-  group = augroup("Source exrc", {}),
-  callback = function()
-    -- Find the list of configs.
-    local exrc_patterns = { ".exrc", ".nvimrc" }
-    local configs = vim.fs.find(exrc_patterns, { upward = true, type = "file", limit = math.huge })
-
-    -- Iterate over the files in reverse so that the "most local" one gets sourced last.
-    for f in vim.iter(configs):rev() do
-      local contents = vim.secure.read(f)
-      if contents ~= nil then
-        vim.api.nvim_exec2(contents, {})
-      else
-        vim.notify(string.format("Skip loading '%s'", f), vim.log.levels.DEBUG)
-      end
-    end
-  end,
-})
