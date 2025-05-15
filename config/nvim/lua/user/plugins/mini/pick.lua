@@ -36,28 +36,6 @@ local man_pages = function()
   local manpage = builtin.cli({ command = { "apropos", "." } })
   if manpage then vim.cmd.Man({ manpage:match("^(%S+)") }) end
 end
-local just = function()
-  builtin.cli({
-    command = { "just", "-l" },
-    postprocess = function(lines)
-      return vim
-        .iter(lines)
-        :skip(1)
-        :filter(function(s) return string.match(s, "%S") end)
-        :map(function(s)
-          s = string.gsub(s, "^%s+", "")
-          return s
-        end)
-        :totable()
-    end,
-  }, {
-    source = {
-      choose = function(item)
-        vim.system({ "just", item }, {}, function() vim.notify(string.format("just %s", item)) end)
-      end,
-    },
-  })
-end
 local projects = function()
   local workspace = os.getenv("WORKSPACE_HOME") or vim.fs.normalize("~/workspace")
   builtin.cli({
@@ -81,45 +59,45 @@ end
 -- ---------------
 -- |   Keymaps   |
 -- ---------------
+-- stylua: ignore start
 vim.keymap.set("n", "<leader>i", builtin.resume, { desc = "mini.pick reopen last picker" })
 
 -- mini.visits
 vim.keymap.set("n", "<leader>jl", extra.visit_labels, { desc = "mini.pick visit labels" })
-vim.keymap.set("n", "<leader>jj", extra.visit_paths, { desc = "mini.pick visit paths" })
+vim.keymap.set("n", "<leader>jj", extra.visit_paths,  { desc = "mini.pick visit paths" })
 
 -- Finding searching and navigating
-vim.keymap.set("n", "<leader>o", builtin.files, { desc = "mini.pick find files" })
-vim.keymap.set("n", "<leader>O", projects, { desc = "mini.pick projects" })
-vim.keymap.set("n", "<leader>p", builtin.buffers, { desc = "mini.pick buffers" })
-vim.keymap.set("n", "<leader>fB", extra.buf_lines, { desc = "mini.pick all buffer fuzzy find" })
-vim.keymap.set("n", "<leader>fb", cur_buf_lines, { desc = "mini.pick buffer fuzzy find" })
-vim.keymap.set("n", "<leader>fe", extra.explorer, { desc = "mini.pick explore" })
+vim.keymap.set("n", "<leader>o",  builtin.files,     { desc = "mini.pick find files" })
+vim.keymap.set("n", "<leader>O",  projects,          { desc = "mini.pick projects" })
+vim.keymap.set("n", "<leader>p",  builtin.buffers,   { desc = "mini.pick buffers" })
+vim.keymap.set("n", "<leader>fB", extra.buf_lines,   { desc = "mini.pick all buffer fuzzy find" })
+vim.keymap.set("n", "<leader>fb", cur_buf_lines,     { desc = "mini.pick buffer fuzzy find" })
+vim.keymap.set("n", "<leader>fe", extra.explorer,    { desc = "mini.pick explore" })
 vim.keymap.set("n", "<leader>ff", builtin.grep_live, { desc = "mini.pick live grep" })
-vim.keymap.set("n", "<leader>fo", extra.oldfiles, { desc = "mini.pick oldfiles" })
-vim.keymap.set("n", "<leader>ft", extra.treesitter, { desc = "mini.pick treesitter nodes" })
-vim.keymap.set("n", "<leader>fn", extra.hipatterns, { desc = "mini.pick todo hipatterns" })
-vim.keymap.set("n", "<leader>fN", todo_comments, { desc = "mini.pick todo comments" })
-vim.keymap.set("n", "<leader>fw", grep_curword, { desc = "mini.pick grep word under cursor" })
-vim.keymap.set("n", "<leader>fj", just, { desc = "mini.pick run a just command" })
+vim.keymap.set("n", "<leader>fo", extra.oldfiles,    { desc = "mini.pick oldfiles" })
+vim.keymap.set("n", "<leader>ft", extra.treesitter,  { desc = "mini.pick treesitter nodes" })
+vim.keymap.set("n", "<leader>fn", extra.hipatterns,  { desc = "mini.pick todo hipatterns" })
+vim.keymap.set("n", "<leader>fN", todo_comments,     { desc = "mini.pick todo comments" })
+vim.keymap.set("n", "<leader>fw", grep_curword,      { desc = "mini.pick grep word under cursor" })
 
 -- Git shortcuts
-vim.keymap.set("n", "<leader>gC", extra.git_commits, { desc = "mini.pick git commits" })
+vim.keymap.set("n", "<leader>gC", extra.git_commits,  { desc = "mini.pick git commits" })
 vim.keymap.set("n", "<leader>gb", extra.git_branches, { desc = "mini.pick git branches" })
-vim.keymap.set("n", "<leader>gc", git_buf_commits, { desc = "mini.pick git buffer commits" })
-vim.keymap.set("n", "<leader>gh", extra.git_hunks, { desc = "mini.pick hunks" })
-vim.keymap.set("n", "<leader>go", extra.git_files, { desc = "mini.pick git files" })
-vim.keymap.set("n", "<leader>gs", git_status, { desc = "mini.pick git status" })
+vim.keymap.set("n", "<leader>gc", git_buf_commits,    { desc = "mini.pick git buffer commits" })
+vim.keymap.set("n", "<leader>gh", extra.git_hunks,    { desc = "mini.pick hunks" })
+vim.keymap.set("n", "<leader>go", extra.git_files,    { desc = "mini.pick git files" })
+vim.keymap.set("n", "<leader>gs", git_status,         { desc = "mini.pick git status" })
 
 -- Vim internals shortcuts
-vim.keymap.set("n", "<leader>;", extra.commands, { desc = "mini.pick vim commands" })
-vim.keymap.set("n", "<leader>h/", search_history, { desc = "mini.pick search history" })
-vim.keymap.set("n", "<leader>h;", command_history, { desc = "mini.pick command history" })
-vim.keymap.set("n", "<leader>hc", colorschemes, { desc = "mini.pick colorschemes" })
-vim.keymap.set("n", "<leader>hh", builtin.help, { desc = "mini.pick help tags" })
-vim.keymap.set("n", "<leader>hk", extra.keymaps, { desc = "mini.pick keymaps" })
-vim.keymap.set("n", "<leader>hl", loclist, { desc = "mini.pick loclist" })
-vim.keymap.set("n", "<leader>hm", man_pages, { desc = "mini.pick man pages" })
-vim.keymap.set("n", "<leader>ho", extra.options, { desc = "mini.pick vim options" })
-vim.keymap.set("n", "<leader>hq", quickfix, { desc = "mini.pick quickfix" })
-vim.keymap.set("n", "<leader>hr", extra.registers, { desc = "mini.pick registers" })
+vim.keymap.set("n", "<leader>;",  extra.commands,     { desc = "mini.pick vim commands" })
+vim.keymap.set("n", "<leader>h/", search_history,     { desc = "mini.pick search history" })
+vim.keymap.set("n", "<leader>h;", command_history,    { desc = "mini.pick command history" })
+vim.keymap.set("n", "<leader>hc", colorschemes,       { desc = "mini.pick colorschemes" })
+vim.keymap.set("n", "<leader>hh", builtin.help,       { desc = "mini.pick help tags" })
+vim.keymap.set("n", "<leader>hk", extra.keymaps,      { desc = "mini.pick keymaps" })
+vim.keymap.set("n", "<leader>hl", loclist,            { desc = "mini.pick loclist" })
+vim.keymap.set("n", "<leader>hm", man_pages,          { desc = "mini.pick man pages" })
+vim.keymap.set("n", "<leader>ho", extra.options,      { desc = "mini.pick vim options" })
+vim.keymap.set("n", "<leader>hq", quickfix,           { desc = "mini.pick quickfix" })
+vim.keymap.set("n", "<leader>hr", extra.registers,    { desc = "mini.pick registers" })
 vim.keymap.set("n", "<leader>hs", extra.spellsuggest, { desc = "mini.pick spell suggest" })

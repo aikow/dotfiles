@@ -18,6 +18,7 @@ MiniDeps.later(function()
       "comment",
       "cpp",
       "fish",
+      "julia",
       "json",
       "lua",
       "markdown",
@@ -28,7 +29,9 @@ MiniDeps.later(function()
       "sql",
       "toml",
       "vim",
+      "vimdoc",
       "yaml",
+      "zig",
     },
 
     -- Allow incremental selection using Treesitter code regions.

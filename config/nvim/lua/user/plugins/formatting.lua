@@ -92,12 +92,12 @@ MiniDeps.later(function()
     else
       vim.b[bufid].autoformat_enable = not vim.b[bufid].autoformat_enable
     end
-  end, { desc = "toggle format on save" })
+  end, { desc = "Toggle format on save" })
   vim.keymap.set("n", "<leader>tF", function()
     if vim.g.autoformat_enable == nil then
       vim.g.autoformat_enable = false
     else
       vim.g.autoformat_enable = not vim.g.autoformat_enable
     end
-  end, { desc = "toggle global format on save" })
+  end, { desc = "Toggle global format on save" })
 end)

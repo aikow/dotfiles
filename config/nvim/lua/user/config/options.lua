@@ -145,4 +145,3 @@ o.numberwidth = 2
 -- Conceal
 o.conceallevel = 2
 o.fillchars = "foldopen:,foldclose:,fold: ,foldsep: ,diff:╱,eob: "
-  .. ",vert:┃,horiz:━,horizdown:┳,horizup:┻,verthoriz:╋,vertleft:┫,vertright:┣"

@@ -7,12 +7,8 @@ MiniDeps.later(function()
       scratch_repl = true,
       repl_open_cmd = view.split.botright("40%"),
       repl_definition = {
-        nu = {
-          command = { "nu" },
-        },
-        bash = {
-          command = { "bash" },
-        },
+        nu = { command = { "nu" } },
+        bash = { command = { "bash" } },
       },
       buflisted = true,
     },

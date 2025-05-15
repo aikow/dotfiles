@@ -70,7 +70,6 @@ MiniDeps.later(function()
 
   require("mini.align").setup({})
   require("mini.cursorword").setup({})
-  require("mini.jump2d").setup({})
   require("mini.splitjoin").setup({})
 
   -- ------------------------------------------------------------------------
@@ -91,8 +90,8 @@ MiniDeps.later(function()
   -- | mini.basics
   -- ------------------------------------------------------------------------
   require("mini.basics").setup({
-    options = { basics = false },
-    mappings = { basic = false, option_toggle_prefix = "" },
+    options = { basic = false, extra_ui = true, win_borders = "bold" },
+    mappings = { basic = false, option_toggle_prefix = "<leader>t" },
   })
 
   -- ------------------------------------------------------------------------
@@ -109,30 +108,13 @@ MiniDeps.later(function()
   -- | mini.completion
   -- ------------------------------------------------------------------------
   -- Needs to be loaded _now_, so that 'completefunc' gets set during the LspAttach event
-  require("mini.completion").setup({
-    lsp_completion = {
-      source_func = "completefunc",
-      auto_setup = false,
-    },
-    set_vim_settings = false,
-  })
+  require("mini.completion").setup({ lsp_completion = { auto_setup = false } })
 
   -- Disable MiniCompletion for some filetypes
   vim.api.nvim_create_autocmd("FileType", {
     pattern = { "minifiles" },
     callback = function() vim.b.minicompletion_disable = true end,
   })
-
-  -- Make <CR> more consistent when the completion menu is open
-  local keycode = function(x) return vim.api.nvim_replace_termcodes(x, true, true, true) end
-  vim.keymap.set("i", "<CR>", function()
-    if vim.fn.pumvisible() ~= 0 then
-      local item_selected = vim.fn.complete_info()["selected"] ~= -1
-      return item_selected and keycode("<C-y>") or keycode("<C-y><CR>")
-    else
-      return keycode("<CR>")
-    end
-  end, { expr = true, desc = "mini.completion accept selected or <cr>" })
 
   -- ------------------------------------------------------------------------
   -- | mini.diff
@@ -160,6 +142,12 @@ MiniDeps.later(function()
       hex_color = hipatterns.gen_highlighter.hex_color(),
     },
   })
+
+  -- ------------------------------------------------------------------------
+  -- | mini.keymap
+  -- ------------------------------------------------------------------------
+  local minikeymap = require("mini.keymap")
+  minikeymap.map_multistep("i", "<CR>", { "pmenu_accept" })
 
   -- ------------------------------------------------------------------------
   -- | mini.operators
