@@ -15,9 +15,9 @@ map("x", "<leader>rs", ":s/",       { desc = "region search and replace" })
 map("n", "<leader>rS", ":cfdo %s/", { desc = "global search and replace" })
 
 -- Toggle
-map("n", "<leader>tD", require("user.util.lsp").toggle_virtual_diagnostics, { desc = "Toggle virtual diagnostics" })
-map("n", "<leader>tu", require("user.util").toggle_color_column,            { desc = "Toggle virtual diagnostics" })
-map("n", "<leader>tn", require("user.util.lsp").toggle_inlay_hints,         { desc = "Toggle inlay hints" })
+map("n", "<leader>tD", require("user.util.lsp").toggle_diagnostic_virtual_lines, { desc = "Toggle diagnostic.virtual_lines" })
+map("n", "<leader>tu", require("user.util").toggle_color_column,                 { desc = "Toggle 'colorcolumn'" })
+map("n", "<leader>tn", require("user.util.lsp").toggle_inlay_hints,              { desc = "Toggle lsp.inlay_hints" })
 
 -- Spelling
 map("i", "<C-.>", "<C-g>u<Esc>[s1z=`]a<C-g>u", { desc = "correct last spelling mistake" })

@@ -40,3 +40,10 @@ autocmd("TermOpen", {
     vim.keymap.set("n", "<localleader>r", [[A<Up><CR><C-\><C-n>G]], { buffer = params.buf })
   end,
 })
+
+-- Automatically trust 'exrc' files that are created and edited using nvim
+autocmd("BufWritePost", {
+  group = augroup("Auto-trust exrc files", {}),
+  pattern = { ".nvim.lua", ".nvimrc", ".exrc" },
+  callback = function(params) vim.secure.trust({ action = "allow", bufnr = params.buf }) end,
+})

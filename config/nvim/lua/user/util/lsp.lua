@@ -138,7 +138,7 @@ function M.document_symbols(winid, kinds)
 end
 
 ---Switch between showing virtual diagnostics after each line and below each line.
-function M.toggle_virtual_diagnostics()
+function M.toggle_diagnostic_virtual_lines()
   local config = vim.diagnostic.config()
   if config then
     config.virtual_lines = not config.virtual_lines
