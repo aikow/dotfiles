@@ -119,11 +119,14 @@ o.cmdheight = 1
 o.pumheight = 16
 
 -- Default floating window options
-o.winborder = "rounded"
+o.winborder = "solid"
 
 -- Tabline
 o.tabline = "%!v:lua.require'user.ui.tabline'.tabline()"
 o.showmode = false
+
+-- Statuscolumn
+o.statuscolumn = "%{%v:lua.require'user.ui'.statuscolumn()%}"
 
 -- Define which helper symbols to show
 o.listchars = "tab:󰌒 ,extends:…,precedes:…,nbsp:␣"
