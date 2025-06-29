@@ -13,7 +13,7 @@ function M.setup()
   local ok, mod = pcall(require, "vim._extui")
   if ok then mod.enable({
     enable = true,
-    msg = { pos = "box" },
+    target = "box",
   }) end
 end
 
