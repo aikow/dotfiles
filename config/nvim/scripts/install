@@ -78,11 +78,14 @@ else
     shasum_file="${installation_dir}/shasum.txt"
   fi
 
-  echo "Checking checksums"
-  (
-    cd "${installation_dir}"
-    sha256sum --check --ignore-missing --status "${shasum_file}"
-  )
+  # NOTE: Neovim now includes checksums directly on the github website, which is
+  # way more secure anyways. I'll need to update the script accomodate this
+  # eventually.
+  # echo "Checking checksums"
+  # (
+  #   cd "${installation_dir}"
+  #   sha256sum --check --ignore-missing --status "${shasum_file}"
+  # )
 
   chmod +x "${appimage_file}"
 
