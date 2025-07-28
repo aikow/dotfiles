@@ -35,6 +35,8 @@ function M.chdir_root()
   local root = vim.fs.root(path, {
     ".editorconfig", -- general editor settings
     ".exrc", -- nvim config
+    ".nvimrc",
+    ".nvim.lua",
     ".git", -- git
     "Cargo.toml", -- rust
     "Makefile", -- c/c++

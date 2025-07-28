@@ -3,13 +3,16 @@
 set -o nounset
 set -o pipefail
 
-# Dotfile-wide variables begin with DOTFILES
+# Dotfile-wide variables begin with DOTFILES_
+# These should also be set as environment variables in the shell
 export DOTFILES_HOME=$PWD
 export DOTFILES_BIN=$DOTFILES_HOME/bin
 
+# Add the local bin directory to the path
 PATH=$DOTFILES_BIN:$PATH
 
-# Installation specific variables begin with DOTBOT_
+# Installation specific variables used soley by dotbot scripts during setup
+# begin with DOTBOT_
 export DOTBOT_FORCE=${DOTBOT_FORCE:-no}
 DOTBOT_OS="$(uname -o | tr '[:upper:]' '[:lower:]')"
 export DOTBOT_OS
@@ -55,30 +58,29 @@ run() {
   return "$exitcode"
 }
 
+run_all() {
+  run dotbot
+
+  for config_dotbot in config/*/dotbot; do
+    run "$config_dotbot"
+  done
+}
+
 main() {
-  if [[ $# -ge 1 ]]; then
+  if [[ $# -eq 1 && $1 == "all" ]]; then
+    # Usage: ./install all
+    # Installs all configs
+    run_all
+  elif [[ $# -ge 1 ]]; then
+    # Usage: ./install config/alacritty/dotbot
     # Only install configs explicitly listed as CLI arguments.
     for config in "$@"; do
       run $config
     done
-  elif [[ -f .dotbot.conf ]]; then
-    # Only install configs explicitly listed in the config file.
-    while read -r config_dotbot; do
-      if [[ $config_dotbot != */dotbot ]]; then
-        config_dotbot=config/$config_dotbot/dotbot
-      fi
-
-      run "$config_dotbot"
-    done <.dotbot.conf
   else
-    # If no dotbot file is given as an argument, first run the root dotbot file,
-    # then run all dotbot files that can be found in the config/ directory.
-    run dotbot
-
-    for config_dotbot in config/*/dotbot; do
-      run "$config_dotbot"
-    done
-
+    # Usage: ./install
+    # Install all configs
+    run_all
   fi
 }
 

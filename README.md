@@ -1,22 +1,17 @@
-# Aiko's Dotfiles
-
-- [Aiko's Dotfiles](#aikos-dotfiles)
-  - [Installation](#installation)
+# Dotfiles
 
 This repository contains all the settings and configuration files for various
-editors, shells, and other programs.
+editors, shells, and other unix programs.
 
 ## Installation
 
-In order to automate the installation process, first create the `.install.conf`
-file in the base directory. If the `.install.conf` file doesn't exist, running
-`./install` will prompt for the user to pick a config.
+```bash
+# To install all configs
+./install
 
-```text
-This is a code block
+# To install a specific config
+./install config/alacritty/dotbot
 ```
-
-## Usage
 
 ### Environment variables
 
