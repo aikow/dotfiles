@@ -7,7 +7,7 @@ local o = vim.o
 o.shell = "bash"
 
 -- Add snippets directory to the runtime path
-o.runtimepath = o.runtimepath .. ",~/.dotfiles/config/snippets"
+vim.opt.runtimepath:append(vim.fs.normalize("~/.dotfiles/config/snippets"))
 
 -- Enable local config files using a trustdb.
 o.exrc = true

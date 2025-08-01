@@ -3,7 +3,7 @@ local augroup = vim.api.nvim_create_augroup
 
 -- Prevent accidental writes to buffers that shouldn't be edited
 local unmodifiable_group = augroup("Unmodifiable files", {})
-local function make_unmodifiable() vim.opt_local.readonly = true end
+local function make_unmodifiable() vim.bo.readonly = true end
 autocmd("FileType", {
   group = unmodifiable_group,
   pattern = { "log" },
@@ -35,7 +35,7 @@ autocmd({ "FileType" }, {
 autocmd("TermOpen", {
   group = augroup("Terminal settings", {}),
   callback = function(params)
-    vim.opt_local.wrap = true -- With wrap disabled, you can scroll sideways, which is disconcerting
+    vim.wo.wrap = true -- With wrap disabled, you can scroll sideways, which is disconcerting
 
     vim.keymap.set("n", "<localleader>r", [[A<Up><CR><C-\><C-n>G]], { buffer = params.buf })
   end,

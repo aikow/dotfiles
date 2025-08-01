@@ -1,2 +1,2 @@
-vim.opt_local.readonly = true
-vim.opt_local.modifiable = false
+vim.bo.readonly = true
+vim.bo.modifiable = false

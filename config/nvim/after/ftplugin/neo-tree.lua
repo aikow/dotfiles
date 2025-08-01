@@ -1,2 +1,2 @@
-vim.opt_local.textwidth = 0
-vim.opt_local.colorcolumn = ""
+vim.bo.textwidth = 0
+vim.bo.colorcolumn = ""

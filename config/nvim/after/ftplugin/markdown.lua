@@ -1,4 +1,4 @@
-vim.opt_local.conceallevel = 0
+vim.wo.conceallevel = 0
 
 -- Markdown previewer
 vim.keymap.set("n", "<localleader>r", "<cmd>MarkdownPreview<CR>", { buffer = true })

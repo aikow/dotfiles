@@ -1,7 +1,7 @@
 if vim.fn.has("macunix") == 1 then
-  vim.opt.guifont = "JetBrainsMono Nerd Font:h13"
+  vim.o.guifont = "JetBrainsMono Nerd Font:h13"
 else
-  vim.opt.guifont = "JetBrains Mono:h11"
+  vim.o.guifont = "JetBrains Mono:h11"
 end
 
 vim.g.neovide_refresh_rate = 60

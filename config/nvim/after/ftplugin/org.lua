@@ -1,1 +1,1 @@
-vim.opt_local.formatoptions:remove({ "n" })
+vim.bo.formatoptions:remove({ "n" })
