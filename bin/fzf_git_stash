@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-git_is_repo || return
+git is-repo || return
 
 git stash list \
   | fzf --reverse -d: \

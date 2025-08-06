@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-git_is_repo || return
+git is-repo || return
 
 git -c color.status=always status --short \
   | fzf -m --ansi --nth 2..,.. \
