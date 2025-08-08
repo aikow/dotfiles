@@ -20,7 +20,7 @@ map("n", "<leader>tu", require("user.util").toggle_color_column,                
 map("n", "<leader>tn", require("user.util.lsp").toggle_inlay_hints,              { desc = "Toggle lsp.inlay_hints" })
 
 -- Spelling
-map("i", "<C-.>", "<C-g>u<Esc>[s1z=`]a<C-g>u", { desc = "correct last spelling mistake" })
+map("i", "<C-.>", "<C-G>u<Esc>[s1z=`]a<C-G>u", { desc = "correct last spelling mistake" })
 
 -- Set the working directory
 map("n", "g.", require("user.util").chdir_parent, { desc = "set the working directory to the dir of the current file" })
@@ -45,33 +45,37 @@ map("n", "n", "nzzzv")
 map("n", "N", "Nzzzv")
 
 -- Undo breakpoints while typing
-map("i", ",", ",<C-g>u")
-map("i", ".", ".<C-g>u")
-map("i", "!", "!<C-g>u")
-map("i", "?", "?<C-g>u")
+map("i", ",", ",<C-G>u")
+map("i", ".", ".<C-G>u")
+map("i", "!", "!<C-G>u")
+map("i", "?", "?<C-G>u")
 
 -- Faster pane resizing
-map("n", "<C-w><", "5<C-w><")
-map("n", "<C-w>>", "5<C-w>>")
-map("n", "<C-w>-", "5<C-w>-")
-map("n", "<C-w>+", "5<C-w>+")
+map("n", "<C-W><", "5<C-W><")
+map("n", "<C-W>>", "5<C-W>>")
+map("n", "<C-W>-", "5<C-W>-")
+map("n", "<C-W>+", "5<C-W>+")
 
 -- Shortcuts for inserting filename, directory name, and full path into command mode.
 map("c", "%H", "<C-R>=expand('%:h:p') . '/'<CR>")
 map("c", "%T", "<C-R>=expand('%:t')<CR>")
 map("c", "%P", "<C-R>=expand('%:p')<CR>")
 
+-- Retain normal history navigation with wildtrigger()
+map('c', '<Up>', '<C-U><Up>')
+map('c', '<Down>', '<C-U><Down>')
+
 -- Open a terminal session in a split.
-map("n", "<leader>wb", "<cmd>split term://bash<CR>",     { desc = "open bash (horizontal)" })
-map("n", "<leader>wB", "<cmd>vsplit term://bash<CR>",    { desc = "open bash (horizontal)" })
-map("n", "<leader>wf", "<cmd>split term://fish<CR>",     { desc = "open fish (horizontal)" })
-map("n", "<leader>wF", "<cmd>vsplit term://fish<CR>",    { desc = "open fish (vertical)" })
-map("n", "<leader>wl", "<cmd>tabnew term://lazygit<CR>", { desc = "open lazygit (tab)" })
+map("n", "<leader>wb", "<Cmd>split term://bash<CR>",     { desc = "open bash (horizontal)" })
+map("n", "<leader>wB", "<Cmd>vsplit term://bash<CR>",    { desc = "open bash (horizontal)" })
+map("n", "<leader>wf", "<Cmd>split term://fish<CR>",     { desc = "open fish (horizontal)" })
+map("n", "<leader>wF", "<Cmd>vsplit term://fish<CR>",    { desc = "open fish (vertical)" })
+map("n", "<leader>wl", "<Cmd>tabnew term://lazygit<CR>", { desc = "open lazygit (tab)" })
 map('n', '<leader>ws', ":split term://",                 { desc = "open a command (horizontal)" })
 map("n", "<leader>wv", ":vsplit term://",                { desc = "open a command (vertical)" })
 map("n", "<leader>wt", ":tabnew term://",                { desc = "open a command (tab)" })
-map("n", "<leader>wz", "<cmd>split term://zsh<CR>",      { desc = "open zsh (horizontal)" })
-map("n", "<leader>wZ", "<cmd>vsplit term://zsh<CR>",     { desc = "open zsh (vertical)" })
+map("n", "<leader>wz", "<Cmd>split term://zsh<CR>",      { desc = "open zsh (horizontal)" })
+map("n", "<leader>wZ", "<Cmd>vsplit term://zsh<CR>",     { desc = "open zsh (vertical)" })
 
 -- Toggles between most recent buffers
 map("n", "<leader><leader>", "<c-^>", { desc = "switch to most recent buffer" })
@@ -80,7 +84,7 @@ map("n", "<leader><leader>", "<c-^>", { desc = "switch to most recent buffer" })
 map("n", "<leader>c", "ct_", { desc = "change upto next underscore '_'" })
 
 -- Source the current buffer.
-map("n", "<leader>.", "<cmd>source %<CR>", { desc = "source current file" })
+map("n", "<leader>.", "<Cmd>source %<CR>", { desc = "source current file" })
 
 -- Enter a lua command.
 map("n", "<leader>e", ":lua =", { desc = "evaluate lua expression" })

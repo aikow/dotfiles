@@ -1,4 +1,6 @@
 MiniDeps.later(function()
+  MiniDeps.add({ source = "tpope/vim-fugitive" })
+
   MiniDeps.add({
     source = "sindrets/diffview.nvim",
     depends = { "nvim-lua/plenary.nvim" },
