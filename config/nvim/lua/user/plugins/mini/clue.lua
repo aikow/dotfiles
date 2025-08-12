@@ -46,7 +46,6 @@ miniclue.setup({
   },
 
   clues = {
-    { mode = "n", keys = "<leader>a", desc = "+Orgmode" },
     { mode = "n", keys = "<leader>d", desc = "+Diagnostic" },
     { mode = "n", keys = "<leader>f", desc = "+Find" },
     { mode = "n", keys = "<leader>g", desc = "+Git" },

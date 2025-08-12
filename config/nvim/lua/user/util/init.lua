@@ -62,4 +62,20 @@ function M.toggle_color_column()
   end
 end
 
+function M.toggle_diff()
+  if vim.o.diff then
+    vim.cmd.diffoff()
+  else
+    vim.cmd.diffthis()
+  end
+end
+
+function M.toggle_diff_all()
+  if vim.o.diff then
+    vim.cmd.windo({ args = { "diffoff" } })
+  else
+    vim.cmd.windo({ args = { "diffthis" } })
+  end
+end
+
 return M

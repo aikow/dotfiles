@@ -18,6 +18,8 @@ map("n", "<leader>rS", ":cfdo %s/", { desc = "global search and replace" })
 map("n", "<leader>tD", require("user.util.lsp").toggle_diagnostic_virtual_lines, { desc = "Toggle diagnostic.virtual_lines" })
 map("n", "<leader>tu", require("user.util").toggle_color_column,                 { desc = "Toggle 'colorcolumn'" })
 map("n", "<leader>tn", require("user.util.lsp").toggle_inlay_hints,              { desc = "Toggle lsp.inlay_hints" })
+map("n", "<leader>tx", require("user.util").toggle_diff,                         { desc="Toggle diff" })
+map("n", "<leader>tX", require("user.util").toggle_diff_all,                     { desc="Toggle diff (all)" })
 
 -- Spelling
 map("i", "<C-.>", "<C-G>u<Esc>[s1z=`]a<C-G>u", { desc = "correct last spelling mistake" })
