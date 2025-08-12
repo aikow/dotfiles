@@ -2,7 +2,5 @@
 
 hascommand zsh || exit 128
 
-scripts/install_zinit
-
 symlinkfb "$PWD/zshenv" ~/.zshenv
 symlinkfb "$PWD/zshrc" ~/.zshrc

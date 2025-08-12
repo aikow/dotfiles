@@ -1,23 +1,17 @@
-# --------------
-# |   Config   |
-# --------------
+## Dots ##
 alias zshconfig='${EDITOR} ~/.zshrc'
 alias lzshconfig='${EDITOR} ~/.local/config/zsh/zshrc'
 alias zshreload='source ~/.zshenv; source ~/.zshrc'
 alias dotfiles='${EDITOR} ~/.dotfiles/'
 alias ldotfiles='${EDITOR} ~/.local/config/'
 
-# ----------
-# |   cd   |
-# ----------
+## cd ##
 alias ..='cd ..'
 alias ...='cd ../..'
 alias ....='cd ../../..'
 alias .....='cd ../../../..'
 
-# ----------
-# |   ls   |
-# ----------
+## ls / eza ##
 if command -v eza &>/dev/null; then
     alias l='eza'
     alias ls='eza --group-directories-first --icons=auto'
@@ -33,19 +27,21 @@ fi
 
 alias grep='grep -i --color=auto'
 
-# --------------
-# |   Docker   |
-# --------------
-# Run a container
+## Docker ##
 alias drun='docker run --rm'
-
-# Run an interactive container
 alias druni='docker run --rm -it'
-
-# Run an interactive container with the current working directory mounted to
-# /mnt/local.
 alias druniv='docker run --rm -it -v $(pwd):/mnt/local'
-
-# Run an interactive container with the current working directory mounted to
-# /mnt/local and set the container working dir to that directory.
 alias drunip='docker run --rm -it -v $(pwd):/mnt/local -w /mnt/local'
+
+## Git ##
+alias g='git'
+alias ga='git add'
+alias gb='git branch'
+alias gc='git commit'
+alias gl='git pull'
+alias gp='git push'
+alias gr='git reset'
+alias grs='git restore'
+alias gst='git status'
+alias gsw='git switch'
+alias gw='git worktree'

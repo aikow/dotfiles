@@ -1,179 +1,88 @@
-# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
-# Initialization code that may require console input (password prompts, [y/n]
-# confirmations, etc.) must go above this block; everything else may go below.
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-    source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+# If not in tmux, start tmux.
+# if [[ -z ${TMUX+X}${ZSH_SCRIPT+X}${ZSH_EXECUTION_STRING+X} ]]; then
+#   exec tmux
+# fi
+
+function zcompile-many() {
+  local f
+  for f; do zcompile -R -- "$f".zwc "$f"; done
+}
+
+plugin_dir=$HOME/.local/share/zsh/plugins
+
+# Clone and compile to wordcode missing plugins.
+if [[ ! -e $plugin_dir/zsh-syntax-highlighting ]]; then
+  git clone --depth=1 https://github.com/zsh-users/zsh-syntax-highlighting.git "$plugin_dir"/zsh-syntax-highlighting
+  zcompile-many "$plugin_dir"/zsh-syntax-highlighting/{zsh-syntax-highlighting.zsh,highlighters/*/*.zsh}
+fi
+if [[ ! -e $plugin_dir/zsh-autosuggestions ]]; then
+  git clone --depth=1 https://github.com/zsh-users/zsh-autosuggestions.git "$plugin_dir"/zsh-autosuggestions
+  zcompile-many "$plugin_dir"/zsh-autosuggestions/{zsh-autosuggestions.zsh,src/**/*.zsh}
+fi
+if [[ ! -e $plugin_dir/powerlevel10k ]]; then
+  git clone --depth=1 https://github.com/romkatv/powerlevel10k.git "$plugin_dir"/powerlevel10k
+  make -C "$plugin_dir"/powerlevel10k pkg
+fi
+if [[ ! -e $plugin_dir/zsh-vi-mode ]]; then
+  git clone --depth=1 https://github.com/jeffreytse/zsh-vi-mode.git "$plugin_dir"/zsh-vi-mode
+  zcompile-many "$plugin_dir"/zsh-vi-mode/zsh-vi-mode.zsh
 fi
 
-# ------------------------------------------------------------------------
-# | Zinit
-# ------------------------------------------------------------------------
-#
-# Source the zinit script
-source "${HOME}/.local/share/zinit/zinit.git/zinit.zsh"
+# Activate Powerlevel10k Instant Prompt.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
 
-# Plugins
-zinit snippet OMZL::git.zsh
-zinit snippet OMZP::git
+# Add custom completions to fpath.
+fpath=($HOME/.local/share/zsh/completions $fpath)
 
-# These 2 must be in this order
-zinit load zsh-users/zsh-autosuggestions
-zinit load zsh-users/zsh-syntax-highlighting
-zinit load zsh-users/zsh-history-substring-search
+# Enable the "new" completion system (compsys).
+autoload -Uz compinit && compinit
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
+[[ ~/.zcompdump.zwc -nt ~/.zcompdump ]] || zcompile-many ~/.zcompdump
+unfunction zcompile-many
 
-zinit load softmoth/zsh-vim-mode
-  # zsh-vim-mode Options
-  MODE_CURSOR_VIINS="#00ff00 blinking bar"
-  MODE_CURSOR_REPLACE="$MODE_CURSOR_VIINS #ff0000"
-  MODE_CURSOR_VICMD="green block"
-  MODE_CURSOR_SEARCH="#ff00ff steady underline"
-  MODE_CURSOR_VISUAL="$MODE_CURSOR_VICMD steady bar"
-  MODE_CURSOR_VLINE="$MODE_CURSOR_VISUAL #00ffff"
+ZSH_AUTOSUGGEST_MANUAL_REBIND=1
 
-# Warn you when you run a command that you've got an alias for
-zinit load djui/alias-tips
+# Load plugins.
+source "$plugin_dir"/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source "$plugin_dir"/zsh-autosuggestions/zsh-autosuggestions.zsh
+source "$plugin_dir"/powerlevel10k/powerlevel10k.zsh-theme
+source "$plugin_dir"/zsh-vi-mode/zsh-vi-mode.zsh
 
-# Load additional zsh completions
-zinit wait lucid atload"zicompinit; zicdreplay" blockf for zsh-users/zsh-completions
+# Fzf integration.
+command -v fzf &>/dev/null && eval "$(fzf --zsh)"
 
-# Powerlevel10k theme
-zinit ice depth"1"
-zinit light romkatv/powerlevel10k
-
-### End of Zinit's installer chunk
-
-# Load the powerlevel10k prompt
-source "${DOTFILES_ZSH}/p10k.zsh"
-
-
-# ------------------------------------------------------------------------
-# | History
-# ------------------------------------------------------------------------
-#
 # History Options
-setopt append_history
+setopt auto_pushd # Automatically use pushd when using cd.
+setopt pushd_ignore_dups
+
+setopt noclobber # Forbid '>' from truncating files
+
 setopt extended_history
 setopt hist_expire_dups_first
 setopt hist_ignore_all_dups
 setopt hist_ignore_dups
 setopt hist_ignore_space
+setopt hist_no_store
 setopt hist_reduce_blanks
 setopt hist_save_no_dups
 setopt hist_verify
-
-# Share history across all your terminal windows
-setopt incappendhistory
-setopt noshare_history
-setopt noclobber
+setopt inc_append_history
 
 # Increase history size
 export HISTSIZE=100000
 export SAVEHIST=100000
-export HISTFILE=~/.zsh_history
-typeset -TU HISTIGNORE histignore
-export histignore=(
-  "* --help"
-  "cd -"
-  "cd"
-  "date"
-  "exit"
-  "l"
-  "lg"
-  "ll"
-  "lll"
-  "ls"
-  "lt"
-  "man"
-  "pwd"
-)
+export HISTFILE=~/.local/share/zsh/zsh_history
 
+# Ignore commands for the history.
+export HISTIGNORE="(* --help|man|man *|cd|cd -|pwd|date|exit|ls|lg|ll|lll|l|lt|eza)"
 
-# ------------------------------------------------------------------------
-# | Shell Options
-# ------------------------------------------------------------------------
-#
-# command correction
-setopt correct
+# Load config.
+source "$DOTFILES_ZSH"/config/p10k.zsh
+source "$DOTFILES_ZSH"/config/aliases.zsh
+source "$DOTFILES_ZSH"/config/keybindings.zsh
+source "$DOTFILES_ZSH"/config/autols.zsh
 
-setopt auto_pushd
-setopt pushd_ignore_dups
-
-# better zsh correction prompt
-SPROMPT="Correct $fg[red]%R$reset_color to $fg[green]%r$reset_color? ([y]es, [n]o, [a]bort, [e]dit) "
-
-# Set up automatic ls on cd
-auto_ls() {
-	emulate -L zsh
-	echo
-  if command -v eza &>/dev/null; then
-    eza --icons -a --group-directories-first
-  else
-    ls -AG --color=always
-  fi
-}
-
-# Check if auto-ls has already been added to the chpwd_functions array. This
-# ensures that resourcing the zshrc file doesnt cause ls to be run twice.
-if [[ ! "${chpwd_functions[*]}" =~ "auto_ls" ]]; then
-  chpwd_functions=(auto_ls $chpwd_functions)
-fi
-
-# Bind C-e to edit the command line
-autoload edit-command-line
-zle -N edit-command-line
-bindkey '^x^e' edit-command-line
-
-# Bind C-o to add an argument to the previous command
-bindkey -s '^o' '^[k0Ea '
-
-# Bind C-x C-l to pipe the previous command into less
-bindkey -s '^x^l' '^[kA | less'
-
-# Bind C-x C-p to pipe the previous command
-bindkey -s '^x^p' '^[kA | '
-
-# History seach
-bindkey '^p' history-beginning-search-backward
-bindkey '^n' history-beginning-search-forward
-
-# Clear screen
-bindkey "^l" clear-screen
-
-function join-lines() {
-  local item
-  while read item; do
-    echo -n "${(q)item} "
-  done
-}
-
-function bind_function() {
-  local func="${1?Missing function to bind}"
-  local key="${2?Missing key to bind to}"
-  eval "function fzf-${func}-widget() { local result=\"\$(${func} | join-lines)\"; zle reset-prompt; LBUFFER+=\"\$result\" }"
-  eval "zle -N fzf-${func}-widget"
-  eval "bindkey '${key}' fzf-${func}-widget"
-}
-
-bind_function fzf_git_status ^g^f
-bind_function fzf_git_branch ^g^b
-bind_function fzf_git_tag ^g^t
-bind_function fzf_git_remote ^g^r
-bind_function fzf_git_log ^g^h
-bind_function fzf_git_stash ^g^s
-
-# Load completions 
-autoload -Uz compinit && compinit && compinit
-zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
-
-# ------------------------------------------------------------------------
-# | Extra Modules
-# ------------------------------------------------------------------------
-#
-# Source fzf if installed
-command -v fzf &>/dev/null && eval "$(fzf --zsh)"
-
-# Load user aliases
-source "${DOTFILES_ZSH}/aliases.zsh"
-
-# Load local settings and aliases
-[[ -f "${LOCAL_CONFIG}/zshrc" ]] && source "${LOCAL_CONFIG}/zshrc"
+# Load local config.
+[[ -f $LOCAL_CONFIG/zshrc ]] && source "$LOCAL_CONFIG/zshrc"
