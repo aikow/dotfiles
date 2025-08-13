@@ -52,7 +52,7 @@
   prompt = false
 
 [mergetool "nvim"]
-  cmd = "nvim -d \"$LOCAL\" \"$MERGED\" \"$REMOTE\""
+  cmd = "nvim -c \"Gvdiffsplit!\" \"$MERGED\""
 
 [pull]
 	rebase = true
