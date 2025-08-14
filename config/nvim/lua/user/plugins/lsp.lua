@@ -1,5 +1,49 @@
 local H = {}
 
+MiniDeps.now(function()
+  -- Provide adapter and helper functions for setting up language servers.
+  MiniDeps.add({
+    source = "neovim/nvim-lspconfig",
+    depends = {
+      "mason-org/mason.nvim",
+      "mason-org/mason-lspconfig.nvim",
+      "folke/lazydev.nvim",
+      "b0o/SchemaStore.nvim",
+    },
+    hooks = { post_checkout = function() vim.cmd.MasonUpdate() end },
+  })
+  require("lazydev").setup()
+  require("mason").setup()
+  require("mason-lspconfig").setup({
+    automatic_enable = true,
+    automatic_installation = false,
+    ensure_installed = { "lua_ls" },
+  })
+
+  -- Setup LSP servers not installed by mason.
+  vim.lsp.enable({ "julials", "nushell", "rust_analyzer" })
+
+  -- Configure neovim diagnostics
+  vim.diagnostic.config({
+    virtual_lines = false,
+    virtual_text = true,
+    float = {
+      suffix = function(diagnostic)
+        if diagnostic.source then return " [" .. diagnostic.source .. "]", "Comment" end
+      end,
+    },
+  })
+
+  -- Setup keymaps when an LSP server is attach.
+  vim.api.nvim_create_autocmd("LspAttach", {
+    callback = function(params)
+      local buffer = params.buf
+      local client = vim.lsp.get_client_by_id(params.data.client_id)
+      if client then H.on_attach(client, buffer) end
+    end,
+  })
+end)
+
 function H.on_attach(client, buffer)
   local map = function(lhs, rhs, opts)
     opts = opts or {}
@@ -54,44 +98,6 @@ function H.on_attach(client, buffer)
     vim.wo[win][0].foldexpr = "v:lua.vim.lsp.foldexpr()"
   end
 end
-
-MiniDeps.now(function()
-  -- Provide adapter and helper functions for setting up language servers.
-  MiniDeps.add({
-    source = "neovim/nvim-lspconfig",
-    depends = {
-      "mason-org/mason.nvim",
-      "mason-org/mason-lspconfig.nvim",
-      "folke/lazydev.nvim",
-      "b0o/SchemaStore.nvim",
-    },
-    hooks = { post_checkout = function() vim.cmd.MasonUpdate() end },
-  })
-  require("lazydev").setup()
-  require("mason").setup()
-  require("mason-lspconfig").setup({
-    automatic_enable = true,
-    automatic_installation = false,
-    ensure_installed = { "lua_ls" },
-  })
-
-  -- Setup LSP servers not installed by mason.
-  vim.lsp.enable({ "julials", "nushell", "rust_analyzer" })
-
-  -- Configure neovim diagnostics
-  vim.diagnostic.config({
-    virtual_lines = false,
-    virtual_text = true,
-    float = {
-      suffix = function(diagnostic)
-        if diagnostic.source then return " [" .. diagnostic.source .. "]", "Comment" end
-      end,
-    },
-  })
-
-  -- Setup keymaps when an LSP server is attach.
-  require("user.util.lsp").on_attach(H.on_attach)
-end)
 
 function H.diagnostic_goto(count, severity)
   return function() vim.diagnostic.jump({ count = count, severity = severity }) end

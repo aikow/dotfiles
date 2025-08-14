@@ -19,7 +19,7 @@ MiniDeps.later(function()
   })
 
   vim.api.nvim_create_user_command(
-    "TSEnsureInstall",
+    "TSInstallBasic",
     function()
       require("nvim-treesitter").install({
         "bash",
@@ -43,8 +43,13 @@ MiniDeps.later(function()
         "zig",
       })
     end,
-    { desc = "Ensure all basic parsers are installed." }
+    { desc = "TS install essential parsers" }
   )
+
+  vim.api.nvim_create_user_command("TSInstallAll", function()
+    local parsers = require("nvim-treesitter").get_available()
+    require("nvim-treesitter").install(parsers)
+  end, { desc = "TS install all parsers" })
 end)
 
 MiniDeps.later(function()

@@ -2,18 +2,6 @@ local M = {}
 
 M.lsp_timeout = 10000
 
----Register a callback to run when connecting to a new LSP client.
----@param on_attach fun(client: vim.lsp.Client, buffer: integer)
-function M.on_attach(on_attach)
-  vim.api.nvim_create_autocmd("LspAttach", {
-    callback = function(params)
-      local buffer = params.buf
-      local client = vim.lsp.get_client_by_id(params.data.client_id)
-      if client then on_attach(client, buffer) end
-    end,
-  })
-end
-
 ---Get the attribute of obj which is indexed by the items in the path.
 ---This is a convenience method for dealing with optional nil elements somewhere
 ---in a deeply nested table.
