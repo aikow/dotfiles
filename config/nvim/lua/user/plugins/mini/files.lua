@@ -1,6 +1,62 @@
+local H = {}
 local minifiles = require("mini.files")
 
-local H = {}
+minifiles.setup({
+  content = {
+    sort = H.filter_ignore,
+  },
+  mappings = {
+    go_in_plus = "<cr>",
+  },
+  windows = {
+    preview = true,
+    width_preview = 40,
+  },
+})
+
+-- Keymaps to open mini.files
+vim.keymap.set("n", "-", function() minifiles.open(require("user.util").buf_path(0)) end)
+vim.keymap.set("n", "_", function() minifiles.open() end)
+vim.keymap.set("n", "+", function() minifiles.open(minifiles.get_latest_path()) end)
+
+-- Register renaming and moving files with any attached LSP servers.
+vim.api.nvim_create_autocmd("User", {
+  pattern = { "MiniFilesActionRename", "MiniFilesActionMove" },
+  callback = function(args) require("user.util.lsp").lsp_did_rename(args.data.from, args.data.to) end,
+})
+
+-- Create extra keymaps.
+vim.api.nvim_create_autocmd("User", {
+  pattern = "MiniFilesBufferCreate",
+  callback = function(params)
+    local buf_id = params.data.buf_id
+
+    H.map_split(buf_id, "<C-s>", { split = "belowright", horizontal = true }, "Split below")
+    H.map_split(buf_id, "<C-v>", { split = "belowright", vertical = true }, "Split right")
+    H.map_split(buf_id, "<C-t>", { tab = vim.fn.tabpagenr("$") }, "Split tab")
+
+    vim.keymap.set("n", "yp", function() vim.fn.setreg("+", minifiles.get_fs_entry().path) end, {
+      buffer = buf_id,
+      desc = "Yank absolute path",
+    })
+    vim.keymap.set("n", "gx", function() vim.ui.open(minifiles.get_fs_entry().path) end, {
+      buffer = buf_id,
+      desc = "Open with vim.ui.open",
+    })
+    vim.keymap.set("n", "gh", H.toggle_hidden, {
+      buffer = buf_id,
+      desc = "Toggle hidden",
+    })
+    vim.keymap.set("n", "gi", H.toggle_ignore, {
+      buffer = buf_id,
+      desc = "Toggle ignored",
+    })
+    vim.keymap.set("n", "g.", H.files_set_cwd, {
+      buffer = buf_id,
+      desc = "Set current working directory",
+    })
+  end,
+})
 
 H.show_hidden = true
 H.show_ignored = false
@@ -42,21 +98,8 @@ function H.filter_ignore(entries)
   )
 end
 
-minifiles.setup({
-  content = {
-    sort = H.filter_ignore,
-  },
-  mappings = {
-    go_in_plus = "<cr>",
-  },
-  windows = {
-    preview = true,
-    width_preview = 40,
-  },
-})
-
 -- Create a new split and open the entry under the cursor in it.
-local map_split = function(buf_id, lhs, direction_mods, desc)
+function H.map_split(buf_id, lhs, direction_mods, desc)
   local rhs = function()
     -- Make new window and set it as target
     local cur_target = minifiles.get_explorer_state().target_window
@@ -73,53 +116,9 @@ local map_split = function(buf_id, lhs, direction_mods, desc)
 end
 
 -- Set the current working directory.
-local files_set_cwd = function()
+function H.files_set_cwd()
   -- Works only if cursor is on the valid file system entry
   local cur_entry_path = minifiles.get_fs_entry().path
   local cur_directory = vim.fs.dirname(cur_entry_path)
   vim.fn.chdir(cur_directory)
 end
-
--- Register renaming and moving files with any attached LSP servers.
-vim.api.nvim_create_autocmd("User", {
-  pattern = { "MiniFilesActionRename", "MiniFilesActionMove" },
-  callback = function(args) require("user.util.lsp").lsp_did_rename(args.data.from, args.data.to) end,
-})
-
--- Create extra keymaps.
-vim.api.nvim_create_autocmd("User", {
-  pattern = "MiniFilesBufferCreate",
-  callback = function(params)
-    local buf_id = params.data.buf_id
-
-    map_split(buf_id, "<C-s>", { split = "belowright", horizontal = true }, "Split below")
-    map_split(buf_id, "<C-v>", { split = "belowright", vertical = true }, "Split right")
-    map_split(buf_id, "<C-t>", { tab = vim.fn.tabpagenr("$") }, "Split tab")
-
-    vim.keymap.set("n", "yp", function() vim.fn.setreg("+", minifiles.get_fs_entry().path) end, {
-      buffer = buf_id,
-      desc = "Yank absolute path",
-    })
-    vim.keymap.set("n", "gx", function() vim.ui.open(minifiles.get_fs_entry().path) end, {
-      buffer = buf_id,
-      desc = "Open with vim.ui.open",
-    })
-    vim.keymap.set("n", "gh", H.toggle_hidden, {
-      buffer = buf_id,
-      desc = "Toggle hidden",
-    })
-    vim.keymap.set("n", "gi", H.toggle_ignore, {
-      buffer = buf_id,
-      desc = "Toggle ignored",
-    })
-    vim.keymap.set("n", "g.", files_set_cwd, {
-      buffer = buf_id,
-      desc = "Set current working directory",
-    })
-  end,
-})
-
--- Keymaps to open mini.files
-vim.keymap.set("n", "-", function() minifiles.open(require("user.util").buf_path(0)) end)
-vim.keymap.set("n", "_", function() minifiles.open() end)
-vim.keymap.set("n", "+", function() minifiles.open(minifiles.get_latest_path()) end)

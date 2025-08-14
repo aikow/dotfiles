@@ -1,18 +1,4 @@
-local LspUtil = require("user.util.lsp")
-
 local H = {}
-
-function H.diagnostic_goto(count, severity)
-  return function() vim.diagnostic.jump({ count = count, severity = severity }) end
-end
-
-function H.typehierarchy(direction)
-  return function() vim.lsp.buf.typehierarchy(direction) end
-end
-
-function H.document_symbols(winid)
-  return LspUtil.document_symbols(winid, { "Function", "Method", "Class" })
-end
 
 function H.on_attach(client, buffer)
   local map = function(lhs, rhs, opts)
@@ -93,7 +79,6 @@ MiniDeps.now(function()
   vim.lsp.enable({ "julials", "nushell", "rust_analyzer" })
 
   -- Configure neovim diagnostics
-  vim.diagnostic.get_namespaces()
   vim.diagnostic.config({
     virtual_lines = false,
     virtual_text = true,
@@ -105,5 +90,17 @@ MiniDeps.now(function()
   })
 
   -- Setup keymaps when an LSP server is attach.
-  LspUtil.on_attach(H.on_attach)
+  require("user.util.lsp").on_attach(H.on_attach)
 end)
+
+function H.diagnostic_goto(count, severity)
+  return function() vim.diagnostic.jump({ count = count, severity = severity }) end
+end
+
+function H.typehierarchy(direction)
+  return function() vim.lsp.buf.typehierarchy(direction) end
+end
+
+function H.document_symbols(winid)
+  return require("user.util.lsp").document_symbols(winid, { "Function", "Method", "Class" })
+end

@@ -35,11 +35,7 @@ vim.api.nvim_create_autocmd("VimEnter", {
   once = true,
   callback = function()
     vim.cmd.aunmenu({ "PopUp.How-to\\ disable\\ mouse" })
-    if vim.fn.has("nvim-0.11") == 1 then
-      vim.cmd.aunmenu({ "PopUp.-2-" })
-    else
-      vim.cmd.aunmenu({ "PopUp.-1-" })
-    end
+    vim.cmd.aunmenu({ "PopUp.-2-" })
   end,
 })
 
@@ -84,11 +80,7 @@ o.formatoptions = "qjl1ortc"
 
 -- Builtin completion options
 o.infercase = true -- Make completion case-insensitive.
-if vim.fn.has("nvim-0.11") == 1 then
-  o.completeopt = "menuone,noselect,fuzzy"
-else
-  o.completeopt = "menuone,noselect"
-end
+o.completeopt = "menuone,noselect,fuzzy"
 
 -- Don't give ins-complete-menu messages
 o.shortmess = o.shortmess .. "WcCI"

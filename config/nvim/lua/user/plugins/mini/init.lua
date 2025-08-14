@@ -11,48 +11,55 @@ MiniDeps.now(
   end
 )
 
--- Setup mini modules that need to run immediately.
+-- ------------------------------------------------------------------------
+-- | mini.icons
+-- ------------------------------------------------------------------------
 MiniDeps.now(function()
-  -- ------------------------------------------------------------------------
-  -- | mini.icons
-  -- ------------------------------------------------------------------------
   local icons = require("mini.icons")
   icons.setup({})
   icons.mock_nvim_web_devicons()
   icons.tweak_lsp_kind("prepend")
+end)
 
-  -- ------------------------------------------------------------------------
-  -- | mini.notify
-  -- ------------------------------------------------------------------------
+-- ------------------------------------------------------------------------
+-- | mini.notify
+-- ------------------------------------------------------------------------
+MiniDeps.now(function()
   local notify = require("mini.notify")
   notify.setup({})
   vim.notify = notify.make_notify()
   vim.keymap.set("n", "<leader>hn", notify.show_history, { desc = "mini.notify show history" })
   vim.keymap.set("n", "<leader>hN", notify.clear, { desc = "mini.notify show history" })
+end)
 
-  -- ------------------------------------------------------------------------
-  -- | mini.misc
-  -- ------------------------------------------------------------------------
+-- ------------------------------------------------------------------------
+-- | mini.misc
+-- ------------------------------------------------------------------------
+MiniDeps.now(function()
   local minimisc = require("mini.misc")
   minimisc.setup({})
   minimisc.setup_termbg_sync()
   minimisc.setup_restore_cursor()
+end)
 
-  -- ------------------------------------------------------------------------
-  -- | mini.starter
-  -- ------------------------------------------------------------------------
-  require("user.plugins.mini.starter")
+-- ------------------------------------------------------------------------
+-- | mini.starter
+-- ------------------------------------------------------------------------
+MiniDeps.now(function() require("user.plugins.mini.starter") end)
 
-  -- ------------------------------------------------------------------------
-  -- | mini.files
-  -- ------------------------------------------------------------------------
+-- ------------------------------------------------------------------------
+-- | mini.files
+-- ------------------------------------------------------------------------
+MiniDeps.now(function()
   -- Load mini.files immediately to handle opening the case when nvim is passed a path to a directory
   -- instead of a file.
   require("user.plugins.mini.files")
+end)
 
-  -- ------------------------------------------------------------------------
-  -- | mini.statusline
-  -- ------------------------------------------------------------------------
+-- ------------------------------------------------------------------------
+-- | mini.statusline
+-- ------------------------------------------------------------------------
+MiniDeps.now(function()
   require("mini.statusline").setup({})
   -- Disable the statusline for certain filetypes.
   vim.api.nvim_create_autocmd("FileType", {
@@ -61,53 +68,64 @@ MiniDeps.now(function()
   })
 end)
 
--- Load everything else later.
+-- ------------------------------------------------------------------------
+-- | Later
+-- ------------------------------------------------------------------------
+
+MiniDeps.later(function() require("user.plugins.mini.clue") end)
+MiniDeps.later(function() require("user.plugins.mini.git") end)
+MiniDeps.later(function() require("user.plugins.mini.pick") end)
+MiniDeps.later(function() require("user.plugins.mini.visits") end)
+
+MiniDeps.later(function() require("mini.align").setup({}) end)
+MiniDeps.later(function() require("mini.cursorword").setup({}) end)
+MiniDeps.later(function() require("mini.splitjoin").setup({}) end)
+
+-- ------------------------------------------------------------------------
+-- | mini.ai
+-- ------------------------------------------------------------------------
 MiniDeps.later(function()
-  require("user.plugins.mini.clue")
-  require("user.plugins.mini.git")
-  require("user.plugins.mini.pick")
-  require("user.plugins.mini.visits")
-
-  require("mini.align").setup({})
-  require("mini.cursorword").setup({})
-  require("mini.splitjoin").setup({})
-
-  -- ------------------------------------------------------------------------
-  -- | mini.ai
-  -- ------------------------------------------------------------------------
   local spec_treesitter = require("mini.ai").gen_spec.treesitter
   require("mini.ai").setup({
     custom_textobjects = {
-      i = spec_treesitter({ a = "@conditional.outer", i = "@conditional.inner" }),
+      c = spec_treesitter({ a = "@conditional.outer", i = "@conditional.inner" }),
       l = spec_treesitter({ a = "@loop.outer", i = "@loop.inner" }),
       m = spec_treesitter({ a = "@function.outer", i = "@function.inner" }),
       o = spec_treesitter({ a = "@class.outer", i = "@class.inner" }),
-      z = spec_treesitter({ a = "@comment.outer", i = "@comment.inner" }),
     },
   })
+end)
 
-  -- ------------------------------------------------------------------------
-  -- | mini.basics
-  -- ------------------------------------------------------------------------
-  require("mini.basics").setup({
-    options = { basic = false, extra_ui = true, win_borders = "bold" },
-    mappings = { basic = false, option_toggle_prefix = "<leader>t" },
-  })
+-- ------------------------------------------------------------------------
+-- | mini.basics
+-- ------------------------------------------------------------------------
+MiniDeps.later(
+  function()
+    require("mini.basics").setup({
+      options = { basic = false, extra_ui = true, win_borders = "bold" },
+      mappings = { basic = false, option_toggle_prefix = "<leader>t" },
+    })
+  end
+)
 
-  -- ------------------------------------------------------------------------
-  -- | mini.bracketed
-  -- ------------------------------------------------------------------------
-  require("mini.bracketed").setup({
-    diagnostic = { suffix = "" },
-    jump = { suffix = "" },
-    undo = { suffix = "" },
-    window = { suffix = "" },
-  })
+-- ------------------------------------------------------------------------
+-- | mini.bracketed
+-- ------------------------------------------------------------------------
+MiniDeps.later(
+  function()
+    require("mini.bracketed").setup({
+      diagnostic = { suffix = "" },
+      jump = { suffix = "" },
+      undo = { suffix = "" },
+      window = { suffix = "" },
+    })
+  end
+)
 
-  -- ------------------------------------------------------------------------
-  -- | mini.completion
-  -- ------------------------------------------------------------------------
-  -- Needs to be loaded _now_, so that 'completefunc' gets set during the LspAttach event
+-- ------------------------------------------------------------------------
+-- | mini.completion
+-- ------------------------------------------------------------------------
+MiniDeps.later(function()
   require("mini.completion").setup({ lsp_completion = { auto_setup = false } })
 
   -- Disable MiniCompletion for some filetypes
@@ -115,10 +133,12 @@ MiniDeps.later(function()
     pattern = { "minifiles" },
     callback = function() vim.b.minicompletion_disable = true end,
   })
+end)
 
-  -- ------------------------------------------------------------------------
-  -- | mini.diff
-  -- ------------------------------------------------------------------------
+-- ------------------------------------------------------------------------
+-- | mini.diff
+-- ------------------------------------------------------------------------
+MiniDeps.later(function()
   local minidiff = require("mini.diff")
   minidiff.setup({
     view = {
@@ -128,7 +148,9 @@ MiniDeps.later(function()
   })
 
   vim.keymap.set("n", "<leader>gO", minidiff.toggle_overlay, { desc = "mini.diff toggle overlay" })
+end)
 
+MiniDeps.later(function()
   -- ------------------------------------------------------------------------
   -- | mini.hipatterns
   -- ------------------------------------------------------------------------
@@ -142,27 +164,35 @@ MiniDeps.later(function()
       hex_color = hipatterns.gen_highlighter.hex_color(),
     },
   })
+end)
 
-  -- ------------------------------------------------------------------------
-  -- | mini.keymap
-  -- ------------------------------------------------------------------------
+-- ------------------------------------------------------------------------
+-- | mini.keymap
+-- ------------------------------------------------------------------------
+MiniDeps.later(function()
   local minikeymap = require("mini.keymap")
   minikeymap.map_multistep("i", "<CR>", { "pmenu_accept" })
+end)
 
-  -- ------------------------------------------------------------------------
-  -- | mini.operators
-  -- ------------------------------------------------------------------------
-  require("mini.operators").setup({
-    evaluate = { prefix = "g=" },
-    exchange = { prefix = "gox" },
-    multiply = { prefix = "gom" },
-    replace = { prefix = "gor" },
-    sort = { prefix = "gos" },
-  })
+-- ------------------------------------------------------------------------
+-- | mini.operators
+-- ------------------------------------------------------------------------
+MiniDeps.later(
+  function()
+    require("mini.operators").setup({
+      evaluate = { prefix = "g=" },
+      exchange = { prefix = "gox" },
+      multiply = { prefix = "gom" },
+      replace = { prefix = "gor" },
+      sort = { prefix = "gos" },
+    })
+  end
+)
 
-  -- ------------------------------------------------------------------------
-  -- | mini.snippets
-  -- ------------------------------------------------------------------------
+-- ------------------------------------------------------------------------
+-- | mini.snippets
+-- ------------------------------------------------------------------------
+MiniDeps.later(function()
   local minisnippets = require("mini.snippets")
   minisnippets.setup({
     snippets = {
@@ -174,10 +204,12 @@ MiniDeps.later(function()
 
   local expand_all = function() minisnippets.expand({ match = false }) end
   vim.keymap.set("i", "<C-g><C-j>", expand_all, { desc = "Expand all" })
+end)
 
-  -- ------------------------------------------------------------------------
-  -- | mini.surround
-  -- ------------------------------------------------------------------------
+-- ------------------------------------------------------------------------
+-- | mini.surround
+-- ------------------------------------------------------------------------
+MiniDeps.later(function()
   require("mini.surround").setup({
     mappings = {
       add = "gs",
@@ -196,10 +228,12 @@ MiniDeps.later(function()
     search_method = "cover_or_next",
   })
   vim.keymap.set("x", "gs", [[:<C-u>lua MiniSurround.add('visual')<CR>]], { silent = true })
+end)
 
-  -- ------------------------------------------------------------------------
-  -- | mini.trailspace
-  -- ------------------------------------------------------------------------
+-- ------------------------------------------------------------------------
+-- | mini.trailspace
+-- ------------------------------------------------------------------------
+MiniDeps.later(function()
   local minitrailspace = require("mini.trailspace")
   minitrailspace.setup({})
   vim.keymap.set("n", "<leader>rt", minitrailspace.trim, { desc = "mini.trailspace trim" })

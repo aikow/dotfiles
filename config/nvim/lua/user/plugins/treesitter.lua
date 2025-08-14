@@ -1,97 +1,71 @@
--- Neovim treesitter helper, which enables a lot of cool functionality based
--- on treesitter.
+local H = {}
+
 MiniDeps.later(function()
   MiniDeps.add({
     source = "nvim-treesitter/nvim-treesitter",
-    depends = {
-      "nvim-treesitter/nvim-treesitter-textobjects",
-      "nvim-treesitter/nvim-treesitter-context",
-    },
+    checkout = "main",
     hooks = { post_checkout = function() vim.cmd.TSUpdate() end },
   })
 
-  local configs = require("nvim-treesitter.configs")
-  configs.setup({
-    ensure_installed = {
-      "bash",
-      "c",
-      "comment",
-      "cpp",
-      "fish",
-      "julia",
-      "json",
-      "lua",
-      "markdown",
-      "python",
-      "query",
-      "regex",
-      "rust",
-      "sql",
-      "toml",
-      "vim",
-      "vimdoc",
-      "yaml",
-      "zig",
-    },
+  vim.api.nvim_create_autocmd("FileType", {
+    desc = "User: enable treesitter highlighting",
+    callback = function(ctx)
+      local hasStarted = pcall(vim.treesitter.start)
 
-    -- Allow incremental selection using Treesitter code regions.
-    incremental_selection = {
-      enable = true,
-      keymaps = {
-        init_selection = "<leader>v",
-        scope_incremental = "<C-l>",
-        node_incremental = "<C-k>",
-        node_decremental = "<C-j>",
-      },
-    },
-
-    -- Enable Treesitter syntax highlighting.
-    highlight = {
-      enable = true,
-      -- Use vim's regex syntax highlighting for tex files, since vimtex depends on its own syntax
-      -- highlighting for some features.
-      additional_vim_regex_highlighting = { "latex" },
-    },
-
-    -- Indentation is currently still an experimental feature.
-    indent = {
-      enable = true,
-    },
-
-    -- Text objects
-    textobjects = {
-      move = {
-        enable = true,
-        set_jumps = true, -- whether to set jumps in the jumplist
-        goto_next_start = {
-          ["]m"] = "@function.outer",
-          ["]]"] = "@class.outer",
-        },
-        goto_next_end = {
-          ["]M"] = "@function.outer",
-          ["]["] = "@class.outer",
-        },
-        goto_previous_start = {
-          ["[m"] = "@function.outer",
-          ["[["] = "@class.outer",
-        },
-        goto_previous_end = {
-          ["[M"] = "@function.outer",
-          ["[]"] = "@class.outer",
-        },
-      },
-      swap = {
-        enable = true,
-        swap_next = {
-          ["]p"] = "@parameter.inner",
-        },
-        swap_previous = {
-          ["[p"] = "@parameter.inner",
-        },
-      },
-    },
+      if hasStarted and not vim.list_contains({ "python" }, ctx.match) then
+        vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+      end
+    end,
   })
 
+  vim.api.nvim_create_user_command(
+    "TSEnsureInstall",
+    function()
+      require("nvim-treesitter").install({
+        "bash",
+        "c",
+        "comment",
+        "cpp",
+        "fish",
+        "julia",
+        "json",
+        "lua",
+        "markdown",
+        "python",
+        "query",
+        "regex",
+        "rust",
+        "sql",
+        "toml",
+        "vim",
+        "vimdoc",
+        "yaml",
+        "zig",
+      })
+    end,
+    { desc = "Ensure all basic parsers are installed." }
+  )
+end)
+
+MiniDeps.later(function()
+  MiniDeps.add({ source = "nvim-treesitter/nvim-treesitter-textobjects", checkout = "main" })
+
+  vim.keymap.set({ "n", "x", "o" }, "]]", H.goto_next_start("@class.outer"))
+  vim.keymap.set({ "n", "x", "o" }, "][", H.goto_next_end("@class.outer"))
+  vim.keymap.set({ "n", "x", "o" }, "[[", H.goto_prev_start("@class.outer"))
+  vim.keymap.set({ "n", "x", "o" }, "[]", H.goto_prev_end("@class.outer"))
+
+  vim.keymap.set({ "n", "x", "o" }, "]m", H.goto_next_start("@function.outer"))
+  vim.keymap.set({ "n", "x", "o" }, "]M", H.goto_next_end("@function.outer"))
+  vim.keymap.set({ "n", "x", "o" }, "[m", H.goto_prev_start("@function.outer"))
+  vim.keymap.set({ "n", "x", "o" }, "[M", H.goto_prev_end("@function.outer"))
+
+  vim.keymap.set("n", "]p", H.swap_next("@parameter.inner"))
+  vim.keymap.set("n", "[p", H.swap_prev("@parameter.outer"))
+end)
+
+MiniDeps.later(function()
+  MiniDeps.add({ source = "nvim-treesitter/nvim-treesitter-context" })
   require("treesitter-context").setup({
     enable = true,
     max_lines = 8,
@@ -99,3 +73,30 @@ MiniDeps.later(function()
     trim_scope = "inner",
   })
 end)
+
+function H.goto_next_start(capname, group)
+  return function()
+    require("nvim-treesitter-textobjects.move").goto_next_start(capname, group or "textobjects")
+  end
+end
+function H.goto_next_end(capname, group)
+  return function()
+    require("nvim-treesitter-textobjects.move").goto_next_start(capname, group or "textobjects")
+  end
+end
+function H.goto_prev_start(capname, group)
+  return function()
+    require("nvim-treesitter-textobjects.move").goto_next_start(capname, group or "textobjects")
+  end
+end
+function H.goto_prev_end(capname, group)
+  return function()
+    require("nvim-treesitter-textobjects.move").goto_next_start(capname, group or "textobjects")
+  end
+end
+function H.swap_next(textobj)
+  return function() require("nvim-treesitter-textobjects.swap").swap_next(textobj) end
+end
+function H.swap_prev(textobj)
+  return function() require("nvim-treesitter-textobjects.swap").swap_previous(textobj) end
+end

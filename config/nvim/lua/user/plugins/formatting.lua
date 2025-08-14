@@ -1,3 +1,5 @@
+local H = {}
+
 MiniDeps.later(function()
   MiniDeps.add({
     source = "stevearc/conform.nvim",
@@ -9,11 +11,7 @@ MiniDeps.later(function()
       timeout_ms = 500,
       lsp_format = "fallback",
     },
-    format_on_save = function(bufid)
-      if vim.g.autoformat_enable ~= false and vim.b[bufid].autoformat_enable ~= false then
-        return {}
-      end
-    end,
+    format_on_save = H.format_on_save,
     formatters_by_ft = {
       bash = { "shfmt" },
       c = { "clangd" },
@@ -24,16 +22,13 @@ MiniDeps.later(function()
       htmldjango = { "prettierd" },
       json = { "jq" },
       lua = { "stylua" },
-      markdown = { "prettierd" },
+      -- markdown = { "prettierd" },
       python = { "ruff_fix", "ruff_format" },
       sh = { "shfmt" },
       sql = { "sql_formatter" },
       yaml = { "prettierd" },
     },
     formatters = {
-      black = {
-        prepend_args = { "--preview" },
-      },
       ruff_fix = {
         args = {
           "check",
@@ -67,37 +62,42 @@ MiniDeps.later(function()
     },
   })
 
-  vim.keymap.set(
-    { "n", "x" },
-    "<leader>rf",
-    function() require("conform").format({ async = true, lsp_fallback = true }) end,
-    { desc = "Format the current buffer" }
-  )
-  vim.keymap.set(
-    { "n", "x" },
-    "<leader>rF",
-    function()
-      require("conform").format({
-        async = true,
-        lsp_fallback = true,
-        formatters = { "injected" },
-      })
-    end,
-    { desc = "Format the current buffer with tree-sitter injections" }
-  )
-  vim.keymap.set("n", "<leader>tf", function()
-    local bufid = vim.api.nvim_get_current_buf()
-    if vim.b[bufid].autoformat_enable == nil then
-      vim.b[bufid].autoformat_enable = false
-    else
-      vim.b[bufid].autoformat_enable = not vim.b[bufid].autoformat_enable
-    end
-  end, { desc = "Toggle format on save" })
-  vim.keymap.set("n", "<leader>tF", function()
-    if vim.g.autoformat_enable == nil then
-      vim.g.autoformat_enable = false
-    else
-      vim.g.autoformat_enable = not vim.g.autoformat_enable
-    end
-  end, { desc = "Toggle global format on save" })
+  -- stylua: ignore start
+  vim.keymap.set({ "n", "x" }, "<leader>rf", H.format,               { desc = "Format" })
+  vim.keymap.set({ "n", "x" }, "<leader>rF", H.format_injections,    { desc = "Format with injections" })
+  vim.keymap.set("n",          "<leader>tf", H.toggle_format,        { desc = "Toggle format on save" })
+  vim.keymap.set("n",          "<leader>tF", H.toggle_format_global, { desc = "Toggle global format on save" })
+  -- stylua: ignore end
 end)
+
+---Enable format on save, respecting the buffer and global autoformat toggles.
+function H.format_on_save(bufid)
+  if vim.g.autoformat_enable ~= false and vim.b[bufid].autoformat_enable ~= false then return {} end
+end
+
+function H.format() require("conform").format({ async = true, lsp_fallback = true }) end
+
+function H.format_injections()
+  require("conform").format({
+    async = true,
+    lsp_fallback = true,
+    formatters = { "injected" },
+  })
+end
+
+function H.toggle_format()
+  local bufid = vim.api.nvim_get_current_buf()
+  if vim.b[bufid].autoformat_enable == nil then
+    vim.b[bufid].autoformat_enable = false
+  else
+    vim.b[bufid].autoformat_enable = not vim.b[bufid].autoformat_enable
+  end
+end
+
+function H.toggle_format_global()
+  if vim.g.autoformat_enable == nil then
+    vim.g.autoformat_enable = false
+  else
+    vim.g.autoformat_enable = not vim.g.autoformat_enable
+  end
+end
