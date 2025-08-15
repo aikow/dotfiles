@@ -2,7 +2,7 @@
 
 git_log_opts=("$@")
 
-git log "${git_log_opts[@]}" --format='author: %ae' --numstat \
+git log --format='author: %ae' --numstat "${git_log_opts[@]}" \
   | tr '[:upper:]' '[:lower:]' \
   | grep -v '^$' \
   | grep -v '^-' \
