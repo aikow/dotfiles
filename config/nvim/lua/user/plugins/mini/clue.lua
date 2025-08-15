@@ -61,6 +61,7 @@ miniclue.setup({
     miniclue.gen_clues.g(),
     miniclue.gen_clues.marks(),
     miniclue.gen_clues.registers(),
+    miniclue.gen_clues.square_brackets(),
     miniclue.gen_clues.windows({ submode_resize = true }),
     miniclue.gen_clues.z(),
   },
