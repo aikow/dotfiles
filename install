@@ -74,8 +74,8 @@ main() {
   elif [[ $# -ge 1 ]]; then
     # Usage: ./install config/alacritty/dotbot
     # Only install configs explicitly listed as CLI arguments.
-    for config in "$@"; do
-      run $config
+    for config_dotbot in "$@"; do
+      run "$config_dotbot"
     done
   else
     # Usage: ./install
