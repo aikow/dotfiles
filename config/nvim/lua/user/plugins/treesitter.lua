@@ -4,6 +4,7 @@ MiniDeps.later(function()
   MiniDeps.add({
     source = "nvim-treesitter/nvim-treesitter",
     checkout = "main",
+    monitor = "main",
     hooks = { post_checkout = function() vim.cmd.TSUpdate() end },
   })
 
@@ -19,30 +20,8 @@ MiniDeps.later(function()
   })
 
   vim.api.nvim_create_user_command(
-    "TSInstallBasic",
-    function()
-      require("nvim-treesitter").install({
-        "bash",
-        "c",
-        "comment",
-        "cpp",
-        "fish",
-        "julia",
-        "json",
-        "lua",
-        "markdown",
-        "python",
-        "query",
-        "regex",
-        "rust",
-        "sql",
-        "toml",
-        "vim",
-        "vimdoc",
-        "yaml",
-        "zig",
-      })
-    end,
+    "TSInstallEssential",
+    function() require("nvim-treesitter").install(H.basic_parsers) end,
     { desc = "TS install essential parsers" }
   )
 
@@ -53,7 +32,11 @@ MiniDeps.later(function()
 end)
 
 MiniDeps.later(function()
-  MiniDeps.add({ source = "nvim-treesitter/nvim-treesitter-textobjects", checkout = "main" })
+  MiniDeps.add({
+    source = "nvim-treesitter/nvim-treesitter-textobjects",
+    checkout = "main",
+    monitor = "main",
+  })
 
   vim.keymap.set({ "n", "x", "o" }, "]]", H.goto_next_start("@class.outer"))
   vim.keymap.set({ "n", "x", "o" }, "][", H.goto_next_end("@class.outer"))
@@ -78,6 +61,32 @@ MiniDeps.later(function()
     trim_scope = "inner",
   })
 end)
+
+-- ------------------------------------------------------------------------
+-- | Helpers
+-- ------------------------------------------------------------------------
+
+H.basic_parsers = {
+  "bash",
+  "c",
+  "comment",
+  "cpp",
+  "fish",
+  "julia",
+  "json",
+  "lua",
+  "markdown",
+  "python",
+  "query",
+  "regex",
+  "rust",
+  "sql",
+  "toml",
+  "vim",
+  "vimdoc",
+  "yaml",
+  "zig",
+}
 
 function H.goto_next_start(capname, group)
   return function()

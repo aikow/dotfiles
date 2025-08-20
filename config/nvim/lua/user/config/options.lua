@@ -47,7 +47,7 @@ o.sidescrolloff = 2
 -- Open new splits to the right or down instead of moving current window.
 o.splitright = true
 o.splitbelow = true
-o.splitkeep = "screen"
+-- o.splitkeep = "screen"
 
 -- Default to a maximum of 80 characters per line
 o.textwidth = 80

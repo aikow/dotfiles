@@ -37,9 +37,8 @@ MiniDeps.now(function()
   -- Setup keymaps when an LSP server is attach.
   vim.api.nvim_create_autocmd("LspAttach", {
     callback = function(params)
-      local buffer = params.buf
       local client = vim.lsp.get_client_by_id(params.data.client_id)
-      if client then H.on_attach(client, buffer) end
+      if client then H.on_attach(client, params.buf) end
     end,
   })
 end)
