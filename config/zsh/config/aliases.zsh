@@ -25,8 +25,6 @@ else
   alias lll='ls -lA'
 fi
 
-alias grep='grep -i --color=auto'
-
 ## Docker ##
 alias drun='docker run --rm'
 alias druni='docker run --rm -it'
@@ -43,6 +41,7 @@ alias gc='git commit'
 alias gd='git diff'
 alias gf='git fetch'
 alias gm='git merge'
+alias gmtl='git mergetool'
 alias gmv='git mv'
 alias gl='git pull'
 alias gp='git push'

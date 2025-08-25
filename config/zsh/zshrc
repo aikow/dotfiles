@@ -1,7 +1,7 @@
 # If not in tmux, start tmux.
-# if [[ -z ${TMUX+X}${ZSH_SCRIPT+X}${ZSH_EXECUTION_STRING+X} ]]; then
-#   exec tmux
-# fi
+if [[ -z ${TMUX+X}${ZSH_SCRIPT+X}${ZSH_EXECUTION_STRING+X} ]]; then
+  exec tmux
+fi
 
 function zcompile-many() {
   local f
@@ -41,6 +41,7 @@ fpath=($zsh_dir/completions $fpath)
 zstyle ':completion:*' use-cache
 zstyle ':completion:*' cache-path $zsh_dir/zcompcache
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
+
 autoload -Uz compinit && compinit -d $zsh_dir/zcompdump
 [[ $zsh_dir/zcompdump.zwc -nt $zsh_dir/zcompdump ]] || zcompile-many $zsh_dir/zcompdump
 
@@ -51,10 +52,18 @@ ZSH_AUTOSUGGEST_MANUAL_REBIND=1
 source $plugin_dir/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source $plugin_dir/zsh-autosuggestions/zsh-autosuggestions.zsh
 source $plugin_dir/powerlevel10k/powerlevel10k.zsh-theme
+# https://github.com/jeffreytse/zsh-vi-mode/issues/297
+ZVM_INIT_MODE=sourcing
 source $plugin_dir/zsh-vi-mode/zsh-vi-mode.zsh
 
-# Fzf integration.
-command -v fzf &>/dev/null && eval "$(fzf --zsh)"
+# Fzf integration needs to come after zsh-vi-mode
+if command -v fzf &>/dev/null; then
+  if [[ ! -f $plugin_dir/fzf.zsh.zwc ]]; then
+    fzf --zsh >$plugin_dir/fzf.zsh
+    zcompile-many $plugin_dir/fzf.zsh
+  fi
+  source $plugin_dir/fzf.zsh
+fi
 
 # History Options
 setopt auto_pushd # Automatically use pushd when using cd.
