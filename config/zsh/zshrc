@@ -60,7 +60,7 @@ source $plugin_dir/zsh-vi-mode/zsh-vi-mode.zsh
 if command -v fzf &>/dev/null; then
   if [[ ! -f $plugin_dir/fzf.zsh.zwc ]]; then
     fzf --zsh >$plugin_dir/fzf.zsh
-    zcompile-many $plugin_dir/fzf.zsh
+    zcompile -R -- $plugin_dir/fzf.zsh
   fi
   source $plugin_dir/fzf.zsh
 fi
