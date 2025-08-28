@@ -6,8 +6,8 @@
 set rtp+=~/.local/share/vim
 let data_dir = has('nvim') ? stdpath('data') . '/site' : expand('~/.local/share/vim')
 if empty(glob(data_dir . '/autoload/plug.vim'))
-  echom "Installing vim-plug, " . data_dir . '/autoload/plug.vim was empty' 
-  silent execute '!curl -fLo ' . data_dir . '/autoload/plug.vim --create-dirs 
+  echom "Installing vim-plug, " . data_dir . '/autoload/plug.vim was empty'
+  silent execute '!curl -fLo ' . data_dir . '/autoload/plug.vim --create-dirs
     \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
   autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
@@ -176,7 +176,7 @@ Plug 'itchyny/lightline.vim'
   endfunction
 
   function! LightlineLineinfo()
-    return winwidth(0) > 70 ? (line(".") . "," . col(".")) : '' 
+    return winwidth(0) > 70 ? (line(".") . "," . col(".")) : ''
   endfunction
 
 " Nerd font icons
@@ -205,6 +205,7 @@ set lazyredraw
 set encoding=utf-8
 
 " Permanent undo
+set viminfofile=~/.local/share/vim/viminfo
 set undodir=~/.local/vim/undo
 set undofile
 set nobackup
@@ -235,7 +236,7 @@ set autoindent
 set expandtab
 set tabstop=2
 set shiftwidth=2
-set softtabstop=2 
+set softtabstop=2
 
 " highlight matching parens, braces, brackets, etc
 set showmatch
@@ -258,7 +259,7 @@ endif
 set shortmess+=c
 
 " Searching
-set hlsearch 
+set hlsearch
 set incsearch
 set ignorecase
 set smartcase
@@ -409,7 +410,7 @@ nnoremap <silent> <leader>hf :Filetypes<CR>
 " | Autocmds
 " ------------------------------------------------------------------------
 "
-" Reload files changed outside of Vim not currently modified in Vim 
+" Reload files changed outside of Vim not currently modified in Vim
 set autoread
 augroup general_autoread
   autocmd!
