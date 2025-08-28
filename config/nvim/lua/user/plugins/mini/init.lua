@@ -1,7 +1,7 @@
 MiniDeps.now(
   function()
     MiniDeps.add({
-      source = "echasnovski/mini.nvim",
+      source = "nvim-mini/mini.nvim",
       depends = {
         "rafamadriz/friendly-snippets",
         "nvim-treesitter/nvim-treesitter",

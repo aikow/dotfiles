@@ -10,7 +10,7 @@ function M.bootstrap_mini()
         "git",
         "clone",
         "--filter=blob:none",
-        "https://github.com/echasnovski/mini.nvim",
+        "https://github.com/nvim-mini/mini.nvim",
         M.mini_path,
       }, {})
       :wait()
