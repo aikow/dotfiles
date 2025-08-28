@@ -198,7 +198,13 @@ MiniDeps.later(function()
     snippets = {
       -- Load custom file with global snippets first
       minisnippets.gen_loader.from_runtime("global.{json,lua}"),
-      minisnippets.gen_loader.from_lang(),
+      minisnippets.gen_loader.from_lang({
+        lang_patterns = {
+          tex = { "latex/**/*.json", "latex.json" },
+          plaintext = { "latex/**/*.json", "latex.json" },
+          markdown_inline = { "markdown/**/*.json", "markdown.json" },
+        },
+      }),
     },
   })
 

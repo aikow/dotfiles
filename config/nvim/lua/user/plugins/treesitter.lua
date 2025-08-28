@@ -10,10 +10,10 @@ MiniDeps.later(function()
 
   vim.api.nvim_create_autocmd("FileType", {
     desc = "User: enable treesitter highlighting",
-    callback = function(ctx)
+    callback = function(params)
       local hasStarted = pcall(vim.treesitter.start)
 
-      if hasStarted and not vim.list_contains({ "python" }, ctx.match) then
+      if hasStarted and not vim.list_contains({ "python" }, params.match) then
         vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
       end
     end,
@@ -66,51 +66,38 @@ end)
 -- | Helpers
 -- ------------------------------------------------------------------------
 
-H.basic_parsers = {
-  "bash",
-  "c",
-  "comment",
-  "cpp",
-  "fish",
-  "julia",
-  "json",
-  "lua",
-  "markdown",
-  "python",
-  "query",
-  "regex",
-  "rust",
-  "sql",
-  "toml",
-  "vim",
-  "vimdoc",
-  "yaml",
-  "zig",
-}
+-- stylua: ignore
+H.basic_parsers = {"bash", "c", "comment", "cpp", "fish", "julia", "json", "lua", "markdown",
+  "python", "query", "regex", "rust", "sql", "toml", "vim", "vimdoc", "yaml", "zig"}
 
 function H.goto_next_start(capname, group)
   return function()
     require("nvim-treesitter-textobjects.move").goto_next_start(capname, group or "textobjects")
   end
 end
+
 function H.goto_next_end(capname, group)
   return function()
     require("nvim-treesitter-textobjects.move").goto_next_start(capname, group or "textobjects")
   end
 end
+
 function H.goto_prev_start(capname, group)
   return function()
     require("nvim-treesitter-textobjects.move").goto_next_start(capname, group or "textobjects")
   end
 end
+
 function H.goto_prev_end(capname, group)
   return function()
     require("nvim-treesitter-textobjects.move").goto_next_start(capname, group or "textobjects")
   end
 end
+
 function H.swap_next(textobj)
   return function() require("nvim-treesitter-textobjects.swap").swap_next(textobj) end
 end
+
 function H.swap_prev(textobj)
   return function() require("nvim-treesitter-textobjects.swap").swap_previous(textobj) end
 end
