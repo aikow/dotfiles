@@ -19,3 +19,4 @@ editors, shells, and other unix programs.
 - `DOTBOT_FORCE`
 - `DOTFILES`
 - `DOTFILES_HOME`
+- `WORKSPACE_HOME`

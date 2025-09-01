@@ -1,31 +1,31 @@
 # source /usr/lib/git-core/git-sh-prompt;
-source "${DOTFILES_BASH}/prompt/git.bash"
-GIT_PS1_SHOWDIRTYSTATE=1
-GIT_PS1_SHOWUPSTREAM="verbose"
+source "${DOTFILES_BASH}/config/git.bash"
+export GIT_PS1_SHOWDIRTYSTATE=1
+export GIT_PS1_SHOWUPSTREAM="verbose"
 
 bg_red=$(tput setab 1)
 bg_gray=$(tput setab 240)
 
 bg_c1=""
 
-fg_red=$(tput setaf 1)
+# fg_red=$(tput setaf 1)
 fg_white=$(tput setaf 15)
-fg_cyan=$(tput setaf 45)
-fg_green=$(tput setaf 34)
-fg_orange=$(tput setaf 35)
-fg_yellow=$(tput setaf 20)
-fg_magenta=$(tput setaf 213)
+# fg_cyan=$(tput setaf 45)
+# fg_green=$(tput setaf 34)
+# fg_orange=$(tput setaf 35)
+# fg_yellow=$(tput setaf 20)
+# fg_magenta=$(tput setaf 213)
 
 fg_c1=$(tput setaf 127)
 fg_c2=$(tput setaf 133)
 fg_c3=$(tput setaf 67)
-fg_c4=$(tput setaf 73)
+# fg_c4=$(tput setaf 73)
 fg_c5=$(tput setaf 79)
 
 st_bold=$(tput bold)
-st_underlined=$(tput smul)
-st_blink=$(tput blink)
-st_invert=$(tput rev)
+# st_underlined=$(tput smul)
+# st_blink=$(tput blink)
+# st_invert=$(tput rev)
 
 st_reset=$(tput sgr0)
 

@@ -1,4 +1,9 @@
 #!/usr/bin/env bash
+#
+# Usage: slice START [STOP] <file
+#
+# Get a continuous slice of lines from a file. The file is read from stdin, and
+# the stop line is optional. If omitted, slice will only get one line.
 
 start="$1"
 stop="${2:-+1}"
@@ -7,7 +12,7 @@ if [[ $stop == +* ]]; then
   stop="$(printf '%s%s\n' "$start" "$stop" | bc)"
 fi
 
-if [[ $# > 2 ]]; then
+if [[ $# -gt 2 ]]; then
   shift 2
   perl -wnl -e '$. > '"$start"' && print; $. > '"$stop"' && exit;' "$@"
 else

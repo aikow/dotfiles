@@ -58,7 +58,7 @@ set -o vi
 export PS0="\e[5 q"
 
 # Load the custom prompt
-source "${DOTFILES_BASH}/prompt/ps1rc.bash"
+source "${DOTFILES_BASH}/config/ps1rc.bash"
 PS1=$(__mkps1)
 
 # Enable programmable completion features
@@ -81,8 +81,8 @@ bind -m vi-insert '"\C-x\C-p": "\e-A | "'
 bind -m vi-insert '"\C-x\C-l": "\e-A | less\r"'
 
 # Insert the arguments from the last command
-bind -m vi-command '"o": "0Eli "'
-bind -m vi-insert '"\C-o": "\e-0Eli "'
+bind -m vi-command '"o": "0Ea "'
+bind -m vi-insert '"\C-o": "\e-0Ea "'
 
 if [[ $- =~ i ]]; then
   bind '"\er": redraw-current-line'
@@ -103,8 +103,8 @@ command -v fzf &>/dev/null && eval "$(fzf --bash)"
 [[ -f ${HOME}/.cargo/env ]] && source "${HOME}/.cargo/env"
 
 # Load user aliases
-source "${DOTFILES_BASH}/aliases/general.bash"
-source "${DOTFILES_BASH}/aliases/git.bash"
+source "${DOTFILES_BASH}/config/aliases.bash"
+source "${DOTFILES_BASH}/config/bash_aliases.bash"
 
 # Load local aliases and configurations
 [[ -f ${LOCAL_CONFIG}/bashrc ]] && source "${LOCAL_CONFIG}/bashrc"

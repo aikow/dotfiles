@@ -1,9 +1,13 @@
 #!/usr/bin/env bash
+#
+# Usage: cleanlinks PATH [PATH...]
+#
+# Removes all dangling symlinks in given directories
 
 for path in "$@"; do
   for entry in "$path"/* "$path"/.*; do
-    if [[ -L $entry && ! -e "$(readlink $entry)" ]]; then
-      unlink $entry
+    if [[ -L $entry && ! -e "$(readlink -- "$entry")" ]]; then
+      unlink -- "$entry"
     fi
   done
 done

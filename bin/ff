@@ -1,0 +1,11 @@
+#!/usr/bin/env sh
+#
+# Usage: ff PICKER
+#
+# Helper command to easily call pickers fzf pickers. The command just calls
+# fzf-$picker, but I might set up some custom aliases later.
+
+cmd="$1"
+shift
+
+exec "fzf-$cmd" "$@"

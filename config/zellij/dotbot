@@ -1,5 +1,0 @@
-#!/usr/bin/env bash
-
-hascommand zellij || exit 128
-
-symlinkfb "$PWD/config.kdl" ~/.config/zellig/config.kdl

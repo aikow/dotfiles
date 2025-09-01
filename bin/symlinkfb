@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 #
+# Usage: symlinkfb SOURCE TARGET
+#
 # Force create a symlink but create a backup of the target before replacing it
 # with the symlink if it exists.
 
@@ -15,18 +17,18 @@ backup_dir=$HOME/.local/backups/symlinkfb
 mkdir -p "$backup_dir"
 
 if [[ -e $link_target ]]; then
-  path=$(realpath "$link_target")
+  path=$(realpath -- "$link_target")
   backup_file=$backup_dir/$(date -Iseconds)${path////--}
 
   link_target=$(realpath "$link_target")
-  if [[ $link_target == "$(realpath "$link_source")" ]]; then
+  if [[ $link_target == "$(realpath -- "$link_source")" ]]; then
     # No work to do here.
     exit
   fi
 
   if [[ -L $link_target ]]; then
-    echo "symlinked to $(readlink "$link_target")" >"$backup_file"
-    unlink "$link_target"
+    echo "symlinked to $(readlink -- "$link_target")" >"$backup_file"
+    unlink -- "$link_target"
   else
     mv "$link_target" "$backup_file"
   fi
@@ -34,8 +36,8 @@ fi
 
 # Check if the link target is a broken symlink. If the target would have
 # existed, we would have already removed it in the previous if block.
-if [[ -h $link_target ]]; then
-  unlink "$link_target"
+if [[ -L $link_target ]]; then
+  unlink -- "$link_target"
 fi
 
-ln -s "$link_source" "$link_target"
+ln -s -- "$link_source" "$link_target"

@@ -2,7 +2,7 @@
 
 n="$1"
 
-if [[ $# > 1 ]]; then
+if [[ $# -gt 1 ]]; then
   sed "${n}q;d" "$2"
 else
   sed "${n}q;d"
