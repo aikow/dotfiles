@@ -80,7 +80,7 @@ o.formatoptions = "qjl1ortc"
 
 -- Builtin completion options
 o.infercase = true -- Make completion case-insensitive.
-o.completeopt = "menuone,noselect,fuzzy"
+o.completeopt = "menuone,noselect,fuzzy,nosort"
 
 -- Don't give ins-complete-menu messages
 o.shortmess = o.shortmess .. "WcCI"

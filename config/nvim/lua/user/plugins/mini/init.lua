@@ -14,12 +14,8 @@ MiniDeps.now(
 -- ------------------------------------------------------------------------
 -- | mini.icons
 -- ------------------------------------------------------------------------
-MiniDeps.now(function()
-  local icons = require("mini.icons")
-  icons.setup({})
-  icons.mock_nvim_web_devicons()
-  icons.tweak_lsp_kind("prepend")
-end)
+MiniDeps.now(function() require("mini.icons").setup({}) end)
+MiniDeps.later(function() require("mini.icons").tweak_lsp_kind("prepend") end)
 
 -- ------------------------------------------------------------------------
 -- | mini.notify
@@ -27,7 +23,6 @@ end)
 MiniDeps.now(function()
   local notify = require("mini.notify")
   notify.setup({})
-  vim.notify = notify.make_notify()
   vim.keymap.set("n", "<leader>hn", notify.show_history, { desc = "mini.notify show history" })
   vim.keymap.set("n", "<leader>hN", notify.clear, { desc = "mini.notify show history" })
 end)
@@ -216,7 +211,8 @@ end)
 -- | mini.surround
 -- ------------------------------------------------------------------------
 MiniDeps.later(function()
-  require("mini.surround").setup({
+  local minisurround = require("mini.surround")
+  minisurround.setup({
     mappings = {
       add = "gs",
       delete = "ds",
@@ -224,7 +220,6 @@ MiniDeps.later(function()
       find_left = "",
       highlight = "gsh",
       replace = "cs",
-      update_n_lines = "gsu",
 
       suffix_last = "",
       suffix_next = "",
@@ -234,6 +229,7 @@ MiniDeps.later(function()
     search_method = "cover_or_next",
   })
   vim.keymap.set("x", "gs", [[:<C-u>lua MiniSurround.add('visual')<CR>]], { silent = true })
+  vim.keymap.set("n", "gsu", minisurround.update_n_lines, { desc = "MiniSurround update n_lines" })
 end)
 
 -- ------------------------------------------------------------------------
