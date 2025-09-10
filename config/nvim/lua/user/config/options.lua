@@ -76,7 +76,7 @@ o.grepprg = "rg --vimgrep --no-heading --smart-case"
 o.grepformat = "%f:%l:%c:%m"
 
 -- Format options
-o.formatoptions = "qjl1ortc"
+o.formatoptions = "qjl1"
 
 -- Builtin completion options
 o.infercase = true -- Make completion case-insensitive.
