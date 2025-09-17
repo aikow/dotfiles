@@ -1,8 +1,6 @@
 local minipick = require("mini.pick")
 minipick.setup({ options = { use_cache = true } })
 
-vim.ui.select = minipick.ui_select
-
 -- -----------------
 -- |   MiniExtra   |
 -- -----------------
