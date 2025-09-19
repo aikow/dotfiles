@@ -5,6 +5,6 @@
 # FIXME: Something is whack here, but I don't know what and don't have time
 # right now.
 ref=$(git symbolic-ref HEAD 2>/dev/null) \
-  || ref=$(git rev-parse --short HEAD 2>/dev/null) \
+  || ref="$(git rev-parse --short HEAD 2>/dev/null)" \
   || return
 git remote -v | cut -d':' -f 2

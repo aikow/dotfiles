@@ -1,12 +1,7 @@
 function fzf_configure_bindings --description "Configure keybindings for fzf"
-    # ---------------
-    # |   General   |
-    # ---------------
     fzf --fish | source
 
-    # -----------
-    # |   Git   |
-    # -----------
+    ## Git
     bind -M insert \cg\cf _fzf_git_status
     bind -M default \ gf _fzf_git_status
 

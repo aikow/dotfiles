@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-git is-repo || return
+git is-repo || exit
 
 git tag --sort -version:refname \
   | fzf --multi --preview-window right:70% \

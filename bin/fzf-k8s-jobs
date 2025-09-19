@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-k8s_is_valid || return
+k8s-is-valid || exit
 
 kubectl get jobs,pytorchjobs -o wide \
   | fzf --header-lines=1 \

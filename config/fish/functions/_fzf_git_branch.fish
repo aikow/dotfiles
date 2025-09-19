@@ -1,5 +1,5 @@
 function _fzf_git_branch --description "Search through all available branches"
-    set branches ( fzf_git_branch)
+    set branches (fzf-git-branch)
     if test $status -eq 0
         fish_commandline_append (string join ' ' $branches)
     end
