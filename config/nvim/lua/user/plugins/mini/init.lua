@@ -14,7 +14,10 @@ MiniDeps.now(
 -- ------------------------------------------------------------------------
 -- | mini.icons
 -- ------------------------------------------------------------------------
-MiniDeps.now(function() require("mini.icons").setup({}) end)
+MiniDeps.now(function()
+  require("mini.icons").setup({})
+  require("mini.icons").mock_nvim_web_devicons()
+end)
 MiniDeps.later(function() require("mini.icons").tweak_lsp_kind("prepend") end)
 
 -- ------------------------------------------------------------------------

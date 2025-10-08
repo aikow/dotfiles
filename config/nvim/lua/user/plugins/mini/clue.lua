@@ -14,12 +14,12 @@ miniclue.setup({
     { mode = "n", keys = "<localleader>" },
     { mode = "x", keys = "<localleader>" },
 
-    -- Built-in completion
-    { mode = "i", keys = "<C-x>" },
-
     -- Brackets
     { mode = "n", keys = "[" },
     { mode = "n", keys = "]" },
+
+    -- Built-in completion
+    { mode = "i", keys = "<C-x>" },
 
     -- `g` key
     { mode = "n", keys = "g" },
@@ -57,11 +57,11 @@ miniclue.setup({
     { mode = "n", keys = "<leader>t", desc = "+Toggle" },
     { mode = "n", keys = "<leader>w", desc = "+Window" },
 
+    miniclue.gen_clues.square_brackets(),
     miniclue.gen_clues.builtin_completion(),
     miniclue.gen_clues.g(),
     miniclue.gen_clues.marks(),
     miniclue.gen_clues.registers(),
-    miniclue.gen_clues.square_brackets(),
     miniclue.gen_clues.windows({ submode_resize = true }),
     miniclue.gen_clues.z(),
   },
