@@ -43,3 +43,6 @@ local disable_default_providers = {
 for _, provider in ipairs(disable_default_providers) do
   vim.g["loaded_" .. provider .. "_provider"] = 0
 end
+
+local ok, mod = pcall(require, "vim._extui")
+if ok then mod.enable({}) end

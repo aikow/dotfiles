@@ -41,9 +41,6 @@ end
 function M.setup()
   M.bootstrap_mini()
   M.setup_plugins()
-
-  -- Setup options, key-maps and personal auto commands, and all other user commands.
-  require("user.config").setup()
 end
 
 return M

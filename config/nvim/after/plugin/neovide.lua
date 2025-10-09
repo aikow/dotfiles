@@ -1,3 +1,5 @@
+if vim.fn.exists("neovide") ~= 1 then return end
+
 if vim.fn.has("macunix") == 1 then
   vim.o.guifont = "JetBrainsMono Nerd Font:h13"
 else
