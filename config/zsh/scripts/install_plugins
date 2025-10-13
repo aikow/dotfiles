@@ -9,6 +9,8 @@ function zcompile-many() {
 }
 
 function install() {
+  mkdir -p "$plugin_dir"
+
   # Clone and compile to wordcode missing plugins.
   if [[ ! -e $plugin_dir/zsh-syntax-highlighting ]]; then
     git clone --depth=1 https://github.com/zsh-users/zsh-syntax-highlighting.git $plugin_dir/zsh-syntax-highlighting

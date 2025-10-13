@@ -52,8 +52,5 @@ export FZF_DEFAULT_OPTS="
   --min-height 20
   --preview-window right,40%"
 
-## Cargo and Rust ##
-[[ -f $HOME/.cargo/env ]] && source "$HOME/.cargo/env"
-
-## Local Enviornment Config ##
+## Local Environment Config ##
 [[ -f $LOCAL_CONFIG/zshenv ]] && source "$LOCAL_CONFIG/zshenv"

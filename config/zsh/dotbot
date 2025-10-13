@@ -4,3 +4,5 @@ hascommand zsh || exit 128
 
 symlinkfb "$PWD/zshenv" ~/.zshenv
 symlinkfb "$PWD/zshrc" ~/.zshrc
+
+scripts/install_plugins

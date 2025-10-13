@@ -33,7 +33,7 @@ require("mini.starter").setup({
 
     -- Config
     section("Config", "Config", "cd ~/.dotfiles/config/nvim | edit init.lua"),
-    section("Config", "Local Config", "cd ~/.local/config/nvim/ | edit lua/local/init.lua"),
+    section("Config", "Local Config", "cd ~/.local/config/nvim/ | edit plugin/local.lua"),
     section("Config", "Update Plugins", "DepsUpdate"),
     section("Config", "Mason", "Mason"),
 

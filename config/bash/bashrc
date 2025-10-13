@@ -100,7 +100,6 @@ fi
 #
 # Source fzf and cargo
 command -v fzf &>/dev/null && eval "$(fzf --bash)"
-[[ -f ${HOME}/.cargo/env ]] && source "${HOME}/.cargo/env"
 
 # Load user aliases
 source "${DOTFILES_BASH}/config/aliases.bash"
