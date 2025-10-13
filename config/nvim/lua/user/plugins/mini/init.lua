@@ -160,6 +160,7 @@ MiniDeps.later(function()
       todo = { pattern = "TODO", group = "MiniHipatternsTodo" },
       note = { pattern = "NOTE", group = "MiniHipatternsNote" },
       hex_color = hipatterns.gen_highlighter.hex_color(),
+      deprecated = { pattern = "DEPRECATED", group = "MiniHipatternsFixme" },
     },
   })
 end)
