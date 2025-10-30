@@ -112,6 +112,7 @@ MiniDeps.later(
 MiniDeps.later(
   function()
     require("mini.bracketed").setup({
+      comment = { suffix = "g" },
       diagnostic = { suffix = "" },
       jump = { suffix = "" },
       undo = { suffix = "" },
