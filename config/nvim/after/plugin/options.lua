@@ -6,12 +6,6 @@ local o = vim.o
 -- Always use bash as the shell
 o.shell = "bash"
 
--- Add snippets directory to the runtime path
-vim.opt.runtimepath:append(vim.fs.normalize("~/.dotfiles/config/snippets"))
-
--- Enable local config files using a trustdb.
-o.exrc = true
-
 -- Use system clipboard
 o.clipboard = "unnamedplus"
 
