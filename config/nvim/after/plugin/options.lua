@@ -97,7 +97,7 @@ o.diffopt = o.diffopt .. ",iwhite,algorithm:patience,indent-heuristic,linematch:
 -- ------------------------------------------------------------------------
 
 -- Wildmenu options
-o.wildmode = "noselect,longest:full,full"
+o.wildmode = "noselect,full"
 o.wildoptions = "pum,fuzzy"
 o.cmdheight = 1
 

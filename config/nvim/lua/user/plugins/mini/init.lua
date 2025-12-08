@@ -76,6 +76,7 @@ MiniDeps.later(function() require("user.plugins.mini.pick") end)
 MiniDeps.later(function() require("user.plugins.mini.visits") end)
 
 MiniDeps.later(function() require("mini.align").setup({}) end)
+MiniDeps.later(function() require("mini.cmdline").setup({}) end)
 MiniDeps.later(function() require("mini.cursorword").setup({}) end)
 MiniDeps.later(function() require("mini.splitjoin").setup({}) end)
 
