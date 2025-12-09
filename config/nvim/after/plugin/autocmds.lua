@@ -47,9 +47,3 @@ autocmd("BufWritePost", {
   pattern = { ".nvim.lua", ".nvimrc", ".exrc" },
   callback = function(params) vim.secure.trust({ action = "allow", bufnr = params.buf }) end,
 })
-
-autocmd("CmdlineChanged", {
-  group = augroup("CmdlineCompletion", {}),
-  pattern = "[:/?]",
-  callback = function() vim.fn.wildtrigger() end,
-})

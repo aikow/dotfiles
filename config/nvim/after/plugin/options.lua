@@ -41,7 +41,6 @@ o.sidescrolloff = 2
 -- Open new splits to the right or down instead of moving current window.
 o.splitright = true
 o.splitbelow = true
--- o.splitkeep = "screen"
 
 -- Default to a maximum of 80 characters per line
 o.textwidth = 80
@@ -99,7 +98,6 @@ o.diffopt = o.diffopt .. ",iwhite,algorithm:patience,indent-heuristic,linematch:
 -- Wildmenu options
 o.wildmode = "noselect,full"
 o.wildoptions = "pum,fuzzy"
-o.cmdheight = 1
 
 -- Pop-up menu options
 o.pumheight = 16
@@ -107,9 +105,11 @@ o.pumheight = 16
 -- Default floating window options
 o.winborder = "solid"
 
+-- Mode already shown in statusline
+o.showmode = false
+
 -- Tabline
 o.tabline = "%!v:lua.require'user.ui.tabline'.tabline()"
-o.showmode = false
 
 -- Statuscolumn
 o.statuscolumn = "%{%v:lua.require'user.ui'.statuscolumn()%}"
@@ -119,7 +119,6 @@ o.listchars = "tab:󰌒 ,extends:…,precedes:…,nbsp:␣"
 o.list = true
 
 -- Show line breaks
-o.wrap = true
 o.showbreak = " -> "
 o.linebreak = true
 o.breakindent = true
