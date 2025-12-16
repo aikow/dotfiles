@@ -3,44 +3,26 @@ local function section(section_name, name, action)
   return { section = section_name, name = name, action = action }
 end
 
-local logo = table.concat({
-  "                                                  ",
-  "███╗   ██╗███████╗ ██████╗ ██╗   ██╗██╗███╗   ███╗",
-  "████╗  ██║██╔════╝██╔═══██╗██║   ██║██║████╗ ████║",
-  "██╔██╗ ██║█████╗  ██║   ██║██║   ██║██║██╔████╔██║",
-  "██║╚██╗██║██╔══╝  ██║   ██║╚██╗ ██╔╝██║██║╚██╔╝██║",
-  "██║ ╚████║███████╗╚██████╔╝ ╚████╔╝ ██║██║ ╚═╝ ██║",
-  "╚═╝  ╚═══╝╚══════╝ ╚═════╝   ╚═══╝  ╚═╝╚═╝     ╚═╝",
-  "                                                  ",
-}, "\n")
-
 local ver = vim.version()
 local footer = string.format("v%s.%s.%s", ver.major, ver.minor, ver.patch)
 if ver.prerelease then footer = footer .. "-" .. ver.prerelease end
 if ver.build and ver.build ~= vim.NIL then footer = footer .. "+" .. ver.build end
 
 local starter = require("mini.starter")
-
-require("mini.starter").setup({
+starter.setup({
   evaluate_single = true,
-  header = logo,
+  header = nil,
   items = {
-    -- Edit actions
-    section("Workspace", "Edit", "enew | startinsert"),
-    section("Workspace", "Open", "Pick files"),
-    section("Workspace", "Recent", "Pick oldfiles"),
-    section("Workspace", "Files", "lua require'mini.files'.open()"),
+    starter.sections.recent_files(5, true),
+    starter.sections.builtin_actions(),
 
     -- Config
     section("Config", "Config", "cd ~/.dotfiles/config/nvim | edit init.lua"),
-    section("Config", "Local Config", string.format("cd %s | edit %s", vim.g.localcfg, vim.g.localrc)),
-    section("Config", "Update Plugins", "DepsUpdate"),
-    section("Config", "Mason", "Mason"),
-
-    -- Builtin actions
-    section("Builtin", "News", "help news | wincmd o"),
-    section("Builtin", "Help", "Pick help"),
-    section("Builtin", "Quit", "quit"),
+    section(
+      "Config",
+      "Local Config",
+      string.format("cd %s | edit %s", vim.g.localcfg, vim.g.localrc)
+    ),
   },
   footer = footer,
   content_hooks = {
