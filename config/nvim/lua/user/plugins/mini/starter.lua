@@ -30,3 +30,5 @@ starter.setup({
     starter.gen_hook.aligning("center", "center"),
   },
 })
+
+vim.keymap.set("n", "<leader>mo", starter.open, { desc = "mini.starter open" })

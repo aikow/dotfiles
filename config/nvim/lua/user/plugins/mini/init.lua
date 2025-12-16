@@ -123,6 +123,16 @@ MiniDeps.later(
 )
 
 -- ------------------------------------------------------------------------
+-- | mini.bufremove
+-- ------------------------------------------------------------------------
+MiniDeps.later(function()
+  local minibufremove = require("mini.bufremove")
+  minibufremove.setup({})
+
+  vim.keymap.set("n", "<leader>q", minibufremove.delete, { desc = "mini.bufremove delete" })
+end)
+
+-- ------------------------------------------------------------------------
 -- | mini.completion
 -- ------------------------------------------------------------------------
 MiniDeps.later(function()
