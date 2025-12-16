@@ -11,7 +11,7 @@ if ver.build and ver.build ~= vim.NIL then footer = footer .. "+" .. ver.build e
 local starter = require("mini.starter")
 starter.setup({
   evaluate_single = true,
-  header = nil,
+  header = "Good morning, Aiko",
   items = {
     starter.sections.recent_files(5, true),
     starter.sections.builtin_actions(),
