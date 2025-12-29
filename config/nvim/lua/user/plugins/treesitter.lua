@@ -67,8 +67,8 @@ end)
 -- ------------------------------------------------------------------------
 
 -- stylua: ignore
-H.basic_parsers = {"bash", "c", "comment", "cpp", "fish", "julia", "json", "lua", "markdown",
-  "python", "query", "regex", "rust", "sql", "toml", "vim", "vimdoc", "yaml", "zig"}
+H.basic_parsers = { "bash", "c", "comment", "cpp", "fish", "julia", "json", "lua", "markdown",
+  "python", "query", "regex", "rust", "sql", "toml", "vim", "vimdoc", "yaml", "zig" }
 
 function H.goto_next_start(capname, group)
   return function()

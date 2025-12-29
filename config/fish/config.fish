@@ -19,6 +19,8 @@ if status is-interactive
 
     fish_user_key_bindings
 
+    fish_config theme choose base16-default
+
     # Start the starship prompt
     starship init fish | source
 end
