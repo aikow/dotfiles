@@ -9,12 +9,16 @@ fish_add_path --path --move $HOME/.local/bin
 # ----------------------------
 if status is-interactive
     # Auto-ls command on directory change
-    function _autols_hook --description "Auto ls" --on-event fish_prompt
+    function autols_hook --description "Auto ls" --on-event fish_prompt
         if test "$_autols_last" != "$PWD"
-            echo
             eza --classify --grid --all --icons --group-directories-first
+            echo
         end
         set -g _autols_last "$PWD"
+    end
+
+    function newline_before_prompt --description "Print a newline before displaying the prompt" --on-event fish_postexec
+        echo
     end
 
     fish_user_key_bindings
