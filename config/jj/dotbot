@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+hascommand jj || exit 128
+
+[[ ! -d ~/.config/jj ]] && mkdir -p ~/.config/jj
+symlinkfb "$PWD/config.toml" ~/.config/jj/config.toml

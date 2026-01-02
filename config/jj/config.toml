@@ -1,0 +1,13 @@
+#:schema https://jj-vcs.github.io/jj/latest/config-schema.json
+
+[signing]
+behavior = "own"
+backend = "ssh"
+key = "~/.ssh/id_ed25519_github.pub"
+
+[ui]
+default-command = "status"
+
+[user]
+name = "Aiko Wessels"
+email = "aiko.wessels@gmail.com"
