@@ -1,67 +1,91 @@
 local H = {}
 
-function H.julia_command(meta)
-  local buf = vim.api.nvim_buf_get_name(meta.current_bufnr)
+function H.open_repl(opts, win_opts)
+  win_opts = win_opts or {}
+  if not win_opts.direction then win_opts.direction = "vertical" end
 
-  -- Check to see if the JULIA_PROJECT environment variable is set.
-  local project = os.getenv("JUlIA_PROJECT")
-  if project == "" then project = nil end
+  local buf = vim.api.nvim_get_current_buf()
+  local win = vim.api.nvim_get_current_win()
 
-  if project == nil then
-    project = vim.fs.root(buf, "Project.toml")
-  end
-
-  local startup = [[
-    try
-      using Revise
-    catch e
-      @warn "Error initializing Revise" exception=(e, catch_backtrace())
-    end
-  ]]
-
-  if project then
-    vim.notify("julia project: " .. project)
-    return { "julia", '--interactive', "--project=" .. project, "--eval", startup }
+  local cmd = opts.cmd
+  if type(cmd) == "function" then cmd = cmd({ buf = buf }) end
+  if win_opts.direction == "vertical" then
+    vim.cmd.vsplit()
   else
-    vim.notify("julia project: default")
-    return { "julia", "--interactive", "--eval", startup }
+    vim.cmd.split()
   end
+  vim.cmd.term({ args = cmd })
+
+  local term = vim.api.nvim_get_current_buf()
+  local job = vim.bo[term].channel
+  local pid = vim.fn.jobpid(job)
+
+  vim.b[buf].slime_config = { jobid = job, pid = pid }
+
+  vim.api.nvim_set_current_win(win)
+
+  if opts.after_init then opts.after_init({ buf = buf, term = term }) end
 end
 
+function H.open_repl_rhs(lang)
+  return function() H.open_repl(H.languages[lang]) end
+end
+
+H.languages = {
+  ipython = {
+    cmd = "python",
+  },
+  python = {
+    cmd = "ipython",
+  },
+  julia = {
+    cmd = function(opts)
+      -- Check to see if the JULIA_PROJECT environment variable is set.
+      local project = os.getenv("JUlIA_PROJECT")
+      if project == "" then project = nil end
+      if project == nil then project = vim.fs.root(opts.buf, "Project.toml") end
+
+      if project then
+        vim.notify("julia project: " .. project)
+        return { "julia", "--interactive", "--project=" .. project }
+      else
+        vim.notify("julia project: default")
+        return { "julia", "--interactive" }
+      end
+    end,
+    after_init = function()
+      local startup = [[
+try
+  using Revise
+catch e
+  @warn "Error initializing Revise" exception=(e, catch_backtrace())
+end
+]]
+      vim.fn["slime#send"](startup)
+    end,
+  },
+}
+
 MiniDeps.later(function()
-  MiniDeps.add({ source = "Vigemus/iron.nvim" })
+  vim.g.slime_no_mappings = true
+  MiniDeps.add({ source = "jpalardy/vim-slime" })
+  vim.g.slime_target = "neovim"
+  vim.g.slime_suggest_default = true
+  vim.g.slime_menu_config = true
+  vim.g.slime_neovim_ignore_unlisted = false
 
-  local view = require("iron.view")
-  require("iron.core").setup({
-    config = {
-      scratch_repl = true,
-      repl_open_cmd = view.split.botright("40%"),
-      repl_definition = {
-        julia = { command = H.julia_command },
-        nu = { command = { "nu" } },
-        bash = { command = { "bash" } },
-      },
-      buflisted = true,
-    },
-    keymaps = {
-      send_motion = "<space>kk",
-      visual_send = "<space>kk",
-      send_file = "<space>kf",                -- (f)ile
-      send_line = "<space>kl",                -- (l)ine
-      send_code_block = "<space>kb",          -- (b)lock
-      send_code_block_and_move = "<space>kn", -- (n)ext block
-      send_mark = "<space>ks",                -- (s)end mark
-      send_until_cursor = "<space>ku",        -- (u)ntil cursor
-      mark_motion = "<space>km",              -- (m)ark
-      mark_visual = "<space>km",              -- (m)ark
-      remove_mark = "<space>kc",              -- (c)lear mark
-      cr = "<space>k<enter>",
-      interrupt = "<space>kI",                -- (I)nterrupt
-      exit = "<space>kq",                     -- (q)uit)
-      clear = "<space>kr",                    -- (C)lear
-    },
-    ignore_blank_lines = true,                -- ignore blank lines when sending visual select lines
-  })
+  vim.keymap.set("x", "<leader>k", "<Plug>SlimeRegionSend", { desc = "slime send region" })
+  vim.keymap.set("n", "<leader>k", "<Plug>SlimeMotionSend", { desc = "slime send motion" })
+  vim.keymap.set("n", "<leader>kl", "<Plug>SlimeLineSend", { desc = "slime send line" })
+  vim.keymap.set("n", "<leader>kc", "<Plug>SlimeSendCell", { desc = "slime send cell" })
+  vim.keymap.set("n", "<leader>kC", "<Plug>SlimeConfig", { desc = "slime config" })
 
-  vim.keymap.set("n", "<leader>ko", "<cmd>IronRepl<CR>", { desc = "iron_repl_open" })
+  vim.keymap.set("n", "<leader>krj", H.open_repl_rhs("julia"), { desc = "slime open repl julia" })
+  vim.keymap.set(
+    "n",
+    "<leader>kri",
+    H.open_repl_rhs("ipython"),
+    { desc = "slime open repl ipython" }
+  )
+  vim.keymap.set("n", "<leader>krp", H.open_repl_rhs("python"), { desc = "slime open repl python" })
 end)
