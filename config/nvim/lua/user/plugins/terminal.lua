@@ -66,19 +66,56 @@ end
   },
 }
 
-MiniDeps.later(function()
-  vim.g.slime_no_mappings = true
-  MiniDeps.add({ source = "jpalardy/vim-slime" })
-  vim.g.slime_target = "neovim"
-  vim.g.slime_suggest_default = true
-  vim.g.slime_menu_config = true
-  vim.g.slime_neovim_ignore_unlisted = false
+function fix_neovim_target()
+  -- Redefine neovim-specific sending, to fix the bug that some terminal programs don't receive
+  -- a final newline
+  vim.cmd.runtime({ "autoload/slime/targets/neovim.vim" })
+  vim.cmd([[
+    function! slime#targets#neovim#send(config, text) abort
+      let [bracketed_paste, text_to_paste, has_crlf] = slime#common#bracketed_paste(a:text)
+      let job_id = str2nr(a:config["jobid"])
+      if bracketed_paste
+        call chansend(job_id, "\e[200~")
+        call chansend(job_id, text_to_paste)
+        call chansend(job_id, "\e[201~")
+        if has_crlf
+          call chansend(job_id, "\r")
+        end
+      else
+        call chansend(job_id, split(a:text, "\r", 1))
+      end
+    endfunction
+  ]])
+end
 
+MiniDeps.later(function()
+  -- Need to be set before slime is loaded
+  vim.g.slime_target = "neovim"
+  vim.g.slime_no_mappings = true
+
+  MiniDeps.add({ source = "jpalardy/vim-slime" })
+
+  fix_neovim_target()
+
+  vim.g.slime_bracketed_paste = true
+
+  -- Neovim terminal configuration settings
+  vim.g.slime_suggest_default = false
+  vim.g.slime_menu_config = true
+  vim.g.slime_neovim_ignore_unlisted = true
+
+  -- Mappings
   vim.keymap.set("x", "<leader>k", "<Plug>SlimeRegionSend", { desc = "slime send region" })
   vim.keymap.set("n", "<leader>k", "<Plug>SlimeMotionSend", { desc = "slime send motion" })
   vim.keymap.set("n", "<leader>kl", "<Plug>SlimeLineSend", { desc = "slime send line" })
   vim.keymap.set("n", "<leader>kc", "<Plug>SlimeSendCell", { desc = "slime send cell" })
   vim.keymap.set("n", "<leader>kC", "<Plug>SlimeConfig", { desc = "slime config" })
+  vim.keymap.set(
+    "n",
+    "<leader>k<cr>",
+    function() vim.fn["slime#send"]("\n") end,
+    { desc = "slime new line" }
+  )
 
   vim.keymap.set("n", "<leader>krj", H.open_repl_rhs("julia"), { desc = "slime open repl julia" })
   vim.keymap.set(
