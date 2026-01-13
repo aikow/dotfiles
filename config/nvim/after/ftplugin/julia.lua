@@ -8,5 +8,5 @@ vim.keymap.set("n", "<leader>kI", function()
     )
   end
 
-  vim.fn["slime#send"](string.format('includet("%s")', relpath))
+  vim.fn["slime#send"](string.format('includet("%s")\n', relpath))
 end, { desc = "slime include current file" })

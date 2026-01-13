@@ -1,6 +1,9 @@
 vim.wo.conceallevel = 0
 
 -- Markdown previewer
-vim.keymap.set("n", "<localleader>r", "<cmd>MarkdownPreview<CR>", { buffer = true })
-vim.keymap.set("n", "<localleader>s", "<cmd>MarkdownPreviewStop<CR>", { buffer = true })
-vim.keymap.set("n", "<localleader>t", "<cmd>MarkdownPreviewToggle<CR>", { buffer = true })
+vim.keymap.set(
+  "n",
+  "<localleader>v",
+  "<cmd>Markview toggle<CR>",
+  { desc = "markview toggle", buffer = true }
+)
