@@ -1,4 +1,4 @@
-vim.keymap.set("n", "<leader>ki", function()
+vim.keymap.set("n", "<leader>kI", function()
   local bufname = vim.api.nvim_buf_get_name(0)
   local relpath = vim.fs.relpath(vim.uv.cwd(), bufname)
   if not relpath then
@@ -8,5 +8,5 @@ vim.keymap.set("n", "<leader>ki", function()
     )
   end
 
-  require("iron.core").send("julia", string.format('includet("%s")', relpath))
-end, { desc = "iron include current file" })
+  vim.fn["slime#send"](string.format('includet("%s")', relpath))
+end, { desc = "slime include current file" })
