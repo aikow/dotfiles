@@ -2,7 +2,7 @@ local autocmd = vim.api.nvim_create_autocmd
 local augroup = vim.api.nvim_create_augroup
 
 -- Prevent accidental writes to buffers that shouldn't be edited
-local unmodifiable_group = augroup("Unmodifiable files", {})
+local unmodifiable_group = augroup("UnmodifiableFiles", {})
 local function make_unmodifiable() vim.bo.readonly = true end
 autocmd("FileType", {
   group = unmodifiable_group,
@@ -33,7 +33,7 @@ autocmd({ "FileType" }, {
 
 -- Set settings for built-in terminal
 autocmd("TermOpen", {
-  group = augroup("Terminal settings", {}),
+  group = augroup("TerminalOptions", {}),
   callback = function(params)
     vim.wo.wrap = true -- With wrap disabled, you can scroll sideways, which is disconcerting
 
@@ -43,7 +43,7 @@ autocmd("TermOpen", {
 
 -- Automatically trust 'exrc' files that are created and edited using nvim
 autocmd("BufWritePost", {
-  group = augroup("Auto-trust exrc files", {}),
+  group = augroup("AutotrustExrc", {}),
   pattern = { ".nvim.lua", ".nvimrc", ".exrc" },
   callback = function(params) vim.secure.trust({ action = "allow", bufnr = params.buf }) end,
 })

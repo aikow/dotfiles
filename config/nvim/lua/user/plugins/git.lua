@@ -1,10 +1,14 @@
 -- Load immediately so that git mergetool can use the :Gvdiffsplit command.
-MiniDeps.now(function() MiniDeps.add({ source = "tpope/vim-fugitive" }) end)
+MiniDeps.now(function()
+  vim.pack.add({
+    { src = gh("tpope/vim-fugitive") },
+  })
+end)
 
 MiniDeps.later(function()
-  MiniDeps.add({
-    source = "sindrets/diffview.nvim",
-    depends = { "nvim-lua/plenary.nvim" },
+  vim.pack.add({
+    { src = gh("nvim-lua/plenary.nvim") },
+    { src = gh("sindrets/diffview.nvim") },
   })
 
   local actions = require("diffview.config").actions

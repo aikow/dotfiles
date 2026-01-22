@@ -19,6 +19,4 @@ vim.opt.runtimepath:append(vim.g.localrtp)
 vim.o.exrc = true
 
 -- Manually source the local config file if it exists.
-if vim.uv.fs_stat(vim.g.localrc) then
-  vim.cmd.source({ vim.g.localrc })
-end
+if vim.uv.fs_stat(vim.g.localrc) then vim.cmd.source({ vim.g.localrc }) end

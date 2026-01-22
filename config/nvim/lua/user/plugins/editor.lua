@@ -1,8 +1,20 @@
 MiniDeps.later(function()
+  vim.pack.add({
+    { src = gh("lukas-reineke/indent-blankline.nvim") },
+  })
+
+  require("ibl").setup({
+    indent = { char = "▏" },
+  })
+end)
+
+MiniDeps.later(function()
   vim.g.tmux_navigator_no_mappings = 1
   vim.g.tmux_navigator_disable_when_zoomed = 1
 
-  MiniDeps.add({ source = "christoomey/vim-tmux-navigator" })
+  vim.pack.add({
+    { src = gh("christoomey/vim-tmux-navigator") },
+  })
 
   -- stylua: ignore start
   vim.keymap.set("n", "<M-h>", "<cmd>TmuxNavigateLeft<CR>",     { desc = "tmux navigate left" })

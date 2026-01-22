@@ -1,5 +1,40 @@
 local H = {}
 
+MiniDeps.later(function()
+  -- Need to be set before slime is loaded
+  vim.g.slime_target = "neovim"
+  vim.g.slime_no_mappings = true
+
+  vim.pack.add({
+    { src = gh("jpalardy/vim-slime") },
+  })
+
+  H.fix_neovim_target()
+
+  vim.g.slime_bracketed_paste = true
+
+  -- Neovim terminal configuration settings
+  vim.g.slime_suggest_default = false
+  vim.g.slime_menu_config = true
+  vim.g.slime_neovim_ignore_unlisted = true
+
+  -- Mappings
+  -- stylua: ignore start
+  vim.keymap.set("x", "<leader>k", "<Plug>SlimeRegionSend", { desc = "slime send region" })
+  vim.keymap.set("n", "<leader>k", "<Plug>SlimeMotionSend", { desc = "slime send motion" })
+  vim.keymap.set("n", "<leader>kl", "<Plug>SlimeLineSend", { desc = "slime send line" })
+  vim.keymap.set("n", "<leader>kc", "<Plug>SlimeSendCell", { desc = "slime send cell" })
+  vim.keymap.set("n", "<leader>kC", "<Plug>SlimeConfig", { desc = "slime config" })
+  vim.keymap.set("n", "<leader>k<cr>", function() vim.fn["slime#send"]("\n") end, { desc = "slime new line" })
+
+  vim.keymap.set("n", "<leader>krj", H.open_repl_rhs("julia"), { desc = "slime open repl julia" })
+  vim.keymap.set("n", "<leader>kri", H.open_repl_rhs("ipython"), { desc = "slime open repl ipython" })
+  vim.keymap.set("n", "<leader>krp", H.open_repl_rhs("python"), { desc = "slime open repl python" })
+  -- stylua: ignore end
+end)
+
+--- Automatically open a repl in a split, and configure the current buffer so that its slime target
+--- is the newly opened repl. The active window/buffer will remain unchanged
 function H.open_repl(opts, win_opts)
   win_opts = win_opts or {}
   if not win_opts.direction then win_opts.direction = "vertical" end
@@ -22,6 +57,7 @@ function H.open_repl(opts, win_opts)
 
   vim.b[buf].slime_config = { jobid = job, pid = pid }
 
+  -- Set the previous window as the active window.
   vim.api.nvim_set_current_win(win)
 
   if opts.after_init then opts.after_init({ buf = buf, term = term }) end
@@ -43,8 +79,10 @@ H.languages = {
       -- Check to see if the JULIA_PROJECT environment variable is set.
       local project = os.getenv("JUlIA_PROJECT")
       if project == "" then project = nil end
+      -- Fallback to checking if a Project.toml file exists in a parent directory.
       if project == nil then project = vim.fs.root(opts.buf, "Project.toml") end
 
+      -- If a project was found, activate it.
       if project then
         vim.notify("julia project: " .. project)
         return { "julia", "--interactive", "--project=" .. project }
@@ -54,21 +92,17 @@ H.languages = {
       end
     end,
     after_init = function()
-      local startup = [[
-try
-  using Revise
-catch e
-  @warn "Error initializing Revise" exception=(e, catch_backtrace())
-end
-]]
+      -- Automatically try to load revise
+      local startup =
+        [[try using Revise catch e @warn "Error initializing Revise" exception=(e, catch_backtrace()) end]]
       vim.fn["slime#send"](startup)
     end,
   },
 }
 
-function fix_neovim_target()
-  -- Redefine neovim-specific sending, to fix the bug that some terminal programs don't receive
-  -- a final newline
+--- Redefine neovim-specific sending, to fix the bug that some terminal programs don't receive
+--- a final newline
+function H.fix_neovim_target()
   vim.cmd.runtime({ "autoload/slime/targets/neovim.vim" })
   vim.cmd([[
     function! slime#targets#neovim#send(config, text) abort
@@ -87,42 +121,3 @@ function fix_neovim_target()
     endfunction
   ]])
 end
-
-MiniDeps.later(function()
-  -- Need to be set before slime is loaded
-  vim.g.slime_target = "neovim"
-  vim.g.slime_no_mappings = true
-
-  MiniDeps.add({ source = "jpalardy/vim-slime" })
-
-  fix_neovim_target()
-
-  vim.g.slime_bracketed_paste = true
-
-  -- Neovim terminal configuration settings
-  vim.g.slime_suggest_default = false
-  vim.g.slime_menu_config = true
-  vim.g.slime_neovim_ignore_unlisted = true
-
-  -- Mappings
-  vim.keymap.set("x", "<leader>k", "<Plug>SlimeRegionSend", { desc = "slime send region" })
-  vim.keymap.set("n", "<leader>k", "<Plug>SlimeMotionSend", { desc = "slime send motion" })
-  vim.keymap.set("n", "<leader>kl", "<Plug>SlimeLineSend", { desc = "slime send line" })
-  vim.keymap.set("n", "<leader>kc", "<Plug>SlimeSendCell", { desc = "slime send cell" })
-  vim.keymap.set("n", "<leader>kC", "<Plug>SlimeConfig", { desc = "slime config" })
-  vim.keymap.set(
-    "n",
-    "<leader>k<cr>",
-    function() vim.fn["slime#send"]("\n") end,
-    { desc = "slime new line" }
-  )
-
-  vim.keymap.set("n", "<leader>krj", H.open_repl_rhs("julia"), { desc = "slime open repl julia" })
-  vim.keymap.set(
-    "n",
-    "<leader>kri",
-    H.open_repl_rhs("ipython"),
-    { desc = "slime open repl ipython" }
-  )
-  vim.keymap.set("n", "<leader>krp", H.open_repl_rhs("python"), { desc = "slime open repl python" })
-end)

@@ -25,7 +25,6 @@ o.mouse = "a"
 
 -- Remove default mouse menu options
 vim.api.nvim_create_autocmd("VimEnter", {
-  group = vim.api.nvim_create_augroup("remove mouse", {}),
   once = true,
   callback = function()
     vim.cmd.aunmenu({ "PopUp.How-to\\ disable\\ mouse" })

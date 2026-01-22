@@ -1,18 +1,24 @@
 local H = {}
 
 MiniDeps.now(function()
-  -- Provide adapter and helper functions for setting up language servers.
-  MiniDeps.add({
-    source = "neovim/nvim-lspconfig",
-    depends = {
-      "mason-org/mason.nvim",
-      "mason-org/mason-lspconfig.nvim",
-      "folke/lazydev.nvim",
-      "b0o/SchemaStore.nvim",
-    },
-    hooks = { post_checkout = function() vim.cmd.MasonUpdate() end },
+  -- Automatically update mason registries when updating mason
+  vim.api.nvim_create_autocmd("PackChanged", {
+    callback = function(ev)
+      local name = ev.data.spec.name
+      if name == "mason.nvim" then
+        vim.notify("[mason] updating registries", vim.log.levels.INFO)
+        vim.cmd.MasonUpdate()
+      end
+    end,
   })
-  require("lazydev").setup()
+
+  -- Provide adapter and helper functions for setting up language servers.
+  vim.pack.add({
+    { src = gh("neovim/nvim-lspconfig") },
+    { src = gh("mason-org/mason.nvim") },
+    { src = gh("mason-org/mason-lspconfig.nvim") },
+    { src = gh("b0o/SchemaStore.nvim") },
+  })
   require("mason").setup()
   require("mason-lspconfig").setup({
     automatic_enable = true,
@@ -29,6 +35,7 @@ MiniDeps.now(function()
     virtual_text = true,
     float = {
       suffix = function(diagnostic)
+        ---@diagnostic disable-next-line: missing-return
         if diagnostic.source then return " [" .. diagnostic.source .. "]", "Comment" end
       end,
     },
@@ -36,6 +43,7 @@ MiniDeps.now(function()
 
   -- Setup keymaps when an LSP server is attach.
   vim.api.nvim_create_autocmd("LspAttach", {
+    group = vim.api.nvim_create_augroup("LspSetupKeymaps", {}),
     callback = function(params)
       local client = vim.lsp.get_client_by_id(params.data.client_id)
       if client then H.on_attach(client, params.buf) end

@@ -4,5 +4,5 @@ lint:
 
 format:
   fd -elua -X stylua
-  ts_query_ls format --mode=write after/queries
+  ts_query_ls format after/queries
   for file in spell/*.add; do sort -f -o "${file}" "${file}"; done

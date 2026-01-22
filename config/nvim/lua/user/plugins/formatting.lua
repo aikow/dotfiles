@@ -1,9 +1,8 @@
 local H = {}
 
 MiniDeps.later(function()
-  MiniDeps.add({
-    source = "stevearc/conform.nvim",
-    depends = { "mason-org/mason.nvim" },
+  vim.pack.add({
+    { src = gh("stevearc/conform.nvim") },
   })
 
   require("conform").setup({

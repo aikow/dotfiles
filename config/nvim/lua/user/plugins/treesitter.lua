@@ -1,15 +1,23 @@
 local H = {}
 
 MiniDeps.later(function()
-  MiniDeps.add({
-    source = "nvim-treesitter/nvim-treesitter",
-    checkout = "main",
-    monitor = "main",
-    hooks = { post_checkout = function() vim.cmd.TSUpdate() end },
+  vim.api.nvim_create_autocmd("PackChanged", {
+    callback = function(ev)
+      local name = ev.data.spec.name
+      if name == "nvim-treesitter/nvim-treesitter" then
+        vim.notify("[treesitter] Update parsers", vim.log.levels.INFO)
+        vim.cmd.TSUpdate()
+      end
+    end,
+  })
+
+  vim.pack.add({
+    { src = gh("nvim-treesitter/nvim-treesitter"), version = "main" },
+    { src = gh("nvim-treesitter/nvim-treesitter-textobjects"), version = "main" },
+    { src = gh("nvim-treesitter/nvim-treesitter-context") },
   })
 
   vim.api.nvim_create_autocmd("FileType", {
-    desc = "User: enable treesitter highlighting",
     callback = function(params)
       local hasStarted = pcall(vim.treesitter.start)
 
@@ -29,31 +37,30 @@ MiniDeps.later(function()
     local parsers = require("nvim-treesitter").get_available()
     require("nvim-treesitter").install(parsers)
   end, { desc = "TS install all parsers" })
-end)
 
-MiniDeps.later(function()
-  MiniDeps.add({
-    source = "nvim-treesitter/nvim-treesitter-textobjects",
-    checkout = "main",
-    monitor = "main",
-  })
+  -- ------------------------------------------------------------------------
+  -- | Textobjects
+  -- ------------------------------------------------------------------------
 
-  vim.keymap.set({ "n", "x", "o" }, "]]", H.goto_next_start("@class.outer"))
-  vim.keymap.set({ "n", "x", "o" }, "][", H.goto_next_end("@class.outer"))
-  vim.keymap.set({ "n", "x", "o" }, "[[", H.goto_prev_start("@class.outer"))
-  vim.keymap.set({ "n", "x", "o" }, "[]", H.goto_prev_end("@class.outer"))
+  -- stylua: ignore start
+  vim.keymap.set({"n", "x", "o"}, "]]", H.goto_next_start("@class.outer"),    {desc="next class"    })
+  vim.keymap.set({"n", "x", "o"}, "][", H.goto_next_end("@class.outer"),      {desc="next class end"})
+  vim.keymap.set({"n", "x", "o"}, "[[", H.goto_prev_start("@class.outer"),    {desc="prev class"    })
+  vim.keymap.set({"n", "x", "o"}, "[]", H.goto_prev_end("@class.outer"),      {desc="prev class end"})
 
-  vim.keymap.set({ "n", "x", "o" }, "]m", H.goto_next_start("@function.outer"))
-  vim.keymap.set({ "n", "x", "o" }, "]M", H.goto_next_end("@function.outer"))
-  vim.keymap.set({ "n", "x", "o" }, "[m", H.goto_prev_start("@function.outer"))
-  vim.keymap.set({ "n", "x", "o" }, "[M", H.goto_prev_end("@function.outer"))
+  vim.keymap.set({"n", "x", "o"}, "]m", H.goto_next_start("@function.outer"), {desc="next function"    })
+  vim.keymap.set({"n", "x", "o"}, "]M", H.goto_next_end("@function.outer"),   {desc="next function end"})
+  vim.keymap.set({"n", "x", "o"}, "[m", H.goto_prev_start("@function.outer"), {desc="prev function"    })
+  vim.keymap.set({"n", "x", "o"}, "[M", H.goto_prev_end("@function.outer"),   {desc="prev function end"})
 
-  vim.keymap.set("n", "]p", H.swap_next("@parameter.inner"))
-  vim.keymap.set("n", "[p", H.swap_prev("@parameter.outer"))
-end)
+  vim.keymap.set("n",             "]p", H.swap_next("@parameter.inner"),      {desc="swap parameter forward" })
+  vim.keymap.set("n",             "[p", H.swap_prev("@parameter.inner"),      {desc="swap parameter backward"})
+  -- stylua: ignore end
 
-MiniDeps.later(function()
-  MiniDeps.add({ source = "nvim-treesitter/nvim-treesitter-context" })
+  -- ------------------------------------------------------------------------
+  -- | Context
+  -- ------------------------------------------------------------------------
+
   require("treesitter-context").setup({
     enable = true,
     max_lines = 8,
@@ -78,19 +85,19 @@ end
 
 function H.goto_next_end(capname, group)
   return function()
-    require("nvim-treesitter-textobjects.move").goto_next_start(capname, group or "textobjects")
+    require("nvim-treesitter-textobjects.move").goto_next_end(capname, group or "textobjects")
   end
 end
 
 function H.goto_prev_start(capname, group)
   return function()
-    require("nvim-treesitter-textobjects.move").goto_next_start(capname, group or "textobjects")
+    require("nvim-treesitter-textobjects.move").goto_previous_start(capname, group or "textobjects")
   end
 end
 
 function H.goto_prev_end(capname, group)
   return function()
-    require("nvim-treesitter-textobjects.move").goto_next_start(capname, group or "textobjects")
+    require("nvim-treesitter-textobjects.move").goto_previous_end(capname, group or "textobjects")
   end
 end
 

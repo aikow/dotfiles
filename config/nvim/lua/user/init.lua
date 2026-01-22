@@ -1,34 +1,12 @@
 local M = {}
 
-M.package_path = vim.fn.stdpath("data") .. "/site/"
-M.mini_path = M.package_path .. "/pack/deps/start/mini.nvim"
-
-function M.bootstrap_mini()
-  if not vim.uv.fs_stat(M.mini_path) then
-    vim
-      .system({
-        "git",
-        "clone",
-        "--filter=blob:none",
-        "https://github.com/nvim-mini/mini.nvim",
-        M.mini_path,
-      }, {})
-      :wait()
-
-    vim.cmd.packadd({ "mini.nvim" })
-    pcall(vim.cmd.helptags, { "ALL" })
-  end
-end
-
 function M.setup_plugins()
-  local ok_minideps, minideps = pcall(require, "mini.deps")
-  if not ok_minideps then return end
-
-  minideps.setup({
-    path = {
-      package = M.package_path,
-    },
+  vim.pack.add({
+    { src = gh("nvim-mini/mini.nvim") },
   })
+
+  -- Init mini.deps so that we can use the later() and now() helpers
+  require("mini.deps").setup()
 
   -- Automatically load all lua files in the plugin dir
   local plugin_dir = vim.fn.stdpath("config") .. "/lua/user/plugins"
@@ -39,7 +17,8 @@ function M.setup_plugins()
 end
 
 function M.setup()
-  M.bootstrap_mini()
+  require("user.globals")
+
   M.setup_plugins()
 end
 

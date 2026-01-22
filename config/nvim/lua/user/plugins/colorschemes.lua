@@ -1,5 +1,12 @@
 MiniDeps.now(function()
-  MiniDeps.add({ source = "aikow/base.nvim" })
+  vim.pack.add({
+    { src = gh("aikow/base.nvim") },
+    { src = gh("ribru17/bamboo.nvim") },
+    { src = gh("catppuccin/nvim"), name = "catppuccin.nvim" },
+    { src = gh("rebelot/kanagawa.nvim") },
+    { src = gh("EdenEast/nightfox.nvim") },
+    { src = gh("rose-pine/neovim"), name = "rose-pine" },
+  })
 
   require("base").setup({
     integrations = {
@@ -16,14 +23,6 @@ MiniDeps.now(function()
       "plugin.treesitter",
     },
   })
-end)
-
-MiniDeps.now(function()
-  MiniDeps.add({ source = "ribru17/bamboo.nvim" })
-  MiniDeps.add({ source = "catppuccin/nvim", name = "catppuccin.nvim" })
-  MiniDeps.add({ source = "rebelot/kanagawa.nvim" })
-  MiniDeps.add({ source = "EdenEast/nightfox.nvim" })
-  MiniDeps.add({ source = "rose-pine/neovim", name = "rose-pine" })
 
   require("catppuccin").setup({
     integrations = {

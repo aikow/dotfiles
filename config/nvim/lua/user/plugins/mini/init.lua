@@ -1,12 +1,8 @@
 MiniDeps.now(
   function()
-    MiniDeps.add({
-      source = "nvim-mini/mini.nvim",
-      depends = {
-        "rafamadriz/friendly-snippets",
-        "nvim-treesitter/nvim-treesitter",
-        "nvim-treesitter/nvim-treesitter-textobjects",
-      },
+    vim.pack.add({
+      { src = gh("nvim-mini/mini.nvim") },
+      { src = gh("rafamadriz/friendly-snippets") },
     })
   end
 )

@@ -11,7 +11,6 @@ vim.g.pyindent_open_paren = vim.bo.shiftwidth
 -- Automatically make the current string an f-string when typing `{`.
 vim.api.nvim_create_autocmd("InsertCharPre", {
   pattern = { "*.py" },
-  group = vim.api.nvim_create_augroup("py-fstring", { clear = true }),
   callback = function(params)
     if vim.v.char ~= "{" then return end
 
