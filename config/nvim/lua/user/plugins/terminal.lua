@@ -94,7 +94,7 @@ H.languages = {
     after_init = function()
       -- Automatically try to load revise
       local startup =
-        [[try using Revise catch e @warn "Error initializing Revise" exception=(e, catch_backtrace()) end]]
+        'try using Revise catch e @warn "Error initializing Revise" exception=(e, catch_backtrace()) end\n'
       vim.fn["slime#send"](startup)
     end,
   },
