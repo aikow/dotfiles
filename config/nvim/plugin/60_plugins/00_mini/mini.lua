@@ -1,12 +1,3 @@
-MiniDeps.now(
-  function()
-    vim.pack.add({
-      { src = gh("nvim-mini/mini.nvim") },
-      { src = gh("rafamadriz/friendly-snippets") },
-    })
-  end
-)
-
 -- ------------------------------------------------------------------------
 -- | mini.icons
 -- ------------------------------------------------------------------------
@@ -37,20 +28,6 @@ MiniDeps.now(function()
 end)
 
 -- ------------------------------------------------------------------------
--- | mini.starter
--- ------------------------------------------------------------------------
-MiniDeps.now(function() require("user.plugins.mini.starter") end)
-
--- ------------------------------------------------------------------------
--- | mini.files
--- ------------------------------------------------------------------------
-MiniDeps.now(function()
-  -- Load mini.files immediately to handle opening the case when nvim is passed a path to a directory
-  -- instead of a file.
-  require("user.plugins.mini.files")
-end)
-
--- ------------------------------------------------------------------------
 -- | mini.statusline
 -- ------------------------------------------------------------------------
 MiniDeps.now(function()
@@ -65,11 +42,6 @@ end)
 -- ------------------------------------------------------------------------
 -- | Later
 -- ------------------------------------------------------------------------
-
-MiniDeps.later(function() require("user.plugins.mini.clue") end)
-MiniDeps.later(function() require("user.plugins.mini.git") end)
-MiniDeps.later(function() require("user.plugins.mini.pick") end)
-MiniDeps.later(function() require("user.plugins.mini.visits") end)
 
 MiniDeps.later(function() require("mini.align").setup({}) end)
 MiniDeps.later(function() require("mini.cmdline").setup({}) end)
@@ -157,6 +129,18 @@ MiniDeps.later(function()
 end)
 
 MiniDeps.later(function()
+  local minigit = require("mini.git")
+  minigit.setup({})
+
+  -- Keymaps
+  -- stylua: ignore start
+  vim.keymap.set({"n", "x"}, "<leader>gk", minigit.show_at_cursor,     { desc = "mini.git show object at cursor" })
+  vim.keymap.set("n",        "<leader>gd", minigit.show_diff_source,   { desc = "mini.git show diff source at cursor position" })
+  vim.keymap.set({"n", "x"}, "<leader>gl", minigit.show_range_history, { desc = "mini.git show history of visual selection" })
+  -- stylua: ignore end
+end)
+
+MiniDeps.later(function()
   -- ------------------------------------------------------------------------
   -- | mini.hipatterns
   -- ------------------------------------------------------------------------
@@ -200,6 +184,10 @@ MiniDeps.later(
 -- | mini.snippets
 -- ------------------------------------------------------------------------
 MiniDeps.later(function()
+  vim.pack.add({
+    { src = gh("rafamadriz/friendly-snippets") },
+  })
+
   local minisnippets = require("mini.snippets")
   minisnippets.setup({
     snippets = {

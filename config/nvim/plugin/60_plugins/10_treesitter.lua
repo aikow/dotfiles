@@ -1,6 +1,6 @@
 local H = {}
 
-MiniDeps.later(function()
+MiniDeps.now(function()
   vim.api.nvim_create_autocmd("PackChanged", {
     callback = function(ev)
       local name = ev.data.spec.name
@@ -37,10 +37,12 @@ MiniDeps.later(function()
     local parsers = require("nvim-treesitter").get_available()
     require("nvim-treesitter").install(parsers)
   end, { desc = "TS install all parsers" })
+end)
 
-  -- ------------------------------------------------------------------------
-  -- | Textobjects
-  -- ------------------------------------------------------------------------
+-- ------------------------------------------------------------------------
+-- | Textobjects
+-- ------------------------------------------------------------------------
+MiniDeps.later(function()
 
   -- stylua: ignore start
   vim.keymap.set({"n", "x", "o"}, "]]", H.goto_next_start("@class.outer"),    {desc="next class"    })
@@ -56,18 +58,21 @@ MiniDeps.later(function()
   vim.keymap.set("n",             "]p", H.swap_next("@parameter.inner"),      {desc="swap parameter forward" })
   vim.keymap.set("n",             "[p", H.swap_prev("@parameter.inner"),      {desc="swap parameter backward"})
   -- stylua: ignore end
-
-  -- ------------------------------------------------------------------------
-  -- | Context
-  -- ------------------------------------------------------------------------
-
-  require("treesitter-context").setup({
-    enable = true,
-    max_lines = 8,
-    multiline_threshold = 1,
-    trim_scope = "inner",
-  })
 end)
+
+-- ------------------------------------------------------------------------
+-- | Context
+-- ------------------------------------------------------------------------
+MiniDeps.later(
+  function()
+    require("treesitter-context").setup({
+      enable = true,
+      max_lines = 8,
+      multiline_threshold = 1,
+      trim_scope = "inner",
+    })
+  end
+)
 
 -- ------------------------------------------------------------------------
 -- | Helpers

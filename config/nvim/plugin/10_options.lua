@@ -79,7 +79,6 @@ o.shortmess = o.shortmess .. "WcCI"
 
 -- Use treesitter for folding
 o.foldmethod = "expr"
--- o.foldexpr = "v:lua.require'user.util'.foldexpr()"
 o.foldexpr = "v:lua.vim.treesitter.foldexpr()"
 o.foldtext = ""
 o.foldlevel = 99 -- Nothing is folded by default

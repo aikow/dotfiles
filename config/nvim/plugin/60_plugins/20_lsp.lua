@@ -115,5 +115,29 @@ function H.typehierarchy(direction)
 end
 
 function H.document_symbols(winid)
-  return require("user.util.lsp").document_symbols(winid, { "Function", "Method", "Class" })
+  return H.document_symbols_kinds(winid, { "Function", "Method", "Class" })
+end
+
+---Show the document symbols of the buffer displayed in window with winid in the location list after
+---applying a filer.
+---@param winid integer Window ID.
+---@param kinds string[] List of symbol kinds to display.
+function H.document_symbols_kinds(winid, kinds)
+  return function()
+    vim.lsp.buf.document_symbol({
+      on_list = function(options)
+        options.items = vim
+          .iter(options.items)
+          :filter(function(o)
+            -- Need to remove any LSP-Kind icons from the kind string.
+            local kind = string.gsub(o.kind, "%W", "")
+            return vim.tbl_contains(kinds, kind)
+          end)
+          :totable()
+        ---@diagnostic disable-next-line: param-type-mismatch
+        vim.fn.setloclist(winid, {}, " ", options)
+        vim.api.nvim_win_call(winid, vim.cmd.lopen)
+      end,
+    })
+  end
 end

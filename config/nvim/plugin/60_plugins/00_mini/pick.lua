@@ -1,49 +1,46 @@
-local minipick = require("mini.pick")
-minipick.setup({ options = { use_cache = true } })
+MiniDeps.later(function()
+  local minipick = require("mini.pick")
+  minipick.setup({ options = { use_cache = true } })
 
--- -----------------
--- |   MiniExtra   |
--- -----------------
-local miniextra = require("mini.extra")
-miniextra.setup({})
+  -- -----------------
+  -- |   MiniExtra   |
+  -- -----------------
+  local miniextra = require("mini.extra")
+  miniextra.setup({})
 
--- ----------------------
--- |   Custom Pickers   |
--- ----------------------
-local extra = miniextra.pickers
-local builtin = minipick.builtin
+  -- ----------------------
+  -- |   Custom Pickers   |
+  -- ----------------------
+  local extra = miniextra.pickers
+  local builtin = minipick.builtin
 
-local command_history = function() extra.history({ scope = ":" }) end
-local cur_buf_lines = function() extra.buf_lines({ scope = "current" }) end
-local git_buf_commits = function() extra.git_commits({ path = vim.fn.expand("%") }) end
-local git_status = function() builtin.cli({ command = { "git", "diff", "--name-only" } }) end
-local grep_curword = function() builtin.grep({ pattern = vim.fn.expand("<cword>") }) end
-local loclist = function() extra.list({ scope = "location" }) end
-local quickfix = function() extra.list({ scope = "quickfix" }) end
-local search_history = function() extra.history({ scope = "/" }) end
-local man_pages = function()
-  local manpage = builtin.cli({ command = { "apropos", "." } })
-  if manpage then vim.cmd.Man({ manpage:match("^(%S+)") }) end
-end
-local projects = function()
-  local workspace = os.getenv("WORKSPACE_HOME") or vim.fs.normalize("~/workspace")
-  builtin.cli({
-    command = { "lsgit", workspace },
-  }, {
-    source = {
-      choose = function(item)
-        builtin.files({}, {
-          source = { cwd = item },
-        })
-      end,
-    },
-  })
-end
-local todo_comments = function()
-  builtin.grep({
-    pattern = [[\b(?:TODO|NOTE|HACK|FIXME|PERF)\b]],
-  })
-end
+  local command_history = function() extra.history({ scope = ":" }) end
+  local cur_buf_lines = function() extra.buf_lines({ scope = "current" }) end
+  local git_buf_commits = function() extra.git_commits({ path = vim.fn.expand("%") }) end
+  local git_status = function() builtin.cli({ command = { "git", "diff", "--name-only" } }) end
+  local grep_curword = function() builtin.grep({ pattern = vim.fn.expand("<cword>") }) end
+  local loclist = function() extra.list({ scope = "location" }) end
+  local quickfix = function() extra.list({ scope = "quickfix" }) end
+  local search_history = function() extra.history({ scope = "/" }) end
+  local projects = function()
+    local workspace = os.getenv("WORKSPACE_HOME") or vim.fs.normalize("~/workspace")
+    builtin.cli({
+      command = { "lsgit", workspace },
+    }, {
+      source = {
+        choose = function(item)
+          builtin.files({}, {
+            source = { cwd = item },
+          })
+        end,
+      },
+    })
+  end
+  local todo_comments = function()
+    builtin.grep({
+      pattern = [[\b(?:TODO|NOTE|HACK|FIXME|PERF)\b]],
+    })
+  end
 
 -- ---------------
 -- |   Keymaps   |
@@ -85,8 +82,9 @@ vim.keymap.set("n", "<leader>hc", extra.colorschemes, { desc = "mini.pick colors
 vim.keymap.set("n", "<leader>hh", builtin.help,       { desc = "mini.pick help tags" })
 vim.keymap.set("n", "<leader>hk", extra.keymaps,      { desc = "mini.pick keymaps" })
 vim.keymap.set("n", "<leader>hl", loclist,            { desc = "mini.pick loclist" })
-vim.keymap.set("n", "<leader>hm", man_pages,          { desc = "mini.pick man pages" })
+vim.keymap.set("n", "<leader>hm", extra.manpages,     { desc = "mini.pick man pages" })
 vim.keymap.set("n", "<leader>ho", extra.options,      { desc = "mini.pick vim options" })
 vim.keymap.set("n", "<leader>hq", quickfix,           { desc = "mini.pick quickfix" })
 vim.keymap.set("n", "<leader>hr", extra.registers,    { desc = "mini.pick registers" })
 vim.keymap.set("n", "<leader>hs", extra.spellsuggest, { desc = "mini.pick spell suggest" })
+end)
