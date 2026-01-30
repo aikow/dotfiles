@@ -1,7 +1,7 @@
 {
   "plugins": {
     "SchemaStore.nvim": {
-      "rev": "9afa445602e6191917b4d32f1355e77b4525f905",
+      "rev": "6217ff926e951401ac32f572da04e93e8cd6129d",
       "src": "https://github.com/b0o/SchemaStore.nvim"
     },
     "bamboo.nvim": {
@@ -37,11 +37,11 @@
       "src": "https://github.com/rebelot/kanagawa.nvim"
     },
     "markview.nvim": {
-      "rev": "c81ce9ed129387fc5fdec91abe9818a1b0e6fcac",
+      "rev": "9e852c299351fc2110e763edc7fc899358ee112e",
       "src": "https://github.com/OXY2DEV/markview.nvim"
     },
     "mason-lspconfig.nvim": {
-      "rev": "3d89e7c92fbd96c5e10e0298fc2b006f21cf9428",
+      "rev": "c953789db7fd28eafe5eb5659846d34b5024b3cc",
       "src": "https://github.com/mason-org/mason-lspconfig.nvim"
     },
     "mason.nvim": {
@@ -49,7 +49,7 @@
       "src": "https://github.com/mason-org/mason.nvim"
     },
     "mini.nvim": {
-      "rev": "9b935c218ddba02e5dc75c94f90143bce1f7c646",
+      "rev": "f28cd08c8be826355d64080400fab1764c9693dd",
       "src": "https://github.com/nvim-mini/mini.nvim"
     },
     "nightfox.nvim": {
@@ -57,11 +57,11 @@
       "src": "https://github.com/EdenEast/nightfox.nvim"
     },
     "nvim-lspconfig": {
-      "rev": "238583bb00770b079c68c69a860d65e5d1d8acf9",
+      "rev": "3f58aeca0c6ece8a9fb8782ea3fcb6024f285be3",
       "src": "https://github.com/neovim/nvim-lspconfig"
     },
     "nvim-treesitter": {
-      "rev": "19c729dae6e0eeb79423df0cf37780aa9a7cc3b7",
+      "rev": "4967fa48b0fe7a7f92cee546c76bb4bb61bb14d5",
       "src": "https://github.com/nvim-treesitter/nvim-treesitter",
       "version": "'main'"
     },
@@ -75,7 +75,7 @@
       "version": "'main'"
     },
     "otter.nvim": {
-      "rev": "6b75433f2c3c77999f94de0daf2e629d3f727b80",
+      "rev": "8cf628c4d7531de3d8dd4e78f5ce6f9519d432b2",
       "src": "https://github.com/jmbuhr/otter.nvim"
     },
     "plenary.nvim": {

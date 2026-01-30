@@ -4,7 +4,20 @@ local H = {}
 -- | Helper Module
 -- ------------------------------------------------------------------------
 
-function H.open_buf() require("mini.files").open(require("user.util").buf_path_or_cwd(0)) end
+---Take a buffer as input and return the path, and won't fail for buffers like terminal buffers. If
+---the path doesn't exist yet, fall back to the current directory.
+---@param buf_id integer
+function H.buf_path_or_cwd(buf_id)
+  local buftype = vim.api.nvim_get_option_value("buftype", { buf = buf_id })
+  if buftype == "" then
+    local path = vim.api.nvim_buf_get_name(buf_id)
+    if vim.uv.fs_stat(path) then return path end
+  end
+
+  return vim.uv.cwd()
+end
+
+function H.open_buf() require("mini.files").open(H.buf_path_or_cwd(0)) end
 function H.open_root() require("mini.files").open() end
 function H.open_last() require("mini.files").open(require("mini.files").get_latest_path()) end
 

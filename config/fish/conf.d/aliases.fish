@@ -60,3 +60,11 @@ abbr druniv 'docker run --rm -it -v $(pwd):/mnt/local'
 # Run an interactive container with the current working directory mounted to
 # /mnt/local and set the container working dir to that directory.
 abbr drunip 'docker run --rm -it -v $(pwd):/mnt/local -w /mnt/local'
+
+# ------------------------------------------------------------------------
+# | JJ
+# ------------------------------------------------------------------------
+abbr jb jj bookmark
+abbr jc jj commit
+abbr jk jj status
+abbr jl jj log

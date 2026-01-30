@@ -1,4 +1,4 @@
-use ~/.config/nushell/themes
+use ~/.dotfiles/config/nushell/themes
 
 # History
 $env.config.history.file_format = "sqlite"
@@ -220,4 +220,4 @@ alias ll = ls -l
 alias lll = ls -la
 
 # Load custom completions
-use ~/.config/nushell/completions/git.nu
+use ~/.dotfiles/config/nushell/completions/git.nu
