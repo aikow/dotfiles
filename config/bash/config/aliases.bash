@@ -62,7 +62,7 @@ alias gw='git worktree'
 
 ## JJ
 
-alias gb='jj bookmark'
+alias jb='jj bookmark'
 alias jc='jj commit'
 alias jk='jj status'
 alias jl='jj log'
