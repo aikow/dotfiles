@@ -49,6 +49,8 @@ alias gmv='git mv'
 alias gp='git push'
 alias gr='git reset'
 alias grb='git rebase'
+alias grm='git rm'
+alias gro='git remote'
 alias grs='git restore'
 alias grv='git revert'
 alias gsa='git stash'
@@ -57,3 +59,9 @@ alias gst='git status'
 alias gsw='git switch'
 alias gt='git tag'
 alias gw='git worktree'
+
+## JJ
+
+alias jl='jj log'
+alias jc='jj commit'
+alias jk='jj status'
