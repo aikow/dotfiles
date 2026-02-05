@@ -2,6 +2,7 @@ local H = {}
 
 MiniDeps.now(function()
   vim.api.nvim_create_autocmd("PackChanged", {
+    group = vim.api.nvim_create_augroup("user.pack.nvim_treesitter.update", {}),
     callback = function(ev)
       local name = ev.data.spec.name
       if name == "nvim-treesitter/nvim-treesitter" then
@@ -18,6 +19,7 @@ MiniDeps.now(function()
   })
 
   vim.api.nvim_create_autocmd("FileType", {
+    group = vim.api.nvim_create_augroup("user.ft.treesitter_start", {}),
     callback = function(params)
       local hasStarted = pcall(vim.treesitter.start)
 

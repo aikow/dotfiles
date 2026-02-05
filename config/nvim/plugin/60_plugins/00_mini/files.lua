@@ -114,6 +114,7 @@ MiniDeps.now(function()
 
   -- Create extra keymaps.
   vim.api.nvim_create_autocmd("User", {
+    group = vim.api.nvim_create_augroup("user.pack.mini_files.keymaps", {}),
     pattern = "MiniFilesBufferCreate",
     callback = function(params)
       local buf_id = params.data.buf_id

@@ -44,5 +44,5 @@ for _, provider in ipairs(disable_default_providers) do
   vim.g["loaded_" .. provider .. "_provider"] = 0
 end
 
-local ok, mod = pcall(require, "vim._extui")
+local ok, mod = pcall(require, "vim._core.ui2")
 if ok then mod.enable({}) end

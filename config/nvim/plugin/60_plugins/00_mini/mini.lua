@@ -34,6 +34,7 @@ MiniDeps.now(function()
   require("mini.statusline").setup({})
   -- Disable the statusline for certain filetypes.
   vim.api.nvim_create_autocmd("FileType", {
+    group = vim.api.nvim_create_augroup("user.pack.mini_statusline.disable", {}),
     pattern = { "DiffviewFiles" },
     callback = function() vim.b.ministatusline_disable = true end,
   })
@@ -108,6 +109,7 @@ MiniDeps.later(function()
 
   -- Disable MiniCompletion for some filetypes
   vim.api.nvim_create_autocmd("FileType", {
+    group = vim.api.nvim_create_augroup("user.pack.mini_completion.disable", {}),
     pattern = { "minifiles" },
     callback = function() vim.b.minicompletion_disable = true end,
   })

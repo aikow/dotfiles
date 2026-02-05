@@ -3,6 +3,7 @@ local H = {}
 MiniDeps.now(function()
   -- Automatically update mason registries when updating mason
   vim.api.nvim_create_autocmd("PackChanged", {
+    group = vim.api.nvim_create_augroup("user.pack.mason.update", {}),
     callback = function(ev)
       local name = ev.data.spec.name
       if name == "mason.nvim" then
@@ -43,7 +44,7 @@ MiniDeps.now(function()
 
   -- Setup keymaps when an LSP server is attach.
   vim.api.nvim_create_autocmd("LspAttach", {
-    group = vim.api.nvim_create_augroup("LspSetupKeymaps", {}),
+    group = vim.api.nvim_create_augroup("user.lsp.keymaps", {}),
     callback = function(params)
       local client = vim.lsp.get_client_by_id(params.data.client_id)
       if client then H.on_attach(client, params.buf) end
