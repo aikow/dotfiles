@@ -1,11 +1,19 @@
 # vim: ft=ghostty
 
+# Imports are loaded _after_ the current file
 config-file = ?os-config
 config-file = ?~/.local/config/ghostty/config
 
+# Default font and appearance
 font-family = Iosevka Nerd Font Mono
 font-size = 13
 
+theme = Kanagawa Wave
+
+# Default shell
 command = /usr/bin/fish
 
-theme = Kanagawa Wave
+# Setting both ssh-terminfo and ssh-env will attempt to copy the xterm-ghostty
+# terminfo file to the remote host, and, in case that fails, will fall back to
+# using xterm.
+shell-integration-features = ssh-terminfo,ssh-env
