@@ -1,16 +1,16 @@
 -- ------------------------------------------------------------------------
 -- | mini.icons
 -- ------------------------------------------------------------------------
-MiniDeps.now(function()
+safely("now", function()
   require("mini.icons").setup({})
   require("mini.icons").mock_nvim_web_devicons()
 end)
-MiniDeps.later(function() require("mini.icons").tweak_lsp_kind("prepend") end)
+safely("later", function() require("mini.icons").tweak_lsp_kind("prepend") end)
 
 -- ------------------------------------------------------------------------
 -- | mini.notify
 -- ------------------------------------------------------------------------
-MiniDeps.now(function()
+safely("now", function()
   local notify = require("mini.notify")
   notify.setup({})
   vim.keymap.set("n", "<leader>hn", notify.show_history, { desc = "mini.notify show history" })
@@ -20,7 +20,7 @@ end)
 -- ------------------------------------------------------------------------
 -- | mini.misc
 -- ------------------------------------------------------------------------
-MiniDeps.now(function()
+safely("now", function()
   local minimisc = require("mini.misc")
   minimisc.setup({})
   minimisc.setup_termbg_sync()
@@ -30,7 +30,7 @@ end)
 -- ------------------------------------------------------------------------
 -- | mini.statusline
 -- ------------------------------------------------------------------------
-MiniDeps.now(function()
+safely("now", function()
   require("mini.statusline").setup({})
   -- Disable the statusline for certain filetypes.
   vim.api.nvim_create_autocmd("FileType", {
@@ -44,15 +44,15 @@ end)
 -- | Later
 -- ------------------------------------------------------------------------
 
-MiniDeps.later(function() require("mini.align").setup({}) end)
-MiniDeps.later(function() require("mini.cmdline").setup({}) end)
-MiniDeps.later(function() require("mini.cursorword").setup({}) end)
-MiniDeps.later(function() require("mini.splitjoin").setup({}) end)
+safely("later", function() require("mini.align").setup({}) end)
+safely("later", function() require("mini.cmdline").setup({}) end)
+safely("later", function() require("mini.cursorword").setup({}) end)
+safely("later", function() require("mini.splitjoin").setup({}) end)
 
 -- ------------------------------------------------------------------------
 -- | mini.ai
 -- ------------------------------------------------------------------------
-MiniDeps.later(function()
+safely("later", function()
   local spec_treesitter = require("mini.ai").gen_spec.treesitter
   require("mini.ai").setup({
     custom_textobjects = {
@@ -67,7 +67,8 @@ end)
 -- ------------------------------------------------------------------------
 -- | mini.basics
 -- ------------------------------------------------------------------------
-MiniDeps.later(
+safely(
+  "later",
   function()
     require("mini.basics").setup({
       options = { basic = false, extra_ui = false, win_borders = "bold" },
@@ -79,7 +80,8 @@ MiniDeps.later(
 -- ------------------------------------------------------------------------
 -- | mini.bracketed
 -- ------------------------------------------------------------------------
-MiniDeps.later(
+safely(
+  "later",
   function()
     require("mini.bracketed").setup({
       comment = { suffix = "g" },
@@ -94,7 +96,7 @@ MiniDeps.later(
 -- ------------------------------------------------------------------------
 -- | mini.bufremove
 -- ------------------------------------------------------------------------
-MiniDeps.later(function()
+safely("later", function()
   local minibufremove = require("mini.bufremove")
   minibufremove.setup({})
 
@@ -104,7 +106,7 @@ end)
 -- ------------------------------------------------------------------------
 -- | mini.completion
 -- ------------------------------------------------------------------------
-MiniDeps.later(function()
+safely("later", function()
   require("mini.completion").setup({ lsp_completion = { auto_setup = false } })
 
   -- Disable MiniCompletion for some filetypes
@@ -118,7 +120,7 @@ end)
 -- ------------------------------------------------------------------------
 -- | mini.diff
 -- ------------------------------------------------------------------------
-MiniDeps.later(function()
+safely("later", function()
   local minidiff = require("mini.diff")
   minidiff.setup({
     view = {
@@ -130,7 +132,7 @@ MiniDeps.later(function()
   vim.keymap.set("n", "<leader>gO", minidiff.toggle_overlay, { desc = "mini.diff toggle overlay" })
 end)
 
-MiniDeps.later(function()
+safely("later", function()
   local minigit = require("mini.git")
   minigit.setup({})
 
@@ -142,7 +144,7 @@ MiniDeps.later(function()
   -- stylua: ignore end
 end)
 
-MiniDeps.later(function()
+safely("later", function()
   -- ------------------------------------------------------------------------
   -- | mini.hipatterns
   -- ------------------------------------------------------------------------
@@ -162,7 +164,7 @@ end)
 -- ------------------------------------------------------------------------
 -- | mini.keymap
 -- ------------------------------------------------------------------------
-MiniDeps.later(function()
+safely("later", function()
   local minikeymap = require("mini.keymap")
   minikeymap.map_multistep("i", "<CR>", { "pmenu_accept" })
 end)
@@ -170,7 +172,8 @@ end)
 -- ------------------------------------------------------------------------
 -- | mini.operators
 -- ------------------------------------------------------------------------
-MiniDeps.later(
+safely(
+  "later",
   function()
     require("mini.operators").setup({
       evaluate = { prefix = "g=" },
@@ -185,7 +188,7 @@ MiniDeps.later(
 -- ------------------------------------------------------------------------
 -- | mini.snippets
 -- ------------------------------------------------------------------------
-MiniDeps.later(function()
+safely("later", function()
   vim.pack.add({
     { src = gh("rafamadriz/friendly-snippets") },
   })
@@ -212,7 +215,7 @@ end)
 -- ------------------------------------------------------------------------
 -- | mini.surround
 -- ------------------------------------------------------------------------
-MiniDeps.later(function()
+safely("later", function()
   local minisurround = require("mini.surround")
   minisurround.setup({
     mappings = {
@@ -237,7 +240,7 @@ end)
 -- ------------------------------------------------------------------------
 -- | mini.trailspace
 -- ------------------------------------------------------------------------
-MiniDeps.later(function()
+safely("later", function()
   local minitrailspace = require("mini.trailspace")
   minitrailspace.setup({})
   vim.keymap.set("n", "<leader>rt", minitrailspace.trim, { desc = "mini.trailspace trim" })

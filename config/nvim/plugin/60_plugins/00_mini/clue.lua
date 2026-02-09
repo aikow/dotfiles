@@ -1,4 +1,4 @@
-MiniDeps.later(function()
+safely("later", function()
   local miniclue = require("mini.clue")
   miniclue.setup({
     window = {

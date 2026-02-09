@@ -1,4 +1,4 @@
-MiniDeps.later(function()
+safely("later", function()
   vim.pack.add({
     { src = gh("lukas-reineke/indent-blankline.nvim") },
   })
@@ -8,7 +8,7 @@ MiniDeps.later(function()
   })
 end)
 
-MiniDeps.later(function()
+safely("later", function()
   vim.g.tmux_navigator_no_mappings = 1
   vim.g.tmux_navigator_disable_when_zoomed = 1
 

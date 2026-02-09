@@ -1,6 +1,6 @@
 local H = {}
 
-MiniDeps.now(function()
+safely("now", function()
   -- Automatically update mason registries when updating mason
   vim.api.nvim_create_autocmd("PackChanged", {
     group = vim.api.nvim_create_augroup("user.pack.mason.update", {}),

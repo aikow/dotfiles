@@ -1,4 +1,4 @@
-MiniDeps.now(function()
+safely("now", function()
   -- Small helper function to create a new section.
   local function section(section_name, name, action)
     return { section = section_name, name = name, action = action }

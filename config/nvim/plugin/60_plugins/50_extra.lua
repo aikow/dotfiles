@@ -1,11 +1,11 @@
-MiniDeps.later(function()
+safely("later", function()
   -- Connect to databases inside Neovim.
   vim.pack.add({
     { src = gh("tpope/vim-dadbod") },
   })
 end)
 
-MiniDeps.now(function()
+safely("now", function()
   -- Pretty view markdown files
   vim.pack.add({
     { src = gh("OXY2DEV/markview.nvim") },
@@ -16,7 +16,7 @@ MiniDeps.now(function()
   })
 end)
 
-MiniDeps.now(function()
+safely("now", function()
   -- Quarto document support
   -- Needs to be loaded now so that it quarto files get probably handled when opening them directly
   -- via a command-line argument to nvim.

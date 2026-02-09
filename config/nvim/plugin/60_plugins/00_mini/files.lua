@@ -90,7 +90,7 @@ end
 -- | MiniFiles
 -- ------------------------------------------------------------------------
 
-MiniDeps.now(function()
+safely("now", function()
   local minifiles = require("mini.files")
   minifiles.setup({
     content = {

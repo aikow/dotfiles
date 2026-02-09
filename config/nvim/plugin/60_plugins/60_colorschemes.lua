@@ -1,4 +1,4 @@
-MiniDeps.now(function()
+safely("now", function()
   vim.pack.add({
     { src = gh("aikow/base.nvim") },
     { src = gh("ribru17/bamboo.nvim") },

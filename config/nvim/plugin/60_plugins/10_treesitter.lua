@@ -1,6 +1,6 @@
 local H = {}
 
-MiniDeps.now(function()
+safely("now", function()
   vim.api.nvim_create_autocmd("PackChanged", {
     group = vim.api.nvim_create_augroup("user.pack.nvim_treesitter.update", {}),
     callback = function(ev)
@@ -44,7 +44,7 @@ end)
 -- ------------------------------------------------------------------------
 -- | Textobjects
 -- ------------------------------------------------------------------------
-MiniDeps.later(function()
+safely("later", function()
 
   -- stylua: ignore start
   vim.keymap.set({"n", "x", "o"}, "]]", H.goto_next_start("@class.outer"),    {desc="next class"    })
@@ -65,7 +65,8 @@ end)
 -- ------------------------------------------------------------------------
 -- | Context
 -- ------------------------------------------------------------------------
-MiniDeps.later(
+safely(
+  "later",
   function()
     require("treesitter-context").setup({
       enable = true,

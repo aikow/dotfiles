@@ -1,4 +1,4 @@
-MiniDeps.later(function()
+safely("later", function()
   local minivisits = require("mini.visits")
   minivisits.setup({})
 

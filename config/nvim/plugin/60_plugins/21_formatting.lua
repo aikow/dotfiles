@@ -1,6 +1,6 @@
 local H = {}
 
-MiniDeps.later(function()
+safely("later", function()
   vim.pack.add({
     { src = gh("stevearc/conform.nvim") },
   })

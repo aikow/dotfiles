@@ -16,7 +16,7 @@ _G.gh = function(repo) return "https://github.com/" .. repo end
 
 -- Init mini.deps so that we can use the later() and now() helpers
 vim.pack.add({ gh("nvim-mini/mini.nvim") })
-require("mini.deps").setup()
+_G.safely = require("mini.misc").safely
 
 -- All modifications to the runtimepath happen here.
 vim.opt.runtimepath:append(vim.fs.normalize("~/.dotfiles/config/snippets"))

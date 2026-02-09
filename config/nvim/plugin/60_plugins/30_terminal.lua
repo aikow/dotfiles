@@ -1,6 +1,6 @@
 local H = {}
 
-MiniDeps.later(function()
+safely("later", function()
   -- Need to be set before slime is loaded
   vim.g.slime_target = "neovim"
   vim.g.slime_no_mappings = true

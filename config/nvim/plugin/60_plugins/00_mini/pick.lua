@@ -1,4 +1,4 @@
-MiniDeps.later(function()
+safely("later", function()
   local minipick = require("mini.pick")
   minipick.setup({ options = { use_cache = true } })
 
