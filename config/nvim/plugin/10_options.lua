@@ -99,9 +99,12 @@ o.wildoptions = "pum,fuzzy"
 
 -- Pop-up menu options
 o.pumheight = 16
+o.pumblend = 0
+o.pumborder = "none"
 
 -- Default floating window options
-o.winborder = "solid"
+o.winborder = "rounded"
+o.winblend = 0
 
 -- Mode already shown in statusline
 o.showmode = false

@@ -70,7 +70,7 @@ end)
 MiniDeps.later(
   function()
     require("mini.basics").setup({
-      options = { basic = false, extra_ui = true, win_borders = "bold" },
+      options = { basic = false, extra_ui = false, win_borders = "bold" },
       mappings = { basic = false, option_toggle_prefix = "<leader>t" },
     })
   end
