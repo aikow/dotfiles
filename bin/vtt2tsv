@@ -1,0 +1,24 @@
+#!/usr/bin/env perl
+
+use strict;
+use warnings;
+
+# Slurp blocks separated by a blank line
+local $/ = "\n\n";
+print "speaker\tstart\tstop\ttext\n";
+
+while (<>) {
+
+  my ($start_stop, $speaker_text) = split /\n/, $_, 3;
+  chomp($start_stop, $speaker_text);
+
+  my ($start, $stop) =
+    $start_stop =~ /^(\d{2}:\d{2}:\d{2}\.\d{3})\s+-->\s+(\d{2}:\d{2}:\d{2}\.\d{3})$/
+    or next;
+
+  my ($speaker, $text) =
+    $speaker_text =~ /^([^:]+): (.*)$/
+    or next;
+
+  print "$speaker\t$start\t$stop\t$text\n";
+}

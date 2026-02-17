@@ -4,25 +4,18 @@
 alias dotfiles='${EDITOR} ~/.dotfiles/'
 alias ldotfiles='${EDITOR} ~/.local/config/'
 
-## cd ##
+## Cd ##
 alias ..='cd ..'
 alias ...='cd ../..'
 alias ....='cd ../../..'
 alias .....='cd ../../../..'
 
-## ls / eza ##
-if command -v eza &>/dev/null; then
-  alias l='eza'
-  alias ls='eza --group-directories-first --icons=auto'
-  alias lg='eza --group-directories-first --icons=auto --long --almost-all --git'
-  alias lt='eza --group-directories-first --icons=auto --tree'
-  alias ll='eza --group-directories-first --icons=auto --long'
-  alias lll='eza --group-directories-first --icons=auto --long --almost-all --group --links --header'
-else
-  alias l='ls'
-  alias ll='ls -l'
-  alias lll='ls -lA'
-fi
+## Eza ##
+alias l='eza --group-directories-first --icons=auto'
+alias lg='eza --group-directories-first --icons=auto --long --almost-all --git'
+alias lt='eza --group-directories-first --icons=auto --tree'
+alias ll='eza --group-directories-first --icons=auto --long'
+alias lll='eza --group-directories-first --icons=auto --long --almost-all --group --links --header'
 
 ## Docker ##
 alias drun='docker run --rm'
@@ -60,9 +53,14 @@ alias gsw='git switch'
 alias gt='git tag'
 alias gw='git worktree'
 
-## JJ
-
+## Jujutsi ##
 alias jb='jj bookmark'
+alias jbm='jj bookmark move -t @-'
 alias jc='jj commit'
 alias jk='jj status'
 alias jl='jj log'
+alias jjgf='jj git fetch'
+alias jjgp='jj git push'
+
+## Julia ##
+alias j.='julia --project=.'

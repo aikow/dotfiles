@@ -1,6 +1,4 @@
-# --------------
-# |   config   |
-# --------------
+## Config Shortcuts ##
 alias fishconfig '$EDITOR ~/.config/fish/config.fish'
 alias lfishconfig '$EDITOR ~/.local/config/fish/config.fish'
 alias fishreload 'source ~/.config/fish/conf.d/*.fish; source ~/.config/fish/config.fish'
@@ -8,10 +6,7 @@ alias fishreload 'source ~/.config/fish/conf.d/*.fish; source ~/.config/fish/con
 alias dotfiles '$EDITOR ~/.dotfiles/'
 alias ldotfiles '$EDITOR ~/.local/config/'
 
-# ----------
-# |   cd   |
-# ----------
-#
+## Cd ##
 # Converts an arbitrary number of . dots into a command to cd to the proper
 # parent dir.
 function cd_up
@@ -21,25 +16,13 @@ abbr --add dotdot --regex '^\.{2,}$' --function cd_up
 
 abbr cdp 'cd (projects | fzf)'
 
-# ----------
-# |   ls   |
-# ----------
-if command -q eza
-    alias l='eza'
-    alias ls='eza --group-directories-first --icons=auto'
-    alias lg='eza --group-directories-first --icons=auto --git'
-    alias lt='eza --group-directories-first --icons=auto --tree'
-    alias ll='eza --group-directories-first --icons=auto --long'
-    alias lll='eza --group-directories-first --icons=auto --long --almost-all --group --links --header'
-else
-    alias l='ls'
-    alias ll='ls -l'
-    alias lll='ls -lA'
-end
+## Eza ##
+alias l='eza --group-directories-first --icons=auto'
+alias ll='eza --group-directories-first --icons=auto --long'
+alias lll='eza --group-directories-first --icons=auto --long --almost-all --group --links --header'
+alias lt='eza --group-directories-first --icons=auto --tree'
 
-# --------------
-# |   Docker   |
-# --------------
+## Docker ##
 abbr d docker
 abbr dc docker container
 abbr di docker image
@@ -61,10 +44,15 @@ abbr druniv 'docker run --rm -it -v $(pwd):/mnt/local'
 # /mnt/local and set the container working dir to that directory.
 abbr drunip 'docker run --rm -it -v $(pwd):/mnt/local -w /mnt/local'
 
-# ------------------------------------------------------------------------
-# | JJ
-# ------------------------------------------------------------------------
+## Jujitsu ##
 abbr jb jj bookmark
+abbr jbm -- jj bookmark move -t @-
 abbr jc jj commit
 abbr jk jj status
 abbr jl jj log
+
+abbr jjgf jj git fetch
+abbr jjgp jj git push
+
+## Julia ##
+abbr j. -- julia --project=.

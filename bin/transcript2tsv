@@ -1,0 +1,16 @@
+#!/usr/bin/env perl
+
+use strict;
+use warnings;
+
+# Slurp blocks separated by a blank line
+local $/ = "\n\n";
+
+print "speaker\ttime\ttext\n";
+
+while (<>) {
+  my ($header, $text) = split /\n/, $_, 3;
+  chomp($header, $text);
+
+  print "$1\t$2\t$text\n" if ($header =~ /^\[([^]]+)]\s+(.+)$/);
+}
