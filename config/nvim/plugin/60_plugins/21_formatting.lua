@@ -49,6 +49,7 @@ safely("later", function()
           "--indent",
           "2",
           "--simplify",
+          "--apply-ignore",
         },
       },
       sql_formatter = {
@@ -62,10 +63,10 @@ safely("later", function()
   })
 
   -- stylua: ignore start
-  vim.keymap.set({ "n", "x" }, "<leader>rf", H.format,               { desc = "Format" })
-  vim.keymap.set({ "n", "x" }, "<leader>rF", H.format_injections,    { desc = "Format with injections" })
-  vim.keymap.set("n",          "<leader>tf", H.toggle_format,        { desc = "Toggle format on save" })
-  vim.keymap.set("n",          "<leader>tF", H.toggle_format_global, { desc = "Toggle global format on save" })
+  vim.keymap.set({ "n", "x" }, "<leader>rf", H.format, { desc = "Format" })
+  vim.keymap.set({ "n", "x" }, "<leader>rF", H.format_injections, { desc = "Format with injections" })
+  vim.keymap.set("n", "<leader>tf", H.toggle_format, { desc = "Toggle format on save" })
+  vim.keymap.set("n", "<leader>tF", H.toggle_format_global, { desc = "Toggle global format on save" })
   -- stylua: ignore end
 end)
 
