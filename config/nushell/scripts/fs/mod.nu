@@ -10,7 +10,7 @@ export def traverse-up [] {
 export def search-up [file: string] {
   $in
   | traverse-up
-  | where { |it| 
+  | where { |it|
       $it | path join $file | path exists
     }
   | first
