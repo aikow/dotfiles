@@ -20,7 +20,7 @@ abbr cdp 'cd (projects | fzf)'
 alias l='eza --group-directories-first --icons=auto'
 alias ll='eza --group-directories-first --icons=auto --long'
 alias lll='eza --group-directories-first --icons=auto --long --almost-all --group --links --header'
-alias lt='eza --group-directories-first --icons=auto --tree'
+alias lt='eza --group-directories-first --icons=auto --tree --git-ignore'
 
 ## Docker ##
 abbr d docker
