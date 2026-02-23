@@ -14,7 +14,7 @@ safely("now", function()
     evaluate_single = true,
     header = "Good morning, Aiko",
     items = {
-      starter.sections.recent_files(5, true),
+      -- starter.sections.recent_files(5, true),
       starter.sections.builtin_actions(),
 
       -- Config

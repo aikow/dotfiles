@@ -16,23 +16,28 @@ safely("later", function()
     { src = gh("christoomey/vim-tmux-navigator") },
   })
 
+  local map = vim.keymap.set
+  local nmap = function(lhs, rhs, desc) map("n", lhs, rhs, { desc = desc, silent = true }) end
+  local imap = function(lhs, rhs, desc) map("i", lhs, rhs, { desc = desc, silent = true }) end
+  local tmap = function(lhs, rhs, desc) map("t", lhs, rhs, { desc = desc, silent = true }) end
+
   -- stylua: ignore start
-  vim.keymap.set("n", "<M-h>", "<cmd>TmuxNavigateLeft<CR>",     { desc = "tmux navigate left" })
-  vim.keymap.set("n", "<M-j>", "<cmd>TmuxNavigateDown<CR>",     { desc = "tmux navigate down" })
-  vim.keymap.set("n", "<M-k>", "<cmd>TmuxNavigateUp<CR>",       { desc = "tmux navigate up" })
-  vim.keymap.set("n", "<M-l>", "<cmd>TmuxNavigateRight<CR>",    { desc = "tmux navigate right" })
-  vim.keymap.set("n", "<M-o>", "<cmd>TmuxNavigatePrevious<CR>", { desc = "tmux navigate previous" })
+  nmap("<M-h>", "<cmd>TmuxNavigateLeft<CR>",             "tmux navigate left")
+  nmap("<M-j>", "<cmd>TmuxNavigateDown<CR>",             "tmux navigate down")
+  nmap("<M-k>", "<cmd>TmuxNavigateUp<CR>",               "tmux navigate up")
+  nmap("<M-l>", "<cmd>TmuxNavigateRight<CR>",            "tmux navigate right")
+  nmap("<M-o>", "<cmd>TmuxNavigatePrevious<CR>",         "tmux navigate previous")
 
-  vim.keymap.set("i", "<M-h>", [[<esc>:TmuxNavigateLeft<CR>]],     { desc = "tmux navigate left" })
-  vim.keymap.set("i", "<M-j>", [[<esc>:TmuxNavigateDown<CR>]],     { desc = "tmux navigate down" })
-  vim.keymap.set("i", "<M-k>", [[<esc>:TmuxNavigateUp<CR>]],       { desc = "tmux navigate up" })
-  vim.keymap.set("i", "<M-l>", [[<esc>:TmuxNavigateRight<CR>]],    { desc = "tmux navigate right" })
-  vim.keymap.set("i", "<M-o>", [[<esc>:TmuxNavigatePrevious<CR>]], { desc = "tmux navigate previous" })
+  imap("<M-h>", [[<esc>:TmuxNavigateLeft<CR>]],          "tmux navigate left")
+  imap("<M-j>", [[<esc>:TmuxNavigateDown<CR>]],          "tmux navigate down")
+  imap("<M-k>", [[<esc>:TmuxNavigateUp<CR>]],            "tmux navigate up")
+  imap("<M-l>", [[<esc>:TmuxNavigateRight<CR>]],         "tmux navigate right")
+  imap("<M-o>", [[<esc>:TmuxNavigatePrevious<CR>]],      "tmux navigate previous")
 
-  vim.keymap.set("t", "<M-h>", [[<C-\><C-n>:TmuxNavigateLeft<CR>]],     { desc = "tmux navigate left" })
-  vim.keymap.set("t", "<M-j>", [[<C-\><C-n>:TmuxNavigateDown<CR>]],     { desc = "tmux navigate down" })
-  vim.keymap.set("t", "<M-k>", [[<C-\><C-n>:TmuxNavigateUp<CR>]],       { desc = "tmux navigate up" })
-  vim.keymap.set("t", "<M-l>", [[<C-\><C-n>:TmuxNavigateRight<CR>]],    { desc = "tmux navigate right" })
-  vim.keymap.set("t", "<M-o>", [[<C-\><C-n>:TmuxNavigatePrevious<CR>]], { desc = "tmux navigate previous" })
+  tmap("<M-h>", [[<C-\><C-n>:TmuxNavigateLeft<CR>]],     "tmux navigate left")
+  tmap("<M-j>", [[<C-\><C-n>:TmuxNavigateDown<CR>]],     "tmux navigate down")
+  tmap("<M-k>", [[<C-\><C-n>:TmuxNavigateUp<CR>]],       "tmux navigate up")
+  tmap("<M-l>", [[<C-\><C-n>:TmuxNavigateRight<CR>]],    "tmux navigate right")
+  tmap("<M-o>", [[<C-\><C-n>:TmuxNavigatePrevious<CR>]], "tmux navigate previous")
   -- stylua: ignore end
 end)
