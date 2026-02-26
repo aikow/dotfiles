@@ -13,7 +13,7 @@ alias .....='cd ../../../..'
 ## Eza ##
 alias l='eza --group-directories-first --icons=auto'
 alias lg='eza --group-directories-first --icons=auto --long --almost-all --git'
-alias lt='eza --group-directories-first --icons=auto --tree --gitignore'
+alias lt='eza --group-directories-first --icons=auto --tree --git-ignore'
 alias ll='eza --group-directories-first --icons=auto --long'
 alias lll='eza --group-directories-first --icons=auto --long --almost-all --group --links --header'
 
