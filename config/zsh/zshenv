@@ -14,30 +14,17 @@ path=(
   $path
 )
 
-### Commands ###
-## Bat ##
-if command -v bat &>/dev/null; then
-  export BAT_THEME="gruvbox-dark"
-fi
-
 ## Editor ##
-if command -v nvim &>/dev/null; then
-  export VISUAL="nvim"
-else
-  export VISUAL="vim"
-fi
+export VISUAL="nvim"
 export EDITOR="$VISUAL"
 
-## FZF ##
-if command -v fd &>/dev/null; then
-  export FZF_DEFAULT_COMMAND='fd --type file --follow --hidden --exclude .git --color=always'
-  export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
-elif command -v rg &>/dev/null; then
-  export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow --glob "!.git/*"'
-  export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
-fi
+## Bat ##
+export BAT_THEME="gruvbox-dark"
 
-export FZF_DEFAULT_OPTS="
+## FZF ##
+export FZF_DEFAULT_COMMAND='fd --type file --follow --hidden --exclude .git --color=always'
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+export FZF_DEFAULT_OPTS='
   --ansi
   --bind ctrl-f:preview-half-page-down
   --bind ctrl-b:preview-half-page-up
@@ -50,7 +37,10 @@ export FZF_DEFAULT_OPTS="
   --border rounded
   --height 50%
   --min-height 20
-  --preview-window right,40%"
+  --preview-window right,40%,follow'
+
+## Homebrew ##
+export HOMEBREW_NO_ENV_HINTS=1
 
 ## Local Environment Config ##
 [[ -f $LOCAL_CONFIG/zshenv ]] && source "$LOCAL_CONFIG/zshenv"
