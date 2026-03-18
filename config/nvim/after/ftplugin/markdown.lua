@@ -1,4 +1,4 @@
-vim.wo.conceallevel = 0
+vim.bo.shiftwidth = 2
 
 -- Markdown previewer
 vim.keymap.set(

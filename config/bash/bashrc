@@ -49,6 +49,7 @@ shopt -s histappend
 
 # for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
 HISTSIZE=100000
+HISTFILE=~/.local/share/bash/bash_history
 HISTFILESIZE=100000
 export HISTIGNORE="ls:ll:cd:cd -:pwd:exit:date:* --help"
 
