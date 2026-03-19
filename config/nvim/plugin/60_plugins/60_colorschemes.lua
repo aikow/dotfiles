@@ -6,6 +6,8 @@ safely("now", function()
     { src = gh("rebelot/kanagawa.nvim") },
     { src = gh("EdenEast/nightfox.nvim") },
     { src = gh("rose-pine/neovim"), name = "rose-pine" },
+    { src = gh("sainnhe/everforest") },
+    { src = gh("sainnhe/gruvbox-material") },
   })
 
   require("base").setup({
