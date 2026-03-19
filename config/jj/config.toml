@@ -1,13 +1,30 @@
 #:schema https://jj-vcs.github.io/jj/latest/config-schema.json
 
-[signing]
-behavior = "own"
-backend = "ssh"
-key = "~/.ssh/id_ed25519_github.pub"
-
 [ui]
 default-command = "status"
 
 [user]
 name = "Aiko Wessels"
 email = "aiko.wessels@gmail.com"
+
+[signing]
+behavior = "own"
+backend = "ssh"
+key = "~/.ssh/id_ed25519_github.pub"
+
+[git]
+private-commits = "description('private:*')"
+
+[merge-tools.meld]
+edit-args = ["--newtab", "$left", "$right"]
+
+[merge-tools.nvim]
+edit-args = ["-d", "$left", "$right"]
+merge-args = [
+  "-d", "$base", "$left", "$output", "$right",
+  "-c", "wincmd K",
+  "-c", "wincmd 8_",
+  "-c", "wincmd j",
+  "-c", "wincmd l"
+]
+merge-tool-edits-conflict-markers = true
