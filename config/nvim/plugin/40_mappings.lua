@@ -126,7 +126,7 @@ map("n", "gp", "'`[' . strpart(getregtype(), 0, 1) . '`]'", { expr = true, desc 
 map("x", "y", "y`]")
 map({ "x", "n" }, "p", "p`]")
 
--- Make Y behave like other capital numbers
+-- Make Y behave like other capital letters
 map("n", "Y", "y$")
 
 -- Keep it centered
@@ -159,7 +159,6 @@ map("n", "<leader>wb", "<Cmd>split term://bash<CR>",     { desc = "open bash (ho
 map("n", "<leader>wB", "<Cmd>vsplit term://bash<CR>",    { desc = "open bash (horizontal)" })
 map("n", "<leader>wf", "<Cmd>split term://fish<CR>",     { desc = "open fish (horizontal)" })
 map("n", "<leader>wF", "<Cmd>vsplit term://fish<CR>",    { desc = "open fish (vertical)" })
-map("n", "<leader>wl", "<Cmd>tabnew term://lazygit<CR>", { desc = "open lazygit (tab)" })
 map('n', '<leader>ws', ":split term://",                 { desc = "open a command (horizontal)" })
 map("n", "<leader>wv", ":vsplit term://",                { desc = "open a command (vertical)" })
 map("n", "<leader>wt", ":tabnew term://",                { desc = "open a command (tab)" })

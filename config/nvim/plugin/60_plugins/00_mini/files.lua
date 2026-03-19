@@ -27,13 +27,11 @@ H.show_ignored = false
 function H.toggle_hidden()
   H.show_hidden = not H.show_hidden
   require("mini.files").refresh({ content = { sort = H.filter_ignore } })
-  print(H.show_hidden)
 end
 
 function H.toggle_ignore()
   H.show_ignored = not H.show_ignored
   require("mini.files").refresh({ content = { sort = H.filter_ignore } })
-  print(H.show_ignored)
 end
 
 function H.filter_ignore(entries)

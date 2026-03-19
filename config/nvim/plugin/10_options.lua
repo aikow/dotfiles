@@ -75,7 +75,7 @@ o.infercase = true -- Make completion case-insensitive.
 o.completeopt = "menuone,noselect,fuzzy,nosort"
 
 -- Don't give ins-complete-menu messages
-o.shortmess = o.shortmess .. "WcCI"
+o.shortmess = o.shortmess .. "WcC"
 
 -- Use treesitter for folding
 o.foldmethod = "expr"
