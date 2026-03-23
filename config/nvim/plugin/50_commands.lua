@@ -31,6 +31,13 @@ end, {
   desc = "Close all hidden buffers",
 })
 
+command("PackUpdate", function() vim.pack.update() end, { desc = "Update all packages" })
+command(
+  "PackSync",
+  function() vim.pack.update(nil, { target = "lockfile" }) end,
+  { desc = "Reset all packages to the version in the lockfile" }
+)
+
 command("Search", function(params)
   local query = vim.uri_encode(params.args)
   local url = string.format("https://ecosia.org/search?q=%s", query)
