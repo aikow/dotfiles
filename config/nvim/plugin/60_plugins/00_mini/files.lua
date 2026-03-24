@@ -121,7 +121,7 @@ safely("now", function()
       H.map_split(buf_id, "<C-v>", { split = "belowright", vertical = true }, "Split right")
       H.map_split(buf_id, "<C-t>", { tab = vim.fn.tabpagenr("$") }, "Split tab")
 
-      vim.keymap.set("n", "yp", function() vim.fn.setreg("+", minifiles.get_fs_entry().path) end, {
+      vim.keymap.set("n", "yp", function() vim.fn.setreg("", minifiles.get_fs_entry().path) end, {
         buffer = buf_id,
         desc = "Yank absolute path",
       })

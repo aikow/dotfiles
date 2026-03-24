@@ -4,7 +4,7 @@ safely("later", function()
   local copy = {
     char = "<C-y>",
     func = function()
-      vim.fn.setreg("+", minipick.get_picker_matches().current)
+      vim.fn.setreg("", minipick.get_picker_matches().current)
       return false -- Do not stop the picker
     end,
   }
