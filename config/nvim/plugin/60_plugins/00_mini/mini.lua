@@ -25,6 +25,8 @@ safely("now", function()
   minimisc.setup({})
   minimisc.setup_termbg_sync()
   minimisc.setup_restore_cursor()
+
+  vim.keymap.set("n", "<leader>ww", minimisc.zoom, { desc = "mini.misc zoom" })
 end)
 
 -- ------------------------------------------------------------------------
