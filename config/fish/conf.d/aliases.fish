@@ -49,7 +49,11 @@ abbr jb jj bookmark
 abbr jbm -- jj bookmark move -t @-
 abbr jc jj commit
 abbr jk jj status
+
 abbr jl jj log
+abbr jlc jj log --template=builtin_log_compact_full_description
+abbr jld jj log --template=builtin_log_detailed
+abbr jlo jj log --template=builtin_log_oneline
 
 abbr jjgf jj git fetch
 abbr jjgp jj git push
