@@ -23,7 +23,7 @@ if status is-interactive
 
     fish_user_key_bindings
 
-    fish_config theme choose base16-default
+    fish_config theme choose 'Base16 Default Dark'
     fish_config prompt choose astronaut
 end
 
