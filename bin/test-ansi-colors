@@ -1,0 +1,100 @@
+#!/usr/bin/env bash
+
+ANSI_ESC=$'\033'
+ANSI_CSI="${ANSI_ESC}["
+
+bold() { printf '%s1m' "$ANSI_CSI"; }
+normal() { printf '%s22m' "$ANSI_CSI"; }
+
+white() { printf '%s37m' "$ANSI_CSI"; }
+black() { printf '%s30m' "$ANSI_CSI"; }
+
+resetForeground() { printf '%s39m' "$ANSI_CSI"; }
+resetBackground() { printf '%s49m' "$ANSI_CSI"; }
+
+bgColor() {
+  printf '%s48;5;%sm' "$ANSI_CSI" "$1"
+}
+
+colorCodePatch() {
+  bgColor "$1"
+  printf ' %3s ' "$1"
+  resetBackground
+}
+
+colorCodes() {
+  local code i j
+
+  printf 'Standard: '
+  bold
+  white
+
+  for code in 0 1 2 3 4 5 6 7; do
+    if [[ $code == 7 ]]; then
+      black
+    fi
+    colorCodePatch "$code"
+  done
+
+  resetForeground
+  normal
+  printf '\nIntense:  '
+  white
+
+  for code in 8 9 10 11 12 13 14 15; do
+    if [[ $code == 9 ]]; then
+      black
+    fi
+    colorCodePatch "$code"
+  done
+
+  resetForeground
+  printf '\n\n'
+
+  for i in 16 22 28; do
+    for j in $i $((i + 36)) $((i + 72)) $((i + 108)) $((i + 144)) $((i + 180)); do
+      white
+      bold
+
+      for code in $j $((j + 1)) $((j + 2)) $((j + 3)) $((j + 4)) $((j + 5)); do
+        colorCodePatch "$code"
+      done
+
+      normal
+      resetForeground
+      printf '    '
+      black
+
+      for code in $((j + 18)) $((j + 19)) $((j + 20)) $((j + 21)) $((j + 22)) $((j + 23)); do
+        colorCodePatch "$code"
+      done
+
+      resetForeground
+      printf '\n'
+    done
+
+    printf '\n'
+  done
+
+  printf 'Grays:    '
+  bold
+  white
+
+  for code in 232 233 234 235 236 237 238 239 240 241 242 243; do
+    colorCodePatch "$code"
+  done
+
+  resetForeground
+  normal
+  printf '\n          '
+  black
+
+  for code in 244 245 246 247 248 249 250 251 252 253 254 255; do
+    colorCodePatch "$code"
+  done
+
+  resetForeground
+  printf '\n'
+}
+
+colorCodes
