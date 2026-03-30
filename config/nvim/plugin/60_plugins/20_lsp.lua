@@ -28,7 +28,7 @@ safely("now", function()
   })
 
   -- Setup LSP servers not installed by mason.
-  vim.lsp.enable({ "julials", "nushell", "rust_analyzer" })
+  vim.lsp.enable({ "jetls", "nushell", "rust_analyzer" })
 
   -- Configure neovim diagnostics
   vim.diagnostic.config({
