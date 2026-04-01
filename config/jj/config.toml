@@ -2,6 +2,7 @@
 
 [ui]
 default-command = "status"
+diff-editor = ":builtin"
 
 [user]
 name = "Aiko Wessels"
