@@ -57,6 +57,10 @@ safely("later", function() require("mini.splitjoin").setup({}) end)
 safely("later", function()
   local spec_treesitter = require("mini.ai").gen_spec.treesitter
   require("mini.ai").setup({
+    mappings = {
+      around_next = "ak",
+      inside_next = "ik",
+    },
     custom_textobjects = {
       c = spec_treesitter({ a = "@conditional.outer", i = "@conditional.inner" }),
       l = spec_treesitter({ a = "@loop.outer", i = "@loop.inner" }),
