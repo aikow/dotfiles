@@ -42,48 +42,37 @@ vim.b.miniai_config = {
 }
 
 -- ------------------------------------------------------------------------
--- | Keymaps
+-- | Commands
 -- ------------------------------------------------------------------------
 
-vim.keymap.set(
-  { "n", "x" },
-  "<localleader>r",
-  [[:!python3 %<CR>]],
-  { buffer = true, desc = "Run the file or region through the interpreter" }
+vim.api.nvim_buf_create_user_command(
+  0,
+  "RuffCheck",
+  "<cmd>cexpr system('ruff check --output-format=pylint')<cr>",
+  { desc = "Populate the quickfix list with the output of 'ruff check'" }
 )
-vim.keymap.set(
-  "n",
-  "<localleader>l",
-  "<cmd>cexpr(system('ruff check --output-format=concise'))<cr>",
-  { buffer = true, desc = "populate the quickfix list with the output of 'ruff check'" }
-)
-vim.keymap.set(
-  "n",
-  "<localleader>fb",
-  function()
-    if vim.fn.executable("black") ~= 1 then
-      vim.notify("could not find 'black' executable", vim.log.levels.WARN)
-      return
-    end
+vim.api.nvim_buf_create_user_command(0, "BlackFormat", function()
+  if vim.fn.executable("black") ~= 1 then
+    vim.notify("could not find 'black' executable", vim.log.levels.WARN)
+    return
+  end
 
-    vim
-      .system({
-        "black",
-        "--line-length",
-        tostring(vim.o.textwidth),
-        "--preview",
-        "--enable-unstable-feature=string_processing",
-        vim.fs.normalize(vim.api.nvim_buf_get_name(0)),
-      })
-      :wait()
-    vim.cmd.edit()
-  end,
-  { buffer = true, desc = "format the entire buffer using black with string processing enabled" }
-)
+  vim
+    .system({
+      "black",
+      "--line-length",
+      tostring(vim.o.textwidth),
+      "--preview",
+      "--enable-unstable-feature=string_processing",
+      vim.fs.normalize(vim.api.nvim_buf_get_name(0)),
+    })
+    :wait()
+  vim.cmd.edit()
+end, { desc = "Format the buffer using black with string processing enabled" })
 
-vim.keymap.set(
-  { "n", "x" },
-  "<localleader>fr",
+vim.api.nvim_buf_create_user_command(
+  0,
+  "RuffFix",
   function()
     require("conform").format({
       async = true,
@@ -91,5 +80,29 @@ vim.keymap.set(
       formatters = { "ruff_fix" },
     })
   end,
+  { desc = "Fix all fixable lints using ruff" }
+)
+
+-- ------------------------------------------------------------------------
+-- | Keymaps
+-- ------------------------------------------------------------------------
+
+vim.keymap.set(
+  "n",
+  "<localleader>l",
+  "<cmd>RuffCheck<cr>",
+  { buffer = true, desc = "populate the quickfix list with the output of 'ruff check'" }
+)
+vim.keymap.set(
+  "n",
+  "<localleader>fb",
+  "<cmd>BlackFormat<CR>",
+  { buffer = true, desc = "format the entire buffer using black with string processing enabled" }
+)
+
+vim.keymap.set(
+  { "n", "x" },
+  "<localleader>fr",
+  "<cmd>RuffFix<CR>",
   { buffer = true, desc = "Format the current buffer by fixing all lints using ruff" }
 )

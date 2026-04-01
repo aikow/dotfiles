@@ -1,4 +1,6 @@
-function send_include(how)
+vim.bo.shiftwidth = 4
+
+local function send_include(how)
   return function()
     local bufname = vim.api.nvim_buf_get_name(0)
     local relpath = vim.fs.relpath(vim.uv.cwd(), bufname)

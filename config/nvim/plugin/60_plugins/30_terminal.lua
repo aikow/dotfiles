@@ -2,15 +2,28 @@ local H = {}
 
 safely("later", function()
   -- Need to be set before slime is loaded
+  local is_tmux = os.getenv("TMUX") and true or false
+
+  -- "Neovim" is the only target which is lazy loaded, and there is no easy way to load the neovim
+  -- specific code after the plugin has actually been loaded. The best workaround is to set neovim
+  -- as the target, load slime, fix neovim, and then set the actual default target that we want.
   vim.g.slime_target = "neovim"
+  vim.g.slime_default_config = { socket_name = "default", target_pane = "2" }
   vim.g.slime_no_mappings = true
 
   vim.pack.add({
     { src = gh("jpalardy/vim-slime") },
   })
 
+  -- Fix the neovim terminal
   H.fix_neovim_target()
 
+  -- Set the actual target that we want
+  if is_tmux then
+    vim.g.slime_target = "tmux"
+  else
+    vim.g.slime_target = "neovim"
+  end
   vim.g.slime_bracketed_paste = true
 
   -- Neovim terminal configuration settings
