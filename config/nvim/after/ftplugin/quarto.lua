@@ -1,3 +1,5 @@
+vim.bo.iskeyword = nil
+
 local runner = require("quarto.runner")
 local run_all_langs = function() runner.run_all(true) end
 

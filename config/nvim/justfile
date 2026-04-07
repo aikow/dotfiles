@@ -1,6 +1,6 @@
 lint:
   ts_query_ls check after/queries \
-  --config '{"parser_install_directories": ["{{env("HOME")}}/.local/share/nvim/site/pack/deps/opt/nvim-treesitter/parser"]}'
+  --config '{"parser_install_directories": ["{{env("HOME")}}/.local/share/nvim/site/pack/core/opt/nvim-treesitter/parser"]}'
 
 format:
   fd -elua -X stylua
