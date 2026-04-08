@@ -9,6 +9,9 @@ safely("later", function()
     end,
   }
 
+  -- ----------------
+  -- |   MiniPick   |
+  -- ----------------
   minipick.setup({
     options = {
       use_cache = true,
@@ -38,31 +41,34 @@ safely("later", function()
   local loclist = function() extra.list({ scope = "location" }) end
   local quickfix = function() extra.list({ scope = "quickfix" }) end
   local search_history = function() extra.history({ scope = "/" }) end
+
   local projects = function()
     local workspace = os.getenv("WORKSPACE_HOME") or vim.fs.normalize("~/workspace")
-    builtin.cli({
-      command = { "lsgit", workspace },
-    }, {
-      source = {
-        choose = function(item)
-          builtin.files({}, {
-            source = { cwd = item },
-          })
-        end,
-        name = "Projects",
-      },
-    })
+    local choose_from_dir = function(item) builtin.files(nil, { source = { cwd = item } }) end
+    builtin.cli(
+      { command = { "lsgit", workspace } },
+      { source = { name = "Projects", choose = choose_from_dir } }
+    )
   end
-  local todo_comments = function()
-    builtin.grep({
-      pattern = [[\b(?:TODO|NOTE|HACK|FIXME|PERF)\b]],
-    })
-  end
+
+  local todo_comments = function() builtin.grep({ pattern = [[\b(?:TODO|NOTE|HACK|FIXME|PERF)\b]] }) end
+
+  -- Search for a file that has the name of <cfile> under the cursor.
   local find_filename = function()
     local fname = vim.fn.expand("<cfile>")
-    builtin.cli({
-      command = { "fd", "--fixed-strings", fname },
-    }, { source = { name = string.format("Filename (%s)", fname) } })
+    builtin.cli(
+      { command = { "fd", "--fixed-strings", fname } },
+      { source = { name = string.format("Filename (%s)", fname) } }
+    )
+  end
+
+  -- Add a mapping to the builtin buffers picker to delete the currently selected buffers
+  local buffers = function()
+    local wipeout_cur = function()
+      vim.api.nvim_buf_delete(minipick.get_picker_matches().current.bufnr, {})
+    end
+    local buffer_mappings = { wipeout = { char = "<C-d>", func = wipeout_cur } }
+    builtin.buffers(nil, { mappings = buffer_mappings })
   end
 
   -- ---------------
@@ -78,7 +84,7 @@ safely("later", function()
   -- Finding searching and navigating
   vim.keymap.set("n", "<leader>o",  builtin.files,     { desc = "mini.pick files" })
   vim.keymap.set("n", "<leader>O",  projects,          { desc = "mini.pick projects" })
-  vim.keymap.set("n", "<leader>p",  builtin.buffers,   { desc = "mini.pick buffers" })
+  vim.keymap.set("n", "<leader>p",  buffers,           { desc = "mini.pick buffers" })
   vim.keymap.set("n", "<leader>fb", cur_buf_lines,     { desc = "mini.pick buffer fuzzy find" })
   vim.keymap.set("n", "<leader>fB", extra.buf_lines,   { desc = "mini.pick all buffer fuzzy find" })
   vim.keymap.set("n", "<leader>fc", extra.hipatterns,  { desc = "mini.pick todo hipatterns" })
@@ -111,4 +117,4 @@ safely("later", function()
   vim.keymap.set("n", "<leader>hq", quickfix,           { desc = "mini.pick quickfix" })
   vim.keymap.set("n", "<leader>hr", extra.registers,    { desc = "mini.pick registers" })
   vim.keymap.set("n", "<leader>hs", extra.spellsuggest, { desc = "mini.pick spell suggest" })
-end)
+end, "later")
