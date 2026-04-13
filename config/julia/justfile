@@ -1,0 +1,5 @@
+install-jetls:
+  julia -e 'using Pkg; Pkg.Apps.add(; url="https://github.com/aviatesk/JETLS.jl", rev="release")'
+
+install-runic:
+  julia -e 'using Pkg; Pkg.Apps.add(; url="https://github.com/fredrikekre/Runic.jl", rev="master")'
