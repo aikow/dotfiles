@@ -8,7 +8,7 @@ end)
 safely("later", function()
   vim.pack.add({
     { src = gh("nvim-lua/plenary.nvim") },
-    { src = gh("sindrets/diffview.nvim") },
+    { src = gh("dlyongemallo/diffview.nvim") },
   })
 
   local actions = require("diffview.config").actions
