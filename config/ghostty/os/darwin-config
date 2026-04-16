@@ -3,3 +3,7 @@
 command = /opt/homebrew/bin/fish
 font-size = 16
 macos-option-as-alt = true
+
+## Keybinds ##
+keybind = super+r=prompt_tab_title
+keybind = global:super+alt+enter=toggle_quick_terminal
