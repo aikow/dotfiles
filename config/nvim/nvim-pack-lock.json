@@ -1,7 +1,7 @@
 {
   "plugins": {
     "SchemaStore.nvim": {
-      "rev": "0c303573345e710a233f5ba75f9aadc05852771b",
+      "rev": "8092a4212b66b4ff2c392080ff4186ff0b7d4945",
       "src": "https://github.com/b0o/SchemaStore.nvim"
     },
     "bamboo.nvim": {
@@ -21,7 +21,7 @@
       "src": "https://github.com/stevearc/conform.nvim"
     },
     "diffview.nvim": {
-      "rev": "4a3021e60748d3dbb37b80208f8d9e21b400b30e",
+      "rev": "385f26fd6a50e3b0b11cc9623f1f96cde00ef08c",
       "src": "https://github.com/dlyongemallo/diffview.nvim"
     },
     "everforest": {
@@ -45,7 +45,7 @@
       "src": "https://github.com/rebelot/kanagawa.nvim"
     },
     "markview.nvim": {
-      "rev": "692887ec334c41b618ba732047ac9dac3edfaead",
+      "rev": "e3829d35674fa0537ed2a3aceffb6f79b412d52b",
       "src": "https://github.com/OXY2DEV/markview.nvim"
     },
     "mason-lspconfig.nvim": {
@@ -53,11 +53,11 @@
       "src": "https://github.com/mason-org/mason-lspconfig.nvim"
     },
     "mason.nvim": {
-      "rev": "12ddd182d9efbdc848b540f16484a583d52da0fb",
+      "rev": "cb8445f8ce85d957416c106b780efd51c6298f89",
       "src": "https://github.com/mason-org/mason.nvim"
     },
     "mini.nvim": {
-      "rev": "5849ef04c32a6a8e55957b946c0a275801d87530",
+      "rev": "be81509b7160aa02264a59789164a2e1c4a6750a",
       "src": "https://github.com/nvim-mini/mini.nvim"
     },
     "nightfox.nvim": {
@@ -65,8 +65,12 @@
       "src": "https://github.com/EdenEast/nightfox.nvim"
     },
     "nvim-lspconfig": {
-      "rev": "81878de76c0de4ce289513734ad80c31ec7871b8",
+      "rev": "f7e89f3d19fb436e1fbeff3bf4291eef35da94e3",
       "src": "https://github.com/neovim/nvim-lspconfig"
+    },
+    "nvim-pqf": {
+      "rev": "148ee2ca8b06d83fd9bf6f9b9497724ad39a07d6",
+      "src": "https://github.com/yorickpeterse/nvim-pqf"
     },
     "nvim-treesitter": {
       "rev": "4916d6592ede8c07973490d9322f187e07dfefac",
@@ -95,7 +99,7 @@
       "src": "https://github.com/quarto-dev/quarto-nvim"
     },
     "rose-pine": {
-      "rev": "9504524e5ed0e326534698f637f9d038ba4cd0ee",
+      "rev": "6a961effd67f6130d36df6d1c05c48c739796dd2",
       "src": "https://github.com/rose-pine/neovim"
     },
     "vim-dadbod": {
