@@ -47,11 +47,19 @@ vim.b.miniai_config = {
 
 vim.api.nvim_buf_create_user_command(
   0,
-  "RuffCheck",
-  "<cmd>cexpr system('ruff check --output-format=pylint')<cr>",
+  "PyLintRuff",
+  "cexpr system('ruff check --output-format=concise')",
   { desc = "Populate the quickfix list with the output of 'ruff check'" }
 )
-vim.api.nvim_buf_create_user_command(0, "BlackFormat", function()
+
+vim.api.nvim_buf_create_user_command(
+  0,
+  "PyLintTy",
+  "cexpr system('ty check --output-format=concise')",
+  { desc = "Populate the quickfix list with the output of 'ty check'" }
+)
+
+vim.api.nvim_buf_create_user_command(0, "PyFormatBlack", function()
   if vim.fn.executable("black") ~= 1 then
     vim.notify("could not find 'black' executable", vim.log.levels.WARN)
     return
@@ -72,7 +80,7 @@ end, { desc = "Format the buffer using black with string processing enabled" })
 
 vim.api.nvim_buf_create_user_command(
   0,
-  "RuffFix",
+  "PyFormatRuffFix",
   function()
     require("conform").format({
       async = true,
@@ -89,20 +97,25 @@ vim.api.nvim_buf_create_user_command(
 
 vim.keymap.set(
   "n",
-  "<localleader>l",
-  "<cmd>RuffCheck<cr>",
-  { buffer = true, desc = "populate the quickfix list with the output of 'ruff check'" }
+  "<localleader>lr",
+  "<cmd>PyLintRuff<cr>",
+  { buffer = true, desc = "set qflist to 'ruff check'" }
+)
+vim.keymap.set(
+  "n",
+  "<localleader>lt",
+  "<cmd>PyLintTy<cr>",
+  { buffer = true, desc = "set qflist to 'ty check'" }
 )
 vim.keymap.set(
   "n",
   "<localleader>fb",
-  "<cmd>BlackFormat<CR>",
-  { buffer = true, desc = "format the entire buffer using black with string processing enabled" }
+  "<cmd>PyFormatBlack<CR>",
+  { buffer = true, desc = "format with 'black'" }
 )
-
 vim.keymap.set(
   { "n", "x" },
   "<localleader>fr",
-  "<cmd>RuffFix<CR>",
-  { buffer = true, desc = "Format the current buffer by fixing all lints using ruff" }
+  "<cmd>PyFormatRuffFix<CR>",
+  { buffer = true, desc = "format with 'ruff check --fix'" }
 )
