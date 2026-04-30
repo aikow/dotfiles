@@ -9,6 +9,14 @@ safely("later", function()
 end)
 
 safely("later", function()
+  vim.pack.add({
+    { src = gh("yorickpeterse/nvim-pqf") },
+  })
+
+  require("pqf").setup()
+end)
+
+safely("later", function()
   vim.g.tmux_navigator_no_mappings = 1
   vim.g.tmux_navigator_disable_when_zoomed = 1
 
