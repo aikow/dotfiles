@@ -1,4 +1,4 @@
-function sourceenv -d "source environment variables defined in a file"
+function source-env -d "source environment variables defined in a file"
     argparse --min-args 1 --max-args 1 n/dryrun v/verbose -- $argv
     or exit 1
 
