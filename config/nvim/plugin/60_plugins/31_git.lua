@@ -7,7 +7,13 @@ end)
 
 safely("later", function()
   vim.pack.add({
-    { src = gh("nvim-lua/plenary.nvim") },
+    { src = gh("NicolasGB/jj.nvim") },
+  })
+  require("jj").setup({})
+end)
+
+safely("later", function()
+  vim.pack.add({
     { src = gh("dlyongemallo/diffview.nvim") },
   })
 
