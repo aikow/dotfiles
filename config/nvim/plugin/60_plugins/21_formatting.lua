@@ -21,7 +21,7 @@ safely("later", function()
       htmldjango = { "prettier" },
       json = { "jq" },
       lua = { "stylua" },
-      -- markdown = { "prettier" },
+      markdown = { "prettier" },
       python = { "ruff_fix", "ruff_format" },
       sh = { "shfmt" },
       sql = { "sql_formatter" },
