@@ -1,9 +1,5 @@
 #:schema https://jj-vcs.github.io/jj/latest/config-schema.json
 
-[ui]
-default-command = "status"
-diff-editor = ":builtin"
-
 [user]
 name = "Aiko Wessels"
 email = "aiko.wessels@gmail.com"
@@ -12,6 +8,22 @@ email = "aiko.wessels@gmail.com"
 behavior = "own"
 backend = "ssh"
 key = "~/.ssh/id_ed25519_github.pub"
+
+[ui]
+default-command = "status"
+diff-editor = ":builtin"
+
+[revset-aliases]
+"abandoned()" = ".. ~ (::visible_heads())"
+
+[template-aliases]
+log_diff_stat = '''
+concat(
+  builtin_log_compact_full_description,
+  self.diff().stat(),
+  "\n",
+)
+'''
 
 [git]
 private-commits = "description('private:*')"
