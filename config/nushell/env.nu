@@ -15,20 +15,12 @@ def create_left_prompt [] { ||
       hostname | str trim
     )
 
-    $"($user_segment)@($hostname_segment) ($path_segment)"
-}
-
-def create_right_prompt [] { ||
-    let time_segment = ([
-        (date now | format date '%T %d-%m-%Y')
-    ] | str join)
-
-    $time_segment
+    $"($user_segment)@($hostname_segment) ($path_segment)\n"
 }
 
 # Customize the prompt commands
 $env.PROMPT_COMMAND = { || create_left_prompt }
-$env.PROMPT_COMMAND_RIGHT = { || create_right_prompt }
+$env.PROMPT_COMMAND_RIGHT = {||}
 
 # Customize the prompt imdicators
 $env.PROMPT_INDICATOR = { || "〉" }
