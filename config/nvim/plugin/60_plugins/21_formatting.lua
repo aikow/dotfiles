@@ -19,6 +19,7 @@ safely("later", function()
       fish = { "fish_indent" },
       html = { "prettier" },
       htmldjango = { "prettier" },
+      julia = { "runic" },
       json = { "jq" },
       lua = { "stylua" },
       markdown = { "prettier" },
