@@ -18,16 +18,16 @@ safely("later", function()
   end
 
   -- stylua: ignore start
-  vim.keymap.set("n", "<leader>jr", visit_paths(false, 1.0), { desc = "select recent (cwd)" })
-  vim.keymap.set("n", "<leader>jR", visit_paths(true,  1.0), { desc = "select recent (all)" })
-  vim.keymap.set("n", "<leader>jy", visit_paths(false, 0.5), { desc = "select frecent (cwd)" })
-  vim.keymap.set("n", "<leader>jY", visit_paths(true,  0.5), { desc = "select frecent (all)" })
-  vim.keymap.set("n", "<leader>jf", visit_paths(false, 0.0), { desc = "select frequent (cwd)" })
-  vim.keymap.set("n", "<leader>jF", visit_paths(true,  0.0), { desc = "select frequent (all)" })
+  vim.keymap.set("n", "<leader>vr", visit_paths(false, 1.0), { desc = "select recent (cwd)" })
+  vim.keymap.set("n", "<leader>vR", visit_paths(true,  1.0), { desc = "select recent (all)" })
+  vim.keymap.set("n", "<leader>vy", visit_paths(false, 0.5), { desc = "select frecent (cwd)" })
+  vim.keymap.set("n", "<leader>vY", visit_paths(true,  0.5), { desc = "select frecent (all)" })
+  vim.keymap.set("n", "<leader>vf", visit_paths(false, 0.0), { desc = "select frequent (cwd)" })
+  vim.keymap.set("n", "<leader>vF", visit_paths(true,  0.0), { desc = "select frequent (all)" })
 
-  vim.keymap.set("n", "<leader>jj", minivisits.add_label,    { desc = "add label" })
-  vim.keymap.set("n", "<leader>jJ", minivisits.remove_label, { desc = "remove label" })
-  vim.keymap.set("n", "<leader>jl", visit_labels(false),     { desc = "select label (cwd)" })
-  vim.keymap.set("n", "<leader>jL", visit_labels(true),      { desc = "select label (all)" })
+  vim.keymap.set("n", "<leader>vj", minivisits.add_label,    { desc = "add label" })
+  vim.keymap.set("n", "<leader>vJ", minivisits.remove_label, { desc = "remove label" })
+  vim.keymap.set("n", "<leader>vl", visit_labels(false),     { desc = "select label (cwd)" })
+  vim.keymap.set("n", "<leader>vL", visit_labels(true),      { desc = "select label (all)" })
   -- stylua: ignore end
 end)

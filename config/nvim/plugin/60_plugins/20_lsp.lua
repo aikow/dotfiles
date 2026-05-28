@@ -139,6 +139,7 @@ function H.document_symbols_kinds(winid, kinds)
         vim.fn.setloclist(winid, {}, " ", options)
         vim.api.nvim_win_call(winid, vim.cmd.lopen)
       end,
+      pos = vim.pos.cursor(0, vim.api.nvim_win_get_cursor(0)),
     })
   end
 end
