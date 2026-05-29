@@ -1,0 +1,19 @@
+#compdef run-script rs
+# vim:ft=zsh
+
+if (( CURRENT == 2 )); then
+    local dir="$PWD"
+    while [[ "$dir" != "/" ]]; do
+        if [[ -d "$dir/scripts" ]]; then
+            local -a scripts
+            scripts=( $dir/scripts/*(N.:t) )
+
+            _describe 'scripts' scripts
+            return 0
+        fi
+        dir="$(dirname "$dir")"
+    done
+fi
+
+# Fallback to path completion
+_files

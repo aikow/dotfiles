@@ -12,3 +12,4 @@ cdp() {
   fi
 }
 
+alias rs=run-script

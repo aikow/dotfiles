@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+
+dir="$PWD"
+
+# Walk up the directory tree to find the 'scripts' directory
+while [[ $dir != "/" ]]; do
+  if [[ -d "$dir/scripts" ]]; then
+    if [[ -z $1 ]]; then
+      echo "Usage: run-script <script_name> [arguments]"
+      exit 1
+    fi
+
+    script_path="$dir/scripts/$1"
+    if [[ -f $script_path ]]; then
+      shift
+      # 'exec' replaces this process with the target script,
+      # forwarding arguments and exit codes seamlessly.
+      exec "$script_path" "$@"
+    else
+      echo "Error: Script '$1' not found in $dir/scripts/"
+      exit 1
+    fi
+  fi
+  dir="$(dirname "$dir")"
+done
+
+echo "Error: 'scripts' directory not found in this or any parent directories."
+exit 1

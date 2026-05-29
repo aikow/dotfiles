@@ -8,7 +8,7 @@ fi
 
 ## Completions ##
 # Add custom completions to fpath.
-fpath=($zsh_dir/completions $fpath)
+fpath=($zsh_dir/completions $DOTFILES_ZSH/functions $fpath)
 
 # Enable the "new" completion system (compsys).
 zstyle ':completion:*' use-cache
