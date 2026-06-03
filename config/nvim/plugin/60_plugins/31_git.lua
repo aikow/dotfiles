@@ -83,7 +83,7 @@ end)
 
 safely("later", function()
   vim.pack.add({
-    { src = gh("dlyongemallo/diffview.nvim") },
+    { src = gh("dlyongemallo/diffview-plus.nvim") },
   })
 
   local actions = require("diffview.config").actions

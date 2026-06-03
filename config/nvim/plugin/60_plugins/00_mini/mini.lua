@@ -50,6 +50,7 @@ safely("later", function() require("mini.align").setup({}) end)
 safely("later", function() require("mini.cmdline").setup({}) end)
 safely("later", function() require("mini.cursorword").setup({}) end)
 safely("later", function() require("mini.splitjoin").setup({}) end)
+safely("later", function() require("mini.input").setup({}) end)
 
 -- ------------------------------------------------------------------------
 -- | mini.ai
