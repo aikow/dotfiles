@@ -77,10 +77,6 @@ safely("later", function()
   -- stylua: ignore start
   vim.keymap.set("n", "<leader>i", builtin.resume, { desc = "mini.pick reopen last picker" })
 
-  -- mini.visits
-  vim.keymap.set("n", "<leader>jl", extra.visit_labels, { desc = "mini.pick visit labels" })
-  vim.keymap.set("n", "<leader>jj", extra.visit_paths,  { desc = "mini.pick visit paths" })
-
   -- Finding searching and navigating
   vim.keymap.set("n", "<leader>o",  builtin.files,     { desc = "mini.pick files" })
   vim.keymap.set("n", "<leader>O",  projects,          { desc = "mini.pick projects" })

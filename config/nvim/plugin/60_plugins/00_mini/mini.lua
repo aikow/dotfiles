@@ -201,15 +201,31 @@ safely("later", function()
   })
 
   local minisnippets = require("mini.snippets")
+
+  local langs = {
+    latex = {
+      "latex.{json,lua}",
+      "latex/**/*.{json,lua}",
+    },
+    -- Add quarto to markdown snippets
+    quarto = {
+      "markdown.{json,lua}",
+      "markdown/**/*.{json,lua}",
+      "quarto.{json,lua}",
+      "quarto/**/*.{json,lua}",
+    },
+  }
+
   minisnippets.setup({
     snippets = {
       -- Load custom file with global snippets first
       minisnippets.gen_loader.from_runtime("global.{json,lua}"),
       minisnippets.gen_loader.from_lang({
         lang_patterns = {
-          tex = { "latex/**/*.json", "latex.json" },
-          plaintext = { "latex/**/*.json", "latex.json" },
-          markdown_inline = { "markdown/**/*.json", "markdown.json" },
+          markdown = langs.quarto,
+          markdown_inline = langs.quarto,
+          plaintext = langs.latex,
+          tex = langs.latex,
         },
       }),
     },

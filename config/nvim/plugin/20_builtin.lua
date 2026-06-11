@@ -46,3 +46,5 @@ end
 
 local ok, mod = pcall(require, "vim._core.ui2")
 if ok then mod.enable({}) end
+
+vim.cmd.packadd({'nvim.undotree'})
