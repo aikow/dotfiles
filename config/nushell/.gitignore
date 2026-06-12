@@ -1,3 +1,4 @@
 /history.*
 /plugin.nu
 /plugin.msgpackz
+/autoload/_fzf_integration.nu
