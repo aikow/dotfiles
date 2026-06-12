@@ -18,6 +18,7 @@ alias ll='eza --group-directories-first --icons=auto --long'
 alias lll='eza --group-directories-first --icons=auto --long --almost-all --group --links --header'
 
 ## Docker ##
+alias dcl='docker container ls --format "table {{.Names}}\t{{.Image}}\t{{.Status}}\t{{.Command}}"'
 alias drun='docker run --rm'
 alias druni='docker run --rm -it'
 alias druniv='docker run --rm -it -v $(pwd):/mnt/local'

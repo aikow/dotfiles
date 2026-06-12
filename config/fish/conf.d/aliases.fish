@@ -28,6 +28,8 @@ abbr dn docker network
 abbr dps docker ps
 abbr dv docker volume
 
+abbr dcl 'docker container list --format "table {{.Names}}\t{{.Image}}\t{{.Status}}\t{{.Command}}"'
+
 # Run a container
 abbr drun 'docker run --rm'
 
