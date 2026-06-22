@@ -7,4 +7,4 @@ TERM = "xterm-256color"
 WINIT_X11_SCALE_FACTOR = "1.0"
 
 [terminal]
-shell = {program = "/usr/bin/fish", args = ["--login"]}
+shell = { program = "/usr/bin/fish", args = ["--login"] }

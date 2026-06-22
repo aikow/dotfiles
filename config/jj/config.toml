@@ -38,6 +38,6 @@ merge-args = [
   "-c", "wincmd K",
   "-c", "wincmd 8_",
   "-c", "wincmd j",
-  "-c", "wincmd l"
+  "-c", "wincmd l",
 ]
 merge-tool-edits-conflict-markers = true
