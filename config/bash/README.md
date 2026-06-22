@@ -17,4 +17,3 @@ to the `.bashrc` file
 ## Bash Best Practices
 
 Guide [here](http://mywiki.wooledge.org/BashGuide/Practices#Bash_Tests)
-
