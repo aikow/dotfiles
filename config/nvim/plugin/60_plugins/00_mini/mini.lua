@@ -208,13 +208,12 @@ safely("later", function()
       "latex/**/*.{json,lua}",
     },
     -- Add quarto to markdown snippets
-    quarto = {
+    markdown = {
       "markdown.{json,lua}",
       "markdown/**/*.{json,lua}",
-      "quarto.{json,lua}",
-      "quarto/**/*.{json,lua}",
     },
   }
+  vim.g.minisnippets_lang_patterns = langs
 
   minisnippets.setup({
     snippets = {
@@ -222,8 +221,8 @@ safely("later", function()
       minisnippets.gen_loader.from_runtime("global.{json,lua}"),
       minisnippets.gen_loader.from_lang({
         lang_patterns = {
-          markdown = langs.quarto,
-          markdown_inline = langs.quarto,
+          markdown = langs.markdown,
+          markdown_inline = langs.markdown,
           plaintext = langs.latex,
           tex = langs.latex,
         },

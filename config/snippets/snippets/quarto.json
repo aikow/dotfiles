@@ -1,0 +1,251 @@
+{
+  "Insert YAML frontmatter": {
+    "prefix": "headeryaml",
+    "body": [
+      "---",
+      "title: ${1:title}",
+      "author: ${2:author}",
+      "format: ${3|html,pdf,docx,typst,revealjs|}",
+      "---",
+      "",
+      "$0"
+    ],
+    "description": "Insert YAML frontmatter"
+  },
+  "Julia HTML header": {
+    "prefix": "headerhtml",
+    "body": [
+      "---",
+      "title: $0",
+      "author: Aiko Wessels",
+      "format:",
+      "  html:",
+      "    toc: true",
+      "    toc-depth: 4",
+      "    toc-expand: 3",
+      "    toc-location: left",
+      "execute:",
+      "  echo: false",
+      "engine: julia",
+      "---",
+      "",
+      "```{julia}",
+      "#| output: false",
+      "using Revise",
+      "```"
+    ],
+    "description": "Header for a Quarto HTML document with Julia computations"
+  },
+  "Julia RevealJS header": {
+    "prefix": "headerreveal",
+    "body": [
+      "---",
+      "title: $0",
+      "author: Aiko Wessels",
+      "format:",
+      "  revealjs:",
+      "    theme: dark",
+      "execute:",
+      "  echo: false",
+      "engine: julia",
+      "---",
+      "",
+      "```{julia}",
+      "#| output: false",
+      "using Revise",
+      "```"
+    ],
+    "description": "Header for a Quarto RevealJS document with Julia computations"
+  },
+  "Insert executable code block": {
+    "prefix": "executablecodeblock",
+    "body": [
+      "",
+      "```{${1|python,r,julia,ojs,sql,bash,mermaid,dot|}}",
+      "${TM_SELECTED_TEXT}$0",
+      "```",
+      ""
+    ],
+    "description": "Insert executable code block"
+  },
+  "Insert raw code block": {
+    "prefix": "rawcodeblock",
+    "body": [
+      "",
+      "```{=${1|html,latex,typst,openxml,opendocument,asciidoc,docbook,markdown,dokuwiki,fb2,gfm,haddock,icml,ipynb,jats,jira,json,man,mediawiki,ms,muse,opml,org,plain,rst,rtf,tei,texinfo,textile,xwiki,zimwiki,native|}}",
+      "${TM_SELECTED_TEXT}$0",
+      "```",
+      ""
+    ],
+    "description": "Insert raw code block"
+  },
+  "Insert Julia computation": {
+    "prefix": "qj",
+    "body": [
+      "```{julia}",
+      "$0",
+      "```"
+    ],
+    "description": "Quarto codeblock for Julia computations"
+  },
+  "Insert shortcode": {
+    "prefix": "shortcode",
+    "body": "{{< $0 >}}",
+    "description": "Insert shortcode"
+  },
+  "Insert div block": {
+    "prefix": "div",
+    "body": [
+      "",
+      "::: {${1:#id .class1 key=value}}",
+      "",
+      "${TM_SELECTED_TEXT}$0",
+      "",
+      ":::",
+      ""
+    ],
+    "description": "Insert div block"
+  },
+  "Insert fragment block": {
+    "prefix": "fragment",
+    "body": [
+      "",
+      "::: {.fragment}",
+      "",
+      "${TM_SELECTED_TEXT}$0",
+      "",
+      ":::",
+      ""
+    ],
+    "description": "Insert fragment block"
+  },
+  "Insert span": {
+    "prefix": "span",
+    "body": "[${TM_SELECTED_TEXT:${1:text}}]{.${2:class}}$0",
+    "description": "Insert span"
+  },
+  "Insert callout block": {
+    "prefix": "callout",
+    "body": [
+      "",
+      "::: {.${1|callout,callout-note,callout-tip,callout-important,callout-caution,callout-warning|}}",
+      "",
+      "${TM_SELECTED_TEXT}$0",
+      "",
+      ":::",
+      ""
+    ],
+    "description": "Insert callout block"
+  },
+  "Insert two columns": {
+    "prefix": "columns2",
+    "body": [
+      "",
+      "::: {.columns}",
+      "",
+      "::: {.column}",
+      "",
+      "$1",
+      "",
+      ":::",
+      "",
+      "::: {.column}",
+      "",
+      "$2",
+      "",
+      ":::",
+      "",
+      ":::",
+      "",
+      "$0"
+    ],
+    "description": "Insert two columns"
+  },
+  "Insert three columns": {
+    "prefix": "columns3",
+    "body": [
+      "",
+      "::: {.columns}",
+      "",
+      "::: {.column}",
+      "",
+      "$1",
+      "",
+      ":::",
+      "",
+      "::: {.column}",
+      "",
+      "$2",
+      "",
+      ":::",
+      "",
+      "::: {.column}",
+      "",
+      "$3",
+      "",
+      ":::",
+      "",
+      ":::",
+      "",
+      "$0"
+    ],
+    "description": "Insert three columns"
+  },
+  "Insert cross-reference div": {
+    "prefix": "xref",
+    "body": [
+      "",
+      "::: {#${1|fig-,tbl-,lst-|}${2:id}}",
+      "",
+      "${3:content}",
+      "",
+      "${4:caption}",
+      "",
+      ":::",
+      "",
+      "$0"
+    ],
+    "description": "Insert cross-reference div (figure, table, or listing)"
+  },
+  "Insert list table": {
+    "prefix": "list-table",
+    "body": [
+      "",
+      "::: {.list-table}",
+      "",
+      "- - ${1:header 1}",
+      "  - ${2:header 2}",
+      "",
+      "- - ${3:row 1 col 1}",
+      "  - ${4:row 1 col 2}",
+      "",
+      "- - ${5:row 2 col 1}",
+      "  - ${6:row 2 col 2}",
+      "",
+      ":::",
+      "",
+      "$0"
+    ],
+    "description": "Insert list table"
+  },
+  "Insert tabset panel": {
+    "prefix": "tabset",
+    "body": [
+      "",
+      "::: {.panel-tabset}",
+      "",
+      "## ${1:Tab 1}",
+      "",
+      "${2:content}",
+      "",
+      "## ${3:Tab 2}",
+      "",
+      "${4:content}",
+      "",
+      ":::",
+      "",
+      "$0"
+    ],
+    "description": "Insert tabset panel"
+  }
+}

@@ -4,6 +4,25 @@ vim.bo.shiftwidth = 4
 local runner = require("quarto.runner")
 local run_all_langs = function() runner.run_all(true) end
 
+safely("later", function()
+  local minisnippets = require("mini.snippets")
+  local quarto = vim.list_extend({
+    "quarto.{json,lua}",
+    "quarto/**/*.{json,lua}",
+  }, vim.g.minisnippets_lang_patterns.markdown)
+
+  vim.b.minisnippets_config = {
+    snippets = {
+      minisnippets.gen_loader.from_lang({
+        lang_patterns = {
+          markdown = quarto,
+          markdown_inline = quarto,
+        },
+      }),
+    },
+  }
+end)
+
 -- stylua: ignore start
 vim.keymap.set("n", "<localleader>c", runner.run_cell,  { desc = "run cell",                       buffer = true })
 vim.keymap.set("n", "<localleader>u", runner.run_above, { desc = "run up to cell",                 buffer = true })
