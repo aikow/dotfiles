@@ -5,3 +5,5 @@
 
 # Mac OSX
 .DS_Store
+
+**/.claude/settings.local.json
