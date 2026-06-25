@@ -1,17 +1,9 @@
+local on_update = require("user").on_update
 local H = {}
 
 safely("now", function()
   -- Automatically update mason registries when updating mason
-  vim.api.nvim_create_autocmd("PackChanged", {
-    group = vim.api.nvim_create_augroup("user.pack.mason.update", {}),
-    callback = function(ev)
-      local name = ev.data.spec.name
-      if name == "mason.nvim" then
-        vim.notify("[mason] updating registries", vim.log.levels.INFO)
-        vim.cmd.MasonUpdate()
-      end
-    end,
-  })
+  on_update('mason.nvim', function() vim.cmd.MasonUpdate() end)
 
   -- Provide adapter and helper functions for setting up language servers.
   vim.pack.add({
@@ -28,7 +20,7 @@ safely("now", function()
   })
 
   -- Setup LSP servers not installed by mason.
-  vim.lsp.enable({ "jetls", "nushell", "rust_analyzer" })
+  vim.lsp.enable({ "julials", "nushell", "rust_analyzer" })
 
   -- Configure neovim diagnostics
   vim.diagnostic.config({

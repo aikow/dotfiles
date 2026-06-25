@@ -1,16 +1,8 @@
+local on_update = require("user").on_update
 local H = {}
 
 safely("now", function()
-  vim.api.nvim_create_autocmd("PackChanged", {
-    group = vim.api.nvim_create_augroup("user.pack.nvim_treesitter.update", {}),
-    callback = function(ev)
-      local name = ev.data.spec.name
-      if name == "nvim-treesitter/nvim-treesitter" then
-        vim.notify("[treesitter] Update parsers", vim.log.levels.INFO)
-        vim.cmd.TSUpdate()
-      end
-    end,
-  })
+  on_update('nvim-treesitter', function() vim.cmd.TSUpdate() end)
 
   vim.pack.add({
     { src = gh("nvim-treesitter/nvim-treesitter"), version = "main" },
@@ -20,10 +12,10 @@ safely("now", function()
 
   vim.api.nvim_create_autocmd("FileType", {
     group = vim.api.nvim_create_augroup("user.ft.treesitter_start", {}),
-    callback = function(params)
+    callback = function()
       local hasStarted = pcall(vim.treesitter.start)
 
-      if hasStarted and not vim.list_contains({ "python" }, params.match) then
+      if hasStarted then
         vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
       end
     end,
@@ -47,18 +39,18 @@ end)
 safely("later", function()
 
   -- stylua: ignore start
-  vim.keymap.set({"n", "x", "o"}, "]]", H.goto_next_start("@class.outer"),    {desc="next class"    })
-  vim.keymap.set({"n", "x", "o"}, "][", H.goto_next_end("@class.outer"),      {desc="next class end"})
-  vim.keymap.set({"n", "x", "o"}, "[[", H.goto_prev_start("@class.outer"),    {desc="prev class"    })
-  vim.keymap.set({"n", "x", "o"}, "[]", H.goto_prev_end("@class.outer"),      {desc="prev class end"})
+  vim.keymap.set({"n", "x", "o"}, "]]", H.goto_next_start("@class.outer"),    { desc="next class"     })
+  vim.keymap.set({"n", "x", "o"}, "][", H.goto_next_end("@class.outer"),      { desc="next class end" })
+  vim.keymap.set({"n", "x", "o"}, "[[", H.goto_prev_start("@class.outer"),    { desc="prev class"     })
+  vim.keymap.set({"n", "x", "o"}, "[]", H.goto_prev_end("@class.outer"),      { desc="prev class end" })
 
-  vim.keymap.set({"n", "x", "o"}, "]m", H.goto_next_start("@function.outer"), {desc="next function"    })
-  vim.keymap.set({"n", "x", "o"}, "]M", H.goto_next_end("@function.outer"),   {desc="next function end"})
-  vim.keymap.set({"n", "x", "o"}, "[m", H.goto_prev_start("@function.outer"), {desc="prev function"    })
-  vim.keymap.set({"n", "x", "o"}, "[M", H.goto_prev_end("@function.outer"),   {desc="prev function end"})
+  vim.keymap.set({"n", "x", "o"}, "]m", H.goto_next_start("@function.outer"), { desc="next function"     })
+  vim.keymap.set({"n", "x", "o"}, "]M", H.goto_next_end("@function.outer"),   { desc="next function end" })
+  vim.keymap.set({"n", "x", "o"}, "[m", H.goto_prev_start("@function.outer"), { desc="prev function"     })
+  vim.keymap.set({"n", "x", "o"}, "[M", H.goto_prev_end("@function.outer"),   { desc="prev function end" })
 
-  vim.keymap.set("n",             "]p", H.swap_next("@parameter.inner"),      {desc="swap parameter forward" })
-  vim.keymap.set("n",             "[p", H.swap_prev("@parameter.inner"),      {desc="swap parameter backward"})
+  vim.keymap.set("n",             "]p", H.swap_next("@parameter.inner"),      { desc="swap parameter forward" })
+  vim.keymap.set("n",             "[p", H.swap_prev("@parameter.inner"),      { desc="swap parameter backward" })
   -- stylua: ignore end
 end)
 

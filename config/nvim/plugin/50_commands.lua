@@ -15,10 +15,6 @@ command("Bclean", function()
   end
 
   for _, buf in ipairs(vim.api.nvim_list_bufs()) do
-    -- Check that the buffer
-    -- - is not a terminal buffer
-    -- - and is loaded
-    -- - and is not shown
     if
       vim.api.nvim_get_option_value("buftype", { buf = buf }) ~= "terminal"
       and vim.api.nvim_buf_is_loaded(buf)
@@ -30,6 +26,14 @@ command("Bclean", function()
 end, {
   desc = "Close all hidden buffers",
 })
+
+command("TOjson", function()
+  local lines = vim.api.nvim_buf_get_lines(0, 0, -1, false)
+  local content = table.concat(lines, "\n") .. "\n"
+  local proc = vim.system({ "jq", "-Rs", "." }, { stdin = content, text = true }):wait()
+  vim.fn.setreg("*", proc.stdout)
+  vim.notify("Buffer text encoded as JSON and saved to clipboard")
+end, { desc = "Copy file contents as a JSON encoded string." })
 
 command("Search", function(params)
   local query = vim.uri_encode(params.args)

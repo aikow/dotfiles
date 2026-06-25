@@ -1,3 +1,5 @@
+local on_update = require("user").on_update
+
 safely("later", function()
   -- Connect to databases inside Neovim.
   vim.pack.add({
@@ -6,13 +8,22 @@ safely("later", function()
 end)
 
 safely("now", function()
-  -- Pretty view markdown files
+  -- Pretty view markdown files within Neovim.
   vim.pack.add({
     { src = gh("OXY2DEV/markview.nvim") },
   })
 
   require("markview").setup({
     preview = { enable = false },
+  })
+end)
+
+safely("later", function()
+  -- Live-preview markdown files in the browser.
+  on_update('markdown-preview.nvim', function() vim.fn["mkdp#util#install"]() end)
+
+  vim.pack.add({
+    { src = gh("iamcco/markdown-preview.nvim") },
   })
 end)
 
