@@ -1,5 +1,3 @@
-use ~/.dotfiles/config/nushell/themes
-
 # History
 $env.config.history.file_format = "sqlite"
 
@@ -9,7 +7,6 @@ $env.config.edit_mode = "vi"
 
 # Appearance
 $env.config.show_banner = false
-$env.config.color_config = (themes default dark)
 $env.config.cursor_shape = {
   emacs: line
   vi_insert: line
@@ -215,9 +212,4 @@ $env.config.keybindings ++= [
 
 # Aliases
 alias ll = ls -l
-
-# List everything with detailed information.
 alias lll = ls -la
-
-# Load custom completions
-use ~/.dotfiles/config/nushell/completions/git.nu
