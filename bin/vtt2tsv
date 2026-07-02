@@ -3,22 +3,27 @@
 use strict;
 use warnings;
 
-# Slurp blocks separated by a blank line
-local $/ = "\n\n";
-print "speaker\tstart\tstop\ttext\n";
+my $content = do { local $/; <> };
+my @blocks = split(/\R\s*\R/, $content);
 
-while (<>) {
+print "index\tspeaker\tstart\tstop\ttext\n";
 
-  my ($start_stop, $speaker_text) = split /\n/, $_, 3;
-  chomp($start_stop, $speaker_text);
+foreach my $block (@blocks) {
+  print "---", $block, "---";
+
+  my ($index, $start_stop, $speaker_text) = split /^/m, $block, 4;
+  chomp($index, $start_stop, $speaker_text);
 
   my ($start, $stop) =
     $start_stop =~ /^(\d{2}:\d{2}:\d{2}\.\d{3})\s+-->\s+(\d{2}:\d{2}:\d{2}\.\d{3})$/
-    or next;
+    ? ($1, $2)
+    : ("", "");
 
-  my ($speaker, $text) =
-    $speaker_text =~ /^([^:]+): (.*)$/
-    or next;
+    # or next;
 
-  print "$speaker\t$start\t$stop\t$text\n";
+  my ($speaker, $text) = $speaker_text =~ /^([^:]+): (.*)$/
+    ? ($1, $2)
+    : ("", $speaker_text);
+
+  print "$index\t$speaker\t$start\t$stop\t$text\n";
 }
