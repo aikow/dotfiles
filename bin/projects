@@ -1,3 +1,4 @@
 #!/usr/bin/env bash
 
-lsgit "${WORKSPACE_HOME:-"$HOME/workspace"}"
+fd -HI '^\.(hg|git|jj|svg)$' "${WORKSPACE_HOME:-"$HOME/workspace"}" -x echo '{//}' \
+  | perl -ne '$|++; print if !$seen{$_}++'

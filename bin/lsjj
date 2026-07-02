@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+fd -HI '^\.jj$' "${1:-.}" -x echo '{//}'
