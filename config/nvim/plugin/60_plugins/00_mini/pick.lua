@@ -14,7 +14,7 @@ safely("later", function()
   -- ----------------
   minipick.setup({
     options = {
-      use_cache = true,
+      use_cache = false,
     },
     mappings = {
       copy = copy,
