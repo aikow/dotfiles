@@ -24,7 +24,7 @@ safely("now", function()
   local minimisc = require("mini.misc")
   minimisc.setup({})
   minimisc.setup_termbg_sync()
-  minimisc.setup_restore_cursor()
+  minimisc.setup_restore_cursor({ ignore_filetype = { "gitcommit", "gitrebase", "bigfile" } })
 
   vim.keymap.set("n", "<leader>ww", minimisc.zoom, { desc = "mini.misc zoom" })
 end)
@@ -49,8 +49,8 @@ end)
 safely("later", function() require("mini.align").setup({}) end)
 safely("later", function() require("mini.cmdline").setup({}) end)
 safely("later", function() require("mini.cursorword").setup({}) end)
-safely("later", function() require("mini.splitjoin").setup({}) end)
 safely("later", function() require("mini.input").setup({}) end)
+safely("later", function() require("mini.splitjoin").setup({}) end)
 
 -- ------------------------------------------------------------------------
 -- | mini.ai
@@ -70,19 +70,6 @@ safely("later", function()
     },
   })
 end)
-
--- ------------------------------------------------------------------------
--- | mini.basics
--- ------------------------------------------------------------------------
-safely(
-  "later",
-  function()
-    require("mini.basics").setup({
-      options = { basic = false, extra_ui = false, win_borders = "bold" },
-      mappings = { basic = false, option_toggle_prefix = "<leader>t" },
-    })
-  end
-)
 
 -- ------------------------------------------------------------------------
 -- | mini.bracketed
@@ -139,6 +126,9 @@ safely("later", function()
   vim.keymap.set("n", "<leader>gO", minidiff.toggle_overlay, { desc = "mini.diff toggle overlay" })
 end)
 
+-- ------------------------------------------------------------------------
+-- | mini.git
+-- ------------------------------------------------------------------------
 safely("later", function()
   local minigit = require("mini.git")
   minigit.setup({})
@@ -151,10 +141,10 @@ safely("later", function()
   -- stylua: ignore end
 end)
 
+-- ------------------------------------------------------------------------
+-- | mini.hipatterns
+-- ------------------------------------------------------------------------
 safely("later", function()
-  -- ------------------------------------------------------------------------
-  -- | mini.hipatterns
-  -- ------------------------------------------------------------------------
   local hipatterns = require("mini.hipatterns")
   hipatterns.setup({
     highlighters = {
@@ -192,6 +182,19 @@ safely(
   end
 )
 
+-- -- ------------------------------------------------------------------------
+-- -- | mini.pairs
+-- -- ------------------------------------------------------------------------
+-- safely("later", function()
+--   local minipairs = require("mini.pairs")
+--   minipairs.setup({})
+--
+--   vim.api.nvim_create_autocmd("FileType", {
+--     pattern = "rust",
+--     callback = function() vim.keymap.set("i", "'", "'", { buf = 0 }) end,
+--   })
+-- end)
+
 -- ------------------------------------------------------------------------
 -- | mini.snippets
 -- ------------------------------------------------------------------------
@@ -203,15 +206,9 @@ safely("later", function()
   local minisnippets = require("mini.snippets")
 
   local langs = {
-    latex = {
-      "latex.{json,lua}",
-      "latex/**/*.{json,lua}",
-    },
+    latex = { "latex.{json,lua}", "latex/**/*.{json,lua}" },
     -- Add quarto to markdown snippets
-    markdown = {
-      "markdown.{json,lua}",
-      "markdown/**/*.{json,lua}",
-    },
+    markdown = { "markdown.{json,lua}", "markdown/**/*.{json,lua}" },
   }
   vim.g.minisnippets_lang_patterns = langs
 
@@ -232,6 +229,24 @@ safely("later", function()
 
   local expand_all = function() minisnippets.expand({ match = false }) end
   vim.keymap.set("i", "<C-g><C-j>", expand_all, { desc = "Expand all" })
+end)
+
+-- ------------------------------------------------------------------------
+-- | mini.statuscolumn
+-- ------------------------------------------------------------------------
+safely("later", function()
+  local ministatuscolumn = require("mini.statuscolumn")
+  ministatuscolumn.setup({
+    content = ministatuscolumn.gen_content.main({
+      { fold = "%C", lnum = "%l", sign = "%s" }, -- Default sections
+      {
+        format = "sf=l",
+        sep = " " --[[ "│" ]],
+      }, -- Line-fold-sign-separator format
+      { ltype = "virt", lnum = "•" }, -- Dot in virtual lines
+      { ltype = "wrap", lnum = "↳" }, -- Arrow in wrapped lines
+    }),
+  })
 end)
 
 -- ------------------------------------------------------------------------
