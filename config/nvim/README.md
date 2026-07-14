@@ -1,5 +1,9 @@
 # Neovim
 
+## Performance benchmarks
+
+Use [`benchmark/`](benchmark/README.md) to capture and compare repeatable Hyperfine startup or buffer-load snapshots before and after configuration changes.
+
 ## Local Configurations
 
 > ![WARNING]
