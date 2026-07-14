@@ -23,15 +23,6 @@ o.ttimeoutlen = 5
 -- Enable all mouse options
 o.mouse = "a"
 
--- Remove default mouse menu options
-vim.api.nvim_create_autocmd("VimEnter", {
-  once = true,
-  callback = function()
-    vim.cmd.aunmenu({ "PopUp.How-to\\ disable\\ mouse" })
-    vim.cmd.aunmenu({ "PopUp.-2-" })
-  end,
-})
-
 -- Set 7 lines to the cursor - when moving vertically using j/k
 o.smoothscroll = true
 o.scrolloff = 7

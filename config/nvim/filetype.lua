@@ -24,7 +24,7 @@ vim.filetype.add({
             and path
             and (function()
               local stat = vim.uv.fs_stat(path)
-              return stat and stat.size > 2097152 -- 2MB
+              return stat and stat.size > 8388608 -- 8MiB
             end)()
             and "bigfile"
           or nil

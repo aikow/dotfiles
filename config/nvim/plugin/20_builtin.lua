@@ -1,4 +1,4 @@
--- disable some builtin vim plugins
+-- Disable some builtin vim plugins
 local disable_default_plugins = {
   "2html_plugin",
   "getscript",
