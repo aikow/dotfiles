@@ -8,7 +8,7 @@ config-file = ?~/.local/config/ghostty/config
 font-family = Iosevka Nerd Font Mono
 font-size = 13
 
-theme = Kanagawa Wave
+theme = dark:Gruvbox Dark,light:Gruvbox Light
 
 # Default shell
 command = /usr/bin/fish
