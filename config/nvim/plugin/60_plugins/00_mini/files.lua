@@ -27,11 +27,13 @@ H.show_ignored = false
 function H.toggle_hidden()
   H.show_hidden = not H.show_hidden
   require("mini.files").refresh({ content = { sort = H.filter_ignore } })
+  vim.notify("mini.files " .. (H.show_hidden and "showing" or "hiding") .. " hidden files", vim.log.levels.INFO)
 end
 
 function H.toggle_ignore()
   H.show_ignored = not H.show_ignored
   require("mini.files").refresh({ content = { sort = H.filter_ignore } })
+  vim.notify("mini.files " .. (H.show_ignored and "showing" or "hiding") .. " ignored files", vim.log.levels.INFO)
 end
 
 function H.filter_ignore(entries)
