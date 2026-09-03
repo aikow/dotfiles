@@ -1,9 +1,9 @@
-#!/bin/sh
+#!/usr/bin/env bash
 # Capture a portable Hyperfine snapshot of Neovim startup or buffer opening.
 set -eu
 
 usage() {
-  echo "usage: $0 [--file FILE] [--runs N] [--warmup N] [--configured-only] NAME" >&2
+  echo "usage: $0 [--file FILE] [--runs N] [--warmup N] [--shada|--shada-file FILE] [--configured-only] NAME" >&2
   exit 64
 }
 
@@ -11,6 +11,7 @@ file=-
 runs=15
 warmup=3
 configured_only=false
+shada=none
 
 while [ "$#" -gt 0 ]; do
   case "$1" in
@@ -27,6 +28,15 @@ while [ "$#" -gt 0 ]; do
     --warmup)
       [[ "$#" -ge 2 ]] || usage
       warmup=$2
+      shift 2
+      ;;
+    --shada)
+      shada=default
+      shift
+      ;;
+    --shada-file)
+      [[ "$#" -ge 2 ]] || usage
+      shada=$2
       shift 2
       ;;
     --configured-only)
@@ -50,6 +60,13 @@ esac
   echo "not a regular file: $file" >&2
   exit 66
 }
+case "$shada" in
+  none | default) ;;
+  *) [[ -f "$shada" ]] || {
+    echo "not a regular ShaDa file: $shada" >&2
+    exit 66
+  } ;;
+esac
 
 script_dir=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
 state_root=${XDG_STATE_HOME:-"$HOME/.local/state"}/nvim/benchmarks
@@ -63,10 +80,11 @@ quote() {
 
 runner=$(quote "$script_dir/run-nvim.sh")
 target=$(quote "$file")
+shada_target=$(quote "$shada")
 set -- hyperfine --warmup "$warmup" --runs "$runs" --export-json "$json" --export-markdown "$markdown" \
-  --command-name configured "$runner configured $target"
+  --command-name configured "$runner configured $target $shada_target"
 if [[ "$configured_only" = false ]]; then
-  set -- "$@" --command-name minimal "$runner minimal $target"
+  set -- "$@" --command-name minimal "$runner minimal $target $shada_target"
 fi
 
 "$@"

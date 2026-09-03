@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 # Compare two snapshots produced by run.sh. Requires jq.
 set -euo pipefail
 
