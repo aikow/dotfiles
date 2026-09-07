@@ -78,7 +78,12 @@ safely("later", function()
   })
 
   local cmd = require("jj.cmd")
-  vim.keymap.set("n", "<leader>jl", function() cmd.log({limit = 50}) end, { desc = "jj log" })
+  vim.keymap.set(
+    "n",
+    "<leader>jl",
+    function() cmd.log({ limit = 50 }) end,
+    { desc = "Show the jj log" }
+  )
 end)
 
 safely("later", function()
@@ -93,8 +98,8 @@ safely("later", function()
       view = {
         { "n", "<leader>e", nil },
         { "n", "<leader>b", nil },
-        { "n", "<leader>bf", actions.focus_files, { desc = "Bring focus to the file panel of the subject." }, },
-        { "n", "<leader>bb", actions.toggle_files, { desc = "Toggle the file panel." }, },
+        { "n", "<leader>bf", actions.focus_files, { desc = "Focus the diff file panel" }, },
+        { "n", "<leader>bb", actions.toggle_files, { desc = "Toggle the diff file panel" }, },
       },
     },
   })
@@ -103,6 +108,6 @@ safely("later", function()
     "n",
     "<leader>gg",
     "<cmd>DiffviewOpen<CR>",
-    { desc = "open a diff against the current index" }
+    { desc = "Open a diff against the index" }
   )
 end)

@@ -1,9 +1,9 @@
 -- Set the leader key to the space key
-vim.keymap.set("n", "<SPACE>", "<NOP>")
+vim.keymap.set("n", "<SPACE>", "<NOP>", { desc = "Reserve the space key" })
 vim.g.mapleader = " "
 
 -- Set local leader to the backslash
-vim.keymap.set("n", [[\]], "<NOP>")
+vim.keymap.set("n", [[\]], "<NOP>", { desc = "Reserve the backslash key" })
 vim.g.maplocalleader = [[\]]
 
 -- Local configuration files

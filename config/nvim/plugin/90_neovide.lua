@@ -37,5 +37,5 @@ end
 vim.env.PATH = table.concat(newpath, ":")
 
 -- Neovide specific keymaps
-vim.keymap.set("n", "<D-v>", '"+p')
-vim.keymap.set("i", "<D-v>", "<C-r>+")
+vim.keymap.set("n", "<D-v>", '"+p', { desc = "Paste from the system clipboard" })
+vim.keymap.set("i", "<D-v>", "<C-r>+", { desc = "Paste from the system clipboard" })

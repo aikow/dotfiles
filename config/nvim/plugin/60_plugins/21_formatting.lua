@@ -64,8 +64,8 @@ safely("later", function()
   })
 
   -- stylua: ignore start
-  vim.keymap.set({ "n", "x" }, "<leader>rf", H.format, { desc = "Format" })
-  vim.keymap.set({ "n", "x" }, "<leader>rF", H.format_injections, { desc = "Format with injections" })
+  vim.keymap.set({ "n", "x" }, "<leader>rf", H.format, { desc = "Format the buffer" })
+  vim.keymap.set({ "n", "x" }, "<leader>rF", H.format_injections, { desc = "Format injected languages" })
   -- stylua: ignore end
 end)
 

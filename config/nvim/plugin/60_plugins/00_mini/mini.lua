@@ -13,8 +13,8 @@ safely("later", function() require("mini.icons").tweak_lsp_kind("prepend") end)
 safely("now", function()
   local notify = require("mini.notify")
   notify.setup({})
-  vim.keymap.set("n", "<leader>hn", notify.show_history, { desc = "mini.notify show history" })
-  vim.keymap.set("n", "<leader>hN", notify.clear, { desc = "mini.notify show history" })
+  vim.keymap.set("n", "<leader>mo", notify.show_history, { desc = "Show mini.notify history" })
+  vim.keymap.set("n", "<leader>mc", notify.clear, { desc = "Clear mini.notify history" })
 end)
 
 -- ------------------------------------------------------------------------
@@ -26,7 +26,7 @@ safely("now", function()
   minimisc.setup_termbg_sync()
   minimisc.setup_restore_cursor({ ignore_filetype = { "gitcommit", "gitrebase", "bigfile" } })
 
-  vim.keymap.set("n", "<leader>ww", minimisc.zoom, { desc = "mini.misc zoom" })
+  vim.keymap.set("n", "<leader>ww", minimisc.zoom, { desc = "Zoom with mini.misc" })
 end)
 
 -- ------------------------------------------------------------------------
@@ -38,6 +38,7 @@ safely("now", function()
   vim.api.nvim_create_autocmd("FileType", {
     group = vim.api.nvim_create_augroup("user.pack.mini_statusline.disable", {}),
     pattern = { "DiffviewFiles" },
+    desc = "Disable statusline for diff views",
     callback = function() vim.b.ministatusline_disable = true end,
   })
 end)
@@ -94,7 +95,7 @@ safely("later", function()
   local minibufremove = require("mini.bufremove")
   minibufremove.setup({})
 
-  vim.keymap.set("n", "<leader>q", minibufremove.delete, { desc = "mini.bufremove delete" })
+  vim.keymap.set("n", "<leader>q", minibufremove.delete, { desc = "Delete with mini.bufremove" })
 end)
 
 -- ------------------------------------------------------------------------
@@ -107,6 +108,7 @@ safely("later", function()
   vim.api.nvim_create_autocmd("FileType", {
     group = vim.api.nvim_create_augroup("user.pack.mini_completion.disable", {}),
     pattern = { "minifiles" },
+    desc = "Disable completion for file explorers",
     callback = function() vim.b.minicompletion_disable = true end,
   })
 end)
@@ -123,7 +125,7 @@ safely("later", function()
     },
   })
 
-  vim.keymap.set("n", "<leader>gO", minidiff.toggle_overlay, { desc = "mini.diff toggle overlay" })
+  vim.keymap.set("n", "<leader>gO", minidiff.toggle_overlay, { desc = "Toggle mini.diff overlay" })
 end)
 
 -- ------------------------------------------------------------------------
@@ -135,9 +137,9 @@ safely("later", function()
 
   -- Keymaps
   -- stylua: ignore start
-  vim.keymap.set({"n", "x"}, "<leader>gk", minigit.show_at_cursor,     { desc = "mini.git show object at cursor" })
-  vim.keymap.set("n",        "<leader>gd", minigit.show_diff_source,   { desc = "mini.git show diff source at cursor position" })
-  vim.keymap.set({"n", "x"}, "<leader>gl", minigit.show_range_history, { desc = "mini.git show history of visual selection" })
+  vim.keymap.set({"n", "x"}, "<leader>gk", minigit.show_at_cursor,     { desc = "Show mini.git object at cursor" })
+  vim.keymap.set("n",        "<leader>gd", minigit.show_diff_source,   { desc = "Show mini.git diff source at cursor" })
+  vim.keymap.set({"n", "x"}, "<leader>gl", minigit.show_range_history, { desc = "Show mini.git selection history" })
   -- stylua: ignore end
 end)
 
@@ -163,7 +165,7 @@ end)
 -- ------------------------------------------------------------------------
 safely("later", function()
   local minikeymap = require("mini.keymap")
-  minikeymap.map_multistep("i", "<CR>", { "pmenu_accept" })
+  minikeymap.map_multistep("i", "<CR>", { "pmenu_accept" }, { desc = "Accept the completion menu" })
 end)
 
 -- ------------------------------------------------------------------------
@@ -191,7 +193,10 @@ safely(
 --
 --   vim.api.nvim_create_autocmd("FileType", {
 --     pattern = "rust",
---     callback = function() vim.keymap.set("i", "'", "'", { buf = 0 }) end,
+--     desc = "Map single quotes in Rust buffers",
+--     callback = function()
+--       vim.keymap.set("i", "'", "'", { buf = 0, desc = "Map single quotes in insert mode" })
+--     end,
 --   })
 -- end)
 
@@ -228,7 +233,7 @@ safely("later", function()
   })
 
   local expand_all = function() minisnippets.expand({ match = false }) end
-  vim.keymap.set("i", "<C-g><C-j>", expand_all, { desc = "Expand all" })
+  vim.keymap.set("i", "<C-g><C-j>", expand_all, { desc = "Expand all snippets" })
 end)
 
 -- ------------------------------------------------------------------------
@@ -270,8 +275,16 @@ safely("later", function()
     respect_selection_type = true,
     search_method = "cover_or_next",
   })
-  vim.keymap.set("x", "gs", [[:<C-u>lua MiniSurround.add('visual')<CR>]], { silent = true })
-  vim.keymap.set("n", "gsu", minisurround.update_n_lines, { desc = "MiniSurround update n_lines" })
+  vim.keymap.set("x", "gs", [[:<C-u>lua MiniSurround.add('visual')<CR>]], {
+    silent = true,
+    desc = "Add a surround",
+  })
+  vim.keymap.set(
+    "n",
+    "gsu",
+    minisurround.update_n_lines,
+    { desc = "Update mini.surround line count" }
+  )
 end)
 
 -- ------------------------------------------------------------------------
@@ -280,11 +293,16 @@ end)
 safely("later", function()
   local minitrailspace = require("mini.trailspace")
   minitrailspace.setup({})
-  vim.keymap.set("n", "<leader>rt", minitrailspace.trim, { desc = "mini.trailspace trim" })
+  vim.keymap.set(
+    "n",
+    "<leader>rt",
+    minitrailspace.trim,
+    { desc = "Trim whitespace with mini.trailspace" }
+  )
   vim.keymap.set(
     "n",
     "<leader>rT",
     minitrailspace.trim_last_lines,
-    { desc = "mini.trailspace trim last lines" }
+    { desc = "Trim trailing lines with mini.trailspace" }
   )
 end)

@@ -33,16 +33,16 @@ safely("later", function()
 
   -- Mappings
   -- stylua: ignore start
-  vim.keymap.set("x", "<leader>k", "<Plug>SlimeRegionSend", { desc = "slime send region" })
-  vim.keymap.set("n", "<leader>k", "<Plug>SlimeMotionSend", { desc = "slime send motion" })
-  vim.keymap.set("n", "<leader>kl", "<Plug>SlimeLineSend", { desc = "slime send line" })
-  vim.keymap.set("n", "<leader>kc", "<Plug>SlimeSendCell", { desc = "slime send cell" })
-  vim.keymap.set("n", "<leader>kC", "<Plug>SlimeConfig", { desc = "slime config" })
-  vim.keymap.set("n", "<leader>k<cr>", function() vim.fn["slime#send"]("\n") end, { desc = "slime new line" })
+  vim.keymap.set("x", "<leader>k", "<Plug>SlimeRegionSend", { desc = "Send the visual region with slime" })
+  vim.keymap.set("n", "<leader>k", "<Plug>SlimeMotionSend", { desc = "Send the motion with slime" })
+  vim.keymap.set("n", "<leader>kl", "<Plug>SlimeLineSend", { desc = "Send the line with slime" })
+  vim.keymap.set("n", "<leader>kc", "<Plug>SlimeSendCell", { desc = "Send the cell with slime" })
+  vim.keymap.set("n", "<leader>kC", "<Plug>SlimeConfig", { desc = "Configure slime" })
+  vim.keymap.set("n", "<leader>k<cr>", function() vim.fn["slime#send"]("\n") end, { desc = "Send a newline with slime" })
 
-  vim.keymap.set("n", "<leader>krj", H.open_repl_rhs("julia"), { desc = "slime open repl julia" })
-  vim.keymap.set("n", "<leader>kri", H.open_repl_rhs("ipython"), { desc = "slime open repl ipython" })
-  vim.keymap.set("n", "<leader>krp", H.open_repl_rhs("python"), { desc = "slime open repl python" })
+  vim.keymap.set("n", "<leader>krj", H.open_repl_rhs("julia"), { desc = "Open a Julia REPL with slime" })
+  vim.keymap.set("n", "<leader>kri", H.open_repl_rhs("ipython"), { desc = "Open an IPython REPL with slime" })
+  vim.keymap.set("n", "<leader>krp", H.open_repl_rhs("python"), { desc = "Open a Python REPL with slime" })
   -- stylua: ignore end
 end)
 

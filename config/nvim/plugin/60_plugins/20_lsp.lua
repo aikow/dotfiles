@@ -3,7 +3,7 @@ local H = {}
 
 safely("now", function()
   -- Automatically update mason registries when updating mason
-  on_update('mason.nvim', function() vim.cmd.MasonUpdate() end)
+  on_update("mason.nvim", function() vim.cmd.MasonUpdate() end)
 
   -- Provide adapter and helper functions for setting up language servers.
   vim.pack.add({
@@ -37,6 +37,7 @@ safely("now", function()
   -- Setup keymaps when an LSP server is attach.
   vim.api.nvim_create_autocmd("LspAttach", {
     group = vim.api.nvim_create_augroup("user.lsp.keymaps", {}),
+    desc = "Set LSP buffer mappings",
     callback = function(params)
       local client = vim.lsp.get_client_by_id(params.data.client_id)
       if client then H.on_attach(client, params.buf) end
@@ -58,36 +59,36 @@ function H.on_attach(client, buffer)
 
   -- stylua: ignore start
   -- Extend default LSP actions.
-  map("<leader>s", vim.lsp.buf.signature_help,    { desc = "lsp signature help" })
-  map("gD",        vim.lsp.buf.declaration,       { desc = "lsp go to declaration" })
-  map("gd",        vim.lsp.buf.definition,        { desc = "lsp go to definition" })
-  map("gO",        H.document_symbols(winid),     { desc = "vim.lsp.buf.document_symbol" })
-  map("grS",       H.typehierarchy("supertypes"), { desc = "lsp list supertypes" })
-  map("grci",      vim.lsp.buf.incoming_calls,    { desc = "lsp list incoming calls" })
-  map("grco",      vim.lsp.buf.outgoing_calls,    { desc = "lsp list outgoing calls" })
-  map("grs",       H.typehierarchy("subtypes"),   { desc = "lsp list subtypes" })
-  map("gry",       vim.lsp.buf.type_definition,   { desc = "lsp type declarations" })
+  map("<leader>s", vim.lsp.buf.signature_help,    { desc = "Show LSP signature help" })
+  map("gD",        vim.lsp.buf.declaration,       { desc = "Go to the declaration" })
+  map("gd",        vim.lsp.buf.definition,        { desc = "Go to the definition" })
+  map("gO",        H.document_symbols(winid),     { desc = "Show document symbols with vim.lsp" })
+  map("grS",       H.typehierarchy("supertypes"), { desc = "List supertypes with vim.lsp" })
+  map("grci",      vim.lsp.buf.incoming_calls,    { desc = "List incoming calls with vim.lsp" })
+  map("grco",      vim.lsp.buf.outgoing_calls,    { desc = "List outgoing calls with vim.lsp" })
+  map("grs",       H.typehierarchy("subtypes"),   { desc = "List subtypes with vim.lsp" })
+  map("gry",       vim.lsp.buf.type_definition,   { desc = "Go to the type definition" })
 
   -- LSP go-to actions
-  map("<leader>ld", "Pick lsp scope='definition'",      { desc = "mini.pick lsp definitions" })
-  map("<leader>lr", "Pick lsp scope='references'",      { desc = "mini.pick lsp references" })
-  map("<leader>li", "Pick lsp scope='implementation'",  { desc = "mini.pick lsp implementations" })
-  map("<leader>ly", "Pick lsp scope='type_definition'", { desc = "mini.pick lsp type definitions" })
+  map("<leader>ld", "Pick lsp scope='definition'",      { desc = "Find LSP definitions with mini.pick" })
+  map("<leader>lr", "Pick lsp scope='references'",      { desc = "Find LSP references with mini.pick" })
+  map("<leader>li", "Pick lsp scope='implementation'",  { desc = "Find LSP implementations with mini.pick" })
+  map("<leader>ly", "Pick lsp scope='type_definition'", { desc = "Find LSP type definitions with mini.pick" })
 
   -- Search for symbols
-  map("<leader>ls", "Pick lsp scope='document_symbol'",  { desc = "mini.pick document symbols" })
-  map("<leader>lS", "Pick lsp scope='workspace_symbol'", { desc = "mini.pick workspace symbols" })
+  map("<leader>ls", "Pick lsp scope='document_symbol'",  { desc = "Find document symbols with mini.pick" })
+  map("<leader>lS", "Pick lsp scope='workspace_symbol'", { desc = "Find workspace symbols with mini.pick" })
 
   -- Diagnostics
-  map("<leader>dl", vim.diagnostic.setloclist, { desc = "diagnostic set location list" })
-  map("<leader>dq", vim.diagnostic.setqflist,  { desc = "diagnostic set quickfix list" })
-  map("<leader>do", "Pick diagnostic",         { desc = "mini.pick diagnostics" })
+  map("<leader>dl", vim.diagnostic.setloclist, { desc = "Set the diagnostic location list" })
+  map("<leader>dq", vim.diagnostic.setqflist,  { desc = "Set the diagnostic quickfix list" })
+  map("<leader>do", "Pick diagnostic",         { desc = "Find diagnostics with mini.pick" })
 
   -- Diagnostic movements with [ and ]
-  map("]e", H.diagnostic_goto(1, "ERROR"),    { desc = "next error" })
-  map("[e", H.diagnostic_goto(-1, "ERROR"),   { desc = "previous error" })
-  map("]w", H.diagnostic_goto(1, "WARNING"),  { desc = "next warning" })
-  map("[w", H.diagnostic_goto(-1, "WARNING"), { desc = "previous warning" })
+  map("]e", H.diagnostic_goto(1, "ERROR"),    { desc = "Go to the next error" })
+  map("[e", H.diagnostic_goto(-1, "ERROR"),   { desc = "Go to the previous error" })
+  map("]w", H.diagnostic_goto(1, "WARNING"),  { desc = "Go to the next warning" })
+  map("[w", H.diagnostic_goto(-1, "WARNING"), { desc = "Go to the previous warning" })
   -- stylua: ignore end
 
   vim.bo[buffer].completefunc = "v:lua.MiniCompletion.completefunc_lsp"

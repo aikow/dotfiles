@@ -16,6 +16,6 @@ local function send_include(how)
 end
 
 -- stylua: ignore start
-vim.keymap.set("n", "<leader>kI", send_include("include"),  { desc = "slime include current file" })
-vim.keymap.set("n", "<leader>kR", send_include("includet"), { desc = "slime includet current file" })
+vim.keymap.set("n", "<leader>kI", send_include("include"),  { desc = "Send the current file with include" })
+vim.keymap.set("n", "<leader>kR", send_include("includet"), { desc = "Send the current file with includet" })
 -- stylua: ignore end

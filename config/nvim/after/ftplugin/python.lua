@@ -12,6 +12,7 @@ vim.g.pyindent_open_paren = vim.bo.shiftwidth
 vim.api.nvim_create_autocmd("InsertCharPre", {
   group = vim.api.nvim_create_augroup("user.ftplugin.python.auto_fstring", {}),
   pattern = { "*.py" },
+  desc = "Add f-string prefixes",
   callback = function(params)
     if vim.v.char ~= "{" then return end
 
@@ -49,14 +50,14 @@ vim.api.nvim_buf_create_user_command(
   0,
   "PyLintRuff",
   "cexpr system('ruff check --output-format=concise')",
-  { desc = "Populate the quickfix list with the output of 'ruff check'" }
+  { desc = "Populate quickfix list with ruff check" }
 )
 
 vim.api.nvim_buf_create_user_command(
   0,
   "PyLintTy",
   "cexpr system('ty check --output-format=concise')",
-  { desc = "Populate the quickfix list with the output of 'ty check'" }
+  { desc = "Populate quickfix list with ty check" }
 )
 
 vim.api.nvim_buf_create_user_command(0, "PyFormatBlack", function()
@@ -76,7 +77,7 @@ vim.api.nvim_buf_create_user_command(0, "PyFormatBlack", function()
     })
     :wait()
   vim.cmd.edit()
-end, { desc = "Format the buffer using black with string processing enabled" })
+end, { desc = "Format the buffer with black" })
 
 vim.api.nvim_buf_create_user_command(
   0,
@@ -88,7 +89,7 @@ vim.api.nvim_buf_create_user_command(
       formatters = { "ruff_fix" },
     })
   end,
-  { desc = "Fix all fixable lints using ruff" }
+  { desc = "Fix lints with ruff" }
 )
 
 -- ------------------------------------------------------------------------
@@ -99,23 +100,23 @@ vim.keymap.set(
   "n",
   "<localleader>lr",
   "<cmd>PyLintRuff<cr>",
-  { buffer = true, desc = "set qflist to 'ruff check'" }
+  { buffer = true, desc = "Run ruff check" }
 )
 vim.keymap.set(
   "n",
   "<localleader>lt",
   "<cmd>PyLintTy<cr>",
-  { buffer = true, desc = "set qflist to 'ty check'" }
+  { buffer = true, desc = "Run ty check" }
 )
 vim.keymap.set(
   "n",
   "<localleader>fb",
   "<cmd>PyFormatBlack<CR>",
-  { buffer = true, desc = "format with 'black'" }
+  { buffer = true, desc = "Format the buffer with black" }
 )
 vim.keymap.set(
   { "n", "x" },
   "<localleader>fr",
   "<cmd>PyFormatRuffFix<CR>",
-  { buffer = true, desc = "format with 'ruff check --fix'" }
+  { buffer = true, desc = "Fix lints with ruff" }
 )

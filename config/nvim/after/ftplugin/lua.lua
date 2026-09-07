@@ -1,3 +1,6 @@
 vim.bo.textwidth = 100
 
-vim.keymap.set("n", "<localleader>s", "<cmd>luafile %<CR>", { buffer = true })
+vim.keymap.set("n", "<localleader>s", "<cmd>luafile %<CR>", {
+  buffer = true,
+  desc = "Run the current Lua file",
+})

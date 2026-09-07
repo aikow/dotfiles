@@ -7,11 +7,13 @@ local function make_unmodifiable() vim.bo.readonly = true end
 autocmd("FileType", {
   group = unmodifiable_group,
   pattern = { "log" },
+  desc = "Make log buffers read-only",
   callback = make_unmodifiable,
 })
 autocmd("BufRead", {
   group = unmodifiable_group,
   pattern = { "*.orig", "*.pacnew" },
+  desc = "Make generated files read-only",
   callback = make_unmodifiable,
 })
 
@@ -49,6 +51,7 @@ end
 
 autocmd("BufReadPre", {
   group = augroup("user.undofile.bigfile", {}),
+  desc = "Disable undo for large files",
   callback = function(params)
     if is_bigfile(params.file) then vim.bo[params.buf].undofile = false end
   end,
@@ -56,6 +59,7 @@ autocmd("BufReadPre", {
 
 autocmd("BufWinEnter", {
   group = augroup("user.window-options.bigfile", {}),
+  desc = "Update large-file window options",
   callback = function(params)
     update_bigfile_window_options(vim.api.nvim_get_current_win(), params.buf)
   end,
@@ -63,12 +67,14 @@ autocmd("BufWinEnter", {
 
 autocmd("WinClosed", {
   group = augroup("user.window-options.bigfile.cleanup", {}),
+  desc = "Clear large-file window options",
   callback = function(params) bigfile_window_options[tonumber(params.match)] = nil end,
 })
 
 autocmd({ "FileType" }, {
   group = augroup("user.filetype.bigfile", {}),
   pattern = "bigfile",
+  desc = "Configure large-file buffers",
   callback = function(params)
     local buf = params.buf
     local path = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(params.buf), ":p:~:.")
@@ -88,10 +94,14 @@ autocmd({ "FileType" }, {
 -- Set settings for built-in terminal
 autocmd("TermOpen", {
   group = augroup("user.terminal.settings", {}),
+  desc = "Configure terminal buffers",
   callback = function(params)
     vim.wo.wrap = true -- With wrap disabled, you can scroll sideways, which is disconcerting
 
-    vim.keymap.set("n", "<localleader>r", [[A<Up><CR><C-\><C-n>G]], { buffer = params.buf })
+    vim.keymap.set("n", "<localleader>r", [[A<Up><CR><C-\><C-n>G]], {
+      buffer = params.buf,
+      desc = "Rerun the previous command",
+    })
   end,
 })
 
@@ -99,12 +109,14 @@ autocmd("TermOpen", {
 autocmd("BufWritePost", {
   group = augroup("user.exrc.autotrust", {}),
   pattern = { ".nvim.lua", ".nvimrc", ".exrc" },
+  desc = "Trust local configuration files",
   callback = function(params) vim.secure.trust({ action = "allow", bufnr = params.buf }) end,
 })
 
 -- Remove default mouse menu options
 vim.api.nvim_create_autocmd("VimEnter", {
   once = true,
+  desc = "Remove default mouse menu items",
   callback = function()
     vim.cmd.aunmenu({ "PopUp.How-to\\ disable\\ mouse" })
     vim.cmd.aunmenu({ "PopUp.-2-" })

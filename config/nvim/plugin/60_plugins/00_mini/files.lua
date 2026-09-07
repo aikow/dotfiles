@@ -27,13 +27,19 @@ H.show_ignored = false
 function H.toggle_hidden()
   H.show_hidden = not H.show_hidden
   require("mini.files").refresh({ content = { sort = H.filter_ignore } })
-  vim.notify("mini.files " .. (H.show_hidden and "showing" or "hiding") .. " hidden files", vim.log.levels.INFO)
+  vim.notify(
+    "mini.files " .. (H.show_hidden and "showing" or "hiding") .. " hidden files",
+    vim.log.levels.INFO
+  )
 end
 
 function H.toggle_ignore()
   H.show_ignored = not H.show_ignored
   require("mini.files").refresh({ content = { sort = H.filter_ignore } })
-  vim.notify("mini.files " .. (H.show_ignored and "showing" or "hiding") .. " ignored files", vim.log.levels.INFO)
+  vim.notify(
+    "mini.files " .. (H.show_ignored and "showing" or "hiding") .. " ignored files",
+    vim.log.levels.INFO
+  )
 end
 
 function H.filter_ignore(entries)
@@ -107,25 +113,36 @@ safely("now", function()
 
   -- Keymaps to open mini.files
   -- stylua: ignore start
-  vim.keymap.set("n", "-", H.open_buf,  { desc = "mini.files open from buf" })
-  vim.keymap.set("n", "_", H.open_root, { desc = "mini.files open from root" })
-  vim.keymap.set("n", "+", H.open_last, { desc = "mini.files open last state" })
+  vim.keymap.set("n", "-", H.open_buf,  { desc = "Open mini.files for the current buffer" })
+  vim.keymap.set("n", "_", H.open_root, { desc = "Open mini.files in the current directory" })
+  vim.keymap.set("n", "+", H.open_last, { desc = "Reopen the last mini.files state" })
   -- stylua: ignore end
 
   -- Create extra keymaps.
   vim.api.nvim_create_autocmd("User", {
     group = vim.api.nvim_create_augroup("user.pack.mini_files.keymaps", {}),
     pattern = "MiniFilesBufferCreate",
+    desc = "Set mini.files buffer mappings",
     callback = function(params)
       local buf_id = params.data.buf_id
 
-      H.map_split(buf_id, "<C-s>", { split = "belowright", horizontal = true }, "Split below")
-      H.map_split(buf_id, "<C-v>", { split = "belowright", vertical = true }, "Split right")
-      H.map_split(buf_id, "<C-t>", { tab = vim.fn.tabpagenr("$") }, "Split tab")
+      H.map_split(
+        buf_id,
+        "<C-s>",
+        { split = "belowright", horizontal = true },
+        "Open entry in a split below"
+      )
+      H.map_split(
+        buf_id,
+        "<C-v>",
+        { split = "belowright", vertical = true },
+        "Open entry in a split right"
+      )
+      H.map_split(buf_id, "<C-t>", { tab = vim.fn.tabpagenr("$") }, "Open entry in a new tab")
 
       vim.keymap.set("n", "yp", function() vim.fn.setreg("", minifiles.get_fs_entry().path) end, {
         buffer = buf_id,
-        desc = "Yank absolute path",
+        desc = "Yank the absolute path",
       })
       vim.keymap.set("n", "gx", function() vim.ui.open(minifiles.get_fs_entry().path) end, {
         buffer = buf_id,
@@ -133,11 +150,11 @@ safely("now", function()
       })
       vim.keymap.set("n", "gh", H.toggle_hidden, {
         buffer = buf_id,
-        desc = "Toggle hidden",
+        desc = "Toggle hidden files",
       })
       vim.keymap.set("n", "gi", H.toggle_ignore, {
         buffer = buf_id,
-        desc = "Toggle ignored",
+        desc = "Toggle ignored files",
       })
       vim.keymap.set("n", "g.", H.files_set_cwd, {
         buffer = buf_id,

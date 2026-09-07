@@ -1,7 +1,7 @@
 local command = vim.api.nvim_create_user_command
 
 command("Bclose", function() require("mini.bufremove").delete() end, {
-  desc = "Close the current buffer, even if it is unlisted or has no file.",
+  desc = "Close the current buffer",
 })
 
 command("Bclean", function()
@@ -33,13 +33,13 @@ command("TOjson", function()
   local proc = vim.system({ "jq", "-Rs", "." }, { stdin = content, text = true }):wait()
   vim.fn.setreg("*", proc.stdout)
   vim.notify("Buffer text encoded as JSON and saved to clipboard")
-end, { desc = "Copy file contents as a JSON encoded string." })
+end, { desc = "Copy buffer contents as JSON" })
 
 command("Search", function(params)
   local query = vim.uri_encode(params.args)
   local url = string.format("https://ecosia.org/search?q=%s", query)
   vim.ui.open(url)
-end, { nargs = 1 })
+end, { nargs = 1, desc = "Search the web with Ecosia" })
 
 command("Help", function(params)
   local cmd = params.fargs
@@ -93,5 +93,5 @@ command("Help", function(params)
 end, {
   nargs = "+",
   bang = true,
-  desc = "Display the help message for a command in a buffer.",
+  desc = "Show command help in a buffer",
 })

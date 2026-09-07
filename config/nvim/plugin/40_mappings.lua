@@ -89,92 +89,92 @@ function H.toggle_inlay_hints() vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint
 
 -- stylua: ignore start
 -- Treat long lines as break lines.
-map("n", "j", "gj")
-map("n", "k", "gk")
+map("n", "j", "gj", { desc = "Move down by display line" })
+map("n", "k", "gk", { desc = "Move up by display line" })
 
 -- Don't deselect visual when indenting in visual mode.
-map("x", "<", "<gv")
-map("x", ">", ">gv")
+map("x", "<", "<gv", { desc = "Unindent and keep the selection" })
+map("x", ">", ">gv", { desc = "Indent and keep the selection" })
 
 -- Refactoring
-map("n", "<leader>rs", ":%s/",      { desc = "search and replace" })
-map("x", "<leader>rs", ":s/",       { desc = "region search and replace" })
-map("n", "<leader>rS", ":cfdo %s/", { desc = "global search and replace" })
+map("n", "<leader>rs", ":%s/",      { desc = "Search and replace" })
+map("x", "<leader>rs", ":s/",       { desc = "Search and replace the region" })
+map("n", "<leader>rS", ":cfdo %s/", { desc = "Search and replace globally" })
 
 -- Toggle
 map("n", "<leader>tD", H.toggle_diagnostic_virtual_lines, { desc = "Toggle diagnostic.virtual_lines" })
-map("n", "<leader>tu", H.toggle_color_column,             { desc = "Toggle 'colorcolumn'" })
-map("n", "<leader>tn", H.toggle_inlay_hints,              { desc = "Toggle lsp.inlay_hints" })
-map("n", "<leader>tx", H.toggle_diff,                     { desc = "Toggle 'diff'" })
-map("n", "<leader>tX", H.toggle_diff_all,                 { desc = "Toggle 'diff' (all)" })
+map("n", "<leader>tu", H.toggle_color_column,             { desc = "Toggle colorcolumn" })
+map("n", "<leader>tn", H.toggle_inlay_hints,              { desc = "Toggle vim.lsp inlay hints" })
+map("n", "<leader>tx", H.toggle_diff,                     { desc = "Toggle diff mode" })
+map("n", "<leader>tX", H.toggle_diff_all,                 { desc = "Toggle diff mode for all windows" })
 
 -- Spelling
-map("i", "<C-.>", "<C-G>u<Esc>[s1z=`]a<C-G>u", { desc = "correct last spelling mistake" })
+map("i", "<C-.>", "<C-G>u<Esc>[s1z=`]a<C-G>u", { desc = "Correct the last spelling mistake" })
 
 -- Set the working directory
-map("n", "g.", H.chdir_parent, { desc = "set the working directory to the dir of the current file" })
-map("n", "g>", H.chdir_root,   { desc = "recursively search for a root directory from the current file" })
+map("n", "g.", H.chdir_parent, { desc = "Change to the file directory" })
+map("n", "g>", H.chdir_root,   { desc = "Find and change to the project root" })
 
 -- Clear the search buffer to remove highlighting from the last search.
-map("n", "<C-/>", ":let @/ = ''<CR>", { desc = "clear search buffer register", silent = true })
-map("n", "<C-_>", ":let @/ = ''<CR>", { desc = "clear search buffer register", silent = true })
+map("n", "<C-/>", ":let @/ = ''<CR>", { desc = "Clear the search register", silent = true })
+map("n", "<C-_>", ":let @/ = ''<CR>", { desc = "Clear the search register", silent = true })
 
 -- Select the text that was last pasted
-map("n", "gp", "'`[' . strpart(getregtype(), 0, 1) . '`]'", { expr = true, desc = "select the last pasted region" })
+map("n", "gp", "'`[' . strpart(getregtype(), 0, 1) . '`]'", { expr = true, desc = "Select the last pasted region" })
 
 -- Automatically jump to the end of text when yanking and pasting
-map("x", "y", "y`]")
-map({ "x", "n" }, "p", "p`]")
+map("x", "y", "y`]", { desc = "Jump to the end after yanking" })
+map({ "x", "n" }, "p", "p`]", { desc = "Jump to the end after pasting" })
 
 -- Make Y behave like other capital letters
-map("n", "Y", "y$")
+map("n", "Y", "y$", { desc = "Yank to the end of the line" })
 
 -- Keep it centered
-map("n", "n", "nzzzv")
-map("n", "N", "Nzzzv")
+map("n", "n", "nzzzv", { desc = "Center the next match" })
+map("n", "N", "Nzzzv", { desc = "Center the previous match" })
 
 -- Undo breakpoints while typing
-map("i", ",", ",<C-G>u")
-map("i", ".", ".<C-G>u")
-map("i", "!", "!<C-G>u")
-map("i", "?", "?<C-G>u")
+map("i", ",", ",<C-G>u", { desc = "Create an undo breakpoint" })
+map("i", ".", ".<C-G>u", { desc = "Create an undo breakpoint" })
+map("i", "!", "!<C-G>u", { desc = "Create an undo breakpoint" })
+map("i", "?", "?<C-G>u", { desc = "Create an undo breakpoint" })
 
 -- Faster pane resizing
-map("n", "<C-W><", "5<C-W><")
-map("n", "<C-W>>", "5<C-W>>")
-map("n", "<C-W>-", "5<C-W>-")
-map("n", "<C-W>+", "5<C-W>+")
+map("n", "<C-W><", "5<C-W><", { desc = "Decrease window width" })
+map("n", "<C-W>>", "5<C-W>>", { desc = "Increase window width" })
+map("n", "<C-W>-", "5<C-W>-", { desc = "Decrease window height" })
+map("n", "<C-W>+", "5<C-W>+", { desc = "Increase window height" })
 
 -- Shortcuts for inserting filename, directory name, and full path into command mode.
-map("c", "%H", "<C-R>=expand('%:h:p') . '/'<CR>")
-map("c", "%T", "<C-R>=expand('%:t')<CR>")
-map("c", "%P", "<C-R>=expand('%:p')<CR>")
+map("c", "%H", "<C-R>=expand('%:h:p') . '/'<CR>", { desc = "Insert the current directory" })
+map("c", "%T", "<C-R>=expand('%:t')<CR>", { desc = "Insert the current filename" })
+map("c", "%P", "<C-R>=expand('%:p')<CR>", { desc = "Insert the current file path" })
 
 -- Retain normal history navigation with wildtrigger()
-map('c', '<Up>', '<C-U><Up>')
-map('c', '<Down>', '<C-U><Down>')
+map('c', '<Up>', '<C-U><Up>', { desc = "Show the previous command" })
+map('c', '<Down>', '<C-U><Down>', { desc = "Show the next command" })
 
 -- Open a terminal session in a split.
-map("n", "<leader>wb", "<Cmd>split term://bash<CR>",     { desc = "open bash (horizontal)" })
-map("n", "<leader>wB", "<Cmd>vsplit term://bash<CR>",    { desc = "open bash (horizontal)" })
-map("n", "<leader>wf", "<Cmd>split term://fish<CR>",     { desc = "open fish (horizontal)" })
-map("n", "<leader>wF", "<Cmd>vsplit term://fish<CR>",    { desc = "open fish (vertical)" })
-map('n', '<leader>ws', ":split term://",                 { desc = "open a command (horizontal)" })
-map("n", "<leader>wv", ":vsplit term://",                { desc = "open a command (vertical)" })
-map("n", "<leader>wt", ":tabnew term://",                { desc = "open a command (tab)" })
-map("n", "<leader>wz", "<Cmd>split term://zsh<CR>",      { desc = "open zsh (horizontal)" })
-map("n", "<leader>wZ", "<Cmd>vsplit term://zsh<CR>",     { desc = "open zsh (vertical)" })
+map("n", "<leader>wb", "<Cmd>split term://bash<CR>",     { desc = "Open a bash terminal horizontally" })
+map("n", "<leader>wB", "<Cmd>vsplit term://bash<CR>",    { desc = "Open a bash terminal vertically" })
+map("n", "<leader>wf", "<Cmd>split term://fish<CR>",     { desc = "Open a fish terminal horizontally" })
+map("n", "<leader>wF", "<Cmd>vsplit term://fish<CR>",    { desc = "Open a fish terminal vertically" })
+map('n', '<leader>ws', ":split term://",                  { desc = "Open a command terminal horizontally" })
+map("n", "<leader>wv", ":vsplit term://",               { desc = "Open a command terminal vertically" })
+map("n", "<leader>wt", ":tabnew term://",               { desc = "Open a command terminal in a tab" })
+map("n", "<leader>wz", "<Cmd>split term://zsh<CR>",      { desc = "Open a zsh terminal horizontally" })
+map("n", "<leader>wZ", "<Cmd>vsplit term://zsh<CR>",     { desc = "Open a zsh terminal vertically" })
 
 -- Toggles between most recent buffers
-map("n", "<leader><leader>", "<c-^>", { desc = "switch to most recent buffer" })
+map("n", "<leader><leader>", "<c-^>", { desc = "Switch to the last buffer" })
 
 -- Replacing up to next _
-map("n", "<leader>c", "ct_", { desc = "change upto next underscore '_'" })
+map("n", "<leader>c", "ct_", { desc = "Change up to _" })
 
 -- Source the current buffer.
-map("n", "<leader>.", "<Cmd>source %<CR>", { desc = "source current file" })
+map("n", "<leader>.", "<Cmd>source %<CR>", { desc = "Source the current file" })
 
 -- Enter a lua command.
-map("n", "<leader>e", ":lua =", { desc = "evaluate lua expression" })
-map("n", "<leader>E", ":lua ",  { desc = "evaluate lua statement" })
+map("n", "<leader>e", ":lua =", { desc = "Evaluate a Lua expression" })
+map("n", "<leader>E", ":lua ",  { desc = "Evaluate a Lua statement" })
 -- stylua: ignore end
