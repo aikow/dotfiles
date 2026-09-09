@@ -243,13 +243,10 @@ safely("later", function()
   local ministatuscolumn = require("mini.statuscolumn")
   ministatuscolumn.setup({
     content = ministatuscolumn.gen_content.main({
-      { fold = "%C", lnum = "%l", sign = "%s" }, -- Default sections
-      {
-        format = "sf=l",
-        sep = " " --[[ "│" ]],
-      }, -- Line-fold-sign-separator format
-      { ltype = "virt", lnum = "•" }, -- Dot in virtual lines
-      { ltype = "wrap", lnum = "↳" }, -- Arrow in wrapped lines
+      { fold = "%C", lnum = "%l", sign = "%s" },
+      { format = "s=l", sep = " " },
+      { ltype = "virt", lnum = "•" },
+      { ltype = "wrap", lnum = "↳" },
     }),
   })
 end)
@@ -271,7 +268,7 @@ safely("later", function()
       suffix_last = "",
       suffix_next = "",
     },
-    n_lines = 40,
+    n_lines = 60,
     respect_selection_type = true,
     search_method = "cover_or_next",
   })
