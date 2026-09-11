@@ -11,7 +11,7 @@ function H.chdir_parent()
     local dir = vim.fs.dirname(path)
     -- NOTE: Using vim.uv.chdir doesn't update buffers
     vim.fn.chdir(dir)
-    vim.notify("changed directory to\n" .. dir, vim.log.levels.INFO)
+    print("cd " .. dir)
   else
     vim.notify("unable to change directory, not a valid path", vim.log.levels.WARN)
   end
@@ -22,7 +22,7 @@ function H.chdir_root()
   if path ~= "" then
     path = vim.fs.dirname(path)
   else
-    path = vim.uv.cwd()
+    path = vim.uv.cwd() or "."
   end
   local root = vim.fs.root(path, {
     ".editorconfig", -- general editor settings
@@ -40,7 +40,7 @@ function H.chdir_root()
   if root then
     -- NOTE: Using vim.uv.chdir doesn't update buffers
     vim.fn.chdir(root)
-    vim.notify("changed directory to\n" .. root, vim.log.levels.INFO)
+    print("cd " .. root)
   else
     vim.notify("unable to find a root directory", vim.log.levels.WARN)
   end
@@ -52,6 +52,7 @@ function H.toggle_color_column()
   else
     vim.o.colorcolumn = ""
   end
+  print(vim.o.colorcolumn)
 end
 
 function H.toggle_diff()
@@ -60,6 +61,7 @@ function H.toggle_diff()
   else
     vim.cmd.diffthis()
   end
+  print(vim.o.diff and 'diff enabled' or 'diff disabled')
 end
 
 function H.toggle_diff_all()
@@ -68,6 +70,7 @@ function H.toggle_diff_all()
   else
     vim.cmd.windo({ args = { "diffthis" } })
   end
+  print(vim.o.diff and 'diff enabled' or 'diff disabled')
 end
 
 ---Switch between showing virtual diagnostics after each line and below each line.
@@ -77,11 +80,32 @@ function H.toggle_diagnostic_virtual_lines()
     config.virtual_lines = not config.virtual_lines
     config.virtual_text = not config.virtual_text
     vim.diagnostic.config(config)
+    print(
+      string.format(
+        "virtual lines is %s, virtual text is %s",
+        config.virtual_lines and "enabled" or "disabled",
+        config.virtual_text and "enabled" or "disabled"
+      )
+    )
   end
 end
 
----Toggle showing inlay hints.
-function H.toggle_inlay_hints() vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled()) end
+function H.toggle_diagnostic()
+  vim.diagnostic.enable(not vim.diagnostic.is_enabled({ bufnr = 0 }), { bufnr = 0 })
+  print(vim.diagnostic.is_enabled({ bufnr = 0 }) and "diagnostic enabled" or "diagnostic disabled")
+end
+function H.toggle_inlay_hints()
+  vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
+  print(vim.lsp.inlay_hint.is_enabled() and "inlay hints enabled" or "inlay hints disabled")
+end
+function H.toggle_bg()
+  vim.o.background = vim.o.background == "light" and "dark" or "light"
+  print("background=" .. vim.o.background)
+end
+function H.toggle_hl_search()
+  vim.v.hlsearch = 1 - vim.v.hlsearch
+  print(vim.v.hlsearch == 1 and "  hlsearch" or "nohlsearch")
+end
 
 -- ------------------------------------------------------------------------
 -- | Mappings
@@ -102,11 +126,22 @@ map("x", "<leader>rs", ":s/",       { desc = "Search and replace the region" })
 map("n", "<leader>rS", ":cfdo %s/", { desc = "Search and replace globally" })
 
 -- Toggle
-map("n", "<leader>tD", H.toggle_diagnostic_virtual_lines, { desc = "Toggle diagnostic.virtual_lines" })
-map("n", "<leader>tu", H.toggle_color_column,             { desc = "Toggle colorcolumn" })
-map("n", "<leader>tn", H.toggle_inlay_hints,              { desc = "Toggle vim.lsp inlay hints" })
-map("n", "<leader>tx", H.toggle_diff,                     { desc = "Toggle diff mode" })
-map("n", "<leader>tX", H.toggle_diff_all,                 { desc = "Toggle diff mode for all windows" })
+map("n", "<leader>tC", "<Cmd>setlocal cursorcolumn! cursorcolumn?<CR>",     { desc = "Toggle 'cursorcolumn'" })
+map("n", "<leader>tb", H.toggle_bg,                                         { desc = "Toggle 'background'" })
+map("n", "<leader>tc", "<Cmd>setlocal cursorline! cursorline?<CR>",         { desc = "Toggle 'cursorline'" })
+map("n", "<leader>th", H.toggle_hl_search,                                  { desc = "Toggle 'hlsearch'" })
+map("n", "<leader>ti", "<Cmd>setlocal ignorecase! ignorecase?<CR>",         { desc = "Toggle 'ignorecase'" })
+map("n", "<leader>tl", "<Cmd>setlocal list! list?<CR>",                     { desc = "Toggle 'list'" })
+map("n", "<leader>tn", "<Cmd>setlocal number! number?<CR>",                 { desc = "Toggle 'number'" })
+map("n", "<leader>tr", "<Cmd>setlocal relativenumber! relativenumber?<CR>", { desc = "Toggle 'relativenumber'" })
+map("n", "<leader>ts", "<Cmd>setlocal spell! spell?<CR>",                   { desc = "Toggle 'spell'" })
+map("n", "<leader>tu", H.toggle_color_column,                               { desc = "Toggle 'colorcolumn'" })
+map("n", "<leader>tw", "<Cmd>setlocal wrap! wrap?<CR>",                     { desc = "Toggle 'wrap'" })
+map("n", "<leader>td", H.toggle_diagnostic,                                 { desc = "Toggle diagnostic" })
+map("n", "<leader>tD", H.toggle_diagnostic_virtual_lines,                   { desc = "Toggle diagnostic virtual lines" })
+map("n", "<leader>tn", H.toggle_inlay_hints,                                { desc = "Toggle lsp inlay hints" })
+map("n", "<leader>tx", H.toggle_diff,                                       { desc = "Toggle diff" })
+map("n", "<leader>tX", H.toggle_diff_all,                                   { desc = "Toggle diff for all windows" })
 
 -- Spelling
 map("i", "<C-.>", "<C-G>u<Esc>[s1z=`]a<C-G>u", { desc = "Correct the last spelling mistake" })

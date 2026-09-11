@@ -76,7 +76,6 @@ autocmd({ "FileType" }, {
   pattern = "bigfile",
   desc = "Configure large-file buffers",
   callback = function(params)
-    local buf = params.buf
     local path = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(params.buf), ":p:~:.")
     vim.notify(("Big file detected '%s'"):format(path), vim.log.levels.INFO)
 
@@ -89,7 +88,9 @@ autocmd({ "FileType" }, {
   end,
 })
 
--- Restore cursor position
+-- Highlight on yank or paste.
+autocmd("TextYankPost", { callback = function() vim.hl.hl_op({ timeout = 300 }) end })
+autocmd("TextPutPost", { callback = function() vim.hl.hl_op({ timeout = 300 }) end })
 
 -- Set settings for built-in terminal
 autocmd("TermOpen", {
