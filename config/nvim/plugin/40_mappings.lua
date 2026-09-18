@@ -61,7 +61,7 @@ function H.toggle_diff()
   else
     vim.cmd.diffthis()
   end
-  print(vim.o.diff and 'diff enabled' or 'diff disabled')
+  print(vim.o.diff and "diff enabled" or "diff disabled")
 end
 
 function H.toggle_diff_all()
@@ -70,7 +70,7 @@ function H.toggle_diff_all()
   else
     vim.cmd.windo({ args = { "diffthis" } })
   end
-  print(vim.o.diff and 'diff enabled' or 'diff disabled')
+  print(vim.o.diff and "diff enabled" or "diff disabled")
 end
 
 ---Switch between showing virtual diagnostics after each line and below each line.
@@ -94,17 +94,32 @@ function H.toggle_diagnostic()
   vim.diagnostic.enable(not vim.diagnostic.is_enabled({ bufnr = 0 }), { bufnr = 0 })
   print(vim.diagnostic.is_enabled({ bufnr = 0 }) and "diagnostic enabled" or "diagnostic disabled")
 end
+
 function H.toggle_inlay_hints()
   vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
   print(vim.lsp.inlay_hint.is_enabled() and "inlay hints enabled" or "inlay hints disabled")
 end
+
 function H.toggle_bg()
   vim.o.background = vim.o.background == "light" and "dark" or "light"
   print("background=" .. vim.o.background)
 end
+
 function H.toggle_hl_search()
   vim.v.hlsearch = 1 - vim.v.hlsearch
   print(vim.v.hlsearch == 1 and "  hlsearch" or "nohlsearch")
+end
+
+function H.toggle_trailspace()
+  -- nil or 1 => 0, 0 => 1
+  local highlight = vim.b.minitrailspace_highlight == 0 and 1 or 0
+  vim.b.minitrailspace_highlight = highlight
+  local minitrailspace = require("mini.trailspace")
+  if highlight == 1 then
+    minitrailspace.highlight()
+  else
+    minitrailspace.unhighlight()
+  end
 end
 
 -- ------------------------------------------------------------------------
@@ -141,7 +156,8 @@ map("n", "<leader>td", H.toggle_diagnostic,                                 { de
 map("n", "<leader>tD", H.toggle_diagnostic_virtual_lines,                   { desc = "Toggle diagnostic virtual lines" })
 map("n", "<leader>tn", H.toggle_inlay_hints,                                { desc = "Toggle lsp inlay hints" })
 map("n", "<leader>tx", H.toggle_diff,                                       { desc = "Toggle diff" })
-map("n", "<leader>tX", H.toggle_diff_all,                                   { desc = "Toggle diff for all windows" })
+map("n", "<leader>tX", H.toggle_diff_all,                                   { desc = "Toggle diff for all windows" }) 
+map("n", "<leader>tt", H.toggle_trailspace,                                 { desc = "Toggle highlighting trailing spaces" })
 
 -- Spelling
 map("i", "<C-.>", "<C-G>u<Esc>[s1z=`]a<C-G>u", { desc = "Correct the last spelling mistake" })
@@ -158,7 +174,7 @@ map("n", "<C-_>", ":let @/ = ''<CR>", { desc = "Clear the search register", sile
 map("n", "gp", "'`[' . strpart(getregtype(), 0, 1) . '`]'", { expr = true, desc = "Select the last pasted region" })
 
 -- Automatically jump to the end of text when yanking and pasting
-map("x", "y", "y`]", { desc = "Jump to the end after yanking" })
+map(  "x",        "y", "y`]", { desc = "Jump to the end after yanking" })
 map({ "x", "n" }, "p", "p`]", { desc = "Jump to the end after pasting" })
 
 -- Make Y behave like other capital letters
@@ -182,23 +198,23 @@ map("n", "<C-W>+", "5<C-W>+", { desc = "Increase window height" })
 
 -- Shortcuts for inserting filename, directory name, and full path into command mode.
 map("c", "%H", "<C-R>=expand('%:h:p') . '/'<CR>", { desc = "Insert the current directory" })
-map("c", "%T", "<C-R>=expand('%:t')<CR>", { desc = "Insert the current filename" })
-map("c", "%P", "<C-R>=expand('%:p')<CR>", { desc = "Insert the current file path" })
+map("c", "%T", "<C-R>=expand('%:t')<CR>",         { desc = "Insert the current filename" })
+map("c", "%P", "<C-R>=expand('%:p')<CR>",         { desc = "Insert the current file path" })
 
 -- Retain normal history navigation with wildtrigger()
-map('c', '<Up>', '<C-U><Up>', { desc = "Show the previous command" })
+map('c', '<Up>',   '<C-U><Up>',   { desc = "Show the previous command" })
 map('c', '<Down>', '<C-U><Down>', { desc = "Show the next command" })
 
 -- Open a terminal session in a split.
-map("n", "<leader>wb", "<Cmd>split term://bash<CR>",     { desc = "Open a bash terminal horizontally" })
-map("n", "<leader>wB", "<Cmd>vsplit term://bash<CR>",    { desc = "Open a bash terminal vertically" })
-map("n", "<leader>wf", "<Cmd>split term://fish<CR>",     { desc = "Open a fish terminal horizontally" })
-map("n", "<leader>wF", "<Cmd>vsplit term://fish<CR>",    { desc = "Open a fish terminal vertically" })
-map('n', '<leader>ws', ":split term://",                  { desc = "Open a command terminal horizontally" })
-map("n", "<leader>wv", ":vsplit term://",               { desc = "Open a command terminal vertically" })
-map("n", "<leader>wt", ":tabnew term://",               { desc = "Open a command terminal in a tab" })
-map("n", "<leader>wz", "<Cmd>split term://zsh<CR>",      { desc = "Open a zsh terminal horizontally" })
-map("n", "<leader>wZ", "<Cmd>vsplit term://zsh<CR>",     { desc = "Open a zsh terminal vertically" })
+map("n", "<leader>wb", "<Cmd>split term://bash<CR>",  { desc = "Open a bash terminal horizontally" })
+map("n", "<leader>wB", "<Cmd>vsplit term://bash<CR>", { desc = "Open a bash terminal vertically" })
+map("n", "<leader>wf", "<Cmd>split term://fish<CR>",  { desc = "Open a fish terminal horizontally" })
+map("n", "<leader>wF", "<Cmd>vsplit term://fish<CR>", { desc = "Open a fish terminal vertically" })
+map('n', '<leader>ws', ":split term://",              { desc = "Open a command terminal horizontally" })
+map("n", "<leader>wv", ":vsplit term://",             { desc = "Open a command terminal vertically" })
+map("n", "<leader>wt", ":tabnew term://",             { desc = "Open a command terminal in a tab" })
+map("n", "<leader>wz", "<Cmd>split term://zsh<CR>",   { desc = "Open a zsh terminal horizontally" })
+map("n", "<leader>wZ", "<Cmd>vsplit term://zsh<CR>",  { desc = "Open a zsh terminal vertically" })
 
 -- Toggles between most recent buffers
 map("n", "<leader><leader>", "<c-^>", { desc = "Switch to the last buffer" })
