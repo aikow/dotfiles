@@ -21,7 +21,7 @@
       "src": "https://github.com/stevearc/conform.nvim"
     },
     "diffview-plus.nvim": {
-      "rev": "875d16dd8c8aa86f1a5c3b5cef49e1133980ae94",
+      "rev": "814ddc9fab8e55688c6403e2d2a3ece7f92d9dcf",
       "src": "https://github.com/dlyongemallo/diffview-plus.nvim"
     },
     "everforest": {
@@ -41,7 +41,7 @@
       "src": "https://github.com/lukas-reineke/indent-blankline.nvim"
     },
     "jj.nvim": {
-      "rev": "c38c550b3dd9fa74342bc17fcded49e688077d52",
+      "rev": "64605c84f4e7774ff510d614204625ced87ffb48",
       "src": "https://github.com/NicolasGB/jj.nvim"
     },
     "kanagawa.nvim": {
@@ -53,11 +53,11 @@
       "src": "https://github.com/iamcco/markdown-preview.nvim"
     },
     "markview.nvim": {
-      "rev": "190bb227c9d3eb4451b81fa16ea3d2efde2d67c5",
+      "rev": "49d2cf7ced872db74083a144ded1f94fe224d09a",
       "src": "https://github.com/OXY2DEV/markview.nvim"
     },
     "mason-lspconfig.nvim": {
-      "rev": "b3298993d55fa194279b5eb9dbfb3a43da65cadf",
+      "rev": "e17625cdc8c2650787467398e02c5d63a2cde966",
       "src": "https://github.com/mason-org/mason-lspconfig.nvim"
     },
     "mason.nvim": {
@@ -65,7 +65,7 @@
       "src": "https://github.com/mason-org/mason.nvim"
     },
     "mini.nvim": {
-      "rev": "fa9037326e9996381e34a14b6350e18168618532",
+      "rev": "0513ad9ada655a07af321c129b69dafaf9e63d80",
       "src": "https://github.com/nvim-mini/mini.nvim"
     },
     "nightfox.nvim": {
@@ -73,7 +73,7 @@
       "src": "https://github.com/EdenEast/nightfox.nvim"
     },
     "nvim-lspconfig": {
-      "rev": "db68de3575fff9dd9bb78b34c8371759ed35fe34",
+      "rev": "c59fc922f718fa055f69f5f3bc888f23211571eb",
       "src": "https://github.com/neovim/nvim-lspconfig"
     },
     "nvim-pqf": {
@@ -86,7 +86,7 @@
       "version": "'main'"
     },
     "nvim-treesitter-context": {
-      "rev": "f3061339b8eaf9fda873600bc425b8d2d8502533",
+      "rev": "97ad0a57882bf3a8ece725f2dd5e70f1c686a7b9",
       "src": "https://github.com/nvim-treesitter/nvim-treesitter-context"
     },
     "nvim-treesitter-textobjects": {

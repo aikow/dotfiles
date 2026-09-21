@@ -69,9 +69,15 @@ o.completeopt = "menuone,noselect,fuzzy,nosort"
 o.shortmess = o.shortmess .. "WcC"
 
 -- Use treesitter for folding
+function _G.custom_fold_text()
+  local line = vim.fn.getline(vim.v.foldstart)
+  local line_count = vim.v.foldend - vim.v.foldstart
+  return line .. "  󰁂 " .. line_count .. " lines "
+end
+vim.opt.foldtext = "v:lua.custom_fold_text()"
 o.foldmethod = "expr"
 o.foldexpr = "v:lua.vim.treesitter.foldexpr()"
-o.foldtext = ""
+o.foldtext = "v:lua.custom_fold_text()"
 o.foldlevel = 99 -- Nothing is folded by default
 
 -- Spell options.
@@ -105,6 +111,7 @@ o.tabline = "%!v:lua.require'user.ui.tabline'.tabline()"
 
 -- Statuscolumn
 o.statuscolumn = "%{%v:lua.require'user.ui'.statuscolumn()%}"
+o.foldcolumn = "auto:1"
 
 -- Define which helper symbols to show
 o.listchars = "tab:󰌒 ,extends:…,precedes:…,nbsp:␣"
@@ -124,4 +131,4 @@ o.numberwidth = 2
 
 -- Conceal
 o.conceallevel = 2
-o.fillchars = "foldopen:,foldclose:,fold: ,foldsep: ,diff:╱,eob: "
+o.fillchars = "foldopen:,foldclose:,fold: ,foldsep: ,foldinner: ,diff:╱,eob: "

@@ -156,7 +156,7 @@ map("n", "<leader>td", H.toggle_diagnostic,                                 { de
 map("n", "<leader>tD", H.toggle_diagnostic_virtual_lines,                   { desc = "Toggle diagnostic virtual lines" })
 map("n", "<leader>tn", H.toggle_inlay_hints,                                { desc = "Toggle lsp inlay hints" })
 map("n", "<leader>tx", H.toggle_diff,                                       { desc = "Toggle diff" })
-map("n", "<leader>tX", H.toggle_diff_all,                                   { desc = "Toggle diff for all windows" }) 
+map("n", "<leader>tX", H.toggle_diff_all,                                   { desc = "Toggle diff for all windows" })
 map("n", "<leader>tt", H.toggle_trailspace,                                 { desc = "Toggle highlighting trailing spaces" })
 
 -- Spelling

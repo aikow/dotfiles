@@ -246,7 +246,7 @@ safely("later", function()
   ministatuscolumn.setup({
     content = ministatuscolumn.gen_content.main({
       { fold = "%C", lnum = "%l", sign = "%s" },
-      { format = "s=l", sep = " " },
+      { format = "fs=l", sep = " " },
       { ltype = "virt", lnum = "•" },
       { ltype = "wrap", lnum = "↳" },
     }),
