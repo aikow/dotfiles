@@ -23,6 +23,7 @@ end)
 safely("now", function()
   local minimisc = require("mini.misc")
   minimisc.setup({})
+  -- Theme detection uses OSC10 foreground, leaving OSC11 for border sync.
   minimisc.setup_termbg_sync()
   minimisc.setup_restore_cursor({ ignore_filetype = { "gitcommit", "gitrebase", "bigfile" } })
 
