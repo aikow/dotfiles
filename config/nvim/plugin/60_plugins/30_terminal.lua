@@ -33,16 +33,17 @@ safely("later", function()
 
   -- Mappings
   -- stylua: ignore start
-  vim.keymap.set("x", "<leader>k", "<Plug>SlimeRegionSend", { desc = "Send the visual region with slime" })
-  vim.keymap.set("n", "<leader>k", "<Plug>SlimeMotionSend", { desc = "Send the motion with slime" })
-  vim.keymap.set("n", "<leader>kl", "<Plug>SlimeLineSend", { desc = "Send the line with slime" })
-  vim.keymap.set("n", "<leader>kc", "<Plug>SlimeSendCell", { desc = "Send the cell with slime" })
-  vim.keymap.set("n", "<leader>kC", "<Plug>SlimeConfig", { desc = "Configure slime" })
-  vim.keymap.set("n", "<leader>k<cr>", function() vim.fn["slime#send"]("\n") end, { desc = "Send a newline with slime" })
+  vim.keymap.set("x", "<leader>k",     "<Plug>SlimeRegionSend",    { desc = "Send the visual region with slime" })
+  vim.keymap.set("n", "<leader>k",     "<Plug>SlimeMotionSend",    { desc = "Send the motion with slime" })
+  vim.keymap.set("n", "<leader>kl",    "<Plug>SlimeLineSend",      { desc = "Send the line with slime" })
+  vim.keymap.set("n", "<leader>kc",    "<Plug>SlimeSendCell",      { desc = "Send the cell with slime" })
+  vim.keymap.set("n", "<leader>kC",    "<Plug>SlimeConfig",        { desc = "Configure slime" })
+  vim.keymap.set("n", "<leader>k<cr>", H.send_newline,             { desc = "Send a newline with slime" })
+  vim.keymap.set("n", "<leader>kt",    H.pick_target,              { desc = "Configure slime target" })
 
-  vim.keymap.set("n", "<leader>krj", H.open_repl_rhs("julia"), { desc = "Open a Julia REPL with slime" })
-  vim.keymap.set("n", "<leader>kri", H.open_repl_rhs("ipython"), { desc = "Open an IPython REPL with slime" })
-  vim.keymap.set("n", "<leader>krp", H.open_repl_rhs("python"), { desc = "Open a Python REPL with slime" })
+  vim.keymap.set("n", "<leader>krj",   H.open_repl_rhs("julia"),   { desc = "Open a Julia REPL with slime" })
+  vim.keymap.set("n", "<leader>kri",   H.open_repl_rhs("ipython"), { desc = "Open an IPython REPL with slime" })
+  vim.keymap.set("n", "<leader>krp",   H.open_repl_rhs("python"),  { desc = "Open a Python REPL with slime" })
   -- stylua: ignore end
 end)
 
@@ -78,6 +79,15 @@ end
 
 function H.open_repl_rhs(lang)
   return function() H.open_repl(H.languages[lang]) end
+end
+
+function H.send_newline() vim.fn["slime#send"]("\n") end
+
+function H.pick_target()
+  vim.ui.select({"kitty", "neovim", "tmux"}, { prompt = "Slime targets" }, function(choice)
+    vim.g.slime_target = choice
+    vim.cmd({ cmd = "SlimeConfig"})
+  end)
 end
 
 H.languages = {

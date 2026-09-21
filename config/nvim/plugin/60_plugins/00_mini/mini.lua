@@ -62,10 +62,12 @@ safely("later", function()
     mappings = {
       around_next = "ak",
       inside_next = "ik",
+      around_last = "aj",
+      inside_last = "ij",
     },
     custom_textobjects = {
       c = spec_treesitter({ a = "@conditional.outer", i = "@conditional.inner" }),
-      l = spec_treesitter({ a = "@loop.outer", i = "@loop.inner" }),
+      L = spec_treesitter({ a = "@loop.outer", i = "@loop.inner" }),
       m = spec_treesitter({ a = "@function.outer", i = "@function.inner" }),
       o = spec_treesitter({ a = "@class.outer", i = "@class.inner" }),
     },
