@@ -98,6 +98,8 @@ autocmd("TermOpen", {
   desc = "Configure terminal buffers",
   callback = function(params)
     vim.wo.wrap = true -- With wrap disabled, you can scroll sideways, which is disconcerting
+    vim.wo.cursorline = false
+    vim.b.minicursorword_disable = true
 
     vim.keymap.set("n", "<localleader>r", [[A<Up><CR><C-\><C-n>G]], {
       buffer = params.buf,
