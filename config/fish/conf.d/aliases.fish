@@ -56,8 +56,9 @@ abbr jlc jj log --template=builtin_log_compact_full_description
 abbr jld jj log --template=builtin_log_detailed
 abbr jlo jj log --template=builtin_log_oneline
 
-abbr ji jj --ignore-working-copy status
+abbr ji jj --ignore-working-copy
 abbr jil jj --ignore-working-copy log
+abbr jis jj --ignore-working-copy status
 
 abbr jjgf jj git fetch
 abbr jjgp jj git push
