@@ -21,6 +21,8 @@ set -gx FZF_DEFAULT_COMMAND 'fd --type file --follow --hidden --exclude .git --c
 set -gx FZF_CTRL_T_COMMAND $FZF_DEFAULT_COMMAND
 set -gx FZF_DEFAULT_OPTS '
     --ansi
+    --color=base16,fg:-1,bg:-1,fg+:0,bg+:7,hl:blue,hl+:0:bold
+    --pointer=">"
     --bind ctrl-f:preview-half-page-down
     --bind ctrl-b:preview-half-page-up
     --bind ctrl-d:half-page-down
