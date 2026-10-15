@@ -70,6 +70,7 @@ export PS0="\e[5 q"
 # Load the custom prompt
 source "${DOTFILES_BASH}/config/ps1rc.bash"
 PS1=$(__mkps1)
+PROMPT_COMMAND=__mkps1_precmd
 
 # Enable programmable completion features
 if ! shopt -oq posix; then

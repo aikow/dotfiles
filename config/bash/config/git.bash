@@ -476,19 +476,19 @@ __git_ps1() {
         detached=yes
         b="$(
           case "${GIT_PS1_DESCRIBE_STYLE-}" in
-            contains)
+            (contains)
               git describe --contains HEAD
               ;;
-            branch)
+            (branch)
               git describe --contains --all HEAD
               ;;
-            tag)
+            (tag)
               git describe --tags HEAD
               ;;
-            describe)
+            (describe)
               git describe HEAD
               ;;
-            * | default)
+            (* | default)
               git describe --tags --exact-match HEAD
               ;;
           esac 2>/dev/null
