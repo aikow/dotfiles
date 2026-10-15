@@ -4,6 +4,7 @@ set-option -g status-position "bottom"
 # Make the window list appear at the left-hand side instead of at the center.
 set -g status-justify left
 set -g status-left '#S │ '
+set -g status-left-length 20
 set -g status-interval 1
 
 # Status line.
