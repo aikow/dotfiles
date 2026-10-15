@@ -1,8 +1,8 @@
 # --------------
 # |   Config   |
 # --------------
-alias dotfiles='${EDITOR} ~/.dotfiles/'
-alias ldotfiles='${EDITOR} ~/.local/config/'
+alias dotfiles='$EDITOR ~/.dotfiles/'
+alias ldotfiles='$EDITOR ~/.local/config/'
 
 ## Cd ##
 alias ..='cd ..'
@@ -13,11 +13,19 @@ alias .....='cd ../../../..'
 ## Eza ##
 alias l='eza --group-directories-first --icons=auto'
 alias lg='eza --group-directories-first --icons=auto --long --almost-all --git'
-alias lt='eza --group-directories-first --icons=auto --tree --git-ignore'
 alias ll='eza --group-directories-first --icons=auto --long'
 alias lll='eza --group-directories-first --icons=auto --long --almost-all --group --links --header'
+alias lt='eza --group-directories-first --icons=auto --tree'
+alias lti='eza --group-directories-first --icons=auto --tree --git-ignore'
 
 ## Docker ##
+alias d='docker'
+alias dc='docker container'
+alias di='docker image'
+alias dn='docker network'
+alias dps='docker ps'
+alias dv='docker volume'
+
 alias dcl='docker container ls --format "table {{.Names}}\t{{.Image}}\t{{.Status}}\t{{.Command}}"'
 alias drun='docker run --rm'
 alias druni='docker run --rm -it'
@@ -54,17 +62,23 @@ alias gsw='git switch'
 alias gt='git tag'
 alias gw='git worktree'
 
-## Jujutsi ##
+## Jujutsu ##
 alias jb='jj bookmark'
+alias jba='jj bookmark advance -t @-'
 alias jbm='jj bookmark move -t @-'
 alias jc='jj commit'
+alias ji='jj --ignore-working-copy status'
+alias jil='jj --ignore-working-copy log'
+alias jjgf='jj git fetch'
+alias jjgp='jj git push'
 alias jk='jj status'
 alias jl='jj log'
 alias jlc='jj log --template=builtin_log_compact_full_description'
 alias jld='jj log --template=builtin_log_detailed'
 alias jlo='jj log --template=builtin_log_oneline'
-alias jjgf='jj git fetch'
-alias jjgp='jj git push'
 
 ## Julia ##
 alias j.='julia --project=.'
+
+## Kubernetes ##
+alias k='kubernetes'

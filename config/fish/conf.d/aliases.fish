@@ -18,7 +18,8 @@ abbr --add dotdot --regex '^\.{2,}$' --function cd_up
 alias l='eza --group-directories-first --icons=auto'
 alias ll='eza --group-directories-first --icons=auto --long'
 alias lll='eza --group-directories-first --icons=auto --long --almost-all --group --links --header'
-alias lt='eza --group-directories-first --icons=auto --tree --git-ignore'
+alias lt='eza --group-directories-first --icons=auto --tree'
+alias lti='eza --group-directories-first --icons=auto --tree --git-ignore'
 
 ## Docker ##
 abbr d docker
@@ -46,17 +47,23 @@ abbr drunip 'docker run --rm -it -v $(pwd):/mnt/local -w /mnt/local'
 
 ## Jujitsu ##
 abbr jb jj bookmark
+abbr jba -- jj bookmark advance -t @-
 abbr jbm -- jj bookmark move -t @-
 abbr jc jj commit
 abbr jk jj status
-
 abbr jl jj log
 abbr jlc jj log --template=builtin_log_compact_full_description
 abbr jld jj log --template=builtin_log_detailed
 abbr jlo jj log --template=builtin_log_oneline
+
+abbr ji jj --ignore-working-copy status
+abbr jil jj --ignore-working-copy log
 
 abbr jjgf jj git fetch
 abbr jjgp jj git push
 
 ## Julia ##
 abbr j. -- julia --project=.
+
+## Kubernetes ##
+abbr k kubernetes
