@@ -20,10 +20,6 @@ function install() {
     git clone --depth=1 https://github.com/zsh-users/zsh-autosuggestions.git $plugin_dir/zsh-autosuggestions
     zcompile-many $plugin_dir/zsh-autosuggestions/{zsh-autosuggestions.zsh,src/**/*.zsh}
   fi
-  if [[ ! -e $plugin_dir/powerlevel10k ]]; then
-    git clone --depth=1 https://github.com/romkatv/powerlevel10k.git $plugin_dir/powerlevel10k
-    make -C $plugin_dir/powerlevel10k pkg
-  fi
   if [[ ! -e $plugin_dir/zsh-vi-mode ]]; then
     git clone --depth=1 https://github.com/jeffreytse/zsh-vi-mode.git $plugin_dir/zsh-vi-mode
     zcompile-many $plugin_dir/zsh-vi-mode/zsh-vi-mode.zsh
