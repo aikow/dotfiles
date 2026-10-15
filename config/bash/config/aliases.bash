@@ -80,6 +80,7 @@ alias jlo='jj log --template=builtin_log_oneline'
 
 ## Julia ##
 alias j.='julia --project=.'
+alias jd='JULIA_STARTUP_FILE_OPTS=datascience julia'
 
 ## Kubernetes ##
 alias k='kubectl'

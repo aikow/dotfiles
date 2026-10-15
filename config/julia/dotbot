@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+set -eo pipefail
+
+hascommand julia || exit 128
+mkdir -p ~/.julia/config
+symlinkfb "$PWD/startup.jl" ~/.julia/config/startup.jl
+

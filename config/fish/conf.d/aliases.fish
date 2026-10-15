@@ -65,6 +65,7 @@ abbr jjgp jj git push
 
 ## Julia ##
 abbr j. -- julia --project=.
+abbr jd -- 'JULIA_STARTUP_FILE_OPTS=datascience julia'
 
 ## Kubernetes ##
 abbr k kubectl
