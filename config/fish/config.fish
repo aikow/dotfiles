@@ -24,6 +24,11 @@ if status is-interactive
     fish_user_key_bindings
 
     fish_config theme choose 'catppuccin-mocha'
+    # Use terminal colors and reverse video to make the selected completion clear.
+    set -g fish_pager_color_selected_background --reverse
+    set -g fish_pager_color_selected_prefix normal --bold --reverse
+    set -g fish_pager_color_selected_completion normal --reverse
+    set -g fish_pager_color_selected_description normal --reverse
     fish_config prompt choose astronaut
 end
 

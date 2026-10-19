@@ -19,6 +19,11 @@ bindkey '^n' history-beginning-search-forward
 # Clear screen
 bindkey "^l" clear-screen
 
+# Shift-Tab cycles backward both before and during menu selection.
+bindkey -M viins '^[[Z' reverse-menu-complete
+bindkey -M emacs '^[[Z' reverse-menu-complete
+bindkey -M menuselect '^[[Z' reverse-menu-complete
+
 function join-lines() {
   local item
   while read item; do

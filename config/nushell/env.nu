@@ -1,6 +1,9 @@
 # File colors: use the terminal's ANSI palette so colors follow its theme.
 $env.LS_COLORS = (open --raw ($env.HOME | path join ".dotfiles" "config" "dircolors" "ls_colors") | str trim)
 
+# Fzf options shared with Bash, Zsh, and Fish.
+$env.FZF_DEFAULT_OPTS = (open --raw ($env.HOME | path join ".dotfiles" "config" "fzf" "default_opts") | str trim)
+
 def create_left_prompt [] { ||
     let path_segment = (
       $env.PWD

@@ -9,7 +9,11 @@ fpath=($zsh_dir/completions $DOTFILES_ZSH/functions $fpath)
 zstyle ':completion:*' use-cache
 zstyle ':completion:*' cache-path $zsh_dir/zcompcache
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
+# Keep filename colors and use reverse video for the current menu selection.
+zstyle ':completion:*' menu select
+zstyle ':completion:*' list-colors "${(@s.:.)LS_COLORS}" 'ma=7'
 
+zmodload zsh/complist
 autoload -Uz compinit && compinit -d $zsh_dir/zcompdump
 [[ $zsh_dir/zcompdump.zwc -nt $zsh_dir/zcompdump ]] || zcompile -R -- $zsh_dir/zcompdump
 
