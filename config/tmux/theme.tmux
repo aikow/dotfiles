@@ -34,6 +34,8 @@ set -g pane-border-style fg=terminal,bg=terminal
 set -g pane-active-border-style fg=blue,bg=terminal
 
 # Command/message line.
+# Use explicit text colors for contrast when the terminal changes appearance.
+set -g @message-foreground '#{?#{==:#{client_theme},light},#333333,#e6e6e6}'
 # Clear the whole row so status content does not show beside the prompt.
-set -g message-style 'fg=terminal,bg=#{E:@status-background},fill=#{E:@status-background},bold'
-set -g message-command-style 'fg=terminal,bg=#{E:@status-background},fill=#{E:@status-background},bold'
+set -g message-style 'fg=#{E:@message-foreground},bg=#{E:@status-background},fill=#{E:@status-background},bold'
+set -g message-command-style 'fg=#{E:@message-foreground},bg=#{E:@status-background},fill=#{E:@status-background},bold'
