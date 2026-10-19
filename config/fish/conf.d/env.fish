@@ -16,12 +16,16 @@ set -gx MANPAGER 'nvim +Man!'
 # Bat
 set -gx BAT_THEME gruvbox-dark
 
+# File colors: use the terminal's ANSI palette so colors follow its theme.
+set -gx LS_COLORS (string collect < "$DOTFILES/config/dircolors/ls_colors")
+
 # FZF
 set -gx FZF_DEFAULT_COMMAND 'fd --type file --follow --hidden --exclude .git --color=always'
 set -gx FZF_CTRL_T_COMMAND $FZF_DEFAULT_COMMAND
+# Keep the current row on the terminal background so ANSI filename colors stay readable.
 set -gx FZF_DEFAULT_OPTS '
     --ansi
-    --color=base16,fg:-1,bg:-1,fg+:0,bg+:7,hl:blue,hl+:0:bold
+    --color=base16,fg:-1,bg:-1,fg+:-1:bold,bg+:-1,hl:blue,hl+:blue:bold:underline
     --pointer=">"
     --bind ctrl-f:preview-half-page-down
     --bind ctrl-b:preview-half-page-up
