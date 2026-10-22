@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+set -eo pipefail
+
 hascommand alacritty || exit 128
 
 mkdir -p ~/.config/alacritty

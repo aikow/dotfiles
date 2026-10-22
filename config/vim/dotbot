@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+set -eo pipefail
+
 hascommand vim || exit 128
 
 symlinkfb "$PWD/vimrc" ~/.vimrc

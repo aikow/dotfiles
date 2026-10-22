@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 
+set -eo pipefail
+
 hascommand jj || exit 128
 
-[[ ! -d ~/.config/jj ]] && mkdir -p ~/.config/jj
+mkdir -p ~/.config/jj
 symlinkfb "$PWD/config.toml" ~/.config/jj/config.toml

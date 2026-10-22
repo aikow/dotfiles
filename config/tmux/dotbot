@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+set -eo pipefail
+
 hascommand tmux || exit 128
 
 symlinkfb "$PWD/tmux.conf" ~/.tmux.conf

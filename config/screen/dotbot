@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+set -eo pipefail
+
 hascommand screen || exit 128
 
 symlinkfb "$PWD/screenrc" ~/.screenrc

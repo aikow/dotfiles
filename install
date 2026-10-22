@@ -58,12 +58,25 @@ run() {
   return "$exitcode"
 }
 
-run_all() {
-  run dotbot
+run_configs() {
+  local result=0
+  local config_dotbot exitcode
 
-  for config_dotbot in config/*/dotbot; do
+  for config_dotbot in "$@"; do
     run "$config_dotbot"
+    exitcode=$?
+    case "$exitcode" in
+      0|128|129) ;;
+      *) result=1 ;;
+    esac
   done
+
+  return "$result"
+}
+
+run_all() {
+  run dotbot || return "$?"
+  run_configs config/*/dotbot
 }
 
 main() {
@@ -74,9 +87,7 @@ main() {
   elif [[ $# -ge 1 ]]; then
     # Usage: ./install config/alacritty/dotbot
     # Only install configs explicitly listed as CLI arguments.
-    for config_dotbot in "$@"; do
-      run "$config_dotbot"
-    done
+    run_configs "$@"
   else
     # Usage: ./install
     # Install all configs

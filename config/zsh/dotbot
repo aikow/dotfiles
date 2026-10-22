@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+set -eo pipefail
+
 hascommand zsh || exit 128
 
 symlinkfb "$PWD/zshenv" ~/.zshenv

@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
 
+set -eo pipefail
+
 mkdir -p ~/.config/stylua
 symlinkfb "$PWD/stylua.toml" ~/.config/stylua/stylua.toml

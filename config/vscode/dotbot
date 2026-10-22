@@ -1,12 +1,18 @@
 #!/usr/bin/env bash
 
-case $DOTBOT_OS in
-  Darwin) target=~/Library/Application Support/Code/User ;;
-  */Linux) target=~/.config/code/user ;;
+set -eo pipefail
+
+case $DOTBOT_OS_SHORT in
+  darwin) target="$HOME/Library/Application Support/Code/User/settings.json" ;;
+  linux) target="$HOME/.config/Code/User/settings.json" ;;
   *) exit 129 ;;
 esac
 
-if [[ ! -f $target || $DOTBOT_FORCE == yes ]]; then
-  mkdir "$(dirname "$target")"
+if [[ ! -e $target && ! -L $target || ${DOTBOT_FORCE:-no} == yes ]]; then
+  if [[ -d $target ]]; then
+    echo "Error: settings destination is a directory." >&2
+    exit 1
+  fi
+  mkdir -p "$(dirname "$target")"
   cp "$PWD/settings.json" "$target"
 fi

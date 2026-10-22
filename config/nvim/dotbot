@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+set -eo pipefail
+
 hascommand nvim || exit 128
 
+mkdir -p ~/.config
 symlinkfb "$PWD" ~/.config/nvim

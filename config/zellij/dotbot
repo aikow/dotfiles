@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+set -eo pipefail
+
 hascommand zellij || exit 128
 
+mkdir -p ~/.config/zellij
 symlinkfb "$PWD/config.kdl" ~/.config/zellij/config.kdl

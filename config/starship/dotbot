@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+set -eo pipefail
+
 hascommand starship || exit 128
 
+mkdir -p ~/.config
 symlinkfb "$PWD/starship.toml" ~/.config/starship.toml

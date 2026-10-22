@@ -1,6 +1,9 @@
 #!/usr/bin/env bash
 
+set -eo pipefail
+
 hascommand kitty || exit 128
 
+mkdir -p ~/.config/kitty
 symlinkfb "$PWD/kitty.conf" ~/.config/kitty/kitty.conf
 symlinkfb "$PWD/tab_bar.py" ~/.config/kitty/tab_bar.py

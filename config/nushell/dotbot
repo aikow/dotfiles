@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+set -eo pipefail
+
 hascommand nu || exit 128
 
 case $DOTBOT_OS_SHORT in
@@ -8,5 +10,6 @@ case $DOTBOT_OS_SHORT in
   *) exit 129 ;;
 esac
 
+mkdir -p "$target"
 symlinkfb "$PWD/config.nu" "$target/config.nu"
 symlinkfb "$PWD/env.nu" "$target/env.nu"

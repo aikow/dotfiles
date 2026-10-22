@@ -1,3 +1,5 @@
 #!/usr/bin/env bash
 
+set -eo pipefail
+
 symlinkfb "$PWD/inputrc" ~/.inputrc
