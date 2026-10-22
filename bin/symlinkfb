@@ -12,34 +12,39 @@ if [[ $# != 2 ]]; then
   exit 1
 fi
 
-link_source=$1
-link_target=$2
+if [[ ! -e $1 ]]; then
+  echo "Error: source does not exist." >&2
+  exit 1
+fi
+case $1 in
+  /*) link_source=$1 ;;
+  *) link_source=$PWD/$1 ;;
+esac
+target_name=$(basename -- "$2")
+case $target_name in
+  ''|/|.|..) echo "Error: target must name a file or directory." >&2; exit 1 ;;
+esac
+# Resolve the parent only: resolving the final component would follow a symlink.
+target_parent=$(cd -- "$(dirname -- "$2")" && pwd -P)
+link_target=$target_parent/$target_name
 
-backup_dir=$HOME/.local/backups/symlinkfb
-mkdir -p "$backup_dir"
-
-if [[ -e $link_target ]]; then
-  path=$(realpath -- "$link_target")
-  backup_file=$backup_dir/$(date -Iseconds)${path////--}
-
-  link_target=$(realpath "$link_target")
-  if [[ $link_target == "$(realpath -- "$link_source")" ]]; then
-    # No work to do here.
-    exit
-  fi
-
-  if [[ -L $link_target ]]; then
-    echo "symlinked to $(readlink -- "$link_target")" >"$backup_file"
-    unlink -- "$link_target"
-  else
-    mv "$link_target" "$backup_file"
-  fi
+if [[ -e $link_target ]] && [[ $(realpath -- "$link_target") == "$(realpath -- "$link_source")" ]]; then
+  exit 0
 fi
 
-# Check if the link target is a broken symlink. If the target would have
-# existed, we would have already removed it in the previous if block.
-if [[ -L $link_target ]]; then
-  unlink -- "$link_target"
+backup_file=
+if [[ -e $link_target || -L $link_target ]]; then
+  backup_dir=$HOME/.local/backups/symlinkfb
+  mkdir -p -- "$backup_dir"
+  # Each replacement gets its own directory, even within the same second.
+  backup_path=$(mktemp -d "$backup_dir/$(date +%Y%m%dT%H%M%S).XXXXXXXX")
+  backup_file=$backup_path/$target_name
+  mv -- "$link_target" "$backup_file"
 fi
 
-ln -s -- "$link_source" "$link_target"
+if ! ln -s -- "$link_source" "$link_target"; then
+  if [[ -n $backup_file ]]; then
+    mv -- "$backup_file" "$link_target"
+  fi
+  exit 1
+fi
