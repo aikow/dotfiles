@@ -4,5 +4,5 @@
 
 ref=$(git symbolic-ref HEAD 2>/dev/null) \
   || ref=$(git rev-parse --short HEAD 2>/dev/null) \
-  || return
+  || exit 1
 echo "${ref#refs/heads/}"

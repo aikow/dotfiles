@@ -1,20 +1,28 @@
 #!/usr/bin/env bash
 
+set -o pipefail
+
 git_log_opts=("$@")
 
 git log --format='author: %ae' --numstat "${git_log_opts[@]}" \
-  | tr '[:upper:]' '[:lower:]' \
-  | grep -v '^$' \
-  | grep -v '^-' \
   | gawk '
+    BEGIN { FS = "\t"; }
+    NF == 0 { next; }
     {
-      if ($1 == "author:") {
-        author = $2;
+      if ($0 ~ /^author: /) {
+        author = tolower(substr($0, 9));
         commits[author]++;
+        # Keep authors whose commits contain no text changes in the output.
+        total[author] += 0;
+        insertions[author] += 0;
+        deletions[author] += 0;
+        files[author] += 0;
       } else {
-        insertions[author] += $1;
-        deletions[author] += $2;
-        total[author] += $1 + $2;
+        if ($1 ~ /^[0-9]+$/ && $2 ~ /^[0-9]+$/) {
+          insertions[author] += $1;
+          deletions[author] += $2;
+          total[author] += $1 + $2;
+        }
         # if this is the first time seeing this file for this
         # author, increment their file count
         author_file = author ":" $3;

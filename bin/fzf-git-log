@@ -1,12 +1,15 @@
 #!/usr/bin/env bash
 
+set -o pipefail
+
 git is-repo || exit
 
 git log \
   --date=short \
   --graph \
   --color=always \
-  --format="%C(green)%C(bold)%cd %C(auto)%h%d %s (%an)" \
+  --format="%C(green)%C(bold)%cd %C(auto)%h%d %s (%an)%C(reset)%x09%H" \
+  | awk 'index($0, "\t")' \
   | fzf \
     --ansi \
     --no-sort \
@@ -14,5 +17,7 @@ git log \
     --multi \
     --bind 'ctrl-s:toggle-sort' \
     --header 'Press CTRL-S to toggle sort' \
-    --preview 'grep -o "[a-f0-9]\{7,\}" <<< {} | xargs git show --color=always' \
-  | grep -o "[a-f0-9]\{7,\}"
+    --delimiter="$(printf '\t')" \
+    --with-nth=..-2 \
+    --preview 'git show --color=always {-1}' \
+  | awk -F '\t' '{print $NF}'

@@ -1,10 +1,18 @@
 #!/usr/bin/env bash
 #
-# Git extension that prints the repository name.
+# Git extension that prints the repository name, using origin when configured.
 
-# FIXME: Something is whack here, but I don't know what and don't have time
-# right now.
-ref=$(git symbolic-ref HEAD 2>/dev/null) \
-  || ref="$(git rev-parse --short HEAD 2>/dev/null)" \
-  || return
-git remote -v | cut -d':' -f 2
+git rev-parse --git-dir &>/dev/null || exit 1
+
+if url=$(git remote get-url origin 2>/dev/null); then
+  name=${url%/}
+  name=${name##*/}
+  name=${name##*:}
+  printf '%s\n' "${name%.git}"
+else
+  # Local repositories need not have a remote, or even a first commit.
+  root=$(git rev-parse --show-toplevel 2>/dev/null) \
+    || root=$(git rev-parse --absolute-git-dir) || exit 1
+  name=$(basename -- "$root")
+  printf '%s\n' "${name%.git}"
+fi

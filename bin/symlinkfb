@@ -5,6 +5,8 @@
 # Force create a symlink but create a backup of the target before replacing it
 # with the symlink if it exists.
 
+set -euo pipefail
+
 if [[ $# != 2 ]]; then
   echo "usage: symlinkfb path target"
   exit 1

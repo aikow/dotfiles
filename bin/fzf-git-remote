@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+set -o pipefail
+
 git is-repo || exit
 
 git remote -v \
@@ -7,4 +9,4 @@ git remote -v \
   | uniq \
   | fzf --tac \
     --preview 'git log --oneline --graph --date=short --pretty="format:%C(auto)%cd %h%d %s" {1}' \
-  | cut -d"\t" -f1
+  | cut -f1

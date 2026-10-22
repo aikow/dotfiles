@@ -4,6 +4,6 @@ if ! command -v git &>/dev/null; then
   exit 1
 fi
 
-if ! git rev-parse HEAD &>/dev/null; then
+if ! git rev-parse --git-dir &>/dev/null; then
   exit 1
 fi

@@ -6,7 +6,7 @@
 
 for path in "$@"; do
   for entry in "$path"/* "$path"/.*; do
-    if [[ -L $entry && ! -e "$(readlink -- "$entry")" ]]; then
+    if [[ -L $entry && ! -e $entry ]]; then
       unlink -- "$entry"
     fi
   done

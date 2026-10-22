@@ -11,4 +11,4 @@ docker image ls \
     --preview='docker image inspect {3}' \
     --preview-window='hidden,nowrap' \
     --bind 'ctrl-t:toggle-preview-wrap' \
-  | sed -E 's/^(\S+)\s+(\S+)\s+.*$/\1:\2/'
+  | awk '{print $1 ":" $2}'
