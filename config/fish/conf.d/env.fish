@@ -24,5 +24,10 @@ set -gx FZF_DEFAULT_COMMAND 'fd --type file --follow --hidden --exclude .git --c
 set -gx FZF_CTRL_T_COMMAND $FZF_DEFAULT_COMMAND
 set -gx FZF_DEFAULT_OPTS (string collect < "$DOTFILES/config/fzf/default_opts")
 
+# Skim
+set -gx SKIM_DEFAULT_COMMAND $FZF_DEFAULT_COMMAND
+set -gx SKIM_CTRL_T_COMMAND $SKIM_DEFAULT_COMMAND
+set -gx SKIM_DEFAULT_OPTIONS (string collect < "$DOTFILES/config/skim/default_opts")
+
 # Homebrew
 set -gx HOMEBREW_NO_ENV_HINTS 1

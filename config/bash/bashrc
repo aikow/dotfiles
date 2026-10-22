@@ -24,6 +24,11 @@ export FZF_DEFAULT_COMMAND='fd --type file --follow --hidden --exclude .git --co
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export FZF_DEFAULT_OPTS="$(< "$DOTFILES/config/fzf/default_opts")"
 
+## Skim ##
+export SKIM_DEFAULT_COMMAND="$FZF_DEFAULT_COMMAND"
+export SKIM_CTRL_T_COMMAND="$SKIM_DEFAULT_COMMAND"
+export SKIM_DEFAULT_OPTIONS="$(< "$DOTFILES/config/skim/default_opts")"
+
 ## Homebrew ##
 export HOMEBREW_NO_ENV_HINTS=1
 

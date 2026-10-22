@@ -4,6 +4,9 @@ $env.LS_COLORS = (open --raw ($env.HOME | path join ".dotfiles" "config" "dircol
 # Fzf options shared with Bash, Zsh, and Fish.
 $env.FZF_DEFAULT_OPTS = (open --raw ($env.HOME | path join ".dotfiles" "config" "fzf" "default_opts") | str trim)
 
+# Skim options shared with Bash, Zsh, and Fish.
+$env.SKIM_DEFAULT_OPTIONS = (open --raw ($env.HOME | path join ".dotfiles" "config" "skim" "default_opts") | str trim)
+
 def create_left_prompt [] { ||
     let path_segment = (
       $env.PWD
