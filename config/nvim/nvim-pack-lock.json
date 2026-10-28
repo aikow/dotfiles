@@ -1,7 +1,7 @@
 {
   "plugins": {
     "SchemaStore.nvim": {
-      "rev": "2af1680d9c054f10ce9ebc1f28443178c2b5fcbf",
+      "rev": "ecab38c6d3130e1e57bdb611421e915aaa2a4f48",
       "src": "https://github.com/b0o/SchemaStore.nvim"
     },
     "bamboo.nvim": {
@@ -29,7 +29,7 @@
       "src": "https://github.com/sainnhe/everforest"
     },
     "friendly-snippets": {
-      "rev": "b4d01b0fdf3c9a549961c2f9ffe8dc09be166219",
+      "rev": "b2ea5c41a150ba72fb656eedb4ed0a86d138d945",
       "src": "https://github.com/rafamadriz/friendly-snippets"
     },
     "gruvbox-material": {
@@ -65,7 +65,7 @@
       "src": "https://github.com/mason-org/mason.nvim"
     },
     "mini.nvim": {
-      "rev": "4d84086ab334a88201b803d11d1086406fe7e43d",
+      "rev": "a03ad899bda446b5a81cfa99d8aeeb92241522f3",
       "src": "https://github.com/nvim-mini/mini.nvim"
     },
     "nightfox.nvim": {
@@ -73,7 +73,7 @@
       "src": "https://github.com/EdenEast/nightfox.nvim"
     },
     "nvim-lspconfig": {
-      "rev": "77b7432d4770d23b277d37923e5a08a442d8bb07",
+      "rev": "4feaba4d3980032b3f62f3ba5df4de27fdf59cfd",
       "src": "https://github.com/neovim/nvim-lspconfig"
     },
     "nvim-pqf": {
