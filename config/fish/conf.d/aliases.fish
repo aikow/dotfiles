@@ -67,4 +67,4 @@ abbr jjgp jj git push
 abbr j. -- julia --project=.
 
 ## Kubernetes ##
-abbr k kubernetes
+abbr k kubectl

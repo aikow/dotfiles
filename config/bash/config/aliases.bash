@@ -82,4 +82,4 @@ alias jlo='jj log --template=builtin_log_oneline'
 alias j.='julia --project=.'
 
 ## Kubernetes ##
-alias k='kubernetes'
+alias k='kubectl'
