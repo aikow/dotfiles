@@ -7,3 +7,5 @@ vim.keymap.set(
   "<cmd>Markview toggle<CR>",
   { desc = "Toggle Markview preview", buffer = true }
 )
+
+require("user.ftplugin").undo("setlocal shiftwidth< | silent! nunmap <buffer> <localleader>v")

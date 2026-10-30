@@ -117,14 +117,6 @@ autocmd("BufEnter", {
   end,
 })
 
--- Automatically trust 'exrc' files that are created and edited using nvim
-autocmd("BufWritePost", {
-  group = augroup("user.exrc.autotrust", {}),
-  pattern = { ".nvim.lua", ".nvimrc", ".exrc" },
-  desc = "Trust local configuration files",
-  callback = function(params) vim.secure.trust({ action = "allow", bufnr = params.buf }) end,
-})
-
 -- Remove default mouse menu options
 vim.api.nvim_create_autocmd("VimEnter", {
   once = true,

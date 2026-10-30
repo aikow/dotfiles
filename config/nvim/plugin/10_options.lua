@@ -6,15 +6,11 @@ local o = vim.o
 -- Always use bash as the shell
 o.shell = "bash"
 
--- Use system clipboard
-o.clipboard = "unnamedplus"
-
 -- Don't store backup while overwriting the file
 o.backup = false
 o.writebackup = false
 o.updatetime = 1000
 o.undofile = true
-o.autowrite = true
 
 -- Set the timeout times
 o.timeoutlen = 500
@@ -43,7 +39,7 @@ o.textwidth = 80
 o.expandtab = true
 o.tabstop = 2
 o.shiftwidth = 2
-o.softtabstop = 2
+o.softtabstop = -1
 o.smartindent = true
 
 -- highlight matching parens, braces, brackets, etc
@@ -59,7 +55,8 @@ o.grepprg = "rg --vimgrep --no-heading --smart-case"
 o.grepformat = "%f:%l:%c:%m"
 
 -- Format options
-o.formatoptions = "qjl1"
+vim.opt.formatoptions:remove("tc")
+vim.opt.formatoptions:append("lor1")
 
 -- Builtin completion options
 o.infercase = true -- Make completion case-insensitive.
@@ -108,10 +105,9 @@ o.winblend = 0
 o.showmode = false
 
 -- Tabline
-o.tabline = "%!v:lua.require'user.ui.tabline'.tabline()"
+o.tabline = "%!v:lua.require'user.tabline'.tabline()"
 
 -- Statuscolumn
-o.statuscolumn = "%{%v:lua.require'user.ui'.statuscolumn()%}"
 o.foldcolumn = "auto:1"
 
 -- Define which helper symbols to show

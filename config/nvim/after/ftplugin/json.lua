@@ -15,3 +15,10 @@ vim.keymap.set("x", "<localleader>c", "<cmd>!jq -c<CR>", {
   buffer = true,
   desc = "Compact selected JSON with jq",
 })
+
+require("user.ftplugin").undo({
+  "silent! nunmap <buffer> <localleader>f",
+  "silent! xunmap <buffer> <localleader>f",
+  "silent! nunmap <buffer> <localleader>c",
+  "silent! xunmap <buffer> <localleader>c",
+})

@@ -43,27 +43,32 @@ function H.toggle_ignore()
 end
 
 function H.filter_ignore(entries)
-  -- technically can filter entries here too, and checking gitignore for _every entry individually_
-  -- like I would have to in `content.filter` above is too slow. Here we can give it _all_ the entries
-  -- at once, which is much more performant.
+  -- Batch ignore checks once per directory, without spawning a command per entry.
   if #entries == 0 then return {} end
   local dir = vim.fs.dirname(entries[1].path)
-  local cmd = { "fd", ".", dir, "--max-depth", "1" }
+  local cmd = { "fd", "--max-depth", "1", "--print0", "--format", "{/}", "--color", "never" }
   if H.show_hidden then table.insert(cmd, "--hidden") end
   if H.show_ignored then table.insert(cmd, "-I") end
-  table.insert(cmd, "--exec")
-  table.insert(cmd, "echo")
-  table.insert(cmd, "{/}")
+  vim.list_extend(cmd, { "--", ".", dir })
 
-  local proc = vim.system(cmd, { text = true }):wait()
-  if proc.code ~= 0 then return end
-  local output_lines = vim.split(vim.trim(proc.stdout), "\n")
+  local ok, proc = pcall(function() return vim.system(cmd):wait(1000) end)
+  local visible = {}
+  if ok and proc.code == 0 then
+    for name in (proc.stdout or ""):gmatch("([^%z]+)%z") do
+      visible[name] = true
+    end
+  else
+    vim.notify_once(
+      "mini.files: fd failed; showing entries without ignore filtering",
+      vim.log.levels.WARN
+    )
+    for _, entry in ipairs(entries) do
+      if H.show_hidden or entry.name:sub(1, 1) ~= "." then visible[entry.name] = true end
+    end
+  end
 
   return require("mini.files").default_sort(
-    vim
-      .iter(entries)
-      :filter(function(entry) return vim.tbl_contains(output_lines, entry.name) end)
-      :totable()
+    vim.iter(entries):filter(function(entry) return visible[entry.name] end):totable()
   )
 end
 

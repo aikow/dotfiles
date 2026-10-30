@@ -1,7 +1,7 @@
 {
   "plugins": {
     "SchemaStore.nvim": {
-      "rev": "ecab38c6d3130e1e57bdb611421e915aaa2a4f48",
+      "rev": "073910e2521e23681c44a8b1355e91765a60cbaa",
       "src": "https://github.com/b0o/SchemaStore.nvim"
     },
     "bamboo.nvim": {
@@ -9,7 +9,7 @@
       "src": "https://github.com/ribru17/bamboo.nvim"
     },
     "base.nvim": {
-      "rev": "d7971c91d485ba1176c610479efd8f199ab3310d",
+      "rev": "b1c2eb6fb2745412140d184e15f282fe22ae761a",
       "src": "https://github.com/aikow/base.nvim"
     },
     "catppuccin.nvim": {
@@ -21,7 +21,7 @@
       "src": "https://github.com/stevearc/conform.nvim"
     },
     "diffview-plus.nvim": {
-      "rev": "2a2d89a07f5d5d3cef7f542b99c3e28050ca205c",
+      "rev": "fae72d6c981075dce2e0f946f002382ce0cb44e1",
       "src": "https://github.com/dlyongemallo/diffview-plus.nvim"
     },
     "everforest": {
@@ -41,7 +41,7 @@
       "src": "https://github.com/lukas-reineke/indent-blankline.nvim"
     },
     "jj.nvim": {
-      "rev": "64605c84f4e7774ff510d614204625ced87ffb48",
+      "rev": "79be2ec0c8ba79d3e24184fc31d611245528fc67",
       "src": "https://github.com/NicolasGB/jj.nvim"
     },
     "kanagawa.nvim": {
@@ -53,11 +53,11 @@
       "src": "https://github.com/iamcco/markdown-preview.nvim"
     },
     "markview.nvim": {
-      "rev": "ecc5a8867daa1856f8bcc5fdbceca8f5a5ce5f5d",
+      "rev": "aadb6d817577d553bbef61e8b9073f1bf4b87e08",
       "src": "https://github.com/OXY2DEV/markview.nvim"
     },
     "mason-lspconfig.nvim": {
-      "rev": "00b5473cca4db5b410ff4bae724e3b6e21f2687f",
+      "rev": "3a5cd6d562a01f6829a35ae761dc383264ea452b",
       "src": "https://github.com/mason-org/mason-lspconfig.nvim"
     },
     "mason.nvim": {
@@ -65,7 +65,7 @@
       "src": "https://github.com/mason-org/mason.nvim"
     },
     "mini.nvim": {
-      "rev": "a03ad899bda446b5a81cfa99d8aeeb92241522f3",
+      "rev": "6d5a29e86a7352739506c28e0bc50fe214b5216f",
       "src": "https://github.com/nvim-mini/mini.nvim"
     },
     "nightfox.nvim": {
@@ -73,7 +73,7 @@
       "src": "https://github.com/EdenEast/nightfox.nvim"
     },
     "nvim-lspconfig": {
-      "rev": "4feaba4d3980032b3f62f3ba5df4de27fdf59cfd",
+      "rev": "adfbb74472f6c231b651b650a89f414c2680fb31",
       "src": "https://github.com/neovim/nvim-lspconfig"
     },
     "nvim-pqf": {
@@ -81,7 +81,7 @@
       "src": "https://github.com/yorickpeterse/nvim-pqf"
     },
     "nvim-treesitter": {
-      "rev": "29212d826054bb2948fa9d3a99eca9bf6a050eb2",
+      "rev": "0195cd62fa89950f34c0e0d648ea7897ab85d4d3",
       "src": "https://github.com/nvim-treesitter/nvim-treesitter",
       "version": "'main'"
     },

@@ -10,8 +10,8 @@ vim.g.pyindent_open_paren = vim.bo.shiftwidth
 
 -- Automatically make the current string an f-string when typing `{`.
 vim.api.nvim_create_autocmd("InsertCharPre", {
-  group = vim.api.nvim_create_augroup("user.ftplugin.python.auto_fstring", {}),
-  pattern = { "*.py" },
+  group = vim.api.nvim_create_augroup("user.ftplugin.python.auto_fstring", { clear = false }),
+  buffer = 0,
   desc = "Add f-string prefixes",
   callback = function(params)
     if vim.v.char ~= "{" then return end
@@ -120,3 +120,18 @@ vim.keymap.set(
   "<cmd>PyFormatRuffFix<CR>",
   { buffer = true, desc = "Fix lints with ruff" }
 )
+
+require("user.ftplugin").undo({
+  "setlocal expandtab< autoindent< shiftwidth< tabstop< softtabstop< textwidth<",
+  "unlet! b:miniai_config",
+  "silent! autocmd! user.ftplugin.python.auto_fstring InsertCharPre <buffer>",
+  "silent! delcommand -buffer PyLintRuff",
+  "silent! delcommand -buffer PyLintTy",
+  "silent! delcommand -buffer PyFormatBlack",
+  "silent! delcommand -buffer PyFormatRuffFix",
+  "silent! nunmap <buffer> <localleader>lr",
+  "silent! nunmap <buffer> <localleader>lt",
+  "silent! nunmap <buffer> <localleader>fb",
+  "silent! nunmap <buffer> <localleader>fr",
+  "silent! xunmap <buffer> <localleader>fr",
+})

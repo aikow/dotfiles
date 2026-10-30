@@ -154,7 +154,7 @@ map("n", "<leader>tu", H.toggle_color_column,                               { de
 map("n", "<leader>tw", "<Cmd>setlocal wrap! wrap?<CR>",                     { desc = "Toggle 'wrap'" })
 map("n", "<leader>td", H.toggle_diagnostic,                                 { desc = "Toggle diagnostic" })
 map("n", "<leader>tD", H.toggle_diagnostic_virtual_lines,                   { desc = "Toggle diagnostic virtual lines" })
-map("n", "<leader>tn", H.toggle_inlay_hints,                                { desc = "Toggle lsp inlay hints" })
+map("n", "<leader>ty", H.toggle_inlay_hints,                                { desc = "Toggle lsp inlay hints" })
 map("n", "<leader>tx", H.toggle_diff,                                       { desc = "Toggle diff" })
 map("n", "<leader>tX", H.toggle_diff_all,                                   { desc = "Toggle diff for all windows" })
 map("n", "<leader>tt", H.toggle_trailspace,                                 { desc = "Toggle highlighting trailing spaces" })
@@ -176,19 +176,6 @@ map("n", "gp", "'`[' . strpart(getregtype(), 0, 1) . '`]'", { expr = true, desc 
 -- Automatically jump to the end of text when yanking and pasting
 map(  "x",        "y", "y`]", { desc = "Jump to the end after yanking" })
 map({ "x", "n" }, "p", "p`]", { desc = "Jump to the end after pasting" })
-
--- Make Y behave like other capital letters
-map("n", "Y", "y$", { desc = "Yank to the end of the line" })
-
--- Keep it centered
-map("n", "n", "nzzzv", { desc = "Center the next match" })
-map("n", "N", "Nzzzv", { desc = "Center the previous match" })
-
--- Undo breakpoints while typing
-map("i", ",", ",<C-G>u", { desc = "Create an undo breakpoint" })
-map("i", ".", ".<C-G>u", { desc = "Create an undo breakpoint" })
-map("i", "!", "!<C-G>u", { desc = "Create an undo breakpoint" })
-map("i", "?", "?<C-G>u", { desc = "Create an undo breakpoint" })
 
 -- Faster pane resizing
 map("n", "<C-W><", "5<C-W><", { desc = "Decrease window width" })

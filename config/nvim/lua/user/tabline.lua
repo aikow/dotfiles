@@ -10,32 +10,33 @@ M.icons = {
 -- | Tabpage Icon Handlers
 -- ------------------------------------------------------------------------
 M.handlers = {
-  empty = function(state)
+  function(state)
     if state.bufname ~= "" then return end
     return "󰎔", "[No Name]"
   end,
 
-  protocol_terminal = function(state)
+  function(state)
     if state.protocol ~= "term" then return end
     local _, pid, cmd = state.rest:match("^(.*)//(%d+):(.*)$")
+    if not pid then return M.icons.term, state.rest end
     return M.icons.term, pid .. " | " .. cmd
   end,
 
-  protocol = function(state)
-    if state.protocol == nil then return end
-    local icon = M.icons[state.protocol] or ("[" .. state.protocol .. "]")
-    local filename = vim.fn.fnamemodify(state.rest, ":t")
-    return icon, filename
-  end,
-
-  diffview = function(state)
+  function(state)
     if not vim.t[state.tabid].diffview_view_initialized then return end
     local icon = M.icons.diffview
     local filename = vim.fn.fnamemodify(state.bufname, ":t")
     return icon, filename
   end,
 
-  default = function(state)
+  function(state)
+    if state.protocol == nil then return end
+    local icon = M.icons[state.protocol] or ("[" .. state.protocol .. "]")
+    local filename = vim.fn.fnamemodify(state.rest, ":t")
+    return icon, filename
+  end,
+
+  function(state)
     local icon = require("mini.icons").get("file", state.bufname)
     local filename = vim.fn.fnamemodify(state.bufname, ":t")
     return icon, filename
@@ -61,7 +62,7 @@ function M.get_tab_title(tabid, is_active)
   }
 
   local icon, tabname
-  for _, h in pairs(M.handlers) do
+  for _, h in ipairs(M.handlers) do
     icon, tabname = h(state)
     if icon then break end
   end
@@ -69,9 +70,9 @@ function M.get_tab_title(tabid, is_active)
   return string.format(
     "%%#%s#%s %%#%s#%s",
     state.is_active and "TabLineSel" or "TabLine",
-    icon,
+    (icon:gsub("%%", "%%%%")),
     state.is_active and "TabLineSel" or "TabLine",
-    tabname
+    (tabname:gsub("%%", "%%%%"))
   )
 end
 
@@ -84,8 +85,8 @@ function M.tabline()
     local is_active = (tabid == cur_tabid)
     local hl = is_active and "TabLineSel" or "TabLine"
 
-    -- Start the tab using the tabpage ID
-    s = s .. "%#" .. hl .. "#%" .. tabid .. "T"
+    -- Click targets use tab positions, not persistent API handles.
+    s = s .. "%#" .. hl .. "#%" .. pos .. "T"
 
     -- Format the name of the current buffer
     local display_name = M.get_tab_title(tabid, is_active)

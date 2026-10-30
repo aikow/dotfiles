@@ -4,6 +4,3 @@
 
 # Lua-language-server config
 .luarc.json
-
-# mini.deps lock file
-mini-deps-snap

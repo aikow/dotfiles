@@ -14,7 +14,7 @@ vim.g.localrc = vim.g.localrtp .. "/local.lua"
 -- Setup Globals
 _G.gh = function(repo) return "https://github.com/" .. repo end
 
--- Init mini.deps so that we can use the later() and now() helpers
+-- Bootstrap mini.nvim for MiniMisc.safely("now"/"later", ...).
 vim.pack.add({ gh("nvim-mini/mini.nvim") })
 _G.safely = require("mini.misc").safely
 

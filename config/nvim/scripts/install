@@ -1,127 +1,132 @@
 #!/usr/bin/env bash
-
-set -o errexit
-set -o pipefail
-set -o nounset
-set -o xtrace
-
+set -euo pipefail
 IFS=$' \n\t'
+umask 077
 
-# Store positional args in an array.
-declare -a _positional_args=()
-
-while [[ ${#@} -gt 0 ]]; do
-  case "${1}" in
+extract=no
+force=no
+tag=
+while [[ $# -gt 0 ]]; do
+  case "$1" in
     -e | --extract)
-      _extract="yes"
-      shift # Past argument
+      extract=yes
+      shift
       ;;
     -f | --force)
-      _force="yes"
-      shift # Past argument
+      force=yes
+      shift
       ;;
     -t | --tag)
-      _tag="${2}"
-      shift # Past argument
-      shift # Past value
-      ;;
-    -*)
-      echo "Unknown option ${1}"
-      exit 1
+      [[ $# -ge 2 ]] || {
+        echo 'Missing value for --tag' >&2
+        exit 64
+      }
+      tag=$2
+      shift 2
       ;;
     *)
-      _positional_args+=("${1}") # Save positional argument
-      shift                      # Past argument.
+      echo 'Unknown argument' >&2
+      exit 64
       ;;
   esac
 done
 
-# Restore positional arguments and delete the temporary array.
-set -- "${_positional_args[@]+"${_positional_args[@]}"}"
-unset _positional_args
-
-# Extract CLI arguments and flags
-extract="${_extract:-no}"
-force="${_force:-no}"
-tag="${_tag?Missing tag}"
+# Tags become both URL components and directory names. Allow only release tags.
+if [[ ! $tag =~ ^(nightly|v[0-9]+\.[0-9]+\.[0-9]+(-[A-Za-z0-9.-]+)?)$ ]]; then
+  echo 'Use --tag nightly or --tag vMAJOR.MINOR.PATCH[-PRERELEASE]' >&2
+  exit 64
+fi
+for dependency in curl jq sha256sum rsync; do
+  command -v "$dependency" >/dev/null || {
+    echo "Missing dependency: $dependency" >&2
+    exit 1
+  }
+done
 
 keep_last_n=3
-
 installation_base_dir=$HOME/workspace/tools/neovim
-if [[ ${tag} == "nightly" ]]; then
-  installation_dir="${installation_base_dir}/${tag}/$(date +%Y-%m-%d)"
+installation_dir=$installation_base_dir/$tag
+if [[ $tag == nightly ]]; then installation_dir=$installation_dir/$(date +%Y-%m-%d); fi
+nvim_bin=$HOME/.local/bin/nvim
+if [[ -e $nvim_bin && ! -L $nvim_bin ]]; then
+  echo 'Refusing to replace a non-symlink Neovim launcher' >&2
+  exit 1
+fi
+arch=linux-x86_64
+base_url=https://github.com/neovim/neovim/releases/download/$tag
+
+mkdir -p "$installation_dir"
+# Failed downloads never become cached executables. Keep staging on the same filesystem.
+staging_dir=$(mktemp -d "$installation_dir/.download.XXXXXX")
+trap 'rm -rf -- "$staging_dir"' EXIT
+curl_args=(--fail --location --silent --show-error --proto '=https' --proto-redir '=https' --connect-timeout 15 --max-time 300)
+
+# GitHub publishes SHA-256 digests in release-asset metadata. Fail closed if
+# unavailable; a download alone is never sufficient to trust an executable.
+curl "${curl_args[@]}" "https://api.github.com/repos/neovim/neovim/releases/tags/$tag" \
+  --output "$staging_dir/release.json"
+if ! asset=$(jq -er --arg name "nvim-$arch.appimage" '
+  [.assets[] | select(.name == $name or .name == "nvim.appimage")]
+  | sort_by(.name == "nvim.appimage") | .[0]
+  | select(.state == "uploaded" and (.digest | type == "string"))
+  | select(.digest | test("^sha256:[0-9a-f]{64}$"))
+  | [.name, (.digest | ltrimstr("sha256:"))] | @tsv
+' "$staging_dir/release.json"); then
+  echo 'Release has no matching AppImage with a valid SHA-256 digest' >&2
+  exit 1
+fi
+read -r asset_name expected_sha256 <<<"$asset"
+appimage_file=$installation_dir/$asset_name
+
+if [[ -f $appimage_file && $force != yes ]]; then
+  echo 'Verifying cached AppImage'
+  candidate=$appimage_file
 else
-  installation_dir="${installation_base_dir}/${tag}"
-fi
-nvim_bin="${HOME}/.local/bin/nvim"
-
-arch="linux-x86_64"
-base_url="https://github.com/neovim/neovim/releases/download/${tag}"
-
-# Download the neovim version if it isn't available locally
-if [[ -f "${installation_dir}/nvim.appimage" && ${force} != "yes" ]]; then
-  echo "${tag} already downloaded"
-else
-  echo "Downloading ${tag}"
-  mkdir -p "${installation_dir}"
-
-  curl -L "${base_url}/nvim.appimage" --output "${installation_dir}/nvim.appimage" --fail \
-    || curl -L "${base_url}/nvim-${arch}.appimage" --output "${installation_dir}/nvim-${arch}.appimage"
-  curl -L "${base_url}/nvim.appimage.sha256sum" --output "${installation_dir}/nvim.appimage.sha256sum" --fail \
-    || curl -L "${base_url}/shasum.txt" --output "${installation_dir}/shasum.txt"
-
-  if [[ -f ${installation_dir}/nvim.appimage ]]; then
-    appimage_file="${installation_dir}/nvim.appimage"
-    shasum_file="${installation_dir}/nvim.appimage.sha256sum"
-  else
-    appimage_file="${installation_dir}/nvim-${arch}.appimage"
-    shasum_file="${installation_dir}/shasum.txt"
-  fi
-
-  # NOTE: Neovim now includes checksums directly on the github website, which is
-  # way more secure anyways. I'll need to update the script accomodate this
-  # eventually.
-  # echo "Checking checksums"
-  # (
-  #   cd "${installation_dir}"
-  #   sha256sum --check --ignore-missing --status "${shasum_file}"
-  # )
-
-  chmod +x "${appimage_file}"
-
-  # Only keep the last 4 nightly images.
-  if [[ ${tag} == "nightly" ]]; then
-    nightly_tag_dir=${installation_base_dir}/${tag}
-
-    echo "Cleaning old nightly images"
-    find "${nightly_tag_dir}" -mindepth 1 -maxdepth 1 -type d -printf '%P\0' \
-      | sort -zr \
-      | tail -z -n +$((keep_last_n + 2)) \
-      | xargs -0 -r -I::: rm -rf "${nightly_tag_dir}/:::"
-  fi
+  echo "Downloading $tag"
+  candidate=$staging_dir/$asset_name
+  curl "${curl_args[@]}" "$base_url/$asset_name" --output "$candidate"
 fi
 
-if [[ -L ${nvim_bin} ]]; then
-  echo "Unlinking old binary"
-  unlink "${nvim_bin}"
+actual_sha256=$(sha256sum -- "$candidate")
+actual_sha256=${actual_sha256%% *}
+if [[ $actual_sha256 != "$expected_sha256" ]]; then
+  echo 'AppImage checksum mismatch; installation stopped. Use --force to replace a stale cache.' >&2
+  exit 1
 fi
+if [[ $candidate != "$appimage_file" ]]; then mv -f -- "$candidate" "$appimage_file"; fi
+chmod u+x "$appimage_file"
 
-# Set the active neovim version, extracting if necessary.
-if [[ ${extract} == "yes" ]]; then
-  echo "Extracting appimage"
+# Stage extraction before touching the active installation or launcher.
+if [[ $extract == yes ]]; then
+  echo 'Extracting verified AppImage'
   (
-    cd "${installation_dir}"
-    "${appimage_file}" --appimage-extract &>/dev/null
-    rsync --archive --delete ./squashfs-root/ "${installation_base_dir}/active/"
-    [[ -d ./squashfs-root ]] && rm -r "./squashfs-root"
+    cd "$staging_dir"
+    "$appimage_file" --appimage-extract >/dev/null
   )
-
-  # Create a symlink to the nvim binary.
-  echo "Linking binary"
-  ln -s "${installation_base_dir}/active/AppRun" "${nvim_bin}"
+  [[ -x $staging_dir/squashfs-root/AppRun ]] || {
+    echo 'Missing extracted AppRun' >&2
+    exit 1
+  }
+  mkdir -p "$installation_base_dir/active"
+  rsync --archive --delete "$staging_dir/squashfs-root/" "$installation_base_dir/active/"
+  launcher=$installation_base_dir/active/AppRun
 else
-  rsync --archive --delete "${appimage_file}" "${installation_base_dir}/active/"
+  # A fixed filename avoids wildcard ambiguity with older cached AppImages.
+  mkdir -p "$installation_base_dir/active"
+  install -m 700 "$appimage_file" "$installation_base_dir/active/nvim.appimage"
+  launcher=$installation_base_dir/active/nvim.appimage
+fi
 
-  echo "Linking binary"
-  ln -s "${installation_base_dir}"/active/nvim*.appimage "${nvim_bin}"
+mkdir -p "${nvim_bin%/*}"
+ln -sfn -- "$launcher" "$nvim_bin"
+
+# Only remove date-named nightly caches after installation succeeds.
+if [[ $tag == nightly ]]; then
+  find "$installation_base_dir/nightly" -mindepth 1 -maxdepth 1 -type d \
+    -regextype posix-extended -regex '.*/[0-9]{4}-[0-9]{2}-[0-9]{2}' -printf '%f\0' \
+    | sort -zr \
+    | tail -z -n +$((keep_last_n + 1)) \
+    | while IFS= read -r -d '' old_date; do
+      [[ $old_date == "${installation_dir##*/}" ]] || rm -rf -- "$installation_base_dir/nightly/$old_date"
+    done
 fi

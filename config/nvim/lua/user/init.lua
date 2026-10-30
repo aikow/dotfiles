@@ -8,7 +8,7 @@ function M.plugin_name(name)
 end
 
 function M.on_update(name, f)
-  local groupname = string.format("user.pack.{}.update", M.plugin_name(name))
+  local groupname = string.format("user.pack.%s.update", M.plugin_name(name))
 
   vim.api.nvim_create_autocmd("PackChanged", {
     group = vim.api.nvim_create_augroup(groupname, {}),

@@ -84,28 +84,25 @@ end
 function H.send_newline() vim.fn["slime#send"]("\n") end
 
 function H.pick_target()
-  vim.ui.select({"kitty", "neovim", "tmux"}, { prompt = "Slime targets" }, function(choice)
+  vim.ui.select({ "kitty", "neovim", "tmux" }, { prompt = "Slime targets" }, function(choice)
     vim.g.slime_target = choice
-    vim.cmd({ cmd = "SlimeConfig"})
+    vim.cmd({ cmd = "SlimeConfig" })
   end)
 end
 
 H.languages = {
   ipython = {
-    cmd = "python",
+    cmd = { "ipython" },
   },
   python = {
-    cmd = "ipython",
+    cmd = { "python" },
   },
   julia = {
     cmd = function(opts)
-      -- Check to see if the JULIA_PROJECT environment variable is set.
-      local project = os.getenv("JUlIA_PROJECT")
+      local project = os.getenv("JULIA_PROJECT")
       if project == "" then project = nil end
-      -- Fallback to checking if a Project.toml file exists in a parent directory.
       if project == nil then project = vim.fs.root(opts.buf, "Project.toml") end
 
-      -- If a project was found, activate it.
       if project then
         vim.notify("julia project: " .. project)
         return { "julia", "--interactive", "--project=" .. project }
@@ -113,12 +110,6 @@ H.languages = {
         vim.notify("julia project: default")
         return { "julia", "--interactive" }
       end
-    end,
-    after_init = function()
-      -- Automatically try to load revise
-      local startup =
-        'try using Revise catch e @warn "Error initializing Revise" exception=(e, catch_backtrace()) end\n'
-      vim.fn["slime#send"](startup)
     end,
   },
 }
