@@ -67,7 +67,7 @@ o.completeopt = "menuone,noselect,fuzzy,nosort"
 
 -- Don't give ins-complete-menu messages
 o.shortmess = o.shortmess .. "WcC"
-o.cmdheight = 0
+o.cmdheight = 1
 
 -- Use treesitter for folding
 function _G.custom_fold_text()
