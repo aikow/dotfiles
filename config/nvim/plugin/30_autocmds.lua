@@ -108,6 +108,15 @@ autocmd("TermOpen", {
   end,
 })
 
+-- Automatically enter insert mode when switching to the terminal buffer
+autocmd("BufEnter", {
+  group = augroup("user.terminal.autoenter", {}),
+  desc = "Enter insert mode when switching to a terminal buffer",
+  callback = function(params)
+    if vim.bo[params.buf].buftype == "terminal" then vim.api.nvim_input("i") end
+  end,
+})
+
 -- Automatically trust 'exrc' files that are created and edited using nvim
 autocmd("BufWritePost", {
   group = augroup("user.exrc.autotrust", {}),
