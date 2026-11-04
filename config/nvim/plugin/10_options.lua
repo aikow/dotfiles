@@ -55,8 +55,9 @@ o.grepprg = "rg --vimgrep --no-heading --smart-case"
 o.grepformat = "%f:%l:%c:%m"
 
 -- Format options
-vim.opt.formatoptions:remove("tc")
-vim.opt.formatoptions:append("lor1")
+---@diagnostic disable-next-line: param-type-mismatch
+vim.opt.formatoptions:remove({ "t", "c" })
+vim.opt.formatoptions:append("qjlor1")
 
 -- Builtin completion options
 o.infercase = true -- Make completion case-insensitive.

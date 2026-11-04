@@ -55,6 +55,16 @@ function H.toggle_color_column()
   print(vim.o.colorcolumn)
 end
 
+function H.toggle_auto_wrap()
+  local enabled = vim.bo.formatoptions:find("t", 1, true) ~= nil
+  if enabled then
+    vim.opt_local.formatoptions:remove({ "t", "c" })
+  else
+    vim.opt_local.formatoptions:append("tc")
+  end
+  print(enabled and "automatic wrapping disabled" or "automatic wrapping enabled")
+end
+
 function H.toggle_diff()
   if vim.o.diff then
     vim.cmd.diffoff()
@@ -152,6 +162,7 @@ map("n", "<leader>tr", "<Cmd>setlocal relativenumber! relativenumber?<CR>", { de
 map("n", "<leader>ts", "<Cmd>setlocal spell! spell?<CR>",                   { desc = "Toggle 'spell'" })
 map("n", "<leader>tu", H.toggle_color_column,                               { desc = "Toggle 'colorcolumn'" })
 map("n", "<leader>tw", "<Cmd>setlocal wrap! wrap?<CR>",                     { desc = "Toggle 'wrap'" })
+map("n", "<leader>tW", H.toggle_auto_wrap,                                  { desc = "Toggle automatic wrapping while typing" })
 map("n", "<leader>td", H.toggle_diagnostic,                                 { desc = "Toggle diagnostic" })
 map("n", "<leader>tD", H.toggle_diagnostic_virtual_lines,                   { desc = "Toggle diagnostic virtual lines" })
 map("n", "<leader>ty", H.toggle_inlay_hints,                                { desc = "Toggle lsp inlay hints" })
