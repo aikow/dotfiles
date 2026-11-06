@@ -1,9 +1,9 @@
 init-env version="release":
   julia "+{{version}}" -e 'using Pkg; Pkg.add([ \
     "AlgebraOfGraphics", "Arrow", "BenchmarkTools", "CSV", "Chain", \
-    "DataFrames", "Distributions", "GLM", "GLMakie", "Glob", "HTTP", \
-    "HypothesisTests", "JSON", "PrettyTables", "QuackIO", "Revise", \
-    "StatsBase", "Tables", "YAML", \
+    "DataFrames", "Distributions", "GLM", "GLMakie", "GZip", "Glob", \
+    "HTTP", "HypothesisTests", "JSON", "PrettyTables", "QuackIO", \
+    "Revise", "StatsBase", "Tables", "UnicodePlots", "YAML", \
   ])'
 
 install-jetls:
