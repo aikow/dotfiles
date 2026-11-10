@@ -3,8 +3,8 @@ init-env version="release":
     "AlgebraOfGraphics", "Arrow", "BenchmarkTools", "CSV", "Chain", \
     "DataFrames", "Distributions", "GLM", "GLMakie", "GZip", "Glob", \
     "HTTP", "HypothesisTests", "JSON", "PrettyTables", "QuackIO", \
-    "Revise", "StatsBase", "Tables", "UnicodePlots", "YAML", \
-  ])'
+    "Revise", "StatsBase", "StructUtils", "Tables", "UnicodePlots", "YAML", \
+  ]); Pkg.precompile()'
 
 install-jetls:
   julia -e 'using Pkg; Pkg.Apps.add(; url="https://github.com/aviatesk/JETLS.jl", rev="release")'
