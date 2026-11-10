@@ -22,6 +22,15 @@ local function send_include(how)
   end
 end
 
+-- Include Julia's mutating function names in both textobjects and surrounds.
+local function_call = require("mini.ai").gen_spec.function_call({ name_pattern = "[%w_%.!]" })
+vim.b.miniai_config = {
+  custom_textobjects = { f = function_call },
+}
+vim.b.minisurround_config = {
+  custom_surroundings = { f = { input = function_call } },
+}
+
 -- stylua: ignore start
 vim.keymap.set("n", "<leader>kI", send_include("include"),  { desc = "Send the current file with include", buffer = true })
 vim.keymap.set("n", "<leader>kR", send_include("includet"), { desc = "Send the current file with includet", buffer = true })
@@ -29,6 +38,7 @@ vim.keymap.set("n", "<leader>kR", send_include("includet"), { desc = "Send the c
 
 require("user.ftplugin").undo({
   "setlocal shiftwidth<",
+  "unlet! b:miniai_config b:minisurround_config",
   "silent! nunmap <buffer> <leader>kI",
   "silent! nunmap <buffer> <leader>kR",
 })

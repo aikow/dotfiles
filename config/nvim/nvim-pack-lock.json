@@ -1,7 +1,7 @@
 {
   "plugins": {
     "SchemaStore.nvim": {
-      "rev": "06012297e4d5d089ce5ac4cc8011a8f3c0148190",
+      "rev": "24123ae1335691e120f8bcd921902d5b3a98d06c",
       "src": "https://github.com/b0o/SchemaStore.nvim"
     },
     "bamboo.nvim": {
@@ -29,7 +29,7 @@
       "src": "https://github.com/sainnhe/everforest"
     },
     "friendly-snippets": {
-      "rev": "b2ea5c41a150ba72fb656eedb4ed0a86d138d945",
+      "rev": "7a1c9f7897a4eb078b157a04c7af81e5869215b1",
       "src": "https://github.com/rafamadriz/friendly-snippets"
     },
     "gruvbox-material": {
@@ -53,11 +53,11 @@
       "src": "https://github.com/iamcco/markdown-preview.nvim"
     },
     "markview.nvim": {
-      "rev": "aadb6d817577d553bbef61e8b9073f1bf4b87e08",
+      "rev": "a6dbc5a4a4828b474c81fbcec11546cbd9000e3b",
       "src": "https://github.com/OXY2DEV/markview.nvim"
     },
     "mason-lspconfig.nvim": {
-      "rev": "3a5cd6d562a01f6829a35ae761dc383264ea452b",
+      "rev": "97ccf96bb2e7adb5f82975068bd4c7307d2afa8a",
       "src": "https://github.com/mason-org/mason-lspconfig.nvim"
     },
     "mason.nvim": {
@@ -65,7 +65,7 @@
       "src": "https://github.com/mason-org/mason.nvim"
     },
     "mini.nvim": {
-      "rev": "a321b535c75ca88ba7fddfd8eb5b583fbda50dd6",
+      "rev": "174eb9b9d5d66254966b9d52ea51b996317e51f6",
       "src": "https://github.com/nvim-mini/mini.nvim"
     },
     "nightfox.nvim": {
@@ -73,7 +73,7 @@
       "src": "https://github.com/EdenEast/nightfox.nvim"
     },
     "nvim-lspconfig": {
-      "rev": "d5c7e7bcc15bccc01bf1601a03473e10de2f0f7e",
+      "rev": "6a3ddecf60e19f164390308f502e67f3199f58e8",
       "src": "https://github.com/neovim/nvim-lspconfig"
     },
     "nvim-pqf": {
@@ -81,7 +81,7 @@
       "src": "https://github.com/yorickpeterse/nvim-pqf"
     },
     "nvim-treesitter": {
-      "rev": "915f2bd3d4e2a33704bfc476b5137e9befa82f3d",
+      "rev": "b706d642dd20d0922e7e92365dc73617f0fdb4ea",
       "src": "https://github.com/nvim-treesitter/nvim-treesitter",
       "version": "'main'"
     },
@@ -115,7 +115,7 @@
       "src": "https://github.com/tpope/vim-fugitive"
     },
     "vim-slime": {
-      "rev": "305b4d81ff4630af5137fdeffb54aa0fef14761b",
+      "rev": "375999b91aa9bd227350140d4aedc6d2ff8554ac",
       "src": "https://github.com/jpalardy/vim-slime"
     },
     "vim-tmux-navigator": {
