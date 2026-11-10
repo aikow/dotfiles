@@ -1,0 +1,11 @@
+#!/usr/bin/env -S perl -0777 -p
+
+# Source - https://superuser.com/a/380778
+# Posted by olibre, modified by community. See post 'Timeline' for change history
+# Retrieved 2026-11-09, License - CC BY-SA 4.0
+
+s/\e\[[0-9:;<=>?]*[ -\/]*[\x40-\x7E]//g;            # complete CSI
+s/\e[PX^_][^\e]*\e\\//g;                            # complete control strings
+s/\e[ -\/]*[\x40-\x4F\x51-\x57\x59-\x5A\x5C\x60-\x7E]//g;  # Fe/Fs escapes
+s/\e\[[0-9:;<=>?]*[ -\/]*//g;                       # incomplete CSI fragments
+s/\e[ -\/]+//g;                                      # incomplete Fe/Fs fragments
