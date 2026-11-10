@@ -14,7 +14,7 @@ set -gx VISUAL nvim
 set -gx MANPAGER 'nvim +Man!'
 
 # Bat
-set -gx BAT_THEME gruvbox-dark
+set -gx BAT_THEME ansi
 
 # File colors: use the terminal's ANSI palette so colors follow its theme.
 set -gx LS_COLORS (string collect < "$DOTFILES/config/dircolors/ls_colors")

@@ -14,7 +14,7 @@ export VISUAL=nvim
 export EDITOR="$VISUAL"
 
 ## Bat ##
-export BAT_THEME="gruvbox-dark"
+export BAT_THEME="ansi"
 
 ## File colors: use the terminal's ANSI palette so colors follow its theme. ##
 export LS_COLORS="$(< "$DOTFILES/config/dircolors/ls_colors")"
