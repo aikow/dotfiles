@@ -16,6 +16,7 @@ diff-editor = ":builtin"
 [revset-aliases]
 "abandoned()" = ".. ~ (::visible_heads())"
 
+
 [template-aliases]
 log_diff_stat = '''
 concat(
@@ -23,6 +24,43 @@ concat(
   self.diff().stat(),
   "\n",
 )
+'''
+bookmark_list_detailed = '''
+label("bookmark", name ++ if(remote, "@" ++ remote)) ++
+if(remote,
+  if(tracked,
+    " [tracked" ++ if(synced, ", synced") ++ "]" ++
+    if(tracking_present,
+      if(!synced, " (remote relative to local) " ++ format_tracked_remote_ref_distances(self)),
+      " [local bookmark deleted]"
+    ),
+    " [untracked]"
+  )
+) ++ "\n" ++
+if(conflict,
+  "  BOOKMARK CONFLICT\n" ++
+  removed_targets.map(|c| "  - " ++ detailed_bookmark_commit(c)).join("") ++
+  added_targets.map(|c| "  + " ++ detailed_bookmark_commit(c)).join(""),
+  if(normal_target,
+    "  " ++ detailed_bookmark_commit(normal_target),
+    if(remote, "  (not created on remote yet)\n", "  (deleted locally)\n")
+  )
+) ++ "\n"
+'''
+'detailed_bookmark_commit(c)' = '''
+separate(" ",
+  "commit " ++ c.commit_id().short(12),
+  "change " ++ c.change_id().short(12),
+  if(c.conflict(), "[file conflicts]"),
+  if(c.empty(), "[empty]"),
+  if(c.hidden(), "[hidden]"),
+  if(c.divergent(), "[divergent]")
+) ++ "\n" ++
+"    Committed: " ++ c.committer().timestamp().local().format("%Y-%m-%d %H:%M:%S %z") ++
+" (" ++ c.committer().timestamp().ago() ++ ")\n" ++
+"    Author:    " ++ c.author().name() ++ " <" ++ c.author().email() ++ ">\n" ++
+"    Committer: " ++ c.committer().name() ++ " <" ++ c.committer().email() ++ ">\n" ++
+"    Summary:   " ++ coalesce(c.description().first_line(), "(no description)") ++ "\n"
 '''
 
 [git]
