@@ -2,6 +2,7 @@ AlgebraOfGraphics
 Arrow
 BenchmarkTools
 CSV
+CategoricalArrays
 Chain
 DataFrames
 Distributions
@@ -11,6 +12,7 @@ GZip
 Glob
 HTTP
 HypothesisTests
+IterTools
 JSON
 OrderedCollections
 PrettyTables
