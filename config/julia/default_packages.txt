@@ -5,6 +5,7 @@ CSV
 CategoricalArrays
 Chain
 DataFrames
+DataFramesMeta
 Distributions
 GLM
 GLMakie
