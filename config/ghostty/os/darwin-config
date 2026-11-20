@@ -6,6 +6,8 @@ macos-option-as-alt = true
 
 ## Keybinds ##
 keybind = super+r=prompt_tab_title
+# Clear a manual tab title and resume the title supplied by Fish.
+keybind = super+shift+r=set_tab_title:
 keybind = global:super+alt+enter=toggle_quick_terminal
 
 ## Quick Terminal ##
