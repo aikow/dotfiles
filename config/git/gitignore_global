@@ -2,8 +2,7 @@
 
 # Ignore local .nvim folders
 .nvim/
+nvim.log
 
 # Mac OSX
 .DS_Store
-
-**/.claude/settings.local.json
