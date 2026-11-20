@@ -55,9 +55,11 @@ safely("later", function()
       { mode = "n", keys = "<leader>k", desc = "+Slime" },
       { mode = "n", keys = "<leader>kr", desc = "+Repls" },
       { mode = "n", keys = "<leader>l", desc = "+LSP" },
+      { mode = "n", keys = "<leader>m", desc = "+Messages" },
       { mode = "n", keys = "<leader>r", desc = "+Refactor/Reformat" },
       { mode = "n", keys = "<leader>t", desc = "+Toggle" },
       { mode = "n", keys = "<leader>w", desc = "+Window" },
+      { mode = "n", keys = "<leader>y", desc = "+Yank" },
 
       miniclue.gen_clues.builtin_completion(),
       miniclue.gen_clues.g(),

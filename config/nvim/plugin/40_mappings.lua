@@ -46,6 +46,43 @@ function H.chdir_root()
   end
 end
 
+function H.copy_repo_path()
+  local path = vim.api.nvim_buf_get_name(0)
+  if path == "" or vim.bo.buftype ~= "" then
+    vim.notify("unable to copy path, not a valid file buffer", vim.log.levels.WARN)
+    return
+  end
+  local root = vim.fs.root(vim.fs.dirname(path), { ".git", ".jj" })
+  if not root then
+    vim.notify("unable to find a repository root", vim.log.levels.WARN)
+    return
+  end
+  vim.fn.setreg("+", vim.fs.relpath(root, path))
+  vim.notify("copied repo-relative file path to clipboard", vim.log.levels.INFO)
+end
+
+function H.copy_repo_root()
+  local path = vim.api.nvim_buf_get_name(0)
+  local dir = path ~= "" and vim.bo.buftype == "" and vim.fs.dirname(path) or vim.fn.getcwd()
+  local root = vim.fs.root(dir, { ".git", ".jj" })
+  if not root then
+    vim.notify("unable to find a repository root", vim.log.levels.WARN)
+    return
+  end
+  vim.fn.setreg("+", root)
+  vim.notify("copied full repository root path to clipboard", vim.log.levels.INFO)
+end
+
+function H.copy_buf_path()
+  local path = vim.api.nvim_buf_get_name(0)
+  if path == "" or vim.bo.buftype ~= "" then
+    vim.notify("unable to copy path, not a valid file buffer", vim.log.levels.WARN)
+    return
+  end
+  vim.fn.setreg("+", path)
+  vim.notify("copied full buffer path to clipboard", vim.log.levels.INFO)
+end
+
 function H.toggle_color_column()
   if vim.o.colorcolumn == "" then
     vim.o.colorcolumn = tostring(vim.o.textwidth)
@@ -120,18 +157,6 @@ function H.toggle_hl_search()
   print(vim.v.hlsearch == 1 and "  hlsearch" or "nohlsearch")
 end
 
-function H.toggle_trailspace()
-  -- nil or 1 => 0, 0 => 1
-  local highlight = vim.b.minitrailspace_highlight == 0 and 1 or 0
-  vim.b.minitrailspace_highlight = highlight
-  local minitrailspace = require("mini.trailspace")
-  if highlight == 1 then
-    minitrailspace.highlight()
-  else
-    minitrailspace.unhighlight()
-  end
-end
-
 -- ------------------------------------------------------------------------
 -- | Mappings
 -- ------------------------------------------------------------------------
@@ -168,7 +193,11 @@ map("n", "<leader>tD", H.toggle_diagnostic_virtual_lines,                   { de
 map("n", "<leader>ty", H.toggle_inlay_hints,                                { desc = "Toggle lsp inlay hints" })
 map("n", "<leader>tx", H.toggle_diff,                                       { desc = "Toggle diff" })
 map("n", "<leader>tX", H.toggle_diff_all,                                   { desc = "Toggle diff for all windows" })
-map("n", "<leader>tt", H.toggle_trailspace,                                 { desc = "Toggle highlighting trailing spaces" })
+
+-- Copy (Yank) paths
+map("n", "<leader>yr", H.copy_repo_root, { desc = "Copy full repository root path" })
+map("n", "<leader>yp", H.copy_repo_path, { desc = "Copy repo-relative file path" })
+map("n", "<leader>yP", H.copy_buf_path,  { desc = "Copy full buffer path" })
 
 -- Spelling
 map("i", "<C-.>", "<C-G>u<Esc>[s1z=`]a<C-G>u", { desc = "Correct the last spelling mistake" })

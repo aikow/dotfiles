@@ -109,6 +109,24 @@ end)
 safely("later", function()
   local minitrailspace = require("mini.trailspace")
   minitrailspace.setup({})
+
+  local toggle_trailspace = function()
+    -- nil or 1 => 0, 0 => 1
+    local highlight = vim.b.minitrailspace_highlight == 0 and 1 or 0
+    vim.b.minitrailspace_highlight = highlight
+    if highlight == 1 then
+      minitrailspace.highlight()
+    else
+      minitrailspace.unhighlight()
+    end
+  end
+
+  vim.keymap.set(
+    "n",
+    "<leader>tt",
+    toggle_trailspace,
+    { desc = "Toggle highlighting trailing spaces" }
+  )
   vim.keymap.set(
     "n",
     "<leader>rt",
