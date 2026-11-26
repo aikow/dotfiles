@@ -3,6 +3,7 @@ set -l functions_dir (path dirname -- (status filename))/../functions
 source "$functions_dir/__fish_path_title.fish"
 source "$functions_dir/__fish_ssh_title.fish"
 source "$functions_dir/fish_title.fish"
+source "$functions_dir/__fish_format_title.fish"
 set -e SSH_TTY
 set -e SSH_CONNECTION
 
@@ -41,6 +42,30 @@ set -l fixture (mktemp -d /tmp/title-path.XXXXXX); or exit 1
 cd "$fixture"; or exit 1
 set -l expected "$PWD"
 set -l actual (fish_title)
+set -l command_cases \
+    'nvim private.txt' nvim \
+    '/usr/bin/sleep 10' sleep \
+    'command exec /usr/bin/sleep 10' sleep \
+    'curl --header "Authorization: secret" https://example.com' curl \
+    'abcdefghijklmnopqrstuvwxyz' 'abcdefghijklmnopqrstuvw…'
+for index in (seq 1 2 (count $command_cases))
+    set -l command_title (fish_title "$command_cases[$index]")
+    set -l command_name $command_cases[(math $index + 1)]
+    if test "$command_title" != "$expected · $command_name"
+        echo 'FAIL: running command title'
+        exit 1
+    end
+end
+for unsafe in '$(touch /tmp/title-must-not-execute)' (printf 'bad\033]2;injected\007')
+    if test (fish_title "$unsafe") != "$expected"
+        echo 'FAIL: unsafe command title'
+        exit 1
+    end
+end
+if test (fish_title) != "$expected"
+    echo 'FAIL: idle title was not restored'
+    exit 1
+end
 set -l long_folder (string repeat -n 170 x)
 mkdir "$fixture/$long_folder"
 cd "$fixture/$long_folder"; or exit 1

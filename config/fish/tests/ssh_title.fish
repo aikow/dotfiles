@@ -3,6 +3,7 @@ set -l functions_dir (path dirname -- (status filename))/../functions
 source "$functions_dir/__fish_ssh_title.fish"
 source "$functions_dir/__fish_path_title.fish"
 source "$functions_dir/fish_title.fish"
+source "$functions_dir/__fish_format_title.fish"
 set -e SSH_TTY
 set -e SSH_CONNECTION
 
@@ -21,6 +22,7 @@ set -l cases \
 
 for index in (seq 1 2 (count $cases))
     set -l expected $cases[(math $index + 1)]
+    set expected "$expected · ssh"
     set -l actual (fish_title "$cases[$index]")
     if test "$actual" != "$expected"
         printf 'FAIL case %s: expected <%s>, got <%s>\n' "$index" "$expected" "$actual"
