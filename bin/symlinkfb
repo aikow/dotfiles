@@ -1,14 +1,22 @@
 #!/usr/bin/env bash
 #
-# Usage: symlinkfb SOURCE TARGET
+# Usage: symlinkfb [--no-clobber] SOURCE TARGET
 #
 # Force create a symlink but create a backup of the target before replacing it
 # with the symlink if it exists.
+# With --no-clobber, warn and skip existing targets instead. Matching links
+# are left unchanged without a warning. Skipping a target returns success.
 
 set -euo pipefail
 
+no_clobber=no
+if [[ ${1:-} == --no-clobber ]]; then
+  no_clobber=yes
+  shift
+fi
+
 if [[ $# != 2 ]]; then
-  echo "usage: symlinkfb path target"
+  echo "usage: symlinkfb [--no-clobber] SOURCE TARGET" >&2
   exit 1
 fi
 
@@ -34,6 +42,10 @@ fi
 
 backup_file=
 if [[ -e $link_target || -L $link_target ]]; then
+  if [[ $no_clobber == yes ]]; then
+    printf 'Warning: target already exists; skipping: %s\n' "$link_target" >&2
+    exit 0
+  fi
   backup_dir=$HOME/.local/backups/symlinkfb
   mkdir -p -- "$backup_dir"
   # Each replacement gets its own directory, even within the same second.

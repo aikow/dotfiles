@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+set -eo pipefail
+
+mkdir -p ~/.config/agents ~/.codex ~/.claude ~/.vibe
+symlinkfb --no-clobber "$PWD/AGENTS.md" ~/.config/agents/AGENTS.md
+symlinkfb --no-clobber "$PWD/AGENTS.md" ~/.codex/AGENTS.md
+symlinkfb --no-clobber "$PWD/AGENTS.md" ~/.claude/CLAUDE.md
+symlinkfb --no-clobber "$PWD/AGENTS.md" ~/.vibe/AGENTS.md

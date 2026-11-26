@@ -60,7 +60,7 @@ The install script and individual dotbot scripts use specific exit codes:
 Several scripts from the `bin/` directory are commonly used in dotbot files:
 
 - `hascommand CMD` - Checks if a command exists; exits with code 128 if not found (allows graceful skipping)
-- `symlinkfb SOURCE TARGET` - Creates a symlink with backup of existing target
+- `symlinkfb [--no-clobber] SOURCE TARGET` - Creates a symlink with backup of existing target; `--no-clobber` warns and skips existing targets instead
 - `cleanlinks PATH [PATH...]` - Removes dangling symlinks in specified directories
 
 ## Binaries
@@ -121,7 +121,7 @@ The `bin/` directory contains utility scripts for various purposes.
 | Script | Description |
 |--------|-------------|
 | `cleanlinks` | Removes all dangling symlinks in given directories |
-| `symlinkfb` | Force creates a symlink but backs up the target before replacing it |
+| `symlinkfb` | Creates a symlink with backup; `--no-clobber` warns and skips existing targets |
 
 ### Utility Scripts
 
